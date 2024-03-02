@@ -19,6 +19,11 @@ import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Array;
 import edu.cornell.gdiac.util.*;
 
+enum Genre {
+	SYNTH,
+	JAZZ
+}
+
 /**
  * Class for reading player input. 
  *
@@ -34,6 +39,8 @@ public class InputController {
 
 	/** The singleton instance of the input controller */
 	private static InputController theController = null;
+
+	public Genre genre = Genre.SYNTH;
 	
 	/** 
 	 * Return the singleton instance of the input controller
@@ -82,6 +89,9 @@ public class InputController {
 	private Vector2 crosscache;
 	/** For the gamepad crosshair control */
 	private float momentum;
+
+	/** Whether genre has been changed in the instance that the space key was pressed */
+	private boolean genreSwitched = false;
 	
 	/** An X-Box controller (if it is connected) */
 	XBoxController xbox;
@@ -304,9 +314,6 @@ public class InputController {
 		resetPressed = (secondary && resetPressed) || (Gdx.input.isKeyPressed(Input.Keys.R));
 		debugPressed = (secondary && debugPressed) || (Gdx.input.isKeyPressed(Input.Keys.D));
 		primePressed = (secondary && primePressed) || (Gdx.input.isKeyPressed(Input.Keys.UP));
-		secondPressed = (secondary && secondPressed) || (Gdx.input.isKeyPressed(Input.Keys.SPACE));
-		prevPressed = (secondary && prevPressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
-		nextPressed = (secondary && nextPressed) || (Gdx.input.isKeyPressed(Input.Keys.N));
 		exitPressed  = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		
 		// Directional controls
@@ -325,9 +332,16 @@ public class InputController {
 		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			vertical -= 1.0f;
 		}
+
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !genreSwitched) {
+			switchGenre();
+			genreSwitched = true;
+		} else if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			genreSwitched = false;
+		}
 		
 		// Mouse results
-        tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+        	tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
 		crosshair.set(Gdx.input.getX(), Gdx.input.getY());
 		crosshair.scl(1/scale.x,-1/scale.y);
 		crosshair.y += bounds.height;
@@ -343,5 +357,22 @@ public class InputController {
 	private void clampPosition(Rectangle bounds) {
 		crosshair.x = Math.max(bounds.x, Math.min(bounds.x+bounds.width, crosshair.x));
 		crosshair.y = Math.max(bounds.y, Math.min(bounds.y+bounds.height, crosshair.y));
+	}
+
+	/**
+	 * Switches the genre depending on what the current genre is.
+	 */
+	public void switchGenre() {
+		switch(genre) {
+			case SYNTH:
+				genre = Genre.JAZZ;
+				System.out.println("Now switching to jazz!");
+				break;
+			case JAZZ:
+				System.out.println("Now switching to synth!");
+				genre = Genre.SYNTH;
+				break;
+		}
+
 	}
 }
