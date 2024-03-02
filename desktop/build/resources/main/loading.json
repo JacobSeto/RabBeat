@@ -1,19 +1,9 @@
 {
 	"textures": {
-        "background": {
-          "file":     "images/loading.png",
-          "minFilter": "linear",
-          "magFilter": "linear"
-        },
-		"play": {
-			"file":     "images/play.png",
-            "minFilter": "linear",
-            "magFilter": "linear"
-        },
+        "background": "shared/loading.png",
+		"play": "shared/play.png",
         "progress": {
-            "file":      "images/progressbar.png",
-            "minFilter": "linear",
-            "magFilter": "linear",
+            "file":      "shared/progressbar.png",
             "atlas":     {
                 "background" : [16,   0, 216, 30],
                 "backleft"   : [0,    0,  15, 30],
