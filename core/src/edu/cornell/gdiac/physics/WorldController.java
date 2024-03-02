@@ -90,7 +90,9 @@ public class WorldController implements Screen, ContactListener {
 	protected Rectangle bounds;
 	/** The world scale */
 	protected Vector2 scale;
-	
+
+	/** The current music genre */
+	private Genre genre;
 	/** Whether or not this is an active controller */
 	private boolean active;
 	/** Whether we have completed this level */
@@ -107,21 +109,10 @@ public class WorldController implements Screen, ContactListener {
 	private TextureRegion avatarTexture;
 	/** Texture asset for the spinning barrier */
 	private TextureRegion barrierTexture;
-	/** Texture asset for the bullet */
-	private TextureRegion bulletTexture;
 	/** Texture asset for the bridge plank */
 	private TextureRegion bridgeTexture;
 
-	/** The jump sound.  We only want to play once. */
-	private Sound jumpSound;
-	private long jumpId = -1;
-	/** The weapon fire sound.  We only want to play once. */
-	private Sound fireSound;
-	private long fireId = -1;
-	/** The weapon pop sound.  We only want to play once. */
-	private Sound plopSound;
-	private long plopId = -1;
-	/** The default sound volume */
+	// TODO: Add sounds and sound id fields here
 	private float volume;
 
 	// Physics objects for the game
@@ -165,7 +156,7 @@ public class WorldController implements Screen, ContactListener {
 	 *
 	 * @return true if the level is completed.
 	 */
-	public boolean isComplete( ) {
+	public boolean isComplete() {
 		return complete;
 	}
 
@@ -213,7 +204,7 @@ public class WorldController implements Screen, ContactListener {
 	 *
 	 * @return true if this is the active screen
 	 */
-	public boolean isActive( ) {
+	public boolean isActive() {
 		return active;
 	}
 
@@ -298,6 +289,7 @@ public class WorldController implements Screen, ContactListener {
 		canvas = null;
 	}
 
+	// TODO: Adjust to the correct assets after assets have been added
 	/**
 	 * Gather the assets for this controller.
 	 *
@@ -309,12 +301,9 @@ public class WorldController implements Screen, ContactListener {
 	public void gatherAssets(AssetDirectory directory) {
 		avatarTexture  = new TextureRegion(directory.getEntry("platform:dude",Texture.class));
 		barrierTexture = new TextureRegion(directory.getEntry("platform:barrier",Texture.class));
-		bulletTexture = new TextureRegion(directory.getEntry("platform:bullet",Texture.class));
 		bridgeTexture = new TextureRegion(directory.getEntry("platform:rope",Texture.class));
 
-		jumpSound = directory.getEntry( "platform:jump", Sound.class );
-		fireSound = directory.getEntry( "platform:pew", Sound.class );
-		plopSound = directory.getEntry( "platform:plop", Sound.class );
+		// TODO: Add sounds from assets
 
 		constants = directory.getEntry( "platform:constants", JsonValue.class );
 
@@ -364,6 +353,7 @@ public class WorldController implements Screen, ContactListener {
 		return horiz && vert;
 	}
 
+	// TODO: Reset to SYNTH defaults
 	/**
 	 * Resets the status of the game so that we can play again.
 	 *
@@ -386,6 +376,8 @@ public class WorldController implements Screen, ContactListener {
 		populateLevel();
 	}
 
+	// TODO: Set the fields that are involved in genre switching
+	// TODO: Will use level data json to populate
 	/**
 	 * Lays out the game geography.
 	 */
@@ -467,7 +459,7 @@ public class WorldController implements Screen, ContactListener {
 
 		volume = constants.getFloat("volume", 1.0f);
 	}
-	
+
 	/**
 	 * Returns whether to process the update loop
 	 *
@@ -519,6 +511,7 @@ public class WorldController implements Screen, ContactListener {
 		return true;
 	}
 
+	// TODO: Update physics based on genre
 	/**
 	 * The core gameplay loop of this world.
 	 *
@@ -531,55 +524,13 @@ public class WorldController implements Screen, ContactListener {
 	 */
 	public void update(float dt) {
 		// Process actions in object model
-		avatar.setMovement(InputController.getInstance().getHorizontal() *avatar.getForce());
+		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
-		avatar.setShooting(InputController.getInstance().didSecondary());
-
-		// Add a bullet if we fire
-		if (avatar.isShooting()) {
-			createBullet();
-		}
 
 		avatar.applyForce();
 		if (avatar.isJumping()) {
-			jumpId = playSound( jumpSound, jumpId, volume );
+			// TODO: Set jump id to jump sound
 		}
-	}
-
-	/**
-	 * Add a new bullet to the world and send it in the right direction.
-	 */
-	private void createBullet() {
-		JsonValue bulletjv = constants.get("bullet");
-		float offset = bulletjv.getFloat("offset",0);
-		offset *= (avatar.isFacingRight() ? 1 : -1);
-		float radius = bulletTexture.getRegionWidth()/(2.0f*scale.x);
-		WheelObstacle bullet = new WheelObstacle(avatar.getX()+offset, avatar.getY(), radius);
-
-		bullet.setName("bullet");
-		bullet.setDensity(bulletjv.getFloat("density", 0));
-		bullet.setDrawScale(scale);
-		bullet.setTexture(bulletTexture);
-		bullet.setBullet(true);
-		bullet.setGravityScale(0);
-
-		// Compute position and velocity
-		float speed = bulletjv.getFloat( "speed", 0 );
-		speed  *= (avatar.isFacingRight() ? 1 : -1);
-		bullet.setVX(speed);
-		addQueuedObject(bullet);
-
-		fireId = playSound( fireSound, fireId );
-	}
-
-	/**
-	 * Remove a new bullet from the world.
-	 *
-	 * @param  bullet   the bullet to remove
-	 */
-	public void removeBullet(Obstacle bullet) {
-		bullet.markRemoved(true);
-		plopId = playSound( plopSound, plopId );
 	}
 
 	/**
@@ -605,15 +556,6 @@ public class WorldController implements Screen, ContactListener {
 			Obstacle bd1 = (Obstacle)body1.getUserData();
 			Obstacle bd2 = (Obstacle)body2.getUserData();
 
-			// Test bullet collision with world
-			if (bd1.getName().equals("bullet") && bd2 != avatar) {
-				removeBullet(bd1);
-			}
-
-			if (bd2.getName().equals("bullet") && bd1 != avatar) {
-				removeBullet(bd2);
-			}
-
 			// See if we have landed on the ground.
 			if ((avatar.getSensorName().equals(fd2) && avatar != bd1) ||
 					(avatar.getSensorName().equals(fd1) && avatar != bd2)) {
@@ -636,7 +578,7 @@ public class WorldController implements Screen, ContactListener {
 	 * Callback method for the start of a collision
 	 *
 	 * This method is called when two objects cease to touch.  The main use of this method
-	 * is to determine when the characer is NOT on the ground.  This is how we prevent
+	 * is to determine when the character is NOT on the ground.  This is how we prevent
 	 * double jumping.
 	 */
 	public void endContact(Contact contact) {
@@ -821,9 +763,7 @@ public class WorldController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
-		jumpSound.stop(jumpId);
-		plopSound.stop(plopId);
-		fireSound.stop(fireId);
+		// TODO: Stop all sounds here
 	}
 
 	/**
