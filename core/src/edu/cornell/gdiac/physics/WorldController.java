@@ -141,6 +141,8 @@ public class WorldController implements Screen, ContactListener {
 	private DudeModel avatar;
 	/** Reference to the goalDoor (for collision detection) */
 	private BoxObstacle goalDoor;
+	/** Reference to all the weighted platforms */
+	private Array<SyncedPlatform> weightedPlatforms;
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
@@ -267,6 +269,7 @@ public class WorldController implements Screen, ContactListener {
 		setFailure(false);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
+		weightedPlatforms = new Array<>();
 	}
 
 	/**
@@ -466,6 +469,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setTexture(weightedPlatform);
 			obj.setName(wpname + ii);
 			addObject(obj);
+			weightedPlatforms.add(obj);
 		}
 
 		//world starts with Synth gravity
@@ -640,12 +644,17 @@ public class WorldController implements Screen, ContactListener {
 		if (genre == Genre.SYNTH) {
 			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
 			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
-//			weightedPlatform
+			for (SyncedPlatform platform : weightedPlatforms) {
+				platform.genreUpdate(Genre.SYNTH);
+			}
 		}
 		//update to Jazz
 		else {
 			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("jazz",0)) );
 			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
+			for (SyncedPlatform platform : weightedPlatforms) {
+				platform.genreUpdate(Genre.JAZZ);
+			}
 		}
 	}
 
