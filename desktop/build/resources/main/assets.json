@@ -16,6 +16,11 @@
                 }
             }
         },
+      "rPlayer:synth":  "rPlayer/synth.png",
+
+      "rPlayer:synth-jazz":   "rPlayer/synth-jazz.png",
+
+      "rBackground:test-bg":  "rBackground/test-bg.png",
         "rocket:left": {
             "file" : "rocket/flames-left.png",
             "sprites" : {
