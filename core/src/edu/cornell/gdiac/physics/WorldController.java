@@ -49,6 +49,10 @@ import edu.cornell.gdiac.physics.obstacle.*;
  * place nicely with the static assets.
  */
 public class WorldController implements Screen, ContactListener {
+
+	/** The genre state of the game */
+	public Genre genre = Genre.SYNTH;
+
 	/** The texture for walls and platforms */
 	protected TextureRegion earthTile;
 	/** The texture for the exit condition */
@@ -544,6 +548,11 @@ public class WorldController implements Screen, ContactListener {
 		if (avatar.isJumping()) {
 			jumpId = playSound( jumpSound, jumpId, volume );
 		}
+
+		if(InputController.getInstance().getSwitchGenre()) {
+			switchGenre();
+			InputController.getInstance().setSwitchGenre(false);
+		}
 	}
 
 	/**
@@ -858,6 +867,24 @@ public class WorldController implements Screen, ContactListener {
 	 */
 	public void setScreenListener(ScreenListener listener) {
 		this.listener = listener;
+	}
+
+
+	/**
+	 * Switches the genre depending on what the current genre is.
+	 */
+	public void switchGenre() {
+		switch(genre) {
+			case SYNTH:
+				genre = Genre.JAZZ;
+				System.out.println("Now switching to jazz!");
+				break;
+			case JAZZ:
+				System.out.println("Now switching to synth!");
+				genre = Genre.SYNTH;
+				break;
+		}
+
 	}
 
 }
