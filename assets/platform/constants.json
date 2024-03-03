@@ -1,6 +1,5 @@
 {
 	"defaults" : {
-	    "gravity" : -14.7,
     	"friction": 0.4,
     	"density" : 0.0,
     	"restitution": 0.1,
@@ -12,20 +11,23 @@
     	"friction": 0.0,
     	"restitution": 0.0
     },
-	"dude" : {
+	"bunny" : {
 		"pos": [2.5, 5.0],
 		"shrink": [0.7, 0.95],
 		"force": 20.0,
 		"damping": 10.0,
 		"density": 1.0,
 		"friction": 0.0,
-		"maxspeed": 5.0,
 		"jump_force": 5.5,
 		"jump_cool": 30,
 		"shot_cool": 40,
 		"sensor": {
 			"shrink" : 0.6,
 			"height" : 0.05
+		},
+		"max_speed": {
+			"synth": 6.0,
+			"jazz": 2.5
 		}
 	},
 	"bridge" : {
@@ -56,6 +58,9 @@
 	"wplatforms":   [
 						[20.0,5.5,24.0,5.5,24.0,6.0,20.0,6.0],
 						[9.0,12.5,13.0,12.5,13.0,12.0,9.0,12.0]
-					]
-
+					],
+	"genre_gravity": {
+		"synth": -14.7,
+		"jazz": -9.0
+	}
 }

@@ -375,6 +375,8 @@ public class WorldController implements Screen, ContactListener {
 	 * This method disposes of the world and creates a new one.
 	 */
 	public void reset() {
+		//Default genre is synth
+		genre = Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity() );
 
 		for(Obstacle obj : objects) {
@@ -458,32 +460,16 @@ public class WorldController implements Screen, ContactListener {
 			addObject(obj);
 		}
 
-			// This world is heavier
-		world.setGravity( new Vector2(0,defaults.getFloat("gravity",0)) );
+		//world starts with Synth gravity
+		world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
 
 		// Create dude
 		dwidth  = avatarTexture.getRegionWidth()/scale.x;
 		dheight = avatarTexture.getRegionHeight()/scale.y;
-		avatar = new DudeModel(constants.get("dude"), dwidth, dheight);
+		avatar = new DudeModel(constants.get("bunny"), dwidth, dheight);
 		avatar.setDrawScale(scale);
 		avatar.setTexture(avatarTexture);
 		addObject(avatar);
-
-		// Create rope bridge
-		dwidth  = bridgeTexture.getRegionWidth()/scale.x;
-		dheight = bridgeTexture.getRegionHeight()/scale.y;
-		RopeBridge bridge = new RopeBridge(constants.get("bridge"), dwidth, dheight);
-		bridge.setTexture(bridgeTexture);
-		bridge.setDrawScale(scale);
-		//addObject(bridge);
-
-		// Create spinning platform
-		dwidth  = barrierTexture.getRegionWidth()/scale.x;
-		dheight = barrierTexture.getRegionHeight()/scale.y;
-		Spinner spinPlatform = new Spinner(constants.get("spinner"),dwidth,dheight);
-		spinPlatform.setDrawScale(scale);
-		spinPlatform.setTexture(barrierTexture);
-		//addObject(spinPlatform);
 
 		volume = constants.getFloat("volume", 1.0f);
 	}
@@ -562,6 +548,7 @@ public class WorldController implements Screen, ContactListener {
 		if(InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
+			updateGenreSwitch();
 		}
 	}
 
@@ -639,6 +626,25 @@ public class WorldController implements Screen, ContactListener {
 	public void postSolve(Contact contact, ContactImpulse impulse) {}
 	/** Unused ContactListener method */
 	public void preSolve(Contact contact, Manifold oldManifold) {}
+
+	/**
+	 * Loop update when the genre switch occurs.  Only objects affected by genre switching should
+	 * be updated.
+	 *
+	 */
+
+	public void updateGenreSwitch(){
+		//update to Synth
+		if(genre == Genre.SYNTH){
+			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
+			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
+		}
+		//update to Jazz
+		else{
+			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("jazz",0)) );
+			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
+		}
+	}
 
 	/**
 	 * Processes physics

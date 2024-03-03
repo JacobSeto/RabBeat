@@ -33,7 +33,7 @@ public class DudeModel extends CapsuleObstacle {
 	/** The amount to slow the character down */
 	private final float damping;
 	/** The maximum character speed */
-	private final float maxspeed;
+	private float maxspeed;
 	/** Identifier to allow us to track the sensor in ContactListener */
 	private final String sensorName;
 	/** The impulse for the character jump */
@@ -157,6 +157,14 @@ public class DudeModel extends CapsuleObstacle {
 	}
 
 	/**
+	 * Sets the max speed of the bunny
+	 *
+	 */
+	public void setMaxSpeed(float newMaxSpeed){
+		maxspeed = newMaxSpeed;
+	}
+
+	/**
 	 * Returns the name of the ground sensor
 	 *
 	 * This is used by ContactListener
@@ -197,7 +205,7 @@ public class DudeModel extends CapsuleObstacle {
 		setFriction(data.getFloat("friction", 0));  /// HE WILL STICK TO WALLS IF YOU FORGET
 		setFixedRotation(true);
 
-		maxspeed = data.getFloat("maxspeed", 0);
+		maxspeed = data.get("max_speed").getFloat("synth");
 		damping = data.getFloat("damping", 0);
 		force = data.getFloat("force", 0);
 		jump_force = data.getFloat( "jump_force", 0 );
