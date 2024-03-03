@@ -31,6 +31,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
+import edu.cornell.gdiac.physics.platform.WeightedPlatform;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.physics.obstacle.*;
 
@@ -445,44 +446,22 @@ public class WorldController implements Screen, ContactListener {
 			addObject(obj);
 		}
 
-		JsonValue wPlatform1 = constants.get("wplatform1");
-		JsonValue wPlatPos1 = wPlatform1.get("pos");
-		PolygonObstacle wp1 = new PolygonObstacle(wPlatPos1.asFloatArray(), 0, 0);
-		wp1.setBodyType(BodyDef.BodyType.StaticBody);
-		wp1.setDensity(defaults.getFloat("density", 0.0f));
-		wp1.setFriction(defaults.getFloat("friction", 0.0f));
-		wp1.setRestitution(defaults.getFloat("restitution", 0.0f));
-		wp1.setDrawScale(scale);
-		wp1.setTexture(weightedPlatform);
-		wp1.setName("wp1");
-		addObject(wp1);
-
-		JsonValue wPlatform2 = constants.get("wplatform2");
-		JsonValue wPlatPos2 = wPlatform2.get("pos");
-		PolygonObstacle wp2 = new PolygonObstacle(wPlatPos2.asFloatArray(), 0, 0);
-		wp2.setBodyType(BodyDef.BodyType.StaticBody);
-		wp2.setDensity(defaults.getFloat("density", 0.0f));
-		wp2.setFriction(defaults.getFloat("friction", 0.0f));
-		wp2.setRestitution(defaults.getFloat("restitution", 0.0f));
-		wp2.setDrawScale(scale);
-		wp2.setTexture(weightedPlatform);
-		wp2.setName("wp2");
-		addObject(wp2);
-
-//		String wpname = "wplatform";
-//		JsonValue wplatjv = constants.get("wplatforms");
-//		for (int ii = 0; ii < wplatjv.size; ii++) {
-//			PolygonObstacle obj;
-//			obj = new PolygonObstacle(wplatjv.get(ii).asFloatArray(), 0, 0);
-//			obj.setBodyType(BodyDef.BodyType.StaticBody);
-//			obj.setDensity(defaults.getFloat("density", 0.0f));
-//			obj.setFriction(defaults.getFloat("friction", 0.0f));
-//			obj.setRestitution(defaults.getFloat("restitution", 0.0f));
-//			obj.setDrawScale(scale);
-//			obj.setTexture(weightedPlatform);
-//			obj.setName(wpname + ii);
-//			addObject(obj);
-//		}
+		String wpname = "wplatform";
+		JsonValue wplatjv = constants.get("wplatforms");
+		for (int ii = 0; ii < wplatjv.size; ii++) {
+			JsonValue currentWP = wplatjv.get(ii);
+			WeightedPlatform obj;
+			obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
+					currentWP.get("jazzPos").asFloatArray());
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(defaults.getFloat("density", 0.0f));
+			obj.setFriction(defaults.getFloat("friction", 0.0f));
+			obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+			obj.setDrawScale(scale);
+			obj.setTexture(weightedPlatform);
+			obj.setName(wpname + ii);
+			addObject(obj);
+		}
 
 		//world starts with Synth gravity
 		world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
