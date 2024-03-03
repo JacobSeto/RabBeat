@@ -123,8 +123,6 @@ public class WorldController implements Screen, ContactListener {
 	/** Countdown active for winning or losing */
 	private int countdown;
 
-	/** Texture asset for weighted platforms */
-	private TextureRegion weightedPlatformTexture;
 	/** Texture asset for character avatar */
 	private TextureRegion avatarTexture;
 	/** Texture asset for the spinning barrier */
@@ -319,7 +317,6 @@ public class WorldController implements Screen, ContactListener {
 	 * @param directory	Reference to global asset manager.
 	 */
 	public void gatherAssets(AssetDirectory directory) {
-		weightedPlatformTexture = new TextureRegion(directory.getEntry("shared:platform", Texture.class));
 		avatarTexture  = new TextureRegion(directory.getEntry("platform:dude",Texture.class));
 		barrierTexture = new TextureRegion(directory.getEntry("platform:barrier",Texture.class));
 		bridgeTexture = new TextureRegion(directory.getEntry("platform:rope",Texture.class));
@@ -549,7 +546,7 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
 
-		if(InputController.getInstance().getSwitchGenre()) {
+		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
 			updateGenreSwitch();
@@ -631,19 +628,19 @@ public class WorldController implements Screen, ContactListener {
 	public void preSolve(Contact contact, Manifold oldManifold) {}
 
 	/**
-	 * Loop update when the genre switch occurs.  Only objects affected by genre switching should
+	 * Loop update when the genre switch occurs. Only objects affected by genre switching should
 	 * be updated.
 	 *
 	 */
-
-	public void updateGenreSwitch(){
+	public void updateGenreSwitch() {
 		//update to Synth
-		if(genre == Genre.SYNTH){
+		if (genre == Genre.SYNTH) {
 			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
 			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
+//			weightedPlatform
 		}
 		//update to Jazz
-		else{
+		else {
 			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("jazz",0)) );
 			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
 		}
