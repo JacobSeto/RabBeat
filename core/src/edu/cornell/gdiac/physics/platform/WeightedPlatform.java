@@ -1,41 +1,35 @@
 package edu.cornell.gdiac.physics.platform;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.physics.GameCanvas;
-import edu.cornell.gdiac.physics.obstacle.BoxObstacle;
 import edu.cornell.gdiac.physics.Genre;
-import edu.cornell.gdiac.physics.obstacle.SimpleObstacle;
+import edu.cornell.gdiac.physics.obstacle.PolygonObstacle;
 
 /**
  * WeightedPlatform.java
  *
  * This class provides a weighted platform which changes location depending on the genre.
  */
-public class WeightedPlatform extends BoxObstacle {
-    /** The initializing data (to avoid magic numbers) */
-    private final JsonValue data;
-    /** Position for the weighted platform when the game is in Jazz mode **/
-    private Vector2 jazzPosition;
+public class WeightedPlatform extends PolygonObstacle {
     /** Position for the weighted platform when the game is in Synth mode **/
     private Vector2 synthPosition;
+
+    /** Position for the weighted platform when the game is in Jazz mode **/
+    private Vector2 jazzPosition;
 
     /**
      * Creates a new weighted platform with the given physics data and current genre.
      *
-     * @param data  	The physics constants for this weighted platform
-     * @param width		The object width in physics units
-     * @param height	The object width in physics units
-     * @param genre     The current genre the game is in
+     * @param points  	The polygon vertices
+     * @param synthPos  The array with index 0 and 1 holding the x and y coordinates for the platform's position in
+     *                  jazz mode
+     * @param jazzPos	The array with index 0 and 1 holding the x and y coordinates for the platform's position in jazz
+     *                  mode
      */
-    public WeightedPlatform(JsonValue data, float width, float height, Genre genre){
-        //  calls BoxObstacle's (the parent) constructor
-        super(width, height);
-        this.data = data;
-        jazzPosition = new Vector2(data.get("jazzPos").getFloat(0), data.get("jazzPos").getFloat(1));
-        synthPosition = new Vector2(data.get("synthPos").getFloat(0), data.get("synthPos").getFloat(1));
-        move(genre);
+    public WeightedPlatform(float[] points, float[] synthPos, float[] jazzPos){
+        super(points);
+        jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
+        synthPosition = new Vector2(synthPos[0], synthPos[1]);
+        setPosition(synthPosition);
     }
 
     /**
@@ -45,10 +39,10 @@ public class WeightedPlatform extends BoxObstacle {
     public void move(Genre genre) {
         switch(genre) {
             case JAZZ:
-                setPosition(jazzPosition.x, jazzPosition.y);
+                setPosition(jazzPosition);
                 break;
             case SYNTH:
-                setPosition(synthPosition.x, synthPosition.y);
+                setPosition(synthPosition);
                 break;
         }
     }

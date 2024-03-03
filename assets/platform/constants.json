@@ -1,17 +1,17 @@
 {
-	"defaults": {
-		"friction": 0.4,
-		"density": 0.0,
-		"restitution": 0.1,
-		"volume": 0.8
+	"defaults" : {
+    	"friction": 0.4,
+    	"density" : 0.0,
+    	"restitution": 0.1,
+    	"volume": 0.8
 	},
 	"goal": {
 		"pos": [4.0, 14.0],
 		"density": 0.0,
-		"friction": 0.0,
-		"restitution": 0.0
-	},
-	"bunny": {
+    	"friction": 0.0,
+    	"restitution": 0.0
+    },
+	"bunny" : {
 		"pos": [2.5, 5.0],
 		"shrink": [0.7, 0.95],
 		"force": 20.0,
@@ -22,8 +22,8 @@
 		"jump_cool": 30,
 		"shot_cool": 40,
 		"sensor": {
-			"shrink": 0.6,
-			"height": 0.05
+			"shrink" : 0.6,
+			"height" : 0.05
 		},
 		"max_speed": {
 			"synth": 6.0,

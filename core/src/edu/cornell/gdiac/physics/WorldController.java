@@ -31,6 +31,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
+import edu.cornell.gdiac.physics.platform.WeightedPlatform;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.physics.obstacle.*;
 
