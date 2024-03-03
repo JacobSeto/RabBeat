@@ -33,6 +33,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.physics.obstacle.*;
+import javax.xml.soap.Text;
 
 /**
  * Base class for a world-specific controller.
@@ -67,6 +68,19 @@ public class WorldController implements Screen, ContactListener {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
+
+	// TODO: Unsure whether to keep constants here or in the models
+	/** Speed of player in Jazz */
+	protected static final float PLAYER_VX_JAZZ = 10f;
+	/** Speed of player in Synth */
+	protected static final float PLAYER_VX_SYNTH = 15f;
+	/** Upward force of player in Jazz */
+	protected static final float PLAYER_JUMP_FORCE_JAZZ = 5f;
+	/** Upward force of player in Synth */
+	protected static final float PLAYER_JUMP_FORCE_SYNTH = 1f;
+	/** Weighted platform position in Jazz */
+
+	/** Weighted platform position in Synth */
 	
 	/** Width of the game world in Box2d units */
 	protected static final float DEFAULT_WIDTH  = 32.0f;
@@ -104,7 +118,8 @@ public class WorldController implements Screen, ContactListener {
 	/** Countdown active for winning or losing */
 	private int countdown;
 
-
+	/** Texture asset for weighted platforms */
+	private TextureRegion weightedPlatformTexture;
 	/** Texture asset for character avatar */
 	private TextureRegion avatarTexture;
 	/** Texture asset for the spinning barrier */
@@ -299,6 +314,7 @@ public class WorldController implements Screen, ContactListener {
 	 * @param directory	Reference to global asset manager.
 	 */
 	public void gatherAssets(AssetDirectory directory) {
+		weightedPlatformTexture = new TextureRegion(directory.getEntry("shared:platform", Texture.class));
 		avatarTexture  = new TextureRegion(directory.getEntry("platform:dude",Texture.class));
 		barrierTexture = new TextureRegion(directory.getEntry("platform:barrier",Texture.class));
 		bridgeTexture = new TextureRegion(directory.getEntry("platform:rope",Texture.class));
@@ -376,7 +392,6 @@ public class WorldController implements Screen, ContactListener {
 		populateLevel();
 	}
 
-	// TODO: Set the fields that are involved in genre switching
 	// TODO: Will use level data json to populate
 	/**
 	 * Lays out the game geography.
@@ -527,6 +542,14 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
 
+		switch (genre) {
+			case JAZZ:
+				// TODO: Set properties and call methods of game objects
+			case SYNTH:
+				// TODO: Set properties and call methods of game objects
+		}
+
+		// TODO: There needs to be two force methods - Jazz and Synth
 		avatar.applyForce();
 		if (avatar.isJumping()) {
 			// TODO: Set jump id to jump sound
