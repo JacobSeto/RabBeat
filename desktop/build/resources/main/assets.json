@@ -5,6 +5,11 @@
             "wrapU": "repeated",
             "wrapV": "repeated"
         },
+        "shared:weighted" : {
+            "file":  "shared/weightedplatform.png",
+            "wrapU": "repeated",
+            "wrapV": "repeated"
+        },
         "shared:goal":   "shared/goaldoor.png",
         "rocket:rocket": "rocket/rocket.png",
         "rocket:main":  {
