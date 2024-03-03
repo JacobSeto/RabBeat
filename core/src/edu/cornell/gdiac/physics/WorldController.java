@@ -31,6 +31,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
+import edu.cornell.gdiac.physics.platform.WeightedPlatform;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.physics.obstacle.*;
 import javax.xml.soap.Text;
@@ -453,8 +454,10 @@ public class WorldController implements Screen, ContactListener {
 		String wpname = "wplatform";
 		JsonValue wplatjv = constants.get("wplatforms");
 		for (int ii = 0; ii < wplatjv.size; ii++) {
-			PolygonObstacle obj;
-			obj = new PolygonObstacle(wplatjv.get(ii).asFloatArray(), 0, 0);
+			JsonValue currentWP = wplatjv.get(ii);
+			WeightedPlatform obj;
+			obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
+					currentWP.get("jazzPos").asFloatArray());
 			obj.setBodyType(BodyDef.BodyType.StaticBody);
 			obj.setDensity(defaults.getFloat("density", 0.0f));
 			obj.setFriction(defaults.getFloat("friction", 0.0f));
