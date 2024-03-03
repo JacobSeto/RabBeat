@@ -34,6 +34,7 @@ import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.physics.platform.WeightedPlatform;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.physics.obstacle.*;
+import javax.xml.soap.Text;
 
 /**
  * Base class for a world-specific controller.
@@ -75,6 +76,19 @@ public class WorldController implements Screen, ContactListener {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
+
+	// TODO: Unsure whether to keep constants here or in the models
+	/** Speed of player in Jazz */
+	protected static final float PLAYER_VX_JAZZ = 10f;
+	/** Speed of player in Synth */
+	protected static final float PLAYER_VX_SYNTH = 15f;
+	/** Upward force of player in Jazz */
+	protected static final float PLAYER_JUMP_FORCE_JAZZ = 5f;
+	/** Upward force of player in Synth */
+	protected static final float PLAYER_JUMP_FORCE_SYNTH = 1f;
+	/** Weighted platform position in Jazz */
+
+	/** Weighted platform position in Synth */
 	
 	/** Width of the game world in Box2d units */
 	protected static final float DEFAULT_WIDTH  = 32.0f;
@@ -98,7 +112,7 @@ public class WorldController implements Screen, ContactListener {
 	protected Rectangle bounds;
 	/** The world scale */
 	protected Vector2 scale;
-	
+
 	/** Whether or not this is an active controller */
 	private boolean active;
 	/** Whether we have completed this level */
@@ -124,16 +138,7 @@ public class WorldController implements Screen, ContactListener {
 	/** Texture asset for the bridge plank */
 	private TextureRegion bridgeTexture;
 
-	/** The jump sound.  We only want to play once. */
-	private Sound jumpSound;
-	private long jumpId = -1;
-	/** The weapon fire sound.  We only want to play once. */
-	private Sound fireSound;
-	private long fireId = -1;
-	/** The weapon pop sound.  We only want to play once. */
-	private Sound plopSound;
-	private long plopId = -1;
-	/** The default sound volume */
+	// TODO: Add sounds and sound id fields here
 	private float volume;
 
 	/** The player scale for synth */
@@ -146,6 +151,8 @@ public class WorldController implements Screen, ContactListener {
 	private DudeModel avatar;
 	/** Reference to the goalDoor (for collision detection) */
 	private BoxObstacle goalDoor;
+	/** Reference to all the weighted platforms */
+	private Array<SyncedPlatform> weightedPlatforms;
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
@@ -180,7 +187,7 @@ public class WorldController implements Screen, ContactListener {
 	 *
 	 * @return true if the level is completed.
 	 */
-	public boolean isComplete( ) {
+	public boolean isComplete() {
 		return complete;
 	}
 
@@ -228,7 +235,7 @@ public class WorldController implements Screen, ContactListener {
 	 *
 	 * @return true if this is the active screen
 	 */
-	public boolean isActive( ) {
+	public boolean isActive() {
 		return active;
 	}
 
@@ -272,6 +279,7 @@ public class WorldController implements Screen, ContactListener {
 		setFailure(false);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
+		weightedPlatforms = new Array<>();
 	}
 
 	/**
@@ -313,6 +321,7 @@ public class WorldController implements Screen, ContactListener {
 		canvas = null;
 	}
 
+	// TODO: Adjust to the correct assets after assets have been added
 	/**
 	 * Gather the assets for this controller.
 	 *
@@ -385,6 +394,7 @@ public class WorldController implements Screen, ContactListener {
 		return horiz && vert;
 	}
 
+	// TODO: Reset to SYNTH defaults
 	/**
 	 * Resets the status of the game so that we can play again.
 	 *
@@ -409,6 +419,7 @@ public class WorldController implements Screen, ContactListener {
 		populateLevel();
 	}
 
+	// TODO: Will use level data json to populate
 	/**
 	 * Lays out the game geography.
 	 */
@@ -461,44 +472,23 @@ public class WorldController implements Screen, ContactListener {
 			addObject(obj);
 		}
 
-		JsonValue wPlatform1 = constants.get("wplatform1");
-		JsonValue wPlatPos1 = wPlatform1.get("pos");
-		PolygonObstacle wp1 = new PolygonObstacle(wPlatPos1.asFloatArray(), 0, 0);
-		wp1.setBodyType(BodyDef.BodyType.StaticBody);
-		wp1.setDensity(defaults.getFloat("density", 0.0f));
-		wp1.setFriction(defaults.getFloat("friction", 0.0f));
-		wp1.setRestitution(defaults.getFloat("restitution", 0.0f));
-		wp1.setDrawScale(scale);
-		wp1.setTexture(weightedPlatform);
-		wp1.setName("wp1");
-		addObject(wp1);
-
-		JsonValue wPlatform2 = constants.get("wplatform2");
-		JsonValue wPlatPos2 = wPlatform2.get("pos");
-		PolygonObstacle wp2 = new PolygonObstacle(wPlatPos2.asFloatArray(), 0, 0);
-		wp2.setBodyType(BodyDef.BodyType.StaticBody);
-		wp2.setDensity(defaults.getFloat("density", 0.0f));
-		wp2.setFriction(defaults.getFloat("friction", 0.0f));
-		wp2.setRestitution(defaults.getFloat("restitution", 0.0f));
-		wp2.setDrawScale(scale);
-		wp2.setTexture(weightedPlatform);
-		wp2.setName("wp2");
-		addObject(wp2);
-
-//		String wpname = "wplatform";
-//		JsonValue wplatjv = constants.get("wplatforms");
-//		for (int ii = 0; ii < wplatjv.size; ii++) {
-//			PolygonObstacle obj;
-//			obj = new PolygonObstacle(wplatjv.get(ii).asFloatArray(), 0, 0);
-//			obj.setBodyType(BodyDef.BodyType.StaticBody);
-//			obj.setDensity(defaults.getFloat("density", 0.0f));
-//			obj.setFriction(defaults.getFloat("friction", 0.0f));
-//			obj.setRestitution(defaults.getFloat("restitution", 0.0f));
-//			obj.setDrawScale(scale);
-//			obj.setTexture(weightedPlatform);
-//			obj.setName(wpname + ii);
-//			addObject(obj);
-//		}
+		String wpname = "wplatform";
+		JsonValue wplatjv = constants.get("wplatforms");
+		for (int ii = 0; ii < wplatjv.size; ii++) {
+			JsonValue currentWP = wplatjv.get(ii);
+			WeightedPlatform obj;
+			obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
+					currentWP.get("jazzPos").asFloatArray());
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(defaults.getFloat("density", 0.0f));
+			obj.setFriction(defaults.getFloat("friction", 0.0f));
+			obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+			obj.setDrawScale(scale);
+			obj.setTexture(weightedPlatform);
+			obj.setName(wpname + ii);
+			addObject(obj);
+			weightedPlatforms.add(obj);
+		}
 
 		//world starts with Synth gravity
 		world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
@@ -513,7 +503,7 @@ public class WorldController implements Screen, ContactListener {
 
 		volume = constants.getFloat("volume", 1.0f);
 	}
-	
+
 	/**
 	 * Returns whether to process the update loop
 	 *
@@ -565,6 +555,7 @@ public class WorldController implements Screen, ContactListener {
 		return true;
 	}
 
+	// TODO: Update physics based on genre
 	/**
 	 * The core gameplay loop of this world.
 	 *
@@ -577,21 +568,15 @@ public class WorldController implements Screen, ContactListener {
 	 */
 	public void update(float dt) {
 		// Process actions in object model
-		avatar.setMovement(InputController.getInstance().getHorizontal() *avatar.getForce());
+		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
 
-		avatar.applyForce();
-		if (avatar.isJumping()) {
-			jumpId = playSound( jumpSound, jumpId, volume );
-		}
-
-		if(InputController.getInstance().getSwitchGenre()) {
+		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
 			updateGenreSwitch();
 		}
 	}
-
 	/**
 	 * Callback method for the start of a collision
 	 *
@@ -637,7 +622,7 @@ public class WorldController implements Screen, ContactListener {
 	 * Callback method for the start of a collision
 	 *
 	 * This method is called when two objects cease to touch.  The main use of this method
-	 * is to determine when the characer is NOT on the ground.  This is how we prevent
+	 * is to determine when the character is NOT on the ground.  This is how we prevent
 	 * double jumping.
 	 */
 	public void endContact(Contact contact) {
@@ -668,21 +653,26 @@ public class WorldController implements Screen, ContactListener {
 	public void preSolve(Contact contact, Manifold oldManifold) {}
 
 	/**
-	 * Loop update when the genre switch occurs.  Only objects affected by genre switching should
+	 * Loop update when the genre switch occurs. Only objects affected by genre switching should
 	 * be updated.
 	 *
 	 */
-
-	public void updateGenreSwitch(){
+	public void updateGenreSwitch() {
 		//update to Synth
-		if(genre == Genre.SYNTH){
+		if (genre == Genre.SYNTH) {
 			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
 			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
+			for (SyncedPlatform platform : weightedPlatforms) {
+				platform.genreUpdate(Genre.SYNTH);
+			}
 		}
 		//update to Jazz
-		else{
+		else {
 			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("jazz",0)) );
 			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
+			for (SyncedPlatform platform : weightedPlatforms) {
+				platform.genreUpdate(Genre.JAZZ);
+			}
 		}
 	}
 
@@ -846,9 +836,7 @@ public class WorldController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
-		jumpSound.stop(jumpId);
-		plopSound.stop(plopId);
-		fireSound.stop(fireId);
+		// TODO: Stop all sounds here
 	}
 
 	/**

@@ -2,6 +2,7 @@ package edu.cornell.gdiac.physics.platform;
 
 import com.badlogic.gdx.math.Vector2;
 import edu.cornell.gdiac.physics.Genre;
+import edu.cornell.gdiac.physics.SyncedPlatform;
 import edu.cornell.gdiac.physics.obstacle.PolygonObstacle;
 
 /**
@@ -9,7 +10,8 @@ import edu.cornell.gdiac.physics.obstacle.PolygonObstacle;
  *
  * This class provides a weighted platform which changes location depending on the genre.
  */
-public class WeightedPlatform extends PolygonObstacle {
+
+public class WeightedPlatform extends SyncedPlatform {
     /** Position for the weighted platform when the game is in Synth mode **/
     private Vector2 synthPosition;
 
@@ -30,6 +32,11 @@ public class WeightedPlatform extends PolygonObstacle {
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
         synthPosition = new Vector2(synthPos[0], synthPos[1]);
         setPosition(synthPosition);
+    }
+
+    @Override
+    public void genreUpdate(Genre genre) {
+        move(genre);
     }
 
     /**
