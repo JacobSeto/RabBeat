@@ -10,6 +10,7 @@ import edu.cornell.gdiac.physics.obstacle.PolygonObstacle;
  *
  * This class provides a weighted platform which changes location depending on the genre.
  */
+
 public class WeightedPlatform extends SyncedPlatform {
     /** Position for the weighted platform when the game is in Synth mode **/
     private Vector2 synthPosition;
