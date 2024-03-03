@@ -350,46 +350,6 @@ public abstract class Obstacle {
 	}
 	
 	/**
-	 * Returns true if this body is a bullet 
-	 *
-	 * By default, Box2D uses continuous collision detection (CCD) to prevent dynamic 
-	 * bodies from tunneling through static bodies. Normally CCD is not used between 
-	 * dynamic bodies. This is done to keep performance reasonable. In some game 
-	 * scenarios you need dynamic bodies to use CCD. For example, you may want to shoot
-	 * a high speed bullet at a stack of dynamic bricks. Without CCD, the bullet might
-	 * tunnel through the bricks.
-	 *
-	 * Fast moving objects in Box2D can be labeled as bullets. Bullets will perform CCD 
-	 * with both static and dynamic bodies. You should decide what bodies should be 
-	 * bullets based on your game design.
-	 *
-	 * @return true if this body is a bullet 
-	 */
-	public boolean isBullet() {
-		return bodyinfo.bullet;
-	}
-	
-	/**
-	 * Sets whether this body is a bullet 
-	 *
-	 * By default, Box2D uses continuous collision detection (CCD) to prevent dynamic 
-	 * bodies from tunneling through static bodies. Normally CCD is not used between 
-	 * dynamic bodies. This is done to keep performance reasonable. In some game 
-	 * scenarios you need dynamic bodies to use CCD. For example, you may want to shoot
-	 * a high speed bullet at a stack of dynamic bricks. Without CCD, the bullet might
-	 * tunnel through the bricks.
-	 *
-	 * Fast moving objects in Box2D can be labeled as bullets. Bullets will perform CCD 
-	 * with both static and dynamic bodies. You should decide what bodies should be 
-	 * bullets based on your game design.
-	 *
-	 * @param value  whether this body is a bullet 
-	 */
-	public void setBullet(boolean value) {
-		bodyinfo.bullet = value;
-	}
-	
-	/**
 	 * Returns true if this body be prevented from rotating
 	 *
 	 * This is very useful for characters that should remain upright.
@@ -514,7 +474,6 @@ public abstract class Obstacle {
 		bodyinfo.angle  = body.getAngle();
 		bodyinfo.active = body.isActive();
 		bodyinfo.awake  = body.isAwake();
-		bodyinfo.bullet = body.isBullet();
 		bodyinfo.position.set(body.getPosition());
 		bodyinfo.linearVelocity.set(body.getLinearVelocity());
 		bodyinfo.allowSleep = body.isSleepingAllowed();
