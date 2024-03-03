@@ -110,6 +110,12 @@ public class WorldController implements Screen, ContactListener {
 	private int countdown;
 
 
+	/** Textures for rab-beat*/
+
+	private TextureRegion synthDefaultTexture;
+	private TextureRegion synthJazzTexture;
+	private TextureRegion backgroundTexture;
+
 	/** Texture asset for character avatar */
 	private TextureRegion avatarTexture;
 	/** Texture asset for the spinning barrier */
@@ -128,6 +134,9 @@ public class WorldController implements Screen, ContactListener {
 	private long plopId = -1;
 	/** The default sound volume */
 	private float volume;
+
+	/** The player scale for synth */
+	private float playerScale = 3/8f;
 
 	// Physics objects for the game
 	/** Physics constants for initialization */
@@ -316,6 +325,12 @@ public class WorldController implements Screen, ContactListener {
 		barrierTexture = new TextureRegion(directory.getEntry("platform:barrier",Texture.class));
 		bridgeTexture = new TextureRegion(directory.getEntry("platform:rope",Texture.class));
 
+		synthDefaultTexture = new TextureRegion(directory.getEntry("rPlayer:synth",Texture.class));
+
+		synthJazzTexture = new TextureRegion(directory.getEntry("rPlayer:synth-jazz",Texture.class));
+		backgroundTexture = new TextureRegion(directory.getEntry("rBackground:test-bg",Texture.class));
+
+
 		jumpSound = directory.getEntry( "platform:jump", Sound.class );
 		fireSound = directory.getEntry( "platform:pew", Sound.class );
 		plopSound = directory.getEntry( "platform:plop", Sound.class );
@@ -488,11 +503,11 @@ public class WorldController implements Screen, ContactListener {
 		world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
 
 		// Create dude
-		dwidth  = avatarTexture.getRegionWidth()/scale.x;
-		dheight = avatarTexture.getRegionHeight()/scale.y;
-		avatar = new DudeModel(constants.get("bunny"), dwidth, dheight);
+		dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
+		dheight = synthDefaultTexture.getRegionHeight()/scale.y;
+		avatar = new DudeModel(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
 		avatar.setDrawScale(scale);
-		avatar.setTexture(avatarTexture);
+		avatar.setTexture(synthDefaultTexture);
 		addObject(avatar);
 
 		volume = constants.getFloat("volume", 1.0f);
@@ -717,6 +732,11 @@ public class WorldController implements Screen, ContactListener {
 	 */
 	public void draw(float dt) {
 		canvas.clear();
+
+		// Draw background unscaled.
+		canvas.begin();
+		canvas.draw(backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
+		canvas.end();
 		
 		canvas.begin();
 		for(Obstacle obj : objects) {
