@@ -55,6 +55,9 @@ public class WorldController implements Screen, ContactListener {
 
 	/** The texture for walls and platforms */
 	protected TextureRegion earthTile;
+	/** The texture for weighted platforms */
+	protected TextureRegion weightedPlatform;
+
 	/** The texture for the exit condition */
 	protected TextureRegion goalTile;
 	/** The font for giving messages to the player */
@@ -324,6 +327,7 @@ public class WorldController implements Screen, ContactListener {
 
 		// Allocate the tiles
 		earthTile = new TextureRegion(directory.getEntry( "shared:earth", Texture.class ));
+		weightedPlatform = new TextureRegion((directory.getEntry("shared:weighted", Texture.class)));
 		goalTile  = new TextureRegion(directory.getEntry( "shared:goal", Texture.class ));
 		displayFont = directory.getEntry( "shared:retro" ,BitmapFont.class);
 	}
@@ -442,7 +446,22 @@ public class WorldController implements Screen, ContactListener {
 			addObject(obj);
 		}
 
-		// This world is heavier
+		String wpname = "wplatform";
+		JsonValue wplatjv = constants.get("wplatforms");
+		for (int ii = 0; ii < wplatjv.size; ii++) {
+			PolygonObstacle obj;
+			obj = new PolygonObstacle(wplatjv.get(ii).asFloatArray(), 0, 0);
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(defaults.getFloat("density", 0.0f));
+			obj.setFriction(defaults.getFloat("friction", 0.0f));
+			obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+			obj.setDrawScale(scale);
+			obj.setTexture(weightedPlatform);
+			obj.setName(wpname + ii);
+			addObject(obj);
+		}
+
+			// This world is heavier
 		world.setGravity( new Vector2(0,defaults.getFloat("gravity",0)) );
 
 		// Create dude
@@ -459,7 +478,7 @@ public class WorldController implements Screen, ContactListener {
 		RopeBridge bridge = new RopeBridge(constants.get("bridge"), dwidth, dheight);
 		bridge.setTexture(bridgeTexture);
 		bridge.setDrawScale(scale);
-		addObject(bridge);
+		//addObject(bridge);
 
 		// Create spinning platform
 		dwidth  = barrierTexture.getRegionWidth()/scale.x;
@@ -467,7 +486,7 @@ public class WorldController implements Screen, ContactListener {
 		Spinner spinPlatform = new Spinner(constants.get("spinner"),dwidth,dheight);
 		spinPlatform.setDrawScale(scale);
 		spinPlatform.setTexture(barrierTexture);
-		addObject(spinPlatform);
+		//addObject(spinPlatform);
 
 		volume = constants.getFloat("volume", 1.0f);
 	}
