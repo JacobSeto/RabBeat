@@ -103,11 +103,19 @@ public class WorldController implements Screen, ContactListener {
 	private int countdown;
 
 
+	/** Textures for rab-beat*/
+
+	private TextureRegion synthDefaultTexture;
+	private TextureRegion synthJazzTexture;
+	private TextureRegion backgroundTexture;
+
 	/** Texture asset for character avatar */
 	private TextureRegion avatarTexture;
 	/** Texture asset for the spinning barrier */
 	private TextureRegion barrierTexture;
 	/** Texture asset for the bullet */
+
+
 	private TextureRegion bulletTexture;
 	/** Texture asset for the bridge plank */
 	private TextureRegion bridgeTexture;
@@ -123,6 +131,9 @@ public class WorldController implements Screen, ContactListener {
 	private long plopId = -1;
 	/** The default sound volume */
 	private float volume;
+
+	/** The player scale for synth */
+	private float playerScale = 3/8f;
 
 	// Physics objects for the game
 	/** Physics constants for initialization */
@@ -312,6 +323,12 @@ public class WorldController implements Screen, ContactListener {
 		bulletTexture = new TextureRegion(directory.getEntry("platform:bullet",Texture.class));
 		bridgeTexture = new TextureRegion(directory.getEntry("platform:rope",Texture.class));
 
+		synthDefaultTexture = new TextureRegion(directory.getEntry("rPlayer:synth",Texture.class));
+
+		synthJazzTexture = new TextureRegion(directory.getEntry("rPlayer:synth-jazz",Texture.class));
+		backgroundTexture = new TextureRegion(directory.getEntry("rBackground:test-bg",Texture.class));
+
+
 		jumpSound = directory.getEntry( "platform:jump", Sound.class );
 		fireSound = directory.getEntry( "platform:pew", Sound.class );
 		plopSound = directory.getEntry( "platform:plop", Sound.class );
@@ -442,11 +459,11 @@ public class WorldController implements Screen, ContactListener {
 		world.setGravity( new Vector2(0,defaults.getFloat("gravity",0)) );
 
 		// Create dude
-		dwidth  = avatarTexture.getRegionWidth()/scale.x;
-		dheight = avatarTexture.getRegionHeight()/scale.y;
-		avatar = new DudeModel(constants.get("dude"), dwidth, dheight);
+		dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
+		dheight = synthDefaultTexture.getRegionHeight()/scale.y;
+		avatar = new DudeModel(constants.get("dude"), dwidth*playerScale, dheight*playerScale, playerScale);
 		avatar.setDrawScale(scale);
-		avatar.setTexture(avatarTexture);
+		avatar.setTexture(synthDefaultTexture);
 		addObject(avatar);
 
 		// Create rope bridge
@@ -533,7 +550,7 @@ public class WorldController implements Screen, ContactListener {
 		// Process actions in object model
 		avatar.setMovement(InputController.getInstance().getHorizontal() *avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
-		avatar.setShooting(InputController.getInstance().didSecondary());
+
 
 		// Add a bullet if we fire
 		if (avatar.isShooting()) {
@@ -713,6 +730,11 @@ public class WorldController implements Screen, ContactListener {
 	 */
 	public void draw(float dt) {
 		canvas.clear();
+
+		// Draw background unscaled.
+		canvas.begin();
+		canvas.draw(backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
+		canvas.end();
 		
 		canvas.begin();
 		for(Obstacle obj : objects) {

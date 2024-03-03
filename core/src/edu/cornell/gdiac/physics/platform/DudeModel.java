@@ -188,6 +188,8 @@ public class DudeModel extends CapsuleObstacle {
 		return sensorName;
 	}
 
+	public float playerScale;
+
 	/**
 	 * Returns true if this character is facing right
 	 *
@@ -208,7 +210,7 @@ public class DudeModel extends CapsuleObstacle {
 	 * @param width		The object width in physics units
 	 * @param height	The object width in physics units
 	 */
-	public DudeModel(JsonValue data, float width, float height) {
+	public DudeModel(JsonValue data, float width, float height, float playerScale1) {
 		// The shrink factors fit the image to a tigher hitbox
 		super(	data.get("pos").getFloat(0),
 				data.get("pos").getFloat(1),
@@ -217,7 +219,7 @@ public class DudeModel extends CapsuleObstacle {
         setDensity(data.getFloat("density", 0));
 		setFriction(data.getFloat("friction", 0));  /// HE WILL STICK TO WALLS IF YOU FORGET
 		setFixedRotation(true);
-
+		playerScale = playerScale1;
 		maxspeed = data.getFloat("maxspeed", 0);
 		damping = data.getFloat("damping", 0);
 		force = data.getFloat("force", 0);
@@ -341,7 +343,10 @@ public class DudeModel extends CapsuleObstacle {
 	 */
 	public void draw(GameCanvas canvas) {
 		float effect = faceRight ? 1.0f : -1.0f;
-		canvas.draw(texture,Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),effect,1.0f);
+		//System.out.println(drawScale.x);
+		//System.out.println(drawScale.y);
+		canvas.draw(texture,Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
+				playerScale*effect,playerScale);
 	}
 	
 	/**
