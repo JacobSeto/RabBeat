@@ -49,8 +49,15 @@ import edu.cornell.gdiac.physics.obstacle.*;
  * place nicely with the static assets.
  */
 public class WorldController implements Screen, ContactListener {
+
+	/** The genre state of the game */
+	public Genre genre = Genre.SYNTH;
+
 	/** The texture for walls and platforms */
 	protected TextureRegion earthTile;
+	/** The texture for weighted platforms */
+	protected TextureRegion weightedPlatform;
+
 	/** The texture for the exit condition */
 	protected TextureRegion goalTile;
 	/** The font for giving messages to the player */
@@ -113,10 +120,6 @@ public class WorldController implements Screen, ContactListener {
 	private TextureRegion avatarTexture;
 	/** Texture asset for the spinning barrier */
 	private TextureRegion barrierTexture;
-	/** Texture asset for the bullet */
-
-
-	private TextureRegion bulletTexture;
 	/** Texture asset for the bridge plank */
 	private TextureRegion bridgeTexture;
 
@@ -320,7 +323,6 @@ public class WorldController implements Screen, ContactListener {
 	public void gatherAssets(AssetDirectory directory) {
 		avatarTexture  = new TextureRegion(directory.getEntry("platform:dude",Texture.class));
 		barrierTexture = new TextureRegion(directory.getEntry("platform:barrier",Texture.class));
-		bulletTexture = new TextureRegion(directory.getEntry("platform:bullet",Texture.class));
 		bridgeTexture = new TextureRegion(directory.getEntry("platform:rope",Texture.class));
 
 		synthDefaultTexture = new TextureRegion(directory.getEntry("rPlayer:synth",Texture.class));
@@ -337,6 +339,7 @@ public class WorldController implements Screen, ContactListener {
 
 		// Allocate the tiles
 		earthTile = new TextureRegion(directory.getEntry( "shared:earth", Texture.class ));
+		weightedPlatform = new TextureRegion((directory.getEntry("shared:weighted", Texture.class)));
 		goalTile  = new TextureRegion(directory.getEntry( "shared:goal", Texture.class ));
 		displayFont = directory.getEntry( "shared:retro" ,BitmapFont.class);
 	}
@@ -387,6 +390,8 @@ public class WorldController implements Screen, ContactListener {
 	 * This method disposes of the world and creates a new one.
 	 */
 	public void reset() {
+		//Default genre is synth
+		genre = Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity() );
 
 		for(Obstacle obj : objects) {
@@ -455,32 +460,31 @@ public class WorldController implements Screen, ContactListener {
 			addObject(obj);
 		}
 
-		// This world is heavier
-		world.setGravity( new Vector2(0,defaults.getFloat("gravity",0)) );
+		String wpname = "wplatform";
+		JsonValue wplatjv = constants.get("wplatforms");
+		for (int ii = 0; ii < wplatjv.size; ii++) {
+			PolygonObstacle obj;
+			obj = new PolygonObstacle(wplatjv.get(ii).asFloatArray(), 0, 0);
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(defaults.getFloat("density", 0.0f));
+			obj.setFriction(defaults.getFloat("friction", 0.0f));
+			obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+			obj.setDrawScale(scale);
+			obj.setTexture(weightedPlatform);
+			obj.setName(wpname + ii);
+			addObject(obj);
+		}
+
+		//world starts with Synth gravity
+		world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
 
 		// Create dude
 		dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
 		dheight = synthDefaultTexture.getRegionHeight()/scale.y;
-		avatar = new DudeModel(constants.get("dude"), dwidth*playerScale, dheight*playerScale, playerScale);
+		avatar = new DudeModel(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
 		avatar.setDrawScale(scale);
 		avatar.setTexture(synthDefaultTexture);
 		addObject(avatar);
-
-		// Create rope bridge
-		dwidth  = bridgeTexture.getRegionWidth()/scale.x;
-		dheight = bridgeTexture.getRegionHeight()/scale.y;
-		RopeBridge bridge = new RopeBridge(constants.get("bridge"), dwidth, dheight);
-		bridge.setTexture(bridgeTexture);
-		bridge.setDrawScale(scale);
-		addObject(bridge);
-
-		// Create spinning platform
-		dwidth  = barrierTexture.getRegionWidth()/scale.x;
-		dheight = barrierTexture.getRegionHeight()/scale.y;
-		Spinner spinPlatform = new Spinner(constants.get("spinner"),dwidth,dheight);
-		spinPlatform.setDrawScale(scale);
-		spinPlatform.setTexture(barrierTexture);
-		addObject(spinPlatform);
 
 		volume = constants.getFloat("volume", 1.0f);
 	}
@@ -551,52 +555,16 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setMovement(InputController.getInstance().getHorizontal() *avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
 
-
-		// Add a bullet if we fire
-		if (avatar.isShooting()) {
-			createBullet();
-		}
-
 		avatar.applyForce();
 		if (avatar.isJumping()) {
 			jumpId = playSound( jumpSound, jumpId, volume );
 		}
-	}
 
-	/**
-	 * Add a new bullet to the world and send it in the right direction.
-	 */
-	private void createBullet() {
-		JsonValue bulletjv = constants.get("bullet");
-		float offset = bulletjv.getFloat("offset",0);
-		offset *= (avatar.isFacingRight() ? 1 : -1);
-		float radius = bulletTexture.getRegionWidth()/(2.0f*scale.x);
-		WheelObstacle bullet = new WheelObstacle(avatar.getX()+offset, avatar.getY(), radius);
-
-		bullet.setName("bullet");
-		bullet.setDensity(bulletjv.getFloat("density", 0));
-		bullet.setDrawScale(scale);
-		bullet.setTexture(bulletTexture);
-		bullet.setBullet(true);
-		bullet.setGravityScale(0);
-
-		// Compute position and velocity
-		float speed = bulletjv.getFloat( "speed", 0 );
-		speed  *= (avatar.isFacingRight() ? 1 : -1);
-		bullet.setVX(speed);
-		addQueuedObject(bullet);
-
-		fireId = playSound( fireSound, fireId );
-	}
-
-	/**
-	 * Remove a new bullet from the world.
-	 *
-	 * @param  bullet   the bullet to remove
-	 */
-	public void removeBullet(Obstacle bullet) {
-		bullet.markRemoved(true);
-		plopId = playSound( plopSound, plopId );
+		if(InputController.getInstance().getSwitchGenre()) {
+			switchGenre();
+			InputController.getInstance().setSwitchGenre(false);
+			updateGenreSwitch();
+		}
 	}
 
 	/**
@@ -621,15 +589,6 @@ public class WorldController implements Screen, ContactListener {
 		try {
 			Obstacle bd1 = (Obstacle)body1.getUserData();
 			Obstacle bd2 = (Obstacle)body2.getUserData();
-
-			// Test bullet collision with world
-			if (bd1.getName().equals("bullet") && bd2 != avatar) {
-				removeBullet(bd1);
-			}
-
-			if (bd2.getName().equals("bullet") && bd1 != avatar) {
-				removeBullet(bd2);
-			}
 
 			// See if we have landed on the ground.
 			if ((avatar.getSensorName().equals(fd2) && avatar != bd1) ||
@@ -682,6 +641,25 @@ public class WorldController implements Screen, ContactListener {
 	public void postSolve(Contact contact, ContactImpulse impulse) {}
 	/** Unused ContactListener method */
 	public void preSolve(Contact contact, Manifold oldManifold) {}
+
+	/**
+	 * Loop update when the genre switch occurs.  Only objects affected by genre switching should
+	 * be updated.
+	 *
+	 */
+
+	public void updateGenreSwitch(){
+		//update to Synth
+		if(genre == Genre.SYNTH){
+			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
+			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
+		}
+		//update to Jazz
+		else{
+			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("jazz",0)) );
+			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
+		}
+	}
 
 	/**
 	 * Processes physics
@@ -880,6 +858,24 @@ public class WorldController implements Screen, ContactListener {
 	 */
 	public void setScreenListener(ScreenListener listener) {
 		this.listener = listener;
+	}
+
+
+	/**
+	 * Switches the genre depending on what the current genre is.
+	 */
+	public void switchGenre() {
+		switch(genre) {
+			case SYNTH:
+				genre = Genre.JAZZ;
+				System.out.println("Now switching to jazz!");
+				break;
+			case JAZZ:
+				System.out.println("Now switching to synth!");
+				genre = Genre.SYNTH;
+				break;
+		}
+
 	}
 
 }
