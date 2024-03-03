@@ -51,12 +51,9 @@ public class DudeModel extends CapsuleObstacle {
 	private int jumpCooldown;
 	/** Whether we are actively jumping */
 	private boolean isJumping;
-	/** How long until we can shoot again */
-	private int shootCooldown;
 	/** Whether our feet are on the ground */
 	private boolean isGrounded;
-	/** Whether we are actively shooting */
-	private boolean isShooting;
+
 	/** The physics shape of this object */
 	private PolygonShape sensorShape;
 	
@@ -90,24 +87,6 @@ public class DudeModel extends CapsuleObstacle {
 		} else if (movement > 0) {
 			faceRight = true;
 		}
-	}
-	
-	/**
-	 * Returns true if the dude is actively firing.
-	 *
-	 * @return true if the dude is actively firing.
-	 */
-	public boolean isShooting() {
-		return isShooting && shootCooldown <= 0;
-	}
-	
-	/**
-	 * Sets whether the dude is actively firing.
-	 *
-	 * @param value whether the dude is actively firing.
-	 */
-	public void setShooting(boolean value) {
-		isShooting = value; 
 	}
 
 	/**
@@ -229,11 +208,9 @@ public class DudeModel extends CapsuleObstacle {
 
 		// Gameplay attributes
 		isGrounded = false;
-		isShooting = false;
 		isJumping = false;
 		faceRight = true;
-		
-		shootCooldown = 0;
+
 		jumpCooldown = 0;
 		setName("dude");
 	}
@@ -323,12 +300,6 @@ public class DudeModel extends CapsuleObstacle {
 			jumpCooldown = jumpLimit;
 		} else {
 			jumpCooldown = Math.max(0, jumpCooldown - 1);
-		}
-
-		if (isShooting()) {
-			shootCooldown = shotLimit;
-		} else {
-			shootCooldown = Math.max(0, shootCooldown - 1);
 		}
 		
 		super.update(dt);
