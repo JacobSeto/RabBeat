@@ -19,10 +19,10 @@ import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Array;
 import edu.cornell.gdiac.util.*;
 
-enum Genre {
-	SYNTH,
-	JAZZ
-}
+//enum Genre {
+//	SYNTH,
+//	JAZZ
+//}
 
 /**
  * Class for reading player input. 
