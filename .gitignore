@@ -101,6 +101,22 @@ gradle-app.setting
 /html/build/
 /ios/build/
 
+# Ignore specific Gradle version execution history files
+.gradle/8.5/executionHistory/executionHistory.bin
+.gradle/8.5/executionHistory/executionHistory.lock
+
+# Ignore specific Gradle version file hashes
+.gradle/8.5/fileHashes/fileHashes.bin
+.gradle/8.5/fileHashes/fileHashes.lock
+.gradle/8.5/fileHashes/resourceHashesCache.bin
+
+# Ignore Gradle build output cleanup lock file
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+
+# Ignore specific build temporary files
+core/build/tmp/compileJava/previous-compilation-data.bin
+
+
 ## OS Specific
 .DS_Store
 Thumbs.db

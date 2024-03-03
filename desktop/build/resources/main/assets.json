@@ -5,6 +5,11 @@
             "wrapU": "repeated",
             "wrapV": "repeated"
         },
+        "shared:weighted" : {
+            "file":  "shared/weightedplatform.png",
+            "wrapU": "repeated",
+            "wrapV": "repeated"
+        },
         "shared:goal":   "shared/goaldoor.png",
         "rocket:rocket": "rocket/rocket.png",
         "rocket:main":  {
@@ -39,7 +44,6 @@
         "platform:dude":  "platform/dude.png",
         "platform:rope":  "platform/ropebridge.png",
         "platform:barrier": "platform/barrier.png",
-        "platform:bullet":  "platform/bullet.png",
         "ragdoll:bubble": "ragdoll/bubble.png",
         "ragdoll:torso":  "ragdoll/tux_body.png",
         "ragdoll:head":   "ragdoll/ProfWhite.png",
