@@ -34,7 +34,7 @@ import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.physics.platform.WeightedPlatform;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.physics.obstacle.*;
-import javax.xml.soap.Text;
+//import javax.xml.soap.Text;
 
 /**
  * Base class for a world-specific controller.
@@ -341,9 +341,9 @@ public class WorldController implements Screen, ContactListener {
 		backgroundTexture = new TextureRegion(directory.getEntry("rBackground:test-bg",Texture.class));
 
 
-		jumpSound = directory.getEntry( "platform:jump", Sound.class );
-		fireSound = directory.getEntry( "platform:pew", Sound.class );
-		plopSound = directory.getEntry( "platform:plop", Sound.class );
+//		jumpSound = directory.getEntry( "platform:jump", Sound.class );
+//		fireSound = directory.getEntry( "platform:pew", Sound.class );
+//		plopSound = directory.getEntry( "platform:plop", Sound.class );
 
 		constants = directory.getEntry( "platform:constants", JsonValue.class );
 
@@ -571,7 +571,7 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
 		avatar.applyForce();
-
+        
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
