@@ -53,10 +53,12 @@ import edu.cornell.gdiac.physics.obstacle.*;
 public class WorldController implements Screen, ContactListener {
 
 	/** The genre state of the game */
-	public Genre genre;
+	public Genre genre = Genre.SYNTH;
 
-	/** The texture for walls and platforms */
-	protected TextureRegion earthTile;
+	/** The texture for walls */
+	protected TextureRegion blackTile;
+	/** The texture for regular platforms */
+	protected TextureRegion platformTile;
 	/** The texture for weighted platforms */
 	protected TextureRegion weightedPlatform;
 
@@ -76,6 +78,19 @@ public class WorldController implements Screen, ContactListener {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
+
+	// TODO: Unsure whether to keep constants here or in the models
+	/** Speed of player in Jazz */
+	protected static final float PLAYER_VX_JAZZ = 10f;
+	/** Speed of player in Synth */
+	protected static final float PLAYER_VX_SYNTH = 15f;
+	/** Upward force of player in Jazz */
+	protected static final float PLAYER_JUMP_FORCE_JAZZ = 5f;
+	/** Upward force of player in Synth */
+	protected static final float PLAYER_JUMP_FORCE_SYNTH = 1f;
+	/** Weighted platform position in Jazz */
+
+	/** Weighted platform position in Synth */
 	
 	/** Width of the game world in Box2d units */
 	protected static final float DEFAULT_WIDTH  = 32.0f;
@@ -113,6 +128,7 @@ public class WorldController implements Screen, ContactListener {
 
 
 	/** Textures for rab-beat*/
+
 	private TextureRegion synthDefaultTexture;
 	private TextureRegion synthJazzTexture;
 	private TextureRegion backgroundTexture;
@@ -322,8 +338,8 @@ public class WorldController implements Screen, ContactListener {
 		bridgeTexture = new TextureRegion(directory.getEntry("platform:rope",Texture.class));
 
 		synthDefaultTexture = new TextureRegion(directory.getEntry("rPlayer:synth",Texture.class));
-		synthJazzTexture = new TextureRegion(directory.getEntry("rPlayer:synth-jazz",Texture.class));
 
+		synthJazzTexture = new TextureRegion(directory.getEntry("rPlayer:synth-jazz",Texture.class));
 		backgroundTexture = new TextureRegion(directory.getEntry("rBackground:test-bg",Texture.class));
 
 
@@ -334,8 +350,9 @@ public class WorldController implements Screen, ContactListener {
 		constants = directory.getEntry( "platform:constants", JsonValue.class );
 
 		// Allocate the tiles
-		earthTile = new TextureRegion(directory.getEntry( "rPlatform:purple-1", Texture.class ));
-		weightedPlatform = new TextureRegion((directory.getEntry("rPlatform:platformWeighted", Texture.class)));
+		blackTile = new TextureRegion(directory.getEntry( "rEnvironment:blackTile", Texture.class ));
+		platformTile = new TextureRegion(directory.getEntry( "rPlatform:platformTile", Texture.class ));
+		weightedPlatform = new TextureRegion((directory.getEntry("rPlatform:weightedPlatform", Texture.class)));
 		goalTile  = new TextureRegion(directory.getEntry( "shared:goal", Texture.class ));
 		displayFont = directory.getEntry( "shared:retro" ,BitmapFont.class);
 	}
@@ -438,7 +455,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setFriction(defaults.getFloat( "friction", 0.0f ));
 			obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
 			obj.setDrawScale(scale);
-			obj.setTexture(earthTile);
+			obj.setTexture(blackTile);
 			obj.setName(wname+ii);
 			addObject(obj);
 		}
@@ -453,7 +470,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setFriction(defaults.getFloat( "friction", 0.0f ));
 			obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
 			obj.setDrawScale(scale);
-			obj.setTexture(earthTile);
+			obj.setTexture(platformTile);
 			obj.setName(pname+ii);
 			addObject(obj);
 		}
@@ -557,7 +574,6 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
 		avatar.applyForce();
-        
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
@@ -645,28 +661,22 @@ public class WorldController implements Screen, ContactListener {
 	 *
 	 */
 	public void updateGenreSwitch() {
-		switch (genre) {
-			//update to Synth
-			case SYNTH:
-				world.setGravity(
-						new Vector2(0, constants.get("genre_gravity").getFloat("synth", 0)));
-				avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
-				avatar.setTexture(synthDefaultTexture);
-				for (SyncedPlatform platform : weightedPlatforms) {
-					platform.genreUpdate(Genre.SYNTH);
-				}
-				break;
-			//update to Jazz
-			case JAZZ:
-				world.setGravity(
-						new Vector2(0, constants.get("genre_gravity").getFloat("jazz", 0)));
-				avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
-				avatar.setTexture(synthJazzTexture);
-				for (SyncedPlatform platform : weightedPlatforms) {
-					platform.genreUpdate(Genre.JAZZ);
-				}
-				break;
+		//update to Synth
+		if (genre == Genre.SYNTH) {
+			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
+			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
+			for (SyncedPlatform platform : weightedPlatforms) {
+				platform.genreUpdate(Genre.SYNTH);
 			}
+		}
+		//update to Jazz
+		else {
+			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("jazz",0)) );
+			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
+			for (SyncedPlatform platform : weightedPlatforms) {
+				platform.genreUpdate(Genre.JAZZ);
+			}
+		}
 	}
 
 	/**
@@ -719,19 +729,7 @@ public class WorldController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin();
-
-		// Color the background based on the current genre.
-		switch (genre) {
-			case SYNTH:
-				canvas.draw(backgroundTexture, Color.GREEN, 0, 0, canvas.getWidth(),
-					canvas.getHeight());
-				break;
-			case JAZZ:
-				canvas.draw(backgroundTexture, Color.YELLOW, 0, 0, canvas.getWidth(),
-						canvas.getHeight());
-				break;
-		}
-
+		canvas.draw(backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
 		canvas.end();
 		
 		canvas.begin();
@@ -893,6 +891,7 @@ public class WorldController implements Screen, ContactListener {
 				genre = Genre.SYNTH;
 				break;
 		}
+
 	}
 
 }
