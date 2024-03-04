@@ -130,3 +130,5 @@ Thumbs.db
 /ios/IOSLauncher.app.dSYM
 .gradle/buildOutputCleanup/cache.properties
 .gradle/buildOutputCleanup/outputFiles.bin
+*.properties
+*.bin
