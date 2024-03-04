@@ -135,3 +135,7 @@ Thumbs.db
 *.bin
 desktop/build/tmp/compileJava/previous-compilation-data.bin
 core/build/tmp/compileJava/previous-compilation-data.bin
+core/build/tmp/compileJava/previous-compilation-data.bin
+desktop/build/tmp/compileJava/previous-compilation-data.bin
+.gradle/buildOutputCleanup/outputFiles.bin
+core/build/tmp/compileJava/previous-compilation-data.bin

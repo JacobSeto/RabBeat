@@ -55,8 +55,10 @@ public class WorldController implements Screen, ContactListener {
 	/** The genre state of the game */
 	public Genre genre = Genre.SYNTH;
 
-	/** The texture for walls and platforms */
-	protected TextureRegion earthTile;
+	/** The texture for walls */
+	protected TextureRegion blackTile;
+	/** The texture for regular platforms */
+	protected TextureRegion platformTile;
 	/** The texture for weighted platforms */
 	protected TextureRegion weightedPlatform;
 
@@ -348,8 +350,9 @@ public class WorldController implements Screen, ContactListener {
 		constants = directory.getEntry( "platform:constants", JsonValue.class );
 
 		// Allocate the tiles
-		earthTile = new TextureRegion(directory.getEntry( "rPlatform:purple-1", Texture.class ));
-		weightedPlatform = new TextureRegion((directory.getEntry("rPlatform:platformWeighted", Texture.class)));
+		blackTile = new TextureRegion(directory.getEntry( "rEnvironment:blackTile", Texture.class ));
+		platformTile = new TextureRegion(directory.getEntry( "rPlatform:platformTile", Texture.class ));
+		weightedPlatform = new TextureRegion((directory.getEntry("rPlatform:weightedPlatform", Texture.class)));
 		goalTile  = new TextureRegion(directory.getEntry( "shared:goal", Texture.class ));
 		displayFont = directory.getEntry( "shared:retro" ,BitmapFont.class);
 	}
@@ -452,7 +455,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setFriction(defaults.getFloat( "friction", 0.0f ));
 			obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
 			obj.setDrawScale(scale);
-			obj.setTexture(earthTile);
+			obj.setTexture(blackTile);
 			obj.setName(wname+ii);
 			addObject(obj);
 		}
@@ -467,7 +470,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setFriction(defaults.getFloat( "friction", 0.0f ));
 			obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
 			obj.setDrawScale(scale);
-			obj.setTexture(earthTile);
+			obj.setTexture(platformTile);
 			obj.setName(pname+ii);
 			addObject(obj);
 		}
