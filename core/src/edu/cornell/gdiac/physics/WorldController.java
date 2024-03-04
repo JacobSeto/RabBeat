@@ -113,7 +113,6 @@ public class WorldController implements Screen, ContactListener {
 
 
 	/** Textures for rab-beat*/
-
 	private TextureRegion synthDefaultTexture;
 	private TextureRegion synthJazzTexture;
 	private TextureRegion backgroundTexture;
@@ -323,8 +322,8 @@ public class WorldController implements Screen, ContactListener {
 		bridgeTexture = new TextureRegion(directory.getEntry("platform:rope",Texture.class));
 
 		synthDefaultTexture = new TextureRegion(directory.getEntry("rPlayer:synth",Texture.class));
-
 		synthJazzTexture = new TextureRegion(directory.getEntry("rPlayer:synth-jazz",Texture.class));
+
 		backgroundTexture = new TextureRegion(directory.getEntry("rBackground:test-bg",Texture.class));
 
 
@@ -652,6 +651,7 @@ public class WorldController implements Screen, ContactListener {
 				world.setGravity(
 						new Vector2(0, constants.get("genre_gravity").getFloat("synth", 0)));
 				avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
+				avatar.setTexture(synthDefaultTexture);
 				for (SyncedPlatform platform : weightedPlatforms) {
 					platform.genreUpdate(Genre.SYNTH);
 				}
@@ -661,6 +661,7 @@ public class WorldController implements Screen, ContactListener {
 				world.setGravity(
 						new Vector2(0, constants.get("genre_gravity").getFloat("jazz", 0)));
 				avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
+				avatar.setTexture(synthJazzTexture);
 				for (SyncedPlatform platform : weightedPlatforms) {
 					platform.genreUpdate(Genre.JAZZ);
 				}
