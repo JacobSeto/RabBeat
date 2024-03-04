@@ -10,6 +10,16 @@
             "wrapU": "repeated",
             "wrapV": "repeated"
         },
+      "rPlatform:purple-1" : {
+        "file":  "rPlatform/purple-1.jpg",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
+      "rPlatform:platformWeighted" : {
+        "file":  "rPlatform/platformWeighted.jpg",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
         "shared:goal":   "shared/goaldoor.png",
         "rocket:rocket": "rocket/rocket.png",
         "rocket:main":  {
