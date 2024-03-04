@@ -1,7 +1,7 @@
 {
 	"textures": {
-        "shared:earth" : {
-            "file":  "shared/earthtile.png",
+        "rEnvironment:blackTile" : {
+            "file":  "rEnvironment/blackTile.png",
             "wrapU": "repeated",
             "wrapV": "repeated"
         },
@@ -10,13 +10,18 @@
             "wrapU": "repeated",
             "wrapV": "repeated"
         },
-      "rPlatform:purple-1" : {
-        "file":  "rPlatform/purple-1.jpg",
+      "rPlatform:platformTile" : {
+        "file":  "rPlatform/platformTile.png",
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
-      "rPlatform:platformWeighted" : {
-        "file":  "rPlatform/platformWeighted.jpg",
+      "rPlatform:weightedPlatform" : {
+        "file":  "rPlatform/weightedPlatform.png",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
+      "rPlatform:weightedLaserTile" : {
+        "file":  "rPlatform/weightedLaserTile.png",
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
