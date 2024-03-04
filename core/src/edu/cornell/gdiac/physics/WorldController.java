@@ -53,7 +53,7 @@ import edu.cornell.gdiac.physics.obstacle.*;
 public class WorldController implements Screen, ContactListener {
 
 	/** The genre state of the game */
-	public Genre genre = Genre.SYNTH;
+	public Genre genre;
 
 	/** The texture for walls and platforms */
 	protected TextureRegion earthTile;
@@ -659,22 +659,26 @@ public class WorldController implements Screen, ContactListener {
 	 *
 	 */
 	public void updateGenreSwitch() {
-		//update to Synth
-		if (genre == Genre.SYNTH) {
-			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
-			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
-			for (SyncedPlatform platform : weightedPlatforms) {
-				platform.genreUpdate(Genre.SYNTH);
+		switch (genre) {
+			//update to Synth
+			case SYNTH:
+				world.setGravity(
+						new Vector2(0, constants.get("genre_gravity").getFloat("synth", 0)));
+				avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
+				for (SyncedPlatform platform : weightedPlatforms) {
+					platform.genreUpdate(Genre.SYNTH);
+				}
+				break;
+			//update to Jazz
+			case JAZZ:
+				world.setGravity(
+						new Vector2(0, constants.get("genre_gravity").getFloat("jazz", 0)));
+				avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
+				for (SyncedPlatform platform : weightedPlatforms) {
+					platform.genreUpdate(Genre.JAZZ);
+				}
+				break;
 			}
-		}
-		//update to Jazz
-		else {
-			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("jazz",0)) );
-			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
-			for (SyncedPlatform platform : weightedPlatforms) {
-				platform.genreUpdate(Genre.JAZZ);
-			}
-		}
 	}
 
 	/**
@@ -727,7 +731,19 @@ public class WorldController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin();
-		canvas.draw(backgroundTexture, Color.GREEN, 0, 0,canvas.getWidth(),canvas.getHeight());
+
+		// Color the background based on the current genre.
+		switch (genre) {
+			case SYNTH:
+				canvas.draw(backgroundTexture, Color.GREEN, 0, 0, canvas.getWidth(),
+					canvas.getHeight());
+				break;
+			case JAZZ:
+				canvas.draw(backgroundTexture, Color.YELLOW, 0, 0, canvas.getWidth(),
+						canvas.getHeight());
+				break;
+		}
+
 		canvas.end();
 		
 		canvas.begin();
@@ -889,7 +905,6 @@ public class WorldController implements Screen, ContactListener {
 				genre = Genre.SYNTH;
 				break;
 		}
-
 	}
 
 }
