@@ -133,3 +133,5 @@ Thumbs.db
 *.properties
 *.bin
 *.bin
+desktop/build/tmp/compileJava/previous-compilation-data.bin
+core/build/tmp/compileJava/previous-compilation-data.bin
