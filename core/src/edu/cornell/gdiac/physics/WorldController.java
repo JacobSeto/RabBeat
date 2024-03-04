@@ -726,7 +726,7 @@ public class WorldController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin();
-		canvas.draw(backgroundTexture, Color.GREEN, 0, 0,canvas.getWidth(),canvas.getHeight());
+		canvas.draw(backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
 		canvas.end();
 		
 		canvas.begin();
