@@ -552,6 +552,7 @@ public class WorldController implements Screen, ContactListener {
 		// Process actions in object model
 		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
+		avatar.applyForce();
 
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
