@@ -665,6 +665,7 @@ public class WorldController implements Screen, ContactListener {
 		if (genre == Genre.SYNTH) {
 			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
 			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
+			avatar.setTexture(synthDefaultTexture);
 			for (SyncedPlatform platform : weightedPlatforms) {
 				platform.genreUpdate(Genre.SYNTH);
 			}
@@ -673,6 +674,7 @@ public class WorldController implements Screen, ContactListener {
 		else {
 			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("jazz",0)) );
 			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
+			avatar.setTexture(synthJazzTexture);
 			for (SyncedPlatform platform : weightedPlatforms) {
 				platform.genreUpdate(Genre.JAZZ);
 			}

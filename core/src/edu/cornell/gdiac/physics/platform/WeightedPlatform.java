@@ -1,6 +1,8 @@
 package edu.cornell.gdiac.physics.platform;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import edu.cornell.gdiac.physics.GameCanvas;
 import edu.cornell.gdiac.physics.Genre;
 import edu.cornell.gdiac.physics.SyncedPlatform;
 import edu.cornell.gdiac.physics.obstacle.PolygonObstacle;
@@ -18,6 +20,8 @@ public class WeightedPlatform extends SyncedPlatform {
     /** Position for the weighted platform when the game is in Jazz mode **/
     private Vector2 jazzPosition;
 
+    private Color tint;
+
     /**
      * Creates a new weighted platform with the given physics data and current genre.
      *
@@ -31,7 +35,15 @@ public class WeightedPlatform extends SyncedPlatform {
         super(points);
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
         synthPosition = new Vector2(synthPos[0], synthPos[1]);
+        tint = Color.RED;
         setPosition(synthPosition);
+    }
+
+    @Override
+    public void draw(GameCanvas canvas) {
+        if (region != null) {
+            canvas.draw(region,tint,0,0,getX()*drawScale.x,getY()*drawScale.y,getAngle(),1,1);
+        }
     }
 
     @Override
@@ -47,9 +59,11 @@ public class WeightedPlatform extends SyncedPlatform {
         switch(genre) {
             case JAZZ:
                 setPosition(jazzPosition);
+                tint = Color.YELLOW;
                 break;
             case SYNTH:
                 setPosition(synthPosition);
+                tint = Color.RED;
                 break;
         }
     }
