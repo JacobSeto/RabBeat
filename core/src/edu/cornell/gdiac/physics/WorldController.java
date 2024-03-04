@@ -17,19 +17,16 @@
 package edu.cornell.gdiac.physics;
 
 import edu.cornell.gdiac.physics.platform.DudeModel;
-import edu.cornell.gdiac.physics.platform.RopeBridge;
-import edu.cornell.gdiac.physics.platform.Spinner;
+
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.*;
-import com.badlogic.gdx.assets.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.graphics.g2d.freetype.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.physics.platform.WeightedPlatform;
 import edu.cornell.gdiac.util.*;
@@ -132,11 +129,8 @@ public class WorldController implements Screen, ContactListener {
 	private TextureRegion backgroundTexture;
 
 	/** Texture asset for character avatar */
-	private TextureRegion avatarTexture;
 	/** Texture asset for the spinning barrier */
-	private TextureRegion barrierTexture;
 	/** Texture asset for the bridge plank */
-	private TextureRegion bridgeTexture;
 
 	// TODO: Add sounds and sound id fields here
 	private float volume;
@@ -331,12 +325,7 @@ public class WorldController implements Screen, ContactListener {
 	 * @param directory	Reference to global asset manager.
 	 */
 	public void gatherAssets(AssetDirectory directory) {
-		avatarTexture  = new TextureRegion(directory.getEntry("platform:dude",Texture.class));
-		barrierTexture = new TextureRegion(directory.getEntry("platform:barrier",Texture.class));
-		bridgeTexture = new TextureRegion(directory.getEntry("platform:rope",Texture.class));
-
 		synthDefaultTexture = new TextureRegion(directory.getEntry("rPlayer:synth",Texture.class));
-
 		synthJazzTexture = new TextureRegion(directory.getEntry("rPlayer:synth-jazz",Texture.class));
 		backgroundTexture = new TextureRegion(directory.getEntry("rBackground:test-bg",Texture.class));
 
@@ -348,6 +337,8 @@ public class WorldController implements Screen, ContactListener {
 		constants = directory.getEntry( "platform:constants", JsonValue.class );
 
 		// Allocate the tiles
+
+		// NOTE: earthTile references a PURPLE texture. The original earthTile asset has been deleted
 		earthTile = new TextureRegion(directory.getEntry( "rPlatform:purple-1", Texture.class ));
 		weightedPlatform = new TextureRegion((directory.getEntry("rPlatform:platformWeighted", Texture.class)));
 		goalTile  = new TextureRegion(directory.getEntry( "shared:goal", Texture.class ));
