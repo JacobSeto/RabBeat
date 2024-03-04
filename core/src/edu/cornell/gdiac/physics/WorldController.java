@@ -76,19 +76,6 @@ public class WorldController implements Screen, ContactListener {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
-
-	// TODO: Unsure whether to keep constants here or in the models
-	/** Speed of player in Jazz */
-	protected static final float PLAYER_VX_JAZZ = 10f;
-	/** Speed of player in Synth */
-	protected static final float PLAYER_VX_SYNTH = 15f;
-	/** Upward force of player in Jazz */
-	protected static final float PLAYER_JUMP_FORCE_JAZZ = 5f;
-	/** Upward force of player in Synth */
-	protected static final float PLAYER_JUMP_FORCE_SYNTH = 1f;
-	/** Weighted platform position in Jazz */
-
-	/** Weighted platform position in Synth */
 	
 	/** Width of the game world in Box2d units */
 	protected static final float DEFAULT_WIDTH  = 32.0f;
