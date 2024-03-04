@@ -348,8 +348,8 @@ public class WorldController implements Screen, ContactListener {
 		constants = directory.getEntry( "platform:constants", JsonValue.class );
 
 		// Allocate the tiles
-		earthTile = new TextureRegion(directory.getEntry( "shared:earth", Texture.class ));
-		weightedPlatform = new TextureRegion((directory.getEntry("shared:weighted", Texture.class)));
+		earthTile = new TextureRegion(directory.getEntry( "rPlatform:purple-1", Texture.class ));
+		weightedPlatform = new TextureRegion((directory.getEntry("rPlatform:platformWeighted", Texture.class)));
 		goalTile  = new TextureRegion(directory.getEntry( "shared:goal", Texture.class ));
 		displayFont = directory.getEntry( "shared:retro" ,BitmapFont.class);
 	}
@@ -726,7 +726,7 @@ public class WorldController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin();
-		canvas.draw(backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
+		canvas.draw(backgroundTexture, Color.GREEN, 0, 0,canvas.getWidth(),canvas.getHeight());
 		canvas.end();
 		
 		canvas.begin();
