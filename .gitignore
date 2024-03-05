@@ -128,10 +128,12 @@ Thumbs.db
 /ios/xcode/native/
 /ios/IOSLauncher.app
 /ios/IOSLauncher.app.dSYM
-desktop/build/tmp/compileJava/previous-compilation-data.bin
+.gradle/buildOutputCleanup/cache.properties
 .gradle/buildOutputCleanup/outputFiles.bin
 *.properties
 *.bin
 *.bin
 desktop/build/tmp/compileJava/previous-compilation-data.bin
+core/build/tmp/compileJava/previous-compilation-data.bin
+core/build/tmp/compileJava/previous-compilation-data.bin
 core/build/tmp/compileJava/previous-compilation-data.bin
