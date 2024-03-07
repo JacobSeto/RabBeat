@@ -17,6 +17,7 @@
 package edu.cornell.gdiac.physics;
 
 import edu.cornell.gdiac.physics.platform.DudeModel;
+import edu.cornell.gdiac.physics.platform.Enemy;
 
 import java.util.Iterator;
 
@@ -129,6 +130,7 @@ public class WorldController implements Screen, ContactListener {
 	private TextureRegion synthDefaultTexture;
 	private TextureRegion synthJazzTexture;
 	private TextureRegion backgroundTexture;
+	private TextureRegion enemyDefaultTexture;
 
 
 	// TODO: Add sounds and sound id fields here
@@ -137,11 +139,18 @@ public class WorldController implements Screen, ContactListener {
 	/** The player scale for synth */
 	private float playerScale = 3/8f;
 
+	/** The enemy scale for the enemy */
+	private float enemyScale = 3/8f;
+
 	// Physics objects for the game
 	/** Physics constants for initialization */
 	private JsonValue constants;
 	/** Reference to the character avatar */
 	private DudeModel avatar;
+
+	/** Reference to the enemy avatar */
+	private Enemy enemy;
+
 	/** Reference to the goalDoor (for collision detection) */
 	private BoxObstacle goalDoor;
 	/** Reference to all the weighted platforms */
@@ -328,7 +337,7 @@ public class WorldController implements Screen, ContactListener {
 
 		synthJazzTexture = new TextureRegion(directory.getEntry("rPlayer:synth-jazz",Texture.class));
 		backgroundTexture = new TextureRegion(directory.getEntry("rBackground:test-bg",Texture.class));
-
+		enemyDefaultTexture = new TextureRegion(directory.getEntry("rPlayer:synth",Texture.class)); //CHANGE FOR ENEMY!
 
 		constants = directory.getEntry( "platform:constants", JsonValue.class );
 
@@ -486,6 +495,13 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setDrawScale(scale);
 		avatar.setTexture(synthDefaultTexture);
 		addObject(avatar);
+
+		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+		enemy = new Enemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale);
+		enemy.setDrawScale(scale);
+		enemy.setTexture(enemyDefaultTexture);
+		addObject(enemy);
 
 		volume = constants.getFloat("volume", 1.0f);
 	}
