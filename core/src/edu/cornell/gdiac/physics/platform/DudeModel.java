@@ -324,6 +324,8 @@ public class DudeModel extends CapsuleObstacle {
 	 */
 	public void draw(GameCanvas canvas) {
 		float effect = faceRight ? 1.0f : -1.0f;
+		//System.out.println(drawScale.x);
+		//System.out.println(drawScale.y);
 		canvas.draw(texture,Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
 				playerScale*effect,playerScale);
 	}
