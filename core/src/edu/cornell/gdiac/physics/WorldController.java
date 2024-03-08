@@ -502,7 +502,7 @@ public class WorldController implements Screen, ContactListener {
 		//world starts with Synth gravity
 		world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
 
-		// Create dude
+		// Create bunny
 		dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
 		dheight = synthDefaultTexture.getRegionHeight()/scale.y;
 		avatar = new DudeModel(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
@@ -510,12 +510,14 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setTexture(synthDefaultTexture);
 		addObject(avatar);
 
-		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-		enemy = new Enemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale);
-		enemy.setDrawScale(scale);
-		enemy.setTexture(enemyDefaultTexture);
-		addObject(enemy);
+
+		//TODO: Load enemies
+//		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+//		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+//		enemy = new Enemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale);
+//		enemy.setDrawScale(scale);
+//		enemy.setTexture(enemyDefaultTexture);
+//		addObject(enemy);
 
 		volume = constants.getFloat("volume", 1.0f);
 
