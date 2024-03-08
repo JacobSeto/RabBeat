@@ -11,5 +11,5 @@ public interface ISynced {
     /**
      * Called when an update should occur on the beat
      */
-    public void BeatAction();
+    public void beatAction();
 }

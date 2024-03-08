@@ -1,6 +1,7 @@
 package edu.cornell.gdiac.rabbeat.obstacle.enemies;
 
-import edu.cornell.gdiac.physics.obstacle.CapsuleObstacle;
+import edu.cornell.gdiac.rabbeat.GameCanvas;
+import edu.cornell.gdiac.rabbeat.obstacle.CapsuleObstacle;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.physics.box2d.*;

@@ -93,7 +93,7 @@ public class SyncController {
         public void checkForNewInterval (float interval){
             if ((int)Math.floor(interval) != lastInterval){
                 if(lastInterval < interval){
-                    s.BeatAction();
+                    s.beatAction();
                 }
                 lastInterval = (int)Math.floor(interval);
             }

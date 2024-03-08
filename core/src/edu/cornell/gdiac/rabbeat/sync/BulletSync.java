@@ -1,6 +1,5 @@
-package edu.cornell.gdiac.sync;
-
-import edu.cornell.gdiac.sync.ISynced;
+package edu.cornell.gdiac.rabbeat.sync;
+import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 public class BulletSync implements ISynced {
     private int beatCount = 0;
@@ -10,12 +9,12 @@ public class BulletSync implements ISynced {
         return isBeatOne;
     }
     @Override
-    public int getBeat() {
+    public float getBeat() {
         return 1;
     }
 
     @Override
-    public void Beat() {
+    public void beatAction() {
         beatCount++;
         if(beatCount >= 5){
             beatCount = 1;

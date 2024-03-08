@@ -10,7 +10,7 @@ public class BeatTest implements ISynced {
     }
 
     @Override
-    public void BeatAction() {
+    public void beatAction() {
         beatCount++;
         if(beatCount >= 5){
             beatCount = 1;
