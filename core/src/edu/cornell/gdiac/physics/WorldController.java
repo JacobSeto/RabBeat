@@ -512,7 +512,7 @@ public class WorldController implements Screen, ContactListener {
 
 		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
 		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-		enemy = new Enemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale);
+		enemy = new Enemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, true);
 		enemy.setDrawScale(scale);
 		enemy.setTexture(enemyDefaultTexture);
 		addObject(enemy);

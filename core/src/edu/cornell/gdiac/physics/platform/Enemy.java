@@ -22,13 +22,17 @@ public class Enemy extends CapsuleObstacle {
     /** Whether the enemy is facing right */
     private boolean faceRight;
 
+    //range: how far away player is --> beat action called whenever an action is supposed to hapepn on beat
+
+
+
     /**
      * Creates a new enemy avatar with the given physics data
      *
      * @param width	The object width in physics units
      * @param height	The object width in physics units
      */
-    public Enemy(JsonValue data, float width, float height, float enemyScale) {
+    public Enemy(JsonValue data, float width, float height, float enemyScale, boolean faceRight) {
         // The shrink factors fit the image to a tigher hitbox
         super(  data.get("pos").getFloat(0),
                 data.get("pos").getFloat(1),
@@ -39,6 +43,7 @@ public class Enemy extends CapsuleObstacle {
         setFriction(data.getFloat("friction", 0));
         setFixedRotation(true);
 
+        this.faceRight = faceRight; // should face the direction player is in?
         this.enemyScale = enemyScale;
         //playerScale = playerScale1;
         //maxspeed = data.get("max_speed").getFloat("synth");
