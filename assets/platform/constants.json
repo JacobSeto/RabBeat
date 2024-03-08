@@ -47,6 +47,11 @@
 			"jazz": 2.5
 		}
 	},
+	"bullet": {
+		"offset" : 0.2,
+		"speed"  : 20.0,
+		"density": 10.0
+	},
 	"bridge": {
 		"pos": [9.0, 3.8],
 		"width": 14.0,
