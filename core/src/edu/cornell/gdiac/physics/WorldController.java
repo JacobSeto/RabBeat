@@ -16,8 +16,12 @@
  */
 package edu.cornell.gdiac.physics;
 
+import edu.cornell.gdiac.audio.AudioSource;
 import edu.cornell.gdiac.physics.platform.DudeModel;
 
+import edu.cornell.gdiac.sync.BeatTest;
+import edu.cornell.gdiac.sync.ISynced;
+import edu.cornell.gdiac.sync.Sync;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
@@ -51,6 +55,8 @@ public class WorldController implements Screen, ContactListener {
 
 	/** The genre state of the game */
 	public Genre genre = Genre.SYNTH;
+	/** The Sync object that will sync the world to the beat*/
+	public Sync sync;
 
 	/** The texture for walls */
 	protected TextureRegion blackTile;
@@ -75,21 +81,6 @@ public class WorldController implements Screen, ContactListener {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
-
-	// TODO: Unsure whether to keep constants here or in the models
-	/** Speed of player in Jazz */
-	protected static final float PLAYER_VX_JAZZ = 10f;
-	/** Speed of player in Synth */
-	protected static final float PLAYER_VX_SYNTH = 15f;
-	/** Upward force of player in Jazz */
-	protected static final float PLAYER_JUMP_FORCE_JAZZ = 5f;
-	/** Upward force of player in Synth */
-	protected static final float PLAYER_JUMP_FORCE_SYNTH = 1f;
-	/** Weighted platform position in Jazz */
-
-	/** Weighted platform position in Synth */
-	
-	/** Width of the game world in Box2d units */
 	protected static final float DEFAULT_WIDTH  = 32.0f;
 	/** Height of the game world in Box2d units */
 	protected static final float DEFAULT_HEIGHT = 18.0f;
@@ -130,8 +121,12 @@ public class WorldController implements Screen, ContactListener {
 	private TextureRegion synthJazzTexture;
 	private TextureRegion backgroundTexture;
 
-
 	// TODO: Add sounds and sound id fields here
+	/**synth soundtrack of game*/
+	private Music synthSoundtrack;
+	/** jazz soundtrack of game*/
+	private Music jazzSoundtrack;
+
 	private float volume;
 
 	/** The player scale for synth */
@@ -273,6 +268,8 @@ public class WorldController implements Screen, ContactListener {
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		weightedPlatforms = new Array<>();
+		sync = new Sync();
+
 	}
 
 	/**
@@ -325,8 +322,11 @@ public class WorldController implements Screen, ContactListener {
 	 */
 	public void gatherAssets(AssetDirectory directory) {
 		synthDefaultTexture = new TextureRegion(directory.getEntry("rPlayer:synth",Texture.class));
-
 		synthJazzTexture = new TextureRegion(directory.getEntry("rPlayer:synth-jazz",Texture.class));
+
+		//set the soundtrack
+		setSoundtrack(directory);
+
 		backgroundTexture = new TextureRegion(directory.getEntry("rBackground:test-bg",Texture.class));
 
 
@@ -338,6 +338,20 @@ public class WorldController implements Screen, ContactListener {
 		weightedPlatform = new TextureRegion((directory.getEntry("rPlatform:weightedPlatform", Texture.class)));
 		goalTile  = new TextureRegion(directory.getEntry( "shared:goal", Texture.class ));
 		displayFont = directory.getEntry( "shared:retro" ,BitmapFont.class);
+	}
+
+	/** Sets the synth and jazz soundtrack to the correct tracks.  This function will be significant
+	 * if there are multiple different soundtracks for different levels
+	 *
+	 * @param directory	Reference to global asset manager.
+	 * */
+	public void setSoundtrack(AssetDirectory directory){
+		synthSoundtrack = directory.getEntry("music:synth1", Music.class) ;
+		synthSoundtrack.setLooping(true);
+		synthSoundtrack.setVolume(1);
+		jazzSoundtrack = directory.getEntry("music:jazz1",Music.class);
+		jazzSoundtrack.setLooping(true);
+		jazzSoundtrack.setVolume(0);
 	}
 
 	/**
@@ -488,6 +502,12 @@ public class WorldController implements Screen, ContactListener {
 		addObject(avatar);
 
 		volume = constants.getFloat("volume", 1.0f);
+
+		//set up music syncing
+		Array<ISynced> s = new Array<>();
+		BeatTest b = new BeatTest();
+		s.add(b);
+		sync.setSync(s, synthSoundtrack, jazzSoundtrack);
 	}
 
 	/**
@@ -562,6 +582,7 @@ public class WorldController implements Screen, ContactListener {
 			InputController.getInstance().setSwitchGenre(false);
 			updateGenreSwitch();
 		}
+		sync.updateBeat();
 	}
 	/**
 	 * Callback method for the start of a collision
