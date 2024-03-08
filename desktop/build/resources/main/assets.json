@@ -26,6 +26,7 @@
         "wrapV": "repeated"
       },
         "shared:goal":   "shared/goaldoor.png",
+      "shared:bullet":  "shared/bullet.png",
       "rPlayer:synth":  "rPlayer/synth.png",
 
       "rPlayer:synth-jazz":   "rPlayer/synth-jazz.png",
