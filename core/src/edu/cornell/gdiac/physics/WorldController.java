@@ -339,7 +339,7 @@ public class WorldController implements Screen, ContactListener {
 		backgroundTexture = new TextureRegion(directory.getEntry("rBackground:test-bg",Texture.class));
 		enemyDefaultTexture = new TextureRegion(directory.getEntry("rPlayer:synth",Texture.class)); //CHANGE FOR ENEMY!
 
-		constants = directory.getEntry( "platform:constants", JsonValue.class );
+		constants = directory.getEntry( "constants", JsonValue.class );
 
 		// Allocate the tiles
 		blackTile = new TextureRegion(directory.getEntry( "rEnvironment:blackTile", Texture.class ));
@@ -502,7 +502,7 @@ public class WorldController implements Screen, ContactListener {
 		//world starts with Synth gravity
 		world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
 
-		// Create dude
+		// Create bunny
 		dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
 		dheight = synthDefaultTexture.getRegionHeight()/scale.y;
 		avatar = new DudeModel(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
@@ -510,19 +510,21 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setTexture(synthDefaultTexture);
 		addObject(avatar);
 
-		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-		enemy = new Enemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale);
-		enemy.setDrawScale(scale);
-		enemy.setTexture(enemyDefaultTexture);
-		addObject(enemy);
+
+		//TODO: Load enemies
+//		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+//		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+//		enemy = new Enemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale);
+//		enemy.setDrawScale(scale);
+//		enemy.setTexture(enemyDefaultTexture);
+//		addObject(enemy);
 
 		volume = constants.getFloat("volume", 1.0f);
 
 		//set up music syncing
+		//TODO: Add all synced objects into the Array
 		Array<ISynced> s = new Array<>();
-		BeatTest b = new BeatTest();
-		s.add(b);
+
 		sync.setSync(s, synthSoundtrack, jazzSoundtrack);
 	}
 

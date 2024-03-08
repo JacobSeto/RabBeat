@@ -6,6 +6,7 @@ import edu.cornell.gdiac.physics.GameCanvas;
 import edu.cornell.gdiac.physics.Genre;
 import edu.cornell.gdiac.physics.SyncedPlatform;
 import edu.cornell.gdiac.physics.obstacle.PolygonObstacle;
+import edu.cornell.gdiac.sync.ISynced;
 
 /**
  * WeightedPlatform.java
@@ -21,6 +22,8 @@ public class WeightedPlatform extends SyncedPlatform {
     private Vector2 jazzPosition;
 
     private Color tint;
+
+    boolean beatmove;
 
     /**
      * Creates a new weighted platform with the given physics data and current genre.
