@@ -35,7 +35,12 @@
     "jsons"  : {
         "platform:constants": "platform/constants.json"
     },
-    "sounds" : {
+    "sounds": {
+
+    },
+    "music" : {
+      "music:synth1": "music/synth1.ogg",
+      "music:jazz1": "music/jazz1.ogg"
     },
     "fonts": {
         "shared:retro": {
