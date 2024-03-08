@@ -1,10 +1,8 @@
 package edu.cornell.gdiac.sync;
-import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.*;
-import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.*;
 
-public class Sync {
+public class SyncController {
 
     /** The bpm of the soundtrack*/
     private final int BPM = 120;

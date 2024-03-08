@@ -16,13 +16,11 @@
  */
 package edu.cornell.gdiac.physics;
 
-import edu.cornell.gdiac.audio.AudioSource;
 import edu.cornell.gdiac.physics.platform.DudeModel;
 import edu.cornell.gdiac.physics.platform.Enemy;
 
-import edu.cornell.gdiac.sync.BeatTest;
 import edu.cornell.gdiac.sync.ISynced;
-import edu.cornell.gdiac.sync.Sync;
+import edu.cornell.gdiac.sync.SyncController;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
@@ -57,7 +55,7 @@ public class WorldController implements Screen, ContactListener {
 	/** The genre state of the game */
 	public Genre genre = Genre.SYNTH;
 	/** The Sync object that will sync the world to the beat*/
-	public Sync sync;
+	public SyncController syncController;
 
 	/** The texture for walls */
 	protected TextureRegion blackTile;
@@ -277,7 +275,7 @@ public class WorldController implements Screen, ContactListener {
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		weightedPlatforms = new Array<>();
-		sync = new Sync();
+		syncController = new SyncController();
 
 	}
 
@@ -525,7 +523,7 @@ public class WorldController implements Screen, ContactListener {
 		//TODO: Add all synced objects into the Array
 		Array<ISynced> s = new Array<>();
 
-		sync.setSync(s, synthSoundtrack, jazzSoundtrack);
+		syncController.setSync(s, synthSoundtrack, jazzSoundtrack);
 	}
 
 	/**
@@ -600,7 +598,7 @@ public class WorldController implements Screen, ContactListener {
 			InputController.getInstance().setSwitchGenre(false);
 			updateGenreSwitch();
 		}
-		sync.updateBeat();
+		syncController.updateBeat();
 	}
 	/**
 	 * Callback method for the start of a collision
