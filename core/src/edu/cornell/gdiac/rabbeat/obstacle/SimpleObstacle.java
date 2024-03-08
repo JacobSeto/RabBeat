@@ -1,8 +1,8 @@
 /*
- * ComplexObstacle.java
+ * SimpleObstacle.java
  *
- * This class is a subclass of PhysicsObject that supports mutliple Bodies.
- * This is the base class for objects that are tied together with joints.
+ * This class is a subclass of Obstacle that supports only one Body.
+ * it is the prime subclass of most models in the game.
  *
  * This class does not provide Shape information, and cannot be instantiated
  * directly.
@@ -16,35 +16,31 @@
  */
 package edu.cornell.gdiac.rabbeat.obstacle;
 
-import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
-import edu.cornell.gdiac.rabbeat.*;  // For GameCanvas
+import edu.cornell.gdiac.rabbeat.GameCanvas;
 
 /**
- * Composite model class to support collisions.
+ * Base model class to support collisions.
  *
- * ComplexObstacle instances are built of many bodies, and are assumed to be connected
- * by joints (though this is not actually a requirement). This is the class to use for 
- * chains, ropes, levers, and so on. This class does not provide Shape information, and 
- * cannot be instantiated directly.
+ * This is an instance of a Obstacle with just one body. It does not have any joints.
+ * It is the primary type of physics object. 
  *
- * ComplexObstacle is a hierarchical class.  It groups children as Obstacles, not bodies.
- * So you could have a ComplexObstacle made up of other ComplexObstacles.  However, it
- * also has a root body which may or may not be attached to the other bodies in the
- * hierarchy. All of the physics methods in the class apply to the root, not the body.
- * To move the other bodies, they should either be iterated over directly, or attached
- * to the root via a joint.
+ * This class does not provide Shape information, and cannot be instantiated directly.
  */
-public abstract class ComplexObstacle extends Obstacle {
-    /** A root body for this box 2d. */
-    protected Body body;
-	/** A complex physics object has multiple bodies */
-	protected Array<Obstacle> bodies;
-	/** Potential joints for connecting the multiple bodies */
-	protected Array<Joint> joints;
+public abstract class SimpleObstacle extends Obstacle {
+	/** The physics body for Box2D. */
+	protected Body body;
+
+	/** The texture for the shape. */
+	protected TextureRegion texture;
+
+	/** The texture origin for drawing */
+	protected Vector2 origin;
 	
 	/// BodyDef Methods
 	/**
@@ -53,11 +49,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * If you want to lock a body in place (e.g. a platform) set this value to STATIC.
 	 * KINEMATIC allows the object to move (and some limited collisions), but ignores 
 	 * external forces (e.g. gravity). DYNAMIC makes this is a full-blown physics object.
-	 *
-	 * This method returns the body type for the root object of this composite structure.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @return the body type for Box2D physics
 	 */
@@ -71,9 +62,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * If you want to lock a body in place (e.g. a platform) set this value to STATIC.
 	 * KINEMATIC allows the object to move (and some limited collisions), but ignores 
 	 * external forces (e.g. gravity). DYNAMIC makes this is a full-blown physics object.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @return the body type for Box2D physics
 	 */
@@ -92,9 +80,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * vector will not affect the body.  However, it returns the same vector each time
 	 * its is called, and so cannot be used as an allocator.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the current position for this physics body
 	 */
 	public Vector2 getPosition() {
@@ -105,9 +90,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * Sets the current position for this physics body
 	 *
 	 * This method does not keep a reference to the parameter.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the current position for this physics body
 	 */
@@ -121,11 +103,6 @@ public abstract class ComplexObstacle extends Obstacle {
 
 	/**
 	 * Sets the current position for this physics body
-	 *
-	 * This method does not keep a reference to the parameter.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param x  the x-coordinate for this physics body
 	 * @param y  the y-coordinate for this physics body
@@ -142,9 +119,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	/**
 	 * Returns the x-coordinate for this physics body
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the x-coordinate for this physics body
 	 */
 	public float getX() {
@@ -153,9 +127,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	
 	/**
 	 * Sets the x-coordinate for this physics body
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the x-coordinate for this physics body
 	 */
@@ -171,9 +142,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	/**
 	 * Returns the y-coordinate for this physics body
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the y-coordinate for this physics body
 	 */
 	public float getY() {
@@ -182,9 +150,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	
 	/**
 	 * Sets the y-coordinate for this physics body
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the y-coordinate for this physics body
 	 */
@@ -202,9 +167,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 *
 	 * The value returned is in radians
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the angle of rotation for this body
 	 */
 	public float getAngle() {
@@ -213,9 +175,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	
 	/**
 	 * Sets the angle of rotation for this body (about the center).
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the angle of rotation for this body (in radians)
 	 */
@@ -234,9 +193,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * vector will not affect the body.  However, it returns the same vector each time
 	 * its is called, and so cannot be used as an allocator.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the linear velocity for this physics body
 	 */
 	public Vector2 getLinearVelocity() {
@@ -247,9 +203,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * Sets the linear velocity for this physics body
 	 *
 	 * This method does not keep a reference to the parameter.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the linear velocity for this physics body
 	 */
@@ -264,9 +217,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	/**
 	 * Returns the x-velocity for this physics body
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the x-velocity for this physics body
 	 */
 	public float getVX() {
@@ -275,9 +225,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	
 	/**
 	 * Sets the x-velocity for this physics body
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the x-velocity for this physics body
 	 */
@@ -293,9 +240,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	/**
 	 * Returns the y-velocity for this physics body
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the y-velocity for this physics body
 	 */
 	public float getVY() {
@@ -304,9 +248,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	
 	/**
 	 * Sets the y-velocity for this physics body
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the y-velocity for this physics body
 	 */
@@ -324,9 +265,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 *
 	 * The rate of change is measured in radians per step
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the angular velocity for this physics body
 	 */
 	public float getAngularVelocity() {
@@ -335,9 +273,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	
 	/**
 	 * Sets the angular velocity for this physics body
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value the angular velocity for this physics body (in radians)
 	 */
@@ -357,9 +292,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * fixtures will not be placed in the broad-phase. This means the body will not 
 	 * participate in collisions, ray casts, etc.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return true if the body is active
 	 */
 	public boolean isActive() {
@@ -373,9 +305,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * to sleeping except the body will not be woken by other bodies and the body's 
 	 * fixtures will not be placed in the broad-phase. This means the body will not 
 	 * participate in collisions, ray casts, etc.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  whether the body is active
 	 */
@@ -395,9 +324,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * sleeping body, then the sleeping body wakes up. Bodies will also wake up if a 
 	 * joint or contact attached to them is destroyed.  You can also wake a body manually.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return true if the body is awake
 	 */
 	public boolean isAwake() {
@@ -411,9 +337,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * to stop simulating it to save CPU cycles. If a body is awake and collides with a 
 	 * sleeping body, then the sleeping body wakes up. Bodies will also wake up if a 
 	 * joint or contact attached to them is destroyed.  You can also wake a body manually.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  whether the body is awake
 	 */
@@ -433,9 +356,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * sleeping body, then the sleeping body wakes up. Bodies will also wake up if a 
 	 * joint or contact attached to them is destroyed.  You can also wake a body manually.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return false if this body should never fall asleep
 	 */
 	public boolean isSleepingAllowed() {
@@ -450,9 +370,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * sleeping body, then the sleeping body wakes up. Bodies will also wake up if a 
 	 * joint or contact attached to them is destroyed.  You can also wake a body manually.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @param value  whether the body should ever fall asleep
 	 */
 	public void setSleepingAllowed(boolean value) {
@@ -464,62 +381,9 @@ public abstract class ComplexObstacle extends Obstacle {
 	}
 	
 	/**
-	 * Returns true if this body is a bullet 
-	 *
-	 * By default, Box2D uses continuous collision detection (CCD) to prevent dynamic 
-	 * bodies from tunneling through static bodies. Normally CCD is not used between 
-	 * dynamic bodies. This is done to keep performance reasonable. In some game 
-	 * scenarios you need dynamic bodies to use CCD. For example, you may want to shoot
-	 * a high speed bullet at a stack of dynamic bricks. Without CCD, the bullet might
-	 * tunnel through the bricks.
-	 *
-	 * Fast moving objects in Box2D can be labeled as bullets. Bullets will perform CCD 
-	 * with both static and dynamic bodies. You should decide what bodies should be 
-	 * bullets based on your game design.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
-	 * @return true if this body is a bullet 
-	 */
-	public boolean isBullet() {
-		return (body != null ? body.isBullet() : super.isBullet());
-	}
-	
-	/**
-	 * Sets whether this body is a bullet 
-	 *
-	 * By default, Box2D uses continuous collision detection (CCD) to prevent dynamic 
-	 * bodies from tunneling through static bodies. Normally CCD is not used between 
-	 * dynamic bodies. This is done to keep performance reasonable. In some game 
-	 * scenarios you need dynamic bodies to use CCD. For example, you may want to shoot
-	 * a high speed bullet at a stack of dynamic bricks. Without CCD, the bullet might
-	 * tunnel through the bricks.
-	 *
-	 * Fast moving objects in Box2D can be labeled as bullets. Bullets will perform CCD 
-	 * with both static and dynamic bodies. You should decide what bodies should be 
-	 * bullets based on your game design.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
-	 * @param value  whether this body is a bullet 
-	 */
-	public void setBullet(boolean value) {
-		if (body != null) {
-			body.setBullet(value);
-		} else {
-			super.setBullet(value);
-		}
-	}
-	
-	/**
 	 * Returns true if this body be prevented from rotating
 	 *
 	 * This is very useful for characters that should remain upright.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @return true if this body be prevented from rotating
 	 */
@@ -531,9 +395,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * Sets whether this body be prevented from rotating
 	 *
 	 * This is very useful for characters that should remain upright.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  whether this body be prevented from rotating
 	 */
@@ -551,9 +412,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * This allows isolated objects to float.  Be careful with this, since increased 
 	 * gravity can decrease stability.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the gravity scale to apply to this body
 	 */
 	public float getGravityScale() {
@@ -565,9 +423,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 *
 	 * This allows isolated objects to float.  Be careful with this, since increased 
 	 * gravity can decrease stability.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the gravity scale to apply to this body
 	 */
@@ -590,9 +445,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * and infinity meaning full damping. Normally you will use a damping value between 
 	 * 0 and 0.1. Most people avoid linear damping because it makes bodies look floaty.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the linear damping for this body.
 	 */
 	public float getLinearDamping() {
@@ -609,9 +461,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * Damping parameters should be between 0 and infinity, with 0 meaning no damping, 
 	 * and infinity meaning full damping. Normally you will use a damping value between 
 	 * 0 and 0.1. Most people avoid linear damping because it makes bodies look floaty.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the linear damping for this body.
 	 */
@@ -634,9 +483,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * and infinity meaning full damping. Normally you will use a damping value between 
 	 * 0 and 0.1.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the angular damping for this body.
 	 */
 	public float getAngularDamping() {
@@ -653,9 +499,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * Damping parameters should be between 0 and infinity, with 0 meaning no damping, 
 	 * and infinity meaning full damping. Normally you will use a damping value between 
 	 * 0 and 0.1.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the angular damping for this body.
 	 */
@@ -674,9 +517,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * The density is typically measured in usually in kg/m^2. The density can be zero or 
 	 * positive. You should generally use similar densities for all your fixtures. This 
 	 * will improve stacking stability.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the density of this body
 	 */
@@ -698,9 +538,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * the friction parameters of the two parent fixtures. This is done with the geometric 
 	 * mean.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @param value  the friction coefficient of this body
 	 */
 	public void setFriction(float value) {
@@ -721,9 +558,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * the ball's velocity will be exactly reflected. This is called a perfectly elastic 
 	 * collision.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @param value  the restitution of this body
 	 */
 	public void setRestitution(float value) {
@@ -741,9 +575,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * Sometimes game logic needs to know when two entities overlap yet there should be 
 	 * no collision response. This is done by using sensors. A sensor is an entity that 
 	 * detects collision but does not produce a response.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  whether this object is a sensor.
 	 */
@@ -766,10 +597,7 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * supports such collision filtering using categories and groups.
 	 *
 	 * A value of null removes all collision filters.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
+	 * 
 	 * @param value  the filter data for this object
 	 */
 	public void setFilterData(Filter value) {
@@ -789,9 +617,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * vector will not affect the body.  However, it returns the same vector each time
 	 * its is called, and so cannot be used as an allocator.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the center of mass for this physics body
 	 */
 	public Vector2 getCentroid() {
@@ -802,9 +627,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * Sets the center of mass for this physics body
 	 *
 	 * This method does not keep a reference to the parameter.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the center of mass for this physics body
 	 */
@@ -821,9 +643,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * For static bodies, the mass and rotational inertia are set to zero. When 
 	 * a body has fixed rotation, its rotational inertia is zero.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the rotational inertia of this body
 	 */
 	public float getInertia() {
@@ -835,9 +654,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * 
 	 * For static bodies, the mass and rotational inertia are set to zero. When 
 	 * a body has fixed rotation, its rotational inertia is zero.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the rotational inertia of this body
 	 */
@@ -853,9 +669,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * 
 	 * The value is usually in kilograms.
 	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 * @return the mass of this body
 	 */
 	public float getMass() {
@@ -866,9 +679,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * Sets the mass of this body
 	 * 
 	 * The value is usually in kilograms.
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
 	 *
 	 * @param value  the mass of this body
 	 */
@@ -881,10 +691,6 @@ public abstract class ComplexObstacle extends Obstacle {
 	
 	/**
 	 * Resets this body to use the mass computed from the its shape and density
-	 *
-	 * This method affects the root body of this composite structure only.  If you want
-	 * to set the value for any of the child obstacles, iterate over the children.
-	 *
 	 */
 	public void resetMass() {
 		super.resetMass();
@@ -892,94 +698,102 @@ public abstract class ComplexObstacle extends Obstacle {
 			body.resetMassData();
 		}
 	}
-
-	/// Physics Bodies
+	
+	/// Texture Information
+	/**
+	 * Returns the object texture for drawing purposes.
+	 *
+	 * In order for drawing to work properly, you MUST set the drawScale.
+	 * The drawScale converts the physics units to pixels.
+	 * 
+	 * @return the object texture for drawing purposes.
+	 */
+	public TextureRegion getTexture() {
+		return texture;
+	}
+	
+	/**
+	 * Sets the object texture for drawing purposes.
+	 *
+	 * In order for drawing to work properly, you MUST set the drawScale.
+	 * The drawScale converts the physics units to pixels.
+	 * 
+	 * @param value  the object texture for drawing purposes.
+	 */
+	public void setTexture(TextureRegion value) {
+		texture = value;
+		origin.set(texture.getRegionWidth()/2.0f, texture.getRegionHeight()/2.0f);
+	}
+	
+	/**
+	 * Draws the physics object.
+	 *
+	 * @param canvas Drawing context
+	 */
+	public void draw(GameCanvas canvas) {
+		if (texture != null) {
+			canvas.draw(texture,Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.x,getAngle(),1,1);
+		}
+	}
+	
 	/**
 	 * Returns the Box2D body for this object.
 	 *
-	 * This method only returrns the root body in this composite structure.  For more
-	 * fine-grain control, you should use the iterator methods.
+	 * You use this body to add joints and apply forces.
 	 *
 	 * @return the Box2D body for this object.
 	 */
 	public Body getBody() {
-		return (bodies.size > 0 ? bodies.get(0).getBody() : null);
+		return body;
 	}
 	
-	/** 
-	 * Returns the collection of component physics objects.
-	 *
-	 * While the iterable does not allow you to modify the list, it is possible to
-	 * modify the individual objects.
-	 *
-	 * @return the collection of component physics objects.
-	 */
-	 public Iterable<Obstacle> getBodies() {
-	 	return bodies;
-	 }
-
-	/** 
-	 * Returns the collection of joints for this object (may be empty).
-	 *
-	 * While the iterable does not allow you to modify the list, it is possible to
-	 * modify the individual joints.
-	 *
-	 * @return the collection of joints for this object.
-	 */
-	 public Iterable<Joint> getJoints() {
-	 	return joints;
-	 }
-
 	/**
-	 * Creates a new complex physics object at the origin.
+	 * Creates a new simple physics object at the origin.
+	 * 
+	 * REMEMBER: The size is in physics units, not pixels.
 	 */
-	protected ComplexObstacle() {
+	protected SimpleObstacle() {
 		this(0,0);
 	}
 	
 	/**
-	 * Creates a new complex physics object
-	 * 
-	 * The position is the position of the root object.
+	 * Creates a new simple physics object
 	 * 
 	 * @param x  Initial x position in world coordinates
 	 * @param y  Initial y position in world coordinates
 	 */
-	protected ComplexObstacle(float x, float y) {
+	protected SimpleObstacle(float x, float y) {
 		super(x,y);
-		bodies = new Array<Obstacle>();
-		joints = new Array<Joint>();
+		origin = new Vector2();
+		body = null;
 	}
-
+	
 	/**
 	 * Creates the physics Body(s) for this object, adding them to the world.
 	 *
-	 * This method invokes ActivatePhysics for the individual PhysicsObjects
-	 * in the list. It also calls the internal method createJoints() to 
-	 * link them all together. You should override that method, not this one, 
-	 * for specific physics objects.
+	 * Implementations of this method should NOT retain a reference to World.  
+	 * That is a tight coupling that we should avoid.
 	 *
 	 * @param world Box2D world to store body
 	 *
 	 * @return true if object allocation succeeded
 	 */
 	public boolean activatePhysics(World world) {
+		// Make a body, if possible
 		bodyinfo.active = true;
-		boolean success = true;
-	
-		// Create all other bodies.
-		for(Obstacle obj : bodies) {
-			success = success && obj.activatePhysics(world);
-		}
-		success = success && createJoints(world);
+		body = world.createBody(bodyinfo);
+		body.setUserData(this);
 		
-		// Clean up if we failed
-		if (!success) {
-			deactivatePhysics(world);
-		}
-		return success;
+		// Only initialize if a body was created.
+		if (body != null) {
+			createFixtures();
+			return true;
+		} 
+		
+		bodyinfo.active = false;
+		return false;
 	}
-
+	
 	/**
 	 * Destroys the physics Body(s) of this object if applicable,
 	 * removing them from the world.
@@ -987,31 +801,30 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * @param world Box2D world that stores body
 	 */
 	public void deactivatePhysics(World world) {
-		if (bodyinfo.active) {
-			// Should be good for most (simple) applications.
-			for (Joint joint : joints) {
-				world.destroyJoint(joint);
-			}
-			joints.clear();
-			for (Obstacle obj : bodies) {
-				obj.deactivatePhysics(world);
-			}
+		// Should be good for most (simple) applications.
+		if (body != null) {
+			// Snapshot the values
+			setBodyState(body);
+			world.destroyBody(body);
+			body = null;
 			bodyinfo.active = false;
 		}
 	}
 
 	/**
-	 * Creates the joints for this object.
-	 * 
-	 * This method is executed as part of activePhysics. This is the primary method to 
-	 * override for custom physics objects.
+	 * Create new fixtures for this body, defining the shape
 	 *
-	 * @param world Box2D world to store joints
-	 *
-	 * @return true if object allocation succeeded
+	 * This is the primary method to override for custom physics objects
 	 */
-	protected abstract boolean createJoints(World world);
+	protected abstract void createFixtures();
 
+    /**
+     * Release the fixtures for this body, reseting the shape
+     *
+     * This is the primary method to override for custom physics objects.
+     */
+	protected abstract void releaseFixtures();
+    
 	/**
 	 * Updates the object's physics state (NOT GAME LOGIC).
 	 *
@@ -1023,56 +836,9 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * @param dt Timing values from parent loop
 	 */
 	public void update(float delta) {
-		// Delegate to components
-		for(Obstacle obj : bodies) {
-			obj.update(delta);
+		// Recreate the fixture object if dimensions changed.
+		if (isDirty()) {
+			createFixtures();
 		}
 	}
-	
-	/**
-     * Sets the drawing scale for this physics object
-     *
-     * The drawing scale is the number of pixels to draw before Box2D unit. Because
-     * mass is a function of area in Box2D, we typically want the physics objects
-     * to be small.  So we decouple that scale from the physics object.  However,
-     * we must track the scale difference to communicate with the scene graph.
-     *
-     * We allow for the scaling factor to be non-uniform.
-     *
-     * @param x  the x-axis scale for this physics object
-     * @param y  the y-axis scale for this physics object
-     */
-    public void setDrawScale(float x, float y) {
-    	drawScale.set(x,y);
-		for(Obstacle obj : bodies) {
-			obj.setDrawScale(x,y);
-		}
-    }
-
-	/**
-	 * Draws the physics object.
-	 *
-	 * @param canvas Drawing context
-	 */
-	public void draw(GameCanvas canvas) {
-		// Delegate to components
-		for(Obstacle obj : bodies) {
-			obj.draw(canvas);
-		}
-	}
-
-	/**
-	 * Draws the outline of the physics body.
-	 *
-	 * This method can be helpful for understanding issues with collisions.
-	 *
-	 * @param canvas Drawing context
-	 */
-	public void drawDebug(GameCanvas canvas) {
-		// Delegate to components
-		for(Obstacle obj : bodies) {
-			obj.drawDebug(canvas);
-		}
-	}
-
 }

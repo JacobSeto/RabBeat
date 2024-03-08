@@ -16,20 +16,25 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
+import edu.cornell.gdiac.rabbeat.obstacle.enemies.Enemy;
+
+import edu.cornell.gdiac.rabbeat.obstacle.platforms.SyncedPlatform;
+import edu.cornell.gdiac.rabbeat.sync.ISynced;
+import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.*;
-import com.badlogic.gdx.assets.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.graphics.g2d.freetype.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
+import edu.cornell.gdiac.rabbeat.obstacle.platforms.WeightedPlatform;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.rabbeat.obstacle.*;
+//import javax.xml.soap.Text;
 
 /**
  * Base class for a world-specific controller.
@@ -45,9 +50,20 @@ import edu.cornell.gdiac.rabbeat.obstacle.*;
  * This is the purpose of our AssetState variable; it ensures that multiple instances
  * place nicely with the static assets.
  */
-public abstract class WorldController implements Screen {
-	/** The texture for walls and platforms */
-	protected TextureRegion earthTile;
+public class WorldController implements Screen, ContactListener {
+
+	/** The genre state of the game */
+	public Genre genre = Genre.SYNTH;
+	/** The Sync object that will sync the world to the beat*/
+	public SyncController syncController;
+
+	/** The texture for walls */
+	protected TextureRegion blackTile;
+	/** The texture for regular platforms */
+	protected TextureRegion platformTile;
+	/** The texture for weighted platforms */
+	protected TextureRegion weightedPlatform;
+
 	/** The texture for the exit condition */
 	protected TextureRegion goalTile;
 	/** The font for giving messages to the player */
@@ -55,10 +71,6 @@ public abstract class WorldController implements Screen {
 	
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
-	/** Exit code for advancing to next level */
-	public static final int EXIT_NEXT = 1;
-	/** Exit code for jumping back to previous level */
-	public static final int EXIT_PREV = 2;
     /** How many frames after winning/losing do we continue? */
 	public static final int EXIT_COUNT = 120;
 
@@ -68,8 +80,6 @@ public abstract class WorldController implements Screen {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
-	
-	/** Width of the game world in Box2d units */
 	protected static final float DEFAULT_WIDTH  = 32.0f;
 	/** Height of the game world in Box2d units */
 	protected static final float DEFAULT_HEIGHT = 18.0f;
@@ -91,7 +101,7 @@ public abstract class WorldController implements Screen {
 	protected Rectangle bounds;
 	/** The world scale */
 	protected Vector2 scale;
-	
+
 	/** Whether or not this is an active controller */
 	private boolean active;
 	/** Whether we have completed this level */
@@ -102,6 +112,46 @@ public abstract class WorldController implements Screen {
 	private boolean debug;
 	/** Countdown active for winning or losing */
 	private int countdown;
+
+
+	/** Textures for rab-beat*/
+
+	private TextureRegion synthDefaultTexture;
+	private TextureRegion synthJazzTexture;
+	private TextureRegion backgroundTexture;
+	private TextureRegion enemyDefaultTexture;
+
+	// TODO: Add sounds and sound id fields here
+	/**synth soundtrack of game*/
+	private Music synthSoundtrack;
+	/** jazz soundtrack of game*/
+	private Music jazzSoundtrack;
+
+	private float volume;
+
+	/** The player scale for synth */
+	private float playerScale = 3/8f;
+
+	/** The enemy scale for the enemy */
+	private float enemyScale = 3/8f;
+
+	// Physics objects for the game
+	/** Physics constants for initialization */
+	private JsonValue constants;
+	/** Reference to the character avatar */
+	private Player avatar;
+
+	/** Reference to the enemy avatar */
+	private Enemy enemy;
+
+	/** Reference to the goalDoor (for collision detection) */
+	private BoxObstacle goalDoor;
+	/** Reference to all the weighted platforms */
+	private Array<SyncedPlatform> weightedPlatforms;
+
+	/** Mark set to handle more sophisticated collision callbacks */
+	protected ObjectSet<Fixture> sensorFixtures;
+
 
 	/**
 	 * Returns true if debug mode is active.
@@ -132,7 +182,7 @@ public abstract class WorldController implements Screen {
 	 *
 	 * @return true if the level is completed.
 	 */
-	public boolean isComplete( ) {
+	public boolean isComplete() {
 		return complete;
 	}
 
@@ -180,7 +230,7 @@ public abstract class WorldController implements Screen {
 	 *
 	 * @return true if this is the active screen
 	 */
-	public boolean isActive( ) {
+	public boolean isActive() {
 		return active;
 	}
 
@@ -219,21 +269,14 @@ public abstract class WorldController implements Screen {
 	protected WorldController() {
 		this(new Rectangle(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT), 
 			 new Vector2(0,DEFAULT_GRAVITY));
-	}
+		setDebug(false);
+		setComplete(false);
+		setFailure(false);
+		world.setContactListener(this);
+		sensorFixtures = new ObjectSet<Fixture>();
+		weightedPlatforms = new Array<>();
+		syncController = new SyncController();
 
-	/**
-	 * Creates a new game world
-	 *
-	 * The game world is scaled so that the screen coordinates do not agree
-	 * with the Box2d coordinates.  The bounds are in terms of the Box2d
-	 * world, not the screen.
-	 *
-	 * @param width  	The width in Box2d coordinates
-	 * @param height	The height in Box2d coordinates
-	 * @param gravity	The downward gravity
-	 */
-	protected WorldController(float width, float height, float gravity) {
-		this(new Rectangle(0,0,width,height), new Vector2(0,gravity));
 	}
 
 	/**
@@ -275,6 +318,7 @@ public abstract class WorldController implements Screen {
 		canvas = null;
 	}
 
+	// TODO: Adjust to the correct assets after assets have been added
 	/**
 	 * Gather the assets for this controller.
 	 *
@@ -284,10 +328,37 @@ public abstract class WorldController implements Screen {
 	 * @param directory	Reference to global asset manager.
 	 */
 	public void gatherAssets(AssetDirectory directory) {
+		synthDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class));
+		synthJazzTexture = new TextureRegion(directory.getEntry("player:synth-jazz",Texture.class));
+
+		//set the soundtrack
+		setSoundtrack(directory);
+
+		backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
+		enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
+
+		constants = directory.getEntry( "constants", JsonValue.class );
+
 		// Allocate the tiles
-		earthTile = new TextureRegion(directory.getEntry( "shared:earth", Texture.class ));
-		goalTile  = new TextureRegion(directory.getEntry( "shared:goal", Texture.class ));
-		displayFont = directory.getEntry( "shared:retro" ,BitmapFont.class);
+		blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
+		platformTile = new TextureRegion(directory.getEntry( "world:platforms:platformTile", Texture.class ));
+		weightedPlatform = new TextureRegion((directory.getEntry("world:platforms:weightedPlatform", Texture.class)));
+		goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
+		displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
+	}
+
+	/** Sets the synth and jazz soundtrack to the correct tracks.  This function will be significant
+	 * if there are multiple different soundtracks for different levels
+	 *
+	 * @param directory	Reference to global asset manager.
+	 * */
+	public void setSoundtrack(AssetDirectory directory){
+		synthSoundtrack = directory.getEntry("music:synth1", Music.class) ;
+		synthSoundtrack.setLooping(true);
+		synthSoundtrack.setVolume(1);
+		jazzSoundtrack = directory.getEntry("music:jazz1",Music.class);
+		jazzSoundtrack.setLooping(true);
+		jazzSoundtrack.setVolume(0);
 	}
 
 	/**
@@ -329,14 +400,132 @@ public abstract class WorldController implements Screen {
 		boolean vert  = (bounds.y <= obj.getY() && obj.getY() <= bounds.y+bounds.height);
 		return horiz && vert;
 	}
-	
+
+	// TODO: Reset to SYNTH defaults
 	/**
 	 * Resets the status of the game so that we can play again.
 	 *
 	 * This method disposes of the world and creates a new one.
 	 */
-	public abstract void reset();
-	
+	public void reset() {
+		//Default genre is synth
+		genre = Genre.SYNTH;
+		Vector2 gravity = new Vector2(world.getGravity() );
+
+		for(Obstacle obj : objects) {
+			obj.deactivatePhysics(world);
+		}
+		objects.clear();
+		addQueue.clear();
+		world.dispose();
+
+		world = new World(gravity,false);
+		world.setContactListener(this);
+		setComplete(false);
+		setFailure(false);
+		populateLevel();
+	}
+
+	// TODO: Will use level data json to populate
+	/**
+	 * Lays out the game geography.
+	 */
+	private void populateLevel() {
+		// Add level goal
+		float dwidth  = goalTile.getRegionWidth()/scale.x;
+		float dheight = goalTile.getRegionHeight()/scale.y;
+
+		JsonValue goal = constants.get("goal");
+		JsonValue goalpos = goal.get("pos");
+		goalDoor = new BoxObstacle(goalpos.getFloat(0),goalpos.getFloat(1),dwidth,dheight);
+		goalDoor.setBodyType(BodyDef.BodyType.StaticBody);
+		goalDoor.setDensity(goal.getFloat("density", 0));
+		goalDoor.setFriction(goal.getFloat("friction", 0));
+		goalDoor.setRestitution(goal.getFloat("restitution", 0));
+		goalDoor.setSensor(true);
+		goalDoor.setDrawScale(scale);
+		goalDoor.setTexture(goalTile);
+		goalDoor.setName("goal");
+		addObject(goalDoor);
+
+		String wname = "wall";
+		JsonValue walljv = constants.get("walls");
+		JsonValue defaults = constants.get("defaults");
+		for (int ii = 0; ii < walljv.size; ii++) {
+			PolygonObstacle obj;
+			obj = new PolygonObstacle(walljv.get(ii).asFloatArray(), 0, 0);
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(defaults.getFloat( "density", 0.0f ));
+			obj.setFriction(defaults.getFloat( "friction", 0.0f ));
+			obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
+			obj.setDrawScale(scale);
+			obj.setTexture(blackTile);
+			obj.setName(wname+ii);
+			addObject(obj);
+		}
+
+		String pname = "platform";
+		JsonValue platjv = constants.get("platforms");
+		for (int ii = 0; ii < platjv.size; ii++) {
+			PolygonObstacle obj;
+			obj = new PolygonObstacle(platjv.get(ii).asFloatArray(), 0, 0);
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(defaults.getFloat( "density", 0.0f ));
+			obj.setFriction(defaults.getFloat( "friction", 0.0f ));
+			obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
+			obj.setDrawScale(scale);
+			obj.setTexture(platformTile);
+			obj.setName(pname+ii);
+			addObject(obj);
+		}
+
+		String wpname = "wplatform";
+		JsonValue wplatjv = constants.get("wplatforms");
+		for (int ii = 0; ii < wplatjv.size; ii++) {
+			JsonValue currentWP = wplatjv.get(ii);
+			WeightedPlatform obj;
+			obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
+					currentWP.get("jazzPos").asFloatArray());
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(defaults.getFloat("density", 0.0f));
+			obj.setFriction(defaults.getFloat("friction", 0.0f));
+			obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+			obj.setDrawScale(scale);
+			obj.setTexture(weightedPlatform);
+			obj.setName(wpname + ii);
+			addObject(obj);
+			weightedPlatforms.add(obj);
+		}
+
+		//world starts with Synth gravity
+		world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
+
+		// Create bunny
+		dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
+		dheight = synthDefaultTexture.getRegionHeight()/scale.y;
+		avatar = new Player(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
+		avatar.setDrawScale(scale);
+		avatar.setTexture(synthDefaultTexture);
+		addObject(avatar);
+
+
+		//TODO: Load enemies
+//		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+//		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+//		enemy = new Enemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale);
+//		enemy.setDrawScale(scale);
+//		enemy.setTexture(enemyDefaultTexture);
+//		addObject(enemy);
+
+		volume = constants.getFloat("volume", 1.0f);
+
+		//set up music syncing
+		//TODO: Add all synced objects into the Array
+		Array<ISynced> s = new Array<>();
+
+		syncController.setSync(s, synthSoundtrack, jazzSoundtrack);
+	}
+
 	/**
 	 * Returns whether to process the update loop
 	 *
@@ -351,47 +540,44 @@ public abstract class WorldController implements Screen {
 	public boolean preUpdate(float dt) {
 		InputController input = InputController.getInstance();
 		input.readInput(bounds, scale);
-		if (listener == null) {
-			return true;
-		}
+		if (listener != null) {
+			// Toggle debug
+			if (input.didDebug()) {
+				debug = !debug;
+			}
 
-		// Toggle debug
-		if (input.didDebug()) {
-			debug = !debug;
-		}
-		
-		// Handle resets
-		if (input.didReset()) {
-			reset();
-		}
-		
-		// Now it is time to maybe switch screens.
-		if (input.didExit()) {
-			pause();
-			listener.exitScreen(this, EXIT_QUIT);
-			return false;
-		} else if (input.didAdvance()) {
-			pause();
-			listener.exitScreen(this, EXIT_NEXT);
-			return false;
-		} else if (input.didRetreat()) {
-			pause();
-			listener.exitScreen(this, EXIT_PREV);
-			return false;
-		} else if (countdown > 0) {
-			countdown--;
-		} else if (countdown == 0) {
-			if (failed) {
+			// Handle resets
+			if (input.didReset()) {
 				reset();
-			} else if (complete) {
+			}
+
+			// Now it is time to maybe switch screens.
+			if (input.didExit()) {
 				pause();
-				listener.exitScreen(this, EXIT_NEXT);
+				listener.exitScreen(this, EXIT_QUIT);
 				return false;
 			}
+			else if (countdown > 0) {
+				countdown--;
+			} else if (countdown == 0) {
+				if (failed) {
+					reset();
+				} else if (complete) {
+					pause();
+					//TODO: Make Win Condition
+					System.out.println("You win the game");
+					return false;
+				}
+			}
+		}
+		if (!isFailure() && avatar.getY() < -1) {
+			setFailure(true);
+			return false;
 		}
 		return true;
 	}
-	
+
+	// TODO: Update physics based on genre
 	/**
 	 * The core gameplay loop of this world.
 	 *
@@ -402,8 +588,119 @@ public abstract class WorldController implements Screen {
 	 *
 	 * @param dt	Number of seconds since last animation frame
 	 */
-	public abstract void update(float dt);
-	
+	public void update(float dt) {
+		// Process actions in object model
+		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
+		avatar.setJumping(InputController.getInstance().didPrimary());
+		avatar.applyForce();
+		if (InputController.getInstance().getSwitchGenre()) {
+			switchGenre();
+			InputController.getInstance().setSwitchGenre(false);
+			updateGenreSwitch();
+		}
+		syncController.updateBeat();
+	}
+	/**
+	 * Callback method for the start of a collision
+	 *
+	 * This method is called when we first get a collision between two objects.  We use
+	 * this method to test if it is the "right" kind of collision.  In particular, we
+	 * use it to test if we made it to the win door.
+	 *
+	 * @param contact The two bodies that collided
+	 */
+	public void beginContact(Contact contact) {
+		Fixture fix1 = contact.getFixtureA();
+		Fixture fix2 = contact.getFixtureB();
+
+		Body body1 = fix1.getBody();
+		Body body2 = fix2.getBody();
+
+		Object fd1 = fix1.getUserData();
+		Object fd2 = fix2.getUserData();
+
+		try {
+			Obstacle bd1 = (Obstacle)body1.getUserData();
+			Obstacle bd2 = (Obstacle)body2.getUserData();
+
+			// See if we have landed on the ground.
+			if ((avatar.getSensorName().equals(fd2) && avatar != bd1) ||
+					(avatar.getSensorName().equals(fd1) && avatar != bd2)) {
+				avatar.setGrounded(true);
+				sensorFixtures.add(avatar == bd1 ? fix2 : fix1); // Could have more than one ground
+			}
+
+			// Check for win condition
+			if ((bd1 == avatar   && bd2 == goalDoor) ||
+					(bd1 == goalDoor && bd2 == avatar)) {
+				setComplete(true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Callback method for the start of a collision
+	 *
+	 * This method is called when two objects cease to touch.  The main use of this method
+	 * is to determine when the character is NOT on the ground.  This is how we prevent
+	 * double jumping.
+	 */
+	public void endContact(Contact contact) {
+		Fixture fix1 = contact.getFixtureA();
+		Fixture fix2 = contact.getFixtureB();
+
+		Body body1 = fix1.getBody();
+		Body body2 = fix2.getBody();
+
+		Object fd1 = fix1.getUserData();
+		Object fd2 = fix2.getUserData();
+
+		Object bd1 = body1.getUserData();
+		Object bd2 = body2.getUserData();
+
+		if ((avatar.getSensorName().equals(fd2) && avatar != bd1) ||
+				(avatar.getSensorName().equals(fd1) && avatar != bd2)) {
+			sensorFixtures.remove(avatar == bd1 ? fix2 : fix1);
+			if (sensorFixtures.size == 0) {
+				avatar.setGrounded(false);
+			}
+		}
+	}
+
+	/** Unused ContactListener method */
+	public void postSolve(Contact contact, ContactImpulse impulse) {}
+	/** Unused ContactListener method */
+	public void preSolve(Contact contact, Manifold oldManifold) {}
+
+	/**
+	 * Loop update when the genre switch occurs. Only objects affected by genre switching should
+	 * be updated.
+	 *
+	 */
+	public void updateGenreSwitch() {
+		//update to Synth
+		if (genre == Genre.SYNTH) {
+			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
+			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
+			avatar.setTexture(synthDefaultTexture);
+			for (SyncedPlatform platform : weightedPlatforms) {
+				platform.genreUpdate(Genre.SYNTH);
+			}
+		}
+		//update to Jazz
+		else {
+			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("jazz",0)) );
+			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
+			avatar.setTexture(synthJazzTexture);
+			for (SyncedPlatform platform : weightedPlatforms) {
+				platform.genreUpdate(Genre.JAZZ);
+			}
+		}
+	}
+
 	/**
 	 * Processes physics
 	 *
@@ -451,6 +748,11 @@ public abstract class WorldController implements Screen {
 	 */
 	public void draw(float dt) {
 		canvas.clear();
+
+		// Draw background unscaled.
+		canvas.begin();
+		canvas.draw(backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
+		canvas.end();
 		
 		canvas.begin();
 		for(Obstacle obj : objects) {
@@ -554,12 +856,12 @@ public abstract class WorldController implements Screen {
 
 	/**
 	 * Called when the Screen is paused.
-	 * 
-	 * This is usually when it's not active or visible on screen. An Application is 
-	 * also paused before it is destroyed.
+	 *
+	 * We need this method to stop all sounds when we pause.
+	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
-		// TODO Auto-generated method stub
+		// TODO: Stop all sounds here
 	}
 
 	/**
@@ -594,6 +896,24 @@ public abstract class WorldController implements Screen {
 	 */
 	public void setScreenListener(ScreenListener listener) {
 		this.listener = listener;
+	}
+
+
+	/**
+	 * Switches the genre depending on what the current genre is.
+	 */
+	public void switchGenre() {
+		switch(genre) {
+			case SYNTH:
+				genre = Genre.JAZZ;
+				System.out.println("Now switching to jazz!");
+				break;
+			case JAZZ:
+				System.out.println("Now switching to synth!");
+				genre = Genre.SYNTH;
+				break;
+		}
+
 	}
 
 }
