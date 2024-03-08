@@ -8,7 +8,7 @@
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * Updated asset version, 2/6/2021
  */
-package edu.cornell.gdiac.physics.platform;
+package edu.cornell.gdiac.rabbeat.platform;
 
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.*;
@@ -19,10 +19,10 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.physics.box2d.*;
 
 import edu.cornell.gdiac.assets.AssetDirectory;
-import edu.cornell.gdiac.physics.rocket.RocketModel;
+import edu.cornell.gdiac.rabbeat.rocket.RocketModel;
 import edu.cornell.gdiac.util.*;
-import edu.cornell.gdiac.physics.*;
-import edu.cornell.gdiac.physics.obstacle.*;
+import edu.cornell.gdiac.rabbeat.*;
+import edu.cornell.gdiac.rabbeat.obstacle.*;
 
 /**
  * Gameplay specific controller for the platformer game.  

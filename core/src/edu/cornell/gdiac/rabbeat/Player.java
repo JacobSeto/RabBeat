@@ -8,7 +8,7 @@
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * Updated asset version, 2/6/2021
  */
-package edu.cornell.gdiac.rabbeat.platform;
+package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
@@ -24,7 +24,7 @@ import edu.cornell.gdiac.rabbeat.obstacle.*;
  * Note that this class returns to static loading.  That is because there are
  * no other subclasses that we might loop through.
  */
-public class DudeModel extends CapsuleObstacle {
+public class Player extends CapsuleObstacle {
 	/** The initializing data (to avoid magic numbers) */
 	private final JsonValue data;
 
@@ -33,7 +33,7 @@ public class DudeModel extends CapsuleObstacle {
 	/** The amount to slow the character down */
 	private final float damping;
 	/** The maximum character speed */
-	private final float maxspeed;
+	private float maxspeed;
 	/** Identifier to allow us to track the sensor in ContactListener */
 	private final String sensorName;
 	/** The impulse for the character jump */
@@ -45,18 +45,15 @@ public class DudeModel extends CapsuleObstacle {
 
 	/** The current horizontal movement of the character */
 	private float   movement;
-	/** Which direction is the character facing */
+	/** Whether the character is facing right */
 	private boolean faceRight;
 	/** How long until we can jump again */
 	private int jumpCooldown;
 	/** Whether we are actively jumping */
 	private boolean isJumping;
-	/** How long until we can shoot again */
-	private int shootCooldown;
 	/** Whether our feet are on the ground */
 	private boolean isGrounded;
-	/** Whether we are actively shooting */
-	private boolean isShooting;
+
 	/** The physics shape of this object */
 	private PolygonShape sensorShape;
 	
@@ -90,24 +87,6 @@ public class DudeModel extends CapsuleObstacle {
 		} else if (movement > 0) {
 			faceRight = true;
 		}
-	}
-	
-	/**
-	 * Returns true if the dude is actively firing.
-	 *
-	 * @return true if the dude is actively firing.
-	 */
-	public boolean isShooting() {
-		return isShooting && shootCooldown <= 0;
-	}
-	
-	/**
-	 * Sets whether the dude is actively firing.
-	 *
-	 * @param value whether the dude is actively firing.
-	 */
-	public void setShooting(boolean value) {
-		isShooting = value; 
 	}
 
 	/**
@@ -178,6 +157,14 @@ public class DudeModel extends CapsuleObstacle {
 	}
 
 	/**
+	 * Sets the max speed of the bunny
+	 *
+	 */
+	public void setMaxSpeed(float newMaxSpeed){
+		maxspeed = newMaxSpeed;
+	}
+
+	/**
 	 * Returns the name of the ground sensor
 	 *
 	 * This is used by ContactListener
@@ -187,6 +174,9 @@ public class DudeModel extends CapsuleObstacle {
 	public String getSensorName() { 
 		return sensorName;
 	}
+
+	/** The scale of the enemy */
+	public float playerScale;
 
 	/**
 	 * Returns true if this character is facing right
@@ -208,7 +198,7 @@ public class DudeModel extends CapsuleObstacle {
 	 * @param width		The object width in physics units
 	 * @param height	The object width in physics units
 	 */
-	public DudeModel(JsonValue data, float width, float height) {
+	public Player(JsonValue data, float width, float height, float playerScale1) {
 		// The shrink factors fit the image to a tigher hitbox
 		super(	data.get("pos").getFloat(0),
 				data.get("pos").getFloat(1),
@@ -218,7 +208,9 @@ public class DudeModel extends CapsuleObstacle {
 		setFriction(data.getFloat("friction", 0));  /// HE WILL STICK TO WALLS IF YOU FORGET
 		setFixedRotation(true);
 
-		maxspeed = data.getFloat("maxspeed", 0);
+		playerScale = playerScale1;
+		maxspeed = data.get("max_speed").getFloat("synth");
+
 		damping = data.getFloat("damping", 0);
 		force = data.getFloat("force", 0);
 		jump_force = data.getFloat( "jump_force", 0 );
@@ -229,11 +221,9 @@ public class DudeModel extends CapsuleObstacle {
 
 		// Gameplay attributes
 		isGrounded = false;
-		isShooting = false;
 		isJumping = false;
 		faceRight = true;
-		
-		shootCooldown = 0;
+
 		jumpCooldown = 0;
 		setName("dude");
 	}
@@ -324,12 +314,6 @@ public class DudeModel extends CapsuleObstacle {
 		} else {
 			jumpCooldown = Math.max(0, jumpCooldown - 1);
 		}
-
-		if (isShooting()) {
-			shootCooldown = shotLimit;
-		} else {
-			shootCooldown = Math.max(0, shootCooldown - 1);
-		}
 		
 		super.update(dt);
 	}
@@ -341,7 +325,10 @@ public class DudeModel extends CapsuleObstacle {
 	 */
 	public void draw(GameCanvas canvas) {
 		float effect = faceRight ? 1.0f : -1.0f;
-		canvas.draw(texture,Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),effect,1.0f);
+		//System.out.println(drawScale.x);
+		//System.out.println(drawScale.y);
+		canvas.draw(texture,Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
+				playerScale*effect,playerScale);
 	}
 	
 	/**

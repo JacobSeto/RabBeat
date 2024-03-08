@@ -1,40 +1,34 @@
 {
 	"textures": {
-        "rEnvironment:blackTile" : {
-            "file":  "rEnvironment/blackTile.png",
+        "world:platforms:blackTile" : {
+            "file":  "world/platforms/blackTile.png",
             "wrapU": "repeated",
             "wrapV": "repeated"
         },
-        "shared:weighted" : {
-            "file":  "shared/weightedplatform.png",
+        "world:platforms:weightedPlatform" : {
+            "file":  "world/platforms//weightedplatform.png",
             "wrapU": "repeated",
             "wrapV": "repeated"
         },
-      "rPlatform:platformTile" : {
-        "file":  "rPlatform/platformTile.png",
+      "world:platforms:platformTile" : {
+        "file":  "world/platforms//platformTile.png",
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
-      "rPlatform:weightedPlatform" : {
-        "file":  "rPlatform/weightedPlatform.png",
+      "world:weightedLaserTile" : {
+        "file":  "world/weightedLaserTile.png",
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
-      "rPlatform:weightedLaserTile" : {
-        "file":  "rPlatform/weightedLaserTile.png",
-        "wrapU": "repeated",
-        "wrapV": "repeated"
-      },
-        "shared:goal":   "shared/goaldoor.png",
-      "shared:bullet":  "shared/bullet.png",
-      "rPlayer:synth":  "rPlayer/synth.png",
+        "world:goal":   "world/goaldoor.png",
+      "player:synth":  "player/synth.png",
 
-      "rPlayer:synth-jazz":   "rPlayer/synth-jazz.png",
+      "player:synth-jazz":   "player/synth-jazz.png",
 
-      "rBackground:test-bg":  "rBackground/test-bg.png"
+      "backgrounds:test-bg":  "backgrounds/test-bg.png"
     },
     "jsons"  : {
-        "platform:constants": "platform/constants.json"
+        "constants": "constants.json"
     },
     "sounds": {
 
@@ -44,8 +38,8 @@
       "music:jazz1": "music/jazz1.ogg"
     },
     "fonts": {
-        "shared:retro": {
-            "file": "shared/RetroGame.ttf",
+        "fonts:retro": {
+            "file": "fonts/RetroGame.ttf",
             "size": 64
         }
     }

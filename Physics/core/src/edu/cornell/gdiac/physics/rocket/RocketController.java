@@ -8,7 +8,7 @@
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * LibGDX version, 2/6/2015
  */
-package edu.cornell.gdiac.physics.rocket;
+package edu.cornell.gdiac.rabbeat.rocket;
 
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.assets.*;
@@ -21,8 +21,8 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.util.*;
-import edu.cornell.gdiac.physics.*;
-import edu.cornell.gdiac.physics.obstacle.*;
+import edu.cornell.gdiac.rabbeat.*;
+import edu.cornell.gdiac.rabbeat.obstacle.*;
 
 /**
  * Gameplay specific controller for the rocket lander game.

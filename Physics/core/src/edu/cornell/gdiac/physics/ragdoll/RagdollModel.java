@@ -8,7 +8,7 @@
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * Updated asset version, 2/6/2021
  */
-package edu.cornell.gdiac.physics.ragdoll;
+package edu.cornell.gdiac.rabbeat.ragdoll;
 
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.physics.box2d.*;
@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.joints.*;
 import com.badlogic.gdx.graphics.g2d.*;
 
 import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.physics.obstacle.*;
+import edu.cornell.gdiac.rabbeat.obstacle.*;
 
 /**
  * A ragdoll whose body parts are boxes connected by joints
