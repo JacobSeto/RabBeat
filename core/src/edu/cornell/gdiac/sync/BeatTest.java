@@ -4,7 +4,7 @@ public class BeatTest implements ISynced {
 
     int beatCount = 0;
     @Override
-    public int getBeat() {
+    public float getBeat() {
         return 1;
     }
 

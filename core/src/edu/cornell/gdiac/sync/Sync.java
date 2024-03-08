@@ -93,9 +93,12 @@ public class Sync {
          * @param interval the interval length
          */
         public void checkForNewInterval (float interval){
+            System.out.println(lastInterval);
             if ((int)Math.floor(interval) != lastInterval){
+                if(lastInterval < interval){
+                    s.Beat();
+                }
                 lastInterval = (int)Math.floor(interval);
-                s.Beat();
             }
         }
     }

@@ -339,7 +339,7 @@ public class WorldController implements Screen, ContactListener {
 		backgroundTexture = new TextureRegion(directory.getEntry("rBackground:test-bg",Texture.class));
 		enemyDefaultTexture = new TextureRegion(directory.getEntry("rPlayer:synth",Texture.class)); //CHANGE FOR ENEMY!
 
-		constants = directory.getEntry( "platform:constants", JsonValue.class );
+		constants = directory.getEntry( "constants", JsonValue.class );
 
 		// Allocate the tiles
 		blackTile = new TextureRegion(directory.getEntry( "rEnvironment:blackTile", Texture.class ));
@@ -520,9 +520,9 @@ public class WorldController implements Screen, ContactListener {
 		volume = constants.getFloat("volume", 1.0f);
 
 		//set up music syncing
+		//TODO: Add all synced objects into the Array
 		Array<ISynced> s = new Array<>();
-		BeatTest b = new BeatTest();
-		s.add(b);
+
 		sync.setSync(s, synthSoundtrack, jazzSoundtrack);
 	}
 

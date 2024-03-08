@@ -33,7 +33,7 @@
       "rBackground:test-bg":  "rBackground/test-bg.png"
     },
     "jsons"  : {
-        "platform:constants": "platform/constants.json"
+        "constants": "constants.json"
     },
     "sounds": {
 
