@@ -91,10 +91,9 @@ public class SyncController {
          * @param interval the interval length
          */
         public void checkForNewInterval (float interval){
-            System.out.println(lastInterval);
             if ((int)Math.floor(interval) != lastInterval){
                 if(lastInterval < interval){
-                    s.Beat();
+                    s.BeatAction();
                 }
                 lastInterval = (int)Math.floor(interval);
             }

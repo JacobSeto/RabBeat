@@ -3,15 +3,18 @@ package edu.cornell.gdiac.rabbeat.sync;
 public class BeatTest implements ISynced {
 
     int beatCount = 0;
+    float beat = 1;
     @Override
     public float getBeat() {
-        return 1;
+        return beat;
     }
 
     @Override
-    public void Beat() {
+    public void BeatAction() {
         beatCount++;
-        beatCount= beatCount % 5;
+        if(beatCount >= 5){
+            beatCount = 1;
+        }
         System.out.println(beatCount);
     }
 }

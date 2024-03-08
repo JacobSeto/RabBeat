@@ -19,6 +19,7 @@ package edu.cornell.gdiac.rabbeat;
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.Enemy;
 
 import edu.cornell.gdiac.rabbeat.obstacle.platforms.SyncedPlatform;
+import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import java.util.Iterator;
@@ -522,6 +523,9 @@ public class WorldController implements Screen, ContactListener {
 		//set up music syncing
 		//TODO: Add all synced objects into the Array
 		Array<ISynced> s = new Array<>();
+		//Test code for SyncController
+		BeatTest b = new BeatTest();
+		s.add(b);
 
 		syncController.setSync(s, synthSoundtrack, jazzSoundtrack);
 	}
