@@ -45,7 +45,7 @@ public class DudeModel extends CapsuleObstacle {
 
 	/** The current horizontal movement of the character */
 	private float   movement;
-	/** Which direction is the character facing */
+	/** Whether the character is facing right */
 	private boolean faceRight;
 	/** How long until we can jump again */
 	private int jumpCooldown;
@@ -175,6 +175,7 @@ public class DudeModel extends CapsuleObstacle {
 		return sensorName;
 	}
 
+	/** The scale of the enemy */
 	public float playerScale;
 
 	/**
