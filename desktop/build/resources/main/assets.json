@@ -6,7 +6,7 @@
             "wrapV": "repeated"
         },
         "world:platforms:weightedPlatform" : {
-            "file":  "world/platforms//weightedplatform.png",
+            "file":  "world/platforms/weightedPlatform.png",
             "wrapU": "repeated",
             "wrapV": "repeated"
         },
