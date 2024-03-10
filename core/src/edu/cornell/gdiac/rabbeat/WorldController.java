@@ -16,6 +16,7 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
+import edu.cornell.gdiac.rabbeat.obstacle.enemies.BearEnemy;
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.Enemy;
 
 import edu.cornell.gdiac.rabbeat.obstacle.platforms.SyncedPlatform;
@@ -140,7 +141,7 @@ public class WorldController implements Screen, ContactListener {
 	/** Physics constants for initialization */
 	private JsonValue constants;
 	/** Reference to the character avatar */
-	private Player avatar;
+	private static Player avatar;
 
 	/** Reference to the enemy avatar */
 	private Enemy enemy;
@@ -511,12 +512,12 @@ public class WorldController implements Screen, ContactListener {
 
 
 		//TODO: Load enemies
-//		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-//		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-//		enemy = new Enemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale);
-//		enemy.setDrawScale(scale);
-//		enemy.setTexture(enemyDefaultTexture);
-//		addObject(enemy);
+		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+		enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false);
+		enemy.setDrawScale(scale);
+		enemy.setTexture(enemyDefaultTexture);
+		addObject(enemy);
 
 		volume = constants.getFloat("volume", 1.0f);
 
@@ -603,6 +604,8 @@ public class WorldController implements Screen, ContactListener {
 			updateGenreSwitch();
 		}
 		syncController.updateBeat();
+		enemy.switchState(); //when more enemies will be added, this will be in a for-loop
+
 	}
 	/**
 	 * Callback method for the start of a collision
@@ -917,7 +920,12 @@ public class WorldController implements Screen, ContactListener {
 				genre = Genre.SYNTH;
 				break;
 		}
-
 	}
+
+	/** Returns the player object */
+	public static Player getPlayer() {
+		return avatar;
+	}
+
 
 }

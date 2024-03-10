@@ -60,7 +60,6 @@ public class Player extends CapsuleObstacle {
 	/** Cache for internal force calculations */
 	private final Vector2 forceCache = new Vector2();
 
-
 	/**
 	 * Returns left/right movement of this character.
 	 * 
