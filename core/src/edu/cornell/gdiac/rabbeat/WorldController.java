@@ -58,6 +58,9 @@ public class WorldController implements Screen, ContactListener {
 	/** The Sync object that will sync the world to the beat*/
 	public SyncController syncController;
 
+	/** The SoundController object that will update audio after genre switches */
+	public SoundController soundController;
+
 	/** The texture for walls */
 	protected TextureRegion blackTile;
 	/** The texture for regular platforms */
@@ -277,6 +280,7 @@ public class WorldController implements Screen, ContactListener {
 		sensorFixtures = new ObjectSet<Fixture>();
 		weightedPlatforms = new Array<>();
 		syncController = new SyncController();
+		soundController = new SoundController();
 
 	}
 
@@ -360,6 +364,8 @@ public class WorldController implements Screen, ContactListener {
 		jazzSoundtrack = directory.getEntry("music:jazz1",Music.class);
 		jazzSoundtrack.setLooping(true);
 		jazzSoundtrack.setVolume(0);
+		soundController.setSynthTrack(synthSoundtrack);
+		soundController.setJazzTrack(jazzSoundtrack);
 	}
 
 	/**
@@ -528,6 +534,7 @@ public class WorldController implements Screen, ContactListener {
 		s.add(b);
 
 		syncController.setSync(s, synthSoundtrack, jazzSoundtrack);
+		soundController.update();
 	}
 
 	/**
@@ -603,6 +610,7 @@ public class WorldController implements Screen, ContactListener {
 			updateGenreSwitch();
 		}
 		syncController.updateBeat();
+		soundController.update();
 	}
 	/**
 	 * Callback method for the start of a collision
@@ -693,6 +701,7 @@ public class WorldController implements Screen, ContactListener {
 			for (SyncedPlatform platform : weightedPlatforms) {
 				platform.genreUpdate(Genre.SYNTH);
 			}
+			soundController.setGenre(Genre.SYNTH);
 		}
 		//update to Jazz
 		else {
@@ -702,6 +711,7 @@ public class WorldController implements Screen, ContactListener {
 			for (SyncedPlatform platform : weightedPlatforms) {
 				platform.genreUpdate(Genre.JAZZ);
 			}
+			soundController.setGenre(Genre.JAZZ);
 		}
 	}
 
