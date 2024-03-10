@@ -1151,4 +1151,17 @@ public class GameCanvas {
 		local.scale(sx,sy);
 		local.translate(-ox,-oy);
 	}
+
+	/**
+	 * Updates the camera position based on the player position
+	 *
+	 * @param player	The player object
+	 */
+	protected void updateCamera(Player player) {
+		camera.position.set(player.getX(), player.getY(), 0);
+		camera.update();
+//		System.out.println(camera.position);
+		spriteBatch.setProjectionMatrix(camera.combined);
+		debugRender.setProjectionMatrix(camera.combined);
+	}
 }

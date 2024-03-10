@@ -593,6 +593,7 @@ public class WorldController implements Screen, ContactListener {
 	 * @param dt	Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
+		System.out.println(avatar.getPosition());
 		// Process actions in object model
 		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
@@ -854,6 +855,7 @@ public class WorldController implements Screen, ContactListener {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
+			canvas.updateCamera(avatar);
 			draw(delta);
 		}
 	}
