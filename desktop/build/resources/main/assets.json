@@ -25,7 +25,9 @@
 
       "player:synth-jazz":   "player/synth-jazz.png",
 
-      "backgrounds:test-bg":  "backgrounds/test-bg.png"
+      "backgrounds:test-bg":  "backgrounds/test-bg.png",
+
+      "world:bullet": "world/bullet.png"
     },
     "jsons"  : {
         "constants": "constants.json"
