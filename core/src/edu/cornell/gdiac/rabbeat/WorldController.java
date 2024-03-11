@@ -857,6 +857,7 @@ public class WorldController implements Screen, ContactListener {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
+			canvas.updateCamera(avatar);
 			draw(delta);
 		}
 	}

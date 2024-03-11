@@ -90,6 +90,9 @@ public class GameCanvas {
 	/** Cache object to handle raw textures */
 	private TextureRegion holder;
 
+	/** Camera movement speed */
+	float CAMERA_SPEED = 3f;
+
 	/**
 	 * Creates a new GameCanvas determined by the application configuration.
 	 * 
@@ -1150,5 +1153,20 @@ public class GameCanvas {
 		local.rotate(180.0f*angle/(float)Math.PI);
 		local.scale(sx,sy);
 		local.translate(-ox,-oy);
+	}
+
+	/**
+	 * Updates the camera position based on the player position
+	 *
+	 * @param player	The player object
+	 */
+	protected void updateCamera(Player player) {
+		float SCALE_FROM_WORLD = 32f;
+
+		camera.position.lerp(new Vector3(player.getX() * SCALE_FROM_WORLD, player.getY() * SCALE_FROM_WORLD, 0), CAMERA_SPEED * Gdx.graphics.getDeltaTime());
+		camera.position.set(camera.position);
+		camera.update();
+		spriteBatch.setProjectionMatrix(camera.combined);
+		debugRender.setProjectionMatrix(camera.combined);
 	}
 }
