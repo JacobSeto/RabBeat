@@ -438,6 +438,7 @@ public class WorldController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
+		syncController = new SyncController();
 		populateLevel();
 	}
 
