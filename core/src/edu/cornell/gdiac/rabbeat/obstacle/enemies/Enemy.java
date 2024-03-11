@@ -1,6 +1,8 @@
 package edu.cornell.gdiac.rabbeat.obstacle.enemies;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
+import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacle.CapsuleObstacle;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
@@ -101,6 +103,28 @@ public class Enemy extends CapsuleObstacle {
 //        return true;
 //    }
 
+    public Bullet bulletMaker(JsonValue bulletjv, TextureRegion bullettr, Vector2 scale, Genre genre){
+        float offset = bulletjv.getFloat("offset",0);
+        float radius = bullettr.getRegionWidth()/(2.0f*scale.x);
+        Bullet bullet = new Bullet(getX()+offset, getY(), radius, bulletjv.getFloat("synth speed", 0), bulletjv.getFloat("jazz speed", 0));
+
+        bullet.setName("bullet");
+        bullet.setDensity(bulletjv.getFloat("density", 0));
+        bullet.setDrawScale(scale);
+        bullet.setTexture(bullettr);
+        bullet.setGravityScale(0);
+
+        // Compute position and velocity
+        float speed;
+        if (genre == Genre.SYNTH){
+            speed = bulletjv.getFloat("synth speed", 0);
+        }
+        else {
+            speed = bulletjv.getFloat("jazz speed", 0);
+        }
+        bullet.setVX(speed);
+        return bullet;
+    }
 
     /**
      * Updates the object's physics state (NOT GAME LOGIC).

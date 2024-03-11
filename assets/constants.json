@@ -48,8 +48,9 @@
 		}
 	},
 	"bullet": {
-		"offset" : 0.2,
-		"speed"  : 20.0,
+		"offset" : 0.5,
+		"synth speed"  : 5.0,
+		"jazz speed" : 2.5,
 		"density": 10.0
 	},
 	"bridge": {
