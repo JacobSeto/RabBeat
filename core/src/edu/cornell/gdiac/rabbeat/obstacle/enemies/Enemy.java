@@ -91,6 +91,7 @@ public abstract class Enemy extends CapsuleObstacle {
 //        // We only allow the dude to jump when he's on the ground.
 //        // Double jumping is not allowed.
 //        //
+//
 //        // To determine whether or not the dude is on the ground,
 //        // we create a thin sensor under his feet, which reports
 //        // collisions with the world but has no collision response.
@@ -166,5 +167,16 @@ public abstract class Enemy extends CapsuleObstacle {
 
     /** Switches enemy attacking state depending on its current state */
     public abstract void switchState();
+
+
+    /** Returns the x position of the player */
+    public float playerXPosition(){
+        if(WorldController.getInstance() !=  null) {
+            return WorldController.getInstance().getPlayer().getPosition().x;
+        }
+
+        return 0;
+    }
+
 
 }
