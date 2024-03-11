@@ -163,6 +163,10 @@ public class WorldController implements Screen, ContactListener {
 		return theController;
 	}
 
+	/** Returns the player object */
+	public static Player getPlayer() {
+		return avatar;
+	}
 
 	/**
 	 * Returns true if debug mode is active.
@@ -457,7 +461,7 @@ public class WorldController implements Screen, ContactListener {
 		goalDoor.setDrawScale(scale);
 		goalDoor.setTexture(goalTile);
 		goalDoor.setName("goal");
-		addObject(goalDoor);
+		instantiate(goalDoor);
 
 		String wname = "wall";
 		JsonValue walljv = constants.get("walls");
@@ -472,7 +476,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setDrawScale(scale);
 			obj.setTexture(blackTile);
 			obj.setName(wname+ii);
-			addObject(obj);
+			instantiate(obj);
 		}
 
 		String pname = "platform";
@@ -487,7 +491,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setDrawScale(scale);
 			obj.setTexture(platformTile);
 			obj.setName(pname+ii);
-			addObject(obj);
+			instantiate(obj);
 		}
 
 		String wpname = "wplatform";
@@ -504,7 +508,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setDrawScale(scale);
 			obj.setTexture(weightedPlatform);
 			obj.setName(wpname + ii);
-			addObject(obj);
+			instantiate(obj);
 			weightedPlatforms.add(obj);
 		}
 
@@ -517,7 +521,7 @@ public class WorldController implements Screen, ContactListener {
 		avatar = new Player(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
 		avatar.setDrawScale(scale);
 		avatar.setTexture(synthDefaultTexture);
-		addObject(avatar);
+		instantiate(avatar);
 
 
 		//TODO: Load enemies
@@ -526,18 +530,14 @@ public class WorldController implements Screen, ContactListener {
 		enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false);
 		enemy.setDrawScale(scale);
 		enemy.setTexture(enemyDefaultTexture);
-		addObject(enemy);
+		instantiate(enemy);
 
 		volume = constants.getFloat("volume", 1.0f);
 
-		//set up music syncing
-		//TODO: Add all synced objects into the Array
-		Array<ISynced> s = new Array<>();
-		//Test code for SyncController
-		BeatTest b = new BeatTest();
-		s.add(b);
-
-		syncController.setSync(s, synthSoundtrack, jazzSoundtrack);
+		syncController.addSync(new BeatTest());
+		syncController.setSync(synthSoundtrack, jazzSoundtrack);
+		//TODO: soundtrack play should be controller by soundController
+		synthSoundtrack.play();
 	}
 
 	/**
@@ -614,7 +614,6 @@ public class WorldController implements Screen, ContactListener {
 		}
 		syncController.updateBeat();
 		enemy.switchState(); //when more enemies will be added, this will be in a for-loop
-		System.out.println(enemy.playerXPosition());
 	}
 	/**
 	 * Callback method for the start of a collision
@@ -729,7 +728,7 @@ public class WorldController implements Screen, ContactListener {
 	public void postUpdate(float dt) {
 		// Add any objects created by actions
 		while (!addQueue.isEmpty()) {
-			addObject(addQueue.poll());
+			instantiate(addQueue.poll());
 		}
 		
 		// Turn the physics engine crank.
@@ -932,9 +931,17 @@ public class WorldController implements Screen, ContactListener {
 		}
 	}
 
-	/** Returns the player object */
-	public static Player getPlayer() {
-		return avatar;
+	/**Instantiate an object into the world.  If the object is implements {@link ISynced}, add
+	 * to the sync
+	 * @param  object: The object you are instantiating
+	 *
+	 * */
+	public void instantiate(Obstacle object){
+		addObject(object);
+		if(object instanceof  ISynced){
+			syncController.addSync((ISynced) object);
+		}
+
 	}
 
 
