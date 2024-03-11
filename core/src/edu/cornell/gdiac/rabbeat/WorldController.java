@@ -148,6 +148,10 @@ public class WorldController implements Screen, ContactListener {
 
 	/** Reference to the goalDoor (for collision detection) */
 	private BoxObstacle goalDoor;
+	/** Reference to the current spawn point */
+	private BoxObstacle respawnPoint;
+	/** Reference to all the checkpoints */
+	private Queue<Pair<BoxObstacle, Integer>> checkpoints;
 	/** Reference to all the weighted platforms */
 	private Array<SyncedPlatform> weightedPlatforms;
 
@@ -276,9 +280,9 @@ public class WorldController implements Screen, ContactListener {
 		setFailure(false);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
+		checkpoints = new Queue<Pair<BoxObstacle, Integer>>();
 		weightedPlatforms = new Array<>();
 		syncController = new SyncController();
-
 	}
 
 	/**
@@ -403,6 +407,63 @@ public class WorldController implements Screen, ContactListener {
 		return horiz && vert;
 	}
 
+	/**
+	 * Initialize the game for the first time
+	 */
+	public void initialize() {
+		genre = Genre.SYNTH;
+		Vector2 gravity = new Vector2(world.getGravity() );
+
+		world = new World(gravity,false);
+		world.setContactListener(this);
+		setComplete(false);
+		setFailure(false);
+		populateLevel();
+		createCheckpoints();
+		avatar.setPosition(respawnPoint.getPosition());
+	}
+
+	/**
+	 * Create the start tile and checkpoints
+	 */
+	private void createCheckpoints() {
+		float checkpointWidth  = goalTile.getRegionWidth()/scale.x;
+		float checkpointHeight = goalTile.getRegionHeight()/scale.y;
+
+		// Add the start tile as the current spawn point
+		JsonValue start = constants.get("start");
+		JsonValue startPos = start.get("pos");
+		BoxObstacle startTile = new BoxObstacle(startPos.getFloat(0), startPos.getFloat(1), checkpointWidth, checkpointHeight);
+		startTile.setBodyType(BodyDef.BodyType.StaticBody);
+		startTile.setDensity(start.getFloat("density", 0));
+		startTile.setFriction(start.getFloat("friction", 0));
+		startTile.setRestitution(start.getFloat("restitution", 0));
+		startTile.setSensor(true);
+		startTile.setDrawScale(scale);
+		startTile.setTexture(goalTile);
+		startTile.setName("start");
+		addObject(startTile);
+		respawnPoint = startTile;
+
+		// Populate all checkpoints
+		for (int i = 0; i < constants.get("checkpoints").size; i++) {
+			String cname = "checkpoint";
+			JsonValue checkpoint = constants.get("checkpoints").get(i);
+			JsonValue checkpointPos = checkpoint.get("pos");
+			BoxObstacle obj = new BoxObstacle(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(checkpoint.getFloat("density", 0));
+			obj.setFriction(checkpoint.getFloat("friction", 0));
+			obj.setRestitution(checkpoint.getFloat("restitution", 0));
+			obj.setSensor(true);
+			obj.setDrawScale(scale);
+			obj.setTexture(goalTile);
+			obj.setName(cname + i);
+			addObject(obj);
+			checkpoints.addLast(new Pair<BoxObstacle, Integer>(obj, i));
+		}
+	}
+
 	// TODO: Reset to SYNTH defaults
 	/**
 	 * Resets the status of the game so that we can play again.
@@ -426,6 +487,7 @@ public class WorldController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		populateLevel();
+		avatar.setPosition(respawnPoint.getPosition());
 	}
 
 	// TODO: Will use level data json to populate
@@ -433,6 +495,30 @@ public class WorldController implements Screen, ContactListener {
 	 * Lays out the game geography.
 	 */
 	private void populateLevel() {
+		// Repopulate current checkpoints
+		float checkpointWidth  = goalTile.getRegionWidth()/scale.x;
+		float checkpointHeight = goalTile.getRegionHeight()/scale.y;
+
+		Queue<Pair<BoxObstacle, Integer>> newCheckpoints = new Queue<>();
+		for (Pair<BoxObstacle, Integer> pair : checkpoints) {
+			String cname = "checkpoint";
+			JsonValue checkpoint = constants.get("checkpoints").get(pair.snd);
+			JsonValue checkpointPos = checkpoint.get("pos");
+			BoxObstacle obj = new BoxObstacle(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(checkpoint.getFloat("density", 0));
+			obj.setFriction(checkpoint.getFloat("friction", 0));
+			obj.setRestitution(checkpoint.getFloat("restitution", 0));
+			obj.setSensor(true);
+			obj.setDrawScale(scale);
+			obj.setTexture(goalTile);
+			obj.setName(cname + pair.snd);
+			addObject(obj);
+			newCheckpoints.addLast(new Pair<BoxObstacle, Integer>(obj, pair.snd));
+		}
+		checkpoints.clear();
+		checkpoints = newCheckpoints;
+
 		// Add level goal
 		float dwidth  = goalTile.getRegionWidth()/scale.x;
 		float dheight = goalTile.getRegionHeight()/scale.y;
@@ -638,9 +724,16 @@ public class WorldController implements Screen, ContactListener {
 			}
 
 			// Check for win condition
-			if ((bd1 == avatar   && bd2 == goalDoor) ||
+			if ((bd1 == avatar && bd2 == goalDoor) ||
 					(bd1 == goalDoor && bd2 == avatar)) {
 				setComplete(true);
+			}
+
+			// Check for collision with checkpoints and set new current checkpoint
+			if (!checkpoints.isEmpty() &&
+					((bd1 == avatar && bd2 == checkpoints.first().fst) ||
+					(bd1 == checkpoints.first().fst && bd2 == avatar))) {
+				respawnPoint = checkpoints.removeFirst().fst;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -762,9 +855,14 @@ public class WorldController implements Screen, ContactListener {
 		canvas.end();
 		
 		canvas.begin();
-		for(Obstacle obj : objects) {
+		for (Obstacle obj : objects) {
 			obj.draw(canvas);
 		}
+		canvas.end();
+
+		// Draw the player on top
+		canvas.begin();
+		avatar.draw(canvas);
 		canvas.end();
 		
 		if (debug) {
