@@ -1158,9 +1158,9 @@ public class GameCanvas {
 	 * @param player	The player object
 	 */
 	protected void updateCamera(Player player) {
-		camera.position.set(player.getX(), player.getY(), 0);
+		float SCALE_FROM_WORLD = 32f;
+		camera.position.set(player.getX() * SCALE_FROM_WORLD, player.getY() * SCALE_FROM_WORLD, 0);
 		camera.update();
-//		System.out.println(camera.position);
 		spriteBatch.setProjectionMatrix(camera.combined);
 		debugRender.setProjectionMatrix(camera.combined);
 	}
