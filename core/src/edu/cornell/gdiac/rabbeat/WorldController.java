@@ -605,7 +605,7 @@ public class WorldController implements Screen, ContactListener {
 		}
 		syncController.updateBeat();
 		enemy.switchState(); //when more enemies will be added, this will be in a for-loop
-
+		System.out.println(enemy.playerXPosition());
 	}
 	/**
 	 * Callback method for the start of a collision
@@ -925,6 +925,16 @@ public class WorldController implements Screen, ContactListener {
 	/** Returns the player object */
 	public static Player getPlayer() {
 		return avatar;
+	}
+
+	private static WorldController theController = null;
+
+	public static WorldController getInstance() {
+		if (theController == null) {
+			theController = new WorldController();
+			System.out.println("HEY");
+		}
+		return theController;
 	}
 
 
