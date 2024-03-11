@@ -2,6 +2,7 @@ package edu.cornell.gdiac.rabbeat.obstacle.enemies;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
+import edu.cornell.gdiac.rabbeat.WorldController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacle.CapsuleObstacle;
 import com.badlogic.gdx.math.*;
@@ -15,7 +16,13 @@ import com.badlogic.gdx.utils.JsonValue;
 /**
  * Enemy avatar for the platform game.
  */
-public class Enemy extends CapsuleObstacle {
+public abstract class Enemy extends CapsuleObstacle {
+
+    /** Enum containing the state of the enemy */
+    protected enum EnemyState{
+        IDLE,
+        ATTACKING
+    }
 
     /** The scale of the enemy */
     private float enemyScale;
@@ -26,8 +33,11 @@ public class Enemy extends CapsuleObstacle {
     /** Whether the enemy is facing right */
     private boolean faceRight;
 
-    //range: how far away player is --> beat action called whenever an action is supposed to hapepn on beat
+    /** Initializes the state of the enemy to idle */
+    protected EnemyState enemyState = EnemyState.IDLE;
 
+    //range: how far away player is --> beat action called whenever an action is supposed to hapepn on beat
+    //create switch states (wandering, shooting, etc). ENUM
 
 
     /**
@@ -83,6 +93,7 @@ public class Enemy extends CapsuleObstacle {
 //        // We only allow the dude to jump when he's on the ground.
 //        // Double jumping is not allowed.
 //        //
+//
 //        // To determine whether or not the dude is on the ground,
 //        // we create a thin sensor under his feet, which reports
 //        // collisions with the world but has no collision response.
@@ -147,7 +158,7 @@ public class Enemy extends CapsuleObstacle {
         float effect = faceRight ? 1.0f : -1.0f;
         //System.out.println(drawScale.x);
         //System.out.println(drawScale.y);
-        canvas.draw(texture,Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
+        canvas.draw(texture,Color.RED,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
                 enemyScale*effect,enemyScale);
     }
 
@@ -162,4 +173,34 @@ public class Enemy extends CapsuleObstacle {
         super.drawDebug(canvas);
         canvas.drawPhysics(sensorShape,Color.RED,getX(),getY(),getAngle(),drawScale.x,drawScale.y);
     }
+
+    /** Sets the direction that the enemy is facing in */
+    public void setFaceRight(boolean faceRight) {
+        this.faceRight = faceRight;
+    }
+
+    /** Returns whether the enemy is facing right */
+    public boolean getFaceRight() {
+        return faceRight;
+    }
+
+    /** Returns the distance between the enemy and the player */
+    public float horizontalDistanceBetweenEnemyAndPlayer(){
+        return Math.abs(WorldController.getPlayer().getPosition().x - getPosition().x);
+    }
+
+    /** Switches enemy attacking state depending on its current state */
+    public abstract void switchState();
+
+
+    /** Returns the x position of the player */
+    public float playerXPosition(){
+        if(WorldController.getInstance() !=  null) {
+            return WorldController.getInstance().getPlayer().getPosition().x;
+        }
+
+        return 0;
+    }
+
+
 }

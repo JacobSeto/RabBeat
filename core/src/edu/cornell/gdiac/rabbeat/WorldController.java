@@ -16,7 +16,10 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
+import edu.cornell.gdiac.rabbeat.obstacle.enemies.BearEnemy;
+
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.Bullet;
+
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.Enemy;
 
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.SyncedProjectile;
@@ -144,7 +147,7 @@ public class WorldController implements Screen, ContactListener {
 	/** Physics constants for initialization */
 	private JsonValue constants;
 	/** Reference to the character avatar */
-	private Player avatar;
+	private static Player avatar;
 
 	/** Reference to the enemy avatar */
 	private Enemy enemy;
@@ -159,8 +162,20 @@ public class WorldController implements Screen, ContactListener {
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
 
-	protected BulletSync bulletSync = new BulletSync();
+	private static WorldController theController = null;
 
+	public static WorldController getInstance() {
+		if (theController == null) {
+			theController = new WorldController();
+		}
+		return theController;
+	}
+
+	/** Returns the player object */
+	public static Player getPlayer() {
+		return avatar;
+	}
+	protected BulletSync bulletSync = new BulletSync();
 
 	/**
 	 * Returns true if debug mode is active.
@@ -457,7 +472,7 @@ public class WorldController implements Screen, ContactListener {
 		goalDoor.setDrawScale(scale);
 		goalDoor.setTexture(goalTile);
 		goalDoor.setName("goal");
-		addObject(goalDoor);
+		instantiate(goalDoor);
 
 		String wname = "wall";
 		JsonValue walljv = constants.get("walls");
@@ -472,7 +487,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setDrawScale(scale);
 			obj.setTexture(blackTile);
 			obj.setName(wname+ii);
-			addObject(obj);
+			instantiate(obj);
 		}
 
 		String pname = "platform";
@@ -487,7 +502,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setDrawScale(scale);
 			obj.setTexture(platformTile);
 			obj.setName(pname+ii);
-			addObject(obj);
+			instantiate(obj);
 		}
 
 		String wpname = "wplatform";
@@ -504,7 +519,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setDrawScale(scale);
 			obj.setTexture(weightedPlatform);
 			obj.setName(wpname + ii);
-			addObject(obj);
+			instantiate(obj);
 			weightedPlatforms.add(obj);
 		}
 
@@ -517,28 +532,25 @@ public class WorldController implements Screen, ContactListener {
 		avatar = new Player(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
 		avatar.setDrawScale(scale);
 		avatar.setTexture(synthDefaultTexture);
-		addObject(avatar);
+		instantiate(avatar);
 
 
 		//TODO: Load enemies
 		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
 		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-		enemy = new Enemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false);
+
+		enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false);
 		enemy.setDrawScale(scale);
 		enemy.setTexture(enemyDefaultTexture);
-		addObject(enemy);
+		instantiate(enemy);
 
 		volume = constants.getFloat("volume", 1.0f);
 
-		//set up music syncing
-		//TODO: Add all synced objects into the Array
-		Array<ISynced> s = new Array<>();
-		//Test code for SyncController
-		BeatTest b = new BeatTest();
-		s.add(b);
-		s.add(bulletSync);
+		syncController.addSync(new BeatTest());
+		syncController.setSync(synthSoundtrack, jazzSoundtrack);
+		//TODO: soundtrack play should be controller by soundController
+		synthSoundtrack.play();
 
-		syncController.setSync(s, synthSoundtrack, jazzSoundtrack);
 	}
 
 	/**
@@ -626,6 +638,7 @@ public class WorldController implements Screen, ContactListener {
 			updateGenreSwitch();
 		}
 		syncController.updateBeat();
+		enemy.switchState(); //when more enemies will be added, this will be in a for-loop
 	}
 
 	public void removeBullet(SyncedProjectile bullet) {
@@ -767,7 +780,7 @@ public class WorldController implements Screen, ContactListener {
 	public void postUpdate(float dt) {
 		// Add any objects created by actions
 		while (!addQueue.isEmpty()) {
-			addObject(addQueue.poll());
+			instantiate(addQueue.poll());
 		}
 		
 		// Turn the physics engine crank.
@@ -904,6 +917,7 @@ public class WorldController implements Screen, ContactListener {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
+			canvas.updateCamera(avatar);
 			draw(delta);
 		}
 	}
@@ -967,7 +981,20 @@ public class WorldController implements Screen, ContactListener {
 				genre = Genre.SYNTH;
 				break;
 		}
+	}
+
+	/**Instantiate an object into the world.  If the object is implements {@link ISynced}, add
+	 * to the sync
+	 * @param  object: The object you are instantiating
+	 *
+	 * */
+	public void instantiate(Obstacle object){
+		addObject(object);
+		if(object instanceof  ISynced){
+			syncController.addSync((ISynced) object);
+		}
 
 	}
+
 
 }

@@ -1,0 +1,46 @@
+{
+	"textures": {
+        "world:platforms:blackTile" : {
+            "file":  "world/platforms/blackTile.png",
+            "wrapU": "repeated",
+            "wrapV": "repeated"
+        },
+        "world:platforms:weightedPlatform" : {
+            "file":  "world/platforms/weightedPlatform.png",
+            "wrapU": "repeated",
+            "wrapV": "repeated"
+        },
+      "world:platforms:platformTile" : {
+        "file":  "world/platforms//platformTile.png",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
+      "world:weightedLaserTile" : {
+        "file":  "world/weightedLaserTile.png",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
+        "world:goal":   "world/goaldoor.png",
+      "player:synth":  "player/synth.png",
+
+      "player:synth-jazz":   "player/synth-jazz.png",
+
+      "backgrounds:test-bg":  "backgrounds/test-bg.png"
+    },
+    "jsons"  : {
+        "constants": "constants.json"
+    },
+    "sounds": {
+
+    },
+    "music" : {
+      "music:synth1": "music/synth1.ogg",
+      "music:jazz1": "music/jazz1.ogg"
+    },
+    "fonts": {
+        "fonts:retro": {
+            "file": "fonts/RetroGame.ttf",
+            "size": 64
+        }
+    }
+}
