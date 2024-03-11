@@ -154,6 +154,15 @@ public class WorldController implements Screen, ContactListener {
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
 
+	private static WorldController theController = null;
+
+	public static WorldController getInstance() {
+		if (theController == null) {
+			theController = new WorldController();
+		}
+		return theController;
+	}
+
 
 	/**
 	 * Returns true if debug mode is active.
@@ -926,16 +935,6 @@ public class WorldController implements Screen, ContactListener {
 	/** Returns the player object */
 	public static Player getPlayer() {
 		return avatar;
-	}
-
-	private static WorldController theController = null;
-
-	public static WorldController getInstance() {
-		if (theController == null) {
-			theController = new WorldController();
-			System.out.println("HEY");
-		}
-		return theController;
 	}
 
 
