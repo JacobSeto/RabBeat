@@ -9,10 +9,12 @@ public class Bullet extends SyncedProjectile {
     private float jazzSpeed;
 
 
-    public Bullet(float x, float y, float radius, float synthVX, float jazzVX) {
+
+    public Bullet(float x, float y, float radius, float synthVX, float jazzVX, boolean fr) {
         super(x, y, radius);
-        synthSpeed = synthVX;
-        jazzSpeed = jazzVX;
+        float dir = (fr ? 1 : -1);
+        synthSpeed = synthVX * dir;
+        jazzSpeed = jazzVX * dir;
     }
 
     @Override

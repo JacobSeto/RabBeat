@@ -116,8 +116,10 @@ public abstract class Enemy extends CapsuleObstacle {
 
     public Bullet bulletMaker(JsonValue bulletjv, TextureRegion bullettr, Vector2 scale, Genre genre){
         float offset = bulletjv.getFloat("offset",0);
+        offset *= (faceRight ? 1 : -1);
         float radius = bullettr.getRegionWidth()/(2.0f*scale.x);
-        Bullet bullet = new Bullet(getX()+offset, getY(), radius, bulletjv.getFloat("synth speed", 0), bulletjv.getFloat("jazz speed", 0));
+        Bullet bullet = new Bullet(getX()+offset, getY(), radius, bulletjv.getFloat("synth speed", 0),
+                bulletjv.getFloat("jazz speed", 0), faceRight);
 
         bullet.setName("bullet");
         bullet.setDensity(bulletjv.getFloat("density", 0));
@@ -133,6 +135,7 @@ public abstract class Enemy extends CapsuleObstacle {
         else {
             speed = bulletjv.getFloat("jazz speed", 0);
         }
+        speed *= (faceRight ? 1 : -1);
         bullet.setVX(speed);
         return bullet;
     }

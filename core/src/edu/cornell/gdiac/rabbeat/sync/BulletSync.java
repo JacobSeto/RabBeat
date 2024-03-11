@@ -21,7 +21,6 @@ public class BulletSync implements ISynced {
         }
         if (beatCount == 1) {
             isBeatOne = true;
-            System.out.println("shoot");
         }
         else {
             isBeatOne = false;

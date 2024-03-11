@@ -547,6 +547,7 @@ public class WorldController implements Screen, ContactListener {
 		volume = constants.getFloat("volume", 1.0f);
 
 		syncController.addSync(new BeatTest());
+		syncController.addSync(bulletSync);
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
 		//TODO: soundtrack play should be controller by soundController
 		synthSoundtrack.play();
@@ -627,6 +628,7 @@ public class WorldController implements Screen, ContactListener {
 			Bullet newBullet = enemy.bulletMaker(constants.get("bullet"), bullet, scale, genre);
 			addQueuedObject(newBullet);
 			bullets.add(newBullet);
+			System.out.println("shoot");
 			shot = true;
 		}
 		if (!bulletSync.getIsBeatOne()){
