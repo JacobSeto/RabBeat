@@ -17,10 +17,15 @@
 package edu.cornell.gdiac.rabbeat;
 
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.BearEnemy;
+
+import edu.cornell.gdiac.rabbeat.obstacle.enemies.Bullet;
+
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.Enemy;
 
+import edu.cornell.gdiac.rabbeat.obstacle.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacle.platforms.SyncedPlatform;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
+import edu.cornell.gdiac.rabbeat.sync.BulletSync;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import java.util.Iterator;
@@ -65,7 +70,8 @@ public class WorldController implements Screen, ContactListener {
 	protected TextureRegion platformTile;
 	/** The texture for weighted platforms */
 	protected TextureRegion weightedPlatform;
-
+	/** The texture for bullets */
+	protected TextureRegion bullet;
 	/** The texture for the exit condition */
 	protected TextureRegion goalTile;
 	/** The font for giving messages to the player */
@@ -155,9 +161,25 @@ public class WorldController implements Screen, ContactListener {
 	/** Reference to all the weighted platforms */
 	private Array<SyncedPlatform> weightedPlatforms;
 
+	private Array<SyncedProjectile> bullets;
+
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
 
+	private static WorldController theController = null;
+
+	public static WorldController getInstance() {
+		if (theController == null) {
+			theController = new WorldController();
+		}
+		return theController;
+	}
+
+	/** Returns the player object */
+	public static Player getPlayer() {
+		return avatar;
+	}
+	protected BulletSync bulletSync = new BulletSync();
 
 	/**
 	 * Returns true if debug mode is active.
@@ -282,6 +304,7 @@ public class WorldController implements Screen, ContactListener {
 		sensorFixtures = new ObjectSet<Fixture>();
 		checkpoints = new Queue<Pair<BoxObstacle, Integer>>();
 		weightedPlatforms = new Array<>();
+		bullets = new Array<>();
 		syncController = new SyncController();
 	}
 
@@ -349,6 +372,7 @@ public class WorldController implements Screen, ContactListener {
 		blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
 		platformTile = new TextureRegion(directory.getEntry( "world:platforms:platformTile", Texture.class ));
 		weightedPlatform = new TextureRegion((directory.getEntry("world:platforms:weightedPlatform", Texture.class)));
+		bullet = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
 		goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
 		displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
 	}
@@ -486,6 +510,7 @@ public class WorldController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
+		syncController = new SyncController();
 		populateLevel();
 		avatar.setPosition(respawnPoint.getPosition());
 	}
@@ -534,7 +559,7 @@ public class WorldController implements Screen, ContactListener {
 		goalDoor.setDrawScale(scale);
 		goalDoor.setTexture(goalTile);
 		goalDoor.setName("goal");
-		addObject(goalDoor);
+		instantiate(goalDoor);
 
 		String wname = "wall";
 		JsonValue walljv = constants.get("walls");
@@ -549,7 +574,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setDrawScale(scale);
 			obj.setTexture(blackTile);
 			obj.setName(wname+ii);
-			addObject(obj);
+			instantiate(obj);
 		}
 
 		String pname = "platform";
@@ -564,7 +589,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setDrawScale(scale);
 			obj.setTexture(platformTile);
 			obj.setName(pname+ii);
-			addObject(obj);
+			instantiate(obj);
 		}
 
 		String wpname = "wplatform";
@@ -581,7 +606,7 @@ public class WorldController implements Screen, ContactListener {
 			obj.setDrawScale(scale);
 			obj.setTexture(weightedPlatform);
 			obj.setName(wpname + ii);
-			addObject(obj);
+			instantiate(obj);
 			weightedPlatforms.add(obj);
 		}
 
@@ -594,27 +619,25 @@ public class WorldController implements Screen, ContactListener {
 		avatar = new Player(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
 		avatar.setDrawScale(scale);
 		avatar.setTexture(synthDefaultTexture);
-		addObject(avatar);
+		instantiate(avatar);
 
 
 		//TODO: Load enemies
 		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
 		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+
 		enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false);
 		enemy.setDrawScale(scale);
 		enemy.setTexture(enemyDefaultTexture);
-		addObject(enemy);
+		instantiate(enemy);
 
 		volume = constants.getFloat("volume", 1.0f);
 
-		//set up music syncing
-		//TODO: Add all synced objects into the Array
-		Array<ISynced> s = new Array<>();
-		//Test code for SyncController
-		BeatTest b = new BeatTest();
-		s.add(b);
+		syncController.addSync(new BeatTest());
+		syncController.setSync(synthSoundtrack, jazzSoundtrack);
+		//TODO: soundtrack play should be controller by soundController
+		synthSoundtrack.play();
 
-		syncController.setSync(s, synthSoundtrack, jazzSoundtrack);
 	}
 
 	/**
@@ -669,6 +692,7 @@ public class WorldController implements Screen, ContactListener {
 	}
 
 	// TODO: Update physics based on genre
+	private boolean shot = false;
 	/**
 	 * The core gameplay loop of this world.
 	 *
@@ -684,6 +708,17 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
 		avatar.applyForce();
+		if (bulletSync.getIsBeatOne() && (shot == false))
+		{
+			removeBullets(bullets);
+			Bullet newBullet = enemy.bulletMaker(constants.get("bullet"), bullet, scale, genre);
+			addQueuedObject(newBullet);
+			bullets.add(newBullet);
+			shot = true;
+		}
+		if (!bulletSync.getIsBeatOne()){
+			shot = false;
+		}
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
@@ -691,7 +726,18 @@ public class WorldController implements Screen, ContactListener {
 		}
 		syncController.updateBeat();
 		enemy.switchState(); //when more enemies will be added, this will be in a for-loop
+	}
 
+	public void removeBullet(SyncedProjectile bullet) {
+		bullet.markRemoved(true);
+		bullets.removeValue(bullet, true);
+	}
+
+	public void removeBullets(Array<SyncedProjectile> obs){
+		for (int i = 0; i < obs.size; i++){
+			obs.get(i).markRemoved(true);
+			bullets.removeIndex(i);
+		}
 	}
 	/**
 	 * Callback method for the start of a collision
@@ -715,6 +761,15 @@ public class WorldController implements Screen, ContactListener {
 		try {
 			Obstacle bd1 = (Obstacle)body1.getUserData();
 			Obstacle bd2 = (Obstacle)body2.getUserData();
+
+			// Test bullet collision with world
+			if (bd1.getName().equals("bullet") && bd2 != enemy) {
+				removeBullet((SyncedProjectile) bd1);
+			}
+
+			if (bd2.getName().equals("bullet") && bd1 != enemy) {
+				removeBullet((SyncedProjectile) bd2);
+			}
 
 			// See if we have landed on the ground.
 			if ((avatar.getSensorName().equals(fd2) && avatar != bd1) ||
@@ -789,6 +844,9 @@ public class WorldController implements Screen, ContactListener {
 			for (SyncedPlatform platform : weightedPlatforms) {
 				platform.genreUpdate(Genre.SYNTH);
 			}
+			for (SyncedProjectile projectile : bullets) {
+				projectile.genreUpdate(Genre.SYNTH);
+			}
 		}
 		//update to Jazz
 		else {
@@ -797,6 +855,9 @@ public class WorldController implements Screen, ContactListener {
 			avatar.setTexture(synthJazzTexture);
 			for (SyncedPlatform platform : weightedPlatforms) {
 				platform.genreUpdate(Genre.JAZZ);
+			}
+			for (SyncedProjectile projectile : bullets) {
+				projectile.genreUpdate(Genre.JAZZ);
 			}
 		}
 	}
@@ -813,7 +874,7 @@ public class WorldController implements Screen, ContactListener {
 	public void postUpdate(float dt) {
 		// Add any objects created by actions
 		while (!addQueue.isEmpty()) {
-			addObject(addQueue.poll());
+			instantiate(addQueue.poll());
 		}
 		
 		// Turn the physics engine crank.
@@ -955,6 +1016,7 @@ public class WorldController implements Screen, ContactListener {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
+			canvas.updateCamera(avatar);
 			draw(delta);
 		}
 	}
@@ -1020,9 +1082,17 @@ public class WorldController implements Screen, ContactListener {
 		}
 	}
 
-	/** Returns the player object */
-	public static Player getPlayer() {
-		return avatar;
+	/**Instantiate an object into the world.  If the object is implements {@link ISynced}, add
+	 * to the sync
+	 * @param  object: The object you are instantiating
+	 *
+	 * */
+	public void instantiate(Obstacle object){
+		addObject(object);
+		if(object instanceof  ISynced){
+			syncController.addSync((ISynced) object);
+		}
+
 	}
 
 
