@@ -57,7 +57,7 @@ import edu.cornell.gdiac.rabbeat.obstacle.*;
  * This is the purpose of our AssetState variable; it ensures that multiple instances
  * place nicely with the static assets.
  */
-public class WorldController implements Screen, ContactListener {
+public class GameController implements Screen, ContactListener {
 
 	/** The genre state of the game */
 	public Genre genre = Genre.SYNTH;
@@ -166,11 +166,11 @@ public class WorldController implements Screen, ContactListener {
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
 
-	private static WorldController theController = null;
+	private static GameController theController = null;
 
-	public static WorldController getInstance() {
+	public static GameController getInstance() {
 		if (theController == null) {
-			theController = new WorldController();
+			theController = new GameController();
 		}
 		return theController;
 	}
@@ -294,7 +294,7 @@ public class WorldController implements Screen, ContactListener {
 	 * with the Box2d coordinates.  The bounds are in terms of the Box2d
 	 * world, not the screen.
 	 */
-	protected WorldController() {
+	protected GameController() {
 		this(new Rectangle(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT), 
 			 new Vector2(0,DEFAULT_GRAVITY));
 		setDebug(false);
@@ -318,7 +318,7 @@ public class WorldController implements Screen, ContactListener {
 	 * @param bounds	The game bounds in Box2d coordinates
 	 * @param gravity	The gravitational force on this Box2d world
 	 */
-	protected WorldController(Rectangle bounds, Vector2 gravity) {
+	protected GameController(Rectangle bounds, Vector2 gravity) {
 		world = new World(gravity,false);
 		this.bounds = new Rectangle(bounds);
 		this.scale = new Vector2(1,1);

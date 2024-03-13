@@ -2,13 +2,12 @@ package edu.cornell.gdiac.rabbeat.obstacle.enemies;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
-import edu.cornell.gdiac.rabbeat.WorldController;
+import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacle.CapsuleObstacle;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.physics.box2d.*;
-import edu.cornell.gdiac.rabbeat.obstacle.CapsuleObstacle;
 //package edu.cornell.gdiac.physics.platform;
 
 import com.badlogic.gdx.utils.JsonValue;
@@ -186,7 +185,7 @@ public abstract class Enemy extends CapsuleObstacle {
 
     /** Returns the distance between the enemy and the player */
     public float horizontalDistanceBetweenEnemyAndPlayer(){
-        return Math.abs(WorldController.getPlayer().getPosition().x - getPosition().x);
+        return Math.abs(GameController.getPlayer().getPosition().x - getPosition().x);
     }
 
     /** Switches enemy attacking state depending on its current state */
@@ -195,8 +194,8 @@ public abstract class Enemy extends CapsuleObstacle {
 
     /** Returns the x position of the player */
     public float playerXPosition(){
-        if(WorldController.getInstance() !=  null) {
-            return WorldController.getInstance().getPlayer().getPosition().x;
+        if(GameController.getInstance() !=  null) {
+            return GameController.getInstance().getPlayer().getPosition().x;
         }
 
         return 0;
