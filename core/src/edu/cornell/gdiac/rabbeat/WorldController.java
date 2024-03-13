@@ -18,7 +18,6 @@ package edu.cornell.gdiac.rabbeat;
 
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.BearEnemy;
 
-import edu.cornell.gdiac.rabbeat.obstacle.enemies.Bullet;
 
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.Enemy;
 
@@ -161,7 +160,8 @@ public class WorldController implements Screen, ContactListener {
 	/** Reference to all the weighted platforms */
 	private Array<SyncedPlatform> weightedPlatforms;
 
-	private Array<SyncedProjectile> bullets;
+	/** Reference to all the weighted platforms */
+	private Array<Enemy> enemies;
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
@@ -179,7 +179,8 @@ public class WorldController implements Screen, ContactListener {
 	public static Player getPlayer() {
 		return avatar;
 	}
-	protected BulletSync bulletSync = new BulletSync();
+
+
 
 	/**
 	 * Returns true if debug mode is active.
@@ -304,8 +305,9 @@ public class WorldController implements Screen, ContactListener {
 		sensorFixtures = new ObjectSet<Fixture>();
 		checkpoints = new Queue<Pair<BoxObstacle, Integer>>();
 		weightedPlatforms = new Array<>();
-		bullets = new Array<>();
+		enemies = new Array<>();
 		syncController = new SyncController();
+		theController = this;
 	}
 
 	/**
@@ -389,6 +391,22 @@ public class WorldController implements Screen, ContactListener {
 		jazzSoundtrack = directory.getEntry("music:jazz1",Music.class);
 		jazzSoundtrack.setLooping(true);
 		jazzSoundtrack.setVolume(0);
+	}
+
+	public JsonValue getBulletJV(){
+		return constants.get("bullet");
+	}
+
+	public TextureRegion getBulletTR(){
+		return bullet;
+	}
+
+	public Vector2 getScale(){
+		return scale;
+	}
+
+	public Genre getGenre(){
+		return genre;
 	}
 
 	/**
@@ -626,9 +644,11 @@ public class WorldController implements Screen, ContactListener {
 		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
 		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
 
-		enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false);
+		enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false,
+				constants.get("bullet").getFloat("synth speed", 0), constants.get("bullet").getFloat("jazz speed", 0));
 		enemy.setDrawScale(scale);
 		enemy.setTexture(enemyDefaultTexture);
+		enemies.add(enemy);
 		instantiate(enemy);
 
 		volume = constants.getFloat("volume", 1.0f);
@@ -692,7 +712,6 @@ public class WorldController implements Screen, ContactListener {
 	}
 
 	// TODO: Update physics based on genre
-	private boolean shot = false;
 	/**
 	 * The core gameplay loop of this world.
 	 *
@@ -708,17 +727,6 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
 		avatar.applyForce();
-		if (bulletSync.getIsBeatOne() && (shot == false))
-		{
-			removeBullets(bullets);
-			Bullet newBullet = enemy.bulletMaker(constants.get("bullet"), bullet, scale, genre);
-			addQueuedObject(newBullet);
-			bullets.add(newBullet);
-			shot = true;
-		}
-		if (!bulletSync.getIsBeatOne()){
-			shot = false;
-		}
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
@@ -728,17 +736,11 @@ public class WorldController implements Screen, ContactListener {
 		enemy.switchState(); //when more enemies will be added, this will be in a for-loop
 	}
 
+	/** Removes bullet */
 	public void removeBullet(SyncedProjectile bullet) {
 		bullet.markRemoved(true);
-		bullets.removeValue(bullet, true);
 	}
 
-	public void removeBullets(Array<SyncedProjectile> obs){
-		for (int i = 0; i < obs.size; i++){
-			obs.get(i).markRemoved(true);
-			bullets.removeIndex(i);
-		}
-	}
 	/**
 	 * Callback method for the start of a collision
 	 *
@@ -771,6 +773,14 @@ public class WorldController implements Screen, ContactListener {
 			if (bd2.getName().equals("bullet") && bd1 != enemy) {
 				removeBullet((SyncedProjectile) bd2);
 			}
+
+//			if (bd1.getName().equals("bullet") && bd2 == avatar){
+//				reset();
+//			}
+//
+//			if (bd2.getName().equals("bullet") && bd1 == avatar){
+//				reset();
+//			}
 
 			// See if we have landed on the ground.
 			if ((avatar.getSensorName().equals(fd2) && avatar != bd1) ||
@@ -851,8 +861,8 @@ public class WorldController implements Screen, ContactListener {
 			for (SyncedPlatform platform : weightedPlatforms) {
 				platform.genreUpdate(Genre.SYNTH);
 			}
-			for (SyncedProjectile projectile : bullets) {
-				projectile.genreUpdate(Genre.SYNTH);
+			for (Enemy e : enemies) {
+				e.genreUpdate(Genre.SYNTH);
 			}
 		}
 		//update to Jazz
@@ -863,8 +873,8 @@ public class WorldController implements Screen, ContactListener {
 			for (SyncedPlatform platform : weightedPlatforms) {
 				platform.genreUpdate(Genre.JAZZ);
 			}
-			for (SyncedProjectile projectile : bullets) {
-				projectile.genreUpdate(Genre.JAZZ);
+			for (Enemy e : enemies) {
+				e.genreUpdate(Genre.JAZZ);
 			}
 		}
 	}
