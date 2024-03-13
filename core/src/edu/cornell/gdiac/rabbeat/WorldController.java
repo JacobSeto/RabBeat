@@ -788,6 +788,7 @@ public class WorldController implements Screen, ContactListener {
 
 			if ((bd1 == avatar   && bd2 == enemy)) {
 				setFailure(true);
+			}
 
 			// Check for collision with checkpoints and set new current checkpoint
 			if (!checkpoints.isEmpty() &&
