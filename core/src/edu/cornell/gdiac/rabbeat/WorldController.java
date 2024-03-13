@@ -748,6 +748,7 @@ public class WorldController implements Screen, ContactListener {
 	 *
 	 * @param contact The two bodies that collided
 	 */
+	@Override
 	public void beginContact(Contact contact) {
 		Fixture fix1 = contact.getFixtureA();
 		Fixture fix2 = contact.getFixtureB();
@@ -784,11 +785,16 @@ public class WorldController implements Screen, ContactListener {
 				setComplete(true);
 			}
 
+
+			if ((bd1 == avatar   && bd2 == enemy)) {
+				setFailure(true);
+
 			// Check for collision with checkpoints and set new current checkpoint
 			if (!checkpoints.isEmpty() &&
 					((bd1 == avatar && bd2 == checkpoints.first().fst) ||
 					(bd1 == checkpoints.first().fst && bd2 == avatar))) {
 				respawnPoint = checkpoints.removeFirst().fst;
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
