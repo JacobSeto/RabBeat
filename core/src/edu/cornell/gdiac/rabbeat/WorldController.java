@@ -616,6 +616,7 @@ public class WorldController implements Screen, ContactListener {
 	 *
 	 * @param contact The two bodies that collided
 	 */
+	@Override
 	public void beginContact(Contact contact) {
 		Fixture fix1 = contact.getFixtureA();
 		Fixture fix2 = contact.getFixtureB();
@@ -641,6 +642,10 @@ public class WorldController implements Screen, ContactListener {
 			if ((bd1 == avatar   && bd2 == goalDoor) ||
 					(bd1 == goalDoor && bd2 == avatar)) {
 				setComplete(true);
+			}
+
+			if ((bd1 == avatar   && bd2 == enemy)) {
+				setFailure(true);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
