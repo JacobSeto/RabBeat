@@ -18,7 +18,6 @@ package edu.cornell.gdiac.rabbeat;
 
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.BearEnemy;
 
-import edu.cornell.gdiac.rabbeat.obstacle.enemies.Bullet;
 
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.Enemy;
 
@@ -155,10 +154,15 @@ public class WorldController implements Screen, ContactListener {
 
 	/** Reference to the goalDoor (for collision detection) */
 	private BoxObstacle goalDoor;
+	/** Reference to the current spawn point */
+	private BoxObstacle respawnPoint;
+	/** Reference to all the checkpoints */
+	private Queue<Pair<BoxObstacle, Integer>> checkpoints;
 	/** Reference to all the weighted platforms */
 	private Array<SyncedPlatform> weightedPlatforms;
 
-	private Array<SyncedProjectile> bullets;
+	/** Reference to all the weighted platforms */
+	private Array<Enemy> enemies;
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
@@ -176,7 +180,8 @@ public class WorldController implements Screen, ContactListener {
 	public static Player getPlayer() {
 		return avatar;
 	}
-	protected BulletSync bulletSync = new BulletSync();
+
+
 
 	/**
 	 * Returns true if debug mode is active.
@@ -299,10 +304,11 @@ public class WorldController implements Screen, ContactListener {
 		setFailure(false);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
+		checkpoints = new Queue<Pair<BoxObstacle, Integer>>();
 		weightedPlatforms = new Array<>();
-		bullets = new Array<>();
+		enemies = new Array<>();
 		syncController = new SyncController();
-
+		theController = this;
 	}
 
 	/**
@@ -388,6 +394,22 @@ public class WorldController implements Screen, ContactListener {
 		jazzSoundtrack.setVolume(0);
 	}
 
+	public JsonValue getBulletJV(){
+		return constants.get("bullet");
+	}
+
+	public TextureRegion getBulletTR(){
+		return bullet;
+	}
+
+	public Vector2 getScale(){
+		return scale;
+	}
+
+	public Genre getGenre(){
+		return genre;
+	}
+
 	/**
 	 *
 	 * Adds a physics object in to the insertion queue.
@@ -428,6 +450,63 @@ public class WorldController implements Screen, ContactListener {
 		return horiz && vert;
 	}
 
+	/**
+	 * Initialize the game for the first time
+	 */
+	public void initialize() {
+		genre = Genre.SYNTH;
+		Vector2 gravity = new Vector2(world.getGravity() );
+
+		world = new World(gravity,false);
+		world.setContactListener(this);
+		setComplete(false);
+		setFailure(false);
+		populateLevel();
+		createCheckpoints();
+		avatar.setPosition(respawnPoint.getPosition());
+	}
+
+	/**
+	 * Create the start tile and checkpoints
+	 */
+	private void createCheckpoints() {
+		float checkpointWidth  = goalTile.getRegionWidth()/scale.x;
+		float checkpointHeight = goalTile.getRegionHeight()/scale.y;
+
+		// Add the start tile as the current spawn point
+		JsonValue start = constants.get("start");
+		JsonValue startPos = start.get("pos");
+		BoxObstacle startTile = new BoxObstacle(startPos.getFloat(0), startPos.getFloat(1), checkpointWidth, checkpointHeight);
+		startTile.setBodyType(BodyDef.BodyType.StaticBody);
+		startTile.setDensity(start.getFloat("density", 0));
+		startTile.setFriction(start.getFloat("friction", 0));
+		startTile.setRestitution(start.getFloat("restitution", 0));
+		startTile.setSensor(true);
+		startTile.setDrawScale(scale);
+		startTile.setTexture(goalTile);
+		startTile.setName("start");
+		addObject(startTile);
+		respawnPoint = startTile;
+
+		// Populate all checkpoints
+		for (int i = 0; i < constants.get("checkpoints").size; i++) {
+			String cname = "checkpoint";
+			JsonValue checkpoint = constants.get("checkpoints").get(i);
+			JsonValue checkpointPos = checkpoint.get("pos");
+			BoxObstacle obj = new BoxObstacle(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(checkpoint.getFloat("density", 0));
+			obj.setFriction(checkpoint.getFloat("friction", 0));
+			obj.setRestitution(checkpoint.getFloat("restitution", 0));
+			obj.setSensor(true);
+			obj.setDrawScale(scale);
+			obj.setTexture(goalTile);
+			obj.setName(cname + i);
+			addObject(obj);
+			checkpoints.addLast(new Pair<BoxObstacle, Integer>(obj, i));
+		}
+	}
+
 	// TODO: Reset to SYNTH defaults
 	/**
 	 * Resets the status of the game so that we can play again.
@@ -450,7 +529,9 @@ public class WorldController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
+		syncController = new SyncController();
 		populateLevel();
+		avatar.setPosition(respawnPoint.getPosition());
 	}
 
 	// TODO: Will use level data json to populate
@@ -458,6 +539,30 @@ public class WorldController implements Screen, ContactListener {
 	 * Lays out the game geography.
 	 */
 	private void populateLevel() {
+		// Repopulate current checkpoints
+		float checkpointWidth  = goalTile.getRegionWidth()/scale.x;
+		float checkpointHeight = goalTile.getRegionHeight()/scale.y;
+
+		Queue<Pair<BoxObstacle, Integer>> newCheckpoints = new Queue<>();
+		for (Pair<BoxObstacle, Integer> pair : checkpoints) {
+			String cname = "checkpoint";
+			JsonValue checkpoint = constants.get("checkpoints").get(pair.snd);
+			JsonValue checkpointPos = checkpoint.get("pos");
+			BoxObstacle obj = new BoxObstacle(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(checkpoint.getFloat("density", 0));
+			obj.setFriction(checkpoint.getFloat("friction", 0));
+			obj.setRestitution(checkpoint.getFloat("restitution", 0));
+			obj.setSensor(true);
+			obj.setDrawScale(scale);
+			obj.setTexture(goalTile);
+			obj.setName(cname + pair.snd);
+			addObject(obj);
+			newCheckpoints.addLast(new Pair<BoxObstacle, Integer>(obj, pair.snd));
+		}
+		checkpoints.clear();
+		checkpoints = newCheckpoints;
+
 		// Add level goal
 		float dwidth  = goalTile.getRegionWidth()/scale.x;
 		float dheight = goalTile.getRegionHeight()/scale.y;
@@ -558,9 +663,11 @@ public class WorldController implements Screen, ContactListener {
 		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
 		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
 
-		enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false);
+		enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false,
+				constants.get("bullet").getFloat("synth speed", 0), constants.get("bullet").getFloat("jazz speed", 0));
 		enemy.setDrawScale(scale);
 		enemy.setTexture(enemyDefaultTexture);
+		enemies.add(enemy);
 		instantiate(enemy);
 
 		volume = constants.getFloat("volume", 1.0f);
@@ -624,7 +731,6 @@ public class WorldController implements Screen, ContactListener {
 	}
 
 	// TODO: Update physics based on genre
-	private boolean shot = false;
 	/**
 	 * The core gameplay loop of this world.
 	 *
@@ -640,17 +746,6 @@ public class WorldController implements Screen, ContactListener {
 		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
 		avatar.setJumping(InputController.getInstance().didPrimary());
 		avatar.applyForce();
-		if (bulletSync.getIsBeatOne() && (shot == false))
-		{
-			removeBullets(bullets);
-			Bullet newBullet = enemy.bulletMaker(constants.get("bullet"), bullet, scale, genre);
-			addQueuedObject(newBullet);
-			bullets.add(newBullet);
-			shot = true;
-		}
-		if (!bulletSync.getIsBeatOne()){
-			shot = false;
-		}
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
@@ -660,17 +755,11 @@ public class WorldController implements Screen, ContactListener {
 		enemy.switchState(); //when more enemies will be added, this will be in a for-loop
 	}
 
+	/** Removes bullet */
 	public void removeBullet(SyncedProjectile bullet) {
 		bullet.markRemoved(true);
-		bullets.removeValue(bullet, true);
 	}
 
-	public void removeBullets(Array<SyncedProjectile> obs){
-		for (int i = 0; i < obs.size; i++){
-			obs.get(i).markRemoved(true);
-			bullets.removeIndex(i);
-		}
-	}
 	/**
 	 * Callback method for the start of a collision
 	 *
@@ -680,6 +769,7 @@ public class WorldController implements Screen, ContactListener {
 	 *
 	 * @param contact The two bodies that collided
 	 */
+	@Override
 	public void beginContact(Contact contact) {
 		Fixture fix1 = contact.getFixtureA();
 		Fixture fix2 = contact.getFixtureB();
@@ -703,6 +793,14 @@ public class WorldController implements Screen, ContactListener {
 				removeBullet((SyncedProjectile) bd2);
 			}
 
+//			if (bd1.getName().equals("bullet") && bd2 == avatar){
+//				reset();
+//			}
+//
+//			if (bd2.getName().equals("bullet") && bd1 == avatar){
+//				reset();
+//			}
+
 			// See if we have landed on the ground.
 			if ((avatar.getSensorName().equals(fd2) && avatar != bd1) ||
 					(avatar.getSensorName().equals(fd1) && avatar != bd2)) {
@@ -711,9 +809,22 @@ public class WorldController implements Screen, ContactListener {
 			}
 
 			// Check for win condition
-			if ((bd1 == avatar   && bd2 == goalDoor) ||
+			if ((bd1 == avatar && bd2 == goalDoor) ||
 					(bd1 == goalDoor && bd2 == avatar)) {
 				setComplete(true);
+			}
+
+
+			if ((bd1 == avatar   && bd2 == enemy)) {
+				setFailure(true);
+			}
+
+			// Check for collision with checkpoints and set new current checkpoint
+			if (!checkpoints.isEmpty() &&
+					((bd1 == avatar && bd2 == checkpoints.first().fst) ||
+					(bd1 == checkpoints.first().fst && bd2 == avatar))) {
+				respawnPoint = checkpoints.removeFirst().fst;
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -769,8 +880,8 @@ public class WorldController implements Screen, ContactListener {
 			for (SyncedPlatform platform : weightedPlatforms) {
 				platform.genreUpdate(Genre.SYNTH);
 			}
-			for (SyncedProjectile projectile : bullets) {
-				projectile.genreUpdate(Genre.SYNTH);
+			for (Enemy e : enemies) {
+				e.genreUpdate(Genre.SYNTH);
 			}
 		}
 		//update to Jazz
@@ -781,8 +892,8 @@ public class WorldController implements Screen, ContactListener {
 			for (SyncedPlatform platform : weightedPlatforms) {
 				platform.genreUpdate(Genre.JAZZ);
 			}
-			for (SyncedProjectile projectile : bullets) {
-				projectile.genreUpdate(Genre.JAZZ);
+			for (Enemy e : enemies) {
+				e.genreUpdate(Genre.JAZZ);
 			}
 		}
 	}
@@ -841,9 +952,14 @@ public class WorldController implements Screen, ContactListener {
 		canvas.end();
 		
 		canvas.begin();
-		for(Obstacle obj : objects) {
+		for (Obstacle obj : objects) {
 			obj.draw(canvas);
 		}
+		canvas.end();
+
+		// Draw the player on top
+		canvas.begin();
+		avatar.draw(canvas);
 		canvas.end();
 		
 		if (debug) {
