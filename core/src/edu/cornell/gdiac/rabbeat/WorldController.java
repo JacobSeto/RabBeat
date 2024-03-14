@@ -631,18 +631,18 @@ public class WorldController implements Screen, ContactListener {
 
 		String mpname = "mplatform";
 		JsonValue mplatjv = constants.get("mplatforms");
-		for (int ii = 0; ii < wplatjv.size; ii++) {
-			JsonValue currentWP = wplatjv.get(ii);
+		for (int ii = 0; ii < mplatjv.size; ii++) {
+			JsonValue currentWP = mplatjv.get(ii);
 			MovingPlatform obj;
-			obj = new MovingPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
-					 5.0f);
+			obj = new MovingPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("nodes").asFloatArray(),
+					currentWP.getFloat("speed"));
 			obj.setBodyType(BodyDef.BodyType.StaticBody);
 			obj.setDensity(defaults.getFloat("density", 0.0f));
 			obj.setFriction(defaults.getFloat("friction", 0.0f));
 			obj.setRestitution(defaults.getFloat("restitution", 0.0f));
 			obj.setDrawScale(scale);
 			obj.setTexture(weightedPlatform);
-			obj.setName(wpname + ii);
+			obj.setName(mpname + ii);
 			instantiate(obj);
 			weightedPlatforms.add(obj);
 		}

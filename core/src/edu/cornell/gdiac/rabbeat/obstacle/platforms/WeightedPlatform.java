@@ -70,7 +70,7 @@ public class WeightedPlatform extends SyncedPlatform {
                 move(delta, synthPosition, -1);
             }
             else{
-                //System.out.println(currentGenre);
+
                 move(delta, jazzPosition, 1);
             }
         }

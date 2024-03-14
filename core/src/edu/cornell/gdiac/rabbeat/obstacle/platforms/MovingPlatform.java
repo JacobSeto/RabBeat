@@ -39,9 +39,10 @@ public class MovingPlatform extends SyncedPlatform {
     public MovingPlatform(float[] points, float[] nodes, float speed){
         super(points);
         platformSpeed = speed;
-
-        for (int i = 0; i < 2*nodes.length; i++) {
+        positionNodes = new Array<Vector2>();
+        for (int i = 0; i < nodes.length; i++) {
             if ((i%2) == 1){
+
                 positionNodes.add(new Vector2(nodes[i-1], nodes[i]));
             }
         }
@@ -49,6 +50,7 @@ public class MovingPlatform extends SyncedPlatform {
         home = 0;
 
         setPosition(positionNodes.get(0));
+        velocity = direction(positionNodes.get(home), positionNodes.get(destination), platformSpeed);
         moving = true;
         tint = Color.RED;
     }
@@ -62,25 +64,32 @@ public class MovingPlatform extends SyncedPlatform {
     /** updates the platform to determine what direction it should be moving in */
     public void update(float delta){
         if(moving){
+
             if ((magnitude(getPosition(), positionNodes.get(destination))<LOCKDIST)){
+                System.out.println("destination");
+                home = destination;
                 if (destination == positionNodes.size-1){
                     destination = 0;
                 }
                 else{
                     destination+=1;
                 }
-                home = destination;
+                System.out.println(destination);
+                System.out.println(home);
+                System.out.println(positionNodes);
                 velocity = direction(positionNodes.get(home), positionNodes.get(destination), platformSpeed);
+                System.out.println(velocity);
                 move(delta);
             }
             else{
+                System.out.println("moving");
                 move(delta);
             }
         }
     }
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
     public void move(float delta){
-        setPosition(getPosition().x + velocity.x*delta, getPosition().y + velocity.y*delta);
+        setPosition(getPosition().x + velocity.x*delta*-1, getPosition().y + velocity.y*delta*-1);
     }
 
     @Override
