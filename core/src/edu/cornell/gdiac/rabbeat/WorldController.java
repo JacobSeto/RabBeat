@@ -23,6 +23,7 @@ import edu.cornell.gdiac.rabbeat.obstacle.enemies.Bullet;
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.Enemy;
 
 import edu.cornell.gdiac.rabbeat.obstacle.enemies.SyncedProjectile;
+import edu.cornell.gdiac.rabbeat.obstacle.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacle.platforms.SyncedPlatform;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.BulletSync;
@@ -512,6 +513,24 @@ public class WorldController implements Screen, ContactListener {
 			WeightedPlatform obj;
 			obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
 					currentWP.get("jazzPos").asFloatArray(), 5.0f);
+			obj.setBodyType(BodyDef.BodyType.StaticBody);
+			obj.setDensity(defaults.getFloat("density", 0.0f));
+			obj.setFriction(defaults.getFloat("friction", 0.0f));
+			obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+			obj.setDrawScale(scale);
+			obj.setTexture(weightedPlatform);
+			obj.setName(wpname + ii);
+			instantiate(obj);
+			weightedPlatforms.add(obj);
+		}
+
+		String mpname = "mplatform";
+		JsonValue mplatjv = constants.get("mplatforms");
+		for (int ii = 0; ii < wplatjv.size; ii++) {
+			JsonValue currentWP = wplatjv.get(ii);
+			MovingPlatform obj;
+			obj = new MovingPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
+					 5.0f);
 			obj.setBodyType(BodyDef.BodyType.StaticBody);
 			obj.setDensity(defaults.getFloat("density", 0.0f));
 			obj.setFriction(defaults.getFloat("friction", 0.0f));

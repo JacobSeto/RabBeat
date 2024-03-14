@@ -20,7 +20,7 @@ public class WeightedPlatform extends SyncedPlatform {
     private Color tint;
     private int currentGenre;
     /** The speed at which the platform moves at**/
-    private float speed;
+    private float platformSpeed;
     /** Whether or not the platform is moving**/
     boolean moving;
     private Vector2 velocity;
@@ -36,6 +36,7 @@ public class WeightedPlatform extends SyncedPlatform {
      *                  jazz mode
      * @param jazzPos	The array with index 0 and 1 holding the x and y coordinates for the platform's position in jazz
      *                  mode
+     * @param speed     The speed of the platform
      */
     public WeightedPlatform(float[] points, float[] synthPos, float[] jazzPos, float speed){
         super(points);
@@ -44,23 +45,18 @@ public class WeightedPlatform extends SyncedPlatform {
         tint = Color.RED;
         setPosition(synthPosition);
         moving = false;
-        speed = speed;
+        platformSpeed = speed;
 
         /** calculates the difference between the two positions of the platforms, normalizes it, and then
          * converts that into the velocity**/
         float magnitude1 = magnitude(jazzPosition, synthPosition);
 
-        velocity = new Vector2((jazzPosition.x - synthPosition.x)*speed/magnitude1,
-                (jazzPosition.y-synthPosition.y)*speed/magnitude1);
+        velocity = new Vector2((jazzPosition.x - synthPosition.x)*platformSpeed/magnitude1,
+                (jazzPosition.y-synthPosition.y)*platformSpeed/magnitude1);
 
         currentGenre = 0;
     }
 
-    public float magnitude(Vector2 pos1, Vector2 pos2){
-        double magnitude = Math.sqrt(Math.pow((pos1.x - pos2.x),2)+
-                Math.pow((pos1.y-pos2.y),2));
-        return (float) magnitude;
-    }
     @Override
     public void draw(GameCanvas canvas) {
         if (region != null) {
@@ -86,7 +82,6 @@ public class WeightedPlatform extends SyncedPlatform {
             setPosition(destination);
         }
         else{
-            //body.applyLinearImpulse(velocity, velocity, true);
             setPosition(getPosition().x + velocity.x*delta*direction, getPosition().y + velocity.y*delta*direction);
         }
     }
