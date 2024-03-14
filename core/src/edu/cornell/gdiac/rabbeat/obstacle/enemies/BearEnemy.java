@@ -114,6 +114,8 @@ public class BearEnemy extends Enemy implements ISynced {
         }
         if (beatCount == 4){
         }
+
+        setFaceRight(WorldController.getInstance().getPlayer().getPosition().x - getPosition().x > 0);
     }
 
     @Override
@@ -137,4 +139,6 @@ public class BearEnemy extends Enemy implements ISynced {
                 break;
         }
     }
+
+
 }
