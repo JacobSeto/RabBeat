@@ -66,7 +66,7 @@ public class MovingPlatform extends SyncedPlatform {
         if(moving){
 
             if ((magnitude(getPosition(), positionNodes.get(destination))<LOCKDIST)){
-                System.out.println("destination");
+
                 home = destination;
                 if (destination == positionNodes.size-1){
                     destination = 0;
@@ -74,15 +74,13 @@ public class MovingPlatform extends SyncedPlatform {
                 else{
                     destination+=1;
                 }
-                System.out.println(destination);
-                System.out.println(home);
-                System.out.println(positionNodes);
+
                 velocity = direction(positionNodes.get(home), positionNodes.get(destination), platformSpeed);
-                System.out.println(velocity);
+
                 move(delta);
             }
             else{
-                System.out.println("moving");
+                
                 move(delta);
             }
         }
