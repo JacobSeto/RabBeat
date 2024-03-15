@@ -63,6 +63,9 @@ public class WorldController implements Screen, ContactListener {
 	/** The Sync object that will sync the world to the beat*/
 	public SyncController syncController;
 
+	/** The SoundController object to handle audio */
+	public SoundController soundController;
+
 	/** The texture for walls */
 	protected TextureRegion blackTile;
 	/** The texture for regular platforms */
@@ -307,6 +310,7 @@ public class WorldController implements Screen, ContactListener {
 		weightedPlatforms = new Array<>();
 		enemies = new Array<>();
 		syncController = new SyncController();
+		soundController = new SoundController();
 		theController = this;
 	}
 
@@ -386,11 +390,9 @@ public class WorldController implements Screen, ContactListener {
 	 * */
 	public void setSoundtrack(AssetDirectory directory){
 		synthSoundtrack = directory.getEntry("music:synth1", Music.class) ;
-		synthSoundtrack.setLooping(true);
-		synthSoundtrack.setVolume(1);
 		jazzSoundtrack = directory.getEntry("music:jazz1",Music.class);
-		jazzSoundtrack.setLooping(true);
-		jazzSoundtrack.setVolume(0);
+		soundController.setSynthTrack(synthSoundtrack);
+		soundController.setJazzTrack(jazzSoundtrack);
 	}
 
 	public JsonValue getBulletJV(){
@@ -463,6 +465,7 @@ public class WorldController implements Screen, ContactListener {
 		populateLevel();
 		createCheckpoints();
 		avatar.setPosition(respawnPoint.getPosition());
+		soundController.playMusic();
 	}
 
 	/**
@@ -531,6 +534,7 @@ public class WorldController implements Screen, ContactListener {
 		syncController = new SyncController();
 		populateLevel();
 		avatar.setPosition(respawnPoint.getPosition());
+		soundController.resetMusic();
 	}
 
 	// TODO: Will use level data json to populate
@@ -733,6 +737,7 @@ public class WorldController implements Screen, ContactListener {
 			updateGenreSwitch();
 		}
 		syncController.updateBeat();
+		soundController.update();
 		enemy.switchState(); //when more enemies will be added, this will be in a for-loop
 	}
 
@@ -853,6 +858,7 @@ public class WorldController implements Screen, ContactListener {
 	 *
 	 */
 	public void updateGenreSwitch() {
+		soundController.setGenre(genre);
 		//update to Synth
 		if (genre == Genre.SYNTH) {
 			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
@@ -963,47 +969,6 @@ public class WorldController implements Screen, ContactListener {
 			canvas.drawTextCentered("FAILURE!", displayFont, 0.0f);
 			canvas.end();
 		}
-	}
-
-	/**
-	 * Method to ensure that a sound asset is only played once.
-	 *
-	 * Every time you play a sound asset, it makes a new instance of that sound.
-	 * If you play the sounds to close together, you will have overlapping copies.
-	 * To prevent that, you must stop the sound before you play it again.  That
-	 * is the purpose of this method.  It stops the current instance playing (if
-	 * any) and then returns the id of the new instance for tracking.
-	 *
-	 * @param sound		The sound asset to play
-	 * @param soundId	The previously playing sound instance
-	 *
-	 * @return the new sound instance for this asset.
-	 */
-	public long playSound(Sound sound, long soundId) {
-		return playSound( sound, soundId, 1.0f );
-	}
-
-
-	/**
-	 * Method to ensure that a sound asset is only played once.
-	 *
-	 * Every time you play a sound asset, it makes a new instance of that sound.
-	 * If you play the sounds to close together, you will have overlapping copies.
-	 * To prevent that, you must stop the sound before you play it again.  That
-	 * is the purpose of this method.  It stops the current instance playing (if
-	 * any) and then returns the id of the new instance for tracking.
-	 *
-	 * @param sound		The sound asset to play
-	 * @param soundId	The previously playing sound instance
-	 * @param volume	The sound volume
-	 *
-	 * @return the new sound instance for this asset.
-	 */
-	public long playSound(Sound sound, long soundId, float volume) {
-		if (soundId != -1) {
-			sound.stop( soundId );
-		}
-		return sound.play(volume);
 	}
 
 	/**
