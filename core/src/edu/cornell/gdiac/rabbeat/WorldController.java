@@ -774,13 +774,13 @@ public class WorldController implements Screen, ContactListener {
 				removeBullet((SyncedProjectile) bd2);
 			}
 
-//			if (bd1.getName().equals("bullet") && bd2 == avatar){
-//				reset();
-//			}
-//
-//			if (bd2.getName().equals("bullet") && bd1 == avatar){
-//				reset();
-//			}
+			if (bd1.getName().equals("bullet") && bd2 == avatar){
+				setFailure(true);
+			}
+
+			if (bd2.getName().equals("bullet") && bd1 == avatar){
+				setFailure(true);
+			}
 
 			// See if we have landed on the ground.
 			if ((avatar.getSensorName().equals(fd2) && avatar != bd1) ||
