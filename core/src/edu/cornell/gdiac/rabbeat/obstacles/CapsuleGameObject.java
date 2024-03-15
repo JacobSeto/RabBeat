@@ -10,7 +10,7 @@
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * LibGDX version, 2/6/2015
  */
-package edu.cornell.gdiac.rabbeat.obstacle;
+package edu.cornell.gdiac.rabbeat.obstacles;
 
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
@@ -23,7 +23,7 @@ import edu.cornell.gdiac.rabbeat.*;  // For GameCanvas
  *
  * Unless otherwise specified, the center of mass is as the center.
  */
-public class CapsuleObstacle extends SimpleObstacle {
+public class CapsuleGameObject extends SimpleGameObject {
 	/** Epsilon factor to prevent issues with the fixture seams */
 	private static final float DEFAULT_EPSILON = 0.01f;
 	
@@ -229,7 +229,7 @@ public class CapsuleObstacle extends SimpleObstacle {
 	 * @param width		The object width in physics units
 	 * @param height	The object width in physics units
 	 */
-	public CapsuleObstacle(float width, float height) {
+	public CapsuleGameObject(float width, float height) {
 	    this(0,0,width,height,
 		    (width > height ? Orientation.HORIZONTAL : Orientation.VERTICAL));
 	}
@@ -250,7 +250,7 @@ public class CapsuleObstacle extends SimpleObstacle {
 	 * @param width		The object width in physics units
 	 * @param height	The object width in physics units
 	 */
-	public CapsuleObstacle(float x, float y, float width, float height) {
+	public CapsuleGameObject(float x, float y, float width, float height) {
 	    this(x,y,width,height,
 	    	(width > height ? Orientation.HORIZONTAL : Orientation.VERTICAL));
 	}
@@ -267,7 +267,7 @@ public class CapsuleObstacle extends SimpleObstacle {
 	 * @param width		The object width in physics units
 	 * @param height	The object width in physics units
 	 */
-	public CapsuleObstacle(float x, float y, float width, float height, Orientation o) {
+	public CapsuleGameObject(float x, float y, float width, float height, Orientation o) {
 		super(x,y);
 		dimension = new Vector2();
 		sizeCache = new Vector2();

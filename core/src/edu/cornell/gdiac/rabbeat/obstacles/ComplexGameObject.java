@@ -14,7 +14,7 @@
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * LibGDX version, 2/6/2015
  */
-package edu.cornell.gdiac.rabbeat.obstacle;
+package edu.cornell.gdiac.rabbeat.obstacles;
 
 import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.math.*;
@@ -38,11 +38,11 @@ import edu.cornell.gdiac.rabbeat.*;  // For GameCanvas
  * To move the other bodies, they should either be iterated over directly, or attached
  * to the root via a joint.
  */
-public abstract class ComplexObstacle extends Obstacle {
+public abstract class ComplexGameObject extends GameObject {
     /** A root body for this box 2d. */
     protected Body body;
 	/** A complex physics object has multiple bodies */
-	protected Array<Obstacle> bodies;
+	protected Array<GameObject> bodies;
 	/** Potential joints for connecting the multiple bodies */
 	protected Array<Joint> joints;
 	
@@ -865,7 +865,7 @@ public abstract class ComplexObstacle extends Obstacle {
 	 *
 	 * @return the collection of component physics objects.
 	 */
-	 public Iterable<Obstacle> getBodies() {
+	 public Iterable<GameObject> getBodies() {
 	 	return bodies;
 	 }
 
@@ -884,7 +884,7 @@ public abstract class ComplexObstacle extends Obstacle {
 	/**
 	 * Creates a new complex physics object at the origin.
 	 */
-	protected ComplexObstacle() {
+	protected ComplexGameObject() {
 		this(0,0);
 	}
 	
@@ -896,9 +896,9 @@ public abstract class ComplexObstacle extends Obstacle {
 	 * @param x  Initial x position in world coordinates
 	 * @param y  Initial y position in world coordinates
 	 */
-	protected ComplexObstacle(float x, float y) {
+	protected ComplexGameObject(float x, float y) {
 		super(x,y);
-		bodies = new Array<Obstacle>();
+		bodies = new Array<GameObject>();
 		joints = new Array<Joint>();
 	}
 
@@ -919,7 +919,7 @@ public abstract class ComplexObstacle extends Obstacle {
 		boolean success = true;
 	
 		// Create all other bodies.
-		for(Obstacle obj : bodies) {
+		for(GameObject obj : bodies) {
 			success = success && obj.activatePhysics(world);
 		}
 		success = success && createJoints(world);
@@ -944,7 +944,7 @@ public abstract class ComplexObstacle extends Obstacle {
 				world.destroyJoint(joint);
 			}
 			joints.clear();
-			for (Obstacle obj : bodies) {
+			for (GameObject obj : bodies) {
 				obj.deactivatePhysics(world);
 			}
 			bodyinfo.active = false;
@@ -975,7 +975,7 @@ public abstract class ComplexObstacle extends Obstacle {
 	 */
 	public void update(float delta) {
 		// Delegate to components
-		for(Obstacle obj : bodies) {
+		for(GameObject obj : bodies) {
 			obj.update(delta);
 		}
 	}
@@ -995,7 +995,7 @@ public abstract class ComplexObstacle extends Obstacle {
      */
     public void setDrawScale(float x, float y) {
     	drawScale.set(x,y);
-		for(Obstacle obj : bodies) {
+		for(GameObject obj : bodies) {
 			obj.setDrawScale(x,y);
 		}
     }
@@ -1007,7 +1007,7 @@ public abstract class ComplexObstacle extends Obstacle {
 	 */
 	public void draw(GameCanvas canvas) {
 		// Delegate to components
-		for(Obstacle obj : bodies) {
+		for(GameObject obj : bodies) {
 			obj.draw(canvas);
 		}
 	}
@@ -1021,7 +1021,7 @@ public abstract class ComplexObstacle extends Obstacle {
 	 */
 	public void drawDebug(GameCanvas canvas) {
 		// Delegate to components
-		for(Obstacle obj : bodies) {
+		for(GameObject obj : bodies) {
 			obj.drawDebug(canvas);
 		}
 	}
