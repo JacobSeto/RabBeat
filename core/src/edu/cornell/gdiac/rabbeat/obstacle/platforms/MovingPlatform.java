@@ -31,10 +31,11 @@ public class MovingPlatform extends SyncedPlatform {
     private float LOCKDIST = 0.1f;
 
     /**
-     * Creates a new weighted platform with the given physics data and current genre.
+     * Creates a new moving platform with the given physics data and current genre.
      *
      * @param points  	The polygon vertices
      * @param nodes The points where the platform goes to, must be of even length
+     * @param speed The speed of the paltforms
      */
     public MovingPlatform(float[] points, float[] nodes, float speed){
         super(points);
