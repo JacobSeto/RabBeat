@@ -10,13 +10,13 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.physics.box2d.*;
 
 import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.rabbeat.*;
-import edu.cornell.gdiac.rabbeat.obstacle.*;
+import edu.cornell.gdiac.rabbeat.obstacles.*;
 
 /**
  * Player avatar for the plaform game.
@@ -24,7 +24,7 @@ import edu.cornell.gdiac.rabbeat.obstacle.*;
  * Note that this class returns to static loading.  That is because there are
  * no other subclasses that we might loop through.
  */
-public class Player extends CapsuleObstacle {
+public class Player extends CapsuleGameObject implements IGenreObject {
 	/** The initializing data (to avoid magic numbers) */
 	private final JsonValue data;
 
@@ -34,6 +34,10 @@ public class Player extends CapsuleObstacle {
 	private final float damping;
 	/** The maximum character speed */
 	private float maxspeed;
+	/** speed of player in Synth mode*/
+	public float synthSpeed;
+	/** speed of player in Jazz mode*/
+	public float jazzSpeed;
 	/** Identifier to allow us to track the sensor in ContactListener */
 	private final String sensorName;
 	/** The impulse for the character jump */
@@ -59,6 +63,11 @@ public class Player extends CapsuleObstacle {
 	
 	/** Cache for internal force calculations */
 	private final Vector2 forceCache = new Vector2();
+
+	/**Texture for player when they are in Synth*/
+	public TextureRegion synthDefaultTexture;
+	/**Texture for player when they are in Jazz*/
+	public TextureRegion jazzDefaultTexture;
 
 	/**
 	 * Returns left/right movement of this character.
@@ -307,6 +316,11 @@ public class Player extends CapsuleObstacle {
 	 * @param dt	Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
+		// Process actions in object model
+		setMovement(InputController.getInstance().getHorizontal() * getForce());
+		setJumping(InputController.getInstance().didPrimary());
+		applyForce();
+
 		// Apply cooldowns
 		if (isJumping()) {
 			jumpCooldown = jumpLimit;
@@ -340,5 +354,17 @@ public class Player extends CapsuleObstacle {
 	public void drawDebug(GameCanvas canvas) {
 		super.drawDebug(canvas);
 		canvas.drawPhysics(sensorShape,Color.RED,getX(),getY(),getAngle(),drawScale.x,drawScale.y);
+	}
+
+	@Override
+	public void genreUpdate(Genre genre) {
+		if (genre == Genre.SYNTH) {
+			maxspeed = synthSpeed;
+			setTexture(synthDefaultTexture);
+		}
+		else{
+			maxspeed = jazzSpeed;
+			setTexture(jazzDefaultTexture);
+		}
 	}
 }

@@ -1,7 +1,6 @@
-package edu.cornell.gdiac.rabbeat.obstacle.enemies;
+package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
 import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.rabbeat.Genre;
 
 public class BearEnemy extends Enemy {
 

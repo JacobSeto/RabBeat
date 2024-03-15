@@ -1,9 +1,11 @@
-package edu.cornell.gdiac.rabbeat.obstacle.platforms;
+package edu.cornell.gdiac.rabbeat.obstacles.platforms;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
+import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
+import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 
 /**
  * WeightedPlatform.java
@@ -11,7 +13,7 @@ import edu.cornell.gdiac.rabbeat.Genre;
  * This class provides a weighted platform which changes location depending on the genre.
  */
 
-public class WeightedPlatform extends SyncedPlatform {
+public class WeightedPlatform extends PolygonGameObject implements IGenreObject {
     /** Position for the weighted platform when the game is in Synth mode **/
     private Vector2 synthPosition;
 

@@ -1,8 +1,6 @@
-package edu.cornell.gdiac.rabbeat.obstacle.enemies;
+package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
-import com.badlogic.gdx.graphics.Color;
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.obstacle.WheelObstacle;
 
 public class Bullet extends SyncedProjectile {
     private float synthSpeed;

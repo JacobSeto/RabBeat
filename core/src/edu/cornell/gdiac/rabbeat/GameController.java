@@ -16,14 +16,8 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
-import edu.cornell.gdiac.rabbeat.obstacle.enemies.BearEnemy;
-
-import edu.cornell.gdiac.rabbeat.obstacle.enemies.Bullet;
-
-import edu.cornell.gdiac.rabbeat.obstacle.enemies.Enemy;
-
-import edu.cornell.gdiac.rabbeat.obstacle.enemies.SyncedProjectile;
-import edu.cornell.gdiac.rabbeat.obstacle.platforms.SyncedPlatform;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bullet;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.BulletSync;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
@@ -38,9 +32,8 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.physics.box2d.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
-import edu.cornell.gdiac.rabbeat.obstacle.platforms.WeightedPlatform;
 import edu.cornell.gdiac.util.*;
-import edu.cornell.gdiac.rabbeat.obstacle.*;
+import edu.cornell.gdiac.rabbeat.obstacles.*;
 //import javax.xml.soap.Text;
 
 /**
@@ -63,19 +56,8 @@ public class GameController implements Screen, ContactListener {
 	public Genre genre = Genre.SYNTH;
 	/** The Sync object that will sync the world to the beat*/
 	public SyncController syncController;
-
-	/** The texture for walls */
-	protected TextureRegion blackTile;
-	/** The texture for regular platforms */
-	protected TextureRegion platformTile;
-	/** The texture for weighted platforms */
-	protected TextureRegion weightedPlatform;
-	/** The texture for bullets */
-	protected TextureRegion bullet;
-	/** The texture for the exit condition */
-	protected TextureRegion goalTile;
-	/** The font for giving messages to the player */
-	protected BitmapFont displayFont;
+	/** The object loader for creating objects into the world */
+	public ObjectController objectController;
 	
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
@@ -97,9 +79,11 @@ public class GameController implements Screen, ContactListener {
 	/** Reference to the game canvas */
 	protected GameCanvas canvas;
 	/** All the objects in the world. */
-	protected PooledList<Obstacle> objects  = new PooledList<Obstacle>();
+	protected PooledList<GameObject> objects  = new PooledList<>();
+	/** All objects that are genre-dependent*/
+	protected PooledList<IGenreObject> genreObjects = new PooledList<>();
 	/** Queue for adding objects */
-	protected PooledList<Obstacle> addQueue = new PooledList<Obstacle>();
+	protected PooledList<GameObject> addQueue = new PooledList<>();
 	/** Listener that will update the player mode when we are done */
 	private ScreenListener listener;
 
@@ -121,14 +105,6 @@ public class GameController implements Screen, ContactListener {
 	/** Countdown active for winning or losing */
 	private int countdown;
 
-
-	/** Textures for rab-beat*/
-
-	private TextureRegion synthDefaultTexture;
-	private TextureRegion synthJazzTexture;
-	private TextureRegion backgroundTexture;
-	private TextureRegion enemyDefaultTexture;
-
 	// TODO: Add sounds and sound id fields here
 	/**synth soundtrack of game*/
 	private Music synthSoundtrack;
@@ -137,31 +113,11 @@ public class GameController implements Screen, ContactListener {
 
 	private float volume;
 
-	/** The player scale for synth */
-	private float playerScale = 3/8f;
-
-	/** The enemy scale for the enemy */
-	private float enemyScale = 3/8f;
-
 	// Physics objects for the game
-	/** Physics constants for initialization */
-	private JsonValue constants;
-	/** Reference to the character avatar */
-	private static Player avatar;
 
-	/** Reference to the enemy avatar */
-	private Enemy enemy;
+	/** the spawnpoint location of the player*/
 
-	/** Reference to the goalDoor (for collision detection) */
-	private BoxObstacle goalDoor;
-	/** Reference to the current spawn point */
-	private BoxObstacle respawnPoint;
-	/** Reference to all the checkpoints */
-	private Queue<Pair<BoxObstacle, Integer>> checkpoints;
-	/** Reference to all the weighted platforms */
-	private Array<SyncedPlatform> weightedPlatforms;
-
-	private Array<SyncedProjectile> bullets;
+	private BoxGameObject respawnPoint;
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
@@ -173,11 +129,6 @@ public class GameController implements Screen, ContactListener {
 			theController = new GameController();
 		}
 		return theController;
-	}
-
-	/** Returns the player object */
-	public static Player getPlayer() {
-		return avatar;
 	}
 	protected BulletSync bulletSync = new BulletSync();
 
@@ -302,10 +253,9 @@ public class GameController implements Screen, ContactListener {
 		setFailure(false);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
-		checkpoints = new Queue<Pair<BoxObstacle, Integer>>();
-		weightedPlatforms = new Array<>();
-		bullets = new Array<>();
 		syncController = new SyncController();
+		objectController = new ObjectController();
+		theController = this;
 	}
 
 	/**
@@ -333,7 +283,7 @@ public class GameController implements Screen, ContactListener {
 	 * Dispose of all (non-static) resources allocated to this mode.
 	 */
 	public void dispose() {
-		for(Obstacle obj : objects) {
+		for(GameObject obj : objects) {
 			obj.deactivatePhysics(world);
 		}
 		objects.clear();
@@ -345,6 +295,9 @@ public class GameController implements Screen, ContactListener {
 		scale  = null;
 		world  = null;
 		canvas = null;
+		syncController = null;
+		genreObjects = null;
+		objectController = null;
 	}
 
 	// TODO: Adjust to the correct assets after assets have been added
@@ -357,24 +310,9 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory	Reference to global asset manager.
 	 */
 	public void gatherAssets(AssetDirectory directory) {
-		synthDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class));
-		synthJazzTexture = new TextureRegion(directory.getEntry("player:synth-jazz",Texture.class));
-
+		objectController.gatherAssets(directory);
 		//set the soundtrack
 		setSoundtrack(directory);
-
-		backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
-		enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
-
-		constants = directory.getEntry( "constants", JsonValue.class );
-
-		// Allocate the tiles
-		blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
-		platformTile = new TextureRegion(directory.getEntry( "world:platforms:platformTile", Texture.class ));
-		weightedPlatform = new TextureRegion((directory.getEntry("world:platforms:weightedPlatform", Texture.class)));
-		bullet = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
-		goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
-		displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
 	}
 
 	/** Sets the synth and jazz soundtrack to the correct tracks.  This function will be significant
@@ -400,20 +338,25 @@ public class GameController implements Screen, ContactListener {
 	 *
 	 * param obj The object to add
 	 */
-	public void addQueuedObject(Obstacle obj) {
+	public void instantiateQueue(GameObject obj) {
 		assert inBounds(obj) : "Object is not in bounds";
 		addQueue.add(obj);
 	}
-
-	/**
-	 * Immediately adds the object to the physics world
+	/**If the object is implements {@link ISynced}, add
+	 * to the sync.  If it is a {@link IGenreObject}, add to genreObstacles.
+	 * @param  object: The object you are instantiating
 	 *
-	 * param obj The object to add
-	 */
-	protected void addObject(Obstacle obj) {
-		assert inBounds(obj) : "Object is not in bounds";
-		objects.add(obj);
-		obj.activatePhysics(world);
+	 * */
+	protected void instantiate(GameObject object){
+		assert inBounds(object) : "Object is not in bounds";
+		objects.add(object);
+		if(object instanceof  ISynced){
+			syncController.addSync((ISynced) object);
+		}
+		if(object instanceof IGenreObject){
+			genreObjects.add((IGenreObject) object);
+		}
+		object.activatePhysics(world);
 	}
 
 	/**
@@ -425,7 +368,7 @@ public class GameController implements Screen, ContactListener {
 	 *
 	 * @return true if the object is in bounds.
 	 */
-	public boolean inBounds(Obstacle obj) {
+	public boolean inBounds(GameObject obj) {
 		boolean horiz = (bounds.x <= obj.getX() && obj.getX() <= bounds.x+bounds.width);
 		boolean vert  = (bounds.y <= obj.getY() && obj.getY() <= bounds.y+bounds.height);
 		return horiz && vert;
@@ -443,49 +386,7 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		populateLevel();
-		createCheckpoints();
-		avatar.setPosition(respawnPoint.getPosition());
-	}
-
-	/**
-	 * Create the start tile and checkpoints
-	 */
-	private void createCheckpoints() {
-		float checkpointWidth  = goalTile.getRegionWidth()/scale.x;
-		float checkpointHeight = goalTile.getRegionHeight()/scale.y;
-
-		// Add the start tile as the current spawn point
-		JsonValue start = constants.get("start");
-		JsonValue startPos = start.get("pos");
-		BoxObstacle startTile = new BoxObstacle(startPos.getFloat(0), startPos.getFloat(1), checkpointWidth, checkpointHeight);
-		startTile.setBodyType(BodyDef.BodyType.StaticBody);
-		startTile.setDensity(start.getFloat("density", 0));
-		startTile.setFriction(start.getFloat("friction", 0));
-		startTile.setRestitution(start.getFloat("restitution", 0));
-		startTile.setSensor(true);
-		startTile.setDrawScale(scale);
-		startTile.setTexture(goalTile);
-		startTile.setName("start");
-		addObject(startTile);
-		respawnPoint = startTile;
-
-		// Populate all checkpoints
-		for (int i = 0; i < constants.get("checkpoints").size; i++) {
-			String cname = "checkpoint";
-			JsonValue checkpoint = constants.get("checkpoints").get(i);
-			JsonValue checkpointPos = checkpoint.get("pos");
-			BoxObstacle obj = new BoxObstacle(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
-			obj.setBodyType(BodyDef.BodyType.StaticBody);
-			obj.setDensity(checkpoint.getFloat("density", 0));
-			obj.setFriction(checkpoint.getFloat("friction", 0));
-			obj.setRestitution(checkpoint.getFloat("restitution", 0));
-			obj.setSensor(true);
-			obj.setDrawScale(scale);
-			obj.setTexture(goalTile);
-			obj.setName(cname + i);
-			addObject(obj);
-			checkpoints.addLast(new Pair<BoxObstacle, Integer>(obj, i));
-		}
+		objectController.player.setPosition(respawnPoint.getPosition());
 	}
 
 	// TODO: Reset to SYNTH defaults
@@ -499,7 +400,7 @@ public class GameController implements Screen, ContactListener {
 		genre = Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity() );
 
-		for(Obstacle obj : objects) {
+		for(GameObject obj : objects) {
 			obj.deactivatePhysics(world);
 		}
 		objects.clear();
@@ -512,7 +413,6 @@ public class GameController implements Screen, ContactListener {
 		setFailure(false);
 		syncController = new SyncController();
 		populateLevel();
-		avatar.setPosition(respawnPoint.getPosition());
 	}
 
 	// TODO: Will use level data json to populate
@@ -520,123 +420,16 @@ public class GameController implements Screen, ContactListener {
 	 * Lays out the game geography.
 	 */
 	private void populateLevel() {
-		// Repopulate current checkpoints
-		float checkpointWidth  = goalTile.getRegionWidth()/scale.x;
-		float checkpointHeight = goalTile.getRegionHeight()/scale.y;
-
-		Queue<Pair<BoxObstacle, Integer>> newCheckpoints = new Queue<>();
-		for (Pair<BoxObstacle, Integer> pair : checkpoints) {
-			String cname = "checkpoint";
-			JsonValue checkpoint = constants.get("checkpoints").get(pair.snd);
-			JsonValue checkpointPos = checkpoint.get("pos");
-			BoxObstacle obj = new BoxObstacle(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
-			obj.setBodyType(BodyDef.BodyType.StaticBody);
-			obj.setDensity(checkpoint.getFloat("density", 0));
-			obj.setFriction(checkpoint.getFloat("friction", 0));
-			obj.setRestitution(checkpoint.getFloat("restitution", 0));
-			obj.setSensor(true);
-			obj.setDrawScale(scale);
-			obj.setTexture(goalTile);
-			obj.setName(cname + pair.snd);
-			addObject(obj);
-			newCheckpoints.addLast(new Pair<BoxObstacle, Integer>(obj, pair.snd));
-		}
-		checkpoints.clear();
-		checkpoints = newCheckpoints;
-
-		// Add level goal
-		float dwidth  = goalTile.getRegionWidth()/scale.x;
-		float dheight = goalTile.getRegionHeight()/scale.y;
-
-		JsonValue goal = constants.get("goal");
-		JsonValue goalpos = goal.get("pos");
-		goalDoor = new BoxObstacle(goalpos.getFloat(0),goalpos.getFloat(1),dwidth,dheight);
-		goalDoor.setBodyType(BodyDef.BodyType.StaticBody);
-		goalDoor.setDensity(goal.getFloat("density", 0));
-		goalDoor.setFriction(goal.getFloat("friction", 0));
-		goalDoor.setRestitution(goal.getFloat("restitution", 0));
-		goalDoor.setSensor(true);
-		goalDoor.setDrawScale(scale);
-		goalDoor.setTexture(goalTile);
-		goalDoor.setName("goal");
-		instantiate(goalDoor);
-
-		String wname = "wall";
-		JsonValue walljv = constants.get("walls");
-		JsonValue defaults = constants.get("defaults");
-		for (int ii = 0; ii < walljv.size; ii++) {
-			PolygonObstacle obj;
-			obj = new PolygonObstacle(walljv.get(ii).asFloatArray(), 0, 0);
-			obj.setBodyType(BodyDef.BodyType.StaticBody);
-			obj.setDensity(defaults.getFloat( "density", 0.0f ));
-			obj.setFriction(defaults.getFloat( "friction", 0.0f ));
-			obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
-			obj.setDrawScale(scale);
-			obj.setTexture(blackTile);
-			obj.setName(wname+ii);
-			instantiate(obj);
-		}
-
-		String pname = "platform";
-		JsonValue platjv = constants.get("platforms");
-		for (int ii = 0; ii < platjv.size; ii++) {
-			PolygonObstacle obj;
-			obj = new PolygonObstacle(platjv.get(ii).asFloatArray(), 0, 0);
-			obj.setBodyType(BodyDef.BodyType.StaticBody);
-			obj.setDensity(defaults.getFloat( "density", 0.0f ));
-			obj.setFriction(defaults.getFloat( "friction", 0.0f ));
-			obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
-			obj.setDrawScale(scale);
-			obj.setTexture(platformTile);
-			obj.setName(pname+ii);
-			instantiate(obj);
-		}
-
-		String wpname = "wplatform";
-		JsonValue wplatjv = constants.get("wplatforms");
-		for (int ii = 0; ii < wplatjv.size; ii++) {
-			JsonValue currentWP = wplatjv.get(ii);
-			WeightedPlatform obj;
-			obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
-					currentWP.get("jazzPos").asFloatArray());
-			obj.setBodyType(BodyDef.BodyType.StaticBody);
-			obj.setDensity(defaults.getFloat("density", 0.0f));
-			obj.setFriction(defaults.getFloat("friction", 0.0f));
-			obj.setRestitution(defaults.getFloat("restitution", 0.0f));
-			obj.setDrawScale(scale);
-			obj.setTexture(weightedPlatform);
-			obj.setName(wpname + ii);
-			instantiate(obj);
-			weightedPlatforms.add(obj);
-		}
 
 		//world starts with Synth gravity
-		world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
-
-		// Create bunny
-		dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
-		dheight = synthDefaultTexture.getRegionHeight()/scale.y;
-		avatar = new Player(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
-		avatar.setDrawScale(scale);
-		avatar.setTexture(synthDefaultTexture);
-		instantiate(avatar);
-
-
-		//TODO: Load enemies
-		dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-		dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-
-		enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false);
-		enemy.setDrawScale(scale);
-		enemy.setTexture(enemyDefaultTexture);
-		instantiate(enemy);
-
-		volume = constants.getFloat("volume", 1.0f);
+		world.setGravity( new Vector2(0,objectController.constants.get("genre_gravity").getFloat("synth",0)) );
+		volume = objectController.constants.getFloat("volume", 1.0f);
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
 		//TODO: soundtrack play should be controller by soundController
 		synthSoundtrack.play();
+		objectController.populateObjects(scale);;
 
 	}
 
@@ -684,7 +477,7 @@ public class GameController implements Screen, ContactListener {
 				}
 			}
 		}
-		if (!isFailure() && avatar.getY() < -1) {
+		if (!isFailure() && objectController.player.getY() < -1) {
 			setFailure(true);
 			return false;
 		}
@@ -704,40 +497,29 @@ public class GameController implements Screen, ContactListener {
 	 * @param dt	Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
-		// Process actions in object model
-		avatar.setMovement(InputController.getInstance().getHorizontal() * avatar.getForce());
-		avatar.setJumping(InputController.getInstance().didPrimary());
-		avatar.applyForce();
+		//TODO: bullet stuff needs to go and make the update in the object itself, not here
+		if (!bulletSync.getIsBeatOne()){
+			shot = false;
+		}
 		if (bulletSync.getIsBeatOne() && (shot == false))
 		{
-			removeBullets(bullets);
-			Bullet newBullet = enemy.bulletMaker(constants.get("bullet"), bullet, scale, genre);
-			addQueuedObject(newBullet);
-			bullets.add(newBullet);
+			objectController.removeBullets(objectController.bullets);
+			Bullet newBullet = objectController.enemy.bulletMaker(objectController.constants.get("bullet"),
+					objectController.bulletTexture, scale, genre);
+			instantiateQueue(newBullet);
+			objectController.bullets.add(newBullet);
 			shot = true;
 		}
 		if (!bulletSync.getIsBeatOne()){
 			shot = false;
 		}
+
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
 			updateGenreSwitch();
 		}
 		syncController.updateBeat();
-		enemy.switchState(); //when more enemies will be added, this will be in a for-loop
-	}
-
-	public void removeBullet(SyncedProjectile bullet) {
-		bullet.markRemoved(true);
-		bullets.removeValue(bullet, true);
-	}
-
-	public void removeBullets(Array<SyncedProjectile> obs){
-		for (int i = 0; i < obs.size; i++){
-			obs.get(i).markRemoved(true);
-			bullets.removeIndex(i);
-		}
 	}
 	/**
 	 * Callback method for the start of a collision
@@ -759,36 +541,29 @@ public class GameController implements Screen, ContactListener {
 		Object fd2 = fix2.getUserData();
 
 		try {
-			Obstacle bd1 = (Obstacle)body1.getUserData();
-			Obstacle bd2 = (Obstacle)body2.getUserData();
-
-			// Test bullet collision with world
-			if (bd1.getName().equals("bullet") && bd2 != enemy) {
-				removeBullet((SyncedProjectile) bd1);
-			}
-
-			if (bd2.getName().equals("bullet") && bd1 != enemy) {
-				removeBullet((SyncedProjectile) bd2);
-			}
+			GameObject bd1 = (GameObject)body1.getUserData();
+			GameObject bd2 = (GameObject)body2.getUserData();
 
 			// See if we have landed on the ground.
-			if ((avatar.getSensorName().equals(fd2) && avatar != bd1) ||
-					(avatar.getSensorName().equals(fd1) && avatar != bd2)) {
-				avatar.setGrounded(true);
-				sensorFixtures.add(avatar == bd1 ? fix2 : fix1); // Could have more than one ground
+			if ((objectController.player.getSensorName().equals(fd2) && objectController.player != bd1) ||
+					(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
+				objectController.player.setGrounded(true);
+				sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
 			}
 
+
+
 			// Check for win condition
-			if ((bd1 == avatar && bd2 == goalDoor) ||
-					(bd1 == goalDoor && bd2 == avatar)) {
+			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
+					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
 				setComplete(true);
 			}
 
 			// Check for collision with checkpoints and set new current checkpoint
-			if (!checkpoints.isEmpty() &&
-					((bd1 == avatar && bd2 == checkpoints.first().fst) ||
-					(bd1 == checkpoints.first().fst && bd2 == avatar))) {
-				respawnPoint = checkpoints.removeFirst().fst;
+			if (!objectController.checkpoints.isEmpty() &&
+					((bd1 == objectController.player && bd2 == objectController.checkpoints.first().fst) ||
+					(bd1 == objectController.checkpoints.first().fst && bd2 == objectController.player))) {
+				respawnPoint = objectController.checkpoints.removeFirst().fst;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -816,11 +591,11 @@ public class GameController implements Screen, ContactListener {
 		Object bd1 = body1.getUserData();
 		Object bd2 = body2.getUserData();
 
-		if ((avatar.getSensorName().equals(fd2) && avatar != bd1) ||
-				(avatar.getSensorName().equals(fd1) && avatar != bd2)) {
-			sensorFixtures.remove(avatar == bd1 ? fix2 : fix1);
+		if ((objectController.player.getSensorName().equals(fd2) && objectController.player != bd1) ||
+				(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
+			sensorFixtures.remove(objectController.player == bd1 ? fix2 : fix1);
 			if (sensorFixtures.size == 0) {
-				avatar.setGrounded(false);
+				objectController.player.setGrounded(false);
 			}
 		}
 	}
@@ -838,27 +613,19 @@ public class GameController implements Screen, ContactListener {
 	public void updateGenreSwitch() {
 		//update to Synth
 		if (genre == Genre.SYNTH) {
-			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("synth",0)) );
-			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("synth"));
-			avatar.setTexture(synthDefaultTexture);
-			for (SyncedPlatform platform : weightedPlatforms) {
-				platform.genreUpdate(Genre.SYNTH);
-			}
-			for (SyncedProjectile projectile : bullets) {
-				projectile.genreUpdate(Genre.SYNTH);
-			}
+			world.setGravity( new Vector2(0,objectController.constants.get("genre_gravity").getFloat("synth",0)) );
 		}
 		//update to Jazz
 		else {
-			world.setGravity( new Vector2(0,constants.get("genre_gravity").getFloat("jazz",0)) );
-			avatar.setMaxSpeed(constants.get("bunny").get("max_speed").getFloat("jazz"));
-			avatar.setTexture(synthJazzTexture);
-			for (SyncedPlatform platform : weightedPlatforms) {
-				platform.genreUpdate(Genre.JAZZ);
-			}
-			for (SyncedProjectile projectile : bullets) {
-				projectile.genreUpdate(Genre.JAZZ);
-			}
+			world.setGravity( new Vector2(0,objectController.constants.get("genre_gravity").getFloat("jazz",0)) );
+		}
+
+		for (IGenreObject g : genreObjects) {
+			g.genreUpdate(genre);
+		}
+		//TODO: Make the bullets inherit IGenreObject so we don't do the double genre check
+		for (SyncedProjectile projectile : objectController.bullets) {
+			projectile.genreUpdate(genre);
 		}
 	}
 
@@ -883,10 +650,10 @@ public class GameController implements Screen, ContactListener {
 		// Garbage collect the deleted objects.
 		// Note how we use the linked list nodes to delete O(1) in place.
 		// This is O(n) without copying.
-		Iterator<PooledList<Obstacle>.Entry> iterator = objects.entryIterator();
+		Iterator<PooledList<GameObject>.Entry> iterator = objects.entryIterator();
 		while (iterator.hasNext()) {
-			PooledList<Obstacle>.Entry entry = iterator.next();
-			Obstacle obj = entry.getValue();
+			PooledList<GameObject>.Entry entry = iterator.next();
+			GameObject obj = entry.getValue();
 			if (obj.isRemoved()) {
 				obj.deactivatePhysics(world);
 				entry.remove();
@@ -912,23 +679,23 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin();
-		canvas.draw(backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
+		canvas.draw(objectController.backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
 		canvas.end();
 		
 		canvas.begin();
-		for (Obstacle obj : objects) {
+		for (GameObject obj : objects) {
 			obj.draw(canvas);
 		}
 		canvas.end();
 
 		// Draw the player on top
 		canvas.begin();
-		avatar.draw(canvas);
+		objectController.player.draw(canvas);
 		canvas.end();
 		
 		if (debug) {
 			canvas.beginDebug();
-			for(Obstacle obj : objects) {
+			for(GameObject obj : objects) {
 				obj.drawDebug(canvas);
 			}
 			canvas.endDebug();
@@ -936,14 +703,14 @@ public class GameController implements Screen, ContactListener {
 		
 		// Final message
 		if (complete && !failed) {
-			displayFont.setColor(Color.YELLOW);
+			objectController.displayFont.setColor(Color.YELLOW);
 			canvas.begin(); // DO NOT SCALE
-			canvas.drawTextCentered("VICTORY!", displayFont, 0.0f);
+			canvas.drawTextCentered("VICTORY!", objectController.displayFont, 0.0f);
 			canvas.end();
 		} else if (failed) {
-			displayFont.setColor(Color.RED);
+			objectController.displayFont.setColor(Color.RED);
 			canvas.begin(); // DO NOT SCALE
-			canvas.drawTextCentered("FAILURE!", displayFont, 0.0f);
+			canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
 			canvas.end();
 		}
 	}
@@ -1016,7 +783,7 @@ public class GameController implements Screen, ContactListener {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
-			canvas.updateCamera(avatar);
+			canvas.updateCamera(objectController.player);
 			draw(delta);
 		}
 	}
@@ -1082,17 +849,12 @@ public class GameController implements Screen, ContactListener {
 		}
 	}
 
-	/**Instantiate an object into the world.  If the object is implements {@link ISynced}, add
-	 * to the sync
-	 * @param  object: The object you are instantiating
-	 *
-	 * */
-	public void instantiate(Obstacle object){
-		addObject(object);
-		if(object instanceof  ISynced){
-			syncController.addSync((ISynced) object);
-		}
+	public void setSpawn(BoxGameObject spawn){
+		respawnPoint = spawn;
+	}
 
+	public Player getPlayer(){
+		return objectController.player;
 	}
 
 
