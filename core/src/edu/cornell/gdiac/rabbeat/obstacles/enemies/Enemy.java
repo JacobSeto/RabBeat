@@ -1,14 +1,13 @@
-package edu.cornell.gdiac.rabbeat.obstacle.enemies;
+package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
-import edu.cornell.gdiac.rabbeat.WorldController;
+import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.obstacle.CapsuleObstacle;
+import edu.cornell.gdiac.rabbeat.obstacles.CapsuleGameObject;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.physics.box2d.*;
-import edu.cornell.gdiac.rabbeat.obstacle.CapsuleObstacle;
 //package edu.cornell.gdiac.physics.platform;
 
 import com.badlogic.gdx.utils.JsonValue;
@@ -16,7 +15,7 @@ import com.badlogic.gdx.utils.JsonValue;
 /**
  * Enemy avatar for the platform game.
  */
-public abstract class Enemy extends CapsuleObstacle {
+public abstract class Enemy extends CapsuleGameObject {
 
     /** Enum containing the state of the enemy */
     protected enum EnemyState{
@@ -59,60 +58,9 @@ public abstract class Enemy extends CapsuleObstacle {
 
         this.faceRight = faceRight; // should face the direction player is in?
         this.enemyScale = enemyScale;
-        //playerScale = playerScale1;
-        //maxspeed = data.get("max_speed").getFloat("synth");
-
-//        damping = data.getFloat("damping", 0);
-//        force = data.getFloat("force", 0);
-//        jump_force = data.getFloat( "jump_force", 0 );
-//        jumpLimit = data.getInt( "jump_cool", 0 );
-//        shotLimit = data.getInt( "shot_cool", 0 );
-//        sensorName = "DudeGroundSensor";
-//        this.data = data;
 
         setName("enemy");
     }
-//
-//    /**
-//     * Creates the physics Body(s) for this object, adding them to the world.
-//     *
-//     * This method overrides the base method to keep your ship from spinning.
-//     *
-//     * @param world Box2D world to store body
-//     *
-//     * @return true if object allocation succeeded
-//     */
-//    public boolean activatePhysics(World world) {
-//        // create the box from our superclass
-//        if (!super.activatePhysics(world)) {
-//            return false;
-//        }
-//
-//        // Ground Sensor
-//        // -------------
-//        // We only allow the dude to jump when he's on the ground.
-//        // Double jumping is not allowed.
-//        //
-//
-//        // To determine whether or not the dude is on the ground,
-//        // we create a thin sensor under his feet, which reports
-//        // collisions with the world but has no collision response.
-//        Vector2 sensorCenter = new Vector2(0, -getHeight() / 2);
-//        FixtureDef sensorDef = new FixtureDef();
-//        sensorDef.density = data.getFloat("density",0);
-//        sensorDef.isSensor = true;
-//        sensorShape = new PolygonShape();
-//        JsonValue sensorjv = data.get("sensor");
-//        sensorShape.setAsBox(sensorjv.getFloat("shrink",0)*getWidth()/2.0f,
-//                sensorjv.getFloat("height",0), sensorCenter, 0.0f);
-//        sensorDef.shape = sensorShape;
-//
-//        // Ground sensor to represent our feet
-//        Fixture sensorFixture = body.createFixture( sensorDef );
-//        sensorFixture.setUserData(getSensorName());
-//
-//        return true;
-//    }
 
     /**
      * Getter for faceRight
@@ -134,7 +82,7 @@ public abstract class Enemy extends CapsuleObstacle {
      * @param dt	Number of seconds since last animation frame
      */
     public void update(float dt) {
-        // shoot bullets here?
+        switchState();
         super.update(dt);
     }
 
@@ -175,7 +123,7 @@ public abstract class Enemy extends CapsuleObstacle {
 
     /** Returns the distance between the enemy and the player */
     public float horizontalDistanceBetweenEnemyAndPlayer(){
-        return Math.abs(WorldController.getPlayer().getPosition().x - getPosition().x);
+        return Math.abs(GameController.getInstance().getPlayer().getPosition().x - getPosition().x);
     }
 
     /** Switches enemy attacking state depending on its current state */
@@ -184,8 +132,8 @@ public abstract class Enemy extends CapsuleObstacle {
 
     /** Returns the x position of the player */
     public float playerXPosition(){
-        if(WorldController.getInstance() !=  null) {
-            return WorldController.getInstance().getPlayer().getPosition().x;
+        if(GameController.getInstance() !=  null) {
+            return GameController.getInstance().getPlayer().getPosition().x;
         }
 
         return 0;
