@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Queue;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
+import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
@@ -62,6 +63,19 @@ public class ObjectController {
 
     /** The enemy scale for the enemy */
     private float enemyScale = 3/8f;
+
+    private static ObjectController theController = null;
+
+    public static ObjectController getInstance() {
+        if (theController == null) {
+            theController = new ObjectController();
+        }
+        return theController;
+    }
+
+    public ObjectController(){
+        theController = this;
+    }
 
 
 
@@ -185,10 +199,13 @@ public class ObjectController {
         dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
 
-        enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale, dheight*enemyScale, enemyScale, false);
+        enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale,
+                dheight*enemyScale, enemyScale, false);
         enemy.setDrawScale(scale);
         enemy.setTexture(enemyDefaultTexture);
         GameController.getInstance().instantiate(enemy);
+        //TODO: set up the bullet default values here
+        //enemy.bullet =
 
         // Create bunny
 
@@ -246,18 +263,6 @@ public class ObjectController {
             obj.setTexture(goalTile);
             obj.setName(cname + i);
             GameController.getInstance().instantiate(obj);
-        }
-    }
-
-    public void removeBullet(SyncedProjectile bullet) {
-        bullet.markRemoved(true);
-        bullets.removeValue(bullet, true);
-    }
-
-    public void removeBullets(Array<SyncedProjectile> obs){
-        for (int i = 0; i < obs.size; i++){
-            obs.get(i).markRemoved(true);
-            bullets.removeIndex(i);
         }
     }
 

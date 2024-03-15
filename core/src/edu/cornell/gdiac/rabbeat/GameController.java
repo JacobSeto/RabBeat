@@ -16,10 +16,8 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bullet;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
-import edu.cornell.gdiac.rabbeat.sync.BulletSync;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import java.util.Iterator;
@@ -29,12 +27,10 @@ import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.physics.box2d.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.rabbeat.obstacles.*;
-//import javax.xml.soap.Text;
 
 /**
  * Base class for a world-specific controller.
@@ -111,7 +107,6 @@ public class GameController implements Screen, ContactListener {
 	/** jazz soundtrack of game*/
 	private Music jazzSoundtrack;
 
-	private float volume;
 
 	// Physics objects for the game
 
@@ -130,7 +125,6 @@ public class GameController implements Screen, ContactListener {
 		}
 		return theController;
 	}
-	protected BulletSync bulletSync = new BulletSync();
 
 	/**
 	 * Returns true if debug mode is active.
@@ -320,21 +314,13 @@ public class GameController implements Screen, ContactListener {
 	 *
 	 * @param directory	Reference to global asset manager.
 	 * */
-	public void setSoundtrack(AssetDirectory directory){
-		synthSoundtrack = directory.getEntry("music:synth1", Music.class) ;
+	public void setSoundtrack(AssetDirectory directory) {
+		synthSoundtrack = directory.getEntry("music:synth1", Music.class);
 		synthSoundtrack.setLooping(true);
 		synthSoundtrack.setVolume(1);
-		jazzSoundtrack = directory.getEntry("music:jazz1",Music.class);
+		jazzSoundtrack = directory.getEntry("music:jazz1", Music.class);
 		jazzSoundtrack.setLooping(true);
 		jazzSoundtrack.setVolume(0);
-	}
-
-	public JsonValue getBulletJV(){
-		return constants.get("bullet");
-	}
-
-	public TextureRegion getBulletTR(){
-		return bullet;
 	}
 
 	public Vector2 getScale(){
@@ -439,7 +425,8 @@ public class GameController implements Screen, ContactListener {
 
 		//world starts with Synth gravity
 		world.setGravity( new Vector2(0,objectController.constants.get("genre_gravity").getFloat("synth",0)) );
-		volume = objectController.constants.getFloat("volume", 1.0f);
+		//TODO This volume constant is never used
+		float volume = objectController.constants.getFloat("volume", 1.0f);
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
@@ -513,21 +500,6 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void update(float dt) {
 		//TODO: bullet stuff needs to go and make the update in the object itself, not here
-		if (!bulletSync.getIsBeatOne()){
-			shot = false;
-		}
-		if (bulletSync.getIsBeatOne() && (shot == false))
-		{
-			objectController.removeBullets(objectController.bullets);
-			Bullet newBullet = objectController.enemy.bulletMaker(objectController.constants.get("bullet"),
-					objectController.bulletTexture, scale, genre);
-			instantiateQueue(newBullet);
-			objectController.bullets.add(newBullet);
-			shot = true;
-		}
-		if (!bulletSync.getIsBeatOne()){
-			shot = false;
-		}
 
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
@@ -560,31 +532,18 @@ public class GameController implements Screen, ContactListener {
 			GameObject bd1 = (GameObject)body1.getUserData();
 			GameObject bd2 = (GameObject)body2.getUserData();
 
-//			if (bd1.getName().equals("bullet") && bd2 == avatar){
-//				reset();
-//			}
-//
-//			if (bd2.getName().equals("bullet") && bd1 == avatar){
-//				reset();
-//			}
-
-			// See if we have landed on the ground.
 			if ((objectController.player.getSensorName().equals(fd2) && objectController.player != bd1) ||
 					(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
 				objectController.player.setGrounded(true);
 				sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
 			}
-
-
-
 			// Check for win condition
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
 					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
 				setComplete(true);
 			}
 
-
-			if ((bd1 == avatar   && bd2 == enemy)) {
+			if ((bd1.equals(objectController.player)   && bd2.equals(objectController.enemy))) {
 				setFailure(true);
 			}
 
