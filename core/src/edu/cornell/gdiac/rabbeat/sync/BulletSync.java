@@ -1,8 +1,7 @@
 package edu.cornell.gdiac.rabbeat.sync;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
+import edu.cornell.gdiac.rabbeat.obstacle.WheelObstacle;
+import edu.cornell.gdiac.rabbeat.obstacle.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 public class BulletSync extends SyncedProjectile implements ISynced {
@@ -50,16 +49,6 @@ public class BulletSync extends SyncedProjectile implements ISynced {
         if (beatCount == 4) {
             markRemoved(true);
         }
-    }
-
-    public JsonValue getBulletJV(){
-        //TODO implement this
-        return null;
-    }
-
-    public TextureRegion getBulletTR(){
-        //TODO  implement this
-        return null;
     }
 
 }

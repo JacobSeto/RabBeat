@@ -13,7 +13,7 @@
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * LibGDX version, 2/6/2015
  */
-package edu.cornell.gdiac.rabbeat.obstacles;
+package edu.cornell.gdiac.rabbeat.obstacle;
 
 import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.math.*;
@@ -31,7 +31,7 @@ import edu.cornell.gdiac.rabbeat.*; // For GameCanvas
  * center. In addition the texture coordinates are computed automatically
  * from the texture size, using the same policy as PolygonSpriteBatch.
  */
-public class PolygonGameObject extends SimpleGameObject {
+public class PolygonObstacle extends SimpleObstacle {
 	/** An earclipping triangular to make sure we work with convex shapes */
 	private static final EarClippingTriangulator TRIANGULATOR = new EarClippingTriangulator();
 
@@ -139,7 +139,7 @@ public class PolygonGameObject extends SimpleGameObject {
 	 * 
 	 * @param points The polygon vertices
 	 */
-	public PolygonGameObject(float[] points) {
+	public PolygonObstacle(float[] points) {
 		this(points, 0, 0);
 	}
 
@@ -155,7 +155,7 @@ public class PolygonGameObject extends SimpleGameObject {
 	 * @param x      Initial x position of the polygon center
 	 * @param y      Initial y position of the polygon center
 	 */
-	public PolygonGameObject(float[] points, float x, float y) {
+	public PolygonObstacle(float[] points, float x, float y) {
 		super(x, y);
 		assert points.length % 2 == 0;
 
