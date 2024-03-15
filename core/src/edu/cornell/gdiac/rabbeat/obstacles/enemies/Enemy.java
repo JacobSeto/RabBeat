@@ -62,28 +62,17 @@ public abstract class Enemy extends CapsuleGameObject {
         setName("enemy");
     }
 
-    public Bullet bulletMaker(JsonValue bulletjv, TextureRegion bullettr, Vector2 scale, Genre genre){
-        float offset = bulletjv.getFloat("offset",0);
-        float radius = bullettr.getRegionWidth()/(2.0f*scale.x);
-        Bullet bullet = new Bullet(getX()+offset, getY(), radius, bulletjv.getFloat("synth speed", 0), bulletjv.getFloat("jazz speed", 0));
-
-        bullet.setName("bullet");
-        bullet.setDensity(bulletjv.getFloat("density", 0));
-        bullet.setDrawScale(scale);
-        bullet.setTexture(bullettr);
-        bullet.setGravityScale(0);
-
-        // Compute position and velocity
-        float speed;
-        if (genre == Genre.SYNTH){
-            speed = bulletjv.getFloat("synth speed", 0);
-        }
-        else {
-            speed = bulletjv.getFloat("jazz speed", 0);
-        }
-        bullet.setVX(speed);
-        return bullet;
+    /**
+     * Getter for faceRight
+     */
+    public boolean isFaceRight() {
+        return faceRight;
     }
+
+    /**
+     * Implement this with any updates necessary after the genre switches.
+     */
+    public abstract void genreUpdate(Genre genre);
 
     /**
      * Updates the object's physics state (NOT GAME LOGIC).

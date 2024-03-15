@@ -329,6 +329,22 @@ public class GameController implements Screen, ContactListener {
 		jazzSoundtrack.setVolume(0);
 	}
 
+	public JsonValue getBulletJV(){
+		return constants.get("bullet");
+	}
+
+	public TextureRegion getBulletTR(){
+		return bullet;
+	}
+
+	public Vector2 getScale(){
+		return scale;
+	}
+
+	public Genre getGenre(){
+		return genre;
+	}
+
 	/**
 	 *
 	 * Adds a physics object in to the insertion queue.
@@ -485,7 +501,6 @@ public class GameController implements Screen, ContactListener {
 	}
 
 	// TODO: Update physics based on genre
-	private boolean shot = false;
 	/**
 	 * The core gameplay loop of this world.
 	 *
@@ -530,6 +545,7 @@ public class GameController implements Screen, ContactListener {
 	 *
 	 * @param contact The two bodies that collided
 	 */
+	@Override
 	public void beginContact(Contact contact) {
 		Fixture fix1 = contact.getFixtureA();
 		Fixture fix2 = contact.getFixtureB();
@@ -544,6 +560,14 @@ public class GameController implements Screen, ContactListener {
 			GameObject bd1 = (GameObject)body1.getUserData();
 			GameObject bd2 = (GameObject)body2.getUserData();
 
+//			if (bd1.getName().equals("bullet") && bd2 == avatar){
+//				reset();
+//			}
+//
+//			if (bd2.getName().equals("bullet") && bd1 == avatar){
+//				reset();
+//			}
+
 			// See if we have landed on the ground.
 			if ((objectController.player.getSensorName().equals(fd2) && objectController.player != bd1) ||
 					(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
@@ -557,6 +581,11 @@ public class GameController implements Screen, ContactListener {
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
 					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
 				setComplete(true);
+			}
+
+
+			if ((bd1 == avatar   && bd2 == enemy)) {
+				setFailure(true);
 			}
 
 			// Check for collision with checkpoints and set new current checkpoint
