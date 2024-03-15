@@ -2,10 +2,10 @@ package edu.cornell.gdiac.rabbeat.sync;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.Genre;
+import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
-import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
-public class BulletSync extends SyncedProjectile implements ISynced {
+public class Bullet extends WheelGameObject implements ISynced {
     private int beatCount = 0;
 
     private float synthSpeed;
@@ -13,14 +13,13 @@ public class BulletSync extends SyncedProjectile implements ISynced {
 
 
 
-    public BulletSync(float x, float y, float radius, float synthVX, float jazzVX, boolean fr) {
+    public Bullet(float x, float y, float radius, float synthVX, float jazzVX, boolean fr) {
         super(x, y, radius);
         float dir = (fr ? 1 : -1);
         synthSpeed = synthVX * dir;
         jazzSpeed = jazzVX * dir;
     }
 
-    @Override
     public void genreUpdate(Genre genre) {
         move(genre);
     }

@@ -1,13 +1,10 @@
 package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.ObjectController;
-import edu.cornell.gdiac.rabbeat.sync.BulletSync;
+import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 public class BearEnemy extends Enemy implements ISynced {
