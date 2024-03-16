@@ -9,7 +9,7 @@
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * LibGDX version, 2/6/2015
  */
-package edu.cornell.gdiac.rabbeat.obstacle;
+package edu.cornell.gdiac.rabbeat.obstacles;
 
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
@@ -22,7 +22,7 @@ import edu.cornell.gdiac.rabbeat.*;  // For GameCanvas
  *
  * Unless otherwise specified, the center of mass is as the center.
  */
-public class BoxObstacle extends SimpleObstacle {
+public class BoxGameObject extends SimpleGameObject {
 	/** Shape information for this box */
 	protected PolygonShape shape;
 	/** The width and height of the box */
@@ -118,7 +118,7 @@ public class BoxObstacle extends SimpleObstacle {
 	 * @param width		The object width in physics units
 	 * @param height	The object width in physics units
 	 */
-	public BoxObstacle(float width, float height) {
+	public BoxGameObject(float width, float height) {
 		this(0, 0, width, height);
 	}
 
@@ -134,7 +134,7 @@ public class BoxObstacle extends SimpleObstacle {
 	 * @param width		The object width in physics units
 	 * @param height	The object width in physics units
 	 */
-	public BoxObstacle(float x, float y, float width, float height) {
+	public BoxGameObject(float x, float y, float width, float height) {
 		super(x,y);
 		dimension = new Vector2(width,height);
 		sizeCache = new Vector2();
