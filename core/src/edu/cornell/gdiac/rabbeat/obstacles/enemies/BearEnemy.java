@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
+import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
@@ -13,7 +14,7 @@ public class BearEnemy extends Enemy implements ISynced {
     private int beatCount = 0;
 
     /** The bullet the bear will be shooting */
-    private Bullet bullet;
+    public Bullet bullet;
 
     /** Speed of the bullet when the game is in synth mode */
     private float synthSpeed;
@@ -22,7 +23,9 @@ public class BearEnemy extends Enemy implements ISynced {
     private float jazzSpeed;
 
     /** Current genre that the game is on */
-    private Genre curGenre = Genre.SYNTH;
+    public Genre curGenre = Genre.SYNTH;
+
+    ObjectController oc = ObjectController.getInstance();
 
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
@@ -69,29 +72,29 @@ public class BearEnemy extends Enemy implements ISynced {
     public void makeBullet(){
           //TODO: create a bullet using object controller default values.  instantiate the copy using gamecontroller
 
-//        float offset = ObjectController.bullet.getFloat("offset",0);
-//        offset *= (isFaceRight() ? 1 : -1);
-//        float radius = bullettr.getRegionWidth()/(2.0f*scale.x);
-//        bullet = new BulletSync(getX()+offset, getY(), radius, bulletjv.getFloat("synth speed", 0),
-//                bulletjv.getFloat("jazz speed", 0), isFaceRight());
-//
-//        bullet.setName("bullet");
-//        bullet.setDensity(bulletjv.getFloat("density", 0));
-//        bullet.setDrawScale(scale);
-//        bullet.setTexture(bullettr);
-//        bullet.setGravityScale(0);
+        float offset = oc.constants.get("bullet").getFloat("offset",0);
+        offset *= (isFaceRight() ? 1 : -1);
+        float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
+        bullet = new Bullet(getX()+offset, getY(), radius, oc.constants.get("bullet").getFloat("synth speed", 0),
+                oc.constants.get("bullet").getFloat("jazz speed", 0), isFaceRight());
 
-        // Compute position and velocity
-//        float speed;
-//        if (curGenre == Genre.SYNTH){
-//            speed = bulletjv.getFloat("synth speed", 0);
-//        }
-//        else {
-//            speed = bulletjv.getFloat("jazz speed", 0);
-//        }
-//        speed *= (isFaceRight() ? 1 : -1);
-//        bullet.setVX(speed);
-//        GameController.getInstance().instantiateQueue(bullet);
+        bullet.setName("bullet");
+        bullet.setDensity(oc.constants.get("bullet").getFloat("density", 0));
+        bullet.setDrawScale(scale);
+        bullet.setTexture(oc.bulletTexture);
+        bullet.setGravityScale(0);
+
+        //Compute position and velocity
+        float speed;
+        if (curGenre == Genre.SYNTH){
+            speed = oc.constants.get("bullet").getFloat("synth speed", 0);
+        }
+        else {
+            speed = oc.constants.get("bullet").getFloat("jazz speed", 0);
+        }
+        speed *= (isFaceRight() ? 1 : -1);
+        bullet.setVX(speed);
+        GameController.getInstance().instantiateQueue(bullet);
     }
     public float getBeat() {
         return 1;
@@ -104,6 +107,7 @@ public class BearEnemy extends Enemy implements ISynced {
         }
         if (beatCount == 1 && enemyState == EnemyState.ATTACKING) {
             makeBullet();
+            System.out.println("shoot");
         }
         if (beatCount == 4){
         }
