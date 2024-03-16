@@ -11,9 +11,9 @@ import com.badlogic.gdx.utils.Queue;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
-import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
+import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.util.Pair;
@@ -47,7 +47,7 @@ public class ObjectController {
     public BoxGameObject goalDoor;
 
     /** Reference to all the checkpoints */
-    public Queue<Pair<BoxGameObject, Integer>> checkpoints = new Queue<Pair<BoxGameObject, Integer>>();;
+    public Queue<Pair<BoxGameObject, Integer>> checkpoints = new Queue<Pair<BoxGameObject, Integer>>();
 
     public Array<SyncedProjectile> bullets = new Array<>();
 
@@ -112,6 +112,7 @@ public class ObjectController {
         float checkpointHeight = goalTile.getRegionHeight()/scale.y;
 
         Queue<Pair<BoxGameObject, Integer>> newCheckpoints = new Queue<>();
+        System.out.println(checkpoints);
         for (Pair<BoxGameObject, Integer> pair : checkpoints) {
             String cname = "checkpoint";
             JsonValue checkpoint = constants.get("checkpoints").get(pair.snd);
@@ -126,7 +127,7 @@ public class ObjectController {
             obj.setTexture(goalTile);
             obj.setName(cname + pair.snd);
             GameController.getInstance().instantiate(obj);
-            newCheckpoints.addLast(new Pair<BoxGameObject, Integer>(obj, pair.snd));
+            newCheckpoints.addLast(new Pair<>(obj, pair.snd));
         }
         checkpoints.clear();
         checkpoints = newCheckpoints;
@@ -196,6 +197,23 @@ public class ObjectController {
             GameController.getInstance().instantiate(obj);
         }
 
+        String mpname = "mplatform";
+        JsonValue mplatjv = constants.get("mplatforms");
+        for (int ii = 0; ii < mplatjv.size; ii++) {
+            JsonValue currentWP = mplatjv.get(ii);
+            MovingPlatform obj;
+            obj = new MovingPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("nodes").asFloatArray(),
+                    currentWP.getFloat("speed"));
+            obj.setBodyType(BodyDef.BodyType.StaticBody);
+            obj.setDensity(defaults.getFloat("density", 0.0f));
+            obj.setFriction(defaults.getFloat("friction", 0.0f));
+            obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+            obj.setDrawScale(scale);
+            obj.setTexture(weightedPlatform);
+            obj.setName(mpname + ii);
+            GameController.getInstance().instantiate(obj);
+        }
+
         //TODO: Load enemies
         dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
@@ -236,15 +254,12 @@ public class ObjectController {
         dheight = synthDefaultTexture.getRegionHeight()/scale.y;
         player = new Player(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
         player.setDrawScale(scale);
-        player.synthDefaultTexture = synthJazzTexture;
+        player.synthDefaultTexture = synthDefaultTexture;
         player.jazzDefaultTexture = synthJazzTexture;
         player.synthSpeed = synthSpeed;
         player.jazzSpeed = jazzSpeed;
         player.setTexture(synthDefaultTexture);
         GameController.getInstance().instantiate(player);
-
-        //create checkpoints
-        createCheckpoints(scale);
     }
 
     /**
@@ -268,7 +283,7 @@ public class ObjectController {
         startTile.setName("start");
         GameController.getInstance().instantiate(startTile);
         //set respawn point to position of respawnPoint
-        GameController.getInstance().setSpawn(startTile);
+        GameController.getInstance().setSpawn(startTile.getPosition());
 
         // Populate all checkpoints
         for (int i = 0; i < constants.get("checkpoints").size; i++) {
@@ -285,6 +300,7 @@ public class ObjectController {
             obj.setTexture(goalTile);
             obj.setName(cname + i);
             GameController.getInstance().instantiate(obj);
+            checkpoints.addLast(new Pair<>(obj, i));
         }
     }
 
