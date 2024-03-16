@@ -11,9 +11,9 @@ import com.badlogic.gdx.utils.Queue;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
-import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
+import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.util.Pair;
 
@@ -195,6 +195,23 @@ public class ObjectController {
             GameController.getInstance().instantiate(obj);
         }
 
+        String mpname = "mplatform";
+        JsonValue mplatjv = constants.get("mplatforms");
+        for (int ii = 0; ii < mplatjv.size; ii++) {
+            JsonValue currentWP = mplatjv.get(ii);
+            MovingPlatform obj;
+            obj = new MovingPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("nodes").asFloatArray(),
+                    currentWP.getFloat("speed"));
+            obj.setBodyType(BodyDef.BodyType.StaticBody);
+            obj.setDensity(defaults.getFloat("density", 0.0f));
+            obj.setFriction(defaults.getFloat("friction", 0.0f));
+            obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+            obj.setDrawScale(scale);
+            obj.setTexture(weightedPlatform);
+            obj.setName(mpname + ii);
+            GameController.getInstance().instantiate(obj);
+        }
+
         //TODO: Load enemies
         dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
@@ -214,7 +231,7 @@ public class ObjectController {
         dheight = synthDefaultTexture.getRegionHeight()/scale.y;
         player = new Player(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
         player.setDrawScale(scale);
-        player.synthDefaultTexture = synthJazzTexture;
+        player.synthDefaultTexture = synthDefaultTexture;
         player.jazzDefaultTexture = synthJazzTexture;
         player.synthSpeed = synthSpeed;
         player.jazzSpeed = jazzSpeed;
