@@ -9,7 +9,7 @@
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * LibGDX version, 2/6/2015
  */
-package edu.cornell.gdiac.rabbeat.obstacles;
+package edu.cornell.gdiac.rabbeat.obstacle;
 
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.physics.box2d.*;
@@ -21,7 +21,7 @@ import edu.cornell.gdiac.rabbeat.*;  // For GameCanvas
  *
  * Unless otherwise specified, the center of mass is as the center.
  */
-public class WheelGameObject extends SimpleGameObject {
+public class WheelObstacle extends SimpleObstacle {
 	/** Shape information for this circle */
 	protected CircleShape shape;
 	/** A cache value for the fixture (for resizing) */
@@ -55,7 +55,7 @@ public class WheelGameObject extends SimpleGameObject {
 	 * 
 	 * @param radius	The wheel radius
 	 */
-	public WheelGameObject(float radius) {
+	public WheelObstacle(float radius) {
 		this(0, 0, radius);
 	}
 
@@ -70,7 +70,7 @@ public class WheelGameObject extends SimpleGameObject {
 	 * @param y  		Initial y position of the circle center
 	 * @param radius	The wheel radius
 	 */
-	public WheelGameObject(float x, float y, float radius) {
+	public WheelObstacle(float x, float y, float radius) {
 		super(x,y);
 		shape = new CircleShape();
 		shape.setRadius(radius);

@@ -36,7 +36,7 @@ public class GDXRoot extends Game implements ScreenListener {
 	/** Player mode for the the game proper (CONTROLLER CLASS) */
 	private int current;
 	/** List of all WorldControllers */
-	private GameController controller;
+	private WorldController controller;
 	
 	/**
 	 * Creates a new game from the configuration settings.
@@ -57,7 +57,7 @@ public class GDXRoot extends Game implements ScreenListener {
 		loading = new LoadingMode("assets.json",canvas,1);
 
 		// Initialize the three game worlds
-		controller = new GameController();
+		controller = new WorldController();
 		loading.setScreenListener(this);
 		setScreen(loading);
 	}
@@ -117,7 +117,7 @@ public class GDXRoot extends Game implements ScreenListener {
 			
 			loading.dispose();
 			loading = null;
-		} else if (exitCode == GameController.EXIT_QUIT) {
+		} else if (exitCode == WorldController.EXIT_QUIT) {
 			// We quit the main application
 			Gdx.app.exit();
 		}

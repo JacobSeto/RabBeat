@@ -1,9 +1,9 @@
-package edu.cornell.gdiac.rabbeat.obstacles.enemies;
+package edu.cornell.gdiac.rabbeat.obstacle.enemies;
 
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
+import edu.cornell.gdiac.rabbeat.obstacle.WheelObstacle;
 
-abstract public class SyncedProjectile extends WheelGameObject {
+abstract public class SyncedProjectile extends WheelObstacle {
     public SyncedProjectile(float x, float y, float radius){
         super(x, y, radius);
     }

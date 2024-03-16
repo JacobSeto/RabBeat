@@ -12,7 +12,7 @@
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * LibGDX version, 2/6/2015
  */
-package edu.cornell.gdiac.rabbeat.obstacles;
+package edu.cornell.gdiac.rabbeat.obstacle;
 
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
@@ -35,7 +35,7 @@ import edu.cornell.gdiac.rabbeat.*;  // For GameCanvas
  * by adjusting the force.  However, larger forces can cause artifacts when dragging 
  * an obstacle through other obstacles.
  */
-public class GameObjectSelector implements QueryCallback  {
+public class ObstacleSelector implements QueryCallback  {
 	/** The default size of the mouse selector */
 	private static float DEFAULT_MSIZE = 0.2f;
 	/** The default update frequence (in Hz) of the joint */
@@ -183,7 +183,7 @@ public class GameObjectSelector implements QueryCallback  {
      *
      * @param  world   the physics world
      */
-    public GameObjectSelector(World world) {
+    public ObstacleSelector(World world) {
 		this(world,DEFAULT_MSIZE,DEFAULT_MSIZE);	
     }
 
@@ -197,7 +197,7 @@ public class GameObjectSelector implements QueryCallback  {
      * @param  width   the width of the mouse pointer
      * @param  height  the height of the mouse pointer
      */
-    public GameObjectSelector(World world, float width, float height) {
+    public ObstacleSelector(World world, float width, float height) {
 	    this.world = world;
     
 	    pointer = new Rectangle();
@@ -244,11 +244,11 @@ public class GameObjectSelector implements QueryCallback  {
      *
      * @return the Obstacle selected (if any)
      */
-    public GameObject getObstacle() {
+    public Obstacle getObstacle() {   
     	if (selection != null) {
         	Object data = selection.getBody().getUserData();
         	try {
-        		return (GameObject)data;
+        		return (Obstacle)data;
         	} catch (Exception e) {
         	}
         }
