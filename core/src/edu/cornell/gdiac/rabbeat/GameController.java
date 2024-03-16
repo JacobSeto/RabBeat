@@ -16,6 +16,8 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
@@ -52,6 +54,22 @@ public class GameController implements Screen, ContactListener {
 	public Genre genre = Genre.SYNTH;
 	/** The Sync object that will sync the world to the beat*/
 	public SyncController syncController;
+
+	/** The SoundController object to handle audio */
+	public SoundController soundController;
+
+	/** The texture for walls */
+	protected TextureRegion blackTile;
+	/** The texture for regular platforms */
+	protected TextureRegion platformTile;
+	/** The texture for weighted platforms */
+	protected TextureRegion weightedPlatform;
+	/** The texture for bullets */
+	protected TextureRegion bullet;
+	/** The texture for the exit condition */
+	protected TextureRegion goalTile;
+	/** The font for giving messages to the player */
+	protected BitmapFont displayFont;
 	/** The object loader for creating objects into the world */
 	public ObjectController objectController;
 	
@@ -111,7 +129,7 @@ public class GameController implements Screen, ContactListener {
 
 	/** the spawnpoint location of the player*/
 
-	private BoxGameObject respawnPoint;
+	private Vector2 respawnPoint;
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
@@ -247,6 +265,7 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		syncController = new SyncController();
+		soundController = new SoundController();
 		objectController = new ObjectController();
 		theController = this;
 	}
@@ -313,13 +332,11 @@ public class GameController implements Screen, ContactListener {
 	 *
 	 * @param directory	Reference to global asset manager.
 	 * */
-	public void setSoundtrack(AssetDirectory directory) {
-		synthSoundtrack = directory.getEntry("music:synth1", Music.class);
-		synthSoundtrack.setLooping(true);
-		synthSoundtrack.setVolume(1);
-		jazzSoundtrack = directory.getEntry("music:jazz1", Music.class);
-		jazzSoundtrack.setLooping(true);
-		jazzSoundtrack.setVolume(0);
+	public void setSoundtrack(AssetDirectory directory){
+		synthSoundtrack = directory.getEntry("music:synth1", Music.class) ;
+		jazzSoundtrack = directory.getEntry("music:jazz1",Music.class);
+		soundController.setSynthTrack(synthSoundtrack);
+		soundController.setJazzTrack(jazzSoundtrack);
 	}
 
 	public Vector2 getScale(){
@@ -386,8 +403,10 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
+		objectController.createCheckpoints(scale);
 		populateLevel();
-		objectController.player.setPosition(respawnPoint.getPosition());
+		objectController.player.setPosition(respawnPoint);
+		soundController.playMusic(genre.SYNTH);
 	}
 
 	// TODO: Reset to SYNTH defaults
@@ -414,6 +433,8 @@ public class GameController implements Screen, ContactListener {
 		setFailure(false);
 		syncController = new SyncController();
 		populateLevel();
+		objectController.player.setPosition(respawnPoint);
+		soundController.resetMusic();
 	}
 
 	// TODO: Will use level data json to populate
@@ -429,8 +450,6 @@ public class GameController implements Screen, ContactListener {
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
-		//TODO: soundtrack play should be controller by soundController
-		synthSoundtrack.play();
 		objectController.populateObjects(scale);;
 
 	}
@@ -506,6 +525,7 @@ public class GameController implements Screen, ContactListener {
 			updateGenreSwitch();
 		}
 		syncController.updateBeat();
+		soundController.update();
 	}
 	/**
 	 * Callback method for the start of a collision
@@ -552,7 +572,7 @@ public class GameController implements Screen, ContactListener {
 			if (!objectController.checkpoints.isEmpty() &&
 					((bd1 == objectController.player && bd2 == objectController.checkpoints.first().fst) ||
 					(bd1 == objectController.checkpoints.first().fst && bd2 == objectController.player))) {
-				respawnPoint = objectController.checkpoints.removeFirst().fst;
+				respawnPoint = objectController.checkpoints.removeFirst().fst.getPosition();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -600,6 +620,7 @@ public class GameController implements Screen, ContactListener {
 	 *
 	 */
 	public void updateGenreSwitch() {
+		soundController.setGenre(genre);
 		//update to Synth
 		if (genre == Genre.SYNTH) {
 			world.setGravity( new Vector2(0,objectController.constants.get("genre_gravity").getFloat("synth",0)) );
@@ -705,47 +726,6 @@ public class GameController implements Screen, ContactListener {
 	}
 
 	/**
-	 * Method to ensure that a sound asset is only played once.
-	 *
-	 * Every time you play a sound asset, it makes a new instance of that sound.
-	 * If you play the sounds to close together, you will have overlapping copies.
-	 * To prevent that, you must stop the sound before you play it again.  That
-	 * is the purpose of this method.  It stops the current instance playing (if
-	 * any) and then returns the id of the new instance for tracking.
-	 *
-	 * @param sound		The sound asset to play
-	 * @param soundId	The previously playing sound instance
-	 *
-	 * @return the new sound instance for this asset.
-	 */
-	public long playSound(Sound sound, long soundId) {
-		return playSound( sound, soundId, 1.0f );
-	}
-
-
-	/**
-	 * Method to ensure that a sound asset is only played once.
-	 *
-	 * Every time you play a sound asset, it makes a new instance of that sound.
-	 * If you play the sounds to close together, you will have overlapping copies.
-	 * To prevent that, you must stop the sound before you play it again.  That
-	 * is the purpose of this method.  It stops the current instance playing (if
-	 * any) and then returns the id of the new instance for tracking.
-	 *
-	 * @param sound		The sound asset to play
-	 * @param soundId	The previously playing sound instance
-	 * @param volume	The sound volume
-	 *
-	 * @return the new sound instance for this asset.
-	 */
-	public long playSound(Sound sound, long soundId, float volume) {
-		if (soundId != -1) {
-			sound.stop( soundId );
-		}
-		return sound.play(volume);
-	}
-
-	/**
 	 * Called when the Screen is resized. 
 	 *
 	 * This can happen at any point during a non-paused state but will never happen 
@@ -838,7 +818,7 @@ public class GameController implements Screen, ContactListener {
 		}
 	}
 
-	public void setSpawn(BoxGameObject spawn){
+	public void setSpawn(Vector2 spawn){
 		respawnPoint = spawn;
 	}
 

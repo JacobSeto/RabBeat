@@ -20,9 +20,6 @@ public class SyncController {
     public void setSync(Music _synth, Music _jazz){
         synth = _synth;
         jazz = _jazz;
-
-        synth.play();
-        jazz.play();
     }
 
     /**The update function for everything synced in the world*/
