@@ -30,13 +30,13 @@ public class SoundController {
     }
 
     public void playMusic() {
+        synthTrack.setLooping(true);
+        jazzTrack.setLooping(true);
         synthTrack.play();
         jazzTrack.play();
     }
 
     public void playMusic(Genre genre) {
-        synthTrack.setLooping(true);
-        jazzTrack.setLooping(true);
         playMusic();
         if (genre == Genre.SYNTH) {
             synthTrack.setVolume(1);
