@@ -407,6 +407,7 @@ public class GameController implements Screen, ContactListener {
 		objectController.createCheckpoints(scale);
 		populateLevel();
 		objectController.player.setPosition(respawnPoint);
+		soundController.playMusic(genre.SYNTH);
 	}
 
 	// TODO: Reset to SYNTH defaults
@@ -450,8 +451,6 @@ public class GameController implements Screen, ContactListener {
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
-		//TODO: soundtrack play should be controller by soundController
-		synthSoundtrack.play();
 		objectController.populateObjects(scale);;
 
 	}
