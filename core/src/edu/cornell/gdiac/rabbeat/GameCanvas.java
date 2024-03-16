@@ -1161,7 +1161,7 @@ public class GameCanvas {
 	 * @param player	The player object
 	 */
 	protected void updateCamera(Player player) {
-		float SCALE_FROM_WORLD = 32f;
+		float SCALE_FROM_WORLD = 32f * 2;
 
 		camera.position.lerp(new Vector3(player.getX() * SCALE_FROM_WORLD, player.getY() * SCALE_FROM_WORLD, 0), CAMERA_SPEED * Gdx.graphics.getDeltaTime());
 		camera.position.set(camera.position);

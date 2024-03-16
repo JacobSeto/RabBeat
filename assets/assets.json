@@ -10,8 +10,13 @@
             "wrapU": "repeated",
             "wrapV": "repeated"
         },
-      "world:platforms:platformTile" : {
-        "file":  "world/platforms//platformTile.png",
+      "world:platforms:radioPlatform" : {
+        "file":  "world/platforms/radioPlatform.png",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
+      "world:platforms:guitarPlatform" : {
+        "file":  "world/platforms/guitarPlatform.png",
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
@@ -20,7 +25,8 @@
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
-        "world:goal":   "world/goaldoor.png",
+      "world:goal":   "world/goaldoor.png",
+
       "player:synth":  "player/synth.png",
 
       "player:synth-jazz":   "player/synth-jazz.png",

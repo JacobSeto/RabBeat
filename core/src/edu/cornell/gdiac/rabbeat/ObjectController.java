@@ -1,5 +1,6 @@
 package edu.cornell.gdiac.rabbeat;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,6 +17,8 @@ import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.util.Pair;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class ObjectController {
     /** Physics constants for initialization
@@ -33,6 +36,10 @@ public class ObjectController {
     protected TextureRegion blackTile;
     /** The texture for regular platforms */
     protected TextureRegion platformTile;
+    /** The texture for radio platforms */
+    protected TextureRegion radioPlatform;
+    /** The texture for guitar platforms */
+    protected TextureRegion guitarPlatform;
     /** The texture for weighted platforms */
     protected TextureRegion weightedPlatform;
     /** The texture for bullets */
@@ -51,10 +58,40 @@ public class ObjectController {
     public Array<SyncedProjectile> bullets = new Array<>();
 
     /** The player scale for synth */
-    private float playerScale = 3/8f;
+    private float playerScale = 3/8f*2f;
 
     private TextureRegion synthDefaultTexture;
     private TextureRegion synthJazzTexture;
+
+    //  ANIMATIONS
+
+    //  SYNTH
+    /** The synth genre idle atlas for the player */
+    public TextureAtlas synthIdleAtlas;
+    /** The synth genre idle animation for the player */
+    public Animation<TextureRegion> synthIdleAnimation;
+    /** The synth genre walking atlas for the player */
+    public TextureAtlas synthWalkAtlas;
+    /** The synth genre walking animation for the player */
+    public Animation<TextureRegion> synthWalkAnimation;
+    /** The synth genre jumping atlas for the player */
+    public TextureAtlas synthJumpAtlas;
+    /** The synth genre jumping animation for the player */
+    public Animation<TextureRegion> synthJumpAnimation;
+
+    //  JAZZ
+    /** The jazz genre idle atlas for the player */
+    public TextureAtlas jazzIdleAtlas;
+    /** The jazz genre idle animation for the player */
+    public Animation<TextureRegion> jazzIdleAnimation;
+    /** The jazz genre walking atlas for the player */
+    public TextureAtlas jazzWalkAtlas;
+    /** The jazz genre walking animation for the player */
+    public Animation<TextureRegion> jazzWalkAnimation;
+    /** The jazz genre jumping atlas for the player */
+    public TextureAtlas jazzJumpAtlas;
+    /** The jazz genre jumping animation for the player */
+    public Animation<TextureRegion> jazzJumpAnimation;
 
     private float synthSpeed;
     private float jazzSpeed;
@@ -62,7 +99,7 @@ public class ObjectController {
     public BearEnemy enemy;
 
     /** The enemy scale for the enemy */
-    private float enemyScale = 3/8f;
+    private float enemyScale = 3/8f*2;
 
     private static ObjectController theController = null;
 
@@ -97,9 +134,31 @@ public class ObjectController {
         synthDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class));
         synthJazzTexture = new TextureRegion(directory.getEntry("player:synth-jazz",Texture.class));
 
+        // Allocating animations
+        //  Synth
+        synthIdleAtlas = new TextureAtlas(Gdx.files.internal("player/synthIdle.atlas"));
+        synthIdleAnimation = new Animation<TextureRegion>(0.1f, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
+
+        synthWalkAtlas = new TextureAtlas(Gdx.files.internal("player/synthWalk.atlas"));
+        synthWalkAnimation = new Animation<TextureRegion>(0.06f, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
+
+        synthJumpAtlas = new TextureAtlas(Gdx.files.internal("player/synthJump.atlas"));
+        synthJumpAnimation = new Animation<TextureRegion>(0.08f, synthJumpAtlas.findRegions("synthJump"), Animation.PlayMode.NORMAL);
+
+        //  Jazz
+        jazzIdleAtlas = new TextureAtlas(Gdx.files.internal("player/jazzIdle.atlas"));
+        jazzIdleAnimation = new Animation<TextureRegion>(0.11f, jazzIdleAtlas.findRegions("jazzIdle"), Animation.PlayMode.LOOP);
+
+        jazzWalkAtlas = new TextureAtlas(Gdx.files.internal("player/jazzWalk.atlas"));
+        jazzWalkAnimation = new Animation<TextureRegion>(0.08f, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
+
+        jazzJumpAtlas = new TextureAtlas(Gdx.files.internal("player/jazzJump.atlas"));
+        jazzJumpAnimation = new Animation<TextureRegion>(0.08f, jazzJumpAtlas.findRegions("jazzJump"), Animation.PlayMode.NORMAL);
+
         // Allocate the tiles
         blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
-        platformTile = new TextureRegion(directory.getEntry( "world:platforms:platformTile", Texture.class ));
+        radioPlatform = new TextureRegion(directory.getEntry( "world:platforms:radioPlatform", Texture.class ));
+        guitarPlatform = new TextureRegion(directory.getEntry( "world:platforms:guitarPlatform", Texture.class ));
         weightedPlatform = new TextureRegion((directory.getEntry("world:platforms:weightedPlatform", Texture.class)));
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
@@ -163,20 +222,8 @@ public class ObjectController {
             GameController.getInstance().instantiate(obj);
         }
 
-        String pname = "platform";
-        JsonValue platjv = constants.get("platforms");
-        for (int ii = 0; ii < platjv.size; ii++) {
-            PolygonGameObject obj;
-            obj = new PolygonGameObject(platjv.get(ii).asFloatArray(), 0, 0);
-            obj.setBodyType(BodyDef.BodyType.StaticBody);
-            obj.setDensity(defaults.getFloat( "density", 0.0f ));
-            obj.setFriction(defaults.getFloat( "friction", 0.0f ));
-            obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
-            obj.setDrawScale(scale);
-            obj.setTexture(platformTile);
-            obj.setName(pname+ii);
-            GameController.getInstance().instantiate(obj);
-        }
+        createPlatforms(scale, "radio");
+        createPlatforms(scale, "guitar");
 
         String wpname = "wplatform";
         JsonValue wplatjv = constants.get("wplatforms");
@@ -214,8 +261,17 @@ public class ObjectController {
         dheight = synthDefaultTexture.getRegionHeight()/scale.y;
         player = new Player(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
         player.setDrawScale(scale);
-        player.synthDefaultTexture = synthJazzTexture;
-        player.jazzDefaultTexture = synthJazzTexture;
+
+        // Set animations: Synth
+        player.synthIdleAnimation = synthIdleAnimation;
+        player.synthWalkAnimation = synthWalkAnimation;
+        player.synthJumpAnimation = synthJumpAnimation;
+        // Set animations: Jazz
+        player.jazzIdleAnimation =  jazzIdleAnimation;
+        player.jazzWalkAnimation = jazzWalkAnimation;
+        player.jazzJumpAnimation = jazzJumpAnimation;
+
+        player.setAnimation(synthWalkAnimation);
         player.synthSpeed = synthSpeed;
         player.jazzSpeed = jazzSpeed;
         player.setTexture(synthDefaultTexture);
@@ -263,6 +319,48 @@ public class ObjectController {
             obj.setTexture(goalTile);
             obj.setName(cname + i);
             GameController.getInstance().instantiate(obj);
+        }
+    }
+
+    /**
+     * Create a platform using the scale and type given.
+     *
+     * @param scale The Vector2 draw scale
+     * @param type A string, either "radio" or "guitar"
+     */
+    public void createPlatforms(Vector2 scale, String type){
+        TextureRegion textureRegion;
+        JsonValue platjv;
+        switch(type){
+            case "radio":
+                textureRegion = radioPlatform;
+                platjv = constants.get("radioPlatforms");
+                break;
+            case "guitar":
+                textureRegion = guitarPlatform;
+                platjv = constants.get("guitarPlatforms");
+                break;
+            default:
+                // Default is same as radio
+                textureRegion = radioPlatform;
+                platjv = constants.get("radioPlatforms");
+                break;
+        }
+        String pname = type;
+        JsonValue defaults = constants.get("defaults");
+        float dwidth  = textureRegion.getRegionWidth()/scale.x;
+        float dheight = textureRegion.getRegionHeight()/scale.y;
+        for (int ii = 0; ii < platjv.size; ii++) {
+            BoxGameObject platform;
+            platform = new BoxGameObject(platjv.get(ii).asFloatArray()[0],platjv.get(ii).asFloatArray()[1],dwidth,dheight);
+            platform.setBodyType(BodyDef.BodyType.StaticBody);
+            platform.setDensity(defaults.getFloat( "density", 0.0f ));
+            platform.setFriction(defaults.getFloat( "friction", 0.0f ));
+            platform.setRestitution(defaults.getFloat( "restitution", 0.0f ));
+            platform.setDrawScale(scale);
+            platform.setTexture(textureRegion);
+            platform.setName(pname+ii);
+            GameController.getInstance().instantiate(platform);
         }
     }
 
