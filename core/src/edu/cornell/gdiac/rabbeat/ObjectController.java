@@ -46,7 +46,7 @@ public class ObjectController {
     public BoxGameObject goalDoor;
 
     /** Reference to all the checkpoints */
-    public Queue<Pair<BoxGameObject, Integer>> checkpoints = new Queue<Pair<BoxGameObject, Integer>>();;
+    public Queue<Pair<BoxGameObject, Integer>> checkpoints = new Queue<Pair<BoxGameObject, Integer>>();
 
     public Array<SyncedProjectile> bullets = new Array<>();
 
@@ -111,6 +111,7 @@ public class ObjectController {
         float checkpointHeight = goalTile.getRegionHeight()/scale.y;
 
         Queue<Pair<BoxGameObject, Integer>> newCheckpoints = new Queue<>();
+        System.out.println(checkpoints);
         for (Pair<BoxGameObject, Integer> pair : checkpoints) {
             String cname = "checkpoint";
             JsonValue checkpoint = constants.get("checkpoints").get(pair.snd);
@@ -125,7 +126,7 @@ public class ObjectController {
             obj.setTexture(goalTile);
             obj.setName(cname + pair.snd);
             GameController.getInstance().instantiate(obj);
-            newCheckpoints.addLast(new Pair<BoxGameObject, Integer>(obj, pair.snd));
+            newCheckpoints.addLast(new Pair<>(obj, pair.snd));
         }
         checkpoints.clear();
         checkpoints = newCheckpoints;
@@ -220,9 +221,6 @@ public class ObjectController {
         player.jazzSpeed = jazzSpeed;
         player.setTexture(synthDefaultTexture);
         GameController.getInstance().instantiate(player);
-
-        //create checkpoints
-        createCheckpoints(scale);
     }
 
     /**
@@ -246,7 +244,7 @@ public class ObjectController {
         startTile.setName("start");
         GameController.getInstance().instantiate(startTile);
         //set respawn point to position of respawnPoint
-        GameController.getInstance().setSpawn(startTile);
+        GameController.getInstance().setSpawn(startTile.getPosition());
 
         // Populate all checkpoints
         for (int i = 0; i < constants.get("checkpoints").size; i++) {
@@ -263,6 +261,7 @@ public class ObjectController {
             obj.setTexture(goalTile);
             obj.setName(cname + i);
             GameController.getInstance().instantiate(obj);
+            checkpoints.addLast(new Pair<>(obj, i));
         }
     }
 

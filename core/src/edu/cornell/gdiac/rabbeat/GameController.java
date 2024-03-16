@@ -130,7 +130,7 @@ public class GameController implements Screen, ContactListener {
 
 	/** the spawnpoint location of the player*/
 
-	private BoxGameObject respawnPoint;
+	private Vector2 respawnPoint;
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
@@ -404,8 +404,9 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
+		objectController.createCheckpoints(scale);
 		populateLevel();
-		objectController.player.setPosition(respawnPoint.getPosition());
+		objectController.player.setPosition(respawnPoint);
 	}
 
 	// TODO: Reset to SYNTH defaults
@@ -432,6 +433,7 @@ public class GameController implements Screen, ContactListener {
 		setFailure(false);
 		syncController = new SyncController();
 		populateLevel();
+		objectController.player.setPosition(respawnPoint);
 		soundController.resetMusic();
 	}
 
@@ -572,7 +574,7 @@ public class GameController implements Screen, ContactListener {
 			if (!objectController.checkpoints.isEmpty() &&
 					((bd1 == objectController.player && bd2 == objectController.checkpoints.first().fst) ||
 					(bd1 == objectController.checkpoints.first().fst && bd2 == objectController.player))) {
-				respawnPoint = objectController.checkpoints.removeFirst().fst;
+				respawnPoint = objectController.checkpoints.removeFirst().fst.getPosition();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -818,7 +820,7 @@ public class GameController implements Screen, ContactListener {
 		}
 	}
 
-	public void setSpawn(BoxGameObject spawn){
+	public void setSpawn(Vector2 spawn){
 		respawnPoint = spawn;
 	}
 
