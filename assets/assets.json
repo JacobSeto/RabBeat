@@ -1,15 +1,30 @@
 {
 	"textures": {
-        "world:platforms:blackTile" : {
-            "file":  "world/platforms/blackTile.png",
-            "wrapU": "repeated",
-            "wrapV": "repeated"
-        },
-        "world:platforms:weightedPlatform" : {
-            "file":  "world/platforms/weightedPlatform.png",
-            "wrapU": "repeated",
-            "wrapV": "repeated"
-        },
+      "world:platforms:blackTile" : {
+        "file":  "world/platforms/blackTile.png",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
+      "world:platforms:weightedPlatform" : {
+        "file":  "world/platforms/weightedPlatform.png",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
+      "world:platforms:platform" : {
+        "file":  "world/platforms/platform.png",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
+      "world:platforms:endPlatform" : {
+        "file":  "world/platforms/endPlatform.png",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
+      "world:platforms:wirePlatform" : {
+        "file":  "world/platforms/wirePlatform.png",
+        "wrapU": "repeated",
+        "wrapV": "repeated"
+      },
       "world:platforms:radioPlatform" : {
         "file":  "world/platforms/radioPlatform.png",
         "wrapU": "repeated",

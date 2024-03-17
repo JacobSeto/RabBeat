@@ -36,6 +36,8 @@ public class ObjectController {
     protected TextureRegion blackTile;
     /** The texture for regular platforms */
     protected TextureRegion platformTile;
+    /** The texture for end platforms */
+    protected TextureRegion endPlatform;
     /** The texture for radio platforms */
     protected TextureRegion radioPlatform;
     /** The texture for guitar platforms */
@@ -168,6 +170,8 @@ public class ObjectController {
 
         // Allocate the tiles
         blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
+        platformTile = new TextureRegion(directory.getEntry( "world:platforms:platform", Texture.class ));
+        endPlatform = new TextureRegion(directory.getEntry( "world:platforms:endPlatform", Texture.class ));
         radioPlatform = new TextureRegion(directory.getEntry( "world:platforms:radioPlatform", Texture.class ));
         guitarPlatform = new TextureRegion(directory.getEntry( "world:platforms:guitarPlatform", Texture.class ));
         weightedPlatform = new TextureRegion((directory.getEntry("world:platforms:weightedPlatform", Texture.class)));
@@ -234,6 +238,8 @@ public class ObjectController {
             GameController.getInstance().instantiate(obj);
         }
 
+        createPlatforms(scale, "default");
+        createPlatforms(scale, "defaultEnd");
         createPlatforms(scale, "radio");
         createPlatforms(scale, "guitar");
 
@@ -353,24 +359,27 @@ public class ObjectController {
      * Create a platform using the scale and type given.
      *
      * @param scale The Vector2 draw scale
-     * @param type A string, either "radio" or "guitar"
+     * @param type A string, either "default", "defaultEnd", "radio", "guitar"
      */
     public void createPlatforms(Vector2 scale, String type){
         TextureRegion textureRegion;
         JsonValue platjv;
         switch(type){
+            default:
+                textureRegion = platformTile;
+                platjv = constants.get("platforms").get("platforms");
+                break;
+            case "defaultEnd":
+                textureRegion = endPlatform;
+                platjv = constants.get("platforms").get("endPlatforms");
+                break;
             case "radio":
                 textureRegion = radioPlatform;
-                platjv = constants.get("radioPlatforms");
+                platjv = constants.get("platforms").get("radioPlatforms");
                 break;
             case "guitar":
                 textureRegion = guitarPlatform;
-                platjv = constants.get("guitarPlatforms");
-                break;
-            default:
-                // Default is same as radio
-                textureRegion = radioPlatform;
-                platjv = constants.get("radioPlatforms");
+                platjv = constants.get("platforms").get("guitarPlatforms");
                 break;
         }
         String pname = type;
