@@ -322,7 +322,7 @@ public class GameCanvas {
 	 */
 	public void clear() {
     	// Clear the screen
-		Gdx.gl.glClearColor(0.39f, 0.58f, 0.93f, 1.0f);  // Homage to the XNA years
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);		
 	}
 
@@ -1161,7 +1161,7 @@ public class GameCanvas {
 	 * @param player	The player object
 	 */
 	protected void updateCamera(Player player, float worldWidth, float worldHeight) {
-		float SCALE_FROM_WORLD = 32f;
+		float SCALE_FROM_WORLD = 32f * 2;
 		float minX = camera.viewportWidth/2;
 		float maxX = worldWidth * SCALE_FROM_WORLD - camera.viewportWidth/2;
 		float minY = camera.viewportHeight/2;

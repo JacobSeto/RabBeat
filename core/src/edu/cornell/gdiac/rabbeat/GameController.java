@@ -125,7 +125,6 @@ public class GameController implements Screen, ContactListener {
 	/** jazz soundtrack of game*/
 	private Music jazzSoundtrack;
 
-
 	// Physics objects for the game
 
 	/** the spawnpoint location of the player*/
@@ -246,8 +245,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void setCanvas(GameCanvas canvas) {
 		this.canvas = canvas;
-		this.scale.x = canvas.getWidth()/bounds.getWidth();
-		this.scale.y = canvas.getHeight()/bounds.getHeight();
+		this.scale.x = canvas.getWidth()/bounds.getWidth() * 2;
+		this.scale.y = canvas.getHeight()/bounds.getHeight() * 2;
 	}
 	
 	/**
@@ -700,7 +699,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin();
-		canvas.draw(objectController.backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
+		canvas.draw(objectController.backgroundTexture, 0, 0);
 		canvas.end();
 		
 		canvas.begin();
@@ -712,6 +711,11 @@ public class GameController implements Screen, ContactListener {
 		// Draw the player on top
 		canvas.begin();
 		objectController.player.draw(canvas);
+		canvas.end();
+
+		// Draw the background overlays on top of everything
+		canvas.begin();
+		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
 		canvas.end();
 		
 		if (debug) {

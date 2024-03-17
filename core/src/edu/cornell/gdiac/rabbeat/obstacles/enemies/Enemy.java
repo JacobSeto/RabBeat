@@ -1,5 +1,6 @@
 package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.GameController;
@@ -35,6 +36,12 @@ public abstract class Enemy extends CapsuleGameObject {
     /** Initializes the state of the enemy to idle */
     protected EnemyState enemyState = EnemyState.IDLE;
 
+    /** The enemy's current animation */
+    public Animation<TextureRegion> animation;
+
+    /** The elapsed time for animationUpdate */
+    private float stateTime = 0;
+
     //range: how far away player is --> beat action called whenever an action is supposed to hapepn on beat
     //create switch states (wandering, shooting, etc). ENUM
 
@@ -45,7 +52,7 @@ public abstract class Enemy extends CapsuleGameObject {
      * @param width	The object width in physics units
      * @param height	The object width in physics units
      */
-    public Enemy(JsonValue data, float width, float height, float enemyScale, boolean faceRight) {
+    public Enemy(JsonValue data, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
         // The shrink factors fit the image to a tigher hitbox
         super(  data.get("pos").getFloat(0),
                 data.get("pos").getFloat(1),
@@ -83,6 +90,7 @@ public abstract class Enemy extends CapsuleGameObject {
      */
     public void update(float dt) {
         switchState();
+        stateTime += dt;
         super.update(dt);
     }
 
@@ -93,9 +101,8 @@ public abstract class Enemy extends CapsuleGameObject {
      */
     public void draw(GameCanvas canvas) {
         float effect = faceRight ? 1.0f : -1.0f;
-        //System.out.println(drawScale.x);
-        //System.out.println(drawScale.y);
-        canvas.draw(texture,Color.RED,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
+        TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
+        canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
                 enemyScale*effect,enemyScale);
     }
 
@@ -128,6 +135,13 @@ public abstract class Enemy extends CapsuleGameObject {
 
     /** Switches enemy attacking state depending on its current state */
     public abstract void switchState();
+
+    /**
+     * Sets the enemy's current animation
+     */
+    public void setAnimation(Animation<TextureRegion> animation){
+        this.animation = animation;
+    }
 
 
     /** Returns the x position of the player */
