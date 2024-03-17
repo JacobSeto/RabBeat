@@ -14,7 +14,7 @@ public class SoundController {
      * Set this to true to make genre switches instantaneous / in one frame.
      * Set this to false to make genre switches gradual / over several frames.
      */
-    private static final boolean USE_INSTANT_SWITCH = true;
+    private static final boolean USE_INSTANT_SWITCH = false;
 
     /**
      * The length of time in milliseconds that a gradual genre switch takes.
@@ -57,6 +57,7 @@ public class SoundController {
     public void resetMusic() {
         synthTrack.stop();
         jazzTrack.stop();
+        currentGenre = Genre.SYNTH;
         playMusic(Genre.SYNTH);
     }
 
@@ -177,7 +178,7 @@ public class SoundController {
             synthTrack.setVolume(synthTrack.getVolume() + 1/frameCount);
             jazzTrack.setVolume(jazzTrack.getVolume() - 1/frameCount);
         }
-        if (currentUpdateFrame > frameCount) {
+        if (currentUpdateFrame == frameCount) {
             currentUpdateFrame = 0;
             currentlyUpdating = false;
         }
