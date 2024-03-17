@@ -1163,8 +1163,8 @@ public class GameCanvas {
 	protected void updateCamera(Player player) {
 		float SCALE_FROM_WORLD = 32f * 2;
 
-		camera.position.lerp(new Vector3(player.getX() * SCALE_FROM_WORLD, player.getY() * SCALE_FROM_WORLD, 0), CAMERA_SPEED * Gdx.graphics.getDeltaTime());
-		camera.position.set(camera.position);
+		camera.position.lerp(new Vector3(player.getX() * SCALE_FROM_WORLD - player.getWidth(), 0, 0), CAMERA_SPEED * Gdx.graphics.getDeltaTime());
+		camera.position.set(new Vector2(camera.position.x, player.getY() * SCALE_FROM_WORLD - player.getHeight()), 0);
 		camera.update();
 		spriteBatch.setProjectionMatrix(camera.combined);
 		debugRender.setProjectionMatrix(camera.combined);

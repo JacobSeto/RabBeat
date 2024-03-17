@@ -57,8 +57,8 @@
 
     },
     "music" : {
-      "music:synth1": "music/synth1.ogg",
-      "music:jazz1": "music/jazz1.ogg"
+      "music:synth1": "music/synth_technical.ogg",
+      "music:jazz1": "music/jazz_technical.ogg"
     },
     "fonts": {
         "fonts:retro": {

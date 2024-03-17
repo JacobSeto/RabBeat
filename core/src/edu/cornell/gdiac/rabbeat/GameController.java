@@ -406,7 +406,7 @@ public class GameController implements Screen, ContactListener {
 		objectController.createCheckpoints(scale);
 		populateLevel();
 		objectController.player.setPosition(respawnPoint);
-		soundController.playMusic(genre.SYNTH);
+		soundController.playMusic(Genre.SYNTH);
 	}
 
 	// TODO: Reset to SYNTH defaults
