@@ -6,7 +6,7 @@
     	"volume": 0.8
 	},
 	"start": {
-		"pos": [2.0, 4.0],
+		"pos": [2.0, 4.2],
 		"density": 0.0,
 		"friction": 0.0,
 		"restitution": 0.0
@@ -19,7 +19,7 @@
     },
 	"checkpoints": [
 		{
-			"pos": [8.0, 6.0],
+			"pos": [8.0, 5.8],
 			"density": 0.0,
 			"friction": 0.0,
 			"restitution": 0.0

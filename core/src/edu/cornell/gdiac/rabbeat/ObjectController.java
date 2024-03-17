@@ -50,6 +50,10 @@ public class ObjectController {
     public TextureRegion bulletTexture;
     /** The texture for the exit condition */
     protected TextureRegion goalTile;
+    /** The texture for the checkpoint when it is in default stage/has not been reached */
+    protected TextureRegion checkpointDefault;
+    /** The texture for the checkpoint when it is active has already been reached */
+    protected TextureRegion checkpointActive;
     /** The texture for the background*/
     public TextureRegion backgroundTexture;
     /** The texture for the background overlay*/
@@ -184,12 +188,14 @@ public class ObjectController {
         weightedPlatform = new TextureRegion((directory.getEntry("world:platforms:weightedPlatform", Texture.class)));
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
+        checkpointDefault  = new TextureRegion(directory.getEntry( "checkpoint:checkDefault", Texture.class ));
+        checkpointActive  = new TextureRegion(directory.getEntry( "checkpoint:checkActive", Texture.class ));
         displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
     }
     public void populateObjects(Vector2 scale){
         // Repopulate current checkpoints
-        float checkpointWidth  = goalTile.getRegionWidth()/scale.x;
-        float checkpointHeight = goalTile.getRegionHeight()/scale.y;
+        float checkpointWidth  = checkpointDefault.getRegionWidth()/scale.x;
+        float checkpointHeight = checkpointDefault.getRegionHeight()/scale.y;
 
         Queue<Pair<BoxGameObject, Integer>> newCheckpoints = new Queue<>();
         System.out.println(checkpoints);
@@ -204,7 +210,7 @@ public class ObjectController {
             obj.setRestitution(checkpoint.getFloat("restitution", 0));
             obj.setSensor(true);
             obj.setDrawScale(scale);
-            obj.setTexture(goalTile);
+            obj.setTexture(checkpointDefault);
             obj.setName(cname + pair.snd);
             GameController.getInstance().instantiate(obj);
             newCheckpoints.addLast(new Pair<>(obj, pair.snd));
@@ -325,8 +331,8 @@ public class ObjectController {
      * Create the start tile and checkpoints
      */
     public void createCheckpoints(Vector2 scale) {
-        float checkpointWidth  = goalTile.getRegionWidth()/scale.x;
-        float checkpointHeight = goalTile.getRegionHeight()/scale.y;
+        float checkpointWidth  = checkpointDefault.getRegionWidth()/scale.x;
+        float checkpointHeight = checkpointDefault.getRegionHeight()/scale.y;
 
         // Add the start tile as the current spawn point
         JsonValue start = constants.get("start");
@@ -338,7 +344,7 @@ public class ObjectController {
         startTile.setRestitution(start.getFloat("restitution", 0));
         startTile.setSensor(true);
         startTile.setDrawScale(scale);
-        startTile.setTexture(goalTile);
+        startTile.setTexture(checkpointDefault);
         startTile.setName("start");
         GameController.getInstance().instantiate(startTile);
         //set respawn point to position of respawnPoint
@@ -356,7 +362,7 @@ public class ObjectController {
             obj.setRestitution(checkpoint.getFloat("restitution", 0));
             obj.setSensor(true);
             obj.setDrawScale(scale);
-            obj.setTexture(goalTile);
+            obj.setTexture(checkpointDefault);
             obj.setName(cname + i);
             GameController.getInstance().instantiate(obj);
             checkpoints.addLast(new Pair<>(obj, i));

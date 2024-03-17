@@ -10,37 +10,23 @@
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
-      "world:platforms:platform" : {
-        "file":  "world/platforms/platform.png",
-        "wrapU": "repeated",
-        "wrapV": "repeated"
-      },
-      "world:platforms:endPlatform" : {
-        "file":  "world/platforms/endPlatform.png",
-        "wrapU": "repeated",
-        "wrapV": "repeated"
-      },
-      "world:platforms:wirePlatform" : {
-        "file":  "world/platforms/wirePlatform.png",
-        "wrapU": "repeated",
-        "wrapV": "repeated"
-      },
-      "world:platforms:radioPlatform" : {
-        "file":  "world/platforms/radioPlatform.png",
-        "wrapU": "repeated",
-        "wrapV": "repeated"
-      },
-      "world:platforms:guitarPlatform" : {
-        "file":  "world/platforms/guitarPlatform.png",
-        "wrapU": "repeated",
-        "wrapV": "repeated"
-      },
-      "world:weightedLaserTile" : {
-        "file":  "world/weightedLaserTile.png",
-        "wrapU": "repeated",
-        "wrapV": "repeated"
-      },
-      "world:goal":   "world/goaldoor.png",
+      "world:platforms:platform" : "world/platforms/platform.png",
+
+      "world:platforms:endPlatform" : "world/platforms/endPlatform.png",
+
+      "world:platforms:wirePlatform" : "world/platforms/wirePlatform.png",
+
+      "world:platforms:radioPlatform" : "world/platforms/radioPlatform.png",
+
+      "world:platforms:guitarPlatform" : "world/platforms/guitarPlatform.png",
+
+      "world:weightedLaserTile" : "world/weightedLaserTile.png",
+
+      "world:goal": "world/goaldoor.png",
+
+      "checkpoint:checkDefault": "world/checkpoints/checkDefault.png",
+
+      "checkpoint:checkActive": "world/checkpoints/checkActive.png",
 
       "player:synth":  "player/synth.png",
 
