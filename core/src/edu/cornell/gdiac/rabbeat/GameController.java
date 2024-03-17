@@ -752,7 +752,7 @@ public class GameController implements Screen, ContactListener {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
-			canvas.updateCamera(objectController.player);
+			canvas.updateCamera(objectController.player, bounds.getWidth(), bounds.getHeight());
 			draw(delta);
 		}
 	}
