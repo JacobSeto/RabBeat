@@ -86,7 +86,7 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	/** The jazz genre jumping animation for the player */
 	public Animation<TextureRegion> jazzJumpAnimation;
 
-	/** The current player's current animation */
+	/** The player's current animation */
 	public Animation<TextureRegion> animation;
 	/** The elapsed time for animationUpdate */
 	private float stateTime = 0;

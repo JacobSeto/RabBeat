@@ -63,7 +63,7 @@ public class ObjectController {
     private TextureRegion synthDefaultTexture;
     private TextureRegion synthJazzTexture;
 
-    //  ANIMATIONS
+    //  PLAYER ANIMATIONS
 
     //  SYNTH
     /** The synth genre idle atlas for the player */
@@ -92,6 +92,12 @@ public class ObjectController {
     public TextureAtlas jazzJumpAtlas;
     /** The jazz genre jumping animation for the player */
     public Animation<TextureRegion> jazzJumpAnimation;
+
+    //ENEMY ANIMATIONS
+    /** The idle atlas for the bear enemy */
+    public TextureAtlas bearIdleAtlas;
+    /** The idle animation for the bear enemy */
+    public Animation<TextureRegion> bearIdleAnimation;
 
     private float synthSpeed;
     private float jazzSpeed;
@@ -134,7 +140,7 @@ public class ObjectController {
         synthDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class));
         synthJazzTexture = new TextureRegion(directory.getEntry("player:synth-jazz",Texture.class));
 
-        // Allocating animations
+        // Allocating player animations
         //  Synth
         synthIdleAtlas = new TextureAtlas(Gdx.files.internal("player/synthIdle.atlas"));
         synthIdleAnimation = new Animation<TextureRegion>(0.1f, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
@@ -154,6 +160,11 @@ public class ObjectController {
 
         jazzJumpAtlas = new TextureAtlas(Gdx.files.internal("player/jazzJump.atlas"));
         jazzJumpAnimation = new Animation<TextureRegion>(0.08f, jazzJumpAtlas.findRegions("jazzJump"), Animation.PlayMode.NORMAL);
+
+        //  Allocating enemy animations
+        //  Bear
+        bearIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
+        bearIdleAnimation = new Animation<TextureRegion>(0.1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
 
         // Allocate the tiles
         blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
@@ -265,7 +276,7 @@ public class ObjectController {
         dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
 
         enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale,
-                dheight*enemyScale, enemyScale, false);
+                dheight*enemyScale, enemyScale, false, bearIdleAnimation);
         enemy.setDrawScale(scale);
         enemy.setTexture(enemyDefaultTexture);
         GameController.getInstance().instantiate(enemy);
