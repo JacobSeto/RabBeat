@@ -5,10 +5,11 @@ import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
+import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
-public class BearEnemy extends Enemy implements ISynced {
+public class BearEnemy extends Enemy implements ISynced, IGenreObject {
 
     /** Value for current beat that the game is on */
     private int beatCount = 0;

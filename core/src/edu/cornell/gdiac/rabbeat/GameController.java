@@ -575,6 +575,10 @@ public class GameController implements Screen, ContactListener {
 				bd2.markRemoved(true);
 			}
 
+			if ((bd1.equals(objectController.player)   && bd2.equals(objectController.enemy.bullet))) {
+				setFailure(true);
+			}
+
 			// Check for collision with checkpoints and set new current checkpoint
 			if (!objectController.checkpoints.isEmpty() &&
 					((bd1 == objectController.player && bd2 == objectController.checkpoints.first().fst) ||
