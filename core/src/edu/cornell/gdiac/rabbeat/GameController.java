@@ -689,7 +689,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin();
-		canvas.draw(objectController.backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
+		canvas.draw(objectController.backgroundTexture, 0, 0);
 		canvas.end();
 		
 		canvas.begin();
@@ -701,6 +701,11 @@ public class GameController implements Screen, ContactListener {
 		// Draw the player on top
 		canvas.begin();
 		objectController.player.draw(canvas);
+		canvas.end();
+
+		// Draw the background overlays on top of everything
+		canvas.begin();
+		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
 		canvas.end();
 		
 		if (debug) {

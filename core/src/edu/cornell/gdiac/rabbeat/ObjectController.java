@@ -38,6 +38,8 @@ public class ObjectController {
     protected TextureRegion platformTile;
     /** The texture for end platforms */
     protected TextureRegion endPlatform;
+    /** The texture for wire platforms */
+    protected TextureRegion wirePlatform;
     /** The texture for radio platforms */
     protected TextureRegion radioPlatform;
     /** The texture for guitar platforms */
@@ -48,7 +50,10 @@ public class ObjectController {
     public TextureRegion bulletTexture;
     /** The texture for the exit condition */
     protected TextureRegion goalTile;
+    /** The texture for the background*/
     public TextureRegion backgroundTexture;
+    /** The texture for the background overlay*/
+    public TextureRegion backgroundOverlayTexture;
     private TextureRegion enemyDefaultTexture;
 
     /** Reference to the goalDoor (for collision detection) */
@@ -134,6 +139,7 @@ public class ObjectController {
      */
     public void gatherAssets(AssetDirectory directory) {
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
+        backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
 
         constants = directory.getEntry( "constants", JsonValue.class );
@@ -172,6 +178,7 @@ public class ObjectController {
         blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
         platformTile = new TextureRegion(directory.getEntry( "world:platforms:platform", Texture.class ));
         endPlatform = new TextureRegion(directory.getEntry( "world:platforms:endPlatform", Texture.class ));
+        wirePlatform = new TextureRegion(directory.getEntry( "world:platforms:wirePlatform", Texture.class ));
         radioPlatform = new TextureRegion(directory.getEntry( "world:platforms:radioPlatform", Texture.class ));
         guitarPlatform = new TextureRegion(directory.getEntry( "world:platforms:guitarPlatform", Texture.class ));
         weightedPlatform = new TextureRegion((directory.getEntry("world:platforms:weightedPlatform", Texture.class)));
@@ -240,6 +247,7 @@ public class ObjectController {
 
         createPlatforms(scale, "default");
         createPlatforms(scale, "defaultEnd");
+        createPlatforms(scale, "wire");
         createPlatforms(scale, "radio");
         createPlatforms(scale, "guitar");
 
@@ -359,7 +367,7 @@ public class ObjectController {
      * Create a platform using the scale and type given.
      *
      * @param scale The Vector2 draw scale
-     * @param type A string, either "default", "defaultEnd", "radio", "guitar"
+     * @param type A string, either "default", "defaultEnd", "wire", "radio", "guitar"
      */
     public void createPlatforms(Vector2 scale, String type){
         TextureRegion textureRegion;
@@ -372,6 +380,10 @@ public class ObjectController {
             case "defaultEnd":
                 textureRegion = endPlatform;
                 platjv = constants.get("platforms").get("endPlatforms");
+                break;
+            case "wire":
+                textureRegion = wirePlatform;
+                platjv = constants.get("platforms").get("wirePlatforms");
                 break;
             case "radio":
                 textureRegion = radioPlatform;
