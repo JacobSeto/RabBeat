@@ -567,7 +567,17 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			//TODO: bullet disappears if it touches anything thats not enemy and failure if it touches player
+			if (bd1.equals(objectController.enemy.bullet) && !bd2.equals(objectController.enemy)){
+				bd1.markRemoved(true);
+			}
+
+			if (bd2.equals(objectController.enemy.bullet) && !bd1.equals(objectController.enemy)){
+				bd2.markRemoved(true);
+			}
+
+			if ((bd1.equals(objectController.player)   && bd2.equals(objectController.enemy.bullet))) {
+				setFailure(true);
+			}
 
 			// Check for collision with checkpoints and set new current checkpoint
 			if (!objectController.checkpoints.isEmpty() &&
