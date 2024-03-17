@@ -19,7 +19,7 @@
       "world:platforms:radioPlatform" : "world/platforms/radioPlatform.png",
 
       "world:platforms:guitarPlatform" : "world/platforms/guitarPlatform.png",
-      
+
       "world:weightedLaserTile" : "world/weightedLaserTile.png",
 
       "world:goal": "world/goaldoor.png",
