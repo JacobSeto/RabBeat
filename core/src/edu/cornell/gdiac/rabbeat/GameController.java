@@ -567,15 +567,15 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			if (bd1.equals(objectController.enemy.bullet) && !bd2.equals(objectController.enemy)){
+			if (bd1.getName().contains("bullet") && !bd2.getName().contains("enemy") && !bd2.getName().contains("checkpoint")){
 				bd1.markRemoved(true);
 			}
 
-			if (bd2.equals(objectController.enemy.bullet) && !bd1.equals(objectController.enemy)){
+			if (bd2.getName().contains("bullet") && !bd1.getName().contains("enemy") && !bd1.getName().contains("checkpoint")){
 				bd2.markRemoved(true);
 			}
 
-			if ((bd1.equals(objectController.player)   && bd2.equals(objectController.enemy.bullet))) {
+			if ((bd1.equals(objectController.player)   && bd2.getName().contains("bullet"))) {
 				setFailure(true);
 			}
 
