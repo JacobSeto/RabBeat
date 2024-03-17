@@ -18,8 +18,10 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
+import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import java.util.Iterator;
@@ -563,19 +565,20 @@ public class GameController implements Screen, ContactListener {
 				setComplete(true);
 			}
 
-			if ((bd1.equals(objectController.player)   && bd2.equals(objectController.enemy))) {
+			if ((bd1.equals(objectController.player)   && bd2 instanceof Enemy)) {
 				setFailure(true);
 			}
 
-			if (bd1.getName().contains("bullet") && !bd2.getName().contains("enemy") && !bd2.getName().contains("checkpoint")){
+
+			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) && !bd2.getName().contains("checkpoint")){
 				bd1.markRemoved(true);
 			}
 
-			if (bd2.getName().contains("bullet") && !bd1.getName().contains("enemy") && !bd1.getName().contains("checkpoint")){
+			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy) && !bd1.getName().contains("checkpoint")){
 				bd2.markRemoved(true);
 			}
 
-			if ((bd1.equals(objectController.player)   && bd2.getName().contains("bullet"))) {
+			if ((bd1.equals(objectController.player) && bd2 instanceof Bullet)) {
 				setFailure(true);
 			}
 
