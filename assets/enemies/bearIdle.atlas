@@ -1,0 +1,33 @@
+bearIdle.png
+size: 1000, 205
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bearIdle
+  rotate: false
+  xy: 0, 0
+  size: 250, 205
+  orig: 250, 205
+  offset: 0, 0
+  index: 0
+bearIdle
+  rotate: false
+  xy: 250, 0
+  size: 250, 205
+  orig: 250, 205
+  offset: 0, 0
+  index: 1
+bearIdle
+  rotate: false
+  xy: 500, 0
+  size: 250, 205
+  orig: 250, 205
+  offset: 0, 0
+  index: 2
+bearIdle
+  rotate: false
+  xy: 750, 0
+  size: 250, 205
+  orig: 250, 205
+  offset: 0, 0
+  index: 3

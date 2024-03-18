@@ -17,7 +17,12 @@ import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 public class MovingPlatform extends PolygonGameObject implements IGenreObject {
     /** Position for the weighted platform when the game is in Synth mode **/
     private Array<Vector2> positionNodes;
+    /** The moving platform's current tint color **/
     private Color tint;
+    /** The moving platform's tint in synth mode **/
+    private Color synthTint = new Color(255/255f, 0, 189/255f, 1);
+    /** The moving platform's tint in jazz mode **/
+    private Color jazzTint = new Color(200/255f, 0, 0, 1);
     /** The speed at which the platform moves at**/
     private float platformSpeed;
     /** the direction the platform is moving in*/
@@ -55,7 +60,7 @@ public class MovingPlatform extends PolygonGameObject implements IGenreObject {
         setPosition(positionNodes.get(0));
         velocity = direction(positionNodes.get(home), positionNodes.get(destination), platformSpeed);
         moving = true;
-        tint = Color.RED;
+        tint = synthTint;
     }
     /** Calculates the direction between vectors*/
     @Override
@@ -100,10 +105,10 @@ public class MovingPlatform extends PolygonGameObject implements IGenreObject {
     public void move(Genre genre) {
         switch(genre) {
             case JAZZ:
-                tint = Color.YELLOW;
+                tint = jazzTint;
                 break;
             case SYNTH:
-                tint = Color.RED;
+                tint = synthTint;
                 break;
         }
     }

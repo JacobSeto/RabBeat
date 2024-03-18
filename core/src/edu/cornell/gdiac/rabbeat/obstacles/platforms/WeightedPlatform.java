@@ -19,7 +19,12 @@ public class WeightedPlatform extends PolygonGameObject implements IGenreObject 
 
     /** Position for the weighted platform when the game is in Jazz mode **/
     private Vector2 jazzPosition;
+    /** The weighted platform's current tint color **/
     private Color tint;
+    /** The weighted platform's tint in synth mode **/
+    private Color synthTint = new Color(255/255f, 0, 189/255f, 1);
+    /** The weighted platform's tint in jazz mode **/
+    private Color jazzTint = new Color(200/255f, 0, 0, 1);
     private int currentGenre;
     /** The speed at which the platform moves at**/
     private float platformSpeed;
@@ -44,7 +49,7 @@ public class WeightedPlatform extends PolygonGameObject implements IGenreObject 
         super(points);
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
         synthPosition = new Vector2(synthPos[0], synthPos[1]);
-        tint = Color.RED;
+        tint = synthTint;
         setPosition(synthPosition);
         moving = false;
         platformSpeed = speed;
@@ -108,12 +113,14 @@ public class WeightedPlatform extends PolygonGameObject implements IGenreObject 
     public void move(Genre genre) {
         switch(genre) {
             case JAZZ:
-                tint = Color.YELLOW;
+                //setPosition(jazzPosition);
+                tint = jazzTint;
                 moving = true;
                 currentGenre = 1;
                 break;
             case SYNTH:
-                tint = Color.RED;
+                //setPosition(synthPosition);
+                tint = synthTint;
                 moving = true;
                 currentGenre = 0;
                 break;

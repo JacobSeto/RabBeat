@@ -1,13 +1,17 @@
 package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
+import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
+import com.badlogic.gdx.graphics.g2d.Animation;
 
 public class BearEnemy extends Enemy implements ISynced, IGenreObject {
 
@@ -31,6 +35,12 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
 
+    /** Tells whether the bear was facing right or not when they shot */
+    private boolean shotDirection;
+
+    /** The idle animation for the bear */
+    public Animation<TextureRegion> bearIdleAnimation;
+
     /**
      * Creates a new enemy avatar with the given physics data
      *
@@ -41,11 +51,11 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
      * @param faceRight
      */
     public BearEnemy(JsonValue data, float width, float height, float enemyScale,
-            boolean faceRight) {
-        super(data, width, height, enemyScale, faceRight);
-        float dir = (faceRight ? 1 : -1);
-        synthSpeed = data.get("max_speed").getFloat("synth") * dir;
-        jazzSpeed = data.get("max_speed").getFloat("jazz") * dir;
+            boolean faceRight, Animation<TextureRegion> bearIdleAnimation) {
+        super(data, width, height, enemyScale, faceRight, bearIdleAnimation);
+        synthSpeed = data.get("max_speed").getFloat("synth");
+        jazzSpeed = data.get("max_speed").getFloat("jazz");
+        setAnimation(bearIdleAnimation);
     }
 
     /**
@@ -79,11 +89,12 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
         bullet = new Bullet(getX()+offset, getY(), radius, oc.constants.get("bullet").getFloat("synth speed", 0),
                 oc.constants.get("bullet").getFloat("jazz speed", 0), isFaceRight());
 
-        bullet.setName("bullet");
+        bullet.setName(getName() + "_bullet");
         bullet.setDensity(oc.constants.get("bullet").getFloat("density", 0));
         bullet.setDrawScale(scale);
         bullet.setTexture(oc.bulletTexture);
         bullet.setGravityScale(0);
+        shotDirection = isFaceRight();
 
         //Compute position and velocity
         float speed;
@@ -124,13 +135,21 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
         switch(genre) {
             case JAZZ:
                 if (bullet != null){
-                    bullet.setVX(jazzSpeed);
+                    if (shotDirection) {
+                        bullet.setVX(jazzSpeed);
+                    } else {
+                        bullet.setVX(jazzSpeed * -1);
+                    }
                 }
                 curGenre = Genre.JAZZ;
                 break;
             case SYNTH:
                 if (bullet != null){
-                    bullet.setVX(synthSpeed);
+                    if (shotDirection) {
+                        bullet.setVX(synthSpeed);
+                    } else {
+                        bullet.setVX(synthSpeed * -1);
+                    }
                 }
                 curGenre = Genre.SYNTH;
                 break;

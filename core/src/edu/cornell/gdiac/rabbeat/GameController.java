@@ -18,9 +18,11 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
+import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import java.util.Iterator;
@@ -125,7 +127,6 @@ public class GameController implements Screen, ContactListener {
 	private Music synthSoundtrack;
 	/** jazz soundtrack of game*/
 	private Music jazzSoundtrack;
-
 
 	// Physics objects for the game
 
@@ -247,8 +248,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void setCanvas(GameCanvas canvas) {
 		this.canvas = canvas;
-		this.scale.x = canvas.getWidth()/bounds.getWidth();
-		this.scale.y = canvas.getHeight()/bounds.getHeight();
+		this.scale.x = canvas.getWidth()/bounds.getWidth() * 2;
+		this.scale.y = canvas.getHeight()/bounds.getHeight() * 2;
 	}
 	
 	/**
@@ -564,20 +565,19 @@ public class GameController implements Screen, ContactListener {
 				setComplete(true);
 			}
 
-			if ((bd1.equals(objectController.player)   && bd2.equals(objectController.enemy))) {
+			if ((bd1.equals(objectController.player)   && bd2 instanceof Enemy)) {
 				setFailure(true);
 			}
 
-
-			if (bd1.equals(objectController.enemy.bullet) && !bd2.equals(objectController.enemy)){
+			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) && !bd2.getName().contains("checkpoint")){
 				bd1.markRemoved(true);
 			}
 
-			if (bd2.equals(objectController.enemy.bullet) && !bd1.equals(objectController.enemy)){
+			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy) && !bd1.getName().contains("checkpoint")){
 				bd2.markRemoved(true);
 			}
 
-			if ((bd1.equals(objectController.player)   && bd2.equals(objectController.enemy.bullet))) {
+			if ((bd1.equals(objectController.player) && bd2 instanceof Bullet)) {
 				setFailure(true);
 			}
 
@@ -710,7 +710,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin();
-		canvas.draw(objectController.backgroundTexture, Color.WHITE, 0, 0,canvas.getWidth(),canvas.getHeight());
+		canvas.draw(objectController.backgroundTexture, 0, 0);
 		canvas.end();
 		
 		canvas.begin();
@@ -722,6 +722,11 @@ public class GameController implements Screen, ContactListener {
 		// Draw the player on top
 		canvas.begin();
 		objectController.player.draw(canvas);
+		canvas.end();
+
+		// Draw the background overlays on top of everything
+		canvas.begin();
+		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
 		canvas.end();
 		
 		if (debug) {
