@@ -13,7 +13,7 @@ public class SyncController {
     Music jazz;
 
     /**The audio delay of the audio  in seconds*/
-    float delay = 0;
+    private float delay = 0;
     private Array<Interval> intervals = new Array<>();
 
     /** TODO: Create description and use SoundController instead.  Maybe even delete this function*/
@@ -22,10 +22,19 @@ public class SyncController {
         jazz = _jazz;
     }
 
+    /**Adds _delay to the delay field
+     * @param _delay A float value that represents the added delay
+     * */
+    public void addDelay(float _delay){
+        delay += _delay;
+        System.out.println(delay);
+    }
+
     /**The update function for everything synced in the world*/
     public void updateBeat(){
+
         for(Interval i : intervals){
-            float sample = synth.getPosition() / i.getIntervalLength(BPM) + delay;
+            float sample = synth.getPosition() / i.getIntervalLength(BPM) + delay * i.syncedObject.getBeat();
             i.checkForNewInterval(sample);
         }
 
