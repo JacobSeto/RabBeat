@@ -344,14 +344,17 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 			forceCache.set(-getDamping()*getVX(),0);
 			body.applyForce(forceCache,getPosition(),true);
 		}
-		
+
+		if(Math.abs(getMovement() + getVX()) != Math.abs(getMovement()) + Math.abs(getVX())){
+			setVX(0);
+		}
+		forceCache.set(getMovement(),0);
+		body.applyForce(forceCache,getPosition(),true);
 		// Velocity too high, clamp it
 		if (Math.abs(getVX()) >= getMaxSpeed()) {
 			setVX(Math.signum(getVX())*getMaxSpeed());
-		} else {
-			forceCache.set(getMovement(),0);
-			body.applyForce(forceCache,getPosition(),true);
 		}
+
 
 		// Jump!
 		if (isJumping()) {
