@@ -303,6 +303,7 @@ public class ObjectController {
             BearEnemy obj;
             obj = new BearEnemy(currentEnemy, dwidth*enemyScale,
                     dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+            obj.setBodyType(BodyDef.BodyType.StaticBody);
             obj.setDrawScale(scale);
             obj.setTexture(enemyDefaultTexture);
             obj.setName(ename + ii);
