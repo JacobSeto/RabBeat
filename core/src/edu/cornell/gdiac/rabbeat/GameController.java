@@ -585,7 +585,7 @@ public class GameController implements Screen, ContactListener {
 				Vector2 displace = ((WeightedPlatform) bd1).getVelocity();
 				Vector2 playerPos = objectController.player.getPosition();
 				System.out.println("yipee");
-
+				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
 				//objectController.player.setPosition(playerPos.x+displace.x, playerPos.y+displace.y);
 			}
 
