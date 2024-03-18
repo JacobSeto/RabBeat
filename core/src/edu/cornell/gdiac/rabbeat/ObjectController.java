@@ -289,41 +289,25 @@ public class ObjectController {
             obj.setDrawScale(scale);
             obj.setTexture(weightedPlatform);
             obj.setName(mpname + ii);
-//            GameController.getInstance().instantiate(obj);
+            //GameController.getInstance().instantiate(obj);
         }
 
         //TODO: Load enemies
         dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
 
-        enemy = new BearEnemy(constants.get("enemy"), dwidth*enemyScale,
-                dheight*enemyScale, enemyScale, false, bearIdleAnimation);
-        enemy.setDrawScale(scale);
-        enemy.setTexture(enemyDefaultTexture);
-        GameController.getInstance().instantiate(enemy);
-        //TODO: set up the bullet default values here
-//        float offset = constants.get("bullet").getFloat("offset",0);
-//        offset *= (enemy.isFaceRight() ? 1 : -1);
-//        float radius = bulletTexture.getRegionWidth()/(2.0f*scale.x);
-//        enemy.bullet = new Bullet(enemy.getX()+offset, enemy.getY(), radius, constants.get("bullet").getFloat("synth speed", 0),
-//                constants.get("bullet").getFloat("jazz speed", 0), enemy.isFaceRight());
-//
-//        enemy.bullet.setName("bullet");
-//        enemy.bullet.setDensity(constants.get("bullet").getFloat("density", 0));
-//        enemy.bullet.setDrawScale(scale);
-//        enemy.bullet.setTexture(bulletTexture);
-//        enemy.bullet.setGravityScale(0);
-
-        //Compute position and velocity
-//        float speed;
-//        if (enemy.curGenre == Genre.SYNTH){
-//            speed = constants.get("bullet").getFloat("synth speed", 0);
-//        }
-//        else {
-//            speed = constants.get("bullet").getFloat("jazz speed", 0);
-//        }
-//        speed *= (enemy.isFaceRight() ? 1 : -1);
-//        enemy.bullet.setVX(speed);
+        String ename = "enemy";
+        JsonValue enemiesjv = constants.get("enemies");
+        for (int ii = 0; ii < enemiesjv.size; ii++){
+            JsonValue currentEnemy = enemiesjv.get(ii);
+            BearEnemy obj;
+            obj = new BearEnemy(currentEnemy, dwidth*enemyScale,
+                    dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+            obj.setDrawScale(scale);
+            obj.setTexture(enemyDefaultTexture);
+            obj.setName(ename + ii);
+            GameController.getInstance().instantiate(obj);
+        }
 
         // Create bunny
 
