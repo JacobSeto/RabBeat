@@ -100,7 +100,7 @@ public abstract class Enemy extends CapsuleGameObject {
      * @param canvas Drawing context
      */
     public void draw(GameCanvas canvas) {
-        float effect = faceRight ? 1.0f : -1.0f;
+        float effect = faceRight ? - 1.0f : 1.0f;
         TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
         canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
                 enemyScale*effect,enemyScale);
