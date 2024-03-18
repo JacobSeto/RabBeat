@@ -58,6 +58,15 @@ public class WeightedPlatform extends PolygonGameObject implements IGenreObject 
 
         currentGenre = 0;
     }
+    /** */
+    public Vector2 getVelocity(){
+        if (currentGenre==0){
+            return new Vector2(velocity.x * -1, velocity.y *-1);
+        }
+        else{
+            return new Vector2(velocity.x , velocity.y );
+        }
+    }
 
     @Override
     public void draw(GameCanvas canvas) {
@@ -99,13 +108,11 @@ public class WeightedPlatform extends PolygonGameObject implements IGenreObject 
     public void move(Genre genre) {
         switch(genre) {
             case JAZZ:
-                //setPosition(jazzPosition);
                 tint = Color.YELLOW;
                 moving = true;
                 currentGenre = 1;
                 break;
             case SYNTH:
-                //setPosition(synthPosition);
                 tint = Color.RED;
                 moving = true;
                 currentGenre = 0;
@@ -120,7 +127,6 @@ public class WeightedPlatform extends PolygonGameObject implements IGenreObject 
 
     public Vector2 direction(Vector2 pos1, Vector2 pos2, float speed){
         float magnitude = magnitude(pos1, pos2);
-
         return new Vector2((pos1.x - pos2.x)*speed/magnitude,
                 (pos1.y-pos2.y)*speed/magnitude);
     }
