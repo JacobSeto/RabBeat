@@ -40,21 +40,24 @@ import edu.cornell.gdiac.rabbeat.obstacles.*;
  * Base class for a world-specific controller.
  *
  *
- * A world has its own objects, assets, and input controller.  Thus this is 
- * really a mini-GameEngine in its own right.  The only thing that it does
+ * A world has its own objects, assets, and input controller. Thus this is
+ * really a mini-GameEngine in its own right. The only thing that it does
  * not do is create a GameCanvas; that is shared with the main application.
  *
- * You will notice that asset loading is not done with static methods this time.  
- * Instance asset loading makes it easier to process our game modes in a loop, which 
- * is much more scalable. However, we still want the assets themselves to be static.
- * This is the purpose of our AssetState variable; it ensures that multiple instances
+ * You will notice that asset loading is not done with static methods this time.
+ * Instance asset loading makes it easier to process our game modes in a loop,
+ * which
+ * is much more scalable. However, we still want the assets themselves to be
+ * static.
+ * This is the purpose of our AssetState variable; it ensures that multiple
+ * instances
  * place nicely with the static assets.
  */
 public class GameController implements Screen, ContactListener {
 
 	/** The genre state of the game */
 	public Genre genre = Genre.SYNTH;
-	/** The Sync object that will sync the world to the beat*/
+	/** The Sync object that will sync the world to the beat */
 	public SyncController syncController;
 
 	/** The SoundController object to handle audio */
@@ -74,29 +77,29 @@ public class GameController implements Screen, ContactListener {
 	protected BitmapFont displayFont;
 	/** The object loader for creating objects into the world */
 	public ObjectController objectController;
-	
+
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
-    /** How many frames after winning/losing do we continue? */
+	/** How many frames after winning/losing do we continue? */
 	public static final int EXIT_COUNT = 120;
 
 	/** The amount of time for a physics engine step. */
-	public static final float WORLD_STEP = 1/60.0f;
+	public static final float WORLD_STEP = 1 / 60.0f;
 	/** Number of velocity iterations for the constrain solvers */
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
-	protected static final float DEFAULT_WIDTH  = 32.0f;
+	protected static final float DEFAULT_WIDTH = 32.0f;
 	/** Height of the game world in Box2d units */
 	protected static final float DEFAULT_HEIGHT = 18.0f;
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -4.9f;
-	
+
 	/** Reference to the game canvas */
 	protected GameCanvas canvas;
 	/** All the objects in the world. */
-	protected PooledList<GameObject> objects  = new PooledList<>();
-	/** All objects that are genre-dependent*/
+	protected PooledList<GameObject> objects = new PooledList<>();
+	/** All objects that are genre-dependent */
 	protected PooledList<IGenreObject> genreObjects = new PooledList<>();
 	/** Queue for adding objects */
 	protected PooledList<GameObject> addQueue = new PooledList<>();
@@ -122,14 +125,14 @@ public class GameController implements Screen, ContactListener {
 	private int countdown;
 
 	// TODO: Add sounds and sound id fields here
-	/**synth soundtrack of game*/
+	/** synth soundtrack of game */
 	private Music synthSoundtrack;
-	/** jazz soundtrack of game*/
+	/** jazz soundtrack of game */
 	private Music jazzSoundtrack;
 
 	// Physics objects for the game
 
-	/** the spawnpoint location of the player*/
+	/** the spawnpoint location of the player */
 
 	private Vector2 respawnPoint;
 
@@ -152,7 +155,7 @@ public class GameController implements Screen, ContactListener {
 	 *
 	 * @return true if debug mode is active.
 	 */
-	public boolean isDebug( ) {
+	public boolean isDebug() {
 		return debug;
 	}
 
@@ -199,7 +202,7 @@ public class GameController implements Screen, ContactListener {
 	 *
 	 * @return true if the level is failed.
 	 */
-	public boolean isFailure( ) {
+	public boolean isFailure() {
 		return failed;
 	}
 
@@ -216,7 +219,7 @@ public class GameController implements Screen, ContactListener {
 		}
 		failed = value;
 	}
-	
+
 	/**
 	 * Returns true if this is the active screen
 	 *
@@ -236,31 +239,31 @@ public class GameController implements Screen, ContactListener {
 	public GameCanvas getCanvas() {
 		return canvas;
 	}
-	
+
 	/**
 	 * Sets the canvas associated with this controller
 	 *
-	 * The canvas is shared across all controllers.  Setting this value will compute
+	 * The canvas is shared across all controllers. Setting this value will compute
 	 * the drawing scale from the canvas size.
 	 *
 	 * @param canvas the canvas associated with this controller
 	 */
 	public void setCanvas(GameCanvas canvas) {
 		this.canvas = canvas;
-		this.scale.x = canvas.getWidth()/bounds.getWidth() * 2;
-		this.scale.y = canvas.getHeight()/bounds.getHeight() * 2;
+		this.scale.x = canvas.getWidth() / bounds.getWidth() * 2;
+		this.scale.y = canvas.getHeight() / bounds.getHeight() * 2;
 	}
-	
+
 	/**
 	 * Creates a new game world with the default values.
 	 *
 	 * The game world is scaled so that the screen coordinates do not agree
-	 * with the Box2d coordinates.  The bounds are in terms of the Box2d
+	 * with the Box2d coordinates. The bounds are in terms of the Box2d
 	 * world, not the screen.
 	 */
 	protected GameController() {
-		this(new Rectangle(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT), 
-			 new Vector2(0,DEFAULT_GRAVITY));
+		this(new Rectangle(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT),
+				new Vector2(0, DEFAULT_GRAVITY));
 		setDebug(false);
 		setComplete(false);
 		setFailure(false);
@@ -276,28 +279,28 @@ public class GameController implements Screen, ContactListener {
 	 * Creates a new game world
 	 *
 	 * The game world is scaled so that the screen coordinates do not agree
-	 * with the Box2d coordinates.  The bounds are in terms of the Box2d
+	 * with the Box2d coordinates. The bounds are in terms of the Box2d
 	 * world, not the screen.
 	 *
-	 * @param bounds	The game bounds in Box2d coordinates
-	 * @param gravity	The gravitational force on this Box2d world
+	 * @param bounds  The game bounds in Box2d coordinates
+	 * @param gravity The gravitational force on this Box2d world
 	 */
 	protected GameController(Rectangle bounds, Vector2 gravity) {
-		world = new World(gravity,false);
+		world = new World(gravity, false);
 		this.bounds = new Rectangle(bounds);
-		this.scale = new Vector2(1,1);
+		this.scale = new Vector2(1, 1);
 		complete = false;
 		failed = false;
-		debug  = false;
+		debug = false;
 		active = false;
 		countdown = -1;
 	}
-	
+
 	/**
 	 * Dispose of all (non-static) resources allocated to this mode.
 	 */
 	public void dispose() {
-		for(GameObject obj : objects) {
+		for (GameObject obj : objects) {
 			obj.deactivatePhysics(world);
 		}
 		objects.clear();
@@ -306,8 +309,8 @@ public class GameController implements Screen, ContactListener {
 		objects = null;
 		addQueue = null;
 		bounds = null;
-		scale  = null;
-		world  = null;
+		scale = null;
+		world = null;
 		canvas = null;
 		syncController = null;
 		genreObjects = null;
@@ -321,31 +324,33 @@ public class GameController implements Screen, ContactListener {
 	 * This method extracts the asset variables from the given asset directory. It
 	 * should only be called after the asset directory is completed.
 	 *
-	 * @param directory	Reference to global asset manager.
+	 * @param directory Reference to global asset manager.
 	 */
 	public void gatherAssets(AssetDirectory directory) {
 		objectController.gatherAssets(directory);
-		//set the soundtrack
+		// set the soundtrack
 		setSoundtrack(directory);
 	}
 
-	/** Sets the synth and jazz soundtrack to the correct tracks.  This function will be significant
+	/**
+	 * Sets the synth and jazz soundtrack to the correct tracks. This function will
+	 * be significant
 	 * if there are multiple different soundtracks for different levels
 	 *
-	 * @param directory	Reference to global asset manager.
-	 * */
-	public void setSoundtrack(AssetDirectory directory){
-		synthSoundtrack = directory.getEntry("music:synth1", Music.class) ;
-		jazzSoundtrack = directory.getEntry("music:jazz1",Music.class);
+	 * @param directory Reference to global asset manager.
+	 */
+	public void setSoundtrack(AssetDirectory directory) {
+		synthSoundtrack = directory.getEntry("music:synth1", Music.class);
+		jazzSoundtrack = directory.getEntry("music:jazz1", Music.class);
 		soundController.setSynthTrack(synthSoundtrack);
 		soundController.setJazzTrack(jazzSoundtrack);
 	}
 
-	public Vector2 getScale(){
+	public Vector2 getScale() {
 		return scale;
 	}
 
-	public Genre getGenre(){
+	public Genre getGenre() {
 		return genre;
 	}
 
@@ -353,7 +358,8 @@ public class GameController implements Screen, ContactListener {
 	 *
 	 * Adds a physics object in to the insertion queue.
 	 *
-	 * Objects on the queue are added just before collision processing.  We do this to 
+	 * Objects on the queue are added just before collision processing. We do this
+	 * to
 	 * control object creation.
 	 *
 	 * param obj The object to add
@@ -362,18 +368,21 @@ public class GameController implements Screen, ContactListener {
 		assert inBounds(obj) : "Object is not in bounds";
 		addQueue.add(obj);
 	}
-	/**If the object is implements {@link ISynced}, add
-	 * to the sync.  If it is a {@link IGenreObject}, add to genreObstacles.
-	 * @param  object: The object you are instantiating
+
+	/**
+	 * If the object is implements {@link ISynced}, add
+	 * to the sync. If it is a {@link IGenreObject}, add to genreObstacles.
+	 * 
+	 * @param object: The object you are instantiating
 	 *
-	 * */
-	protected void instantiate(GameObject object){
+	 */
+	protected void instantiate(GameObject object) {
 		assert inBounds(object) : "Object is not in bounds";
 		objects.add(object);
-		if(object instanceof  ISynced){
+		if (object instanceof ISynced) {
 			syncController.addSync((ISynced) object);
 		}
-		if(object instanceof IGenreObject){
+		if (object instanceof IGenreObject) {
 			genreObjects.add((IGenreObject) object);
 		}
 		object.activatePhysics(world);
@@ -389,8 +398,8 @@ public class GameController implements Screen, ContactListener {
 	 * @return true if the object is in bounds.
 	 */
 	public boolean inBounds(GameObject obj) {
-		boolean horiz = (bounds.x <= obj.getX() && obj.getX() <= bounds.x+bounds.width);
-		boolean vert  = (bounds.y <= obj.getY() && obj.getY() <= bounds.y+bounds.height);
+		boolean horiz = (bounds.x <= obj.getX() && obj.getX() <= bounds.x + bounds.width);
+		boolean vert = (bounds.y <= obj.getY() && obj.getY() <= bounds.y + bounds.height);
 		return horiz && vert;
 	}
 
@@ -399,9 +408,9 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void initialize() {
 		genre = Genre.SYNTH;
-		Vector2 gravity = new Vector2(world.getGravity() );
+		Vector2 gravity = new Vector2(world.getGravity());
 
-		world = new World(gravity,false);
+		world = new World(gravity, false);
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
@@ -418,18 +427,18 @@ public class GameController implements Screen, ContactListener {
 	 * This method disposes of the world and creates a new one.
 	 */
 	public void reset() {
-		//Default genre is synth
+		// Default genre is synth
 		genre = Genre.SYNTH;
-		Vector2 gravity = new Vector2(world.getGravity() );
+		Vector2 gravity = new Vector2(world.getGravity());
 
-		for(GameObject obj : objects) {
+		for (GameObject obj : objects) {
 			obj.deactivatePhysics(world);
 		}
 		objects.clear();
 		addQueue.clear();
 		world.dispose();
 
-		world = new World(gravity,false);
+		world = new World(gravity, false);
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
@@ -445,14 +454,15 @@ public class GameController implements Screen, ContactListener {
 	 */
 	private void populateLevel() {
 
-		//world starts with Synth gravity
-		world.setGravity( new Vector2(0,objectController.constants.get("genre_gravity").getFloat("synth",0)) );
-		//TODO This volume constant is never used
+		// world starts with Synth gravity
+		world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("synth", 0)));
+		// TODO This volume constant is never used
 		float volume = objectController.constants.getFloat("volume", 1.0f);
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
-		objectController.populateObjects(scale);;
+		objectController.populateObjects(scale);
+		;
 
 	}
 
@@ -460,10 +470,10 @@ public class GameController implements Screen, ContactListener {
 	 * Returns whether to process the update loop
 	 *
 	 * At the start of the update loop, we check if it is time
-	 * to switch to a new game mode.  If not, the update proceeds
+	 * to switch to a new game mode. If not, the update proceeds
 	 * normally.
 	 *
-	 * @param dt	Number of seconds since last animation frame
+	 * @param dt Number of seconds since last animation frame
 	 * 
 	 * @return whether to process the update loop
 	 */
@@ -486,15 +496,14 @@ public class GameController implements Screen, ContactListener {
 				pause();
 				listener.exitScreen(this, EXIT_QUIT);
 				return false;
-			}
-			else if (countdown > 0) {
+			} else if (countdown > 0) {
 				countdown--;
 			} else if (countdown == 0) {
 				if (failed) {
 					reset();
 				} else if (complete) {
 					pause();
-					//TODO: Make Win Condition
+					// TODO: Make Win Condition
 					System.out.println("You win the game");
 					return false;
 				}
@@ -512,28 +521,37 @@ public class GameController implements Screen, ContactListener {
 	 * The core gameplay loop of this world.
 	 *
 	 * This method contains the specific update code for this mini-game. It does
-	 * not handle collisions, as those are managed by the parent class WorldController.
-	 * This method is called after input is read, but before collisions are resolved.
-	 * The very last thing that it should do is apply forces to the appropriate objects.
+	 * not handle collisions, as those are managed by the parent class
+	 * WorldController.
+	 * This method is called after input is read, but before collisions are
+	 * resolved.
+	 * The very last thing that it should do is apply forces to the appropriate
+	 * objects.
 	 *
-	 * @param dt	Number of seconds since last animation frame
+	 * @param dt Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
-		//TODO: bullet stuff needs to go and make the update in the object itself, not here
+		// TODO: bullet stuff needs to go and make the update in the object itself, not
+		// here
 
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
 			updateGenreSwitch();
 		}
+		if(InputController.getInstance().getDelay() != 0f){
+			syncController.addDelay(InputController.getInstance().getDelay());
+		}
 		syncController.updateBeat();
 		soundController.update();
 	}
+
 	/**
 	 * Callback method for the start of a collision
 	 *
-	 * This method is called when we first get a collision between two objects.  We use
-	 * this method to test if it is the "right" kind of collision.  In particular, we
+	 * This method is called when we first get a collision between two objects. We
+	 * use
+	 * this method to test if it is the "right" kind of collision. In particular, we
 	 * use it to test if we made it to the win door.
 	 *
 	 * @param contact The two bodies that collided
@@ -550,8 +568,8 @@ public class GameController implements Screen, ContactListener {
 		Object fd2 = fix2.getUserData();
 
 		try {
-			GameObject bd1 = (GameObject)body1.getUserData();
-			GameObject bd2 = (GameObject)body2.getUserData();
+			GameObject bd1 = (GameObject) body1.getUserData();
+			GameObject bd2 = (GameObject) body2.getUserData();
 
 			if ((objectController.player.getSensorName().equals(fd2) && objectController.player != bd1) ||
 					(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
@@ -564,15 +582,15 @@ public class GameController implements Screen, ContactListener {
 				setComplete(true);
 			}
 
-			if ((bd1.equals(objectController.player)   && bd2 instanceof Enemy)) {
+			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy)) {
 				setFailure(true);
 			}
 
-			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) && !bd2.getName().contains("checkpoint")){
+			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) && !bd2.getName().contains("checkpoint")) {
 				bd1.markRemoved(true);
 			}
 
-			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy) && !bd1.getName().contains("checkpoint")){
+			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy) && !bd1.getName().contains("checkpoint")) {
 				bd2.markRemoved(true);
 			}
 
@@ -583,7 +601,7 @@ public class GameController implements Screen, ContactListener {
 			// Check for collision with checkpoints and set new current checkpoint
 			if (!objectController.checkpoints.isEmpty() &&
 					((bd1 == objectController.player && bd2 == objectController.checkpoints.first().fst) ||
-					(bd1 == objectController.checkpoints.first().fst && bd2 == objectController.player))) {
+							(bd1 == objectController.checkpoints.first().fst && bd2 == objectController.player))) {
 				respawnPoint = objectController.checkpoints.removeFirst().fst.getPosition();
 			}
 		} catch (Exception e) {
@@ -595,8 +613,10 @@ public class GameController implements Screen, ContactListener {
 	/**
 	 * Callback method for the start of a collision
 	 *
-	 * This method is called when two objects cease to touch.  The main use of this method
-	 * is to determine when the character is NOT on the ground.  This is how we prevent
+	 * This method is called when two objects cease to touch. The main use of this
+	 * method
+	 * is to determine when the character is NOT on the ground. This is how we
+	 * prevent
 	 * double jumping.
 	 */
 	public void endContact(Contact contact) {
@@ -622,30 +642,35 @@ public class GameController implements Screen, ContactListener {
 	}
 
 	/** Unused ContactListener method */
-	public void postSolve(Contact contact, ContactImpulse impulse) {}
+	public void postSolve(Contact contact, ContactImpulse impulse) {
+	}
+
 	/** Unused ContactListener method */
-	public void preSolve(Contact contact, Manifold oldManifold) {}
+	public void preSolve(Contact contact, Manifold oldManifold) {
+	}
 
 	/**
-	 * Loop update when the genre switch occurs. Only objects affected by genre switching should
+	 * Loop update when the genre switch occurs. Only objects affected by genre
+	 * switching should
 	 * be updated.
 	 *
 	 */
 	public void updateGenreSwitch() {
 		soundController.setGenre(genre);
-		//update to Synth
+		// update to Synth
 		if (genre == Genre.SYNTH) {
-			world.setGravity( new Vector2(0,objectController.constants.get("genre_gravity").getFloat("synth",0)) );
+			world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("synth", 0)));
 		}
-		//update to Jazz
+		// update to Jazz
 		else {
-			world.setGravity( new Vector2(0,objectController.constants.get("genre_gravity").getFloat("jazz",0)) );
+			world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("jazz", 0)));
 		}
 
 		for (IGenreObject g : genreObjects) {
 			g.genreUpdate(genre);
 		}
-		//TODO: Make the bullets inherit IGenreObject so we don't do the double genre check
+		// TODO: Make the bullets inherit IGenreObject so we don't do the double genre
+		// check
 		for (SyncedProjectile projectile : objectController.bullets) {
 			projectile.genreUpdate(genre);
 		}
@@ -655,19 +680,20 @@ public class GameController implements Screen, ContactListener {
 	 * Processes physics
 	 *
 	 * Once the update phase is over, but before we draw, we are ready to handle
-	 * physics.  The primary method is the step() method in world.  This implementation
+	 * physics. The primary method is the step() method in world. This
+	 * implementation
 	 * works for all applications and should not need to be overwritten.
 	 *
-	 * @param dt	Number of seconds since last animation frame
+	 * @param dt Number of seconds since last animation frame
 	 */
 	public void postUpdate(float dt) {
 		// Add any objects created by actions
 		while (!addQueue.isEmpty()) {
 			instantiate(addQueue.poll());
 		}
-		
+
 		// Turn the physics engine crank.
-		world.step(WORLD_STEP,WORLD_VELOC,WORLD_POSIT);
+		world.step(WORLD_STEP, WORLD_VELOC, WORLD_POSIT);
 
 		// Garbage collect the deleted objects.
 		// Note how we use the linked list nodes to delete O(1) in place.
@@ -685,16 +711,16 @@ public class GameController implements Screen, ContactListener {
 			}
 		}
 	}
-	
+
 	/**
 	 * Draw the physics objects to the canvas
 	 *
-	 * For simple worlds, this method is enough by itself.  It will need
+	 * For simple worlds, this method is enough by itself. It will need
 	 * to be overriden if the world needs fancy backgrounds or the like.
 	 *
 	 * The method draws all objects in the order that they were added.
 	 *
-	 * @param dt	Number of seconds since last animation frame
+	 * @param dt Number of seconds since last animation frame
 	 */
 	public void draw(float dt) {
 		canvas.clear();
@@ -703,7 +729,7 @@ public class GameController implements Screen, ContactListener {
 		canvas.begin();
 		canvas.draw(objectController.backgroundTexture, 0, 0);
 		canvas.end();
-		
+
 		canvas.begin();
 		for (GameObject obj : objects) {
 			obj.draw(canvas);
@@ -719,15 +745,15 @@ public class GameController implements Screen, ContactListener {
 		canvas.begin();
 		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
 		canvas.end();
-		
+
 		if (debug) {
 			canvas.beginDebug();
-			for(GameObject obj : objects) {
+			for (GameObject obj : objects) {
 				obj.drawDebug(canvas);
 			}
 			canvas.endDebug();
 		}
-		
+
 		// Final message
 		if (complete && !failed) {
 			objectController.displayFont.setColor(Color.YELLOW);
@@ -737,15 +763,16 @@ public class GameController implements Screen, ContactListener {
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
 			canvas.begin(); // DO NOT SCALE
-			canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
+			// TODO: Remove this failure text with something more appropriate for our game
+			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
 			canvas.end();
 		}
 	}
 
 	/**
-	 * Called when the Screen is resized. 
+	 * Called when the Screen is resized.
 	 *
-	 * This can happen at any point during a non-paused state but will never happen 
+	 * This can happen at any point during a non-paused state but will never happen
 	 * before a call to show().
 	 *
 	 * @param width  The new width in pixels
@@ -758,7 +785,8 @@ public class GameController implements Screen, ContactListener {
 	/**
 	 * Called when the Screen should render itself.
 	 *
-	 * We defer to the other methods update() and draw().  However, it is VERY important
+	 * We defer to the other methods update() and draw(). However, it is VERY
+	 * important
 	 * that we only quit AFTER a draw.
 	 *
 	 * @param delta Number of seconds since last animation frame
@@ -792,7 +820,7 @@ public class GameController implements Screen, ContactListener {
 	public void resume() {
 		// TODO Auto-generated method stub
 	}
-	
+
 	/**
 	 * Called when this screen becomes the current screen for a Game.
 	 */
@@ -818,12 +846,11 @@ public class GameController implements Screen, ContactListener {
 		this.listener = listener;
 	}
 
-
 	/**
 	 * Switches the genre depending on what the current genre is.
 	 */
 	public void switchGenre() {
-		switch(genre) {
+		switch (genre) {
 			case SYNTH:
 				genre = Genre.JAZZ;
 				System.out.println("Now switching to jazz!");
@@ -835,13 +862,12 @@ public class GameController implements Screen, ContactListener {
 		}
 	}
 
-	public void setSpawn(Vector2 spawn){
+	public void setSpawn(Vector2 spawn) {
 		respawnPoint = spawn;
 	}
 
-	public Player getPlayer(){
+	public Player getPlayer() {
 		return objectController.player;
 	}
-
 
 }
