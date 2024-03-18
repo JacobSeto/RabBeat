@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
 
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.obstacles.*;
@@ -53,6 +54,8 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	private boolean faceRight;
 	/** How long until we can jump again */
 	private int jumpCooldown;
+	/** Whether we are actively walking */
+	private boolean isWalking;
 	/** Whether we are actively jumping */
 	private boolean isJumping;
 	/** Whether our feet are on the ground */
@@ -64,10 +67,31 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	/** Cache for internal force calculations */
 	private final Vector2 forceCache = new Vector2();
 
-	/**Texture for player when they are in Synth*/
-	public TextureRegion synthDefaultTexture;
-	/**Texture for player when they are in Jazz*/
-	public TextureRegion jazzDefaultTexture;
+	// ANIMATION
+
+	/** Holds the genre of the ANIMATION. Doesn't specifically detect genre.*/
+	private Genre animationGenre;
+
+	/** The synth genre idle animation for the player */
+	public Animation<TextureRegion> synthIdleAnimation;
+	/** The synth genre walking animation for the player */
+	public Animation<TextureRegion> synthWalkAnimation;
+	/** The synth genre jumping animation for the player */
+	public Animation<TextureRegion> synthJumpAnimation;
+
+	/** The jazz genre idle animation for the player */
+	public Animation<TextureRegion> jazzIdleAnimation;
+	/** The jazz genre walking animation for the player */
+	public Animation<TextureRegion> jazzWalkAnimation;
+	/** The jazz genre jumping animation for the player */
+	public Animation<TextureRegion> jazzJumpAnimation;
+
+	/** The player's current animation */
+	public Animation<TextureRegion> animation;
+	/** The elapsed time for animationUpdate */
+	private float stateTime = 0;
+	/** A flag to check if the player's animation is jumping */
+	private boolean animationIsJumping = false;
 
 	/**
 	 * Returns left/right movement of this character.
@@ -95,6 +119,24 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		} else if (movement > 0) {
 			faceRight = true;
 		}
+	}
+
+	/**
+	 * Returns true if the player is actively walking.
+	 *
+	 * @return true if the player is actively walking.
+	 */
+	public boolean isWalking() {
+		return isWalking;
+	}
+
+	/**
+	 * Sets whether the player is actively walking.
+	 *
+	 * @param value whether the player is actively walking.
+	 */
+	public void setWalking(boolean value) {
+		isWalking = value;
 	}
 
 	/**
@@ -187,6 +229,13 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	public float playerScale;
 
 	/**
+	 * Sets the player's current animation
+	 */
+	public void setAnimation(Animation<TextureRegion> animation){
+		this.animation = animation;
+	}
+
+	/**
 	 * Returns true if this character is facing right
 	 *
 	 * @return true if this character is facing right
@@ -228,9 +277,12 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		this.data = data;
 
 		// Gameplay attributes
+		isWalking = false;
 		isGrounded = false;
 		isJumping = false;
 		faceRight = true;
+
+		animationGenre = Genre.SYNTH;
 
 		jumpCooldown = 0;
 		setName("dude");
@@ -309,7 +361,7 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	}
 	
 	/**
-	 * Updates the object's physics state (NOT GAME LOGIC).
+	 * Updates the object's physics state and animation based on the player's movement state (NOT GAME LOGIC).
 	 *
 	 * We use this method to reset cooldowns.
 	 *
@@ -317,17 +369,21 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	 */
 	public void update(float dt) {
 		// Process actions in object model
+		setWalking(InputController.getInstance().getHorizontal() != 0 && !isJumping);
 		setMovement(InputController.getInstance().getHorizontal() * getForce());
 		setJumping(InputController.getInstance().didPrimary());
 		applyForce();
 
 		// Apply cooldowns
 		if (isJumping()) {
+			animationIsJumping = true;
 			jumpCooldown = jumpLimit;
 		} else {
 			jumpCooldown = Math.max(0, jumpCooldown - 1);
 		}
-		
+
+		animationUpdate();
+		stateTime += dt;
 		super.update(dt);
 	}
 
@@ -338,9 +394,8 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	 */
 	public void draw(GameCanvas canvas) {
 		float effect = faceRight ? 1.0f : -1.0f;
-		//System.out.println(drawScale.x);
-		//System.out.println(drawScale.y);
-		canvas.draw(texture,Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
+		TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
+		canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
 				playerScale*effect,playerScale);
 	}
 	
@@ -358,13 +413,57 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 
 	@Override
 	public void genreUpdate(Genre genre) {
+		animationGenre = genre;
 		if (genre == Genre.SYNTH) {
 			maxspeed = synthSpeed;
-			setTexture(synthDefaultTexture);
 		}
 		else{
 			maxspeed = jazzSpeed;
-			setTexture(jazzDefaultTexture);
 		}
 	}
+
+	/**
+	 * Updates the animation based on the physics state.
+	 */
+	private void animationUpdate() {
+		if (isJumping) {
+			animationIsJumping = true;
+			stateTime = 0;
+			switch (animationGenre) {
+				case SYNTH:
+					setAnimation(synthJumpAnimation);
+					break;
+				case JAZZ:
+					setAnimation(jazzJumpAnimation);
+					break;
+			}
+		}
+
+		if (animationIsJumping){
+			if (animation.isAnimationFinished(stateTime)) {
+				animationIsJumping = false;
+			} else{
+				return;
+			}
+		} else if (isWalking()){
+			switch (animationGenre){
+				case SYNTH:
+					setAnimation(synthWalkAnimation);
+					break;
+				case JAZZ:
+					setAnimation(jazzWalkAnimation);
+					break;
+			}
+		} else{
+			switch (animationGenre){
+				case SYNTH:
+					setAnimation(synthIdleAnimation);
+					break;
+				case JAZZ:
+					setAnimation(jazzIdleAnimation);
+					break;
+			}
+		}
+	}
+
 }

@@ -1,13 +1,17 @@
 package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
+import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
+import com.badlogic.gdx.graphics.g2d.Animation;
 
 public class BearEnemy extends Enemy implements ISynced, IGenreObject {
 
@@ -33,6 +37,8 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
 
     /** Tells whether the bear was facing right or not when they shot */
     private boolean shotDirection;
+    /** The idle animation for the bear */
+    public Animation<TextureRegion> bearIdleAnimation;
 
     /**
      * Creates a new enemy avatar with the given physics data
@@ -44,10 +50,11 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
      * @param faceRight
      */
     public BearEnemy(JsonValue data, float width, float height, float enemyScale,
-            boolean faceRight) {
-        super(data, width, height, enemyScale, faceRight);
+            boolean faceRight, Animation<TextureRegion> bearIdleAnimation) {
+        super(data, width, height, enemyScale, faceRight, bearIdleAnimation);
         synthSpeed = data.get("max_speed").getFloat("synth");
         jazzSpeed = data.get("max_speed").getFloat("jazz");
+        setAnimation(bearIdleAnimation);
     }
 
     /**
