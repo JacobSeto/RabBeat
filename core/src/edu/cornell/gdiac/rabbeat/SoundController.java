@@ -30,14 +30,14 @@ public class SoundController {
     }
 
     public void playMusic() {
+        playMusic(Genre.SYNTH);
+    }
+
+    public void playMusic(Genre genre) {
         synthTrack.setLooping(true);
         jazzTrack.setLooping(true);
         synthTrack.play();
         jazzTrack.play();
-    }
-
-    public void playMusic(Genre genre) {
-        playMusic();
         if (genre == Genre.SYNTH) {
             synthTrack.setVolume(1);
             jazzTrack.setVolume(0);
@@ -55,8 +55,6 @@ public class SoundController {
     public void setJazzTrack(Music track) { jazzTrack = track;}
 
     public void resetMusic() {
-        synthTrack.stop();
-        jazzTrack.stop();
         currentGenre = Genre.SYNTH;
         playMusic(Genre.SYNTH);
     }
