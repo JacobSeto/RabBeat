@@ -35,8 +35,6 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
 
-    /** Tells whether the bear was facing right or not when they shot */
-    private boolean shotDirection;
     /** The idle animation for the bear */
     public Animation<TextureRegion> bearIdleAnimation;
 
@@ -52,8 +50,9 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     public BearEnemy(JsonValue data, float width, float height, float enemyScale,
             boolean faceRight, Animation<TextureRegion> bearIdleAnimation) {
         super(data, width, height, enemyScale, faceRight, bearIdleAnimation);
-        synthSpeed = data.get("max_speed").getFloat("synth");
-        jazzSpeed = data.get("max_speed").getFloat("jazz");
+        float dir = (faceRight ? 1 : -1);
+        synthSpeed = data.get("max_speed").getFloat("synth") * dir;
+        jazzSpeed = data.get("max_speed").getFloat("jazz") * dir;
         setAnimation(bearIdleAnimation);
     }
 
@@ -88,12 +87,11 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
         bullet = new Bullet(getX()+offset, getY(), radius, oc.constants.get("bullet").getFloat("synth speed", 0),
                 oc.constants.get("bullet").getFloat("jazz speed", 0), isFaceRight());
 
-        bullet.setName(getName() + "_bullet");
+        bullet.setName("bullet");
         bullet.setDensity(oc.constants.get("bullet").getFloat("density", 0));
         bullet.setDrawScale(scale);
         bullet.setTexture(oc.bulletTexture);
         bullet.setGravityScale(0);
-        shotDirection = isFaceRight();
 
         //Compute position and velocity
         float speed;
@@ -105,7 +103,6 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
         }
         speed *= (isFaceRight() ? 1 : -1);
         bullet.setVX(speed);
-        System.out.println("shoot" + (int) bullet.getX() + " " +  (int) bullet.getY());
         GameController.getInstance().instantiateQueue(bullet);
     }
     public float getBeat() {
@@ -119,6 +116,7 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
         }
         if (beatCount == 1 && enemyState == EnemyState.ATTACKING) {
             makeBullet();
+            System.out.println("shoot");
         }
         if (beatCount == 4){
         }
@@ -134,21 +132,13 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
         switch(genre) {
             case JAZZ:
                 if (bullet != null){
-                    if (shotDirection) {
-                        bullet.setVX(jazzSpeed);
-                    } else {
-                        bullet.setVX(jazzSpeed * -1);
-                    }
+                    bullet.setVX(jazzSpeed);
                 }
                 curGenre = Genre.JAZZ;
                 break;
             case SYNTH:
                 if (bullet != null){
-                    if (shotDirection) {
-                        bullet.setVX(synthSpeed);
-                    } else {
-                        bullet.setVX(synthSpeed * -1);
-                    }
+                    bullet.setVX(synthSpeed);
                 }
                 curGenre = Genre.SYNTH;
                 break;
