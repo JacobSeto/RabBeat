@@ -72,9 +72,7 @@ public class MovingPlatform extends PolygonGameObject implements IGenreObject {
     /** updates the platform to determine what direction it should be moving in */
     public void update(float delta){
         if(moving){
-
             if ((magnitude(getPosition(), positionNodes.get(destination))<LOCKDIST)){
-
                 home = destination;
                 if (destination == positionNodes.size-1){
                     destination = 0;
@@ -82,13 +80,10 @@ public class MovingPlatform extends PolygonGameObject implements IGenreObject {
                 else{
                     destination+=1;
                 }
-
                 velocity = direction(positionNodes.get(home), positionNodes.get(destination), platformSpeed);
-
                 move(delta);
             }
             else{
-
                 move(delta);
             }
         }

@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
+import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
@@ -596,6 +597,14 @@ public class GameController implements Screen, ContactListener {
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Bullet)) {
 				setFailure(true);
+			}
+
+			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
+				Vector2 displace = ((WeightedPlatform) bd1).getVelocity();
+				Vector2 playerPos = objectController.player.getPosition();
+				System.out.println("yipee");
+				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
+				//objectController.player.setPosition(playerPos.x+displace.x, playerPos.y+displace.y);
 			}
 
 			// Check for collision with checkpoints and set new current checkpoint
