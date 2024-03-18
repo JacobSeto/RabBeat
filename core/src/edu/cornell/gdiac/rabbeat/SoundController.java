@@ -56,7 +56,11 @@ public class SoundController {
 
     public void resetMusic() {
         currentGenre = Genre.SYNTH;
+        synthTrack.stop();
+        jazzTrack.stop();
         playMusic(Genre.SYNTH);
+        currentlyUpdating = false;
+        currentUpdateFrame = 0;
     }
 
     /**
