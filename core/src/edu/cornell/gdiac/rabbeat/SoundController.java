@@ -59,6 +59,8 @@ public class SoundController {
         jazzTrack.stop();
         currentGenre = Genre.SYNTH;
         playMusic(Genre.SYNTH);
+        currentlyUpdating = false;
+        currentUpdateFrame = 0;
     }
 
     /**
@@ -139,6 +141,10 @@ public class SoundController {
 
     public void update() {
         if (!currentlyUpdating) return;
+        if (currentlyResetting) {
+            currentlyResetting = false;
+            return;
+        }
         if (USE_INSTANT_SWITCH) {
             switchMusicGenreInstant();
         }
