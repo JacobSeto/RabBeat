@@ -289,7 +289,7 @@ public class ObjectController {
             obj.setDrawScale(scale);
             obj.setTexture(weightedPlatform);
             obj.setName(mpname + ii);
-            //GameController.getInstance().instantiate(obj);
+            GameController.getInstance().instantiate(obj);
         }
 
         //TODO: Load enemies
