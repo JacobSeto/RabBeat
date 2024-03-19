@@ -737,7 +737,10 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin();
-		canvas.draw(objectController.backgroundTexture, 0, 0);
+//		canvas.draw(objectController.backgroundTexture, 0, 0);
+		// TODO: Temporary modification for background scale
+		canvas.draw(objectController.backgroundTexture, Color.WHITE, 0f, 0f,
+				0f, 0f, 0f, 1.6f, 1.6f);
 		canvas.end();
 
 		canvas.begin();
@@ -753,7 +756,10 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw the background overlays on top of everything
 		canvas.begin();
-		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
+//		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
+		// TODO: Temporary modification for background scale
+		canvas.draw(objectController.backgroundOverlayTexture, Color.WHITE, 0f, -24f,
+				0f, -24f, 0f, 1.4f, 1.4f);
 		canvas.end();
 
 		if (debug) {
@@ -807,6 +813,7 @@ public class GameController implements Screen, ContactListener {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
+			// TODO: Temporary height for map
 			canvas.updateCamera(objectController.player, bounds.getWidth(), bounds.getHeight());
 			draw(delta);
 		}

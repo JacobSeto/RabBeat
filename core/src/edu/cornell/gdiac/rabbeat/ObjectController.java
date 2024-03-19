@@ -211,7 +211,7 @@ public class ObjectController {
             obj.setRestitution(checkpoint.getFloat("restitution", 0));
             obj.setSensor(true);
             obj.setDrawScale(scale);
-            obj.setTexture(checkpointDefault);
+            obj.setTexture(checkpointActive);
             obj.setName(cname + pair.snd);
             GameController.getInstance().instantiate(obj);
             newCheckpoints.addLast(new Pair<>(obj, pair.snd));
@@ -351,7 +351,7 @@ public class ObjectController {
         startTile.setRestitution(start.getFloat("restitution", 0));
         startTile.setSensor(true);
         startTile.setDrawScale(scale);
-        startTile.setTexture(checkpointDefault);
+        startTile.setTexture(checkpointActive);
         startTile.setName("start");
         GameController.getInstance().instantiate(startTile);
         //set respawn point to position of respawnPoint
@@ -369,7 +369,7 @@ public class ObjectController {
             obj.setRestitution(checkpoint.getFloat("restitution", 0));
             obj.setSensor(true);
             obj.setDrawScale(scale);
-            obj.setTexture(checkpointDefault);
+            obj.setTexture(checkpointActive);
             obj.setName(cname + i);
             GameController.getInstance().instantiate(obj);
             checkpoints.addLast(new Pair<>(obj, i));
