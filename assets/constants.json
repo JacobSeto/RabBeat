@@ -6,24 +6,19 @@
     	"volume": 0.8
 	},
 	"start": {
-		"pos": [2.0, 4.2],
+		"pos": [2.0, 7.2],
 		"density": 0.0,
 		"friction": 0.0,
 		"restitution": 0.0
 	},
 	"goal": {
-		"pos": [4.0, 14.0],
+		"pos": [100.0, 100.0],
 		"density": 0.0,
     	"friction": 0.0,
     	"restitution": 0.0
     },
 	"checkpoints": [
-		{
-			"pos": [8.0, 5.8],
-			"density": 0.0,
-			"friction": 0.0,
-			"restitution": 0.0
-		}
+
 	],
 	"bunny" : {
 		"pos": [2.5, 5.0],
@@ -47,8 +42,8 @@
 	"enemies" : [
 		{
 			"pos": [
-				12.0,
-				3.5
+				0,
+				0
 			],
 			"shrink": [
 				0.7,
@@ -87,29 +82,30 @@
 	],
 	"platforms": {
 		"platforms": [
-			[ 2, 3.0 ],
-			[ 14, 3.0 ]
+			[ 2, 5.0 ],
+			[ 0, 0 ]
 		],
 		"endPlatforms": [
-			[3, 3.0]
+			[3, 5.0]
 		],
 		"wirePlatforms": [
-			[ 11, 2.5 ]
+			[ 0,0]
 		],
 		"radioPlatforms": [
-			[ 8.5, 4.5 ],
+			[ 14.2,3.75 ],
 			[ 19.0, 2.5 ]
 		],
 		"guitarPlatforms": [
-			[ 6.0, 4.5 ]
+			[ 0.0,0.0 ]
 		]
 	},
 	"wplatforms":   [
 		{
-			"pos": [18.0,2.5,18.5,2.5,18.5,5.5,18.0,5.5],
+			"pos": [10,2.5, 12,2.5, 12,3, 10,3],
 			"synthPos": [0.0, 0.0],
-			"jazzPos": [0.0, 4.0]
+			"jazzPos": [-5.0, 3.0]
 		},
+
 		{
 			"pos": [23.0,3.5,26.0,3.5,26.0,4.0,23.0,4.0],
 			"synthPos": [0.0, 0.0],
