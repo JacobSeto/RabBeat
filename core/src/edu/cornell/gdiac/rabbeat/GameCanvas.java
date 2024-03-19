@@ -1162,7 +1162,8 @@ public class GameCanvas {
 	 */
 	protected void updateCamera(Player player, float worldWidth, float worldHeight) {
 		float SCALE_FROM_WORLD = 32f * 2;
-		float minX = camera.viewportWidth/2;
+		// TODO: Temporary constant of 64 to adjust edge boundary
+		float minX = camera.viewportWidth/2 + 64f;
 		float maxX = worldWidth * SCALE_FROM_WORLD - camera.viewportWidth/2;
 		float minY = camera.viewportHeight/2;
 		float maxY = worldHeight * SCALE_FROM_WORLD - camera.viewportHeight/2;
