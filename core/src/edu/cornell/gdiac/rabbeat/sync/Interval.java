@@ -6,8 +6,6 @@ package edu.cornell.gdiac.rabbeat.sync;
  * to be elapsed, a new interval is set and the synced object reacts.
  */
 public class Interval {
-
-    private float beat;
     public ISynced syncedObject;
     private int lastInterval;
 
@@ -19,7 +17,6 @@ public class Interval {
      */
     public Interval(ISynced _s) {
         syncedObject = _s;
-        beat = syncedObject.getBeat();
     }
 
     /**
@@ -28,7 +25,7 @@ public class Interval {
      * @param bpm The bpm of the soundtrack
      */
     public float getIntervalLength(float bpm) {
-        return 60f / (bpm * beat);
+        return 60f / (bpm * syncedObject.getBeat());
     }
 
     /**

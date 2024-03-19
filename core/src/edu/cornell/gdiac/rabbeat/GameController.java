@@ -82,7 +82,7 @@ public class GameController implements Screen, ContactListener {
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
 	/** How many frames after winning/losing do we continue? */
-	public static final int EXIT_COUNT = 120;
+	public static final int EXIT_COUNT = 2;
 
 	/** The amount of time for a physics engine step. */
 	public static final float WORLD_STEP = 1 / 60.0f;
@@ -678,11 +678,6 @@ public class GameController implements Screen, ContactListener {
 
 		for (IGenreObject g : genreObjects) {
 			g.genreUpdate(genre);
-		}
-		// TODO: Make the bullets inherit IGenreObject so we don't do the double genre
-		// check
-		for (SyncedProjectile projectile : objectController.bullets) {
-			projectile.genreUpdate(genre);
 		}
 	}
 
