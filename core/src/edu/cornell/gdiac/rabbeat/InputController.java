@@ -14,6 +14,7 @@
 package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.*;
 
 import com.badlogic.gdx.utils.Array;
@@ -90,6 +91,9 @@ public class InputController {
 
 	/** Whether space bar has been pressed to switch genre */
 	private boolean switchGenre;
+
+	/** Whether the delay buttons have been pressed*/
+	private float delay;
 	
 	/** An X-Box controller (if it is connected) */
 	XBoxController xbox;
@@ -337,6 +341,16 @@ public class InputController {
 		} else if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			genreSwitched = false;
 		}
+		//TODO: This is temporary code to add artificial delay to the syncing
+		delay = 0;
+		if (Gdx.input.isKeyPressed(Keys.EQUALS)){
+			delay = .05f;
+		}
+		else if(Gdx.input.isKeyPressed(Keys.MINUS)){
+			delay = -.05f;
+		}
+
+
 		
 		// Mouse results
         	tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
@@ -368,5 +382,10 @@ public class InputController {
 	 * */
 	public boolean getSwitchGenre(){
 		return switchGenre;
+	}
+
+	/** returns the delay value*/
+	public float getDelay(){
+		return delay;
 	}
 }
