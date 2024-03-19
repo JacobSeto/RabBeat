@@ -64,13 +64,13 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     public void switchState() {
         switch(enemyState) {
             case IDLE:
-                if(horizontalDistanceBetweenEnemyAndPlayer()<5) {
+                if(horizontalDistanceBetweenEnemyAndPlayer()<8) {
                     enemyState = EnemyState.ATTACKING;
                     System.out.println("ATTACKING");
                 }
                 break;
             case ATTACKING:
-                if(horizontalDistanceBetweenEnemyAndPlayer()>5) {
+                if(horizontalDistanceBetweenEnemyAndPlayer()>8) {
                     enemyState = EnemyState.IDLE;
                     System.out.println("not ATTACKING");
                 }
