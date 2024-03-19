@@ -264,7 +264,7 @@ public class ObjectController {
             JsonValue currentWP = wplatjv.get(ii);
             WeightedPlatform obj;
             obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
-                    currentWP.get("jazzPos").asFloatArray(), 1.0f);
+                    currentWP.get("jazzPos").asFloatArray(),  currentWP.getFloat("speed"));
             obj.setBodyType(BodyDef.BodyType.StaticBody);
             obj.setDensity(defaults.getFloat("density", 0.0f));
             obj.setFriction(defaults.getFloat("friction", 0.0f));
