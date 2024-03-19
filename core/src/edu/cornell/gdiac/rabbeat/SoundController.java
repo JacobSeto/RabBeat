@@ -55,10 +55,11 @@ public class SoundController {
     public void setJazzTrack(Music track) { jazzTrack = track;}
 
     public void resetMusic() {
-        synthTrack.stop();
-        jazzTrack.stop();
+        synthTrack.setPosition(1/44100f);
+        jazzTrack.setPosition(1/44100f);
+        synthTrack.setVolume(1);
+        jazzTrack.setVolume(0);
         currentGenre = Genre.SYNTH;
-        playMusic(Genre.SYNTH);
         currentlyUpdating = false;
         currentUpdateFrame = 0;
     }
@@ -141,10 +142,7 @@ public class SoundController {
 
     public void update() {
         if (!currentlyUpdating) return;
-        if (currentlyResetting) {
-            currentlyResetting = false;
-            return;
-        }
+
         if (USE_INSTANT_SWITCH) {
             switchMusicGenreInstant();
         }
