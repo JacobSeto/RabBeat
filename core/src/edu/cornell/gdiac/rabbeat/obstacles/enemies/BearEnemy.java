@@ -15,17 +15,18 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 
 public class BearEnemy extends Enemy implements ISynced, IGenreObject {
 
-    /** Value for current beat that the game is on */
-    private int beatCount = 0;
+    private float synthBeat = 1;
+    private float jazzBeat = .5f;
+    private float beat = .25f;
 
     /** The bullet the bear will be shooting */
     public Bullet bullet;
 
-    /** Speed of the bullet when the game is in synth mode */
-    private float synthSpeed;
+    /** Number of beats the bullet exists in synth*/
+    private int synthBulletTime = 3;
 
-    /** Speed of the bullet when the game is in jazz mode */
-    private float jazzSpeed;
+    /** Number of beats the bullet exists in jazz */
+    private int jazzBulletTime = 8;
 
     /** Current genre that the game is on */
     public Genre curGenre = Genre.SYNTH;
@@ -53,8 +54,6 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     public BearEnemy(JsonValue data, float width, float height, float enemyScale,
             boolean faceRight, Animation<TextureRegion> bearIdleAnimation) {
         super(data, width, height, enemyScale, faceRight, bearIdleAnimation);
-        synthSpeed = data.get("max_speed").getFloat("synth");
-        jazzSpeed = data.get("max_speed").getFloat("jazz");
         setAnimation(bearIdleAnimation);
     }
 
@@ -98,62 +97,34 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
 
         //Compute position and velocity
         float speed;
+        int beatcount;
         if (curGenre == Genre.SYNTH){
             speed = oc.constants.get("bullet").getFloat("synth speed", 0);
+            beatcount = synthBulletTime;
         }
         else {
             speed = oc.constants.get("bullet").getFloat("jazz speed", 0);
+            beatcount = jazzBulletTime;
         }
         speed *= (isFaceRight() ? 1 : -1);
         bullet.setVX(speed);
+        bullet.beatCount = beatcount;
         GameController.getInstance().instantiateQueue(bullet);
     }
     public float getBeat() {
-        return 1;
+        return beat;
     }
 
     public void beatAction() {
-        beatCount++;
-        if(beatCount >= 5){
-            beatCount = 1;
-        }
-        if (beatCount == 1 && enemyState == EnemyState.ATTACKING) {
+        if (enemyState == EnemyState.ATTACKING) {
             makeBullet();
             System.out.println("shoot");
         }
-        if (beatCount == 4){
-        }
-
         setFaceRight(GameController.getInstance().getPlayer().getPosition().x - getPosition().x > 0);
     }
 
     public void genreUpdate(Genre genre) {
-        changeSpeed(genre);
-    }
-
-    public void changeSpeed(Genre genre) {
-        switch(genre) {
-            case JAZZ:
-                if (bullet != null){
-                    if (shotDirection) {
-                        bullet.setVX(jazzSpeed);
-                    } else {
-                        bullet.setVX(jazzSpeed * -1);
-                    }
-                }
-                curGenre = Genre.JAZZ;
-                break;
-            case SYNTH:
-                if (bullet != null){
-                    if (shotDirection) {
-                        bullet.setVX(synthSpeed);
-                    } else {
-                        bullet.setVX(synthSpeed * -1);
-                    }
-                }
-                curGenre = Genre.SYNTH;
-                break;
-        }
+        curGenre = genre;
     }
 
 

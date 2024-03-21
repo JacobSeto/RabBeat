@@ -67,8 +67,6 @@ public class ObjectController {
     /** Reference to all the checkpoints */
     public Queue<Pair<BoxGameObject, Integer>> checkpoints = new Queue<Pair<BoxGameObject, Integer>>();
 
-    public Array<SyncedProjectile> bullets = new Array<>();
-
     /** The player scale for synth */
     private float playerScale = 3/8f*2f;
 

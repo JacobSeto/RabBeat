@@ -82,7 +82,7 @@ public class GameController implements Screen, ContactListener {
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
 	/** How many frames after winning/losing do we continue? */
-	public static final int EXIT_COUNT = 120;
+	public static final int EXIT_COUNT = 2;
 
 	/** The amount of time for a physics engine step. */
 	public static final float WORLD_STEP = 1 / 60.0f;
@@ -605,7 +605,9 @@ public class GameController implements Screen, ContactListener {
 				Vector2 playerPos = objectController.player.getPosition();
 				System.out.println("yipee");
 				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
-				//objectController.player.setPosition(playerPos.x+displace.x, playerPos.y+displace.y);
+				InputController.getInstance().setHorizontal(InputController.getInstance().getHorizontal()+displace.x);
+				//objectController.player.setPosition(playerPos.x+, playerPos.y+displace.xdisplace.y);
+//				bd2.setPosition(0, 0);
 			}
 
 			// Check for collision with checkpoints and set new current checkpoint
@@ -678,11 +680,6 @@ public class GameController implements Screen, ContactListener {
 
 		for (IGenreObject g : genreObjects) {
 			g.genreUpdate(genre);
-		}
-		// TODO: Make the bullets inherit IGenreObject so we don't do the double genre
-		// check
-		for (SyncedProjectile projectile : objectController.bullets) {
-			projectile.genreUpdate(genre);
 		}
 	}
 
