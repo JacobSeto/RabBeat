@@ -108,10 +108,6 @@ public class InputController {
 	public float getHorizontal() {
 		return horizontal;
 	}
-
-	public void setHorizontal(float horizontal) {
-		this.horizontal = horizontal;
-	}
 	
 	/**
 	 * Returns the amount of vertical movement. 

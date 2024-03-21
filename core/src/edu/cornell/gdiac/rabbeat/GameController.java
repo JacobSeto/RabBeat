@@ -605,9 +605,7 @@ public class GameController implements Screen, ContactListener {
 				Vector2 playerPos = objectController.player.getPosition();
 				System.out.println("yipee");
 				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
-				InputController.getInstance().setHorizontal(InputController.getInstance().getHorizontal()+displace.x);
-				//objectController.player.setPosition(playerPos.x+, playerPos.y+displace.xdisplace.y);
-//				bd2.setPosition(0, 0);
+				//objectController.player.setPosition(playerPos.x+displace.x, playerPos.y+displace.y);
 			}
 
 			// Check for collision with checkpoints and set new current checkpoint
