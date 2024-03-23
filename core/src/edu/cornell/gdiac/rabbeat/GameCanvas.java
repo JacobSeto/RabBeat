@@ -90,6 +90,9 @@ public class GameCanvas {
 	/** Cache object to handle raw textures */
 	private TextureRegion holder;
 
+	/** Camera movement speed */
+	float CAMERA_SPEED = 3f;
+
 	/**
 	 * Creates a new GameCanvas determined by the application configuration.
 	 * 
@@ -319,7 +322,7 @@ public class GameCanvas {
 	 */
 	public void clear() {
     	// Clear the screen
-		Gdx.gl.glClearColor(0.39f, 0.58f, 0.93f, 1.0f);  // Homage to the XNA years
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);		
 	}
 
@@ -1150,5 +1153,26 @@ public class GameCanvas {
 		local.rotate(180.0f*angle/(float)Math.PI);
 		local.scale(sx,sy);
 		local.translate(-ox,-oy);
+	}
+
+	/**
+	 * Updates the camera position based on the player position
+	 *
+	 * @param player	The player object
+	 */
+	protected void updateCamera(Player player, float worldWidth, float worldHeight) {
+		float SCALE_FROM_WORLD = 32f * 2;
+		float minX = camera.viewportWidth/2;
+		float maxX = worldWidth * SCALE_FROM_WORLD - camera.viewportWidth/2;
+		float minY = camera.viewportHeight/2;
+		float maxY = worldHeight * SCALE_FROM_WORLD - camera.viewportHeight/2;
+
+		camera.position.lerp(new Vector3(player.getX() * SCALE_FROM_WORLD - player.getWidth(), 0, 0), CAMERA_SPEED * Gdx.graphics.getDeltaTime());
+		camera.position.set(new Vector2(camera.position.x, player.getY() * SCALE_FROM_WORLD - player.getHeight()), 0);
+		camera.position.x = MathUtils.clamp(camera.position.x, minX, maxX);
+		camera.position.y = MathUtils.clamp(camera.position.y, minY, maxY);
+		camera.update();
+		spriteBatch.setProjectionMatrix(camera.combined);
+		debugRender.setProjectionMatrix(camera.combined);
 	}
 }

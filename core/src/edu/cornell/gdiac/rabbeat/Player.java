@@ -10,13 +10,14 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
 
 import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.rabbeat.*;
-import edu.cornell.gdiac.rabbeat.obstacle.*;
+import edu.cornell.gdiac.rabbeat.obstacles.*;
 
 /**
  * Player avatar for the plaform game.
@@ -24,7 +25,7 @@ import edu.cornell.gdiac.rabbeat.obstacle.*;
  * Note that this class returns to static loading.  That is because there are
  * no other subclasses that we might loop through.
  */
-public class Player extends CapsuleObstacle {
+public class Player extends CapsuleGameObject implements IGenreObject {
 	/** The initializing data (to avoid magic numbers) */
 	private final JsonValue data;
 
@@ -34,6 +35,10 @@ public class Player extends CapsuleObstacle {
 	private final float damping;
 	/** The maximum character speed */
 	private float maxspeed;
+	/** speed of player in Synth mode*/
+	public float synthSpeed;
+	/** speed of player in Jazz mode*/
+	public float jazzSpeed;
 	/** Identifier to allow us to track the sensor in ContactListener */
 	private final String sensorName;
 	/** The impulse for the character jump */
@@ -49,6 +54,8 @@ public class Player extends CapsuleObstacle {
 	private boolean faceRight;
 	/** How long until we can jump again */
 	private int jumpCooldown;
+	/** Whether we are actively walking */
+	private boolean isWalking;
 	/** Whether we are actively jumping */
 	private boolean isJumping;
 	/** Whether our feet are on the ground */
@@ -60,6 +67,31 @@ public class Player extends CapsuleObstacle {
 	/** Cache for internal force calculations */
 	private final Vector2 forceCache = new Vector2();
 
+	// ANIMATION
+
+	/** Holds the genre of the ANIMATION. Doesn't specifically detect genre.*/
+	private Genre animationGenre;
+
+	/** The synth genre idle animation for the player */
+	public Animation<TextureRegion> synthIdleAnimation;
+	/** The synth genre walking animation for the player */
+	public Animation<TextureRegion> synthWalkAnimation;
+	/** The synth genre jumping animation for the player */
+	public Animation<TextureRegion> synthJumpAnimation;
+
+	/** The jazz genre idle animation for the player */
+	public Animation<TextureRegion> jazzIdleAnimation;
+	/** The jazz genre walking animation for the player */
+	public Animation<TextureRegion> jazzWalkAnimation;
+	/** The jazz genre jumping animation for the player */
+	public Animation<TextureRegion> jazzJumpAnimation;
+
+	/** The player's current animation */
+	public Animation<TextureRegion> animation;
+	/** The elapsed time for animationUpdate */
+	private float stateTime = 0;
+	/** A flag to check if the player's animation is jumping */
+	private boolean animationIsJumping = false;
 
 	/**
 	 * Returns left/right movement of this character.
@@ -87,6 +119,24 @@ public class Player extends CapsuleObstacle {
 		} else if (movement > 0) {
 			faceRight = true;
 		}
+	}
+
+	/**
+	 * Returns true if the player is actively walking.
+	 *
+	 * @return true if the player is actively walking.
+	 */
+	public boolean isWalking() {
+		return isWalking;
+	}
+
+	/**
+	 * Sets whether the player is actively walking.
+	 *
+	 * @param value whether the player is actively walking.
+	 */
+	public void setWalking(boolean value) {
+		isWalking = value;
 	}
 
 	/**
@@ -179,6 +229,13 @@ public class Player extends CapsuleObstacle {
 	public float playerScale;
 
 	/**
+	 * Sets the player's current animation
+	 */
+	public void setAnimation(Animation<TextureRegion> animation){
+		this.animation = animation;
+	}
+
+	/**
 	 * Returns true if this character is facing right
 	 *
 	 * @return true if this character is facing right
@@ -220,9 +277,12 @@ public class Player extends CapsuleObstacle {
 		this.data = data;
 
 		// Gameplay attributes
+		isWalking = false;
 		isGrounded = false;
 		isJumping = false;
 		faceRight = true;
+
+		animationGenre = Genre.SYNTH;
 
 		jumpCooldown = 0;
 		setName("dude");
@@ -284,14 +344,17 @@ public class Player extends CapsuleObstacle {
 			forceCache.set(-getDamping()*getVX(),0);
 			body.applyForce(forceCache,getPosition(),true);
 		}
-		
+
+		if(Math.abs(getMovement() + getVX()) != Math.abs(getMovement()) + Math.abs(getVX())){
+			setVX(0);
+		}
+		forceCache.set(getMovement(),0);
+		body.applyForce(forceCache,getPosition(),true);
 		// Velocity too high, clamp it
 		if (Math.abs(getVX()) >= getMaxSpeed()) {
 			setVX(Math.signum(getVX())*getMaxSpeed());
-		} else {
-			forceCache.set(getMovement(),0);
-			body.applyForce(forceCache,getPosition(),true);
 		}
+
 
 		// Jump!
 		if (isJumping()) {
@@ -301,20 +364,29 @@ public class Player extends CapsuleObstacle {
 	}
 	
 	/**
-	 * Updates the object's physics state (NOT GAME LOGIC).
+	 * Updates the object's physics state and animation based on the player's movement state (NOT GAME LOGIC).
 	 *
 	 * We use this method to reset cooldowns.
 	 *
 	 * @param dt	Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
+		// Process actions in object model
+		setWalking(InputController.getInstance().getHorizontal() != 0 && !isJumping);
+		setMovement(InputController.getInstance().getHorizontal() * getForce());
+		setJumping(InputController.getInstance().didPrimary());
+		applyForce();
+
 		// Apply cooldowns
 		if (isJumping()) {
+			animationIsJumping = true;
 			jumpCooldown = jumpLimit;
 		} else {
 			jumpCooldown = Math.max(0, jumpCooldown - 1);
 		}
-		
+
+		animationUpdate();
+		stateTime += dt;
 		super.update(dt);
 	}
 
@@ -325,9 +397,8 @@ public class Player extends CapsuleObstacle {
 	 */
 	public void draw(GameCanvas canvas) {
 		float effect = faceRight ? 1.0f : -1.0f;
-		//System.out.println(drawScale.x);
-		//System.out.println(drawScale.y);
-		canvas.draw(texture,Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
+		TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
+		canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
 				playerScale*effect,playerScale);
 	}
 	
@@ -342,4 +413,60 @@ public class Player extends CapsuleObstacle {
 		super.drawDebug(canvas);
 		canvas.drawPhysics(sensorShape,Color.RED,getX(),getY(),getAngle(),drawScale.x,drawScale.y);
 	}
+
+	@Override
+	public void genreUpdate(Genre genre) {
+		animationGenre = genre;
+		if (genre == Genre.SYNTH) {
+			maxspeed = synthSpeed;
+		}
+		else{
+			maxspeed = jazzSpeed;
+		}
+	}
+
+	/**
+	 * Updates the animation based on the physics state.
+	 */
+	private void animationUpdate() {
+		if (isJumping) {
+			animationIsJumping = true;
+			stateTime = 0;
+			switch (animationGenre) {
+				case SYNTH:
+					setAnimation(synthJumpAnimation);
+					break;
+				case JAZZ:
+					setAnimation(jazzJumpAnimation);
+					break;
+			}
+		}
+
+		if (animationIsJumping){
+			if (animation.isAnimationFinished(stateTime)) {
+				animationIsJumping = false;
+			} else{
+				return;
+			}
+		} else if (isWalking()){
+			switch (animationGenre){
+				case SYNTH:
+					setAnimation(synthWalkAnimation);
+					break;
+				case JAZZ:
+					setAnimation(jazzWalkAnimation);
+					break;
+			}
+		} else{
+			switch (animationGenre){
+				case SYNTH:
+					setAnimation(synthIdleAnimation);
+					break;
+				case JAZZ:
+					setAnimation(jazzIdleAnimation);
+					break;
+			}
+		}
+	}
+
 }

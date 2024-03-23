@@ -1,6 +1,7 @@
 package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 
 public class SoundController {
 
@@ -13,7 +14,7 @@ public class SoundController {
      * Set this to true to make genre switches instantaneous / in one frame.
      * Set this to false to make genre switches gradual / over several frames.
      */
-    private static final boolean USE_INSTANT_SWITCH = true;
+    private static final boolean USE_INSTANT_SWITCH = false;
 
     /**
      * The length of time in milliseconds that a gradual genre switch takes.
@@ -28,9 +29,82 @@ public class SoundController {
         currentlyUpdating = false;
     }
 
+    public void playMusic() {
+        synthTrack.setLooping(true);
+        jazzTrack.setLooping(true);
+        synthTrack.play();
+        jazzTrack.play();
+    }
+
+    public void playMusic(Genre genre) {
+        playMusic();
+        if (genre == Genre.SYNTH) {
+            synthTrack.setVolume(1);
+            jazzTrack.setVolume(0);
+        }
+        else {
+            jazzTrack.setVolume(1);
+            synthTrack.setVolume(0);
+        }
+    }
+
+
+
     public void setSynthTrack(Music track) { synthTrack = track;}
 
     public void setJazzTrack(Music track) { jazzTrack = track;}
+
+    public void resetMusic() {
+        synthTrack.setPosition(1/44100f);
+        jazzTrack.setPosition(1/44100f);
+        synthTrack.setVolume(1);
+        jazzTrack.setVolume(0);
+        currentGenre = Genre.SYNTH;
+        currentlyUpdating = false;
+        currentUpdateFrame = 0;
+    }
+
+    /**
+     * Method to ensure that a sound asset is only played once.
+     *
+     * Every time you play a sound asset, it makes a new instance of that sound.
+     * If you play the sounds to close together, you will have overlapping copies.
+     * To prevent that, you must stop the sound before you play it again.  That
+     * is the purpose of this method.  It stops the current instance playing (if
+     * any) and then returns the id of the new instance for tracking.
+     *
+     * @param sound		The sound asset to play
+     * @param soundId	The previously playing sound instance
+     *
+     * @return the new sound instance for this asset.
+     */
+    public long replaySound(Sound sound, long soundId) {
+        return replaySound( sound, soundId, 1.0f );
+    }
+
+
+    /**
+     * Method to ensure that a sound asset is only played once.
+     *
+     * Every time you play a sound asset, it makes a new instance of that sound.
+     * If you play the sounds to close together, you will have overlapping copies.
+     * To prevent that, you must stop the sound before you play it again.  That
+     * is the purpose of this method.  It stops the current instance playing (if
+     * any) and then returns the id of the new instance for tracking.
+     *
+     * @param sound		The sound asset to play
+     * @param soundId	The previously playing sound instance
+     * @param volume	The sound volume
+     *
+     * @return the new sound instance for this asset.
+     */
+    public long replaySound(Sound sound, long soundId, float volume) {
+        if (soundId != -1) {
+            sound.stop( soundId );
+        }
+        return sound.play(volume);
+    }
+
 
     /**
      * This method sets the genre AND sets the currentlyUpdating flag to true.
@@ -45,7 +119,6 @@ public class SoundController {
      * the first gradual switch will be replaced with an instantaneous switch to allow
      * the second one to happen gradually.
      */
-
     public void setGenre(Genre genre) {
         currentGenre = genre;
         currentlyUpdating = true;
@@ -69,6 +142,7 @@ public class SoundController {
 
     public void update() {
         if (!currentlyUpdating) return;
+
         if (USE_INSTANT_SWITCH) {
             switchMusicGenreInstant();
         }
@@ -108,7 +182,7 @@ public class SoundController {
             synthTrack.setVolume(synthTrack.getVolume() + 1/frameCount);
             jazzTrack.setVolume(jazzTrack.getVolume() - 1/frameCount);
         }
-        if (currentUpdateFrame > frameCount) {
+        if (currentUpdateFrame == frameCount) {
             currentUpdateFrame = 0;
             currentlyUpdating = false;
         }
