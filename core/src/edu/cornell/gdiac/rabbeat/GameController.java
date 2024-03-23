@@ -605,9 +605,7 @@ public class GameController implements Screen, ContactListener {
 				Vector2 playerPos = objectController.player.getPosition();
 				System.out.println("yipee");
 				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
-				InputController.getInstance().setHorizontal(InputController.getInstance().getHorizontal()+displace.x);
-				//objectController.player.setPosition(playerPos.x+, playerPos.y+displace.xdisplace.y);
-//				bd2.setPosition(0, 0);
+				//objectController.player.setPosition(playerPos.x+displace.x, playerPos.y+displace.y);
 			}
 
 			// Check for collision with checkpoints and set new current checkpoint
@@ -734,10 +732,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin();
-//		canvas.draw(objectController.backgroundTexture, 0, 0);
-		// TODO: Temporary modification for background scale
-		canvas.draw(objectController.backgroundTexture, Color.WHITE, 0f, 0f,
-				0f, 0f, 0f, 1.6f, 1.6f);
+		canvas.draw(objectController.backgroundTexture, 0, 0);
 		canvas.end();
 
 		canvas.begin();
@@ -753,10 +748,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw the background overlays on top of everything
 		canvas.begin();
-//		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
-		// TODO: Temporary modification for background scale
-		canvas.draw(objectController.backgroundOverlayTexture, Color.WHITE, 0f, -24f,
-				0f, -24f, 0f, 1.4f, 1.4f);
+		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
 		canvas.end();
 
 		if (debug) {
@@ -810,7 +802,6 @@ public class GameController implements Screen, ContactListener {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
-			// TODO: Temporary height for map
 			canvas.updateCamera(objectController.player, bounds.getWidth(), bounds.getHeight());
 			draw(delta);
 		}
