@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
+import edu.cornell.gdiac.rabbeat.obstacles.GameObject;
+import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
@@ -20,8 +22,15 @@ import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.util.Pair;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import edu.cornell.gdiac.util.PooledList;
 
 public class ObjectController {
+    /** All the objects in the world. */
+    public PooledList<GameObject> objects = new PooledList<>();
+    /** All objects that are genre-dependent */
+    public PooledList<IGenreObject> genreObjects = new PooledList<>();
+    /** Queue for adding objects */
+    public PooledList<GameObject> addQueue = new PooledList<>();
     /** Physics constants for initialization
      * TODO: constants has some relevant information for game controller and this class does not care
      * */
@@ -116,21 +125,6 @@ public class ObjectController {
 
     /** The enemy scale for the enemy */
     private float enemyScale = 3/8f*2;
-
-    private static ObjectController theController = null;
-
-    public static ObjectController getInstance() {
-        if (theController == null) {
-            theController = new ObjectController();
-        }
-        return theController;
-    }
-
-    public ObjectController(){
-        theController = this;
-    }
-
-
 
     /**
      * Gather the assets for this controller.
