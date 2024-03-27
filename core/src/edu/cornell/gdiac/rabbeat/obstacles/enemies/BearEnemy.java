@@ -31,8 +31,6 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     /** Current genre that the game is on */
     public Genre curGenre = Genre.SYNTH;
 
-    ObjectController oc = ObjectController.getInstance();
-
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
 
@@ -82,7 +80,8 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     public void makeBullet(){
           //TODO: create a bullet using object controller default values.  instantiate the copy using gamecontroller
 
-        float offset = oc.constants.get("bullet").getFloat("offset",0);
+        ObjectController oc = GameController.getInstance().objectController;
+        float offset =  oc.constants.get("bullet").getFloat("offset",0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
         bullet = new Bullet(getX()+offset, getY(), radius, oc.constants.get("bullet").getFloat("synth speed", 0),

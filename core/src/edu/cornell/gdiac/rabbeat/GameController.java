@@ -63,20 +63,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** The SoundController object to handle audio */
 	public SoundController soundController;
-
-	/** The texture for walls */
-	protected TextureRegion blackTile;
-	/** The texture for regular platforms */
-	protected TextureRegion platformTile;
-	/** The texture for weighted platforms */
-	protected TextureRegion weightedPlatform;
-	/** The texture for bullets */
-	protected TextureRegion bullet;
-	/** The texture for the exit condition */
-	protected TextureRegion goalTile;
-	/** The font for giving messages to the player */
-	protected BitmapFont displayFont;
-	/** The object loader for creating objects into the world */
 	public ObjectController objectController;
 
 	/** Exit code for quitting the game */
@@ -98,12 +84,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** Reference to the game canvas */
 	protected GameCanvas canvas;
-	/** All the objects in the world. */
-	protected PooledList<GameObject> objects = new PooledList<>();
-	/** All objects that are genre-dependent */
-	protected PooledList<IGenreObject> genreObjects = new PooledList<>();
-	/** Queue for adding objects */
-	protected PooledList<GameObject> addQueue = new PooledList<>();
 	/** Listener that will update the player mode when we are done */
 	private ScreenListener listener;
 
@@ -301,21 +281,22 @@ public class GameController implements Screen, ContactListener {
 	 * Dispose of all (non-static) resources allocated to this mode.
 	 */
 	public void dispose() {
-		for (GameObject obj : objects) {
+		for (GameObject obj : objectController.objects) {
 			obj.deactivatePhysics(world);
 		}
-		objects.clear();
-		addQueue.clear();
+		objectController.objects.clear();
+		objectController.addQueue.clear();
 		world.dispose();
-		objects = null;
-		addQueue = null;
+		objectController.objects = null;
+		objectController.addQueue = null;
+		objectController.genreObjects = null;
+		objectController = null;
 		bounds = null;
 		scale = null;
 		world = null;
 		canvas = null;
 		syncController = null;
-		genreObjects = null;
-		objectController = null;
+
 	}
 
 	// TODO: Adjust to the correct assets after assets have been added
@@ -367,7 +348,7 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void instantiateQueue(GameObject obj) {
 		assert inBounds(obj) : "Object is not in bounds";
-		addQueue.add(obj);
+		objectController.addQueue.add(obj);
 	}
 
 	/**
@@ -379,12 +360,12 @@ public class GameController implements Screen, ContactListener {
 	 */
 	protected void instantiate(GameObject object) {
 		assert inBounds(object) : "Object is not in bounds";
-		objects.add(object);
+		objectController.objects.add(object);
 		if (object instanceof ISynced) {
 			syncController.addSync((ISynced) object);
 		}
 		if (object instanceof IGenreObject) {
-			genreObjects.add((IGenreObject) object);
+			objectController.genreObjects.add((IGenreObject) object);
 		}
 		object.activatePhysics(world);
 	}
@@ -432,11 +413,11 @@ public class GameController implements Screen, ContactListener {
 		genre = Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity());
 
-		for (GameObject obj : objects) {
+		for (GameObject obj : objectController.objects) {
 			obj.deactivatePhysics(world);
 		}
-		objects.clear();
-		addQueue.clear();
+		objectController.objects.clear();
+		objectController.addQueue.clear();
 		world.dispose();
 
 		world = new World(gravity, false);
@@ -676,7 +657,7 @@ public class GameController implements Screen, ContactListener {
 			world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("jazz", 0)));
 		}
 
-		for (IGenreObject g : genreObjects) {
+		for (IGenreObject g : objectController.genreObjects) {
 			g.genreUpdate(genre);
 		}
 	}
@@ -693,8 +674,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void postUpdate(float dt) {
 		// Add any objects created by actions
-		while (!addQueue.isEmpty()) {
-			instantiate(addQueue.poll());
+		while (!objectController.addQueue.isEmpty()) {
+			instantiate(objectController.addQueue.poll());
 		}
 
 		// Turn the physics engine crank.
@@ -703,7 +684,7 @@ public class GameController implements Screen, ContactListener {
 		// Garbage collect the deleted objects.
 		// Note how we use the linked list nodes to delete O(1) in place.
 		// This is O(n) without copying.
-		Iterator<PooledList<GameObject>.Entry> iterator = objects.entryIterator();
+		Iterator<PooledList<GameObject>.Entry> iterator = objectController.objects.entryIterator();
 		while (iterator.hasNext()) {
 			PooledList<GameObject>.Entry entry = iterator.next();
 			GameObject obj = entry.getValue();
@@ -736,7 +717,7 @@ public class GameController implements Screen, ContactListener {
 		canvas.end();
 
 		canvas.begin();
-		for (GameObject obj : objects) {
+		for (GameObject obj : objectController.objects) {
 			obj.draw(canvas);
 		}
 		canvas.end();
@@ -753,7 +734,7 @@ public class GameController implements Screen, ContactListener {
 
 		if (debug) {
 			canvas.beginDebug();
-			for (GameObject obj : objects) {
+			for (GameObject obj : objectController.objects) {
 				obj.drawDebug(canvas);
 			}
 			canvas.endDebug();
