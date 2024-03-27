@@ -599,17 +599,19 @@ public class GameController implements Screen, ContactListener {
 			if ((bd1.equals(objectController.player) && bd2 instanceof Bullet)) {
 				setFailure(true);
 			}
-
-			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
-				Vector2 displace = ((WeightedPlatform) bd1).getVelocity();
-				Vector2 playerPos = objectController.player.getPosition();
-				System.out.println("yipee");
-				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
-				InputController.getInstance().setHorizontal(InputController.getInstance().getHorizontal()+displace.x);
-				//objectController.player.setPosition(playerPos.x+, playerPos.y+displace.xdisplace.y);
-//				bd2.setPosition(0, 0);
+			//TODO: implement lethal obstacle code which checks for the first obstacle being the player, then checking if the
+			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
+				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
+					System.out.println("l2");
+					setFailure(true);
+				}
 			}
-
+			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
+				Vector2 displace = ((WeightedPlatform) bd1).currentVelocity();
+				System.out.println("yipee");
+				//TODO: Move this to a conitnuous collision checker
+				objectController.player.setDisplace(displace);
+			}
 			// Check for collision with checkpoints and set new current checkpoint
 			if (!objectController.checkpoints.isEmpty() &&
 					((bd1 == objectController.player && bd2 == objectController.checkpoints.first().fst) ||
@@ -619,9 +621,7 @@ public class GameController implements Screen, ContactListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
 	/**
 	 * Callback method for the start of a collision
 	 *
@@ -651,6 +651,11 @@ public class GameController implements Screen, ContactListener {
 				objectController.player.setGrounded(false);
 			}
 		}
+		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
+			System.out.println("whoopee");
+			objectController.player.setDisplace(new Vector2(0,0));
+		}
+
 	}
 
 	/** Unused ContactListener method */
@@ -701,7 +706,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Turn the physics engine crank.
 		world.step(WORLD_STEP, WORLD_VELOC, WORLD_POSIT);
-
+		//set position, then call a world step of zeroz
 		// Garbage collect the deleted objects.
 		// Note how we use the linked list nodes to delete O(1) in place.
 		// This is O(n) without copying.
