@@ -1,0 +1,54 @@
+synthJump.png
+size: 120, 1365
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+synthJump
+  rotate: false
+  xy: 0, 0
+  size: 120, 195
+  orig: 120, 195
+  offset: 0, 0
+  index: 0
+synthJump
+  rotate: false
+  xy: 0, 195
+  size: 120, 195
+  orig: 120, 195
+  offset: 0, 0
+  index: 1
+synthJump
+  rotate: false
+  xy: 0, 390
+  size: 120, 195
+  orig: 120, 195
+  offset: 0, 0
+  index: 2
+synthJump
+  rotate: false
+  xy: 0, 585
+  size: 120, 195
+  orig: 120, 195
+  offset: 0, 0
+  index: 3
+synthJump
+  rotate: false
+  xy: 0, 780
+  size: 120, 195
+  orig: 120, 195
+  offset: 0, 0
+  index: 4
+synthJump
+  rotate: false
+  xy: 0, 975
+  size: 120, 195
+  orig: 120, 195
+  offset: 0, 0
+  index: 5
+synthJump
+  rotate: false
+  xy: 0, 1170
+  size: 120, 195
+  orig: 120, 195
+  offset: 0, 0
+  index: 6

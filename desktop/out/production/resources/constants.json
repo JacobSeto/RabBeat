@@ -1,0 +1,192 @@
+{
+	"defaults" : {
+    	"friction": 0.4,
+    	"density" : 0.0,
+    	"restitution": 0.1,
+    	"volume": 0.8
+	},
+	"start": {
+		"pos": [2.0, 2.2],
+		"density": 0.0,
+		"friction": 0.0,
+		"restitution": 0.0
+	},
+	"goal": {
+		"pos": [31, 5],
+		"density": 0.0,
+    	"friction": 0.0,
+    	"restitution": 0.0
+    },
+	"checkpoints": [
+		{
+			"pos": [17, 7.3],
+			"density": 0.0,
+			"friction": 0.0,
+			"restitution": 0.0
+		}
+	],
+	"bunny" : {
+		"pos": [2.5, 5.0],
+		"shrink": [0.7, 0.95],
+		"force": 20.0,
+		"damping": 10.0,
+		"density": 1.0,
+		"friction": 0.0,
+		"jump_force": 10.0,
+		"jump_cool": 30,
+		"shot_cool": 40,
+		"sensor": {
+			"shrink" : 0.6,
+			"height" : 0.05
+		},
+		"max_speed": {
+			"synth": 6.0,
+			"jazz": 2.5
+		}
+	},
+	"enemies" : [
+		{
+			"pos": [ 11.0, 5.3 ],
+			"shrink": [
+				0.7,
+				0.95
+			],
+			"force": 20.0,
+			"damping": 10.0,
+			"density": 1.0,
+			"friction": 10.0,
+			"shot_cool": 40,
+			"sensor": {
+				"shrink": 0.6,
+				"height": 0.05
+			},
+			"max_speed": {
+				"synth": 6.0,
+				"jazz": 2.5
+			}
+		},
+		{
+			"pos": [ 26.5, 3.5 ],
+			"shrink": [
+				0.7,
+				0.95
+			],
+			"force": 20.0,
+			"damping": 10.0,
+			"density": 1.0,
+			"friction": 10.0,
+			"shot_cool": 40,
+			"sensor": {
+				"shrink": 0.6,
+				"height": 0.05
+			},
+			"max_speed": {
+				"synth": 6.0,
+				"jazz": 2.5
+			}
+		},
+		{
+			"pos": [ 20.5, 3.5 ],
+			"shrink": [
+				0.7,
+				0.95
+			],
+			"force": 20.0,
+			"damping": 10.0,
+			"density": 1.0,
+			"friction": 10.0,
+			"shot_cool": 40,
+			"sensor": {
+				"shrink": 0.6,
+				"height": 0.05
+			},
+			"max_speed": {
+				"synth": 6.0,
+				"jazz": 2.5
+			}
+		}
+			],
+	"bullet": {
+		"offset" : 0.5,
+		"synth speed"  : 5.0,
+		"jazz speed" : 2.5,
+		"density": 10.0
+	},
+	"bridge": {
+		"pos": [9.0, 3.8],
+		"width": 14.0,
+		"density": 1.0,
+		"pin_radius": 0.1
+	},
+	"walls": [
+		[16.0, 18.0, 16.0, 17.0,  1.0, 17.0,
+		  1.0,  0.0,  0.0,  0.0,  0.0, 18.0]
+	],
+	"platforms": {
+		"platforms": [
+			[ 2, 1.0 ],
+			[ 0, 0 ]
+		],
+		"endPlatforms": [
+			[3, 1.0]
+		],
+		"wirePlatforms": [
+			[ 17,6],
+
+			[ 20,2.5]
+		],
+		"radioPlatforms": [
+			[ 8.5, 4],
+			[ 14.2,3.75 ],
+			[ 23.0, 2.5]
+		],
+		"guitarPlatforms": [
+			[ 12.0, 4],
+
+			[19,2.5]
+		]
+	},
+	"wplatforms":   [
+		{
+			"pos": [4, 1.3, 7, 1.3, 7, 1.8, 4,1.8],
+			"synthPos": [0.0, 0.0],
+			"jazzPos": [0.0, 3.0],
+			"speed": 1.0
+		},
+		
+		{
+			"pos": [25.75,2.75,28.5,2.75,28.5,2.5,25.75,2.5],
+			"synthPos": [0.0, 0.0],
+			"jazzPos": [0.0, 0.0],
+			"speed": 0.0
+		},
+		{
+			"pos": [25,4.5,25.25,4.5,25.25,3,25,3],
+			"synthPos": [0.0, 0.0],
+			"jazzPos": [0.0, 1.5],
+			"speed": 2.0
+		},
+		{
+			"pos": [21.5,6,21.75,6,21.75,4.5,21.5,4.5],
+			"synthPos": [0.0, 0.0],
+			"jazzPos": [0.0, -1.5],
+			"speed": 2.0
+		}
+	],
+	"mplatforms":   [
+		{
+			"pos": [ 8.0, 6.5, 11.0, 6.5, 11.0, 7.0 ,8.0,7.0],
+			"nodes": [0.0, 0.0, 3.0, 0.0],
+			"speed": 1.0
+		},
+		{
+			"pos": [ 23, 0.5, 26, 0.5, 26, 0 ,23,0],
+			"nodes": [0.0, 0.0, 6.0, 0.0, 6, 4.5, 6.0, 0.0],
+			"speed": 1.0
+		}
+	],
+	"genre_gravity": {
+		"synth": -14.7,
+		"jazz": -9.0
+	}
+}

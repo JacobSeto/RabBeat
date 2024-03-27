@@ -1,0 +1,40 @@
+synthWalk.png
+size: 120, 795
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+synthWalk
+  rotate: false
+  xy: 0, 0
+  size: 120, 159
+  orig: 120, 159
+  offset: 0, 0
+  index: 0
+synthWalk
+  rotate: false
+  xy: 0, 159
+  size: 120, 159
+  orig: 120, 159
+  offset: 0, 0
+  index: 1
+synthWalk
+  rotate: false
+  xy: 0, 318
+  size: 120, 159
+  orig: 120, 159
+  offset: 0, 0
+  index: 2
+synthWalk
+  rotate: false
+  xy: 0, 477
+  size: 120, 159
+  orig: 120, 159
+  offset: 0, 0
+  index: 3
+synthWalk
+  rotate: false
+  xy: 0, 636
+  size: 120, 159
+  orig: 120, 159
+  offset: 0, 0
+  index: 4
