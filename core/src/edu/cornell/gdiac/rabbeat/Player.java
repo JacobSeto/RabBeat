@@ -255,10 +255,9 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	 * @param width		The object width in physics units
 	 * @param height	The object width in physics units
 	 */
-	public Player(JsonValue data, float width, float height, float playerScale1) {
+	public Player(JsonValue data, float startX, float startY, float width, float height, float playerScale1) {
 		// The shrink factors fit the image to a tigher hitbox
-		super(	data.get("pos").getFloat(0),
-				data.get("pos").getFloat(1),
+		super(	startX, startY,
 				width*data.get("shrink").getFloat( 0 ),
 				height*data.get("shrink").getFloat( 1 ));
         setDensity(data.getFloat("density", 0));

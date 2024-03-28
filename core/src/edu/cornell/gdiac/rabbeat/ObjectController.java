@@ -10,15 +10,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import edu.cornell.gdiac.assets.AssetDirectory;
-import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
-import edu.cornell.gdiac.rabbeat.obstacles.GameObject;
-import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
-import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
+import edu.cornell.gdiac.rabbeat.obstacles.*;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
-import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.util.Pair;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -34,10 +29,11 @@ public class ObjectController {
     /** Physics constants for initialization
      * TODO: constants has some relevant information for game controller and this class does not care
      * */
-    public JsonValue constants;
+    public JsonValue defaultConstants;
     /** Reference to the character avatar */
     public Player player;
 
+    public JsonValue levelJson;
 
     /** The font for giving messages to the player */
     protected BitmapFont displayFont;
@@ -139,9 +135,9 @@ public class ObjectController {
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
 
-        constants = directory.getEntry( "constants", JsonValue.class );
-        synthSpeed =  constants.get("bunny").get("max_speed").getFloat("synth");
-        jazzSpeed = constants.get("bunny").get("max_speed").getFloat("jazz");
+        defaultConstants = directory.getEntry( "defaultConstants", JsonValue.class );
+        synthSpeed =  defaultConstants.get("player").get("max_speed").getFloat("synth");
+        jazzSpeed = defaultConstants.get("player").get("max_speed").getFloat("jazz");
         synthDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class));
         synthJazzTexture = new TextureRegion(directory.getEntry("player:synth-jazz",Texture.class));
 
@@ -186,128 +182,284 @@ public class ObjectController {
         displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
     }
     public void populateObjects(Vector2 scale){
-        // Repopulate current checkpoints
-        float checkpointWidth  = checkpointDefault.getRegionWidth()/scale.x;
-        float checkpointHeight = checkpointDefault.getRegionHeight()/scale.y;
+        if (levelJson.has("layers")) {
+            for (JsonValue layer : levelJson.get("layers")) {
+                String layerName = layer.getString("name", "");
+                switch (layerName){
+                    case "background":
+                        //do something
+                    case "walls":
+                        int[] data = layer.get("data").asIntArray();
+                        for (int i=0; i<data.length; i++){
+                            //TODO: convert walls data to points
+//                            createWalls(scale, points);
+                        }
+                    case "platforms":
+                        for (JsonValue platform : layer.get("objects")) {
+                            float x = Float.parseFloat(platform.get("x").toString());
+                            float y = Float.parseFloat(platform.get("y").toString());
+                            // TODO: convert x, y coord. to game/physics coord
+                            createPlatform(scale, platform.get("type").toString(), x, y);
+                        }
+                    case "platformArt":
+                        for (JsonValue a : layer.get("objects")) {
+                            float x = Float.parseFloat(a.get("x").toString());
+                            float y = Float.parseFloat(a.get("y").toString());
+                            // TODO: convert x, y coord. to game/physics coord
+                            createPlatformArt(scale, a.get("type").toString(), x, y);
+                        }
+                    case "player":
+                        JsonValue player = layer.get("objects");
+                        float x = Float.parseFloat(player.get("x").toString());
+                        float y = Float.parseFloat(player.get("y").toString());
+                        // TODO: convert x, y coord. to game/physics coord
+                        createPlayer(scale, x, y);
+                }
 
-        Queue<Pair<BoxGameObject, Integer>> newCheckpoints = new Queue<>();
-        System.out.println(checkpoints);
-        for (Pair<BoxGameObject, Integer> pair : checkpoints) {
-            String cname = "checkpoint";
-            JsonValue checkpoint = constants.get("checkpoints").get(pair.snd);
-            JsonValue checkpointPos = checkpoint.get("pos");
-            BoxGameObject obj = new BoxGameObject(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
-            obj.setBodyType(BodyDef.BodyType.StaticBody);
-            obj.setDensity(checkpoint.getFloat("density", 0));
-            obj.setFriction(checkpoint.getFloat("friction", 0));
-            obj.setRestitution(checkpoint.getFloat("restitution", 0));
-            obj.setSensor(true);
-            obj.setDrawScale(scale);
-            obj.setTexture(checkpointDefault);
-            obj.setName(cname + pair.snd);
-            GameController.getInstance().instantiate(obj);
-            newCheckpoints.addLast(new Pair<>(obj, pair.snd));
+            }
         }
-        checkpoints.clear();
-        checkpoints = newCheckpoints;
 
-        // Add level goal
-        float dwidth  = goalTile.getRegionWidth()/scale.x;
-        float dheight = goalTile.getRegionHeight()/scale.y;
 
-        JsonValue goal = constants.get("goal");
-        JsonValue goalpos = goal.get("pos");
-        goalDoor = new BoxGameObject(goalpos.getFloat(0),goalpos.getFloat(1),dwidth,dheight);
-        goalDoor.setBodyType(BodyDef.BodyType.StaticBody);
-        goalDoor.setDensity(goal.getFloat("density", 0));
-        goalDoor.setFriction(goal.getFloat("friction", 0));
-        goalDoor.setRestitution(goal.getFloat("restitution", 0));
-        goalDoor.setSensor(true);
-        goalDoor.setDrawScale(scale);
-        goalDoor.setTexture(goalTile);
-        goalDoor.setName("goal");
-        GameController.getInstance().instantiate(goalDoor);
 
+
+
+
+//        // Repopulate current checkpoints
+//        float checkpointWidth  = checkpointDefault.getRegionWidth()/scale.x;
+//        float checkpointHeight = checkpointDefault.getRegionHeight()/scale.y;
+//
+//        Queue<Pair<BoxGameObject, Integer>> newCheckpoints = new Queue<>();
+//        System.out.println(checkpoints);
+//        for (Pair<BoxGameObject, Integer> pair : checkpoints) {
+//            String cname = "checkpoint";
+//            JsonValue checkpoint = constants.get("checkpoints").get(pair.snd);
+//            JsonValue checkpointPos = checkpoint.get("pos");
+//            BoxGameObject obj = new BoxGameObject(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
+//            obj.setBodyType(BodyDef.BodyType.StaticBody);
+//            obj.setDensity(checkpoint.getFloat("density", 0));
+//            obj.setFriction(checkpoint.getFloat("friction", 0));
+//            obj.setRestitution(checkpoint.getFloat("restitution", 0));
+//            obj.setSensor(true);
+//            obj.setDrawScale(scale);
+//            obj.setTexture(checkpointDefault);
+//            obj.setName(cname + pair.snd);
+//            GameController.getInstance().instantiate(obj);
+//            newCheckpoints.addLast(new Pair<>(obj, pair.snd));
+//        }
+//        checkpoints.clear();
+//        checkpoints = newCheckpoints;
+//
+//        // Add level goal
+//        float dwidth  = goalTile.getRegionWidth()/scale.x;
+//        float dheight = goalTile.getRegionHeight()/scale.y;
+//
+//        JsonValue goal = constants.get("goal");
+//        JsonValue goalpos = goal.get("pos");
+//        goalDoor = new BoxGameObject(goalpos.getFloat(0),goalpos.getFloat(1),dwidth,dheight);
+//        goalDoor.setBodyType(BodyDef.BodyType.StaticBody);
+//        goalDoor.setDensity(goal.getFloat("density", 0));
+//        goalDoor.setFriction(goal.getFloat("friction", 0));
+//        goalDoor.setRestitution(goal.getFloat("restitution", 0));
+//        goalDoor.setSensor(true);
+//        goalDoor.setDrawScale(scale);
+//        goalDoor.setTexture(goalTile);
+//        goalDoor.setName("goal");
+//        GameController.getInstance().instantiate(goalDoor);
+//
+//        String wname = "wall";
+//        JsonValue walljv = constants.get("walls");
+//        JsonValue defaults = constants.get("defaults");
+//        for (int ii = 0; ii < walljv.size; ii++) {
+//            PolygonGameObject obj;
+//            obj = new PolygonGameObject(walljv.get(ii).asFloatArray(), 0, 0);
+//            obj.setBodyType(BodyDef.BodyType.StaticBody);
+//            obj.setDensity(defaults.getFloat( "density", 0.0f ));
+//            obj.setFriction(defaults.getFloat( "friction", 0.0f ));
+//            obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
+//            obj.setDrawScale(scale);
+//            obj.setTexture(blackTile);
+//            obj.setName(wname+ii);
+//            GameController.getInstance().instantiate(obj);
+//        }
+//
+//        createPlatforms(scale, "default");
+//        createPlatforms(scale, "defaultEnd");
+//        createPlatforms(scale, "wire");
+//        createPlatforms(scale, "radio");
+//        createPlatforms(scale, "guitar");
+//
+//        String wpname = "wplatform";
+//        JsonValue wplatjv = constants.get("wplatforms");
+//        for (int ii = 0; ii < wplatjv.size; ii++) {
+//            JsonValue currentWP = wplatjv.get(ii);
+//            WeightedPlatform obj;
+//            obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
+//                    currentWP.get("jazzPos").asFloatArray(), currentWP.getFloat("speed"));
+//            obj.setBodyType(BodyDef.BodyType.StaticBody);
+//            obj.setDensity(defaults.getFloat("density", 0.0f));
+//            obj.setFriction(defaults.getFloat("friction", 1.0f));
+//            obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+//            obj.setDrawScale(scale);
+//            obj.setTexture(weightedPlatform);
+//            obj.setName(wpname + ii);
+//            GameController.getInstance().instantiate(obj);
+//        }
+//        /** moving platform instantiation*/
+//        String mpname = "mplatform";
+//        JsonValue mplatjv = constants.get("mplatforms");
+//        for (int ii = 0; ii < mplatjv.size; ii++) {
+//            JsonValue currentWP = mplatjv.get(ii);
+//            MovingPlatform obj;
+//            obj = new MovingPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("nodes").asFloatArray(),
+//                    currentWP.getFloat("speed"));
+//            obj.setBodyType(BodyDef.BodyType.StaticBody);
+//            obj.setDensity(defaults.getFloat("density", 0.0f));
+//            obj.setFriction(defaults.getFloat("friction", 10.0f));
+//            obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+//            obj.setDrawScale(scale);
+//            obj.setTexture(weightedPlatform);
+//            obj.setName(mpname + ii);
+//            GameController.getInstance().instantiate(obj);
+//        }
+//
+//        //TODO: Load enemies
+//        dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+//        dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+//
+//        String ename = "enemy";
+//        JsonValue enemiesjv = constants.get("enemies");
+//        for (int ii = 0; ii < enemiesjv.size; ii++){
+//            JsonValue currentEnemy = enemiesjv.get(ii);
+//            BearEnemy obj;
+//            obj = new BearEnemy(currentEnemy, dwidth*enemyScale,
+//                    dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+//            obj.setBodyType(BodyDef.BodyType.StaticBody);
+//            obj.setDrawScale(scale);
+//            obj.setTexture(enemyDefaultTexture);
+//            obj.setName(ename + ii);
+//            GameController.getInstance().instantiate(obj);
+//        }
+
+    }
+
+    /**
+     * Create the start tile and checkpoints
+     */
+    public void createCheckpoints(Vector2 scale) {
+//        float checkpointWidth  = checkpointDefault.getRegionWidth()/scale.x;
+//        float checkpointHeight = checkpointDefault.getRegionHeight()/scale.y;
+//
+//        // Add the start tile as the current spawn point
+//        JsonValue start = constants.get("start");
+//        JsonValue startPos = start.get("pos");
+//        BoxGameObject startTile = new BoxGameObject(startPos.getFloat(0), startPos.getFloat(1), checkpointWidth, checkpointHeight);
+//        startTile.setBodyType(BodyDef.BodyType.StaticBody);
+//        startTile.setDensity(start.getFloat("density", 0));
+//        startTile.setFriction(start.getFloat("friction", 0));
+//        startTile.setRestitution(start.getFloat("restitution", 0));
+//        startTile.setSensor(true);
+//        startTile.setDrawScale(scale);
+//        startTile.setTexture(checkpointDefault);
+//        startTile.setName("start");
+//        GameController.getInstance().instantiate(startTile);
+//        //set respawn point to position of respawnPoint
+//        GameController.getInstance().setSpawn(startTile.getPosition());
+//
+//        // Populate all checkpoints
+//        for (int i = 0; i < constants.get("checkpoints").size; i++) {
+//            String cname = "checkpoint";
+//            JsonValue checkpoint = constants.get("checkpoints").get(i);
+//            JsonValue checkpointPos = checkpoint.get("pos");
+//            BoxGameObject obj = new BoxGameObject(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
+//            obj.setBodyType(BodyDef.BodyType.StaticBody);
+//            obj.setDensity(checkpoint.getFloat("density", 0));
+//            obj.setFriction(checkpoint.getFloat("friction", 0));
+//            obj.setRestitution(checkpoint.getFloat("restitution", 0));
+//            obj.setSensor(true);
+//            obj.setDrawScale(scale);
+//            obj.setTexture(checkpointDefault);
+//            obj.setName(cname + i);
+//            GameController.getInstance().instantiate(obj);
+//            checkpoints.addLast(new Pair<>(obj, i));
+//        }
+    }
+    public void createWalls(Vector2 scale, float[] points){
         String wname = "wall";
-        JsonValue walljv = constants.get("walls");
-        JsonValue defaults = constants.get("defaults");
-        for (int ii = 0; ii < walljv.size; ii++) {
-            PolygonGameObject obj;
-            obj = new PolygonGameObject(walljv.get(ii).asFloatArray(), 0, 0);
-            obj.setBodyType(BodyDef.BodyType.StaticBody);
-            obj.setDensity(defaults.getFloat( "density", 0.0f ));
-            obj.setFriction(defaults.getFloat( "friction", 0.0f ));
-            obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
-            obj.setDrawScale(scale);
-            obj.setTexture(blackTile);
-            obj.setName(wname+ii);
-            GameController.getInstance().instantiate(obj);
+        JsonValue defaults = defaultConstants.get("defaults");
+        PolygonGameObject obj;
+        obj = new PolygonGameObject(points, 0, 0);
+        obj.setBodyType(BodyDef.BodyType.StaticBody);
+        obj.setDensity(defaults.getFloat( "density", 0.0f ));
+        obj.setFriction(defaults.getFloat( "friction", 0.0f ));
+        obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
+        obj.setDrawScale(scale);
+        obj.setTexture(blackTile);
+        obj.setName(wname);
+        GameController.getInstance().instantiate(obj);
+    }
+    /**
+     * Create a platform using the scale and type given.
+     *
+     * @param scale The Vector2 draw scale
+     * @param type A string, either "default", "defaultEnd", "wire", "radio", "guitar"
+     */
+    public void createPlatform(Vector2 scale, String type, float x, float y){
+        TextureRegion textureRegion;
+        switch(type){
+            default:
+                textureRegion = platformTile;
+                break;
+            case "defaultEnd":
+                textureRegion = endPlatform;
+                break;
+            case "wire":
+                textureRegion = wirePlatform;
+                break;
+            case "radio":
+                textureRegion = radioPlatform;
+                break;
+            case "guitar":
+                textureRegion = guitarPlatform;
+                break;
         }
+        JsonValue defaults = defaultConstants.get("defaults");
+        float dwidth  = textureRegion.getRegionWidth()/scale.x;
+        float dheight = textureRegion.getRegionHeight()/scale.y;
+        BoxGameObject platform;
+        platform = new BoxGameObject(x, y, dwidth, dheight);
+        platform.setBodyType(BodyDef.BodyType.StaticBody);
+        platform.setDensity(defaults.getFloat( "density", 0.0f ));
+        platform.setFriction(defaults.getFloat( "friction", 0.0f ));
+        platform.setRestitution(defaults.getFloat( "restitution", 0.0f ));
+        platform.setDrawScale(scale);
+        platform.setTexture(textureRegion);
+        platform.setName(type);
+        GameController.getInstance().instantiate(platform);
+    }
 
-        createPlatforms(scale, "default");
-        createPlatforms(scale, "defaultEnd");
-        createPlatforms(scale, "wire");
-        createPlatforms(scale, "radio");
-        createPlatforms(scale, "guitar");
-
-        String wpname = "wplatform";
-        JsonValue wplatjv = constants.get("wplatforms");
-        for (int ii = 0; ii < wplatjv.size; ii++) {
-            JsonValue currentWP = wplatjv.get(ii);
-            WeightedPlatform obj;
-            obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
-                    currentWP.get("jazzPos").asFloatArray(), currentWP.getFloat("speed"));
-            obj.setBodyType(BodyDef.BodyType.StaticBody);
-            obj.setDensity(defaults.getFloat("density", 0.0f));
-            obj.setFriction(defaults.getFloat("friction", 1.0f));
-            obj.setRestitution(defaults.getFloat("restitution", 0.0f));
-            obj.setDrawScale(scale);
-            obj.setTexture(weightedPlatform);
-            obj.setName(wpname + ii);
-            GameController.getInstance().instantiate(obj);
+    public void createPlatformArt(Vector2 scale, String type, float x, float y){
+        TextureRegion textureRegion;
+        switch(type){
+            default:
+                textureRegion = wirePlatform;
+                break;
+            case "radio":
+                textureRegion = radioPlatform;
+                break;
+            case "guitar":
+                textureRegion = guitarPlatform;
+                break;
         }
-        /** moving platform instantiation*/
-        String mpname = "mplatform";
-        JsonValue mplatjv = constants.get("mplatforms");
-        for (int ii = 0; ii < mplatjv.size; ii++) {
-            JsonValue currentWP = mplatjv.get(ii);
-            MovingPlatform obj;
-            obj = new MovingPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("nodes").asFloatArray(),
-                    currentWP.getFloat("speed"));
-            obj.setBodyType(BodyDef.BodyType.StaticBody);
-            obj.setDensity(defaults.getFloat("density", 0.0f));
-            obj.setFriction(defaults.getFloat("friction", 10.0f));
-            obj.setRestitution(defaults.getFloat("restitution", 0.0f));
-            obj.setDrawScale(scale);
-            obj.setTexture(weightedPlatform);
-            obj.setName(mpname + ii);
-            GameController.getInstance().instantiate(obj);
-        }
-
-        //TODO: Load enemies
-        dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-        dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-
-        String ename = "enemy";
-        JsonValue enemiesjv = constants.get("enemies");
-        for (int ii = 0; ii < enemiesjv.size; ii++){
-            JsonValue currentEnemy = enemiesjv.get(ii);
-            BearEnemy obj;
-            obj = new BearEnemy(currentEnemy, dwidth*enemyScale,
-                    dheight*enemyScale, enemyScale, false, bearIdleAnimation);
-            obj.setBodyType(BodyDef.BodyType.StaticBody);
-            obj.setDrawScale(scale);
-            obj.setTexture(enemyDefaultTexture);
-            obj.setName(ename + ii);
-            GameController.getInstance().instantiate(obj);
-        }
-
-        // Create bunny
-
+        float dwidth  = textureRegion.getRegionWidth()/scale.x;
+        float dheight = textureRegion.getRegionHeight()/scale.y;
+        //TODO Art objects
+    }
+    public void createPlayer(Vector2 scale, float startX, float startY){
         //TODO: Figure out if having 2 refrences for player fields is okay
-        dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
-        dheight = synthDefaultTexture.getRegionHeight()/scale.y;
-        player = new Player(constants.get("bunny"), dwidth*playerScale, dheight*playerScale, playerScale);
+        float dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
+        float dheight = synthDefaultTexture.getRegionHeight()/scale.y;
+        player = new Player(defaultConstants.get("player"), startX, startY,
+                dwidth*playerScale, dheight*playerScale, playerScale);
         player.setDrawScale(scale);
 
         // Set animations: Synth
@@ -325,96 +477,4 @@ public class ObjectController {
         player.setTexture(synthDefaultTexture);
         GameController.getInstance().instantiate(player);
     }
-
-    /**
-     * Create the start tile and checkpoints
-     */
-    public void createCheckpoints(Vector2 scale) {
-        float checkpointWidth  = checkpointDefault.getRegionWidth()/scale.x;
-        float checkpointHeight = checkpointDefault.getRegionHeight()/scale.y;
-
-        // Add the start tile as the current spawn point
-        JsonValue start = constants.get("start");
-        JsonValue startPos = start.get("pos");
-        BoxGameObject startTile = new BoxGameObject(startPos.getFloat(0), startPos.getFloat(1), checkpointWidth, checkpointHeight);
-        startTile.setBodyType(BodyDef.BodyType.StaticBody);
-        startTile.setDensity(start.getFloat("density", 0));
-        startTile.setFriction(start.getFloat("friction", 0));
-        startTile.setRestitution(start.getFloat("restitution", 0));
-        startTile.setSensor(true);
-        startTile.setDrawScale(scale);
-        startTile.setTexture(checkpointDefault);
-        startTile.setName("start");
-        GameController.getInstance().instantiate(startTile);
-        //set respawn point to position of respawnPoint
-        GameController.getInstance().setSpawn(startTile.getPosition());
-
-        // Populate all checkpoints
-        for (int i = 0; i < constants.get("checkpoints").size; i++) {
-            String cname = "checkpoint";
-            JsonValue checkpoint = constants.get("checkpoints").get(i);
-            JsonValue checkpointPos = checkpoint.get("pos");
-            BoxGameObject obj = new BoxGameObject(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
-            obj.setBodyType(BodyDef.BodyType.StaticBody);
-            obj.setDensity(checkpoint.getFloat("density", 0));
-            obj.setFriction(checkpoint.getFloat("friction", 0));
-            obj.setRestitution(checkpoint.getFloat("restitution", 0));
-            obj.setSensor(true);
-            obj.setDrawScale(scale);
-            obj.setTexture(checkpointDefault);
-            obj.setName(cname + i);
-            GameController.getInstance().instantiate(obj);
-            checkpoints.addLast(new Pair<>(obj, i));
-        }
-    }
-
-    /**
-     * Create a platform using the scale and type given.
-     *
-     * @param scale The Vector2 draw scale
-     * @param type A string, either "default", "defaultEnd", "wire", "radio", "guitar"
-     */
-    public void createPlatforms(Vector2 scale, String type){
-        TextureRegion textureRegion;
-        JsonValue platjv;
-        switch(type){
-            default:
-                textureRegion = platformTile;
-                platjv = constants.get("platforms").get("platforms");
-                break;
-            case "defaultEnd":
-                textureRegion = endPlatform;
-                platjv = constants.get("platforms").get("endPlatforms");
-                break;
-            case "wire":
-                textureRegion = wirePlatform;
-                platjv = constants.get("platforms").get("wirePlatforms");
-                break;
-            case "radio":
-                textureRegion = radioPlatform;
-                platjv = constants.get("platforms").get("radioPlatforms");
-                break;
-            case "guitar":
-                textureRegion = guitarPlatform;
-                platjv = constants.get("platforms").get("guitarPlatforms");
-                break;
-        }
-        String pname = type;
-        JsonValue defaults = constants.get("defaults");
-        float dwidth  = textureRegion.getRegionWidth()/scale.x;
-        float dheight = textureRegion.getRegionHeight()/scale.y;
-        for (int ii = 0; ii < platjv.size; ii++) {
-            BoxGameObject platform;
-            platform = new BoxGameObject(platjv.get(ii).asFloatArray()[0],platjv.get(ii).asFloatArray()[1],dwidth,dheight);
-            platform.setBodyType(BodyDef.BodyType.StaticBody);
-            platform.setDensity(defaults.getFloat( "density", 0.0f ));
-            platform.setFriction(defaults.getFloat( "friction", 0.0f ));
-            platform.setRestitution(defaults.getFloat( "restitution", 0.0f ));
-            platform.setDrawScale(scale);
-            platform.setTexture(textureRegion);
-            platform.setName(pname+ii);
-            GameController.getInstance().instantiate(platform);
-        }
-    }
-
 }

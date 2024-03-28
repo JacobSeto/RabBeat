@@ -438,9 +438,9 @@ public class GameController implements Screen, ContactListener {
 	private void populateLevel() {
 
 		// world starts with Synth gravity
-		world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("synth", 0)));
+		world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
 		// TODO This volume constant is never used
-		float volume = objectController.constants.getFloat("volume", 1.0f);
+		float volume = objectController.defaultConstants.getFloat("volume", 1.0f);
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
