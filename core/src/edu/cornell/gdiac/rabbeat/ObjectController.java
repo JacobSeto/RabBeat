@@ -262,6 +262,8 @@ public class ObjectController {
             obj.setFriction(defaults.getFloat("friction", 1.0f));
             obj.setRestitution(defaults.getFloat("restitution", 0.0f));
             obj.setDrawScale(scale);
+            obj.setType(0);
+
             obj.setTexture(weightedPlatform);
             obj.setName(wpname + ii);
             GameController.getInstance().instantiate(obj);
@@ -276,7 +278,7 @@ public class ObjectController {
                     currentWP.getFloat("speed"));
             obj.setBodyType(BodyDef.BodyType.StaticBody);
             obj.setDensity(defaults.getFloat("density", 0.0f));
-            obj.setFriction(defaults.getFloat("friction", 10.0f));
+            obj.setFriction(defaults.getFloat("friction", 100.0f));
             obj.setRestitution(defaults.getFloat("restitution", 0.0f));
             obj.setDrawScale(scale);
             obj.setTexture(weightedPlatform);
