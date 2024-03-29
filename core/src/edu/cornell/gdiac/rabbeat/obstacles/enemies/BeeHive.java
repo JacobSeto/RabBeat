@@ -15,9 +15,10 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
 
     public Genre curGenre = Genre.SYNTH;
 
+    public ObjectController objectController;
 
 
-    ObjectController oc = ObjectController.getInstance();
+    ObjectController oc = GameController.getInstance().objectController;
 
     /** Number of beats the bee exists in synth*/
     private int synthBeeTime = 1;
