@@ -18,6 +18,10 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
+import com.badlogic.gdx.physics.box2d.joints.PrismaticJoint;
+import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
@@ -95,6 +99,7 @@ public class GameController implements Screen, ContactListener {
 	protected static final float DEFAULT_HEIGHT = 18.0f;
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -4.9f;
+
 
 	/** Reference to the game canvas */
 	protected GameCanvas canvas;
@@ -604,8 +609,14 @@ public class GameController implements Screen, ContactListener {
 				Vector2 displace = ((WeightedPlatform) bd1).getVelocity();
 				Vector2 playerPos = objectController.player.getPosition();
 				System.out.println("yipee");
+
 				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
 				//objectController.player.setPosition(playerPos.x+displace.x, playerPos.y+displace.y);
+
+				//TODO: Move this to a conitnuous collision checker
+				//objectController.player.setDisplace(displace);
+				objectController.player.setBodyCollidedWith(bd1);
+				
 			}
 
 			// Check for collision with checkpoints and set new current checkpoint
@@ -649,6 +660,15 @@ public class GameController implements Screen, ContactListener {
 				objectController.player.setGrounded(false);
 			}
 		}
+		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
+			System.out.println("whoopee");
+			//objectController.player.setDisplace(new Vector2(0,0));
+			//breakJoint(jointBetweenPlatformAndPlayer);
+			try {
+				//world.destroyJoint(jointBetweenPlatformAndPlayer);
+			} catch (Exception ignored) {}
+		}
+
 	}
 
 	/** Unused ContactListener method */
@@ -874,5 +894,27 @@ public class GameController implements Screen, ContactListener {
 	public Player getPlayer() {
 		return objectController.player;
 	}
+
+	public void createJoint(GameObject bd1, GameObject bd2){
+		Vector2 anchor1 = new Vector2();
+		Vector2 anchor2 = new Vector2();
+
+//		Vector2 anchor1 = bd1.getPosition();
+//		Vector2 anchor2 = bd2.getPosition();
+
+		// Definition for a revolute joint
+		JointDef jointDef = new PrismaticJointDef();
+
+		// Initial joint
+		jointDef.bodyA = bd1.getBody();
+		jointDef.bodyB = bd2.getBody();
+
+		jointDef.collideConnected = true;
+		Joint joint = world.createJoint(jointDef);
+	}
+
+//	public void breakJoint(Joint joint){
+//		world.destroyJoint(joint);
+//	}
 
 }
