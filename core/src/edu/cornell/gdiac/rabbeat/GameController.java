@@ -650,11 +650,11 @@ public class GameController implements Screen, ContactListener {
 		soundController.setGenre(genre);
 		// update to Synth
 		if (genre == Genre.SYNTH) {
-			world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("synth", 0)));
+			world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
 		}
 		// update to Jazz
 		else {
-			world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("jazz", 0)));
+			world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("jazz", 0)));
 		}
 
 		for (IGenreObject g : objectController.genreObjects) {
