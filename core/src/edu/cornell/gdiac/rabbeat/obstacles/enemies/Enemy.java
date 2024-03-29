@@ -115,7 +115,7 @@ public abstract class Enemy extends CapsuleGameObject {
      */
     public void drawDebug(GameCanvas canvas) {
         super.drawDebug(canvas);
-        canvas.drawPhysics(sensorShape,Color.RED,getX(),getY(),getAngle(),drawScale.x,drawScale.y);
+        //canvas.drawPhysics(sensorShape,Color.RED,getX(),getY(),getAngle(),drawScale.x,drawScale.y);
     }
 
     /** Sets the direction that the enemy is facing in */
@@ -153,5 +153,15 @@ public abstract class Enemy extends CapsuleGameObject {
         return 0;
     }
 
+    /** Flips the direction the enemy is facing based on the player's position */
+    public void flipEnemy() {
+        if(GameController.getInstance().getPlayer().getPosition().x - getPosition().x > 0 && !faceRight) {
+            setFaceRight(true);
+            setPosition(getX()+1, getY());
+        } else if(GameController.getInstance().getPlayer().getPosition().x - getPosition().x < 0 && faceRight) {
+            setFaceRight(false);
+            setPosition(getX()-1, getY());
+        }
+    }
 
 }

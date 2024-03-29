@@ -43,7 +43,7 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     public Animation<TextureRegion> bearIdleAnimation;
 
     /**
-     * Creates a new enemy avatar with the given physics data
+     * Creates a bear enemy avatar with the given physics data
      *
      * @param data
      * @param width      The object width in physics units
@@ -120,9 +120,11 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
             makeBullet();
             System.out.println("shoot");
         }
-        setFaceRight(GameController.getInstance().getPlayer().getPosition().x - getPosition().x > 0);
+
+        flipEnemy();
     }
 
+    /** Updates the variable curGenre to the current genre of the game */
     public void genreUpdate(Genre genre) {
         curGenre = genre;
     }
