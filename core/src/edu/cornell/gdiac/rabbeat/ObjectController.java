@@ -13,6 +13,7 @@ import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
@@ -305,6 +306,20 @@ public class ObjectController {
             obj.setDrawScale(scale);
             obj.setTexture(enemyDefaultTexture);
             obj.setName(ename + ii);
+            GameController.getInstance().instantiate(obj);
+        }
+
+        String hname = "hive";
+        JsonValue hivesjv = constants.get("beehives");
+        for (int ii = 0; ii < hivesjv.size; ii++){
+            JsonValue currentHive = hivesjv.get(ii);
+            BeeHive obj;
+            obj = new BeeHive(currentHive, dwidth*enemyScale,
+                    dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+            obj.setBodyType(BodyDef.BodyType.StaticBody);
+            obj.setDrawScale(scale);
+            obj.setTexture(enemyDefaultTexture);
+            obj.setName(hname + ii);
             GameController.getInstance().instantiate(obj);
         }
 
