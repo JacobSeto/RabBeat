@@ -18,6 +18,8 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bee;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
@@ -578,6 +580,18 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Bullet)) {
+				setFailure(true);
+			}
+
+			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) && !bd2.getName().contains("checkpoint")) {
+				bd1.markRemoved(true);
+			}
+
+			if (bd2 instanceof Bee && !(bd1 instanceof BeeHive) && !bd1.getName().contains("checkpoint")) {
+				bd2.markRemoved(true);
+			}
+
+			if ((bd1.equals(objectController.player) && bd2 instanceof Bee)) {
 				setFailure(true);
 			}
 			//TODO: implement lethal obstacle code which checks for the first obstacle being the player, then checking if the
