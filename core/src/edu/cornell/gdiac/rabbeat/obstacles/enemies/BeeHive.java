@@ -63,15 +63,13 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
         shotDirection = isFaceRight();
 
         //Compute position and velocity
-        float speed;
+        float speed = 2.5f;
         int beatcount;
         if (curGenre == Genre.SYNTH){
-            speed = oc.constants.get("bullet").getFloat("synth speed", 0);
             beatcount = synthBeeTime;
             bee.setVY(2);
         }
         else {
-            speed = oc.constants.get("bullet").getFloat("jazz speed", 0);
             beatcount = jazzBeeTime;
             bee.setVY(1);
         }

@@ -26,10 +26,20 @@ public class Bee extends WheelGameObject implements ISynced, IGenreObject {
     @Override
     public void genreUpdate(Genre genre) {
         if (genre == Genre.SYNTH){
-            setVY(4);
+            if (getVY() < 0){
+                setVY(-2);
+            }
+            else {
+                setVY(2);
+            }
         }
         else {
-            setVY(2);
+            if (getVY() < 0){
+                setVY(-1);
+            }
+            else {
+                setVY(1);
+            }
         }
     }
 }
