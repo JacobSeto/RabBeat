@@ -90,6 +90,7 @@ public class MovingPlatform extends PolygonGameObject implements IGenreObject {
     }
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
     public void move(float delta){
+        //setLinearVelocity(velocity);
         setPosition(getPosition().x + velocity.x*delta*-1, getPosition().y + velocity.y*delta*-1);
     }
 
