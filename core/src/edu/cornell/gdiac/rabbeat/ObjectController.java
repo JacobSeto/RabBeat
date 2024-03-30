@@ -11,8 +11,11 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
+import edu.cornell.gdiac.rabbeat.obstacles.GameObject;
+import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
@@ -20,8 +23,15 @@ import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.util.Pair;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import edu.cornell.gdiac.util.PooledList;
 
 public class ObjectController {
+    /** All the objects in the world. */
+    public PooledList<GameObject> objects = new PooledList<>();
+    /** All objects that are genre-dependent */
+    public PooledList<IGenreObject> genreObjects = new PooledList<>();
+    /** Queue for adding objects */
+    public PooledList<GameObject> addQueue = new PooledList<>();
     /** Physics constants for initialization
      * TODO: constants has some relevant information for game controller and this class does not care
      * */
@@ -116,21 +126,6 @@ public class ObjectController {
 
     /** The enemy scale for the enemy */
     private float enemyScale = 3/8f*2;
-
-    private static ObjectController theController = null;
-
-    public static ObjectController getInstance() {
-        if (theController == null) {
-            theController = new ObjectController();
-        }
-        return theController;
-    }
-
-    public ObjectController(){
-        theController = this;
-    }
-
-
 
     /**
      * Gather the assets for this controller.
@@ -268,6 +263,8 @@ public class ObjectController {
             obj.setFriction(defaults.getFloat("friction", 1.0f));
             obj.setRestitution(defaults.getFloat("restitution", 0.0f));
             obj.setDrawScale(scale);
+            obj.setType(0);
+
             obj.setTexture(weightedPlatform);
             obj.setName(wpname + ii);
             GameController.getInstance().instantiate(obj);
@@ -282,7 +279,7 @@ public class ObjectController {
                     currentWP.getFloat("speed"));
             obj.setBodyType(BodyDef.BodyType.StaticBody);
             obj.setDensity(defaults.getFloat("density", 0.0f));
-            obj.setFriction(defaults.getFloat("friction", 10.0f));
+            obj.setFriction(defaults.getFloat("friction", 100.0f));
             obj.setRestitution(defaults.getFloat("restitution", 0.0f));
             obj.setDrawScale(scale);
             obj.setTexture(weightedPlatform);
@@ -305,6 +302,20 @@ public class ObjectController {
             obj.setDrawScale(scale);
             obj.setTexture(enemyDefaultTexture);
             obj.setName(ename + ii);
+            GameController.getInstance().instantiate(obj);
+        }
+
+        String hname = "hive";
+        JsonValue hivesjv = constants.get("beehives");
+        for (int ii = 0; ii < hivesjv.size; ii++){
+            JsonValue currentHive = hivesjv.get(ii);
+            BeeHive obj;
+            obj = new BeeHive(currentHive, dwidth*enemyScale,
+                    dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+            obj.setBodyType(BodyDef.BodyType.StaticBody);
+            obj.setDrawScale(scale);
+            obj.setTexture(enemyDefaultTexture);
+            obj.setName(hname + ii);
             GameController.getInstance().instantiate(obj);
         }
 

@@ -43,7 +43,7 @@ public class SyncController {
     /**The calibration for audio delay.  The audio delay is dependent on the audio output source
      * the player is using.  Delay is calculated by the average delay of a player clicking an input
      * to when they hear the beat.  The average delay is then stored to be used for beat calculation*/
-    public void calibration(){
+    public void calibrate(){
         //TODO: Calibrate for audio delay
         float averageDelay = 0f;
         delay = averageDelay;
