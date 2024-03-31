@@ -78,9 +78,9 @@ public class GameController implements Screen, ContactListener {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
-	protected static final float DEFAULT_WIDTH = 32.0f;
+	protected static final float DEFAULT_WIDTH = 57.6f;
 	/** Height of the game world in Box2d units */
-	protected static final float DEFAULT_HEIGHT = 18.0f;
+	protected static final float DEFAULT_HEIGHT = 32.4f;
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -4.9f;
 
@@ -705,8 +705,6 @@ public class GameController implements Screen, ContactListener {
 		while (!objectController.addQueue.isEmpty()) {
 			instantiate(objectController.addQueue.poll());
 		}
-
-		System.out.println(getPlayer().getPosition());
 
 		// Turn the physics engine crank.
 		world.step(WORLD_STEP, WORLD_VELOC, WORLD_POSIT);
