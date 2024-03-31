@@ -247,6 +247,14 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		return faceRight;
 	}
 
+	/** how much the player should be displaced from their current position at any given moment.
+	 * Generally called by moving platforms to shift the player so they 'stick' to said platforms
+	 * */
+	private Vector2 displacement;
+
+	public void setDisplace(Vector2 displace){
+		displacement = displace;
+	}
 	/**
 	 * Creates a new dude avatar with the given physics data
 	 *
@@ -276,6 +284,7 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		jump_force = data.getFloat( "jump_force", 0 );
 		jumpLimit = data.getInt( "jump_cool", 0 );
 		shotLimit = data.getInt( "shot_cool", 0 );
+		displacement = new Vector2(0,0);
 		sensorName = "DudeGroundSensor";
 		this.data = data;
 
@@ -375,6 +384,8 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	 */
 	public void update(float dt) {
 		// Process actions in object model
+		setPosition(getPosition().x+ dt*displacement.x, getPosition().y+ dt*displacement.y);
+
 		setWalking(InputController.getInstance().getHorizontal() != 0 && !isJumping);
 		setMovement(InputController.getInstance().getHorizontal() * getForce());
 		setJumping(InputController.getInstance().didPrimary());
@@ -387,7 +398,6 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		} else {
 			jumpCooldown = Math.max(0, jumpCooldown - 1);
 		}
-
 
 		animationUpdate();
 

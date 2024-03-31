@@ -22,6 +22,8 @@ import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJoint;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bee;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
@@ -67,20 +69,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** The SoundController object to handle audio */
 	public SoundController soundController;
-
-	/** The texture for walls */
-	protected TextureRegion blackTile;
-	/** The texture for regular platforms */
-	protected TextureRegion platformTile;
-	/** The texture for weighted platforms */
-	protected TextureRegion weightedPlatform;
-	/** The texture for bullets */
-	protected TextureRegion bullet;
-	/** The texture for the exit condition */
-	protected TextureRegion goalTile;
-	/** The font for giving messages to the player */
-	protected BitmapFont displayFont;
-	/** The object loader for creating objects into the world */
 	public ObjectController objectController;
 
 	/** Exit code for quitting the game */
@@ -103,12 +91,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** Reference to the game canvas */
 	protected GameCanvas canvas;
-	/** All the objects in the world. */
-	protected PooledList<GameObject> objects = new PooledList<>();
-	/** All objects that are genre-dependent */
-	protected PooledList<IGenreObject> genreObjects = new PooledList<>();
-	/** Queue for adding objects */
-	protected PooledList<GameObject> addQueue = new PooledList<>();
 	/** Listener that will update the player mode when we are done */
 	private ScreenListener listener;
 
@@ -306,21 +288,22 @@ public class GameController implements Screen, ContactListener {
 	 * Dispose of all (non-static) resources allocated to this mode.
 	 */
 	public void dispose() {
-		for (GameObject obj : objects) {
+		for (GameObject obj : objectController.objects) {
 			obj.deactivatePhysics(world);
 		}
-		objects.clear();
-		addQueue.clear();
+		objectController.objects.clear();
+		objectController.addQueue.clear();
 		world.dispose();
-		objects = null;
-		addQueue = null;
+		objectController.objects = null;
+		objectController.addQueue = null;
+		objectController.genreObjects = null;
+		objectController = null;
 		bounds = null;
 		scale = null;
 		world = null;
 		canvas = null;
 		syncController = null;
-		genreObjects = null;
-		objectController = null;
+
 	}
 
 	// TODO: Adjust to the correct assets after assets have been added
@@ -372,7 +355,7 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void instantiateQueue(GameObject obj) {
 		assert inBounds(obj) : "Object is not in bounds";
-		addQueue.add(obj);
+		objectController.addQueue.add(obj);
 	}
 
 	/**
@@ -384,12 +367,12 @@ public class GameController implements Screen, ContactListener {
 	 */
 	protected void instantiate(GameObject object) {
 		assert inBounds(object) : "Object is not in bounds";
-		objects.add(object);
+		objectController.objects.add(object);
 		if (object instanceof ISynced) {
 			syncController.addSync((ISynced) object);
 		}
 		if (object instanceof IGenreObject) {
-			genreObjects.add((IGenreObject) object);
+			objectController.genreObjects.add((IGenreObject) object);
 		}
 		object.activatePhysics(world);
 	}
@@ -437,11 +420,11 @@ public class GameController implements Screen, ContactListener {
 		genre = Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity());
 
-		for (GameObject obj : objects) {
+		for (GameObject obj : objectController.objects) {
 			obj.deactivatePhysics(world);
 		}
-		objects.clear();
-		addQueue.clear();
+		objectController.objects.clear();
+		objectController.addQueue.clear();
 		world.dispose();
 
 		world = new World(gravity, false);
@@ -578,11 +561,16 @@ public class GameController implements Screen, ContactListener {
 			GameObject bd1 = (GameObject) body1.getUserData();
 			GameObject bd2 = (GameObject) body2.getUserData();
 
+			// Checks whether player is grounded (prevents double jumping)
 			if ((objectController.player.getSensorName().equals(fd2) && objectController.player != bd1) ||
 					(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
-				objectController.player.setGrounded(true);
-				sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
+				// Prevents checkpoints from being detected as ground
+				if (objectController.player == bd1 ? !bd2.isSensor() : !bd1.isSensor()) {
+					objectController.player.setGrounded(true);
+					sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
+				}
 			}
+
 			// Check for win condition
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
 					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
@@ -605,9 +593,26 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
+			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) && !bd2.getName().contains("checkpoint")) {
+				bd1.markRemoved(true);
+			}
+
+			if (bd2 instanceof Bee && !(bd1 instanceof BeeHive) && !bd1.getName().contains("checkpoint")) {
+				bd2.markRemoved(true);
+			}
+
+			if ((bd1.equals(objectController.player) && bd2 instanceof Bee)) {
+				setFailure(true);
+			}
+			//TODO: implement lethal obstacle code which checks for the first obstacle being the player, then checking if the
+			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
+				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
+					System.out.println("l2");
+					setFailure(true);
+				}
+			}
 			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
-				Vector2 displace = ((WeightedPlatform) bd1).getVelocity();
-				Vector2 playerPos = objectController.player.getPosition();
+				Vector2 displace = ((WeightedPlatform) bd1).currentVelocity();
 				System.out.println("yipee");
 
 				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
@@ -616,21 +621,21 @@ public class GameController implements Screen, ContactListener {
 				//TODO: Move this to a conitnuous collision checker
 				//objectController.player.setDisplace(displace);
 				objectController.player.setBodyCollidedWith(bd1);
-				
+				//TODO: Move this to a conitnuous collision checker
+				objectController.player.setDisplace(displace);
 			}
-
 			// Check for collision with checkpoints and set new current checkpoint
-			if (!objectController.checkpoints.isEmpty() &&
-					((bd1 == objectController.player && bd2 == objectController.checkpoints.first().fst) ||
-							(bd1 == objectController.checkpoints.first().fst && bd2 == objectController.player))) {
-				respawnPoint = objectController.checkpoints.removeFirst().fst.getPosition();
+			for (Checkpoint checkpoint : objectController.checkpoints) {
+				if (!checkpoint.isActive && ((bd1 == objectController.player && bd2 == checkpoint) ||
+						(bd1 == checkpoint && bd2 == objectController.player))) {
+					checkpoint.setActive();
+					respawnPoint = checkpoint.getPosition();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
 	/**
 	 * Callback method for the start of a collision
 	 *
@@ -667,6 +672,7 @@ public class GameController implements Screen, ContactListener {
 			try {
 				//world.destroyJoint(jointBetweenPlatformAndPlayer);
 			} catch (Exception ignored) {}
+			objectController.player.setDisplace(new Vector2(0,0));
 		}
 
 	}
@@ -696,7 +702,7 @@ public class GameController implements Screen, ContactListener {
 			world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("jazz", 0)));
 		}
 
-		for (IGenreObject g : genreObjects) {
+		for (IGenreObject g : objectController.genreObjects) {
 			g.genreUpdate(genre);
 		}
 	}
@@ -713,17 +719,19 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void postUpdate(float dt) {
 		// Add any objects created by actions
-		while (!addQueue.isEmpty()) {
-			instantiate(addQueue.poll());
+		while (!objectController.addQueue.isEmpty()) {
+			instantiate(objectController.addQueue.poll());
 		}
+
+		System.out.println(getPlayer().getPosition());
 
 		// Turn the physics engine crank.
 		world.step(WORLD_STEP, WORLD_VELOC, WORLD_POSIT);
-
+		//set position, then call a world step of zeroz
 		// Garbage collect the deleted objects.
 		// Note how we use the linked list nodes to delete O(1) in place.
 		// This is O(n) without copying.
-		Iterator<PooledList<GameObject>.Entry> iterator = objects.entryIterator();
+		Iterator<PooledList<GameObject>.Entry> iterator = objectController.objects.entryIterator();
 		while (iterator.hasNext()) {
 			PooledList<GameObject>.Entry entry = iterator.next();
 			GameObject obj = entry.getValue();
@@ -756,7 +764,7 @@ public class GameController implements Screen, ContactListener {
 		canvas.end();
 
 		canvas.begin();
-		for (GameObject obj : objects) {
+		for (GameObject obj : objectController.objects) {
 			obj.draw(canvas);
 		}
 		canvas.end();
@@ -773,7 +781,7 @@ public class GameController implements Screen, ContactListener {
 
 		if (debug) {
 			canvas.beginDebug();
-			for (GameObject obj : objects) {
+			for (GameObject obj : objectController.objects) {
 				obj.drawDebug(canvas);
 			}
 			canvas.endDebug();
