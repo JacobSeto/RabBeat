@@ -613,10 +613,12 @@ public class GameController implements Screen, ContactListener {
 				objectController.player.setDisplace(displace);
 			}
 			// Check for collision with checkpoints and set new current checkpoint
-			if (!objectController.checkpoints.isEmpty() &&
-					((bd1 == objectController.player && bd2 == objectController.checkpoints.first().fst) ||
-							(bd1 == objectController.checkpoints.first().fst && bd2 == objectController.player))) {
-				respawnPoint = objectController.checkpoints.removeFirst().fst.getPosition();
+			for (Checkpoint checkpoint : objectController.checkpoints) {
+				if (!checkpoint.isActive && ((bd1 == objectController.player && bd2 == checkpoint) ||
+						(bd1 == checkpoint && bd2 == objectController.player))) {
+					checkpoint.setActive();
+					respawnPoint = checkpoint.getPosition();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -703,6 +705,8 @@ public class GameController implements Screen, ContactListener {
 		while (!objectController.addQueue.isEmpty()) {
 			instantiate(objectController.addQueue.poll());
 		}
+
+		System.out.println(getPlayer().getPosition());
 
 		// Turn the physics engine crank.
 		world.step(WORLD_STEP, WORLD_VELOC, WORLD_POSIT);
