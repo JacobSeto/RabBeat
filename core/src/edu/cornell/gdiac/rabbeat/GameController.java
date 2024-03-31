@@ -556,11 +556,16 @@ public class GameController implements Screen, ContactListener {
 			GameObject bd1 = (GameObject) body1.getUserData();
 			GameObject bd2 = (GameObject) body2.getUserData();
 
+			// Checks whether player is grounded (prevents double jumping)
 			if ((objectController.player.getSensorName().equals(fd2) && objectController.player != bd1) ||
 					(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
-				objectController.player.setGrounded(true);
-				sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
+				// Prevents checkpoints from being detected as ground
+				if (objectController.player == bd1 ? !bd2.isSensor() : !bd1.isSensor()) {
+					objectController.player.setGrounded(true);
+					sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
+				}
 			}
+
 			// Check for win condition
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
 					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
@@ -608,10 +613,12 @@ public class GameController implements Screen, ContactListener {
 				objectController.player.setDisplace(displace);
 			}
 			// Check for collision with checkpoints and set new current checkpoint
-			if (!objectController.checkpoints.isEmpty() &&
-					((bd1 == objectController.player && bd2 == objectController.checkpoints.first().fst) ||
-							(bd1 == objectController.checkpoints.first().fst && bd2 == objectController.player))) {
-				respawnPoint = objectController.checkpoints.removeFirst().fst.getPosition();
+			for (Checkpoint checkpoint : objectController.checkpoints) {
+				if (!checkpoint.isActive && ((bd1 == objectController.player && bd2 == checkpoint) ||
+						(bd1 == checkpoint && bd2 == objectController.player))) {
+					checkpoint.setActive();
+					respawnPoint = checkpoint.getPosition();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -698,6 +705,8 @@ public class GameController implements Screen, ContactListener {
 		while (!objectController.addQueue.isEmpty()) {
 			instantiate(objectController.addQueue.poll());
 		}
+
+		System.out.println(getPlayer().getPosition());
 
 		// Turn the physics engine crank.
 		world.step(WORLD_STEP, WORLD_VELOC, WORLD_POSIT);

@@ -6,24 +6,21 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.Queue;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
+import edu.cornell.gdiac.rabbeat.obstacles.Checkpoint;
 import edu.cornell.gdiac.rabbeat.obstacles.GameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
-import edu.cornell.gdiac.rabbeat.sync.Bullet;
-import edu.cornell.gdiac.util.Pair;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import edu.cornell.gdiac.util.PooledList;
+import java.util.ArrayList;
 
 public class ObjectController {
     /** All the objects in the world. */
@@ -75,7 +72,7 @@ public class ObjectController {
     public BoxGameObject goalDoor;
 
     /** Reference to all the checkpoints */
-    public Queue<Pair<BoxGameObject, Integer>> checkpoints = new Queue<Pair<BoxGameObject, Integer>>();
+    public ArrayList<Checkpoint> checkpoints = new ArrayList<>();
 
     /** The player scale for synth */
     private float playerScale = 3/8f*2f;
@@ -186,28 +183,32 @@ public class ObjectController {
         checkpointActive  = new TextureRegion(directory.getEntry( "checkpoint:checkActive", Texture.class ));
         displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
     }
+
+    /** Populates all objects into the game.
+     *
+     * @param scale The draw scale
+     */
     public void populateObjects(Vector2 scale){
         // Repopulate current checkpoints
         float checkpointWidth  = checkpointDefault.getRegionWidth()/scale.x;
         float checkpointHeight = checkpointDefault.getRegionHeight()/scale.y;
 
-        Queue<Pair<BoxGameObject, Integer>> newCheckpoints = new Queue<>();
-        System.out.println(checkpoints);
-        for (Pair<BoxGameObject, Integer> pair : checkpoints) {
+        ArrayList<Checkpoint> newCheckpoints = new ArrayList<>();
+        for (Checkpoint c : checkpoints) {
             String cname = "checkpoint";
-            JsonValue checkpoint = constants.get("checkpoints").get(pair.snd);
+            JsonValue checkpoint = constants.get("checkpoints").get(c.getIndex());
             JsonValue checkpointPos = checkpoint.get("pos");
-            BoxGameObject obj = new BoxGameObject(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
+            Checkpoint obj = new Checkpoint(c.getIndex(), checkpointActive, checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
             obj.setBodyType(BodyDef.BodyType.StaticBody);
             obj.setDensity(checkpoint.getFloat("density", 0));
             obj.setFriction(checkpoint.getFloat("friction", 0));
             obj.setRestitution(checkpoint.getFloat("restitution", 0));
             obj.setSensor(true);
             obj.setDrawScale(scale);
-            obj.setTexture(checkpointDefault);
-            obj.setName(cname + pair.snd);
+            obj.setTexture(c.getTexture());
+            obj.setName(cname + c.getIndex());
             GameController.getInstance().instantiate(obj);
-            newCheckpoints.addLast(new Pair<>(obj, pair.snd));
+            newCheckpoints.add(obj);
         }
         checkpoints.clear();
         checkpoints = newCheckpoints;
@@ -347,31 +348,19 @@ public class ObjectController {
      * Create the start tile and checkpoints
      */
     public void createCheckpoints(Vector2 scale) {
-        float checkpointWidth  = checkpointDefault.getRegionWidth()/scale.x;
-        float checkpointHeight = checkpointDefault.getRegionHeight()/scale.y;
-
-        // Add the start tile as the current spawn point
-        JsonValue start = constants.get("start");
-        JsonValue startPos = start.get("pos");
-        BoxGameObject startTile = new BoxGameObject(startPos.getFloat(0), startPos.getFloat(1), checkpointWidth, checkpointHeight);
-        startTile.setBodyType(BodyDef.BodyType.StaticBody);
-        startTile.setDensity(start.getFloat("density", 0));
-        startTile.setFriction(start.getFloat("friction", 0));
-        startTile.setRestitution(start.getFloat("restitution", 0));
-        startTile.setSensor(true);
-        startTile.setDrawScale(scale);
-        startTile.setTexture(checkpointDefault);
-        startTile.setName("start");
-        GameController.getInstance().instantiate(startTile);
-        //set respawn point to position of respawnPoint
-        GameController.getInstance().setSpawn(startTile.getPosition());
+        // Set the current respawn point
+        JsonValue startPos = constants.get("start").get("pos");
+        GameController.getInstance().setSpawn(new Vector2(startPos.getFloat(0), startPos.getFloat(1)));
 
         // Populate all checkpoints
+        float cWidth  = checkpointDefault.getRegionWidth()/scale.x;
+        float cHeight = checkpointDefault.getRegionHeight()/scale.y;
+
         for (int i = 0; i < constants.get("checkpoints").size; i++) {
             String cname = "checkpoint";
             JsonValue checkpoint = constants.get("checkpoints").get(i);
             JsonValue checkpointPos = checkpoint.get("pos");
-            BoxGameObject obj = new BoxGameObject(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
+            Checkpoint obj = new Checkpoint(i, checkpointActive, checkpointPos.getFloat(0), checkpointPos.getFloat(1), cWidth, cHeight);
             obj.setBodyType(BodyDef.BodyType.StaticBody);
             obj.setDensity(checkpoint.getFloat("density", 0));
             obj.setFriction(checkpoint.getFloat("friction", 0));
@@ -381,7 +370,7 @@ public class ObjectController {
             obj.setTexture(checkpointDefault);
             obj.setName(cname + i);
             GameController.getInstance().instantiate(obj);
-            checkpoints.addLast(new Pair<>(obj, i));
+            checkpoints.add(obj);
         }
     }
 
