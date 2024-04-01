@@ -69,7 +69,8 @@
 			"max_speed": {
 				"synth": 6.0,
 				"jazz": 2.5
-			}
+			},
+			"type": "bat"
 		},
 		{
 			"pos": [ 26.5, 3.5 ],
@@ -89,7 +90,8 @@
 			"max_speed": {
 				"synth": 6.0,
 				"jazz": 2.5
-			}
+			},
+			"type": "bear"
 		},
 		{
 			"pos": [ 20.5, 3.5 ],
@@ -109,7 +111,8 @@
 			"max_speed": {
 				"synth": 6.0,
 				"jazz": 2.5
-			}
+			},
+			"type": "bear"
 		}
 			],
 	"beehives" : [

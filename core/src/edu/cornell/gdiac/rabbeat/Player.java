@@ -402,7 +402,7 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		animationUpdate();
 
 		try {
-			GameController.getInstance().createJoint(bodyCollidedWith, this);
+			//GameController.getInstance().createJoint(bodyCollidedWith, this);
 		} catch (Exception ignored) {}
 
             animationUpdate();

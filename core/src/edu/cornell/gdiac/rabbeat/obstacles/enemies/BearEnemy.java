@@ -13,6 +13,10 @@ import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
+/**
+ * Bear enemy avatar for the platform game.
+ * Bears shoot bullets that are synced to the beat.
+ */
 public class BearEnemy extends Enemy implements ISynced, IGenreObject {
 
     private float synthBeat = 1;
@@ -37,7 +41,7 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     /** Tells whether the bear was facing right or not when they shot */
     private boolean shotDirection;
 
-    /** The idle animation for the bear */
+    /** The idle animation for the bat */
     public Animation<TextureRegion> bearIdleAnimation;
 
     /**

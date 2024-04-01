@@ -13,8 +13,10 @@ import edu.cornell.gdiac.rabbeat.obstacles.Checkpoint;
 import edu.cornell.gdiac.rabbeat.obstacles.GameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -115,6 +117,10 @@ public class ObjectController {
     public TextureAtlas bearIdleAtlas;
     /** The idle animation for the bear enemy */
     public Animation<TextureRegion> bearIdleAnimation;
+    /** The idle atlas for the bear enemy */
+    public TextureAtlas batIdleAtlas;
+    /** The idle animation for the bat enemy */
+    public Animation<TextureRegion> batIdleAnimation;
 
     private float synthSpeed;
     private float jazzSpeed;
@@ -168,6 +174,10 @@ public class ObjectController {
         //  Bear
         bearIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
         bearIdleAnimation = new Animation<TextureRegion>(0.1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+
+        //  Bat
+        batIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
+        batIdleAnimation = new Animation<TextureRegion>(0.1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
 
         // Allocate the tiles
         blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
@@ -296,14 +306,27 @@ public class ObjectController {
         JsonValue enemiesjv = constants.get("enemies");
         for (int ii = 0; ii < enemiesjv.size; ii++){
             JsonValue currentEnemy = enemiesjv.get(ii);
-            BearEnemy obj;
-            obj = new BearEnemy(currentEnemy, dwidth*enemyScale,
-                    dheight*enemyScale, enemyScale, false, bearIdleAnimation);
-            obj.setBodyType(BodyDef.BodyType.StaticBody);
-            obj.setDrawScale(scale);
-            obj.setTexture(enemyDefaultTexture);
-            obj.setName(ename + ii);
-            GameController.getInstance().instantiate(obj);
+            Enemy obj;
+
+            if(currentEnemy.getString("type").equals("bat")) {
+                obj = new BatEnemy(currentEnemy, dwidth*enemyScale,
+                        dheight*enemyScale, enemyScale, false, batIdleAnimation);
+                obj.setBodyType(BodyDef.BodyType.StaticBody);
+                obj.setDrawScale(scale);
+                obj.setTexture(enemyDefaultTexture);
+                obj.setName(ename + ii);
+                GameController.getInstance().instantiate(obj);
+            }
+
+            if(currentEnemy.getString("type").equals("bear")) {
+                obj = new BearEnemy(currentEnemy, dwidth*enemyScale,
+                        dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+                obj.setBodyType(BodyDef.BodyType.StaticBody);
+                obj.setDrawScale(scale);
+                obj.setTexture(enemyDefaultTexture);
+                obj.setName(ename + ii);
+                GameController.getInstance().instantiate(obj);
+            }
         }
 
         String hname = "hive";

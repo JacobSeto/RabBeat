@@ -16,16 +16,11 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
-import com.badlogic.gdx.physics.box2d.joints.PrismaticJoint;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
-import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bee;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
@@ -593,17 +588,22 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) && !bd2.getName().contains("checkpoint")) {
+			if (bd1 instanceof BeeEnemy && !(bd2 instanceof BeeHive) && !bd2.getName().contains("checkpoint")) {
 				bd1.markRemoved(true);
 			}
 
-			if (bd2 instanceof Bee && !(bd1 instanceof BeeHive) && !bd1.getName().contains("checkpoint")) {
+			if (bd2 instanceof BeeEnemy && !(bd1 instanceof BeeHive) && !bd1.getName().contains("checkpoint")) {
 				bd2.markRemoved(true);
 			}
 
-			if ((bd1.equals(objectController.player) && bd2 instanceof Bee)) {
+			if ((bd1.equals(objectController.player) && bd2 instanceof BeeEnemy)) {
 				setFailure(true);
 			}
+
+			if ((bd1.equals(objectController.player) && bd2 instanceof BatEnemy)) {
+				setFailure(true);
+			}
+
 			//TODO: implement lethal obstacle code which checks for the first obstacle being the player, then checking if the
 			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
 				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
@@ -667,6 +667,7 @@ public class GameController implements Screen, ContactListener {
 		}
 		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
 			System.out.println("whoopee");
+			//TODO: Fix joint destruction
 			//objectController.player.setDisplace(new Vector2(0,0));
 			//breakJoint(jointBetweenPlatformAndPlayer);
 			try {
@@ -723,7 +724,7 @@ public class GameController implements Screen, ContactListener {
 			instantiate(objectController.addQueue.poll());
 		}
 
-		System.out.println(getPlayer().getPosition());
+		//System.out.println(getPlayer().getPosition());
 
 		// Turn the physics engine crank.
 		world.step(WORLD_STEP, WORLD_VELOC, WORLD_POSIT);
@@ -921,6 +922,7 @@ public class GameController implements Screen, ContactListener {
 		Joint joint = world.createJoint(jointDef);
 	}
 
+	//TODO: destroy joint!
 //	public void breakJoint(Joint joint){
 //		world.destroyJoint(joint);
 //	}
