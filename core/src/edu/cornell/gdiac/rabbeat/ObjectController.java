@@ -131,6 +131,8 @@ public class ObjectController {
      * @param directory	Reference to global asset manager.
      */
     public void gatherAssets(AssetDirectory directory) {
+        levelJson = directory.getEntry("example", JsonValue.class);
+
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
@@ -188,32 +190,53 @@ public class ObjectController {
                 switch (layerName){
                     case "background":
                         //do something
+                        break;
                     case "walls":
+                        System.out.println(layer);
                         int[] data = layer.get("data").asIntArray();
+                        int width = layer.getInt("width");
+                        int height = layer.getInt("height");
                         for (int i=0; i<data.length; i++){
-                            //TODO: convert walls data to points
-//                            createWalls(scale, points);
+                            int tileTypeID = data[i];
+                            // tileTypeID == 0 means there is no tile there
+                            if (tileTypeID != 0){
+                                // Get x and y coordinates from where it is in the array
+                                int x = i % width;
+                                int y = height - (i / width) - 1;
+                                createWall(scale, x, y);
+                            }
                         }
+                        break;
                     case "platforms":
                         for (JsonValue platform : layer.get("objects")) {
-                            float x = Float.parseFloat(platform.get("x").toString());
-                            float y = Float.parseFloat(platform.get("y").toString());
-                            // TODO: convert x, y coord. to game/physics coord
-                            createPlatform(scale, platform.get("type").toString(), x, y);
+                            float x = platform.getFloat("x");
+                            float y = platform.getFloat("y");
+                            float convertedX = x/100;
+                            float convertedY = y/100;
+                            createPlatform(scale, platform.get("type").toString(), convertedX, convertedY);
                         }
+                        break;
                     case "platformArt":
                         for (JsonValue a : layer.get("objects")) {
-                            float x = Float.parseFloat(a.get("x").toString());
-                            float y = Float.parseFloat(a.get("y").toString());
+                            float x = a.getFloat("x");
+                            float y = a.getFloat("y");
+                            float convertedX = x/100;
+                            float convertedY = y/100;
                             // TODO: convert x, y coord. to game/physics coord
-                            createPlatformArt(scale, a.get("type").toString(), x, y);
+                            createPlatformArt(scale, a.get("type").toString(), convertedX, convertedY);
                         }
+                        break;
                     case "player":
-                        JsonValue player = layer.get("objects");
-                        float x = Float.parseFloat(player.get("x").toString());
-                        float y = Float.parseFloat(player.get("y").toString());
-                        // TODO: convert x, y coord. to game/physics coord
-                        createPlayer(scale, x, y);
+                        if (layer.get("objects").size > 0){
+                            JsonValue player = layer.get("objects").get(0);
+                            float x = player.getFloat("x");
+                            float y = player.getFloat("y");
+                            float convertedX = x/100;
+                            float convertedY = y/100;
+                            System.out.println(x + " " + y + " " +  convertedX + " " + convertedY);
+                            createPlayer(scale, convertedX, convertedY);
+                        }
+                        break;
                 }
 
             }
@@ -383,11 +406,13 @@ public class ObjectController {
 //            checkpoints.addLast(new Pair<>(obj, i));
 //        }
     }
-    public void createWalls(Vector2 scale, float[] points){
+    public void createWall(Vector2 scale, float x, float y){
         String wname = "wall";
         JsonValue defaults = defaultConstants.get("defaults");
-        PolygonGameObject obj;
-        obj = new PolygonGameObject(points, 0, 0);
+        BoxGameObject obj;
+        float dwidth  = blackTile.getRegionWidth()/scale.x;
+        float dheight = blackTile.getRegionHeight()/scale.y;
+        obj = new BoxGameObject(x, y, dwidth, dheight);
         obj.setBodyType(BodyDef.BodyType.StaticBody);
         obj.setDensity(defaults.getFloat( "density", 0.0f ));
         obj.setFriction(defaults.getFloat( "friction", 0.0f ));

@@ -398,7 +398,7 @@ public class GameController implements Screen, ContactListener {
 		setFailure(false);
 		objectController.createCheckpoints(scale);
 		populateLevel();
-		objectController.player.setPosition(respawnPoint);
+//		objectController.player.setPosition(respawnPoint);
 		soundController.playMusic(Genre.SYNTH);
 	}
 
@@ -728,9 +728,9 @@ public class GameController implements Screen, ContactListener {
 		canvas.end();
 
 		// Draw the background overlays on top of everything
-		canvas.begin();
-		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
-		canvas.end();
+//		canvas.begin();
+//		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
+//		canvas.end();
 
 		if (debug) {
 			canvas.beginDebug();

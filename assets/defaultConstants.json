@@ -26,5 +26,11 @@
       "synth": 6.0,
       "jazz": 2.5
     }
+  },
+  "bullet": {
+    "offset" : 0.5,
+    "synth speed"  : 5.0,
+    "jazz speed" : 2.5,
+    "density": 10.0
   }
 }
