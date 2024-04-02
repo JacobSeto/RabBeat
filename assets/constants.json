@@ -70,7 +70,8 @@
 				"synth": 6.0,
 				"jazz": 2.5
 			},
-			"type": "bat"
+			"rollingDistance": 3,
+			"type": "hedgehog"
 		},
 		{
 			"pos": [ 26.5, 3.5 ],
