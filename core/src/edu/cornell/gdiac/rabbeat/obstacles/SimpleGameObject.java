@@ -33,6 +33,19 @@ import edu.cornell.gdiac.rabbeat.GameCanvas;
  * This class does not provide Shape information, and cannot be instantiated directly.
  */
 public abstract class SimpleGameObject extends GameObject {
+
+	/** Enum type that determines what happens when the player collides with the object*/
+	public enum ObjectType {
+		/** An obstacle will result in the player slipping and sliding */
+		SLIPPERY,
+		/** A obstacle that kills the player on contact */
+		LETHAL,
+		/** An obstacle with no exceptional properties */
+		NONE,
+
+	}
+	private ObjectType type;
+
 	/** The physics body for Box2D. */
 	protected Body body;
 
@@ -55,7 +68,22 @@ public abstract class SimpleGameObject extends GameObject {
 	public BodyType getBodyType() {
 		return (body != null ? body.getType() : super.getBodyType());
 	}
-	
+
+	/** returns the type of the object*/
+	public ObjectType getType() {
+		return type;
+	}
+	public void setType(int x){
+		if (x==0){
+			type = ObjectType.NONE;
+		}
+		else if (x==1){
+			type = ObjectType.LETHAL;
+		}
+		else if (x==2){
+			type = ObjectType.SLIPPERY;
+		}
+	}
 	/**
 	 * Returns the body type for Box2D physics
 	 *

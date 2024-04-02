@@ -53,7 +53,7 @@ public class PolygonGameObject extends SimpleGameObject {
 	private Vector2 sizeCache;
 	/** Cache of the polygon vertices (for resizing) */
 	private float[] vertices;
-
+	/** Determines whether the obstacles kills the player on contact*/
 	/**
 	 * Returns the dimensions of this box
 	 *
@@ -129,6 +129,8 @@ public class PolygonGameObject extends SimpleGameObject {
 		setDimension(sizeCache);
 	}
 
+	/** Getter and setter for the lethal variable, determining whether the obstacle is lethal or not */
+
 	/**
 	 * Creates a (not necessarily convex) polygon at the origin.
 	 *
@@ -162,6 +164,7 @@ public class PolygonGameObject extends SimpleGameObject {
 		// Compute the bounds.
 		initShapes(points);
 		initBounds();
+
 	}
 
 	/**

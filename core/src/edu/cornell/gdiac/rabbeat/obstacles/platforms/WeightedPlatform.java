@@ -64,9 +64,12 @@ public class WeightedPlatform extends PolygonGameObject implements IGenreObject 
         currentGenre = 0;
     }
     /** */
-    public Vector2 getVelocity(){
+    public Vector2 currentVelocity(){
+        if (!moving){
+            return new Vector2(0,0);
+        }
         if (currentGenre==0){
-            return new Vector2(velocity.x * -1, velocity.y *-1);
+            return new Vector2(velocity.x *-1, velocity.y*-1);
         }
         else{
             return new Vector2(velocity.x , velocity.y );

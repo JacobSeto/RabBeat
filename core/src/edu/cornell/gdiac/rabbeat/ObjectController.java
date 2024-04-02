@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.Queue;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.*;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
@@ -18,6 +16,7 @@ import edu.cornell.gdiac.util.Pair;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import edu.cornell.gdiac.util.PooledList;
+import java.util.ArrayList;
 
 public class ObjectController {
     /** All the objects in the world. */
@@ -70,7 +69,7 @@ public class ObjectController {
     public BoxGameObject goalDoor;
 
     /** Reference to all the checkpoints */
-    public Queue<Pair<BoxGameObject, Integer>> checkpoints = new Queue<Pair<BoxGameObject, Integer>>();
+    public ArrayList<Checkpoint> checkpoints = new ArrayList<>();
 
     /** The player scale for synth */
     private float playerScale = 3/8f*2f;
@@ -183,6 +182,11 @@ public class ObjectController {
         checkpointActive  = new TextureRegion(directory.getEntry( "checkpoint:checkActive", Texture.class ));
         displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
     }
+
+    /** Populates all objects into the game.
+     *
+     * @param scale The draw scale
+     */
     public void populateObjects(Vector2 scale){
         if (levelJson.has("layers")) {
             for (JsonValue layer : levelJson.get("layers")) {

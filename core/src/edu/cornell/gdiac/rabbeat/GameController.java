@@ -18,6 +18,8 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bee;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
@@ -76,9 +78,9 @@ public class GameController implements Screen, ContactListener {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
-	protected static final float DEFAULT_WIDTH = 32.0f;
+	protected static final float DEFAULT_WIDTH = 57.6f;
 	/** Height of the game world in Box2d units */
-	protected static final float DEFAULT_HEIGHT = 18.0f;
+	protected static final float DEFAULT_HEIGHT = 32.4f;
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -4.9f;
 
@@ -554,11 +556,16 @@ public class GameController implements Screen, ContactListener {
 			GameObject bd1 = (GameObject) body1.getUserData();
 			GameObject bd2 = (GameObject) body2.getUserData();
 
+			// Checks whether player is grounded (prevents double jumping)
 			if ((objectController.player.getSensorName().equals(fd2) && objectController.player != bd1) ||
 					(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
-				objectController.player.setGrounded(true);
-				sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
+				// Prevents checkpoints from being detected as ground
+				if (objectController.player == bd1 ? !bd2.isSensor() : !bd1.isSensor()) {
+					objectController.player.setGrounded(true);
+					sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
+				}
 			}
+
 			// Check for win condition
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
 					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
@@ -581,26 +588,42 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
-				Vector2 displace = ((WeightedPlatform) bd1).getVelocity();
-				Vector2 playerPos = objectController.player.getPosition();
-				System.out.println("yipee");
-				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
-				//objectController.player.setPosition(playerPos.x+displace.x, playerPos.y+displace.y);
+			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) && !bd2.getName().contains("checkpoint")) {
+				bd1.markRemoved(true);
 			}
 
+			if (bd2 instanceof Bee && !(bd1 instanceof BeeHive) && !bd1.getName().contains("checkpoint")) {
+				bd2.markRemoved(true);
+			}
+
+			if ((bd1.equals(objectController.player) && bd2 instanceof Bee)) {
+				setFailure(true);
+			}
+			//TODO: implement lethal obstacle code which checks for the first obstacle being the player, then checking if the
+			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
+				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
+					System.out.println("l2");
+					setFailure(true);
+				}
+			}
+			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
+				Vector2 displace = ((WeightedPlatform) bd1).currentVelocity();
+				System.out.println("yipee");
+				//TODO: Move this to a conitnuous collision checker
+				objectController.player.setDisplace(displace);
+			}
 			// Check for collision with checkpoints and set new current checkpoint
-			if (!objectController.checkpoints.isEmpty() &&
-					((bd1 == objectController.player && bd2 == objectController.checkpoints.first().fst) ||
-							(bd1 == objectController.checkpoints.first().fst && bd2 == objectController.player))) {
-				respawnPoint = objectController.checkpoints.removeFirst().fst.getPosition();
+			for (Checkpoint checkpoint : objectController.checkpoints) {
+				if (!checkpoint.isActive && ((bd1 == objectController.player && bd2 == checkpoint) ||
+						(bd1 == checkpoint && bd2 == objectController.player))) {
+					checkpoint.setActive();
+					respawnPoint = checkpoint.getPosition();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
 	/**
 	 * Callback method for the start of a collision
 	 *
@@ -630,6 +653,11 @@ public class GameController implements Screen, ContactListener {
 				objectController.player.setGrounded(false);
 			}
 		}
+		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
+			System.out.println("whoopee");
+			objectController.player.setDisplace(new Vector2(0,0));
+		}
+
 	}
 
 	/** Unused ContactListener method */
@@ -680,7 +708,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Turn the physics engine crank.
 		world.step(WORLD_STEP, WORLD_VELOC, WORLD_POSIT);
-
+		//set position, then call a world step of zeroz
 		// Garbage collect the deleted objects.
 		// Note how we use the linked list nodes to delete O(1) in place.
 		// This is O(n) without copying.
