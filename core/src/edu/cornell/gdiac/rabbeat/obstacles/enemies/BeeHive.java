@@ -51,13 +51,13 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
     public void makeBee(){
         //TODO: create a bullet using object controller default values.  instantiate the copy using gamecontroller
 
-        float offset = oc.constants.get("bullet").getFloat("offset",0);
+        float offset = oc.defaultConstants.get("bullet").getFloat("offset",0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
         Bee bee = new Bee(getX()+offset, getY(), radius);
 
         bee.setName(getName() + "_bee");
-        bee.setDensity(oc.constants.get("bullet").getFloat("density", 0));
+        bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
         bee.setTexture(oc.bulletTexture);
         bee.setGravityScale(0);

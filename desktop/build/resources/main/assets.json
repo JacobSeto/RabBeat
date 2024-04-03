@@ -10,7 +10,13 @@
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
-      "world:platforms:platform" : "world/platforms/platform.png",
+      "world:platforms:weightedSynth" : "world/platforms/synthPlat.png",
+
+      "world:platforms:weightedJazz" : "world/platforms/jazzPlat.png",
+
+      "world:platforms:platform" : "world/platforms/purplePlat.png",
+
+      "world:platforms:platformArt" : "world/platforms/purplePlatArt.png",
 
       "world:platforms:endPlatform" : "world/platforms/endPlatform.png",
 
@@ -40,7 +46,7 @@
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
-        "example": "levelsTiledJson/exampleLevel.tmj"
+        "example": "levelsTiledJson/rabbeatExpandedEx.tmj"
     },
     "sounds": {
 

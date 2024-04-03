@@ -10,11 +10,9 @@ import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.*;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
-import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
-import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
-import edu.cornell.gdiac.util.Pair;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.util.PooledList;
 import java.util.ArrayList;
 
@@ -41,6 +39,8 @@ public class ObjectController {
     protected TextureRegion blackTile;
     /** The texture for regular platforms */
     protected TextureRegion platformTile;
+    /** The texture for regular platform art */
+    protected TextureRegion platformTileArt;
     /** The texture for end platforms */
     protected TextureRegion endPlatform;
     /** The texture for wire platforms */
@@ -51,6 +51,10 @@ public class ObjectController {
     protected TextureRegion guitarPlatform;
     /** The texture for weighted platforms */
     protected TextureRegion weightedPlatform;
+
+    protected TextureRegion weightedSynth;
+    protected TextureRegion weightedJazz;
+
     /** The texture for bullets */
     public TextureRegion bulletTexture;
     /** The texture for the exit condition */
@@ -72,7 +76,7 @@ public class ObjectController {
     public ArrayList<Checkpoint> checkpoints = new ArrayList<>();
 
     /** The player scale for synth */
-    private float playerScale = 3/8f*2f;
+    private float playerScale = 3/8f*2.5f;
 
     private TextureRegion synthDefaultTexture;
     private TextureRegion synthJazzTexture;
@@ -171,11 +175,13 @@ public class ObjectController {
         // Allocate the tiles
         blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
         platformTile = new TextureRegion(directory.getEntry( "world:platforms:platform", Texture.class ));
+        platformTileArt = new TextureRegion(directory.getEntry( "world:platforms:platformArt", Texture.class ));
         endPlatform = new TextureRegion(directory.getEntry( "world:platforms:endPlatform", Texture.class ));
         wirePlatform = new TextureRegion(directory.getEntry( "world:platforms:wirePlatform", Texture.class ));
         radioPlatform = new TextureRegion(directory.getEntry( "world:platforms:radioPlatform", Texture.class ));
         guitarPlatform = new TextureRegion(directory.getEntry( "world:platforms:guitarPlatform", Texture.class ));
-        weightedPlatform = new TextureRegion((directory.getEntry("world:platforms:weightedPlatform", Texture.class)));
+        weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
+        weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
         checkpointDefault  = new TextureRegion(directory.getEntry( "checkpoint:checkDefault", Texture.class ));
@@ -189,14 +195,15 @@ public class ObjectController {
      */
     public void populateObjects(Vector2 scale){
         if (levelJson.has("layers")) {
+            int levelHeight = levelJson.getInt("height");
+            int tileSize = levelJson.getInt("tileheight");
             for (JsonValue layer : levelJson.get("layers")) {
                 String layerName = layer.getString("name", "");
                 switch (layerName){
                     case "background":
-                        //do something
+                        //TODO: change background image depending on tiled info – may do this when we have more levels
                         break;
                     case "walls":
-                        System.out.println(layer);
                         int[] data = layer.get("data").asIntArray();
                         int width = layer.getInt("width");
                         int height = layer.getInt("height");
@@ -211,34 +218,33 @@ public class ObjectController {
                             }
                         }
                         break;
+                    case "weightedPlatforms":
+                        for (JsonValue platform : layer.get("objects")) {
+                            float x = platform.getFloat("x");
+                            float y = platform.getFloat("y");
+//                            createWeightedPlatform(scale, platform.getString("type"), x, y, levelHeight, tileSize);
+                        }
+                        break;
                     case "platforms":
                         for (JsonValue platform : layer.get("objects")) {
                             float x = platform.getFloat("x");
                             float y = platform.getFloat("y");
-                            float convertedX = x/100;
-                            float convertedY = y/100;
-                            createPlatform(scale, platform.get("type").toString(), convertedX, convertedY);
+                            createPlatform(scale, platform.getString("type"), x, y, levelHeight, tileSize);
                         }
                         break;
                     case "platformArt":
                         for (JsonValue a : layer.get("objects")) {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
-                            float convertedX = x/100;
-                            float convertedY = y/100;
-                            // TODO: convert x, y coord. to game/physics coord
-                            createPlatformArt(scale, a.get("type").toString(), convertedX, convertedY);
+                            createPlatformArt(scale, a.getString("type"), x, y, levelHeight, tileSize);
                         }
                         break;
                     case "player":
                         if (layer.get("objects").size > 0){
                             JsonValue player = layer.get("objects").get(0);
-                            float x = player.getFloat("x");
-                            float y = player.getFloat("y");
-                            float convertedX = x/100;
-                            float convertedY = y/100;
-                            System.out.println(x + " " + y + " " +  convertedX + " " + convertedY);
-                            createPlayer(scale, convertedX, convertedY);
+                            float x = player.getInt("x");
+                            float y = player.getInt("y");
+                            createPlayer(scale, x, y, levelHeight, tileSize);
                         }
                         break;
                 }
@@ -292,28 +298,6 @@ public class ObjectController {
 //        goalDoor.setTexture(goalTile);
 //        goalDoor.setName("goal");
 //        GameController.getInstance().instantiate(goalDoor);
-//
-//        String wname = "wall";
-//        JsonValue walljv = constants.get("walls");
-//        JsonValue defaults = constants.get("defaults");
-//        for (int ii = 0; ii < walljv.size; ii++) {
-//            PolygonGameObject obj;
-//            obj = new PolygonGameObject(walljv.get(ii).asFloatArray(), 0, 0);
-//            obj.setBodyType(BodyDef.BodyType.StaticBody);
-//            obj.setDensity(defaults.getFloat( "density", 0.0f ));
-//            obj.setFriction(defaults.getFloat( "friction", 0.0f ));
-//            obj.setRestitution(defaults.getFloat( "restitution", 0.0f ));
-//            obj.setDrawScale(scale);
-//            obj.setTexture(blackTile);
-//            obj.setName(wname+ii);
-//            GameController.getInstance().instantiate(obj);
-//        }
-//
-//        createPlatforms(scale, "default");
-//        createPlatforms(scale, "defaultEnd");
-//        createPlatforms(scale, "wire");
-//        createPlatforms(scale, "radio");
-//        createPlatforms(scale, "guitar");
 //
 //        String wpname = "wplatform";
 //        JsonValue wplatjv = constants.get("wplatforms");
@@ -370,6 +354,18 @@ public class ObjectController {
     }
 
     /**
+     * Convert Tiled coordinates to world coordinates.
+     *
+     * @param x The x Tiled coordinate.
+     * @param y The y Tiled coordinate.
+     * @param levelHeight The height of the screen.
+     * @param tileSize The size of the tiles.
+     * @return A Vector2 object where the x and y attributes are the converted world coordinates.
+     */
+    private Vector2 convertTiledCoord(float x, float y, int levelHeight, int tileSize){
+        return(new Vector2(x / tileSize, levelHeight - y / tileSize));
+    }
+    /**
      * Create the start tile and checkpoints
      */
     public void createCheckpoints(Vector2 scale) {
@@ -410,7 +406,7 @@ public class ObjectController {
 //            checkpoints.addLast(new Pair<>(obj, i));
 //        }
     }
-    public void createWall(Vector2 scale, float x, float y){
+    private void createWall(Vector2 scale, float x, float y){
         String wname = "wall";
         JsonValue defaults = defaultConstants.get("defaults");
         BoxGameObject obj;
@@ -432,7 +428,7 @@ public class ObjectController {
      * @param scale The Vector2 draw scale
      * @param type A string, either "default", "defaultEnd", "wire", "radio", "guitar"
      */
-    public void createPlatform(Vector2 scale, String type, float x, float y){
+    private void createPlatform(Vector2 scale, String type, float x, float y, int levelHeight, int tileSize){
         TextureRegion textureRegion;
         switch(type){
             default:
@@ -451,11 +447,16 @@ public class ObjectController {
                 textureRegion = guitarPlatform;
                 break;
         }
+        //  Adjust coordinates + Convert coordinates to world coordinates
+        y -= textureRegion.getRegionHeight()/2-4;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
+
         JsonValue defaults = defaultConstants.get("defaults");
         float dwidth  = textureRegion.getRegionWidth()/scale.x;
         float dheight = textureRegion.getRegionHeight()/scale.y;
         BoxGameObject platform;
-        platform = new BoxGameObject(x, y, dwidth, dheight);
+        platform = new BoxGameObject(convertedCoord.x, convertedCoord.y, dwidth, dheight);
         platform.setBodyType(BodyDef.BodyType.StaticBody);
         platform.setDensity(defaults.getFloat( "density", 0.0f ));
         platform.setFriction(defaults.getFloat( "friction", 0.0f ));
@@ -466,28 +467,59 @@ public class ObjectController {
         GameController.getInstance().instantiate(platform);
     }
 
-    public void createPlatformArt(Vector2 scale, String type, float x, float y){
+    private void createPlatformArt(Vector2 scale, String type, float x, float y, int levelHeight, int tileSize){
         TextureRegion textureRegion;
         switch(type){
             default:
-                textureRegion = wirePlatform;
+                textureRegion = platformTileArt;
                 break;
             case "radio":
-                textureRegion = radioPlatform;
-                break;
-            case "guitar":
-                textureRegion = guitarPlatform;
+                textureRegion = platformTileArt;
                 break;
         }
-        float dwidth  = textureRegion.getRegionWidth()/scale.x;
-        float dheight = textureRegion.getRegionHeight()/scale.y;
-        //TODO Art objects
+        //  Adjust coordinates + Convert coordinates to world coordinates
+        y -= textureRegion.getRegionHeight()/2;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
+
+        ArtObject platformArt = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
+        platformArt.setBodyType(BodyDef.BodyType.StaticBody);
+        platformArt.setDrawScale(scale);
+        GameController.getInstance().instantiate(platformArt);
     }
-    public void createPlayer(Vector2 scale, float startX, float startY){
-        //TODO: Figure out if having 2 refrences for player fields is okay
+
+    private void createWeightedPlatform(Vector2 scale, float x, float y, int levelHeight, int tileSize){
+//        //  Adjust coordinates + Convert coordinates to world coordinates
+//        y -= weightedSynth.getRegionHeight()/2-4;
+//        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+//        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
+//
+//        JsonValue defaults = defaultConstants.get("defaults");
+//        float dwidth  = weightedSynth.getRegionWidth()/scale.x;
+//        float dheight = weightedSynth.getRegionHeight()/scale.y;
+//        BoxGameObject platform;
+//        platform = new BoxGameObject(convertedCoord.x, convertedCoord.y, dwidth, dheight);
+//        WeightedPlatform obj;
+//        obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
+//                currentWP.get("jazzPos").asFloatArray(), currentWP.getFloat("speed"));
+//        obj.setBodyType(BodyDef.BodyType.StaticBody);
+//        obj.setDensity(defaults.getFloat("density", 0.0f));
+//        obj.setFriction(defaults.getFloat("friction", 1.0f));
+//        obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+//        obj.setDrawScale(scale);
+//        obj.setTexture(weightedPlatform);
+//        obj.setName(wpname + ii);
+//        GameController.getInstance().instantiate(obj);
+//        GameController.getInstance().instantiate(platform);
+    }
+    private void createPlayer(Vector2 scale, float startX, float startY, int levelHeight, int tileSize){
+        //  Convert coordinates to world coordinate
+        Vector2 convertedCoord = convertTiledCoord(startX, startY, levelHeight, tileSize);
+
+        //TODO: Figure out if having 2 references for player fields is okay
         float dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
         float dheight = synthDefaultTexture.getRegionHeight()/scale.y;
-        player = new Player(defaultConstants.get("player"), startX, startY,
+        player = new Player(defaultConstants.get("player"), convertedCoord.x, convertedCoord.y,
                 dwidth*playerScale, dheight*playerScale, playerScale);
         player.setDrawScale(scale);
 
