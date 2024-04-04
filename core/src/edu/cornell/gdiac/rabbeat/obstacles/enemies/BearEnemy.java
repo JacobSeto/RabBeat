@@ -13,6 +13,10 @@ import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
+/**
+ * Bear enemy avatar for the platform game.
+ * Bears shoot bullets that are synced to the beat.
+ */
 public class BearEnemy extends Enemy implements ISynced, IGenreObject {
 
     private float synthBeat = 1;
@@ -37,11 +41,11 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     /** Tells whether the bear was facing right or not when they shot */
     private boolean shotDirection;
 
-    /** The idle animation for the bear */
+    /** The idle animation for the bat */
     public Animation<TextureRegion> bearIdleAnimation;
 
     /**
-     * Creates a new enemy avatar with the given physics data
+     * Creates a bear enemy avatar with the given physics data
      *
      * @param data
      * @param width      The object width in physics units
@@ -119,9 +123,11 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
             makeBullet();
             System.out.println("shoot");
         }
-        setFaceRight(GameController.getInstance().getPlayer().getPosition().x - getPosition().x > 0);
+
+        flipEnemy();
     }
 
+    /** Updates the variable curGenre to the current genre of the game */
     public void genreUpdate(Genre genre) {
         curGenre = genre;
     }

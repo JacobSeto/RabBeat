@@ -5,11 +5,11 @@ import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
-public class Bee extends WheelGameObject implements ISynced, IGenreObject {
+public class BeeEnemy extends WheelGameObject implements ISynced, IGenreObject {
 
     public int beatCount = 0;
 
-    public Bee(float x, float y, float radius) {
+    public BeeEnemy(float x, float y, float radius) {
         super(x, y, radius);
     }
 

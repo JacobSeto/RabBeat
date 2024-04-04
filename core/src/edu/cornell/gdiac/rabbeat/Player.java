@@ -72,6 +72,9 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	/** Holds the genre of the ANIMATION. Doesn't specifically detect genre.*/
 	private Genre animationGenre;
 
+	/*TODO: ADD SPECS!*/
+	private GameObject bodyCollidedWith;
+
 	/** The synth genre idle animation for the player */
 	public Animation<TextureRegion> synthIdleAnimation;
 	/** The synth genre walking animation for the player */
@@ -396,11 +399,20 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 			jumpCooldown = Math.max(0, jumpCooldown - 1);
 		}
 
-
-
 		animationUpdate();
+
+		try {
+			//GameController.getInstance().createJoint(bodyCollidedWith, this);
+		} catch (Exception ignored) {}
+
+            animationUpdate();
+
 		stateTime += dt;
 		super.update(dt);
+	}
+
+	public void setBodyCollidedWith(GameObject bodyCollidedWith) {
+		this.bodyCollidedWith = bodyCollidedWith;
 	}
 
 	/**
