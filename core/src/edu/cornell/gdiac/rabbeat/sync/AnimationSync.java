@@ -11,7 +11,7 @@ public class AnimationSync implements ISynced{
     /** The animated objects that need to be synced with the game*/
     public Array<ISyncedAnimated> animatedObjects = new Array<>();
     /** Number of frames that play per beat */
-    float ANIMATION_FPB = 2.0f;
+    float ANIMATION_FPB = 4.0f;
 
     @Override
     public float getBeat() {
