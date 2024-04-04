@@ -398,9 +398,9 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
-		objectController.createCheckpoints(scale);
 		populateLevel();
-//		objectController.player.setPosition(respawnPoint);
+		objectController.setFirstCheckpointAsSpawn(scale);
+		objectController.player.setPosition(respawnPoint);
 		soundController.playMusic(Genre.SYNTH);
 	}
 
@@ -867,10 +867,8 @@ public class GameController implements Screen, ContactListener {
 		switch (genre) {
 			case SYNTH:
 				genre = Genre.JAZZ;
-				System.out.println("Now switching to jazz!");
 				break;
 			case JAZZ:
-				System.out.println("Now switching to synth!");
 				genre = Genre.SYNTH;
 				break;
 		}

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.*;
@@ -75,6 +76,7 @@ public class ObjectController {
 
     /** Reference to all the checkpoints */
     public ArrayList<Checkpoint> checkpoints = new ArrayList<>();
+    public float[] firstCheckpoint = new float[2];
 
     /** The player scale for synth */
     private float playerScale = 3/8f*2.5f;
@@ -258,6 +260,9 @@ public class ObjectController {
                             createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpSpeed[i], levelHeight, tileSize);
                         }
                         break;
+                    case "movingPlatforms":
+                        //do something
+                        break;
                     case "platforms":
                         for (JsonValue platform : layer.get("objects")) {
                             float x = platform.getFloat("x");
@@ -278,6 +283,30 @@ public class ObjectController {
                             float x = player.getInt("x");
                             float y = player.getInt("y");
                             createPlayer(scale, x, y, levelHeight, tileSize);
+                        }
+                        break;
+                    case "enemies":
+                        for (JsonValue enemy : layer.get("objects")) {
+                            String enemyType = enemy.getString("type");
+                            switch (enemyType){
+                                case "bear":
+                                    float x = enemy.getFloat("x");
+                                    float y = enemy.getFloat("y");
+                                    createEnemyBear(scale, x, y, levelHeight, tileSize);
+                            }
+                        }
+                        break;
+                    case "checkpoints":
+                        for (JsonValue checkpoint : layer.get("objects")) {
+                            float x = checkpoint.getFloat("x");
+                            float y = checkpoint.getFloat("y");
+                            int id = 0;
+                            for (JsonValue prop : checkpoint.get("properties")){
+                                if (prop.getString("name").equals("num")) {
+                                    id = prop.getInt("value");
+                                }
+                            }
+                            createCheckpoint(scale, x, y, id, levelHeight, tileSize);
                         }
                         break;
                 }
@@ -399,46 +428,43 @@ public class ObjectController {
         return(new Vector2(x / tileSize, levelHeight - y / tileSize));
     }
     /**
-     * Create the start tile and checkpoints
+     * Create a checkpoint
      */
-    public void createCheckpoints(Vector2 scale) {
-//        float checkpointWidth  = checkpointDefault.getRegionWidth()/scale.x;
-//        float checkpointHeight = checkpointDefault.getRegionHeight()/scale.y;
-//
-//        // Add the start tile as the current spawn point
-//        JsonValue start = constants.get("start");
-//        JsonValue startPos = start.get("pos");
-//        BoxGameObject startTile = new BoxGameObject(startPos.getFloat(0), startPos.getFloat(1), checkpointWidth, checkpointHeight);
-//        startTile.setBodyType(BodyDef.BodyType.StaticBody);
-//        startTile.setDensity(start.getFloat("density", 0));
-//        startTile.setFriction(start.getFloat("friction", 0));
-//        startTile.setRestitution(start.getFloat("restitution", 0));
-//        startTile.setSensor(true);
-//        startTile.setDrawScale(scale);
-//        startTile.setTexture(checkpointDefault);
-//        startTile.setName("start");
-//        GameController.getInstance().instantiate(startTile);
-//        //set respawn point to position of respawnPoint
-//        GameController.getInstance().setSpawn(startTile.getPosition());
-//
-//        // Populate all checkpoints
-//        for (int i = 0; i < constants.get("checkpoints").size; i++) {
-//            String cname = "checkpoint";
-//            JsonValue checkpoint = constants.get("checkpoints").get(i);
-//            JsonValue checkpointPos = checkpoint.get("pos");
-//            BoxGameObject obj = new BoxGameObject(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
-//            obj.setBodyType(BodyDef.BodyType.StaticBody);
-//            obj.setDensity(checkpoint.getFloat("density", 0));
-//            obj.setFriction(checkpoint.getFloat("friction", 0));
-//            obj.setRestitution(checkpoint.getFloat("restitution", 0));
-//            obj.setSensor(true);
-//            obj.setDrawScale(scale);
-//            obj.setTexture(checkpointDefault);
-//            obj.setName(cname + i);
-//            GameController.getInstance().instantiate(obj);
-//            checkpoints.addLast(new Pair<>(obj, i));
-//        }
+    private void createCheckpoint(Vector2 scale, float x, float y, int id, int levelHeight, int tileSize) {
+        // Convert coordinates to world coordinates
+        y -= checkpointDefault.getRegionHeight()/2.5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+
+        if (id == 0){
+            // Set first checkpoint as spawn point
+            firstCheckpoint[0] = convertedCoord.x;
+            firstCheckpoint[1] = convertedCoord.y;
+        }
+        float cWidth  = checkpointDefault.getRegionWidth()/scale.x;
+        float cHeight = checkpointDefault.getRegionHeight()/scale.y;
+
+        JsonValue defaults = defaultConstants.get("defaults");
+        Checkpoint obj = new Checkpoint(id, checkpointActive, convertedCoord.x, convertedCoord.y, cWidth, cHeight);
+        obj.setBodyType(BodyDef.BodyType.StaticBody);
+        obj.setDensity(defaults.getFloat("density", 0.0f));
+        obj.setFriction(defaults.getFloat("friction", 1.0f));
+        obj.setRestitution(defaults.getFloat("restitution", 0.0f));
+        obj.setSensor(true);
+        obj.setDrawScale(scale);
+        obj.setTexture(checkpointDefault);
+        GameController.getInstance().instantiate(obj);
+        checkpoints.add(obj);
     }
+
+    /**
+     * Sets the checkpoint with num = 0 as the spawn.
+     *
+     * @param scale Vector 2 scale used to draw
+     */
+    public void setFirstCheckpointAsSpawn(Vector2 scale){
+        GameController.getInstance().setSpawn(new Vector2(firstCheckpoint[0], firstCheckpoint[1]));
+    }
+
     /**
      * Create wall tiles
      * @param scale Scale to draw
@@ -581,8 +607,8 @@ public class ObjectController {
      * Create the player object.
      *
      * @param scale The Vector2 draw scale
-     * @param startX  The player's starting x coordinate
-     * @param startY The player's starting y coordinate
+     * @param startX  The player's starting x coordinate (pixels)
+     * @param startY The player's starting y coordinate (pixels)
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
@@ -611,5 +637,27 @@ public class ObjectController {
         player.jazzSpeed = jazzSpeed;
         player.setTexture(synthDefaultTexture);
         GameController.getInstance().instantiate(player);
+    }
+
+    /**
+     * Create a bear enemy.
+     *
+     * @param scale The Vector2 draw scale
+     * @param x  The bear's x coordinate (in pixels)
+     * @param y The bear's y coordinate (in pixels)
+     * @param levelHeight Height of level in number of tiles
+     * @param tileSize Height of tile in pixels
+     */
+    private void createEnemyBear(Vector2 scale, float x, float y, int levelHeight, int tileSize){
+        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+        BearEnemy bear;
+//        bear = new BearEnemy(, dwidth*enemyScale,
+//                dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+//        bear.setBodyType(BodyDef.BodyType.StaticBody);
+//        bear.setDrawScale(scale);
+//        bear.setTexture(enemyDefaultTexture);
+//        bear.setName(ename + ii);
+//        GameController.getInstance().instantiate(bear);
     }
 }
