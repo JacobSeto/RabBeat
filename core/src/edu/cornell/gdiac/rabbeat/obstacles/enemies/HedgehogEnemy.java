@@ -16,9 +16,6 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
     /** The distance that the hedgehog rolls */
     private final float rollingDistance;
 
-    /** Current genre that the game is on */
-    public Genre curGenre = Genre.SYNTH;
-
     /** The endpoint equivalent to the hedgehog's starting position */
     private final float point1 = getX();
 

@@ -12,8 +12,6 @@ import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 public class BeeHive extends Enemy implements ISynced, IGenreObject {
 
-    public Genre curGenre = Genre.SYNTH;
-
     public ObjectController objectController;
 
     ObjectController oc = GameController.getInstance().objectController;

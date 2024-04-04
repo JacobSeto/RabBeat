@@ -12,17 +12,21 @@ import com.badlogic.gdx.physics.box2d.*;
 //package edu.cornell.gdiac.physics.platform;
 
 import com.badlogic.gdx.utils.JsonValue;
+import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 /**
  * Enemy parent class for the platform game.
  */
-public abstract class Enemy extends CapsuleGameObject {
+public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated {
 
     /** Enum containing the state of the enemy */
     protected enum EnemyState{
         IDLE,
         ATTACKING
     }
+
+    /** Current genre that the game is on */
+    public Genre curGenre = Genre.SYNTH;
 
     /** The scale of the enemy */
     private float enemyScale;
@@ -41,6 +45,7 @@ public abstract class Enemy extends CapsuleGameObject {
 
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
+
 
     //range: how far away player is --> beat action called whenever an action is supposed to hapepn on beat
     //create switch states (wandering, shooting, etc). ENUM
@@ -142,13 +147,6 @@ public abstract class Enemy extends CapsuleGameObject {
     /** Switches enemy attacking state depending on its current state */
     public abstract void switchState();
 
-    /**
-     * Sets the enemy's current animation
-     */
-    public void setAnimation(Animation<TextureRegion> animation){
-        this.animation = animation;
-    }
-
 
     /** Returns the x position of the player */
     public float playerXPosition(){
@@ -183,5 +181,16 @@ public abstract class Enemy extends CapsuleGameObject {
     public void setType (String type) {
         this.type = type;
     }
+
+    public void setAnimation(Animation<TextureRegion> animation){
+        this.animation = animation;
+    }
+
+    public void updateAnimationFrame(){
+        stateTime++;
+    }
+    public float getBeat() {return 1;}
+
+    public void beatAction(){}
 
 }

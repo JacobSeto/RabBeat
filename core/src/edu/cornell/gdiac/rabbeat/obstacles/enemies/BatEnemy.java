@@ -29,9 +29,6 @@ import edu.cornell.gdiac.rabbeat.sync.ISynced;
 public class BatEnemy extends Enemy implements ISynced, IGenreObject {
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    /** Current genre that the game is on */
-    public Genre curGenre = Genre.SYNTH;
-
     /** the radius of attack of the bat's echo */
     private float echoRadius;
 
