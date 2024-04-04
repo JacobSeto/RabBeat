@@ -181,7 +181,7 @@ public class ObjectController {
         radioPlatform = new TextureRegion(directory.getEntry( "world:platforms:radioPlatform", Texture.class ));
         guitarPlatform = new TextureRegion(directory.getEntry( "world:platforms:guitarPlatform", Texture.class ));
         weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
-        weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
+        weightedJazz = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
         checkpointDefault  = new TextureRegion(directory.getEntry( "checkpoint:checkDefault", Texture.class ));
@@ -219,10 +219,41 @@ public class ObjectController {
                         }
                         break;
                     case "weightedPlatforms":
-                        for (JsonValue platform : layer.get("objects")) {
-                            float x = platform.getFloat("x");
-                            float y = platform.getFloat("y");
-//                            createWeightedPlatform(scale, platform.getString("type"), x, y, levelHeight, tileSize);
+                        //  Sort the synth/jazz weighted platform coordinates into arrays corresponding to the num value
+                        //  The index is used to identify a specific platform's synth and jazz position and its speed
+                        float[][] synthCoord = new float[layer.get("objects").size][2];
+                        float[][] jazzCoord = new float[layer.get("objects").size][2];
+                        float[] wpSpeed = new float[layer.get("objects").size];
+                        for (JsonValue wp : layer.get("objects")) {
+                            int num = 0;
+                            String genre = "";
+                            float speed = 0;
+                            for (JsonValue prop : wp.get("properties")){
+                                switch(prop.getString("name")){
+                                    case "num":
+                                        num = prop.getInt("value");
+                                        break;
+                                    case "genre":
+                                        genre = prop.getString("value");
+                                        break;
+                                    case "speed":
+                                        speed = prop.getFloat("value");
+                                        break;
+                                }
+                            }
+                            switch(genre){
+                                case "synth":
+                                    synthCoord[num] = new float[] {wp.getFloat("x"), wp.getFloat("y")};
+                                    break;
+                                case "jazz":
+                                    jazzCoord[num] = new float[] {wp.getFloat("x"), wp.getFloat("y")};
+                                    break;
+                            }
+                            wpSpeed[num] = speed;
+                        }
+                        //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
+                        for (int i=0; i<layer.get("objects").size/2; i++){
+                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpSpeed[i], levelHeight, tileSize);
                         }
                         break;
                     case "platforms":
@@ -488,29 +519,28 @@ public class ObjectController {
         GameController.getInstance().instantiate(platformArt);
     }
 
-    private void createWeightedPlatform(Vector2 scale, float x, float y, int levelHeight, int tileSize){
-//        //  Adjust coordinates + Convert coordinates to world coordinates
-//        y -= weightedSynth.getRegionHeight()/2-4;
-//        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
-//        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
-//
-//        JsonValue defaults = defaultConstants.get("defaults");
-//        float dwidth  = weightedSynth.getRegionWidth()/scale.x;
-//        float dheight = weightedSynth.getRegionHeight()/scale.y;
-//        BoxGameObject platform;
-//        platform = new BoxGameObject(convertedCoord.x, convertedCoord.y, dwidth, dheight);
-//        WeightedPlatform obj;
-//        obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
-//                currentWP.get("jazzPos").asFloatArray(), currentWP.getFloat("speed"));
-//        obj.setBodyType(BodyDef.BodyType.StaticBody);
-//        obj.setDensity(defaults.getFloat("density", 0.0f));
-//        obj.setFriction(defaults.getFloat("friction", 1.0f));
-//        obj.setRestitution(defaults.getFloat("restitution", 0.0f));
-//        obj.setDrawScale(scale);
-//        obj.setTexture(weightedPlatform);
-//        obj.setName(wpname + ii);
-//        GameController.getInstance().instantiate(obj);
-//        GameController.getInstance().instantiate(platform);
+    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, float speed, int levelHeight, int tileSize){
+        //  Adjust coordinates + Convert coordinates to world coordinates
+        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
+        Vector2 convertedSynthCoord = convertTiledCoord(synthCoord[0], synthCoord[1], levelHeight, tileSize);
+        convertedSynthCoord.set(convertedSynthCoord.x+1, convertedSynthCoord.y);
+        jazzCoord[1] -= weightedSynth.getRegionHeight()/2-4;
+        Vector2 convertedJazzCoord = convertTiledCoord(jazzCoord[0], jazzCoord[1], levelHeight, tileSize);
+        convertedJazzCoord.set(convertedJazzCoord.x+1, convertedJazzCoord.y);
+
+        JsonValue defaults = defaultConstants.get("defaults");
+        float dwidth  = weightedSynth.getRegionWidth()/scale.x;
+        float dheight = weightedSynth.getRegionHeight()/scale.y;
+        WeightedPlatform weightedPlatform;
+        weightedPlatform = new WeightedPlatform(convertedSynthCoord.x, convertedSynthCoord.y, dwidth, dheight,
+                new float[] {convertedSynthCoord.x, convertedSynthCoord.y}, new float[] {convertedJazzCoord.x, convertedJazzCoord.y},
+                speed, weightedSynth, weightedJazz);
+        weightedPlatform.setBodyType(BodyDef.BodyType.StaticBody);
+        weightedPlatform.setDensity(defaults.getFloat("density", 0.0f));
+        weightedPlatform.setFriction(defaults.getFloat("friction", 1.0f));
+        weightedPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
+        weightedPlatform.setDrawScale(scale);
+        GameController.getInstance().instantiate(weightedPlatform);
     }
     private void createPlayer(Vector2 scale, float startX, float startY, int levelHeight, int tileSize){
         //  Convert coordinates to world coordinate

@@ -156,6 +156,11 @@
                          "name":"num",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"",
@@ -179,6 +184,11 @@
                          "name":"num",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"",
@@ -202,6 +212,11 @@
                          "name":"num",
                          "type":"int",
                          "value":1
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"",
@@ -225,6 +240,11 @@
                          "name":"num",
                          "type":"int",
                          "value":1
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"",
@@ -388,6 +408,12 @@
                  "height":130,
                  "id":7,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"num",
+                         "type":"int",
+                         "value":1
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -400,6 +426,12 @@
                  "height":130,
                  "id":40,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"num",
+                         "type":"int",
+                         "value":2
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -412,6 +444,12 @@
                  "height":130,
                  "id":48,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"num",
+                         "type":"int",
+                         "value":0
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
