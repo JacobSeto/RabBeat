@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
+import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 
@@ -14,7 +15,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
  * This class provides a weighted platform which changes location depending on the genre.
  */
 
-public class MovingPlatform extends PolygonGameObject implements IGenreObject {
+public class MovingPlatform extends BoxGameObject implements IGenreObject {
     /** Position for the weighted platform when the game is in Synth mode **/
     private Array<Vector2> positionNodes;
     /** The moving platform's current tint color **/
@@ -37,6 +38,26 @@ public class MovingPlatform extends PolygonGameObject implements IGenreObject {
     /**The distance the platform should 'lock on' to its destination */
     private float LOCKDIST = 0.1f;
 
+
+    public MovingPlatform(float x, float y, float width, float height, float[] nodes, float speed) {
+        super(x, y, width, height);
+        platformSpeed = speed;
+        positionNodes = new Array<Vector2>();
+        for (int i = 0; i < nodes.length; i++) {
+            if ((i%2) == 1){
+
+                positionNodes.add(new Vector2(nodes[i-1], nodes[i]));
+            }
+        }
+        destination = 1;
+        home = 0;
+
+        setPosition(positionNodes.get(0));
+        velocity = direction(positionNodes.get(home), positionNodes.get(destination), platformSpeed);
+        moving = true;
+        tint = synthTint;
+    }
+    /*
     /**
      * Creates a new moving platform with the given physics data and current genre.
      *
@@ -44,6 +65,7 @@ public class MovingPlatform extends PolygonGameObject implements IGenreObject {
      * @param nodes The points where the platform goes to, must be of even length
      * @param speed The speed of the paltforms
      */
+    /*
     public MovingPlatform(float[] points, float[] nodes, float speed){
         super(points);
         platformSpeed = speed;
@@ -63,12 +85,7 @@ public class MovingPlatform extends PolygonGameObject implements IGenreObject {
         tint = synthTint;
     }
     /** Calculates the direction between vectors*/
-    @Override
-    public void draw(GameCanvas canvas) {
-        if (region != null) {
-            canvas.draw(region,tint,0,0,getX()*drawScale.x,getY()*drawScale.y,getAngle(),1,1);
-        }
-    }
+
     /** updates the platform to determine what direction it should be moving in */
     public void update(float delta){
         if(moving){
