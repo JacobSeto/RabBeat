@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.assets.AssetDirectory;
@@ -13,9 +15,11 @@ import edu.cornell.gdiac.rabbeat.obstacles.*;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.util.PooledList;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ObjectController {
     /** All the objects in the world. */
@@ -52,10 +56,16 @@ public class ObjectController {
     protected TextureRegion radioPlatform;
     /** The texture for guitar platforms */
     protected TextureRegion guitarPlatform;
+
     /** The texture for weighted platforms in Synth mode */
     protected TextureRegion weightedSynth;
     /** The texture for weighted platforms in Jazz mode */
     protected TextureRegion weightedJazz;
+
+    /** The texture for moving platforms in Synth mode */
+    protected TextureRegion movingSynth;
+    /** The texture for moving platforms in Jazz mode */
+    protected TextureRegion movingJazz;
 
     /** The texture for bullets */
     public TextureRegion bulletTexture;
@@ -183,8 +193,13 @@ public class ObjectController {
         wirePlatform = new TextureRegion(directory.getEntry( "world:platforms:wirePlatform", Texture.class ));
         radioPlatform = new TextureRegion(directory.getEntry( "world:platforms:radioPlatform", Texture.class ));
         guitarPlatform = new TextureRegion(directory.getEntry( "world:platforms:guitarPlatform", Texture.class ));
+
         weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
         weightedJazz = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
+
+        movingSynth = new TextureRegion((directory.getEntry("world:platforms:movingSynth", Texture.class)));
+        movingJazz = new TextureRegion((directory.getEntry("world:platforms:movingJazz", Texture.class)));
+
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
         checkpointDefault  = new TextureRegion(directory.getEntry( "checkpoint:checkDefault", Texture.class ));
@@ -261,7 +276,42 @@ public class ObjectController {
                         }
                         break;
                     case "movingPlatforms":
-                        //do something
+                        HashMap<Integer, Vector2[]> positionNodes = new HashMap<>();
+                        HashMap<Integer, Float> mpSpeed = new HashMap<>();
+                        for (JsonValue mp : layer.get("objects")) {
+                            int num = 0;
+                            int pos = 0;
+                            float speed = 0;
+                            int totalPos = 1;   //number of positions in this moving platform
+                            for (JsonValue prop : mp.get("properties")){
+                                switch(prop.getString("name")){
+                                    case "num":
+                                        num = prop.getInt("value");
+                                        break;
+                                    case "pos":
+                                        pos = prop.getInt("value");
+                                        break;
+                                    case "speed":
+                                        speed = prop.getFloat("value");
+                                        break;
+                                    case "totalPos":
+                                        totalPos = prop.getInt("value");
+                                        break;
+                                }
+                            }
+                            //  Store coordinates
+                            final int numOfNodes = totalPos;    // need to be final to be used in computeIfAbsent
+                            positionNodes.computeIfAbsent(num, key -> new Vector2[numOfNodes]);
+                            Vector2 coord = new Vector2(mp.getFloat("x"), mp.getFloat("y"));
+                            positionNodes.get(num)[pos] = coord;
+
+                            //  Store speed
+                            mpSpeed.put(num, speed);
+                        }
+                        //  Now actually create moving platforms
+                        for (int i=0; i<positionNodes.size(); i++){
+                            createMovingPlatform(scale, positionNodes.get(i), mpSpeed.get(i), levelHeight, tileSize);
+                        }
                         break;
                     case "platforms":
                         for (JsonValue platform : layer.get("objects")) {
@@ -609,6 +659,27 @@ public class ObjectController {
         weightedPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         weightedPlatform.setDrawScale(scale);
         GameController.getInstance().instantiate(weightedPlatform);
+    }
+
+    private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, float speed, int levelHeight, int tileSize){
+        //  Adjust coordinates + Convert coordinates to world coordinates
+        Vector2[] convertedPos = new Vector2[positionNodes.length];
+        for(int i=0; i<positionNodes.length; i++){
+            positionNodes[i].y -= movingSynth.getRegionHeight()/2-4;
+            convertedPos[i] = convertTiledCoord(positionNodes[i].x, positionNodes[i].y, levelHeight, tileSize);
+        }
+
+        JsonValue defaults = defaultConstants.get("defaults");
+        float dwidth  = movingSynth.getRegionWidth()/scale.x;
+        float dheight = movingSynth.getRegionHeight()/scale.y;
+        MovingPlatform movingPlatform;
+        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, speed, weightedSynth, weightedJazz);
+        movingPlatform.setBodyType(BodyDef.BodyType.StaticBody);
+        movingPlatform.setDensity(defaults.getFloat("density", 0.0f));
+        movingPlatform.setFriction(defaults.getFloat("friction", 1.0f));
+        movingPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
+        movingPlatform.setDrawScale(scale);
+        GameController.getInstance().instantiate(movingPlatform);
     }
 
     /**

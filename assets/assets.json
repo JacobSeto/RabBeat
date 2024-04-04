@@ -14,6 +14,10 @@
 
       "world:platforms:weightedJazz" : "world/platforms/jazzPlat.png",
 
+      "world:platforms:movingSynth" : "world/platforms/synthPlat.png",
+
+      "world:platforms:movingJazz" : "world/platforms/jazzPlat.png",
+
       "world:platforms:platform" : "world/platforms/purplePlat.png",
 
       "world:platforms:platformArt" : "world/platforms/purplePlatArt.png",

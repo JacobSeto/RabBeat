@@ -279,6 +279,16 @@
                          "name":"pos",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"totalPos",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"",
@@ -302,12 +312,22 @@
                          "name":"pos",
                          "type":"int",
                          "value":1
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"totalPos",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":192,
-                 "x":2176,
+                 "x":2240,
                  "y":832
                 }],
          "opacity":1,

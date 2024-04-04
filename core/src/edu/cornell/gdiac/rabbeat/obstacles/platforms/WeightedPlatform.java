@@ -21,7 +21,9 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject {
 
     /** Position for the weighted platform when the game is in Jazz mode **/
     private Vector2 jazzPosition;
+    /** Texture of the weighted platform in synth mode **/
     private TextureRegion synthTexture;
+    /** Texture of the weighted platform in jazz mode **/
     private TextureRegion jazzTexture;
     private int currentGenre;
     /** The speed at which the platform moves at**/
@@ -48,7 +50,7 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject {
     public WeightedPlatform(float width, float height, float[] synthPos, float[] jazzPos, float speed,
                             TextureRegion synthTexture, TextureRegion jazzTexture) {
 
-        super(synthPos[0], synthPos[0], width, height);
+        super(synthPos[0], synthPos[1], width, height);
 
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
         synthPosition = new Vector2(synthPos[0], synthPos[1]);
