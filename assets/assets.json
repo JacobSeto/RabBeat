@@ -28,7 +28,7 @@
 
       "world:weightedLaserTile" : "world/weightedLaserTile.png",
 
-      "world:goal": "world/goaldoor.png",
+      "world:goal": "world/goal.png",
 
       "checkpoint:checkDefault": "world/checkpoints/checkDefault.png",
 

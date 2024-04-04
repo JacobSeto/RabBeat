@@ -27,6 +27,11 @@
       "jazz": 2.5
     }
   },
+  "goal": {
+    "density": 0.0,
+    "friction": 0.0,
+    "restitution": 0.0
+  },
   "bullet": {
     "offset" : 0.5,
     "synth speed"  : 5.0,

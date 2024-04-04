@@ -309,6 +309,14 @@ public class ObjectController {
                             createCheckpoint(scale, x, y, id, levelHeight, tileSize);
                         }
                         break;
+                    case "goal":
+                        if (layer.get("objects").size > 0){
+                            JsonValue goal = layer.get("objects").get(0);
+                            float x = goal.getInt("x");
+                            float y = goal.getInt("y");
+                            createGoal(scale, x, y, levelHeight, tileSize);
+                        }
+                        break;
                 }
 
             }
@@ -431,7 +439,7 @@ public class ObjectController {
      * Create a checkpoint
      */
     private void createCheckpoint(Vector2 scale, float x, float y, int id, int levelHeight, int tileSize) {
-        // Convert coordinates to world coordinates
+        // Adjust and Convert coordinates to world coordinates
         y -= checkpointDefault.getRegionHeight()/2.5;
         Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
 
@@ -659,5 +667,26 @@ public class ObjectController {
 //        bear.setTexture(enemyDefaultTexture);
 //        bear.setName(ename + ii);
 //        GameController.getInstance().instantiate(bear);
+    }
+
+    private void createGoal(Vector2 scale, float x, float y, int levelHeight, int tileSize){
+        //  Adjust and Convert coordinates to world coordinate
+        y -= goalTile.getRegionHeight()/2.5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+
+        float dwidth  = goalTile.getRegionWidth()/scale.x;
+        float dheight = goalTile.getRegionHeight()/scale.y;
+
+        JsonValue data = defaultConstants.get("goal");
+        goalDoor = new BoxGameObject(convertedCoord.x,convertedCoord.y,dwidth,dheight);
+        goalDoor.setBodyType(BodyDef.BodyType.StaticBody);
+        goalDoor.setDensity(data.getFloat("density", 0));
+        goalDoor.setFriction(data.getFloat("friction", 0));
+        goalDoor.setRestitution(data.getFloat("restitution", 0));
+        goalDoor.setSensor(true);
+        goalDoor.setDrawScale(scale);
+        goalDoor.setTexture(goalTile);
+        goalDoor.setName("goal");
+        GameController.getInstance().instantiate(goalDoor);
     }
 }
