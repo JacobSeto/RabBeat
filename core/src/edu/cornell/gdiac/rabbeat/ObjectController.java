@@ -157,35 +157,36 @@ public class ObjectController {
 
         // Allocating player animations
         //  Synth
+        //Note: For animations, frame durations must be 1 for AnimationSync to work
         synthIdleAtlas = new TextureAtlas(Gdx.files.internal("player/synthIdle.atlas"));
-        synthIdleAnimation = new Animation<TextureRegion>(0.1f, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
+        synthIdleAnimation = new Animation<TextureRegion>(1, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
 
         synthWalkAtlas = new TextureAtlas(Gdx.files.internal("player/synthWalk.atlas"));
-        synthWalkAnimation = new Animation<TextureRegion>(0.06f, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
+        synthWalkAnimation = new Animation<TextureRegion>(1, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
 
         synthJumpAtlas = new TextureAtlas(Gdx.files.internal("player/synthJump.atlas"));
-        synthJumpAnimation = new Animation<TextureRegion>(0.08f, synthJumpAtlas.findRegions("synthJump"), Animation.PlayMode.NORMAL);
+        synthJumpAnimation = new Animation<TextureRegion>(1, synthJumpAtlas.findRegions("synthJump"), Animation.PlayMode.NORMAL);
 
         //  Jazz
         jazzIdleAtlas = new TextureAtlas(Gdx.files.internal("player/jazzIdle.atlas"));
-        jazzIdleAnimation = new Animation<TextureRegion>(0.11f, jazzIdleAtlas.findRegions("jazzIdle"), Animation.PlayMode.LOOP);
+        jazzIdleAnimation = new Animation<TextureRegion>(1, jazzIdleAtlas.findRegions("jazzIdle"), Animation.PlayMode.LOOP);
 
         jazzWalkAtlas = new TextureAtlas(Gdx.files.internal("player/jazzWalk.atlas"));
-        jazzWalkAnimation = new Animation<TextureRegion>(0.08f, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
+        jazzWalkAnimation = new Animation<TextureRegion>(1, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
 
         jazzJumpAtlas = new TextureAtlas(Gdx.files.internal("player/jazzJump.atlas"));
-        jazzJumpAnimation = new Animation<TextureRegion>(0.08f, jazzJumpAtlas.findRegions("jazzJump"), Animation.PlayMode.NORMAL);
+        jazzJumpAnimation = new Animation<TextureRegion>(1, jazzJumpAtlas.findRegions("jazzJump"), Animation.PlayMode.NORMAL);
 
         //  Allocating enemy animations
         //  Bear
         bearIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
-        bearIdleAnimation = new Animation<TextureRegion>(0.1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        bearIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
         //  Bat
         batIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
-        batIdleAnimation = new Animation<TextureRegion>(0.1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        batIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
         //  Hedgehog
         hedgehogIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
-        hedgehogIdleAnimation = new Animation<TextureRegion>(0.1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        hedgehogIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
 
 
         // Allocate the tiles

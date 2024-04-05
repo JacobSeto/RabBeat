@@ -17,7 +17,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
  * Bear enemy avatar for the platform game.
  * Bears shoot bullets that are synced to the beat.
  */
-public class BearEnemy extends Enemy implements ISynced, IGenreObject {
+public class BearEnemy extends Enemy implements IGenreObject {
 
     private float synthBeat = 1;
     private float jazzBeat = .5f;
@@ -31,9 +31,6 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
 
     /** Number of beats the bullet exists in jazz */
     private int jazzBulletTime = 8;
-
-    /** Current genre that the game is on */
-    public Genre curGenre = Genre.SYNTH;
 
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
