@@ -36,6 +36,8 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
      * Creates a new enemy avatar with the given physics data
      *
      * @param data
+     * @param x The beehive's x coordinate
+     * @param y The beehive's y coordinate
      * @param width      The object width in physics units
      * @param height     The object width in physics units
      * @param enemyScale
