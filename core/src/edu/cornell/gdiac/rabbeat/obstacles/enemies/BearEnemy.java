@@ -15,9 +15,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 
 public class BearEnemy extends Enemy implements ISynced, IGenreObject {
 
-    private float synthBeat = 1;
-    private float jazzBeat = .5f;
-    private float beat = .25f;
+    private final float beat = .25f;
 
     /** The bullet the bear will be shooting */
     public Bullet bullet;
@@ -43,15 +41,17 @@ public class BearEnemy extends Enemy implements ISynced, IGenreObject {
     /**
      * Creates a new enemy avatar with the given physics data
      *
-     * @param data
-     * @param width      The object width in physics units
-     * @param height     The object width in physics units
-     * @param enemyScale
-     * @param faceRight
+     * @param data          The physics constants for this enemy
+     * @param width         The object width in physics units
+     * @param height        The object width in physics units
+     * @param startX        The starting x position of the enemy
+     * @param startY	    The starting y position of the enemy
+     * @param enemyScale    The scale of the enemy
+     * @param faceRight     The direction the enemy is facing in
      */
-    public BearEnemy(JsonValue data, float width, float height, float enemyScale,
+    public BearEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
             boolean faceRight, Animation<TextureRegion> bearIdleAnimation) {
-        super(data, width, height, enemyScale, faceRight, bearIdleAnimation);
+        super(data, startX, startY, width, height, enemyScale, faceRight, bearIdleAnimation);
         setAnimation(bearIdleAnimation);
     }
 
