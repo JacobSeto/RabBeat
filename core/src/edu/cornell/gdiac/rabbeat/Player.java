@@ -251,13 +251,16 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	 * drawing to work properly, you MUST set the drawScale. The drawScale 
 	 * converts the physics units to pixels.
 	 *
-	 * @param data  	The physics constants for this dude
+	 * @param data  	The physics constants for this player
 	 * @param width		The object width in physics units
-	 * @param height	The object width in physics units
+	 * @param height	The object height in physics units
+	 * @param startX	The starting x position of the player
+	 * @param startY	The starting y position of the player
+	 * @param playerScale1	The scale of the player
 	 */
 	public Player(JsonValue data, float startX, float startY, float width, float height, float playerScale1) {
 		// The shrink factors fit the image to a tigher hitbox
-		super(	startX, startY,
+		super(startX, startY,
 				width*data.get("shrink").getFloat( 0 ),
 				height*data.get("shrink").getFloat( 1 ));
         setDensity(data.getFloat("density", 0));
