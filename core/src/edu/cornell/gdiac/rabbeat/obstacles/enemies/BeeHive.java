@@ -42,8 +42,8 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
      * @param faceRight
      * @param animation
      */
-    public BeeHive(JsonValue data, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
-        super(data, width, height, enemyScale, faceRight, animation);
+    public BeeHive(JsonValue data, float x, float y, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
+        super(data, x, y, width, height, enemyScale, faceRight, animation);
         setAnimation(animation);
     }
 
