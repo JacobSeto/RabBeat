@@ -41,18 +41,19 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
      * @param data                    The JsonValue storing information about the hedgehog
      * @param startX                  The starting x position of the enemy
      * @param startY	              The starting y position of the enemy
+     * @param rollingDistance         The distance which the hedgehog will roll
      * @param width                   The object width in physics units
      * @param height                  The object width in physics units
      * @param enemyScale              The scale of the hedgehog
      * @param faceRight               The direction the hedgehog is facing in
      * @param hedgehogIdleAnimation   The idle animation for the hedgehog
      */
-    public HedgehogEnemy(JsonValue data, float startX, float startY, float width, float height,
+    public HedgehogEnemy(JsonValue data, float startX, float startY, int rollingDistance, float width, float height,
             float enemyScale, boolean faceRight,
             Animation<TextureRegion> hedgehogIdleAnimation) {
         super(data, startX, startY, width, height, enemyScale, faceRight, hedgehogIdleAnimation);
         setAnimation(hedgehogIdleAnimation);
-        rollingDistance = data.getFloat("rollingDistance");
+        this.rollingDistance = rollingDistance;
         point2 = getX() - rollingDistance;
     }
 

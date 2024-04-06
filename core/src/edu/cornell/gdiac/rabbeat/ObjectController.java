@@ -17,6 +17,8 @@ import edu.cornell.gdiac.rabbeat.obstacles.*;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.HedgehogEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.util.PooledList;
@@ -362,6 +364,25 @@ public class ObjectController {
                                     float x = enemy.getFloat("x");
                                     float y = enemy.getFloat("y");
                                     createEnemyBear(scale, x, y, levelHeight, tileSize);
+                                    break;
+                                case "beehive":
+                                    x = enemy.getFloat("x");
+                                    y = enemy.getFloat("y");
+                                    createEnemyBeehive(scale, x, y, levelHeight, tileSize);
+                                    break;
+                                case "hedgehog":
+                                    x = enemy.getFloat("x");
+                                    y = enemy.getFloat("y");
+                                    int rollingDistance = 0;
+                                    for (JsonValue prop : enemy.get("properties")){
+                                        if(prop.getString("name").equals("rollingDistance")){
+                                            rollingDistance = prop.getInt("value");
+                                        }
+                                    }
+                                    createEnemyHedgehog(scale, x, y, rollingDistance, levelHeight, tileSize);
+                                    break;
+                                case "bat":
+                                    break;
                             }
                         }
                         break;
@@ -390,146 +411,6 @@ public class ObjectController {
 
             }
         }
-
-
-        //TODO: Load enemies
-//         dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-//         dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-
-//         String ename = "enemy";
-//         JsonValue enemiesjv = constants.get("enemies");
-//         for (int ii = 0; ii < enemiesjv.size; ii++){
-//             JsonValue currentEnemy = enemiesjv.get(ii);
-//             Enemy obj;
-
-//             if(currentEnemy.getString("type").equals("bat")) {
-//                 obj = new BatEnemy(currentEnemy, dwidth*enemyScale,
-//                         dheight*enemyScale, enemyScale, false, batIdleAnimation);
-//                 obj.setBodyType(BodyDef.BodyType.StaticBody);
-//                 obj.setDrawScale(scale);
-//                 obj.setTexture(enemyDefaultTexture);
-//                 obj.setName(ename + ii);
-//                 GameController.getInstance().instantiate(obj);
-//             }
-
-//             if(currentEnemy.getString("type").equals("bear")) {
-//                 obj = new BearEnemy(currentEnemy, dwidth*enemyScale,
-//                         dheight*enemyScale, enemyScale, false, bearIdleAnimation);
-//                 obj.setBodyType(BodyDef.BodyType.StaticBody);
-//                 obj.setDrawScale(scale);
-//                 obj.setTexture(enemyDefaultTexture);
-//                 obj.setName(ename + ii);
-//                 GameController.getInstance().instantiate(obj);
-//             }
-
-//             if(currentEnemy.getString("type").equals("hedgehog")) {
-//                 obj = new HedgehogEnemy(currentEnemy, dwidth*enemyScale,
-//                         dheight*enemyScale, enemyScale, false, hedgehogIdleAnimation);
-//                 obj.setBodyType(BodyDef.BodyType.StaticBody);
-//                 obj.setDrawScale(scale);
-//                 obj.setTexture(enemyDefaultTexture);
-//                 obj.setName(ename + ii);
-//                 GameController.getInstance().instantiate(obj);
-//             }
-//         }
-
-
-
-
-//        // Repopulate current checkpoints
-//        float checkpointWidth  = checkpointDefault.getRegionWidth()/scale.x;
-//        float checkpointHeight = checkpointDefault.getRegionHeight()/scale.y;
-//
-//        Queue<Pair<BoxGameObject, Integer>> newCheckpoints = new Queue<>();
-//        System.out.println(checkpoints);
-//        for (Pair<BoxGameObject, Integer> pair : checkpoints) {
-//            String cname = "checkpoint";
-//            JsonValue checkpoint = constants.get("checkpoints").get(pair.snd);
-//            JsonValue checkpointPos = checkpoint.get("pos");
-//            BoxGameObject obj = new BoxGameObject(checkpointPos.getFloat(0), checkpointPos.getFloat(1), checkpointWidth, checkpointHeight);
-//            obj.setBodyType(BodyDef.BodyType.StaticBody);
-//            obj.setDensity(checkpoint.getFloat("density", 0));
-//            obj.setFriction(checkpoint.getFloat("friction", 0));
-//            obj.setRestitution(checkpoint.getFloat("restitution", 0));
-//            obj.setSensor(true);
-//            obj.setDrawScale(scale);
-//            obj.setTexture(checkpointDefault);
-//            obj.setName(cname + pair.snd);
-//            GameController.getInstance().instantiate(obj);
-//            newCheckpoints.addLast(new Pair<>(obj, pair.snd));
-//        }
-//        checkpoints.clear();
-//        checkpoints = newCheckpoints;
-//
-//        // Add level goal
-//        float dwidth  = goalTile.getRegionWidth()/scale.x;
-//        float dheight = goalTile.getRegionHeight()/scale.y;
-//
-//        JsonValue goal = constants.get("goal");
-//        JsonValue goalpos = goal.get("pos");
-//        goalDoor = new BoxGameObject(goalpos.getFloat(0),goalpos.getFloat(1),dwidth,dheight);
-//        goalDoor.setBodyType(BodyDef.BodyType.StaticBody);
-//        goalDoor.setDensity(goal.getFloat("density", 0));
-//        goalDoor.setFriction(goal.getFloat("friction", 0));
-//        goalDoor.setRestitution(goal.getFloat("restitution", 0));
-//        goalDoor.setSensor(true);
-//        goalDoor.setDrawScale(scale);
-//        goalDoor.setTexture(goalTile);
-//        goalDoor.setName("goal");
-//        GameController.getInstance().instantiate(goalDoor);
-//
-//        String wpname = "wplatform";
-//        JsonValue wplatjv = constants.get("wplatforms");
-//        for (int ii = 0; ii < wplatjv.size; ii++) {
-//            JsonValue currentWP = wplatjv.get(ii);
-//            WeightedPlatform obj;
-//            obj = new WeightedPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("synthPos").asFloatArray(),
-//                    currentWP.get("jazzPos").asFloatArray(), currentWP.getFloat("speed"));
-//            obj.setBodyType(BodyDef.BodyType.StaticBody);
-//            obj.setDensity(defaults.getFloat("density", 0.0f));
-//            obj.setFriction(defaults.getFloat("friction", 1.0f));
-//            obj.setRestitution(defaults.getFloat("restitution", 0.0f));
-//            obj.setDrawScale(scale);
-//            obj.setTexture(weightedPlatform);
-//            obj.setName(wpname + ii);
-//            GameController.getInstance().instantiate(obj);
-//        }
-//        /** moving platform instantiation*/
-//        String mpname = "mplatform";
-//        JsonValue mplatjv = constants.get("mplatforms");
-//        for (int ii = 0; ii < mplatjv.size; ii++) {
-//            JsonValue currentWP = mplatjv.get(ii);
-//            MovingPlatform obj;
-//            obj = new MovingPlatform(currentWP.get("pos").asFloatArray(), currentWP.get("nodes").asFloatArray(),
-//                    currentWP.getFloat("speed"));
-//            obj.setBodyType(BodyDef.BodyType.StaticBody);
-//            obj.setDensity(defaults.getFloat("density", 0.0f));
-//            obj.setFriction(defaults.getFloat("friction", 10.0f));
-//            obj.setRestitution(defaults.getFloat("restitution", 0.0f));
-//            obj.setDrawScale(scale);
-//            obj.setTexture(weightedPlatform);
-//            obj.setName(mpname + ii);
-//            GameController.getInstance().instantiate(obj);
-//        }
-//
-//        //TODO: Load enemies
-//        dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-//        dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-//
-//        String ename = "enemy";
-//        JsonValue enemiesjv = constants.get("enemies");
-//        for (int ii = 0; ii < enemiesjv.size; ii++){
-//            JsonValue currentEnemy = enemiesjv.get(ii);
-//            BearEnemy obj;
-//            obj = new BearEnemy(currentEnemy, dwidth*enemyScale,
-//                    dheight*enemyScale, enemyScale, false, bearIdleAnimation);
-//            obj.setBodyType(BodyDef.BodyType.StaticBody);
-//            obj.setDrawScale(scale);
-//            obj.setTexture(enemyDefaultTexture);
-//            obj.setName(ename + ii);
-//            GameController.getInstance().instantiate(obj);
-//        }
-
     }
 
     /**
@@ -777,30 +658,6 @@ public class ObjectController {
         GameController.getInstance().instantiate(player);
     }
 
-    /**
-     * Create a bear enemy.
-     *
-     * @param scale The Vector2 draw scale
-     * @param x  The bear's x coordinate (in pixels)
-     * @param y The bear's y coordinate (in pixels)
-     * @param levelHeight Height of level in number of tiles
-     * @param tileSize Height of tile in pixels
-     */
-    private void createEnemyBear(Vector2 scale, float x, float y, int levelHeight, int tileSize){
-        //  Convert coordinates to world coordinate
-        y -= enemyDefaultTexture.getRegionHeight()/5;
-        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
-
-        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-        BearEnemy bear = new BearEnemy(defaultConstants.get("enemies"), convertedCoord.x, convertedCoord.y,
-                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearIdleAnimation);
-        bear.setBodyType(BodyDef.BodyType.StaticBody);
-        bear.setDrawScale(scale);
-        bear.setTexture(enemyDefaultTexture);
-        GameController.getInstance().instantiate(bear);
-    }
-
     private void createGoal(Vector2 scale, float x, float y, int levelHeight, int tileSize){
         //  Adjust and Convert coordinates to world coordinate
         y -= goalTile.getRegionHeight()/2.5;
@@ -820,5 +677,81 @@ public class ObjectController {
         goalDoor.setTexture(goalTile);
         goalDoor.setName("goal");
         GameController.getInstance().instantiate(goalDoor);
+    }
+
+    /**
+     * Create a bear enemy.
+     *
+     * @param scale The Vector2 draw scale
+     * @param x  The bear's x coordinate (in pixels)
+     * @param y The bear's y coordinate (in pixels)
+     * @param levelHeight Height of level in number of tiles
+     * @param tileSize Height of tile in pixels
+     */
+    private void createEnemyBear(Vector2 scale, float x, float y, int levelHeight, int tileSize){
+        //  Convert coordinates to world coordinate
+        y -= enemyDefaultTexture.getRegionHeight()/5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+
+        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+        BearEnemy bear = new BearEnemy(defaultConstants.get("bears"), convertedCoord.x, convertedCoord.y,
+                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+        bear.setBodyType(BodyDef.BodyType.StaticBody);
+        bear.setDrawScale(scale);
+        bear.setTexture(enemyDefaultTexture);
+        GameController.getInstance().instantiate(bear);
+    }
+
+    /**
+     * Create a beehive enemy which releases bees.
+     *
+     * @param scale The Vector2 draw scale
+     * @param x  The beehive's x coordinate (in pixels)
+     * @param y The beehive's y coordinate (in pixels)
+     * @param levelHeight Height of level in number of tiles
+     * @param tileSize Height of tile in pixels
+     */
+    private void createEnemyBeehive(Vector2 scale, float x, float y, int levelHeight, int tileSize){
+        //  Convert coordinates to world coordinate
+        //TODO: change to beehive texture when we get art for this
+        y -= enemyDefaultTexture.getRegionHeight()/5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+
+        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+        BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
+                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+        beehive.setBodyType(BodyDef.BodyType.StaticBody);
+        beehive.setDrawScale(scale);
+        beehive.setTexture(enemyDefaultTexture);
+        GameController.getInstance().instantiate(beehive);
+    }
+
+    /**
+     * Create a hedgehog enemy.
+     *
+     * @param scale The Vector2 draw scale
+     * @param x  The hedgehog's x coordinate (in pixels)
+     * @param y The hedgehog's y coordinate (in pixels)
+     * @param rollingDistance The hedgehog's rollingDistance (in world coordinates)
+     * @param levelHeight Height of level in number of tiles
+     * @param tileSize Height of tile in pixels
+     */
+    private void createEnemyHedgehog(Vector2 scale, float x, float y, int rollingDistance, int levelHeight, int tileSize){
+        //  Convert coordinates to world coordinate
+        //TODO: change to hedgehog texture when we get art for this
+        y -= enemyDefaultTexture.getRegionHeight()/5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+
+        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+        HedgehogEnemy hedgehog = new HedgehogEnemy(defaultConstants.get("hedgehogs"), convertedCoord.x, convertedCoord.y,
+                rollingDistance, dwidth*enemyScale, dheight*enemyScale,
+                enemyScale, false, bearIdleAnimation);
+        hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
+        hedgehog.setDrawScale(scale);
+        hedgehog.setTexture(enemyDefaultTexture);
+        GameController.getInstance().instantiate(hedgehog);
     }
 }
