@@ -31,17 +31,17 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
     /**
      * Creates a new bee hive avatar with the given physics data
      *
-     * @param data
-     * @param x The beehive's x coordinate
-     * @param y The beehive's y coordinate
-     * @param width      The object width in physics units
-     * @param height     The object width in physics units
-     * @param enemyScale
-     * @param faceRight
-     * @param animation
+     * @param data                  The JsonValue storing information about the beehive
+     * @param startX                The starting x position of the enemy
+     * @param startY                The starting y position of the enemy
+     * @param width                 The object width in physics units
+     * @param height                The object width in physics units
+     * @param enemyScale            The scale of the beehive
+     * @param faceRight             The direction the beehive is facing in
+     * @param animation             The idle animation for the beehive
      */
-    public BeeHive(JsonValue data, float x, float y, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
-        super(data, x, y, width, height, enemyScale, faceRight, animation);
+    public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, animation);
         setAnimation(animation);
     }
 
