@@ -16,6 +16,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.*;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.util.PooledList;
@@ -786,16 +787,18 @@ public class ObjectController {
      * @param tileSize Height of tile in pixels
      */
     private void createEnemyBear(Vector2 scale, float x, float y, int levelHeight, int tileSize){
+        //  Convert coordinates to world coordinate
+        y -= enemyDefaultTexture.getRegionHeight()/5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+
         float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-       // BearEnemy bear;
-//        bear = new BearEnemy(, dwidth*enemyScale,
-//                dheight*enemyScale, enemyScale, false, bearIdleAnimation);
-//        bear.setBodyType(BodyDef.BodyType.StaticBody);
-//        bear.setDrawScale(scale);
-//        bear.setTexture(enemyDefaultTexture);
-//        bear.setName(ename + ii);
-//        GameController.getInstance().instantiate(bear);
+        BearEnemy bear = new BearEnemy(defaultConstants.get("enemies"), convertedCoord.x, convertedCoord.y,
+                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+        bear.setBodyType(BodyDef.BodyType.StaticBody);
+        bear.setDrawScale(scale);
+        bear.setTexture(enemyDefaultTexture);
+        GameController.getInstance().instantiate(bear);
     }
 
     private void createGoal(Vector2 scale, float x, float y, int levelHeight, int tileSize){

@@ -32,6 +32,25 @@
     "friction": 0.0,
     "restitution": 0.0
   },
+  "enemies": {
+    "shrink": [
+      0.7,
+      0.95
+    ],
+    "force": 20.0,
+    "damping": 10.0,
+    "density": 1.0,
+    "friction": 10.0,
+    "shot_cool": 40,
+    "sensor": {
+      "shrink": 0.6,
+      "height": 0.05
+    },
+    "max_speed": {
+      "synth": 6.0,
+      "jazz": 2.5
+    }
+  },
   "bullet": {
     "offset" : 0.5,
     "synth speed"  : 5.0,
