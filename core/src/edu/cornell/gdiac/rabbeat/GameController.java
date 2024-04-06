@@ -78,9 +78,9 @@ public class GameController implements Screen, ContactListener {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
-	protected static final float DEFAULT_WIDTH = 32.0f;
+	protected static final float DEFAULT_WIDTH = 57.6f;
 	/** Height of the game world in Box2d units */
-	protected static final float DEFAULT_HEIGHT = 18.0f;
+	protected static final float DEFAULT_HEIGHT = 32.4f;
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -4.9f;
 
@@ -399,8 +399,8 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
-		objectController.createCheckpoints(scale);
 		populateLevel();
+		objectController.setFirstCheckpointAsSpawn(scale);
 		objectController.player.setPosition(respawnPoint);
 		soundController.playMusic(Genre.SYNTH);
 	}
@@ -441,9 +441,9 @@ public class GameController implements Screen, ContactListener {
 	private void populateLevel() {
 
 		// world starts with Synth gravity
-		world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("synth", 0)));
+		world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
 		// TODO This volume constant is never used
-		float volume = objectController.constants.getFloat("volume", 1.0f);
+		float volume = objectController.defaultConstants.getFloat("volume", 1.0f);
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
@@ -697,11 +697,11 @@ public class GameController implements Screen, ContactListener {
 		soundController.setGenre(genre);
 		// update to Synth
 		if (genre == Genre.SYNTH) {
-			world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("synth", 0)));
+			world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
 		}
 		// update to Jazz
 		else {
-			world.setGravity(new Vector2(0, objectController.constants.get("genre_gravity").getFloat("jazz", 0)));
+			world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("jazz", 0)));
 		}
 
 		for (IGenreObject g : objectController.genreObjects) {
@@ -724,8 +724,6 @@ public class GameController implements Screen, ContactListener {
 		while (!objectController.addQueue.isEmpty()) {
 			instantiate(objectController.addQueue.poll());
 		}
-
-		//System.out.println(getPlayer().getPosition());
 
 		// Turn the physics engine crank.
 		world.step(WORLD_STEP, WORLD_VELOC, WORLD_POSIT);
@@ -777,9 +775,9 @@ public class GameController implements Screen, ContactListener {
 		canvas.end();
 
 		// Draw the background overlays on top of everything
-		canvas.begin();
-		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
-		canvas.end();
+//		canvas.begin();
+//		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
+//		canvas.end();
 
 		if (debug) {
 			canvas.beginDebug();
@@ -888,10 +886,8 @@ public class GameController implements Screen, ContactListener {
 		switch (genre) {
 			case SYNTH:
 				genre = Genre.JAZZ;
-				System.out.println("Now switching to jazz!");
 				break;
 			case JAZZ:
-				System.out.println("Now switching to synth!");
 				genre = Genre.SYNTH;
 				break;
 		}
