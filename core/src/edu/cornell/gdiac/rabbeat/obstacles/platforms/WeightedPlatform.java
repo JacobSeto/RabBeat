@@ -1,11 +1,9 @@
 package edu.cornell.gdiac.rabbeat.obstacles.platforms;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 
@@ -15,16 +13,18 @@ import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
  * This class provides a weighted platform which changes location depending on the genre.
  */
 
-public class WeightedPlatform extends BoxGameObject implements IGenreObject {
+public class WeightedPlatform extends PolygonGameObject implements IGenreObject {
     /** Position for the weighted platform when the game is in Synth mode **/
     private Vector2 synthPosition;
 
     /** Position for the weighted platform when the game is in Jazz mode **/
     private Vector2 jazzPosition;
-    /** Texture of the weighted platform in synth mode **/
-    private TextureRegion synthTexture;
-    /** Texture of the weighted platform in jazz mode **/
-    private TextureRegion jazzTexture;
+    /** The weighted platform's current tint color **/
+    private Color tint;
+    /** The weighted platform's tint in synth mode **/
+    private Color synthTint = new Color(255/255f, 0, 189/255f, 1);
+    /** The weighted platform's tint in jazz mode **/
+    private Color jazzTint = new Color(200/255f, 0, 0, 1);
     private int currentGenre;
     /** The speed at which the platform moves at**/
     private float platformSpeed;
@@ -34,33 +34,28 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject {
 
     /**The distance the platform should 'lock on' to its destination */
     private float LOCKDIST = 0.1f;
+
     /**
      * Creates a new weighted platform with the given physics data and current genre.
      *
-     * @param width     The weighted platform's width.
-     * @param height    The weighted platform's height.
+     * @param points  	The polygon vertices
      * @param synthPos  The array with index 0 and 1 holding the x and y coordinates for the platform's position in
-     *                  synth mode
+     *                  jazz mode
      * @param jazzPos	The array with index 0 and 1 holding the x and y coordinates for the platform's position in jazz
      *                  mode
      * @param speed     The speed of the platform
-     * @param synthTexture The weighted platform's texture region used in synth mode.
-     * @param jazzTexture The weighted platform's texture region used in jazz mode.
      */
-    public WeightedPlatform(float width, float height, float[] synthPos, float[] jazzPos, float speed,
-                            TextureRegion synthTexture, TextureRegion jazzTexture) {
-
-        super(synthPos[0], synthPos[1], width, height);
-
+    public WeightedPlatform(float[] points, float[] synthPos, float[] jazzPos, float speed){
+        super(points);
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
         synthPosition = new Vector2(synthPos[0], synthPos[1]);
-        this.synthTexture = synthTexture;
-        this.jazzTexture = jazzTexture;
-        setTexture(synthTexture);
+        tint = synthTint;
         setPosition(synthPosition);
         moving = false;
         platformSpeed = speed;
 
+        /** calculates the difference between the two positions of the platforms, normalizes it, and then
+         * converts that into the velocity**/
         float magnitude1 = magnitude(jazzPosition, synthPosition);
 
         velocity = new Vector2((jazzPosition.x - synthPosition.x)*platformSpeed/magnitude1,
@@ -81,6 +76,12 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject {
         }
     }
 
+    @Override
+    public void draw(GameCanvas canvas) {
+        if (region != null) {
+            canvas.draw(region,tint,0,0,getX()*drawScale.x,getY()*drawScale.y,getAngle(),1,1);
+        }
+    }
     /** updates the platform to determine what direction it should be moving in */
     public void update(float delta){
         if(moving){
@@ -116,13 +117,13 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject {
         switch(genre) {
             case JAZZ:
                 //setPosition(jazzPosition);
-                setTexture(jazzTexture);
+                tint = jazzTint;
                 moving = true;
                 currentGenre = 1;
                 break;
             case SYNTH:
                 //setPosition(synthPosition);
-                setTexture(synthTexture);
+                tint = synthTint;
                 moving = true;
                 currentGenre = 0;
                 break;

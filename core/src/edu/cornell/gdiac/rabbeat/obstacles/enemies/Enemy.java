@@ -54,18 +54,13 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     /**
      * Creates a new enemy avatar with the given physics data
      *
-     * @param data   	    The physics constants for this enemy
-     * @param startX        The starting x position of the enemy
-     * @param startY	    The starting y position of the enemy
-     * @param width	    The object width in physics units
-     * @param height	    The object width in physics units
-     * @param enemyScale    The scale of the enemy
-     * @param faceRight     The direction the enemy is facing in
-     * @param animation     The animation texture for the enemy
+     * @param width	The object width in physics units
+     * @param height	The object width in physics units
      */
-    public Enemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
+    public Enemy(JsonValue data, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
         // The shrink factors fit the image to a tigher hitbox
-        super(startX, startY,
+        super(  data.get("pos").getFloat(0),
+                data.get("pos").getFloat(1),
                 width*data.get("shrink").getFloat( 0 ),
                 height*data.get("shrink").getFloat( 1 ));
 

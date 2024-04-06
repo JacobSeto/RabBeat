@@ -1,11 +1,12 @@
 package edu.cornell.gdiac.rabbeat.obstacles.platforms;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
+import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 
 /**
  * WeightedPlatform.java
@@ -13,15 +14,15 @@ import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
  * This class provides a weighted platform which changes location depending on the genre.
  */
 
-public class MovingPlatform extends BoxGameObject implements IGenreObject {
+public class MovingPlatform extends PolygonGameObject implements IGenreObject {
     /** Position for the weighted platform when the game is in Synth mode **/
-    private Vector2[] positionNodes;
+    private Array<Vector2> positionNodes;
     /** The moving platform's current tint color **/
     private Color tint;
-    /** Texture of the moving platform in synth mode **/
-    private TextureRegion synthTexture;
-    /** Texture of the moving platform in jazz mode **/
-    private TextureRegion jazzTexture;
+    /** The moving platform's tint in synth mode **/
+    private Color synthTint = new Color(255/255f, 0, 189/255f, 1);
+    /** The moving platform's tint in jazz mode **/
+    private Color jazzTint = new Color(200/255f, 0, 0, 1);
     /** The speed at which the platform moves at**/
     private float platformSpeed;
     /** the direction the platform is moving in*/
@@ -39,41 +40,47 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject {
     /**
      * Creates a new moving platform with the given physics data and current genre.
      *
-     * @param width The width of the moving platform
-     * @param height The height of the moving platform
+     * @param points  	The polygon vertices
      * @param nodes The points where the platform goes to, must be of even length
-     * @param speed The speed of the platform
-     * @param synthTexture The texture region used when in synth mode
-     * @param jazzTexture The texture region used when in jazz mode
+     * @param speed The speed of the paltforms
      */
-    public MovingPlatform(float width, float height, Vector2[] nodes, float speed, TextureRegion synthTexture,
-                          TextureRegion jazzTexture) {
-        super(nodes[0].x, nodes[0].y, width, height);
+    public MovingPlatform(float[] points, float[] nodes, float speed){
+        super(points);
         platformSpeed = speed;
-        positionNodes = nodes;
+        positionNodes = new Array<Vector2>();
+        for (int i = 0; i < nodes.length; i++) {
+            if ((i%2) == 1){
+
+                positionNodes.add(new Vector2(nodes[i-1], nodes[i]));
+            }
+        }
         destination = 1;
         home = 0;
-        this.synthTexture = synthTexture;
-        this.jazzTexture = jazzTexture;
 
-        setTexture(synthTexture);
-        setPosition(positionNodes[0]);
-        velocity = direction(positionNodes[home], positionNodes[destination], platformSpeed);
+        setPosition(positionNodes.get(0));
+        velocity = direction(positionNodes.get(home), positionNodes.get(destination), platformSpeed);
         moving = true;
+        tint = synthTint;
     }
-
+    /** Calculates the direction between vectors*/
+    @Override
+    public void draw(GameCanvas canvas) {
+        if (region != null) {
+            canvas.draw(region,tint,0,0,getX()*drawScale.x,getY()*drawScale.y,getAngle(),1,1);
+        }
+    }
     /** updates the platform to determine what direction it should be moving in */
     public void update(float delta){
         if(moving){
-            if ((magnitude(getPosition(), positionNodes[destination])<LOCKDIST)){
+            if ((magnitude(getPosition(), positionNodes.get(destination))<LOCKDIST)){
                 home = destination;
-                if (destination == positionNodes.length-1){
+                if (destination == positionNodes.size-1){
                     destination = 0;
                 }
                 else{
                     destination+=1;
                 }
-                velocity = direction(positionNodes[home], positionNodes[destination], platformSpeed);
+                velocity = direction(positionNodes.get(home), positionNodes.get(destination), platformSpeed);
                 move(delta);
             }
             else{
@@ -99,10 +106,10 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject {
     public void move(Genre genre) {
         switch(genre) {
             case JAZZ:
-                setTexture(jazzTexture);
+                tint = jazzTint;
                 break;
             case SYNTH:
-                setTexture(synthTexture);
+                tint = synthTint;
                 break;
         }
     }
