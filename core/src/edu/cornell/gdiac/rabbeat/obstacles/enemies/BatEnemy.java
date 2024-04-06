@@ -40,15 +40,17 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
      * Creates a bat enemy avatar with the given physics data
      *
      * @param data                  The JsonValue storing information about the bat
+     * @param startX                The starting x position of the bat
+     * @param startY	            The starting y position of the bat
      * @param width                 The object width in physics units
      * @param height                The object width in physics units
-     * @param enemyScale            The scale of the enemy
+     * @param enemyScale            The scale of the bat
      * @param faceRight             The direction the bat is facing in
      * @param batIdleAnimation      The idle animation for the bat
      */
-    public BatEnemy(JsonValue data, float width, float height, float enemyScale,
+    public BatEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
             boolean faceRight, Animation<TextureRegion> batIdleAnimation) {
-        super(data, width, height, enemyScale, faceRight, batIdleAnimation);
+        super(data, startX, startY, width, height, enemyScale, faceRight, batIdleAnimation);
         setAnimation(batIdleAnimation);
     }
 
@@ -134,38 +136,38 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
 //        WheelGameObject w = new WheelGameObject(getX(), getY(), (float) 0.06);
 //        GameController.getInstance().instantiateQueue(w);
 
-        ObjectController oc = GameController.getInstance().objectController;
-        float offset =  oc.constants.get("bullet").getFloat("offset",0);
-        offset *= (isFaceRight() ? 1 : -1);
-
-        float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
-        System.out.println("RADIUS: " + radius);
-        System.out.println("ECHORADIUS: " + echoRadius);
-        bullet = new Bullet(getX()+offset, getY(), radius, oc.constants.get("bullet").getFloat("synth speed", 0),
-                oc.constants.get("bullet").getFloat("jazz speed", 0), isFaceRight());
-
-        bullet.setName(getName() + "_bullet");
-        bullet.setDensity(oc.constants.get("bullet").getFloat("density", 0));
-        bullet.setDrawScale(scale);
-        bullet.setTexture(oc.bulletTexture);
-        bullet.setGravityScale(0);
-        shotDirection = isFaceRight();
-
-        //Compute position and velocity
-        float speed;
-        int beatcount;
-        if (curGenre == Genre.SYNTH){
-            speed = oc.constants.get("bullet").getFloat("synth speed", 0);
-            beatcount = 3;
-        }
-        else {
-            speed = oc.constants.get("bullet").getFloat("jazz speed", 0);
-            beatcount = 8;
-        }
-        speed *= (isFaceRight() ? 1 : -1);
-        bullet.setVX(speed);
-        bullet.beatCount = beatcount;
-        GameController.getInstance().instantiateQueue(bullet);
+//        ObjectController oc = GameController.getInstance().objectController;
+//        float offset =  oc.defaultConstants.get("bullet").getFloat("offset",0);
+//        offset *= (isFaceRight() ? 1 : -1);
+//
+//        float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
+//        System.out.println("RADIUS: " + radius);
+//        System.out.println("ECHORADIUS: " + echoRadius);
+//        bullet = new Bullet(getX()+offset, getY(), radius, oc.defaultConstants.get("bullet").getFloat("synth speed", 0),
+//                oc.defaultConstants.get("bullet").getFloat("jazz speed", 0), isFaceRight());
+//
+//        bullet.setName(getName() + "_bullet");
+//        bullet.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
+//        bullet.setDrawScale(scale);
+//        bullet.setTexture(oc.bulletTexture);
+//        bullet.setGravityScale(0);
+//        shotDirection = isFaceRight();
+//
+//        //Compute position and velocity
+//        float speed;
+//        int beatcount;
+//        if (curGenre == Genre.SYNTH){
+//            speed = oc.defaultConstants.get("bullet").getFloat("synth speed", 0);
+//            beatcount = 3;
+//        }
+//        else {
+//            speed = oc.defaultConstants.get("bullet").getFloat("jazz speed", 0);
+//            beatcount = 8;
+//        }
+//        speed *= (isFaceRight() ? 1 : -1);
+//        bullet.setVX(speed);
+//        bullet.beatCount = beatcount;
+//        GameController.getInstance().instantiateQueue(bullet);
 //
     }
 

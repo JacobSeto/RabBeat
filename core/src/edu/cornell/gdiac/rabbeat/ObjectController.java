@@ -143,7 +143,7 @@ public class ObjectController {
     private float synthSpeed;
     private float jazzSpeed;
 
-    public BearEnemy enemy;
+    //public BearEnemy enemy;
 
     /** The enemy scale for the enemy */
     private float enemyScale = 3/8f*2;
@@ -788,7 +788,7 @@ public class ObjectController {
     private void createEnemyBear(Vector2 scale, float x, float y, int levelHeight, int tileSize){
         float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
-        BearEnemy bear;
+       // BearEnemy bear;
 //        bear = new BearEnemy(, dwidth*enemyScale,
 //                dheight*enemyScale, enemyScale, false, bearIdleAnimation);
 //        bear.setBodyType(BodyDef.BodyType.StaticBody);
