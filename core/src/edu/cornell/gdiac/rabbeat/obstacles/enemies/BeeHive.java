@@ -32,14 +32,16 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
      * Creates a new bee hive avatar with the given physics data
      *
      * @param data
+     * @param x The beehive's x coordinate
+     * @param y The beehive's y coordinate
      * @param width      The object width in physics units
      * @param height     The object width in physics units
      * @param enemyScale
      * @param faceRight
      * @param animation
      */
-    public BeeHive(JsonValue data, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
-        super(data, width, height, enemyScale, faceRight, animation);
+    public BeeHive(JsonValue data, float x, float y, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
+        super(data, x, y, width, height, enemyScale, faceRight, animation);
         setAnimation(animation);
     }
 
@@ -47,13 +49,13 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
     public void makeBee(){
         //TODO: create a bullet using object controller default values.  instantiate the copy using gamecontroller
 
-        float offset = oc.constants.get("bullet").getFloat("offset",0);
+        float offset = oc.defaultConstants.get("bullet").getFloat("offset",0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
         BeeEnemy bee = new BeeEnemy(getX()+offset, getY(), radius);
 
         bee.setName(getName() + "_bee");
-        bee.setDensity(oc.constants.get("bullet").getFloat("density", 0));
+        bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
         bee.setTexture(oc.bulletTexture);
         bee.setGravityScale(0);

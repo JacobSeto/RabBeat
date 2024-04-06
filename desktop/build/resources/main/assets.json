@@ -10,7 +10,17 @@
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
-      "world:platforms:platform" : "world/platforms/platform.png",
+      "world:platforms:weightedSynth" : "world/platforms/synthPlat.png",
+
+      "world:platforms:weightedJazz" : "world/platforms/jazzPlat.png",
+
+      "world:platforms:movingSynth" : "world/platforms/synthPlat.png",
+
+      "world:platforms:movingJazz" : "world/platforms/jazzPlat.png",
+
+      "world:platforms:platform" : "world/platforms/purplePlat.png",
+
+      "world:platforms:platformArt" : "world/platforms/purplePlatArt.png",
 
       "world:platforms:endPlatform" : "world/platforms/endPlatform.png",
 
@@ -22,7 +32,7 @@
 
       "world:weightedLaserTile" : "world/weightedLaserTile.png",
 
-      "world:goal": "world/goaldoor.png",
+      "world:goal": "world/goal.png",
 
       "checkpoint:checkDefault": "world/checkpoints/checkDefault.png",
 
@@ -39,7 +49,8 @@
       "world:bullet": "world/bullet.png"
     },
     "jsons"  : {
-        "constants": "constants.json"
+        "defaultConstants": "defaultConstants.json",
+        "example": "levelsTiledJson/rabbeatExpandedEx.tmj"
     },
     "sounds": {
 
