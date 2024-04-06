@@ -12,17 +12,21 @@ import com.badlogic.gdx.physics.box2d.*;
 //package edu.cornell.gdiac.physics.platform;
 
 import com.badlogic.gdx.utils.JsonValue;
+import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 /**
- * Enemy avatar for the platform game.
+ * Enemy parent class for the platform game.
  */
-public abstract class Enemy extends CapsuleGameObject {
+public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated {
 
     /** Enum containing the state of the enemy */
     protected enum EnemyState{
         IDLE,
         ATTACKING
     }
+
+    /** Current genre that the game is on */
+    public Genre curGenre = Genre.SYNTH;
 
     /** The scale of the enemy */
     private float enemyScale;
@@ -41,6 +45,7 @@ public abstract class Enemy extends CapsuleGameObject {
 
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
+
 
     //range: how far away player is --> beat action called whenever an action is supposed to hapepn on beat
     //create switch states (wandering, shooting, etc). ENUM
@@ -67,6 +72,7 @@ public abstract class Enemy extends CapsuleGameObject {
         setDensity(data.getFloat("density", 0));
         setFriction(data.getFloat("friction", 0));
         setFixedRotation(true);
+        //setType(data.getString("type"));
 
         this.faceRight = faceRight; // should face the direction player is in?
         this.enemyScale = enemyScale;
@@ -133,20 +139,18 @@ public abstract class Enemy extends CapsuleGameObject {
         return faceRight;
     }
 
-    /** Returns the distance between the enemy and the player */
+    /** Returns the horizontal distance between the enemy and the player */
     public float horizontalDistanceBetweenEnemyAndPlayer(){
-        return Math.abs(GameController.getInstance().getPlayer().getPosition().x - getPosition().x);
+        return Math.abs(playerXPosition() - getPosition().x);
+    }
+
+    /** Returns the vertical distance between the enemy and the player */
+    public float verticalDistanceBetweenEnemyAndPlayer(){
+        return Math.abs(playerYPosition() - getPosition().y);
     }
 
     /** Switches enemy attacking state depending on its current state */
     public abstract void switchState();
-
-    /**
-     * Sets the enemy's current animation
-     */
-    public void setAnimation(Animation<TextureRegion> animation){
-        this.animation = animation;
-    }
 
 
     /** Returns the x position of the player */
@@ -158,5 +162,40 @@ public abstract class Enemy extends CapsuleGameObject {
         return 0;
     }
 
+    /** Returns the y position of the player */
+    public float playerYPosition(){
+        if(GameController.getInstance() !=  null) {
+            return GameController.getInstance().getPlayer().getPosition().y;
+        }
+
+        return 0;
+    }
+
+    /** Flips the direction the enemy is facing based on the player's position */
+    public void flipEnemy() {
+        if( playerXPosition() - getPosition().x > 0 && !faceRight) {
+            setFaceRight(true);
+            setPosition(getX()+1, getY());
+        } else if( playerXPosition() - getPosition().x < 0 && faceRight) {
+            setFaceRight(false);
+            setPosition(getX()-1, getY());
+        }
+    }
+
+    private String type;
+    public void setType (String type) {
+        this.type = type;
+    }
+
+    public void setAnimation(Animation<TextureRegion> animation){
+        this.animation = animation;
+    }
+
+    public void updateAnimationFrame(){
+        stateTime++;
+    }
+    public float getBeat() {return 1;}
+
+    public void beatAction(){}
 
 }

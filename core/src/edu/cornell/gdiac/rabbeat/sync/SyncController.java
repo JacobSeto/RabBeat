@@ -14,12 +14,16 @@ public class SyncController {
 
     /**The audio delay of the audio  in seconds*/
     private float delay = 0;
+    /** The intervals of each of the synced objects in the game */
     private Array<Interval> intervals = new Array<>();
+    /** The interval that represents the animation update */
+    private AnimationSync animationSync = new AnimationSync();
 
     /** TODO: Create description and use SoundController instead.  Maybe even delete this function*/
     public void setSync(Music _synth, Music _jazz){
         synth = _synth;
         jazz = _jazz;
+        addSync(animationSync);
     }
 
     /**Adds _delay to the delay field
@@ -52,11 +56,15 @@ public class SyncController {
 
     /**
      * Creates an {@link Interval} object from {@param syncedObject} and adds it to the intervals
-     * in order to be synced
+     * in order to be synced. If the synced object is animated, add to the list of animated synced objects
      * @param syncedObject A synced object
      */
     public void addSync(ISynced syncedObject){
             Interval interval = new Interval(syncedObject);
             intervals.add(interval);
+            if(syncedObject instanceof ISyncedAnimated){
+                System.out.println("Animated object");;
+                animationSync.animatedObjects.add((ISyncedAnimated)(syncedObject));
+            }
         }
     }

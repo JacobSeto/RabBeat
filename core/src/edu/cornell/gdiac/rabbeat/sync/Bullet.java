@@ -8,8 +8,6 @@ import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 public class Bullet extends WheelGameObject implements ISynced {
     public int beatCount = 0;
 
-
-
     public Bullet(float x, float y, float radius, float synthVX, float jazzVX, boolean fr) {
         super(x, y, radius);
         float dir = (fr ? 1 : -1);

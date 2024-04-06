@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.obstacles.*;
+import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 /**
  * Player avatar for the plaform game.
@@ -25,7 +26,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.*;
  * Note that this class returns to static loading.  That is because there are
  * no other subclasses that we might loop through.
  */
-public class Player extends CapsuleGameObject implements IGenreObject {
+public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenreObject {
 	/** The initializing data (to avoid magic numbers) */
 	private final JsonValue data;
 
@@ -71,6 +72,9 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 
 	/** Holds the genre of the ANIMATION. Doesn't specifically detect genre.*/
 	private Genre animationGenre;
+
+	/*TODO: ADD SPECS!*/
+	private GameObject bodyCollidedWith;
 
 	/** The synth genre idle animation for the player */
 	public Animation<TextureRegion> synthIdleAnimation;
@@ -227,13 +231,6 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 
 	/** The scale of the enemy */
 	public float playerScale;
-
-	/**
-	 * Sets the player's current animation
-	 */
-	public void setAnimation(Animation<TextureRegion> animation){
-		this.animation = animation;
-	}
 
 	/**
 	 * Returns true if this character is facing right
@@ -398,11 +395,19 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 			jumpCooldown = Math.max(0, jumpCooldown - 1);
 		}
 
-
-
 		animationUpdate();
-		stateTime += dt;
+
+		try {
+			//GameController.getInstance().createJoint(bodyCollidedWith, this);
+		} catch (Exception ignored) {}
+
+            animationUpdate();
+
 		super.update(dt);
+	}
+
+	public void setBodyCollidedWith(GameObject bodyCollidedWith) {
+		this.bodyCollidedWith = bodyCollidedWith;
 	}
 
 	/**
@@ -484,4 +489,14 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		}
 	}
 
+	public void setAnimation(Animation<TextureRegion> animation){
+		this.animation = animation;
+	}
+
+	public void updateAnimationFrame(){
+		stateTime++;
+	}
+	public float getBeat() {return 1;}
+
+	public void beatAction(){}
 }

@@ -16,12 +16,12 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bee;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
@@ -83,6 +83,7 @@ public class GameController implements Screen, ContactListener {
 	protected static final float DEFAULT_HEIGHT = 32.4f;
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -4.9f;
+
 
 	/** Reference to the game canvas */
 	protected GameCanvas canvas;
@@ -588,17 +589,22 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) && !bd2.getName().contains("checkpoint")) {
+			if (bd1 instanceof BeeEnemy && !(bd2 instanceof BeeHive) && !bd2.getName().contains("checkpoint")) {
 				bd1.markRemoved(true);
 			}
 
-			if (bd2 instanceof Bee && !(bd1 instanceof BeeHive) && !bd1.getName().contains("checkpoint")) {
+			if (bd2 instanceof BeeEnemy && !(bd1 instanceof BeeHive) && !bd1.getName().contains("checkpoint")) {
 				bd2.markRemoved(true);
 			}
 
-			if ((bd1.equals(objectController.player) && bd2 instanceof Bee)) {
+			if ((bd1.equals(objectController.player) && bd2 instanceof BeeEnemy)) {
 				setFailure(true);
 			}
+
+			if ((bd1.equals(objectController.player) && bd2 instanceof BatEnemy)) {
+				setFailure(true);
+			}
+
 			//TODO: implement lethal obstacle code which checks for the first obstacle being the player, then checking if the
 			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
 				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
@@ -609,6 +615,13 @@ public class GameController implements Screen, ContactListener {
 			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
 				Vector2 displace = ((WeightedPlatform) bd1).currentVelocity();
 				System.out.println("yipee");
+
+				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
+				//objectController.player.setPosition(playerPos.x+displace.x, playerPos.y+displace.y);
+
+				//TODO: Move this to a conitnuous collision checker
+				//objectController.player.setDisplace(displace);
+				objectController.player.setBodyCollidedWith(bd1);
 				//TODO: Move this to a conitnuous collision checker
 				objectController.player.setDisplace(displace);
 			}
@@ -655,6 +668,12 @@ public class GameController implements Screen, ContactListener {
 		}
 		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
 			System.out.println("whoopee");
+			//TODO: Fix joint destruction
+			//objectController.player.setDisplace(new Vector2(0,0));
+			//breakJoint(jointBetweenPlatformAndPlayer);
+			try {
+				//world.destroyJoint(jointBetweenPlatformAndPlayer);
+			} catch (Exception ignored) {}
 			objectController.player.setDisplace(new Vector2(0,0));
 		}
 
@@ -881,5 +900,28 @@ public class GameController implements Screen, ContactListener {
 	public Player getPlayer() {
 		return objectController.player;
 	}
+
+	public void createJoint(GameObject bd1, GameObject bd2){
+		Vector2 anchor1 = new Vector2();
+		Vector2 anchor2 = new Vector2();
+
+//		Vector2 anchor1 = bd1.getPosition();
+//		Vector2 anchor2 = bd2.getPosition();
+
+		// Definition for a revolute joint
+		JointDef jointDef = new PrismaticJointDef();
+
+		// Initial joint
+		jointDef.bodyA = bd1.getBody();
+		jointDef.bodyB = bd2.getBody();
+
+		jointDef.collideConnected = true;
+		Joint joint = world.createJoint(jointDef);
+	}
+
+	//TODO: destroy joint!
+//	public void breakJoint(Joint joint){
+//		world.destroyJoint(joint);
+//	}
 
 }

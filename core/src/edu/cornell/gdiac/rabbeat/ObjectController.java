@@ -10,9 +10,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.rabbeat.obstacles.*;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
@@ -129,6 +130,15 @@ public class ObjectController {
     public TextureAtlas bearIdleAtlas;
     /** The idle animation for the bear enemy */
     public Animation<TextureRegion> bearIdleAnimation;
+    /** The idle atlas for the bear enemy */
+    public TextureAtlas batIdleAtlas;
+    /** The idle animation for the bat enemy */
+    public Animation<TextureRegion> batIdleAnimation;
+
+    /** The idle atlas for the hedgehog enemy */
+    public TextureAtlas hedgehogIdleAtlas;
+    /** The idle animation for the hedgehog enemy */
+    public Animation<TextureRegion> hedgehogIdleAnimation;
 
     private float synthSpeed;
     private float jazzSpeed;
@@ -161,29 +171,37 @@ public class ObjectController {
 
         // Allocating player animations
         //  Synth
+        //Note: For animations, frame durations must be 1 for AnimationSync to work
         synthIdleAtlas = new TextureAtlas(Gdx.files.internal("player/synthIdle.atlas"));
-        synthIdleAnimation = new Animation<TextureRegion>(0.1f, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
+        synthIdleAnimation = new Animation<TextureRegion>(1, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
 
         synthWalkAtlas = new TextureAtlas(Gdx.files.internal("player/synthWalk.atlas"));
-        synthWalkAnimation = new Animation<TextureRegion>(0.06f, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
+        synthWalkAnimation = new Animation<TextureRegion>(1, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
 
         synthJumpAtlas = new TextureAtlas(Gdx.files.internal("player/synthJump.atlas"));
-        synthJumpAnimation = new Animation<TextureRegion>(0.08f, synthJumpAtlas.findRegions("synthJump"), Animation.PlayMode.NORMAL);
+        synthJumpAnimation = new Animation<TextureRegion>(1, synthJumpAtlas.findRegions("synthJump"), Animation.PlayMode.NORMAL);
 
         //  Jazz
         jazzIdleAtlas = new TextureAtlas(Gdx.files.internal("player/jazzIdle.atlas"));
-        jazzIdleAnimation = new Animation<TextureRegion>(0.11f, jazzIdleAtlas.findRegions("jazzIdle"), Animation.PlayMode.LOOP);
+        jazzIdleAnimation = new Animation<TextureRegion>(1, jazzIdleAtlas.findRegions("jazzIdle"), Animation.PlayMode.LOOP);
 
         jazzWalkAtlas = new TextureAtlas(Gdx.files.internal("player/jazzWalk.atlas"));
-        jazzWalkAnimation = new Animation<TextureRegion>(0.08f, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
+        jazzWalkAnimation = new Animation<TextureRegion>(1, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
 
         jazzJumpAtlas = new TextureAtlas(Gdx.files.internal("player/jazzJump.atlas"));
-        jazzJumpAnimation = new Animation<TextureRegion>(0.08f, jazzJumpAtlas.findRegions("jazzJump"), Animation.PlayMode.NORMAL);
+        jazzJumpAnimation = new Animation<TextureRegion>(1, jazzJumpAtlas.findRegions("jazzJump"), Animation.PlayMode.NORMAL);
 
         //  Allocating enemy animations
         //  Bear
         bearIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
-        bearIdleAnimation = new Animation<TextureRegion>(0.1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        bearIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        //  Bat
+        batIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
+        batIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        //  Hedgehog
+        hedgehogIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
+        hedgehogIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+
 
         // Allocate the tiles
         blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
@@ -373,6 +391,46 @@ public class ObjectController {
         }
 
 
+        //TODO: Load enemies
+//         dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+//         dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+
+//         String ename = "enemy";
+//         JsonValue enemiesjv = constants.get("enemies");
+//         for (int ii = 0; ii < enemiesjv.size; ii++){
+//             JsonValue currentEnemy = enemiesjv.get(ii);
+//             Enemy obj;
+
+//             if(currentEnemy.getString("type").equals("bat")) {
+//                 obj = new BatEnemy(currentEnemy, dwidth*enemyScale,
+//                         dheight*enemyScale, enemyScale, false, batIdleAnimation);
+//                 obj.setBodyType(BodyDef.BodyType.StaticBody);
+//                 obj.setDrawScale(scale);
+//                 obj.setTexture(enemyDefaultTexture);
+//                 obj.setName(ename + ii);
+//                 GameController.getInstance().instantiate(obj);
+//             }
+
+//             if(currentEnemy.getString("type").equals("bear")) {
+//                 obj = new BearEnemy(currentEnemy, dwidth*enemyScale,
+//                         dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+//                 obj.setBodyType(BodyDef.BodyType.StaticBody);
+//                 obj.setDrawScale(scale);
+//                 obj.setTexture(enemyDefaultTexture);
+//                 obj.setName(ename + ii);
+//                 GameController.getInstance().instantiate(obj);
+//             }
+
+//             if(currentEnemy.getString("type").equals("hedgehog")) {
+//                 obj = new HedgehogEnemy(currentEnemy, dwidth*enemyScale,
+//                         dheight*enemyScale, enemyScale, false, hedgehogIdleAnimation);
+//                 obj.setBodyType(BodyDef.BodyType.StaticBody);
+//                 obj.setDrawScale(scale);
+//                 obj.setTexture(enemyDefaultTexture);
+//                 obj.setName(ename + ii);
+//                 GameController.getInstance().instantiate(obj);
+//             }
+//         }
 
 
 

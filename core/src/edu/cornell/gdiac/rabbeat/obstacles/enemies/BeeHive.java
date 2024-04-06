@@ -8,15 +8,11 @@ import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
-import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 public class BeeHive extends Enemy implements ISynced, IGenreObject {
 
-    public Genre curGenre = Genre.SYNTH;
-
     public ObjectController objectController;
-
 
     ObjectController oc = GameController.getInstance().objectController;
 
@@ -33,7 +29,7 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
     private boolean shotDirection;
 
     /**
-     * Creates a new enemy avatar with the given physics data
+     * Creates a new bee hive avatar with the given physics data
      *
      * @param data
      * @param x The beehive's x coordinate
@@ -56,7 +52,7 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset",0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
-        Bee bee = new Bee(getX()+offset, getY(), radius);
+        BeeEnemy bee = new BeeEnemy(getX()+offset, getY(), radius);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
@@ -100,6 +96,6 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
     @Override
     public void beatAction() {
         makeBee();
-        setFaceRight(GameController.getInstance().getPlayer().getPosition().x - getPosition().x > 0);
+        setFaceRight(playerXPosition() - getPosition().x > 0);
     }
 }
