@@ -78,9 +78,14 @@ public class GameController implements Screen, ContactListener {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
+	/** Width of the screen in Box2d units */
 	protected static final float DEFAULT_WIDTH = 57.6f;
-	/** Height of the game world in Box2d units */
+	/** Height of the screen in Box2d units */
 	protected static final float DEFAULT_HEIGHT = 32.4f;
+	/** Width of the game world in Box2d units */
+	protected static final float WORLD_WIDTH = 57.6f * 6.01f;	// Based on background width
+	/** Height of the game world in Box2d units */
+	protected static final float WORLD_HEIGHT = 32.4f;
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -4.9f;
 
@@ -830,7 +835,7 @@ public class GameController implements Screen, ContactListener {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
-			canvas.updateCamera(objectController.player, bounds.getWidth(), bounds.getHeight());
+			canvas.updateCamera(objectController.player, WORLD_WIDTH, WORLD_HEIGHT);
 			draw(delta);
 		}
 	}
