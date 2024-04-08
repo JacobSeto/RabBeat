@@ -78,8 +78,9 @@ public class GameController implements Screen, ContactListener {
 	public static final int WORLD_VELOC = 6;
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
+	/** Width of the screen in Box2d units */
 	protected static final float DEFAULT_WIDTH = 57.6f;
-	/** Height of the game world in Box2d units */
+	/** Height of the screen in Box2d units */
 	protected static final float DEFAULT_HEIGHT = 32.4f;
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -4.9f;
@@ -96,6 +97,10 @@ public class GameController implements Screen, ContactListener {
 	protected Rectangle bounds;
 	/** The world scale */
 	protected Vector2 scale;
+	/** Width of the game world in Box2d units */
+	protected float worldWidth;
+	/** Height of the game world in Box2d units */
+	protected float worldHeight;
 
 	/** Whether or not this is an active controller */
 	private boolean active;
@@ -396,6 +401,8 @@ public class GameController implements Screen, ContactListener {
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
+		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / 1920;
+		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / 1080;
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
@@ -830,7 +837,7 @@ public class GameController implements Screen, ContactListener {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
-			canvas.updateCamera(objectController.player, bounds.getWidth(), bounds.getHeight());
+			canvas.updateCamera(objectController.player, worldWidth, worldHeight);
 			draw(delta);
 		}
 	}
