@@ -46,7 +46,45 @@
 
       "backgrounds:overlay": "backgrounds/background-overlay.png",
 
-      "world:bullet": "world/bullet.png"
+      "world:bullet": "world/bullet.png",
+
+      "world:shelves:shelf1": "world/shelves/shelf1.png",
+
+      "world:shelves:shelf2": "world/shelves/shelf2.png",
+
+      "world:shelves:shelf3": "world/shelves/shelf3.png",
+
+      "world:shelves:shelf4": "world/shelves/shelf4.png",
+
+      "world:shelves:shelf5": "world/shelves/shelf5.png",
+
+      "world:pods:bearpod1": "world/pods/bearpod1.png",
+
+      "world:pods:bearpod2": "world/pods/bearpod2.png",
+
+      "world:pods:bgpod1": "world/pods/bgpod1.png",
+
+      "world:pods:bgpod2": "world/pods/bgpod2.png",
+
+      "world:pods:dolpod1": "world/pods/dolpod1.png",
+
+      "world:pods:dolpod2": "world/pods/dolpod2.png",
+
+      "world:pods:emptypod1": "world/pods/emptypod1.png",
+
+      "world:pods:emptypod2": "world/pods/emptypod2.png",
+
+      "world:pods:emptypod3": "world/pods/emptypod3.png",
+
+      "world:pods:emptypod4": "world/pods/emptypod4.png",
+
+      "world:pods:emptypod5": "world/pods/emptypod5.png",
+
+      "world:pods:octpod1": "world/pods/octpod1.png",
+
+      "world:pods:wolfpod1": "world/pods/wolfpod1.png",
+
+      "world:pods:wolfpod2": "world/pods/wolfpod2.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
@@ -56,8 +94,8 @@
 
     },
     "music" : {
-      "music:synth1": "music/synth_technical.ogg",
-      "music:jazz1": "music/jazz_technical.ogg"
+      "music:synth1": "music/synth_alpha.ogg",
+      "music:jazz1": "music/jazz_alpha.ogg"
     },
     "fonts": {
         "fonts:retro": {
