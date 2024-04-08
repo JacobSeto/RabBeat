@@ -133,6 +133,8 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
             GameController.getInstance().setFailure(true);
         }
         System.out.println("Echo sent!");
+        //TODO: visualize the echo
+        
 //        WheelGameObject w = new WheelGameObject(getX(), getY(), (float) 0.06);
 //        GameController.getInstance().instantiateQueue(w);
 
