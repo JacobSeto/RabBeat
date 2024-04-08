@@ -94,8 +94,8 @@
 
     },
     "music" : {
-      "music:synth1": "music/synth_technical.ogg",
-      "music:jazz1": "music/jazz_technical.ogg"
+      "music:synth1": "music/synth_alpha.ogg",
+      "music:jazz1": "music/jazz_alpha.ogg"
     },
     "fonts": {
         "fonts:retro": {
