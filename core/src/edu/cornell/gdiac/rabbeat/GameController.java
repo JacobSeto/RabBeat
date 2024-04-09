@@ -692,7 +692,7 @@ public class GameController implements Screen, ContactListener {
 		if ((bd1 instanceof MovingPlatform) && (bd2 instanceof Player)){
 			System.out.println("whoopee");
 			if (bd1 == lastMCollideWith){
-				lastCollideWith = null;
+				lastMCollideWith = null;
 			}
 			objectController.player.setDisplace(new Vector2(0,0));
 		}
