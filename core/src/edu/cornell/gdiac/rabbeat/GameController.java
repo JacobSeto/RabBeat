@@ -22,6 +22,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
+import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
@@ -116,6 +117,10 @@ public class GameController implements Screen, ContactListener {
 
 	// Physics objects for the game
 
+	/** last platform collided with*/
+	private WeightedPlatform lastCollideWith;
+
+	private MovingPlatform lastMCollideWith;
 	/** the spawnpoint location of the player */
 
 	private Vector2 respawnPoint;
@@ -530,6 +535,15 @@ public class GameController implements Screen, ContactListener {
 		}
 		syncController.updateBeat();
 		soundController.update();
+
+		if (lastCollideWith != null){
+			Vector2 displace = lastCollideWith.currentVelocity();
+			objectController.player.setDisplace(displace);
+		}
+		if (lastMCollideWith != null){
+			Vector2 displace = lastMCollideWith.currentVelocity();
+			objectController.player.setDisplace(displace);
+		}
 	}
 
 	/**
@@ -613,17 +627,12 @@ public class GameController implements Screen, ContactListener {
 				}
 			}
 			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
-				Vector2 displace = ((WeightedPlatform) bd1).currentVelocity();
 				System.out.println("yipee");
-
-				//TODO: This creashes the game and does not work as intended.  should have player transform set to weighted platform
-				//objectController.player.setPosition(playerPos.x+displace.x, playerPos.y+displace.y);
-
-				//TODO: Move this to a conitnuous collision checker
-				//objectController.player.setDisplace(displace);
-				objectController.player.setBodyCollidedWith(bd1);
-				//TODO: Move this to a conitnuous collision checker
-				objectController.player.setDisplace(displace);
+				lastCollideWith = (WeightedPlatform) bd1;
+			}
+			if ((bd1 instanceof MovingPlatform) && (bd2 instanceof Player)){
+				System.out.println("yipee");
+				lastMCollideWith = (MovingPlatform) bd1;
 			}
 			// Check for collision with checkpoints and set new current checkpoint
 			for (Checkpoint checkpoint : objectController.checkpoints) {
@@ -668,12 +677,16 @@ public class GameController implements Screen, ContactListener {
 		}
 		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
 			System.out.println("whoopee");
-			//TODO: Fix joint destruction
-			//objectController.player.setDisplace(new Vector2(0,0));
-			//breakJoint(jointBetweenPlatformAndPlayer);
-			try {
-				//world.destroyJoint(jointBetweenPlatformAndPlayer);
-			} catch (Exception ignored) {}
+			if (bd1 == lastCollideWith){
+				lastCollideWith = null;
+			}
+			objectController.player.setDisplace(new Vector2(0,0));
+		}
+		if ((bd1 instanceof MovingPlatform) && (bd2 instanceof Player)){
+			System.out.println("whoopee");
+			if (bd1 == lastMCollideWith){
+				lastCollideWith = null;
+			}
 			objectController.player.setDisplace(new Vector2(0,0));
 		}
 
