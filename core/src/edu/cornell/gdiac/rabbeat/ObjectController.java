@@ -85,6 +85,8 @@ public class ObjectController {
     public TextureRegion backgroundOverlayTexture;
     private TextureRegion enemyDefaultTexture;
 
+    private HashMap<String, TextureRegion> assets = new HashMap<>();
+
     /** Reference to the goalDoor (for collision detection) */
     public BoxGameObject goalDoor;
 
@@ -235,6 +237,28 @@ public class ObjectController {
 
         movingSynth = new TextureRegion((directory.getEntry("world:platforms:movingSynth", Texture.class)));
         movingJazz = new TextureRegion((directory.getEntry("world:platforms:movingJazz", Texture.class)));
+
+        assets.put("dolpod1", new TextureRegion(directory.getEntry( "world:pods:dolpod1", Texture.class )));
+        assets.put("dolpod2", new TextureRegion(directory.getEntry( "world:pods:dolpod2", Texture.class )));
+        assets.put("octpod1", new TextureRegion(directory.getEntry( "world:pods:octpod1", Texture.class )));
+        assets.put("bearpod1", new TextureRegion(directory.getEntry( "world:pods:bearpod1", Texture.class )));
+        assets.put("emptypod4", new TextureRegion(directory.getEntry( "world:pods:emptypod4", Texture.class )));
+        assets.put("wolfpod1", new TextureRegion(directory.getEntry( "world:pods:wolfpod1", Texture.class )));
+        assets.put("shelf1",new TextureRegion(directory.getEntry( "world:shelves:shelf1", Texture.class )));
+        assets.put("shelf2",new TextureRegion(directory.getEntry( "world:shelves:shelf2", Texture.class )));
+        assets.put("shelf3",new TextureRegion(directory.getEntry( "world:shelves:shelf3", Texture.class )));
+        assets.put("shelf4",new TextureRegion(directory.getEntry( "world:shelves:shelf4", Texture.class )));
+        assets.put("shelf5",new TextureRegion(directory.getEntry( "world:shelves:shelf5", Texture.class )));
+        assets.put("light", new TextureRegion(directory.getEntry( "world:other:light", Texture.class )));
+        assets.put("pipeposter", new TextureRegion(directory.getEntry( "world:pipes:pipeposter", Texture.class )));
+        assets.put("piperight", new TextureRegion(directory.getEntry( "world:pipes:piperight", Texture.class )));
+        assets.put("piperightskinny", new TextureRegion(directory.getEntry( "world:pipes:piperightskinny", Texture.class )));
+        assets.put("pipestraight", new TextureRegion(directory.getEntry( "world:pipes:pipestraight", Texture.class )));
+        assets.put("pipestraightskinny", new TextureRegion(directory.getEntry( "world:pipes:pipestraightskinny", Texture.class )));
+        assets.put("pipeleftskinny", new TextureRegion(directory.getEntry( "world:pipes:pipeleftskinny", Texture.class )));
+        assets.put("bigpipe", new TextureRegion(directory.getEntry( "world:pipes:bigpipe", Texture.class )));
+        assets.put("bigpipetv", new TextureRegion(directory.getEntry( "world:pipes:bigpipetv", Texture.class )));
+        assets.put("bigwire", new TextureRegion(directory.getEntry( "world:wires:bigwire", Texture.class )));
 
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
@@ -420,6 +444,13 @@ public class ObjectController {
                             float x = goal.getInt("x");
                             float y = goal.getInt("y");
                             createGoal(scale, x, y, levelHeight, tileSize);
+                        }
+                        break;
+                    case "foregroundArt":
+                        for (JsonValue a : layer.get("objects")) {
+                            float x = a.getFloat("x");
+                            float y = a.getFloat("y");
+                            createForegroundArt(scale, a.getString("type"), x, y, levelHeight, tileSize);
                         }
                         break;
                 }
@@ -768,5 +799,21 @@ public class ObjectController {
         hedgehog.setDrawScale(scale);
         hedgehog.setTexture(enemyDefaultTexture);
         GameController.getInstance().instantiate(hedgehog);
+    }
+
+    private void createForegroundArt(Vector2 scale, String type, float x, float y, int levelHeight, int tileSize){
+        TextureRegion textureRegion = assets.get(type);
+        if (textureRegion == null){
+            textureRegion = assets.get("light");
+        }
+        //  Adjust coordinates + Convert coordinates to world coordinates
+        y -= textureRegion.getRegionHeight()/2;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
+
+        ArtObject platformArt = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
+        platformArt.setBodyType(BodyDef.BodyType.StaticBody);
+        platformArt.setDrawScale(scale);
+        GameController.getInstance().instantiate(platformArt);
     }
 }

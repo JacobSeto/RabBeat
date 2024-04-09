@@ -84,11 +84,31 @@
 
       "world:pods:wolfpod1": "world/pods/wolfpod1.png",
 
-      "world:pods:wolfpod2": "world/pods/wolfpod2.png"
+      "world:pods:wolfpod2": "world/pods/wolfpod2.png",
+
+      "world:other:light": "world/other/light.png",
+
+      "world:pipes:bigpipe" : "world/pipes/bigpipe.png",
+
+      "world:pipes:bigpipetv" : "world/pipes/bigpipetv.png",
+
+      "world:pipes:pipeleftskinny" : "world/pipes/pipeleftskinny.png",
+
+      "world:pipes:pipeposter" : "world/pipes/pipeposter.png",
+
+      "world:pipes:piperight" : "world/pipes/piperight.png",
+
+      "world:pipes:piperightskinny" : "world/pipes/piperightskinny.png",
+
+      "world:pipes:pipestraight" : "world/pipes/pipestraight.png",
+
+      "world:pipes:pipestraightskinny" : "world/pipes/pipestraightskinny.png",
+
+      "world:wires:bigwire" : "world/wires/bigwire.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
-        "example": "levelsTiledJson/rabbeatExpandedEx.tmj"
+        "example": "levelsTiledJson/rabbeatLevel.tmj"
     },
     "sounds": {
 
