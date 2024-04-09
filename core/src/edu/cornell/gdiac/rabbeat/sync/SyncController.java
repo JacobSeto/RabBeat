@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.*;
 public class SyncController {
 
     /** The bpm of the soundtrack*/
-    private final int BPM = 120;
+    private final int BPM = 180;
 
     /** The synth soundtrack*/
     Music synth;

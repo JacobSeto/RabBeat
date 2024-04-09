@@ -212,13 +212,13 @@ public class ObjectController {
 
         // Bee
         beeAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeAttack.atlas"));
-        beeAttackAnimation = new Animation<TextureRegion>(0.2f, beeAttackAtlas.findRegions("beeAttack"), Animation.PlayMode.LOOP);
+        beeAttackAnimation = new Animation<TextureRegion>(0.25f, beeAttackAtlas.findRegions("beeAttack"), Animation.PlayMode.LOOP);
 
         beehiveAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehive.atlas"));
         beehiveAnimation = new Animation<TextureRegion>(1, beehiveAtlas.findRegions("beehive"), Animation.PlayMode.LOOP);
         //  Hedgehog
         hedgehogIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
-        hedgehogIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        hedgehogIdleAnimation = new Animation<TextureRegion>(4/3f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
 
 
         // Allocate the tiles
