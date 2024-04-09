@@ -1,5 +1,9 @@
 package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
@@ -8,9 +12,19 @@ import edu.cornell.gdiac.rabbeat.sync.ISynced;
 public class BeeEnemy extends WheelGameObject implements ISynced, IGenreObject {
 
     public int beatCount = 0;
+    public Animation<TextureRegion> animation;
+    public Genre curGenre = Genre.SYNTH;
+    /** The elapsed time for animationUpdate */
+    private float stateTime = 0;
 
-    public BeeEnemy(float x, float y, float radius) {
+    public BeeEnemy(float x, float y, float radius, Animation<TextureRegion> beeAttackAnimation) {
+
         super(x, y, radius);
+        setAnimation(beeAttackAnimation);
+    }
+    public void update(float dt) {
+        stateTime += dt;
+        super.update(dt);
     }
 
     @Override
@@ -20,11 +34,21 @@ public class BeeEnemy extends WheelGameObject implements ISynced, IGenreObject {
 
     @Override
     public void beatAction() {
-        setVY(getVY() * -1);
+
+        beatCount++;
+        if (curGenre == Genre.SYNTH) {
+            setVY(getVY() * -1);
+        }
+        else {
+            if (beatCount % 2 == 0) {
+                setVY(getVY() * -1);
+            }
+        }
     }
 
     @Override
     public void genreUpdate(Genre genre) {
+        curGenre = genre;
         if (genre == Genre.SYNTH){
             if (getVY() < 0){
                 setVY(-2);
@@ -41,5 +65,15 @@ public class BeeEnemy extends WheelGameObject implements ISynced, IGenreObject {
                 setVY(1);
             }
         }
+    }
+    public void setAnimation(Animation<TextureRegion> animation){
+        this.animation = animation;
+    }
+    public void updateAnimationFrame(){
+        stateTime++;
+    }
+    public void draw(GameCanvas canvas) {
+        TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
+        canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(), 0.4f,0.4f);
     }
 }
