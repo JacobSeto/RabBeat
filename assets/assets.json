@@ -18,9 +18,15 @@
 
       "world:platforms:movingJazz" : "world/platforms/jazzPlat.png",
 
-      "world:platforms:platform" : "world/platforms/purplePlat.png",
+      "world:platforms:platform" : "world/platforms/platform.png",
 
       "world:platforms:platformArt" : "world/platforms/purplePlatArt.png",
+
+      "world:platforms:longPlatform:left" : "world/platforms/longPlatform/left.png",
+
+      "world:platforms:longPlatform:mid" : "world/platforms/longPlatform/mid.png",
+
+      "world:platforms:longPlatform:right" : "world/platforms/longPlatform/right.png",
 
       "world:platforms:endPlatform" : "world/platforms/endPlatform.png",
 
@@ -104,7 +110,13 @@
 
       "world:pipes:pipestraightskinny" : "world/pipes/pipestraightskinny.png",
 
-      "world:wires:bigwire" : "world/wires/bigwire.png"
+      "world:pipes:bgpipe" : "world/pipes/bgpipe.png",
+
+      "world:wires:bigwire" : "world/wires/bigwire.png",
+
+      "world:wires:wires1" : "world/wires/wires1.png",
+
+      "world:wires:wires2" : "world/wires/wires2.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
