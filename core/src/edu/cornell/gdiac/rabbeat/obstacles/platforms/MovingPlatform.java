@@ -119,4 +119,13 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject {
         return new Vector2((pos1.x - pos2.x)*speed/magnitude,
                 (pos1.y-pos2.y)*speed/magnitude);
     }
+
+    public Vector2 currentVelocity(){
+        if (!moving){
+            return new Vector2(0,0);
+        }
+        else{
+            return new Vector2(velocity.x*-1 , velocity.y*-1 );
+        }
+    }
 }
