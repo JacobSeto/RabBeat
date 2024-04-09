@@ -133,10 +133,18 @@ public class ObjectController {
     public TextureAtlas bearIdleAtlas;
     /** The idle animation for the bear enemy */
     public Animation<TextureRegion> bearIdleAnimation;
-    /** The idle atlas for the bear enemy */
+    /** The idle atlas for the bat enemy */
     public TextureAtlas batIdleAtlas;
     /** The idle animation for the bat enemy */
     public Animation<TextureRegion> batIdleAnimation;
+    /** The idle atlas for the bee enemy */
+    public TextureAtlas beeAttackAtlas;
+    /** The idle animation for the bee enemy */
+    public Animation<TextureRegion> beeAttackAnimation;
+    /** The idle atlas for the beehive */
+    public TextureAtlas beehiveAtlas;
+    /** The idle animation for the beehive */
+    public Animation<TextureRegion> beehiveAnimation;
 
     /** The idle atlas for the hedgehog enemy */
     public TextureAtlas hedgehogIdleAtlas;
@@ -201,6 +209,13 @@ public class ObjectController {
         //  Bat
         batIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
         batIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+
+        // Bee
+        beeAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeAttack.atlas"));
+        beeAttackAnimation = new Animation<TextureRegion>(1, beeAttackAtlas.findRegions("beeAttack"), Animation.PlayMode.LOOP);
+
+        beehiveAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehive.atlas"));
+        beehiveAnimation = new Animation<TextureRegion>(1, beehiveAtlas.findRegions("beehive"), Animation.PlayMode.LOOP);
         //  Hedgehog
         hedgehogIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
         hedgehogIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
@@ -721,7 +736,7 @@ public class ObjectController {
         float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
-                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, beehiveAnimation, beeAttackAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
         beehive.setTexture(enemyDefaultTexture);

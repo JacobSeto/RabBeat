@@ -1,32 +1,46 @@
-bearIdle.png
-size: 1024, 186
+bearAttack.png
+size: 1536, 186
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-bearIdle
+bearAttack
   rotate: false
   xy: 0, 0
   size: 256, 186
   orig: 256, 186
   offset: 0, 0
   index: -1
-bearIdle
+bearAttack
   rotate: false
   xy: 256, 0
   size: 256, 186
   orig: 256, 186
   offset: 0, 0
   index: -1
-bearIdle
+bearAttack
   rotate: false
   xy: 512, 0
   size: 256, 186
   orig: 256, 186
   offset: 0, 0
   index: -1
-bearIdle
+bearAttack
   rotate: false
   xy: 768, 0
+  size: 256, 186
+  orig: 256, 186
+  offset: 0, 0
+  index: -1
+ATTACK-5
+  rotate: false
+  xy: 1024, 0
+  size: 256, 186
+  orig: 256, 186
+  offset: 0, 0
+  index: -1
+ATTACK-6
+  rotate: false
+  xy: 1280, 0
   size: 256, 186
   orig: 256, 186
   offset: 0, 0

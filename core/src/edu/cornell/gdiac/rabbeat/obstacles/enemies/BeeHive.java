@@ -28,6 +28,8 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
     /** Tells whether the hive should shoot bees to the left or right */
     private boolean shotDirection;
 
+    public Animation<TextureRegion> beeAttackAnimation;
+
     /**
      * Creates a new bee hive avatar with the given physics data
      *
@@ -40,8 +42,9 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
      * @param faceRight             The direction the beehive is facing in
      * @param animation             The idle animation for the beehive
      */
-    public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
+    public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation, Animation<TextureRegion> beeAnimation) {
         super(data, startX, startY, width, height, enemyScale, faceRight, animation);
+        beeAttackAnimation = beeAnimation;
         setAnimation(animation);
     }
 
@@ -52,7 +55,7 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset",0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
-        BeeEnemy bee = new BeeEnemy(getX()+offset, getY(), radius);
+        BeeEnemy bee = new BeeEnemy(getX()+offset, getY(), radius, beeAttackAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
