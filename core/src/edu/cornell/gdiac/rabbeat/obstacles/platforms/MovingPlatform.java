@@ -16,12 +16,6 @@ import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 public class MovingPlatform extends BoxGameObject implements IGenreObject {
     /** Position for the weighted platform when the game is in Synth mode **/
     private Vector2[] positionNodes;
-    /** The moving platform's current tint color **/
-    private Color tint;
-    /** Texture of the moving platform in synth mode **/
-    private TextureRegion synthTexture;
-    /** Texture of the moving platform in jazz mode **/
-    private TextureRegion jazzTexture;
     /** The speed at which the platform moves at**/
     private float platformSpeed;
     /** the direction the platform is moving in*/
@@ -43,20 +37,15 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject {
      * @param height The height of the moving platform
      * @param nodes The points where the platform goes to, must be of even length
      * @param speed The speed of the platform
-     * @param synthTexture The texture region used when in synth mode
-     * @param jazzTexture The texture region used when in jazz mode
+     * @param texture The texture region for the platform
      */
-    public MovingPlatform(float width, float height, Vector2[] nodes, float speed, TextureRegion synthTexture,
-                          TextureRegion jazzTexture) {
+    public MovingPlatform(float width, float height, Vector2[] nodes, float speed, TextureRegion texture) {
         super(nodes[0].x, nodes[0].y, width, height);
         platformSpeed = speed;
         positionNodes = nodes;
         destination = 1;
         home = 0;
-        this.synthTexture = synthTexture;
-        this.jazzTexture = jazzTexture;
-
-        setTexture(synthTexture);
+        setTexture(texture);
         setPosition(positionNodes[0]);
         velocity = direction(positionNodes[home], positionNodes[destination], platformSpeed);
         moving = true;
@@ -99,10 +88,8 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject {
     public void move(Genre genre) {
         switch(genre) {
             case JAZZ:
-                setTexture(jazzTexture);
                 break;
             case SYNTH:
-                setTexture(synthTexture);
                 break;
         }
     }

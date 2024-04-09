@@ -18,9 +18,15 @@
 
       "world:platforms:movingJazz" : "world/platforms/jazzPlat.png",
 
-      "world:platforms:platform" : "world/platforms/purplePlat.png",
+      "world:platforms:platform" : "world/platforms/platform.png",
 
       "world:platforms:platformArt" : "world/platforms/purplePlatArt.png",
+
+      "world:platforms:longPlatform:left" : "world/platforms/longPlatform/left.png",
+
+      "world:platforms:longPlatform:mid" : "world/platforms/longPlatform/mid.png",
+
+      "world:platforms:longPlatform:right" : "world/platforms/longPlatform/right.png",
 
       "world:platforms:endPlatform" : "world/platforms/endPlatform.png",
 
@@ -84,11 +90,37 @@
 
       "world:pods:wolfpod1": "world/pods/wolfpod1.png",
 
-      "world:pods:wolfpod2": "world/pods/wolfpod2.png"
+      "world:pods:wolfpod2": "world/pods/wolfpod2.png",
+
+      "world:other:light": "world/other/light.png",
+
+      "world:pipes:bigpipe" : "world/pipes/bigpipe.png",
+
+      "world:pipes:bigpipetv" : "world/pipes/bigpipetv.png",
+
+      "world:pipes:pipeleftskinny" : "world/pipes/pipeleftskinny.png",
+
+      "world:pipes:pipeposter" : "world/pipes/pipeposter.png",
+
+      "world:pipes:piperight" : "world/pipes/piperight.png",
+
+      "world:pipes:piperightskinny" : "world/pipes/piperightskinny.png",
+
+      "world:pipes:pipestraight" : "world/pipes/pipestraight.png",
+
+      "world:pipes:pipestraightskinny" : "world/pipes/pipestraightskinny.png",
+
+      "world:pipes:bgpipe" : "world/pipes/bgpipe.png",
+
+      "world:wires:bigwire" : "world/wires/bigwire.png",
+
+      "world:wires:wires1" : "world/wires/wires1.png",
+
+      "world:wires:wires2" : "world/wires/wires2.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
-        "example": "levelsTiledJson/rabbeatExpandedEx.tmj"
+        "example": "levelsTiledJson/rabbeatLevel.tmj"
     },
     "sounds": {
 

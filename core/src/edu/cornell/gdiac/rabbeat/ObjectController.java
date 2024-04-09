@@ -1,5 +1,6 @@
 package edu.cornell.gdiac.rabbeat;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -52,14 +53,9 @@ public class ObjectController {
     protected TextureRegion platformTile;
     /** The texture for regular platform art */
     protected TextureRegion platformTileArt;
-    /** The texture for end platforms */
-    protected TextureRegion endPlatform;
-    /** The texture for wire platforms */
-    protected TextureRegion wirePlatform;
-    /** The texture for radio platforms */
-    protected TextureRegion radioPlatform;
-    /** The texture for guitar platforms */
-    protected TextureRegion guitarPlatform;
+    protected TextureRegion longLeft;
+    protected TextureRegion longMid;
+    protected TextureRegion longRight;
 
     /** The texture for weighted platforms in Synth mode */
     protected TextureRegion weightedSynth;
@@ -84,6 +80,8 @@ public class ObjectController {
     /** The texture for the background overlay*/
     public TextureRegion backgroundOverlayTexture;
     private TextureRegion enemyDefaultTexture;
+
+    private HashMap<String, TextureRegion> assets = new HashMap<>();
 
     /** Reference to the goalDoor (for collision detection) */
     public BoxGameObject goalDoor;
@@ -159,6 +157,8 @@ public class ObjectController {
     /** The enemy scale for the enemy */
     private float enemyScale = 3/8f*2;
 
+    public ArrayList<GameObject> foreground = new ArrayList<>();
+
     /**
      * Gather the assets for this controller.
      *
@@ -212,7 +212,7 @@ public class ObjectController {
 
         // Bee
         beeAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeAttack.atlas"));
-        beeAttackAnimation = new Animation<TextureRegion>(1, beeAttackAtlas.findRegions("beeAttack"), Animation.PlayMode.LOOP);
+        beeAttackAnimation = new Animation<TextureRegion>(0.2f, beeAttackAtlas.findRegions("beeAttack"), Animation.PlayMode.LOOP);
 
         beehiveAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehive.atlas"));
         beehiveAnimation = new Animation<TextureRegion>(1, beehiveAtlas.findRegions("beehive"), Animation.PlayMode.LOOP);
@@ -225,16 +225,43 @@ public class ObjectController {
         blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
         platformTile = new TextureRegion(directory.getEntry( "world:platforms:platform", Texture.class ));
         platformTileArt = new TextureRegion(directory.getEntry( "world:platforms:platformArt", Texture.class ));
-        endPlatform = new TextureRegion(directory.getEntry( "world:platforms:endPlatform", Texture.class ));
-        wirePlatform = new TextureRegion(directory.getEntry( "world:platforms:wirePlatform", Texture.class ));
-        radioPlatform = new TextureRegion(directory.getEntry( "world:platforms:radioPlatform", Texture.class ));
-        guitarPlatform = new TextureRegion(directory.getEntry( "world:platforms:guitarPlatform", Texture.class ));
+        longLeft = new TextureRegion(directory.getEntry("world:platforms:longPlatform:left", Texture.class ));
+        longMid = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:mid", Texture.class ));
+        longRight = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:right", Texture.class ));
 
         weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
         weightedJazz = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
 
         movingSynth = new TextureRegion((directory.getEntry("world:platforms:movingSynth", Texture.class)));
         movingJazz = new TextureRegion((directory.getEntry("world:platforms:movingJazz", Texture.class)));
+
+        assets.put("bearpod1", new TextureRegion(directory.getEntry( "world:pods:bearpod1", Texture.class )));
+        assets.put("bearpod2", new TextureRegion(directory.getEntry( "world:pods:bearpod2", Texture.class )));
+        assets.put("bgpod1", new TextureRegion(directory.getEntry( "world:pods:bgpod1", Texture.class )));
+        assets.put("bgpod2", new TextureRegion(directory.getEntry( "world:pods:bgpod2", Texture.class )));
+        assets.put("dolpod1", new TextureRegion(directory.getEntry( "world:pods:dolpod1", Texture.class )));
+        assets.put("dolpod2", new TextureRegion(directory.getEntry( "world:pods:dolpod2", Texture.class )));
+        assets.put("octpod1", new TextureRegion(directory.getEntry( "world:pods:octpod1", Texture.class )));
+        assets.put("emptypod4", new TextureRegion(directory.getEntry( "world:pods:emptypod4", Texture.class )));
+        assets.put("wolfpod1", new TextureRegion(directory.getEntry( "world:pods:wolfpod1", Texture.class )));
+        assets.put("shelf1",new TextureRegion(directory.getEntry( "world:shelves:shelf1", Texture.class )));
+        assets.put("shelf2",new TextureRegion(directory.getEntry( "world:shelves:shelf2", Texture.class )));
+        assets.put("shelf3",new TextureRegion(directory.getEntry( "world:shelves:shelf3", Texture.class )));
+        assets.put("shelf4",new TextureRegion(directory.getEntry( "world:shelves:shelf4", Texture.class )));
+        assets.put("shelf5",new TextureRegion(directory.getEntry( "world:shelves:shelf5", Texture.class )));
+        assets.put("light", new TextureRegion(directory.getEntry( "world:other:light", Texture.class )));
+        assets.put("pipeposter", new TextureRegion(directory.getEntry( "world:pipes:pipeposter", Texture.class )));
+        assets.put("piperight", new TextureRegion(directory.getEntry( "world:pipes:piperight", Texture.class )));
+        assets.put("piperightskinny", new TextureRegion(directory.getEntry( "world:pipes:piperightskinny", Texture.class )));
+        assets.put("pipestraight", new TextureRegion(directory.getEntry( "world:pipes:pipestraight", Texture.class )));
+        assets.put("pipestraightskinny", new TextureRegion(directory.getEntry( "world:pipes:pipestraightskinny", Texture.class )));
+        assets.put("pipeleftskinny", new TextureRegion(directory.getEntry( "world:pipes:pipeleftskinny", Texture.class )));
+        assets.put("bgpipe", new TextureRegion(directory.getEntry( "world:pipes:bgpipe", Texture.class )));
+        assets.put("bigpipe", new TextureRegion(directory.getEntry( "world:pipes:bigpipe", Texture.class )));
+        assets.put("bigpipetv", new TextureRegion(directory.getEntry( "world:pipes:bigpipetv", Texture.class )));
+        assets.put("bigwire", new TextureRegion(directory.getEntry( "world:wires:bigwire", Texture.class )));
+        assets.put("wires1", new TextureRegion(directory.getEntry( "world:wires:wires1", Texture.class )));
+        assets.put("wires2", new TextureRegion(directory.getEntry( "world:wires:wires2", Texture.class )));
 
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
@@ -353,7 +380,13 @@ public class ObjectController {
                         for (JsonValue platform : layer.get("objects")) {
                             float x = platform.getFloat("x");
                             float y = platform.getFloat("y");
-                            createPlatform(scale, platform.getString("type"), x, y, levelHeight, tileSize);
+                            String align = "";
+                            for (JsonValue prop : platform.get("properties")){
+                                if (prop.getString("name").equals("align")) {
+                                    align = prop.getString("value");
+                                }
+                            }
+                            createPlatform(scale, align, x, y, levelHeight, tileSize);
                         }
                         break;
                     case "platformArt":
@@ -422,6 +455,27 @@ public class ObjectController {
                             createGoal(scale, x, y, levelHeight, tileSize);
                         }
                         break;
+                    case "foregroundArt":
+                        for (JsonValue a : layer.get("objects")) {
+                            float x = a.getFloat("x");
+                            float y = a.getFloat("y");
+                            createGroundArt(scale, a.getString("type"), x, y, levelHeight, tileSize, "foreground");
+                        }
+                        break;
+                    case "backgroundArt":
+                        for (JsonValue a : layer.get("objects")) {
+                            float x = a.getFloat("x");
+                            float y = a.getFloat("y");
+                            createGroundArt(scale, a.getString("type"), x, y, levelHeight, tileSize, "background");
+                        }
+                        break;
+                    case "hangingArt":
+                        for (JsonValue a : layer.get("objects")) {
+                            float x = a.getFloat("x");
+                            float y = a.getFloat("y");
+                            createHangingArt(scale, a.getString("type"), x, y, levelHeight, tileSize);
+                        }
+                        break;
                 }
 
             }
@@ -438,6 +492,7 @@ public class ObjectController {
      * @return A Vector2 object where the x and y attributes are the converted world coordinates.
      */
     private Vector2 convertTiledCoord(float x, float y, int levelHeight, int tileSize){
+        x += tileSize;
         return(new Vector2(x / tileSize, levelHeight - y / tileSize));
     }
     /**
@@ -504,35 +559,32 @@ public class ObjectController {
      * Create a platform.
      *
      * @param scale The Vector2 draw scale
-     * @param type A string used to determine the texture, either "default", "defaultEnd", "wire", "radio", "guitar"
+     * @param align A string used to determine the alignment (left, mid, right)
      * @param x x coordinate (pixels) for the platform
      * @param y y coordinate (pixels) for the platform
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createPlatform(Vector2 scale, String type, float x, float y, int levelHeight, int tileSize){
+    private void createPlatform(Vector2 scale, String align, float x, float y, int levelHeight, int tileSize){
         TextureRegion textureRegion;
-        switch(type){
+        switch(align){
             default:
-                textureRegion = platformTile;
+                textureRegion = longMid;
                 break;
-            case "defaultEnd":
-                textureRegion = endPlatform;
+            case "mid":
+                textureRegion = longMid;
                 break;
-            case "wire":
-                textureRegion = wirePlatform;
+            case "left":
+                textureRegion = longLeft;
                 break;
-            case "radio":
-                textureRegion = radioPlatform;
-                break;
-            case "guitar":
-                textureRegion = guitarPlatform;
+            case "right":
+                textureRegion = longRight;
                 break;
         }
         //  Adjust coordinates + Convert coordinates to world coordinates
         y -= textureRegion.getRegionHeight()/2-4;
         Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
-        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
+        convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
         JsonValue defaults = defaultConstants.get("defaults");
         float dwidth  = textureRegion.getRegionWidth()/scale.x;
@@ -545,7 +597,6 @@ public class ObjectController {
         platform.setRestitution(defaults.getFloat( "restitution", 0.0f ));
         platform.setDrawScale(scale);
         platform.setTexture(textureRegion);
-        platform.setName(type);
         GameController.getInstance().instantiate(platform);
     }
 
@@ -572,7 +623,7 @@ public class ObjectController {
         //  Adjust coordinates + Convert coordinates to world coordinates
         y -= textureRegion.getRegionHeight()/2;
         Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
-        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
+        convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
         ArtObject platformArt = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
         platformArt.setBodyType(BodyDef.BodyType.StaticBody);
@@ -628,7 +679,7 @@ public class ObjectController {
         float dwidth  = movingSynth.getRegionWidth()/scale.x;
         float dheight = movingSynth.getRegionHeight()/scale.y;
         MovingPlatform movingPlatform;
-        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, speed, weightedSynth, weightedJazz);
+        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, speed, platformTile);
         movingPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         movingPlatform.setDensity(defaults.getFloat("density", 0.0f));
         movingPlatform.setFriction(defaults.getFloat("friction", 1.0f));
@@ -730,7 +781,7 @@ public class ObjectController {
     private void createEnemyBeehive(Vector2 scale, float x, float y, int levelHeight, int tileSize){
         //  Convert coordinates to world coordinate
         //TODO: change to beehive texture when we get art for this
-        y -= enemyDefaultTexture.getRegionHeight()/5;
+        y -= enemyDefaultTexture.getRegionHeight()/2;
         Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
 
         float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
@@ -768,5 +819,41 @@ public class ObjectController {
         hedgehog.setDrawScale(scale);
         hedgehog.setTexture(enemyDefaultTexture);
         GameController.getInstance().instantiate(hedgehog);
+    }
+
+    private void createGroundArt(Vector2 scale, String type, float x, float y, int levelHeight, int tileSize, String groundLevel){
+        TextureRegion textureRegion = assets.get(type);
+        if (textureRegion == null){
+            textureRegion = assets.get("light");
+        }
+        //  Adjust coordinates + Convert coordinates to world coordinates
+        y -= textureRegion.getRegionHeight()/2 - tileSize/5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
+
+        ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
+        art.setBodyType(BodyDef.BodyType.StaticBody);
+        art.setDrawScale(scale);
+        if (groundLevel.equals("foreground")){
+            foreground.add(art);
+        }
+        GameController.getInstance().instantiate(art);
+    }
+
+    private void createHangingArt(Vector2 scale, String type, float x, float y, int levelHeight, int tileSize){
+        TextureRegion textureRegion = assets.get(type);
+        if (textureRegion == null){
+            textureRegion = assets.get("light");
+        }
+        //  Adjust coordinates + Convert coordinates to world coordinates
+        y -= tileSize/5.5;
+        x += tileSize*4.5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
+
+        ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
+        art.setBodyType(BodyDef.BodyType.StaticBody);
+        art.setDrawScale(scale);
+        GameController.getInstance().instantiate(art);
     }
 }

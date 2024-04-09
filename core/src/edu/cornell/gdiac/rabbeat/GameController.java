@@ -785,7 +785,9 @@ public class GameController implements Screen, ContactListener {
 
 		canvas.begin();
 		for (GameObject obj : objectController.objects) {
-			obj.draw(canvas);
+			if (!objectController.foreground.contains(obj)){
+				obj.draw(canvas);
+			}
 		}
 		canvas.end();
 
@@ -794,10 +796,12 @@ public class GameController implements Screen, ContactListener {
 		objectController.player.draw(canvas);
 		canvas.end();
 
-		// Draw the background overlays on top of everything
-//		canvas.begin();
-//		canvas.draw(objectController.backgroundOverlayTexture, 0, 0);
-//		canvas.end();
+		// Draw the foreground on top of everything
+		canvas.begin();
+		for (GameObject obj : objectController.foreground) {
+			obj.draw(canvas);
+		}
+		canvas.end();
 
 		if (debug) {
 			canvas.beginDebug();
