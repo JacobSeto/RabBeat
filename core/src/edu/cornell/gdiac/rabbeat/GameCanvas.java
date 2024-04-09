@@ -1163,19 +1163,18 @@ public class GameCanvas {
 	 * @param worldHeight	The height of the world in Box2D units
 	 */
 	protected void updateCamera(Player player, float worldWidth, float worldHeight) {
-		// Unsure why this number works, but it ensures proper centering of the camera.
-		float MAGIC_SCALE = 67f;
-
 		float minX = camera.viewportWidth/2;
-		float maxX = worldWidth * MAGIC_SCALE - camera.viewportWidth/2;
-		float minY = camera.viewportHeight/3;
-		float maxY = worldHeight * MAGIC_SCALE - camera.viewportHeight/2;
+		float maxX = worldWidth * (getWidth()/57.6f) - camera.viewportWidth/2;
+		float minY = camera.viewportHeight/2;
+		float maxY = worldHeight * (getHeight()/32.4f) - camera.viewportHeight/2;
 
 		camera.position.lerp(new Vector3(
-				(player.getX() + player.getWidth() * 2) * MAGIC_SCALE, 0, 0),
+						// TODO: Still need to figure out why 67f
+						player.getX() * 67f, 0, 0),
 				CAMERA_SPEED * Gdx.graphics.getDeltaTime()
 		);
-		camera.position.set(new Vector2(camera.position.x, (player.getY() - player.getHeight()) * MAGIC_SCALE), 0);
+		System.out.println(player.getX());
+		camera.position.set(new Vector2(camera.position.x, player.getY() * 67f), 0);
 		camera.position.x = MathUtils.clamp(camera.position.x, minX, maxX);
 		camera.position.y = MathUtils.clamp(camera.position.y, minY, maxY);
 
