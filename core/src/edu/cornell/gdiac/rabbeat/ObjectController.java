@@ -141,6 +141,10 @@ public class ObjectController {
     public TextureAtlas beeAttackAtlas;
     /** The idle animation for the bee enemy */
     public Animation<TextureRegion> beeAttackAnimation;
+    /** The idle atlas for the beehive */
+    public TextureAtlas beehiveAtlas;
+    /** The idle animation for the beehive */
+    public Animation<TextureRegion> beehiveAnimation;
 
     /** The idle atlas for the hedgehog enemy */
     public TextureAtlas hedgehogIdleAtlas;
@@ -210,6 +214,8 @@ public class ObjectController {
         beeAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeAttack.atlas"));
         beeAttackAnimation = new Animation<TextureRegion>(1, beeAttackAtlas.findRegions("beeAttack"), Animation.PlayMode.LOOP);
 
+        beehiveAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehive.atlas"));
+        beehiveAnimation = new Animation<TextureRegion>(1, beehiveAtlas.findRegions("beehive"), Animation.PlayMode.LOOP);
         //  Hedgehog
         hedgehogIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
         hedgehogIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
@@ -730,7 +736,7 @@ public class ObjectController {
         float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
-                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearIdleAnimation, beeAttackAnimation);
+                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, beehiveAnimation, beeAttackAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
         beehive.setTexture(enemyDefaultTexture);
