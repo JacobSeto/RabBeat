@@ -176,7 +176,7 @@ public class ObjectController {
         //  Synth
         //Note: For animations, frame durations must be 1 for AnimationSync to work
         synthIdleAtlas = new TextureAtlas(Gdx.files.internal("player/synthIdle.atlas"));
-        synthIdleAnimation = new Animation<TextureRegion>(1, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
+        synthIdleAnimation = new Animation<TextureRegion>(4/3f, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
 
         synthWalkAtlas = new TextureAtlas(Gdx.files.internal("player/synthWalk.atlas"));
         synthWalkAnimation = new Animation<TextureRegion>(1, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
@@ -186,7 +186,7 @@ public class ObjectController {
 
         //  Jazz
         jazzIdleAtlas = new TextureAtlas(Gdx.files.internal("player/jazzIdle.atlas"));
-        jazzIdleAnimation = new Animation<TextureRegion>(1, jazzIdleAtlas.findRegions("jazzIdle"), Animation.PlayMode.LOOP);
+        jazzIdleAnimation = new Animation<TextureRegion>(4/3f, jazzIdleAtlas.findRegions("jazzIdle"), Animation.PlayMode.LOOP);
 
         jazzWalkAtlas = new TextureAtlas(Gdx.files.internal("player/jazzWalk.atlas"));
         jazzWalkAnimation = new Animation<TextureRegion>(1, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
