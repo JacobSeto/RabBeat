@@ -31,7 +31,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     /**The distance the platform should 'lock on' to its destination */
     private float LOCKDIST = 0.1f;
 
-    private float beat = 0.0f;
+    private int beat = 0;
 
     private float currentSpeed=1.0f;
 
@@ -67,7 +67,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
                 else{
                     destination+=1;
                 }
-                velocity = direction(positionNodes[home], positionNodes[destination], currentSpeed);
+                velocity = direction(positionNodes[home], positionNodes[destination], 1);
                 move(delta);
             }
             else{
@@ -78,7 +78,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
     public void move(float delta){
         //setLinearVelocity(velocity);
-        setPosition(getPosition().x + velocity.x*delta*-1, getPosition().y + velocity.y*delta*-1);
+        setPosition(getPosition().x + velocity.x*delta*-1*currentSpeed, getPosition().y + velocity.y*delta*-1*currentSpeed);
     }
 
     @Override
@@ -117,23 +117,23 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
             return new Vector2(0,0);
         }
         else{
-            return new Vector2(velocity.x*-1 , velocity.y*-1 );
+            return new Vector2(velocity.x*-1*currentSpeed, velocity.y*-1*currentSpeed);
         }
     }
     /**iMPLEMENTS THE syncing for the platforms */
     @Override
     public float getBeat() {
-        return 8;
+        return 4;
     }
 
     @Override
     public void beatAction() {
-        beat+= 0.25f;
-        if (beat>= 0.75f){
-            currentSpeed =  magnitude(positionNodes[home], positionNodes[destination])*4;
+        beat+= 1;
+        if (beat== 6){
+            currentSpeed = 4; //magnitude(positionNodes[home], positionNodes[destination])/4;
 
         }
-        else if (beat >= 1f ){
+        else if (beat == 8 ){
             currentSpeed = 1;
             beat = 0;
         }
