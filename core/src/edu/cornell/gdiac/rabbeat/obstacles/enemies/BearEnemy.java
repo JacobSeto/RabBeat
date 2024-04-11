@@ -64,13 +64,11 @@ public class BearEnemy extends Enemy implements IGenreObject {
             case IDLE:
                 if(horizontalDistanceBetweenEnemyAndPlayer()<8) {
                     enemyState = EnemyState.ATTACKING;
-                    System.out.println("ATTACKING");
                 }
                 break;
             case ATTACKING:
                 if(horizontalDistanceBetweenEnemyAndPlayer()>8) {
                     enemyState = EnemyState.IDLE;
-                    System.out.println("not ATTACKING");
                 }
                 //TODO: make bear shoot
                 break;
@@ -118,7 +116,6 @@ public class BearEnemy extends Enemy implements IGenreObject {
     public void beatAction() {
         if (enemyState == EnemyState.ATTACKING) {
             makeBullet();
-            System.out.println("shoot");
         }
 
         flipEnemy();

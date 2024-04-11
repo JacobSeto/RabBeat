@@ -69,12 +69,10 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
                 if(curGenre.equals(Genre.JAZZ)) {
                     if(beatCount == 4) {
                         enemyState = EnemyState.ATTACKING;
-                        System.out.println("ATTACKING Jazz");
                     }
                 } else if(curGenre.equals(Genre.SYNTH)) {
                     if(beatCount == 4 || beatCount == 2) {
                         enemyState = EnemyState.ATTACKING;
-                        System.out.println("ATTACKING Synth");
                     }
                 }
                 break;
@@ -82,12 +80,10 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
                 if(curGenre.equals(Genre.JAZZ)) {
                     if(beatCount != 4) {
                         enemyState = EnemyState.IDLE;
-                        System.out.println("IDLE Jazz");
                     }
                 } else if(curGenre.equals(Genre.SYNTH)) {
                     if(beatCount != 4 && beatCount != 2) {
                         enemyState = EnemyState.IDLE;
-                        System.out.println("IDLE Synth");
                     }
                 }
                 break;
@@ -125,9 +121,6 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
                 //setAngle(angle);
             } else {
                 setPosition(getX()-distance, getY());
-                System.out.println("X:" + getX());
-                System.out.println("point2" + point2);
-                //setAngle(angle);
             }
         }
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
+import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 /**
  * WeightedPlatform.java
@@ -13,7 +14,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
  * This class provides a weighted platform which changes location depending on the genre.
  */
 
-public class MovingPlatform extends BoxGameObject implements IGenreObject {
+public class MovingPlatform extends BoxGameObject implements IGenreObject, ISynced {
     /** Position for the weighted platform when the game is in Synth mode **/
     private Vector2[] positionNodes;
     /** The speed at which the platform moves at**/
@@ -29,6 +30,10 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject {
 
     /**The distance the platform should 'lock on' to its destination */
     private float LOCKDIST = 0.1f;
+
+    private float beat = 0.0f;
+
+    private float currentSpeed=1.0f;
 
     /**
      * Creates a new moving platform with the given physics data and current genre.
@@ -62,7 +67,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject {
                 else{
                     destination+=1;
                 }
-                velocity = direction(positionNodes[home], positionNodes[destination], platformSpeed);
+                velocity = direction(positionNodes[home], positionNodes[destination], currentSpeed);
                 move(delta);
             }
             else{
@@ -114,5 +119,25 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject {
         else{
             return new Vector2(velocity.x*-1 , velocity.y*-1 );
         }
+    }
+    /**iMPLEMENTS THE syncing for the platforms */
+    @Override
+    public float getBeat() {
+        return 0.25f;
+    }
+
+    @Override
+    public void beatAction() {
+        beat+= 0.25f;
+        if (beat>= 0.75f){
+            currentSpeed =  magnitude(positionNodes[home], positionNodes[destination])*4;
+
+        }
+        else if (beat >= 1f ){
+            currentSpeed = 1;
+            beat = 0;
+        }
+        System.out.println("speed is "+currentSpeed);
+        System.out.println("Beat is "+beat);
     }
 }

@@ -629,16 +629,13 @@ public class GameController implements Screen, ContactListener {
 			//TODO: implement lethal obstacle code which checks for the first obstacle being the player, then checking if the
 			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
 				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
-					System.out.println("l2");
 					setFailure(true);
 				}
 			}
 			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
-				System.out.println("yipee");
 				lastCollideWith = (WeightedPlatform) bd1;
 			}
 			if ((bd1 instanceof MovingPlatform) && (bd2 instanceof Player)){
-				System.out.println("yipee");
 				lastMCollideWith = (MovingPlatform) bd1;
 			}
 			// Check for collision with checkpoints and set new current checkpoint
@@ -683,14 +680,12 @@ public class GameController implements Screen, ContactListener {
 			}
 		}
 		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
-			System.out.println("whoopee");
 			if (bd1 == lastCollideWith){
 				lastCollideWith = null;
 			}
 			objectController.player.setDisplace(new Vector2(0,0));
 		}
 		if ((bd1 instanceof MovingPlatform) && (bd2 instanceof Player)){
-			System.out.println("whoopee");
 			if (bd1 == lastMCollideWith){
 				lastMCollideWith = null;
 			}
