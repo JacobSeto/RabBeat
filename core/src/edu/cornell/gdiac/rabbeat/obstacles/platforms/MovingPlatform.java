@@ -123,7 +123,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     /**iMPLEMENTS THE syncing for the platforms */
     @Override
     public float getBeat() {
-        return 0.25f;
+        return 8;
     }
 
     @Override
