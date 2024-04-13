@@ -14,6 +14,7 @@
  package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.*;
+import edu.cornell.gdiac.rabbeat.levelSelect.LevelSelectorScreen;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.assets.*;
 
@@ -60,6 +61,8 @@ public class GDXRoot extends Game implements ScreenListener {
 		controller = new GameController();
 		loading.setScreenListener(this);
 		setScreen(loading);
+
+		setScreen(new LevelSelectorScreen(this));
 	}
 
 	/** 
