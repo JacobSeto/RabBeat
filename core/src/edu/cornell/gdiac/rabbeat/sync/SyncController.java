@@ -31,7 +31,7 @@ public class SyncController {
      * */
     public void addDelay(float _delay){
         delay += _delay;
-        System.out.println(delay);
+        System.out.println("New Delay: " + delay);
     }
 
     /**The update function for everything synced in the world*/
@@ -63,7 +63,6 @@ public class SyncController {
             Interval interval = new Interval(syncedObject);
             intervals.add(interval);
             if(syncedObject instanceof ISyncedAnimated){
-                System.out.println("Animated object");;
                 animationSync.animatedObjects.add((ISyncedAnimated)(syncedObject));
             }
         }

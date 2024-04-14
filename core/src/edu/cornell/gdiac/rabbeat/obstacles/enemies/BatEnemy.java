@@ -69,12 +69,10 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
                 if(curGenre.equals(Genre.JAZZ)) {
                     if(beatCount == 4) {
                         enemyState = EnemyState.ATTACKING;
-                        System.out.println("ATTACKING Jazz");
                     }
                 } else if(curGenre.equals(Genre.SYNTH)) {
                     if(beatCount == 4 || beatCount == 2) {
                         enemyState = EnemyState.ATTACKING;
-                        System.out.println("ATTACKING Synth");
                     }
                 }
                 break;
@@ -82,12 +80,10 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
                 if(curGenre.equals(Genre.JAZZ)) {
                     if(beatCount != 4) {
                         enemyState = EnemyState.IDLE;
-                        System.out.println("IDLE Jazz");
                     }
                 } else if(curGenre.equals(Genre.SYNTH)) {
                     if(beatCount != 4 && beatCount != 2) {
                         enemyState = EnemyState.IDLE;
-                        System.out.println("IDLE Synth");
                     }
                 }
 
@@ -113,8 +109,6 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
         if(enemyState.equals(EnemyState.ATTACKING)) {
             sendEcho();
         }
-
-        //System.out.println("BEAT: " + beatCount);
     }
 
     ObjectController oc = GameController.getInstance().objectController;
@@ -132,7 +126,6 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
         if(Math.sqrt(Math.pow(horizontalDistanceBetweenEnemyAndPlayer(),2) + Math.pow(verticalDistanceBetweenEnemyAndPlayer(),2)) <= echoRadius) {
             GameController.getInstance().setFailure(true);
         }
-        System.out.println("Echo sent!");
         //TODO: visualize the echo
         
 //        WheelGameObject w = new WheelGameObject(getX(), getY(), (float) 0.06);

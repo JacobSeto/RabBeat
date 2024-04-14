@@ -1173,7 +1173,6 @@ public class GameCanvas {
 						player.getX() * 67f, 0, 0),
 				CAMERA_SPEED * Gdx.graphics.getDeltaTime()
 		);
-		System.out.println(player.getX());
 		camera.position.set(new Vector2(camera.position.x, player.getY() * 67f), 0);
 		camera.position.x = MathUtils.clamp(camera.position.x, minX, maxX);
 		camera.position.y = MathUtils.clamp(camera.position.y, minY, maxY);
