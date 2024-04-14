@@ -129,12 +129,13 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     @Override
     public void beatAction() {
         beat+= 1;
-        if (beat== 6){
-            currentSpeed = 4; //magnitude(positionNodes[home], positionNodes[destination])/4;
+        currentSpeed = 0;
+        if (beat== 7){
+            currentSpeed = magnitude(positionNodes[home], positionNodes[destination])/5;
 
         }
         else if (beat == 8 ){
-            currentSpeed = 1;
+            currentSpeed = magnitude(positionNodes[home], positionNodes[destination])*4/5;
             beat = 0;
         }
         System.out.println("speed is "+currentSpeed);
