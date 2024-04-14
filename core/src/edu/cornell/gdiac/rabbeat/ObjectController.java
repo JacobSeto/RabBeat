@@ -159,6 +159,8 @@ public class ObjectController {
 
     public ArrayList<GameObject> foreground = new ArrayList<>();
 
+    public String currentLevel = "level1";
+
     /**
      * Gather the assets for this controller.
      *
@@ -168,7 +170,7 @@ public class ObjectController {
      * @param directory	Reference to global asset manager.
      */
     public void gatherAssets(AssetDirectory directory) {
-        levelJson = directory.getEntry("example", JsonValue.class);
+        levelJson = directory.getEntry(currentLevel, JsonValue.class);
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
