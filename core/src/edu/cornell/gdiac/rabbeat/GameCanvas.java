@@ -1158,19 +1158,26 @@ public class GameCanvas {
 	/**
 	 * Updates the camera position based on the player position
 	 *
-	 * @param player	The player object
+	 * @param player		The player object
+	 * @param worldWidth	The width of the world in Box2D units
+	 * @param worldHeight	The height of the world in Box2D units
 	 */
 	protected void updateCamera(Player player, float worldWidth, float worldHeight) {
-		float SCALE_FROM_WORLD = 32f * 2;
 		float minX = camera.viewportWidth/2;
-		float maxX = worldWidth * SCALE_FROM_WORLD - camera.viewportWidth/2;
+		float maxX = worldWidth * (getWidth()/57.6f) - camera.viewportWidth/2;
 		float minY = camera.viewportHeight/2;
-		float maxY = worldHeight * SCALE_FROM_WORLD - camera.viewportHeight/2;
+		float maxY = worldHeight * (getHeight()/32.4f) - camera.viewportHeight/2;
 
-		camera.position.lerp(new Vector3(player.getX() * SCALE_FROM_WORLD - player.getWidth(), 0, 0), CAMERA_SPEED * Gdx.graphics.getDeltaTime());
-		camera.position.set(new Vector2(camera.position.x, player.getY() * SCALE_FROM_WORLD - player.getHeight()), 0);
+		camera.position.lerp(new Vector3(
+						// TODO: Still need to figure out why 67f
+						player.getX() * 67f, 0, 0),
+				CAMERA_SPEED * Gdx.graphics.getDeltaTime()
+		);
+		System.out.println(player.getX());
+		camera.position.set(new Vector2(camera.position.x, player.getY() * 67f), 0);
 		camera.position.x = MathUtils.clamp(camera.position.x, minX, maxX);
 		camera.position.y = MathUtils.clamp(camera.position.y, minY, maxY);
+
 		camera.update();
 		spriteBatch.setProjectionMatrix(camera.combined);
 		debugRender.setProjectionMatrix(camera.combined);

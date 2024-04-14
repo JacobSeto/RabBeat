@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.obstacles.*;
+import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 /**
  * Player avatar for the plaform game.
@@ -25,7 +26,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.*;
  * Note that this class returns to static loading.  That is because there are
  * no other subclasses that we might loop through.
  */
-public class Player extends CapsuleGameObject implements IGenreObject {
+public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenreObject {
 	/** The initializing data (to avoid magic numbers) */
 	private final JsonValue data;
 
@@ -71,6 +72,9 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 
 	/** Holds the genre of the ANIMATION. Doesn't specifically detect genre.*/
 	private Genre animationGenre;
+
+	/*TODO: ADD SPECS!*/
+	private GameObject bodyCollidedWith;
 
 	/** The synth genre idle animation for the player */
 	public Animation<TextureRegion> synthIdleAnimation;
@@ -229,13 +233,6 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	public float playerScale;
 
 	/**
-	 * Sets the player's current animation
-	 */
-	public void setAnimation(Animation<TextureRegion> animation){
-		this.animation = animation;
-	}
-
-	/**
 	 * Returns true if this character is facing right
 	 *
 	 * @return true if this character is facing right
@@ -244,6 +241,14 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		return faceRight;
 	}
 
+	/** how much the player should be displaced from their current position at any given moment.
+	 * Generally called by moving platforms to shift the player so they 'stick' to said platforms
+	 * */
+	private Vector2 displacement;
+
+	public void setDisplace(Vector2 displace){
+		displacement = displace;
+	}
 	/**
 	 * Creates a new dude avatar with the given physics data
 	 *
@@ -251,14 +256,16 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	 * drawing to work properly, you MUST set the drawScale. The drawScale 
 	 * converts the physics units to pixels.
 	 *
-	 * @param data  	The physics constants for this dude
+	 * @param data  	The physics constants for this player
 	 * @param width		The object width in physics units
-	 * @param height	The object width in physics units
+	 * @param height	The object height in physics units
+	 * @param startX	The starting x position of the player
+	 * @param startY	The starting y position of the player
+	 * @param playerScale1	The scale of the player
 	 */
-	public Player(JsonValue data, float width, float height, float playerScale1) {
+	public Player(JsonValue data, float startX, float startY, float width, float height, float playerScale1) {
 		// The shrink factors fit the image to a tigher hitbox
-		super(	data.get("pos").getFloat(0),
-				data.get("pos").getFloat(1),
+		super(startX, startY,
 				width*data.get("shrink").getFloat( 0 ),
 				height*data.get("shrink").getFloat( 1 ));
         setDensity(data.getFloat("density", 0));
@@ -273,6 +280,7 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		jump_force = data.getFloat( "jump_force", 0 );
 		jumpLimit = data.getInt( "jump_cool", 0 );
 		shotLimit = data.getInt( "shot_cool", 0 );
+		displacement = new Vector2(0,0);
 		sensorName = "DudeGroundSensor";
 		this.data = data;
 
@@ -372,6 +380,8 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 	 */
 	public void update(float dt) {
 		// Process actions in object model
+		setPosition(getPosition().x+ dt*displacement.x, getPosition().y+ dt*displacement.y);
+
 		setWalking(InputController.getInstance().getHorizontal() != 0 && !isJumping);
 		setMovement(InputController.getInstance().getHorizontal() * getForce());
 		setJumping(InputController.getInstance().didPrimary());
@@ -386,8 +396,18 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		}
 
 		animationUpdate();
-		stateTime += dt;
+
+		try {
+			//GameController.getInstance().createJoint(bodyCollidedWith, this);
+		} catch (Exception ignored) {}
+
+            animationUpdate();
+
 		super.update(dt);
+	}
+
+	public void setBodyCollidedWith(GameObject bodyCollidedWith) {
+		this.bodyCollidedWith = bodyCollidedWith;
 	}
 
 	/**
@@ -469,4 +489,14 @@ public class Player extends CapsuleGameObject implements IGenreObject {
 		}
 	}
 
+	public void setAnimation(Animation<TextureRegion> animation){
+		this.animation = animation;
+	}
+
+	public void updateAnimationFrame(){
+		stateTime++;
+	}
+	public float getBeat() {return 1;}
+
+	public void beatAction(){}
 }

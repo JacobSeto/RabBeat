@@ -1,9 +1,11 @@
 package edu.cornell.gdiac.rabbeat.obstacles.platforms;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
+import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 
@@ -13,18 +15,16 @@ import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
  * This class provides a weighted platform which changes location depending on the genre.
  */
 
-public class WeightedPlatform extends PolygonGameObject implements IGenreObject {
+public class WeightedPlatform extends BoxGameObject implements IGenreObject {
     /** Position for the weighted platform when the game is in Synth mode **/
     private Vector2 synthPosition;
 
     /** Position for the weighted platform when the game is in Jazz mode **/
     private Vector2 jazzPosition;
-    /** The weighted platform's current tint color **/
-    private Color tint;
-    /** The weighted platform's tint in synth mode **/
-    private Color synthTint = new Color(255/255f, 0, 189/255f, 1);
-    /** The weighted platform's tint in jazz mode **/
-    private Color jazzTint = new Color(200/255f, 0, 0, 1);
+    /** Texture of the weighted platform in synth mode **/
+    private TextureRegion synthTexture;
+    /** Texture of the weighted platform in jazz mode **/
+    private TextureRegion jazzTexture;
     private int currentGenre;
     /** The speed at which the platform moves at**/
     private float platformSpeed;
@@ -34,28 +34,33 @@ public class WeightedPlatform extends PolygonGameObject implements IGenreObject 
 
     /**The distance the platform should 'lock on' to its destination */
     private float LOCKDIST = 0.1f;
-
     /**
      * Creates a new weighted platform with the given physics data and current genre.
      *
-     * @param points  	The polygon vertices
+     * @param width     The weighted platform's width.
+     * @param height    The weighted platform's height.
      * @param synthPos  The array with index 0 and 1 holding the x and y coordinates for the platform's position in
-     *                  jazz mode
+     *                  synth mode
      * @param jazzPos	The array with index 0 and 1 holding the x and y coordinates for the platform's position in jazz
      *                  mode
      * @param speed     The speed of the platform
+     * @param synthTexture The weighted platform's texture region used in synth mode.
+     * @param jazzTexture The weighted platform's texture region used in jazz mode.
      */
-    public WeightedPlatform(float[] points, float[] synthPos, float[] jazzPos, float speed){
-        super(points);
+    public WeightedPlatform(float width, float height, float[] synthPos, float[] jazzPos, float speed,
+                            TextureRegion synthTexture, TextureRegion jazzTexture) {
+
+        super(synthPos[0], synthPos[1], width, height);
+
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
         synthPosition = new Vector2(synthPos[0], synthPos[1]);
-        tint = synthTint;
+        this.synthTexture = synthTexture;
+        this.jazzTexture = jazzTexture;
+        setTexture(synthTexture);
         setPosition(synthPosition);
         moving = false;
         platformSpeed = speed;
 
-        /** calculates the difference between the two positions of the platforms, normalizes it, and then
-         * converts that into the velocity**/
         float magnitude1 = magnitude(jazzPosition, synthPosition);
 
         velocity = new Vector2((jazzPosition.x - synthPosition.x)*platformSpeed/magnitude1,
@@ -64,21 +69,18 @@ public class WeightedPlatform extends PolygonGameObject implements IGenreObject 
         currentGenre = 0;
     }
     /** */
-    public Vector2 getVelocity(){
+    public Vector2 currentVelocity(){
+        if (!moving){
+            return new Vector2(0,0);
+        }
         if (currentGenre==0){
-            return new Vector2(velocity.x * -1, velocity.y *-1);
+            return new Vector2(velocity.x *-1, velocity.y*-1);
         }
         else{
             return new Vector2(velocity.x , velocity.y );
         }
     }
 
-    @Override
-    public void draw(GameCanvas canvas) {
-        if (region != null) {
-            canvas.draw(region,tint,0,0,getX()*drawScale.x,getY()*drawScale.y,getAngle(),1,1);
-        }
-    }
     /** updates the platform to determine what direction it should be moving in */
     public void update(float delta){
         if(moving){
@@ -114,13 +116,13 @@ public class WeightedPlatform extends PolygonGameObject implements IGenreObject 
         switch(genre) {
             case JAZZ:
                 //setPosition(jazzPosition);
-                tint = jazzTint;
+                setTexture(jazzTexture);
                 moving = true;
                 currentGenre = 1;
                 break;
             case SYNTH:
                 //setPosition(synthPosition);
-                tint = synthTint;
+                setTexture(synthTexture);
                 moving = true;
                 currentGenre = 0;
                 break;
