@@ -10,7 +10,23 @@
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
-      "world:platforms:platform" : "world/platforms/platform.png",
+      "world:platforms:weightedSynth" : "world/platforms/synthPlat.PNG",
+
+      "world:platforms:weightedJazz" : "world/platforms/jazzPlat.PNG",
+
+      "world:platforms:movingSynth" : "world/platforms/synthPlat.PNG",
+
+      "world:platforms:movingJazz" : "world/platforms/jazzPlat.PNG",
+
+      "world:platforms:platform" : "world/platforms/platform.PNG",
+
+      "world:platforms:platformArt" : "world/platforms/purplePlatArt.png",
+
+      "world:platforms:longPlatform:left" : "world/platforms/longPlatform/left.PNG",
+
+      "world:platforms:longPlatform:mid" : "world/platforms/longPlatform/mid.PNG",
+
+      "world:platforms:longPlatform:right" : "world/platforms/longPlatform/right.PNG",
 
       "world:platforms:endPlatform" : "world/platforms/endPlatform.png",
 
@@ -22,7 +38,7 @@
 
       "world:weightedLaserTile" : "world/weightedLaserTile.png",
 
-      "world:goal": "world/goaldoor.png",
+      "world:goal": "world/goal.png",
 
       "checkpoint:checkDefault": "world/checkpoints/checkDefault.png",
 
@@ -36,17 +52,82 @@
 
       "backgrounds:overlay": "backgrounds/background-overlay.png",
 
-      "world:bullet": "world/bullet.png"
+      "world:bullet": "world/bullet.png",
+
+      "world:shelves:shelf1": "world/shelves/shelf1.png",
+
+      "world:shelves:shelf2": "world/shelves/shelf2.png",
+
+      "world:shelves:shelf3": "world/shelves/shelf3.png",
+
+      "world:shelves:shelf4": "world/shelves/shelf4.png",
+
+      "world:shelves:shelf5": "world/shelves/shelf5.png",
+
+      "world:pods:bearpod1": "world/pods/bearpod1.png",
+
+      "world:pods:bearpod2": "world/pods/bearpod2.png",
+
+      "world:pods:bgpod1": "world/pods/bgpod1.png",
+
+      "world:pods:bgpod2": "world/pods/bgpod2.png",
+
+      "world:pods:dolpod1": "world/pods/dolpod1.png",
+
+      "world:pods:dolpod2": "world/pods/dolpod2.png",
+
+      "world:pods:emptypod1": "world/pods/emptypod1.png",
+
+      "world:pods:emptypod2": "world/pods/emptypod2.png",
+
+      "world:pods:emptypod3": "world/pods/emptypod3.png",
+
+      "world:pods:emptypod4": "world/pods/emptypod4.png",
+
+      "world:pods:emptypod5": "world/pods/emptypod5.png",
+
+      "world:pods:octpod1": "world/pods/octpod1.png",
+
+      "world:pods:wolfpod1": "world/pods/wolfpod1.png",
+
+      "world:pods:wolfpod2": "world/pods/wolfpod2.png",
+
+      "world:other:light": "world/other/light.png",
+
+      "world:pipes:bigpipe" : "world/pipes/bigpipe.png",
+
+      "world:pipes:bigpipetv" : "world/pipes/bigpipetv.png",
+
+      "world:pipes:pipeleftskinny" : "world/pipes/pipeleftskinny.PNG",
+
+      "world:pipes:pipeposter" : "world/pipes/pipeposter.PNG",
+
+      "world:pipes:piperight" : "world/pipes/piperight.PNG",
+
+      "world:pipes:piperightskinny" : "world/pipes/piperightskinny.PNG",
+
+      "world:pipes:pipestraight" : "world/pipes/pipestraight.PNG",
+
+      "world:pipes:pipestraightskinny" : "world/pipes/pipestraightskinny.png",
+
+      "world:pipes:bgpipe" : "world/pipes/bigpipe.png",
+
+      "world:wires:bigwire" : "world/wires/bigwire.png",
+
+      "world:wires:wires1" : "world/wires/wires1.png",
+
+      "world:wires:wires2" : "world/wires/wires2.png"
     },
     "jsons"  : {
-        "constants": "constants.json"
+        "defaultConstants": "defaultConstants.json",
+        "example": "levelsJson/rabbeatLevel.tmj"
     },
     "sounds": {
 
     },
     "music" : {
-      "music:synth1": "music/synth_technical.ogg",
-      "music:jazz1": "music/jazz_technical.ogg"
+      "music:synth1": "music/synth_alpha.ogg",
+      "music:jazz1": "music/jazz_alpha.ogg"
     },
     "fonts": {
         "fonts:retro": {
