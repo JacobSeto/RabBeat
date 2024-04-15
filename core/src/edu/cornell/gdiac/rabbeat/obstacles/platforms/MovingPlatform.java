@@ -29,11 +29,15 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     boolean moving;
 
     /**The distance the platform should 'lock on' to its destination */
-    private float LOCKDIST = 0.1f;
+    private float LOCKDIST = 0.5f;
 
     private int beat = 0;
 
     private float currentSpeed=1.0f;
+
+    private int BPM = 180;
+
+
 
     /**
      * Creates a new moving platform with the given physics data and current genre.
@@ -58,6 +62,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
 
     /** updates the platform to determine what direction it should be moving in */
     public void update(float delta){
+
         if(moving){
             if ((magnitude(getPosition(), positionNodes[destination])<LOCKDIST)){
                 home = destination;
@@ -123,19 +128,24 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     /**iMPLEMENTS THE syncing for the platforms */
     @Override
     public float getBeat() {
+        /** 4 pulses every quarter note*/
         return 4;
     }
 
     @Override
     public void beatAction() {
+        float BeatLength = (float) 60 /BPM;
+        System.out.println(BeatLength);
+        System.out.println(BPM);
         beat+= 1;
         currentSpeed = 0;
         if (beat== 7){
-            currentSpeed = magnitude(positionNodes[home], positionNodes[destination])/5;
+
+            currentSpeed = magnitude(positionNodes[home], positionNodes[destination])/(5*BeatLength);
 
         }
         else if (beat == 8 ){
-            currentSpeed = magnitude(positionNodes[home], positionNodes[destination])*4/5;
+            currentSpeed = magnitude(positionNodes[home], positionNodes[destination])*4/(5*BeatLength);
             beat = 0;
         }
         System.out.println("speed is "+currentSpeed);
