@@ -482,8 +482,8 @@
                  "type":"",
                  "visible":true,
                  "width":192,
-                 "x":1347,
-                 "y":831
+                 "x":1344,
+                 "y":704
                 }, 
                 {
                  "gid":70,
@@ -515,8 +515,8 @@
                  "type":"",
                  "visible":true,
                  "width":192,
-                 "x":1344,
-                 "y":1087
+                 "x":1346,
+                 "y":964
                 }, 
                 {
                  "gid":70,
@@ -610,7 +610,7 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":1536,
+                 "x":1280,
                  "y":1088
                 }, 
                 {
@@ -628,7 +628,7 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":1664,
+                 "x":1408,
                  "y":1088
                 }, 
                 {
@@ -1379,11 +1379,11 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/Tiled\/Images.tsx"
+         "source":"Images.tsx"
         }, 
         {
          "firstgid":57,
-         "source":"..\/Tiled\/platforms.tsx"
+         "source":"platforms.tsx"
         }],
  "tilewidth":64,
  "type":"map",
