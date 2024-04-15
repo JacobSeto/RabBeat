@@ -125,10 +125,22 @@ public class GDXRoot extends Game implements ScreenListener {
 //			directory = loading.getAssets();
 //			controller.gatherAssets(directory);
 			//setScreen(loading);
+
+
+			//GOOD CODE!
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
 			controller.initialize();
 			setScreen(controller);
+
+
+
+			//TESTING
+//			setScreen(loading);
+//			controller = new GameController();
+//			loading.setScreenListener(this);
+//			setScreen(loading);
+
 
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			// We quit the main application

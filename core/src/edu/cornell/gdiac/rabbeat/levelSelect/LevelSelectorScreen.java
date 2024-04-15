@@ -17,7 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.LoadingMode;
+import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.util.ScreenListener;
 
 public class LevelSelectorScreen extends ScreenAdapter {
@@ -26,15 +28,18 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private Skin skin;
     private Texture buttonTexture;
 
-    private int numberOfLevels = 3;
+    /** Reference to the numberOfLevels variable in GameController */
+    private int numberOfLevels = GameController.getInstance().getNumberOfLevels();
 
     private ScreenListener listener;
 
     public LevelSelectorScreen(Game game) {
         this.game = game;
-
     }
 
+    /** Displays the button UI for each level and adds a clickListener that detects whether
+     * the button has been clicked and takes the player to the desired level
+     */
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
@@ -80,7 +85,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
 //        });
 //        stage.addActor(level1Button);
 
-        /** Looping through all buttons */
+        /** Loops through all buttons */
         for(int i=1; i<= numberOfLevels; i++) {
             TextButton levelButton = new TextButton("Level " + i, textButtonStyle);
             levelButton.setPosition(300+(200*i), 300);
@@ -88,10 +93,10 @@ public class LevelSelectorScreen extends ScreenAdapter {
             levelButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    //game.setScreen(new GameScreen(game, finalI));
-                    exitLevelSelectorScreen();
-                    //listener.exitScreen(this, 0);
-                    System.out.println("Level " + finalI);
+                    listener.exitScreen(LevelSelectorScreen.this, 0);
+
+                    GameController.getInstance().setCurrentlLevel("level" + finalI);
+                    System.out.println(GameController.getInstance().getCurrentLevel());
                 }
             });
             stage.addActor(levelButton);
@@ -113,10 +118,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
 //        stage.addActor(level1Button);
 
         // Add more buttons for other levels
-    }
-
-    public void exitLevelSelectorScreen() {
-        listener.exitScreen(this, 0);
     }
 
     public void render(float delta) {

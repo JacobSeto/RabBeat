@@ -120,9 +120,9 @@
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
-        "example": "levelsJson/rabbeatLevel.tmj",
-        "level1": "levelsJson/rabbeatLevel.tmj",
-        "level2": "levelsJson/exampleLevel.tmj"
+        "example": "levelsJson/rabbeatLevel2.tmj",
+        "level1": "levelsJson/rabbeatLevel2.tmj",
+        "level2": "levelsJson/rabbeatLevel.tmj"
     },
     "sounds": {
 

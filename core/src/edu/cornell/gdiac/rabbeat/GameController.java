@@ -72,8 +72,15 @@ public class GameController implements Screen, ContactListener {
 	public static final int EXIT_QUIT = 0;
 
 	public static final int LEVEL = 1;
+
+	/** The String that represents the JSON file for the current level the player is accessing */
+	private String currentLevel = "level1";
+
 	/** How many frames after winning/losing do we continue? */
 	public static final int EXIT_COUNT = 2;
+
+	/** The number of levels in the game */
+	private int numberOfLevels = 3;
 
 	/** The amount of time for a physics engine step. */
 	public static final float WORLD_STEP = 1 / 60.0f;
@@ -927,27 +934,18 @@ public class GameController implements Screen, ContactListener {
 		return objectController.player;
 	}
 
-	public void createJoint(GameObject bd1, GameObject bd2){
-		Vector2 anchor1 = new Vector2();
-		Vector2 anchor2 = new Vector2();
-
-//		Vector2 anchor1 = bd1.getPosition();
-//		Vector2 anchor2 = bd2.getPosition();
-
-		// Definition for a revolute joint
-		JointDef jointDef = new PrismaticJointDef();
-
-		// Initial joint
-		jointDef.bodyA = bd1.getBody();
-		jointDef.bodyB = bd2.getBody();
-
-		jointDef.collideConnected = true;
-		Joint joint = world.createJoint(jointDef);
+	/** Return the currentLevel String variable */
+	public String getCurrentLevel() {
+		return currentLevel;
 	}
 
-	//TODO: destroy joint!
-//	public void breakJoint(Joint joint){
-//		world.destroyJoint(joint);
-//	}
+	/** Set the currentLevel variable to the current level */
+	public void setCurrentlLevel(String currentLevel) {
+		this.currentLevel = currentLevel;
+	}
+
+	public int getNumberOfLevels() {
+		return numberOfLevels;
+	}
 
 }

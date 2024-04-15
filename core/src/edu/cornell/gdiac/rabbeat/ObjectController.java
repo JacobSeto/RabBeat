@@ -152,14 +152,11 @@ public class ObjectController {
     private float synthSpeed;
     private float jazzSpeed;
 
-    //public BearEnemy enemy;
 
     /** The enemy scale for the enemy */
     private float enemyScale = 3/8f*2;
 
     public ArrayList<GameObject> foreground = new ArrayList<>();
-
-    public String currentLevel = "level1";
 
     /**
      * Gather the assets for this controller.
@@ -170,7 +167,7 @@ public class ObjectController {
      * @param directory	Reference to global asset manager.
      */
     public void gatherAssets(AssetDirectory directory) {
-        levelJson = directory.getEntry("example", JsonValue.class);
+        levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
@@ -858,4 +855,6 @@ public class ObjectController {
         art.setDrawScale(scale);
         GameController.getInstance().instantiate(art);
     }
+
+
 }
