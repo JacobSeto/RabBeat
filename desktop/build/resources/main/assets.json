@@ -10,23 +10,23 @@
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
-      "world:platforms:weightedSynth" : "world/platforms/synthPlat.png",
+      "world:platforms:weightedSynth" : "world/platforms/synthPlat.PNG",
 
-      "world:platforms:weightedJazz" : "world/platforms/jazzPlat.png",
+      "world:platforms:weightedJazz" : "world/platforms/jazzPlat.PNG",
 
-      "world:platforms:movingSynth" : "world/platforms/synthPlat.png",
+      "world:platforms:movingSynth" : "world/platforms/synthPlat.PNG",
 
-      "world:platforms:movingJazz" : "world/platforms/jazzPlat.png",
+      "world:platforms:movingJazz" : "world/platforms/jazzPlat.PNG",
 
-      "world:platforms:platform" : "world/platforms/platform.png",
+      "world:platforms:platform" : "world/platforms/platform.PNG",
 
       "world:platforms:platformArt" : "world/platforms/purplePlatArt.png",
 
-      "world:platforms:longPlatform:left" : "world/platforms/longPlatform/left.png",
+      "world:platforms:longPlatform:left" : "world/platforms/longPlatform/left.PNG",
 
-      "world:platforms:longPlatform:mid" : "world/platforms/longPlatform/mid.png",
+      "world:platforms:longPlatform:mid" : "world/platforms/longPlatform/mid.PNG",
 
-      "world:platforms:longPlatform:right" : "world/platforms/longPlatform/right.png",
+      "world:platforms:longPlatform:right" : "world/platforms/longPlatform/right.PNG",
 
       "world:platforms:endPlatform" : "world/platforms/endPlatform.png",
 
@@ -98,19 +98,19 @@
 
       "world:pipes:bigpipetv" : "world/pipes/bigpipetv.png",
 
-      "world:pipes:pipeleftskinny" : "world/pipes/pipeleftskinny.png",
+      "world:pipes:pipeleftskinny" : "world/pipes/pipeleftskinny.PNG",
 
-      "world:pipes:pipeposter" : "world/pipes/pipeposter.png",
+      "world:pipes:pipeposter" : "world/pipes/pipeposter.PNG",
 
-      "world:pipes:piperight" : "world/pipes/piperight.png",
+      "world:pipes:piperight" : "world/pipes/piperight.PNG",
 
-      "world:pipes:piperightskinny" : "world/pipes/piperightskinny.png",
+      "world:pipes:piperightskinny" : "world/pipes/piperightskinny.PNG",
 
-      "world:pipes:pipestraight" : "world/pipes/pipestraight.png",
+      "world:pipes:pipestraight" : "world/pipes/pipestraight.PNG",
 
       "world:pipes:pipestraightskinny" : "world/pipes/pipestraightskinny.png",
 
-      "world:pipes:bgpipe" : "world/pipes/bgpipe.png",
+      "world:pipes:bgpipe" : "world/pipes/bigpipe.png",
 
       "world:wires:bigwire" : "world/wires/bigwire.png",
 

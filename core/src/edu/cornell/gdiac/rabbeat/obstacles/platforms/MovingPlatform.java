@@ -29,7 +29,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     boolean moving;
 
     /**The distance the platform should 'lock on' to its destination */
-    private float LOCKDIST = 0.5f;
+    private float LOCKDIST = 0.05f;
 
     private int beat = 0;
 
@@ -62,9 +62,10 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
 
     /** updates the platform to determine what direction it should be moving in */
     public void update(float delta){
-
         if(moving){
-            if ((magnitude(getPosition(), positionNodes[destination])<LOCKDIST)){
+            //TODO-Make a more elegant lockdist system
+            if (solveDelta(currentSpeed)-delta <LOCKDIST){
+                setPosition(positionNodes[destination].x,positionNodes[destination].y );
                 home = destination;
                 if (destination == positionNodes.length-1){
                     destination = 0;
@@ -72,8 +73,9 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
                 else{
                     destination+=1;
                 }
-                velocity = direction(positionNodes[home], positionNodes[destination], 1);
-                move(delta);
+                velocity = direction(positionNodes[home], positionNodes[destination], platformSpeed);
+                moving = false;
+                currentSpeed = 0;
             }
             else{
                 move(delta);
@@ -84,6 +86,12 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     public void move(float delta){
         //setLinearVelocity(velocity);
         setPosition(getPosition().x + velocity.x*delta*-1*currentSpeed, getPosition().y + velocity.y*delta*-1*currentSpeed);
+    }
+
+    public float solveDelta(float velocity){
+        float d = 0;
+
+        return magnitude(getPosition(), positionNodes[destination])/velocity;
     }
 
     @Override
@@ -104,13 +112,14 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         }
     }
 
-    public float magnitude(Vector2 pos1, Vector2 pos2){
+    /**Determines the distance between two vectors */
+    private float magnitude(Vector2 pos1, Vector2 pos2){
         double magnitude = Math.sqrt(Math.pow((pos1.x - pos2.x),2)+
                 Math.pow((pos1.y-pos2.y),2));
         return (float) magnitude;
     }
-
-    public Vector2 direction(Vector2 pos1, Vector2 pos2, float speed){
+    /**Determines the normalized direction vector bewteen two vectors, with a a float multiplier*/
+    private Vector2 direction(Vector2 pos1, Vector2 pos2, float speed){
         float magnitude = magnitude(pos1, pos2);
 
         return new Vector2((pos1.x - pos2.x)*speed/magnitude,
@@ -134,18 +143,17 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
 
     @Override
     public void beatAction() {
+        moving = true;
         float BeatLength = (float) 60 /BPM;
         System.out.println(BeatLength);
         System.out.println(BPM);
         beat+= 1;
         currentSpeed = 0;
         if (beat== 7){
-
-            currentSpeed = magnitude(positionNodes[home], positionNodes[destination])/(5*BeatLength);
-
+            currentSpeed = 2*(magnitude(positionNodes[home], positionNodes[destination])*2/(5*BeatLength));
         }
         else if (beat == 8 ){
-            currentSpeed = magnitude(positionNodes[home], positionNodes[destination])*4/(5*BeatLength);
+            currentSpeed = 2*(magnitude(positionNodes[home], positionNodes[destination])*3/(5*BeatLength));
             beat = 0;
         }
         System.out.println("speed is "+currentSpeed);
