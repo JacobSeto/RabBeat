@@ -598,11 +598,11 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) && !bd2.getName().contains("checkpoint")) {
+			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) ) {
 				bd1.markRemoved(true);
 			}
 
-			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy) && !bd1.getName().contains("checkpoint")) {
+			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy) ) {
 				bd2.markRemoved(true);
 			}
 
@@ -610,15 +610,15 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			if (bd1 instanceof BeeEnemy && !(bd2 instanceof BeeHive) && !bd2.getName().contains("checkpoint")) {
+			if (bd1 instanceof BeeEnemy && !(bd2 instanceof BeeHive) ) {
 				bd1.markRemoved(true);
 			}
 
-			if (bd2 instanceof BeeEnemy && !(bd1 instanceof BeeHive) && !bd1.getName().contains("checkpoint")) {
+			if (bd2 instanceof BeeEnemy && !(bd1 instanceof BeeHive) ) {
 				bd2.markRemoved(true);
 			}
 
-			if ((bd1.equals(objectController.player) && bd2 instanceof BeeEnemy)) {
+			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy)) {
 				setFailure(true);
 			}
 

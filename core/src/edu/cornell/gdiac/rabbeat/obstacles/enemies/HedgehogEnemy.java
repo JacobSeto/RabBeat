@@ -121,6 +121,7 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
                 //setAngle(angle);
             } else {
                 setPosition(getX()-distance, getY());
+                //setAngle(angle);
             }
         }
 

@@ -37,34 +37,46 @@ public class BeeEnemy extends WheelGameObject implements ISynced, IGenreObject {
 
         beatCount++;
         if (curGenre == Genre.SYNTH) {
-            setVY(getVY() * -1);
+            if (getVY() < 0){
+                setVY(2);
+            }
+            else{
+                setVY(-2);
+            }
+            //setVY(getVY() * -1);
         }
         else {
-            if (beatCount % 2 == 0) {
-                setVY(getVY() * -1);
+            if (getVY() < 0){
+                setVY(1);
             }
+            else{
+                setVY(-1);
+            }
+//            if (beatCount % 2 == 0) {
+//                setVY(getVY() * -1);
+//            }
         }
     }
 
     @Override
     public void genreUpdate(Genre genre) {
-        curGenre = genre;
-        if (genre == Genre.SYNTH){
-            if (getVY() < 0){
-                setVY(-2);
-            }
-            else {
-                setVY(2);
-            }
-        }
-        else {
-            if (getVY() < 0){
-                setVY(-1);
-            }
-            else {
-                setVY(1);
-            }
-        }
+//        curGenre = genre;
+//        if (genre == Genre.SYNTH){
+//            if (getVY() < 0){
+//                setVY(-2);
+//            }
+//            else {
+//                setVY(2);
+//            }
+//        }
+//        else {
+//            if (getVY() < 0){
+//                setVY(-1);
+//            }
+//            else {
+//                setVY(1);
+//            }
+//        }
     }
     public void setAnimation(Animation<TextureRegion> animation){
         this.animation = animation;
