@@ -170,7 +170,7 @@ public class ObjectController {
      * @param directory	Reference to global asset manager.
      */
     public void gatherAssets(AssetDirectory directory) {
-        levelJson = directory.getEntry(currentLevel, JsonValue.class);
+        levelJson = directory.getEntry("example", JsonValue.class);
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));

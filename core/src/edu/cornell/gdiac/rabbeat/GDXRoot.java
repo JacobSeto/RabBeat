@@ -38,7 +38,9 @@ public class GDXRoot extends Game implements ScreenListener {
 	private int current;
 	/** List of all WorldControllers */
 	private GameController controller;
-	
+
+	private LevelSelectorScreen levelSelectorScreen;
+
 	/**
 	 * Creates a new game from the configuration settings.
 	 *
@@ -61,7 +63,10 @@ public class GDXRoot extends Game implements ScreenListener {
 		controller = new GameController();
 		loading.setScreenListener(this);
 		setScreen(loading);
-		setScreen(new LevelSelectorScreen(this));
+
+		levelSelectorScreen = new LevelSelectorScreen(this);
+		levelSelectorScreen.setListener(this);
+//		setScreen(levelSelectorScreen);
 	}
 
 	/** 
@@ -109,16 +114,22 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * @param exitCode The state of the screen upon exit
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
+//enum for exitcode
 		if (screen == loading) {
 			directory = loading.getAssets();
 			controller.gatherAssets(directory);
+			loading.dispose();
+			loading = null;
+			setScreen(levelSelectorScreen);
+		} else if (screen == levelSelectorScreen) {
+//			directory = loading.getAssets();
+//			controller.gatherAssets(directory);
+			//setScreen(loading);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
 			controller.initialize();
 			setScreen(controller);
-			
-			loading.dispose();
-			loading = null;
+
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			// We quit the main application
 			Gdx.app.exit();

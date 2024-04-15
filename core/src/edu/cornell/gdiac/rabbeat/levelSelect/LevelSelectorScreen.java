@@ -2,6 +2,7 @@ package edu.cornell.gdiac.rabbeat.levelSelect;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -88,7 +89,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     //game.setScreen(new GameScreen(game, finalI));
-                    listener.exitScreen(LevelSelectorScreen.this, 0);
+                    exitLevelSelectorScreen();
+                    //listener.exitScreen(this, 0);
                     System.out.println("Level " + finalI);
                 }
             });
@@ -113,6 +115,10 @@ public class LevelSelectorScreen extends ScreenAdapter {
         // Add more buttons for other levels
     }
 
+    public void exitLevelSelectorScreen() {
+        listener.exitScreen(this, 0);
+    }
+
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -129,5 +135,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
         stage.dispose();
     }
 
+    public void setListener (ScreenListener listener) {
+        this.listener = listener;
+    }
 
 }

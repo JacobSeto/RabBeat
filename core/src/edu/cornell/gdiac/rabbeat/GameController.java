@@ -70,6 +70,8 @@ public class GameController implements Screen, ContactListener {
 
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
+
+	public static final int LEVEL = 1;
 	/** How many frames after winning/losing do we continue? */
 	public static final int EXIT_COUNT = 2;
 
