@@ -63,7 +63,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     /** updates the platform to determine what direction it should be moving in */
     public void update(float delta){
         if(moving){
-            //TODO-Make a more elegant lockdist system
+            /**If it is predicted we reach the next platform in the current frame, teleport to it and recalculte velocity.*/
             if (solveDelta(currentSpeed)-delta <LOCKDIST){
                 setPosition(positionNodes[destination].x,positionNodes[destination].y );
                 home = destination;
@@ -84,21 +84,16 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     }
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
     public void move(float delta){
-        //setLinearVelocity(velocity);
         setPosition(getPosition().x + velocity.x*delta*-1*currentSpeed, getPosition().y + velocity.y*delta*-1*currentSpeed);
     }
-
+    /**Calculates the time it takes to reach the next platform given the current speed*/
     public float solveDelta(float velocity){
-        float d = 0;
-
         return magnitude(getPosition(), positionNodes[destination])/velocity;
     }
-
     @Override
     public void genreUpdate(Genre genre) {
         move(genre);
     }
-
     /**
      * Sets the weighted platform's position based on the given genre.
      * @param genre     The genre that the game is currently in
@@ -111,7 +106,6 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
                 break;
         }
     }
-
     /**Determines the distance between two vectors */
     private float magnitude(Vector2 pos1, Vector2 pos2){
         double magnitude = Math.sqrt(Math.pow((pos1.x - pos2.x),2)+
@@ -125,7 +119,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         return new Vector2((pos1.x - pos2.x)*speed/magnitude,
                 (pos1.y-pos2.y)*speed/magnitude);
     }
-
+    /**Returns the current velocity of the platform */
     public Vector2 currentVelocity(){
         if (!moving){
             return new Vector2(0,0);
@@ -143,10 +137,9 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
 
     @Override
     public void beatAction() {
+        /**Renable moving after reaching destination and incredments beat, as well as resetting the speed*/
         moving = true;
         float BeatLength = (float) 60 /BPM;
-        System.out.println(BeatLength);
-        System.out.println(BPM);
         beat+= 1;
         currentSpeed = 0;
         if (beat== 7){
@@ -156,7 +149,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
             currentSpeed = 2*(magnitude(positionNodes[home], positionNodes[destination])*3/(5*BeatLength));
             beat = 0;
         }
-        System.out.println("speed is "+currentSpeed);
-        System.out.println("Beat is "+beat);
+        //System.out.println("speed is "+currentSpeed);
+        //System.out.println("Beat is "+beat);
     }
 }

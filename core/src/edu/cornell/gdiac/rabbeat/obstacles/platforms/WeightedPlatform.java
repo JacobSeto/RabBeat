@@ -128,12 +128,13 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject {
                 break;
         }
     }
+    /**Determines the distance between two vectors */
     public float magnitude(Vector2 pos1, Vector2 pos2){
         double magnitude = Math.sqrt(Math.pow((pos1.x - pos2.x),2)+
                 Math.pow((pos1.y-pos2.y),2));
         return (float) magnitude;
     }
-
+    /**Determines the normalized direction vector bewteen two vectors, with a a float multiplier*/
     public Vector2 direction(Vector2 pos1, Vector2 pos2, float speed){
         float magnitude = magnitude(pos1, pos2);
         return new Vector2((pos1.x - pos2.x)*speed/magnitude,
