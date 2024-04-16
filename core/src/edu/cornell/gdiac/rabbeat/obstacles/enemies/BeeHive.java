@@ -55,7 +55,7 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset",0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
-        BeeEnemy bee = new BeeEnemy(getX()+offset, getY(), radius, beeAttackAnimation);
+        Bee bee = new Bee(getX()+offset, getY(), radius, beeAttackAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
@@ -66,17 +66,19 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
 
         //Compute position and velocity
         float speed = 2.5f;
+        float vSpeed;
         int beatcount;
         if (curGenre == Genre.SYNTH){
             beatcount = synthBeeTime;
-            bee.setVY(2);
+            vSpeed = 4;
         }
         else {
             beatcount = jazzBeeTime;
-            bee.setVY(1);
+            vSpeed = 2;
         }
         speed *= (isFaceRight() ? 1 : -1);
         bee.setVX(speed);
+        bee.setVY(vSpeed);
         bee.beatCount = beatcount;
         GameController.getInstance().instantiateQueue(bee);
     }

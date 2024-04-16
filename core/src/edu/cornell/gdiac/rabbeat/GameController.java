@@ -19,7 +19,7 @@ package edu.cornell.gdiac.rabbeat;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeEnemy;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bee;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
@@ -610,11 +610,11 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			if (bd1 instanceof BeeEnemy && !(bd2 instanceof BeeHive) ) {
+			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) ) {
 				bd1.markRemoved(true);
 			}
 
-			if (bd2 instanceof BeeEnemy && !(bd1 instanceof BeeHive) ) {
+			if (bd2 instanceof Bee && !(bd1 instanceof BeeHive) ) {
 				bd2.markRemoved(true);
 			}
 

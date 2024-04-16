@@ -9,21 +9,43 @@ import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
-public class BeeEnemy extends WheelGameObject implements ISynced, IGenreObject {
+public class Bee extends WheelGameObject implements ISynced, IGenreObject {
 
     public int beatCount = 0;
+    private float hiveY;
+    private boolean switched = false;
     public Animation<TextureRegion> animation;
     public Genre curGenre = Genre.SYNTH;
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
 
-    public BeeEnemy(float x, float y, float radius, Animation<TextureRegion> beeAttackAnimation) {
-
+    public Bee(float x, float y, float radius, Animation<TextureRegion> beeAttackAnimation) {
         super(x, y, radius);
+        hiveY = y;
         setAnimation(beeAttackAnimation);
     }
     public void update(float dt) {
         stateTime += dt;
+        if (getY() == hiveY){
+            if (switched == true){
+                if (curGenre == Genre.SYNTH){
+                    if (getVY() < 0){
+                        setVY(-4);
+                    }
+                    else{
+                        setVY(4);
+                    }
+                }
+                else{
+                    if (getVY() < 0){
+                        setVY(-2);
+                    }
+                    else{
+                        setVY(2);
+                    }
+                }
+            }
+        }
         super.update(dt);
     }
 
@@ -34,33 +56,14 @@ public class BeeEnemy extends WheelGameObject implements ISynced, IGenreObject {
 
     @Override
     public void beatAction() {
-
         beatCount++;
-        if (curGenre == Genre.SYNTH) {
-            if (getVY() < 0){
-                setVY(2);
-            }
-            else{
-                setVY(-2);
-            }
-            //setVY(getVY() * -1);
-        }
-        else {
-            if (getVY() < 0){
-                setVY(1);
-            }
-            else{
-                setVY(-1);
-            }
-//            if (beatCount % 2 == 0) {
-//                setVY(getVY() * -1);
-//            }
-        }
+        setVY(getVY() * -1);
     }
 
     @Override
     public void genreUpdate(Genre genre) {
-//        curGenre = genre;
+        curGenre = genre;
+        switched = true;
 //        if (genre == Genre.SYNTH){
 //            if (getVY() < 0){
 //                setVY(-2);
