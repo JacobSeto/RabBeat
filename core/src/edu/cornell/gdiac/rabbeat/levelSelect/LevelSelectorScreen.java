@@ -37,6 +37,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
         this.game = game;
     }
 
+    public String currentLevel = "";
+
     /** Displays the button UI for each level and adds a clickListener that detects whether
      * the button has been clicked and takes the player to the desired level
      */
@@ -85,6 +87,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
 //        });
 //        stage.addActor(level1Button);
 
+
         /** Loops through all buttons */
         for(int i=1; i<= numberOfLevels; i++) {
             TextButton levelButton = new TextButton("Level " + i, textButtonStyle);
@@ -94,7 +97,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     listener.exitScreen(LevelSelectorScreen.this, 0);
-
+                    currentLevel = "level" + finalI;
                     GameController.getInstance().setCurrentlLevel("level" + finalI);
                     System.out.println(GameController.getInstance().getCurrentLevel());
                 }

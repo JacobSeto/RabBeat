@@ -158,6 +158,7 @@ public class ObjectController {
 
     public ArrayList<GameObject> foreground = new ArrayList<>();
 
+    //public GameController gc = GameController.getInstance();
     /**
      * Gather the assets for this controller.
      *
@@ -167,7 +168,10 @@ public class ObjectController {
      * @param directory	Reference to global asset manager.
      */
     public void gatherAssets(AssetDirectory directory) {
+//        levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
+
+        System.out.println(GameController.getInstance().getCurrentLevel());
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));

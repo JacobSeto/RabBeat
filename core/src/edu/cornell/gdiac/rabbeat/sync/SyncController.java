@@ -31,7 +31,6 @@ public class SyncController {
      * */
     public void addDelay(float _delay){
         delay += _delay;
-        System.out.println(delay);
     }
 
     /**The update function for everything synced in the world*/

@@ -16,8 +16,6 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
@@ -144,7 +142,7 @@ public class GameController implements Screen, ContactListener {
 
 	private static GameController theController = null;
 
-	public static GameController getInstance() {
+	public static synchronized GameController getInstance() {
 		if (theController == null) {
 			theController = new GameController();
 		}
@@ -324,9 +322,9 @@ public class GameController implements Screen, ContactListener {
 	// TODO: Adjust to the correct assets after assets have been added
 	/**
 	 * Gather the assets for this controller.
-	 *
-	 * This method extracts the asset variables from the given asset directory. It
-	 * should only be called after the asset directory is completed.
+	 * <p>
+	 * This method extracts the asset variables from the given asset directory. It should only be
+	 * called after the asset directory is completed.
 	 *
 	 * @param directory Reference to global asset manager.
 	 */
