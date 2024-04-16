@@ -1158,15 +1158,15 @@ public class GameCanvas {
 	/**
 	 * Updates the camera position based on the player position
 	 *
-	 * @param player		The player object
-	 * @param worldWidth	The width of the world in Box2D units
-	 * @param worldHeight	The height of the world in Box2D units
+	 * @param player      The player object
+	 * @param worldWidth  The width of the world in Box2D units
+	 * @param worldHeight The height of the world in Box2D units
 	 */
 	protected void updateCamera(Player player, float worldWidth, float worldHeight) {
 		float minX = camera.viewportWidth/2;
-		float maxX = worldWidth * (getWidth()/57.6f) - camera.viewportWidth/2;
+		float maxX = worldWidth * (getWidth()/ GameController.DEFAULT_WIDTH) - camera.viewportWidth/2;
 		float minY = camera.viewportHeight/2;
-		float maxY = worldHeight * (getHeight()/32.4f) - camera.viewportHeight/2;
+		float maxY = worldHeight * (getHeight()/ GameController.DEFAULT_HEIGHT) - camera.viewportHeight/2;
 
 		camera.position.lerp(new Vector3(
 						// TODO: Still need to figure out why 67f
