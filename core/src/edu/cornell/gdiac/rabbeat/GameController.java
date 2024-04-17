@@ -946,4 +946,9 @@ public class GameController implements Screen, ContactListener {
 		return numberOfLevels;
 	}
 
+	public void exitScreen() {
+		pause();
+		listener.exitScreen(this, EXIT_QUIT);
+	}
+
 }
