@@ -26,7 +26,7 @@ import edu.cornell.gdiac.rabbeat.sync.ISynced;
  * Bat enemy avatar for the platform game.
  * Bats send echos synced to the beat and players will be hurt if they enter its radius.
  */
-public class BatEnemy extends Enemy implements ISynced, IGenreObject {
+public class BatEnemy extends Enemy {
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     /** the radius of attack of the bat's echo */
@@ -54,11 +54,6 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
         setAnimation(batIdleAnimation);
     }
 
-    /** Updates the variable curGenre to the current genre of the game */
-    public void genreUpdate(Genre genre) {
-        curGenre = genre;
-    }
-
     /**
      * Switches the attack state of the bat depending on the beat count.
      */
@@ -66,22 +61,22 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
     public void switchState() {
         switch(enemyState) {
             case IDLE:
-                if(curGenre.equals(Genre.JAZZ)) {
+                if(GameController.getInstance().genre == Genre.JAZZ) {
                     if(beatCount == 4) {
                         enemyState = EnemyState.ATTACKING;
                     }
-                } else if(curGenre.equals(Genre.SYNTH)) {
+                } else{
                     if(beatCount == 4 || beatCount == 2) {
                         enemyState = EnemyState.ATTACKING;
                     }
                 }
                 break;
             case ATTACKING:
-                if(curGenre.equals(Genre.JAZZ)) {
+                if(GameController.getInstance().genre == Genre.JAZZ) {
                     if(beatCount != 4) {
                         enemyState = EnemyState.IDLE;
                     }
-                } else if(curGenre.equals(Genre.SYNTH)) {
+                } else {
                     if(beatCount != 4 && beatCount != 2) {
                         enemyState = EnemyState.IDLE;
                     }
@@ -127,43 +122,6 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
             GameController.getInstance().setFailure(true);
         }
         //TODO: visualize the echo
-        
-//        WheelGameObject w = new WheelGameObject(getX(), getY(), (float) 0.06);
-//        GameController.getInstance().instantiateQueue(w);
-
-//        ObjectController oc = GameController.getInstance().objectController;
-//        float offset =  oc.defaultConstants.get("bullet").getFloat("offset",0);
-//        offset *= (isFaceRight() ? 1 : -1);
-//
-//        float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
-//        System.out.println("RADIUS: " + radius);
-//        System.out.println("ECHORADIUS: " + echoRadius);
-//        bullet = new Bullet(getX()+offset, getY(), radius, oc.defaultConstants.get("bullet").getFloat("synth speed", 0),
-//                oc.defaultConstants.get("bullet").getFloat("jazz speed", 0), isFaceRight());
-//
-//        bullet.setName(getName() + "_bullet");
-//        bullet.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
-//        bullet.setDrawScale(scale);
-//        bullet.setTexture(oc.bulletTexture);
-//        bullet.setGravityScale(0);
-//        shotDirection = isFaceRight();
-//
-//        //Compute position and velocity
-//        float speed;
-//        int beatcount;
-//        if (curGenre == Genre.SYNTH){
-//            speed = oc.defaultConstants.get("bullet").getFloat("synth speed", 0);
-//            beatcount = 3;
-//        }
-//        else {
-//            speed = oc.defaultConstants.get("bullet").getFloat("jazz speed", 0);
-//            beatcount = 8;
-//        }
-//        speed *= (isFaceRight() ? 1 : -1);
-//        bullet.setVX(speed);
-//        bullet.beatCount = beatcount;
-//        GameController.getInstance().instantiateQueue(bullet);
-//
     }
 
     /**
@@ -239,14 +197,9 @@ public class BatEnemy extends Enemy implements ISynced, IGenreObject {
     @Override
     public void update(float dt) {
         super.update(dt);
-//        makeEllipse(getX(), getY(), 2*5, 2*5);
-//        temp = makeCircle(225, 50,40);
-//        circle = temp.makePolyRegion(region);
-//        //makeCircle(getX(), getY(), echoRadius);
-
-        if(curGenre.equals(Genre.SYNTH)) {
+        if(GameController.getInstance().genre == Genre.SYNTH) {
             echoRadius = 2f;
-        } else if(curGenre.equals(Genre.JAZZ)) {
+        } else {
             echoRadius = 4f;
         }
     }

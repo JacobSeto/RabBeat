@@ -12,12 +12,13 @@ import com.badlogic.gdx.physics.box2d.*;
 //package edu.cornell.gdiac.physics.platform;
 
 import com.badlogic.gdx.utils.JsonValue;
+import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 /**
  * Enemy parent class for the platform game.
  */
-public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated {
+public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated, IGenreObject {
 
     /** Enum containing the state of the enemy */
     protected enum EnemyState{
@@ -25,14 +26,8 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
         ATTACKING
     }
 
-    /** Current genre that the game is on */
-    public Genre curGenre = Genre.SYNTH;
-
     /** The scale of the enemy */
     private float enemyScale;
-
-    /** The physics shape of this object */
-    private PolygonShape sensorShape;
 
     /** Whether the enemy is facing right */
     private boolean faceRight;
@@ -86,11 +81,6 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     public boolean isFaceRight() {
         return faceRight;
     }
-
-    /**
-     * Implement this with any updates necessary after the genre switches.
-     */
-    public abstract void genreUpdate(Genre genre);
 
     /**
      * Updates the object's physics state (NOT GAME LOGIC).
@@ -182,11 +172,6 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
         }
     }
 
-    private String type;
-    public void setType (String type) {
-        this.type = type;
-    }
-
     public void setAnimation(Animation<TextureRegion> animation){
         this.animation = animation;
     }
@@ -194,8 +179,16 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     public void updateAnimationFrame(){
         stateTime++;
     }
-    public float getBeat() {return 1;}
 
-    public void beatAction(){}
+    public void genreUpdate(Genre genre){
+        //TODO: Change sprites to reflect the genre
+        if(GameController.getInstance().genre == Genre.SYNTH){
+            //change to synth sprite
+        }
+        else{
+            //change to jazz sprite
+        }
+    }
+
 
 }

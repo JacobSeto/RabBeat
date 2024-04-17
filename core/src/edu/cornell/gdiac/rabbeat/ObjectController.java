@@ -28,6 +28,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ObjectController {
+/**
+ *The purpose of this class is to instantiate all {@link GameObject}s in our world and keep them in memory.
+ * When the world is loaded in from the json, all the objects are created here and placed into
+ * an object list. {@link GameController} will use this controller class to update the game logic of
+ * each GameObject in the game.
+ */
     /** All the objects in the world. */
     public PooledList<GameObject> objects = new PooledList<>();
     /** All objects that are genre-dependent */
@@ -583,18 +589,14 @@ public class ObjectController {
     private void createPlatform(Vector2 scale, String align, float x, float y, int levelHeight, int tileSize){
         TextureRegion textureRegion;
         switch(align){
-            default:
-                textureRegion = longMid;
-                break;
-            case "mid":
-                textureRegion = longMid;
-                break;
             case "left":
                 textureRegion = longLeft;
                 break;
             case "right":
                 textureRegion = longRight;
                 break;
+            default:
+                textureRegion = longMid;
         }
         //  Adjust coordinates + Convert coordinates to world coordinates
         y -= textureRegion.getRegionHeight()/2-4;
