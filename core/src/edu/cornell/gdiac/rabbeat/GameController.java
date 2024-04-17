@@ -16,7 +16,6 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeEnemy;
@@ -80,9 +79,9 @@ public class GameController implements Screen, ContactListener {
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
 	/** Width of the screen in Box2d units */
-	protected static final float DEFAULT_WIDTH = 57.6f;
+	protected static final float DEFAULT_WIDTH = 38.4f;
 	/** Height of the screen in Box2d units */
-	protected static final float DEFAULT_HEIGHT = 32.4f;
+	protected static final float DEFAULT_HEIGHT = 21.64f;
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -4.9f;
 
@@ -403,8 +402,8 @@ public class GameController implements Screen, ContactListener {
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
-		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / 1920;
-		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / 1080;
+		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / getCanvas().getWidth();
+		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / getCanvas().getHeight();
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
