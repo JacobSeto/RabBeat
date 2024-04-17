@@ -44,6 +44,10 @@
 
       "checkpoint:checkActive": "world/checkpoints/checkActive.png",
 
+      "ui:synthIndicator": "ui/synth-indicator.png",
+
+      "ui:jazzIndicator": "ui/jazz-indicator.png",
+
       "player:synth":  "player/synth.png",
 
       "player:synth-jazz":   "player/synth-jazz.png",

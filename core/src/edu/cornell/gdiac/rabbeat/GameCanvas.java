@@ -75,7 +75,10 @@ public class GameCanvas {
 	
 	/** Camera for the underlying SpriteBatch */
 	private OrthographicCamera camera;
-	
+
+	/** Camera for GUI components */
+	private OrthographicCamera guiCamera;
+
 	/** Value to cache window width (if we are currently full screen) */
 	int width;
 	/** Value to cache window height (if we are currently full screen) */
@@ -110,6 +113,12 @@ public class GameCanvas {
 		camera.setToOrtho(false);
 		spriteBatch.setProjectionMatrix(camera.combined);
 		debugRender.setProjectionMatrix(camera.combined);
+
+		// Camera for GUI components
+		guiCamera = new OrthographicCamera(getWidth(),getHeight());
+		guiCamera.setToOrtho(false);
+		spriteBatch.setProjectionMatrix(guiCamera.combined);
+		debugRender.setProjectionMatrix(guiCamera.combined);
 
 		// Initialize the cache objects
 		holder = new TextureRegion();
@@ -365,9 +374,16 @@ public class GameCanvas {
 	 * Start a standard drawing sequence.
 	 *
 	 * Nothing is flushed to the graphics card until the method end() is called.
+	 *
+	 * @param gui	True when the element being drawn is a GUI element.
 	 */
-    public void begin() {
-		spriteBatch.setProjectionMatrix(camera.combined);
+    public void begin(Boolean gui) {
+		if (gui) {
+			spriteBatch.setProjectionMatrix(guiCamera.combined);
+		} else {
+			spriteBatch.setProjectionMatrix(camera.combined);
+		}
+
     	spriteBatch.begin();
     	active = DrawPass.STANDARD;
     }

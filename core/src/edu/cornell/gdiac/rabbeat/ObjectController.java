@@ -22,6 +22,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.HedgehogEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
+import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 import edu.cornell.gdiac.util.PooledList;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,6 +81,13 @@ public class ObjectController {
     /** The texture for the background overlay*/
     public TextureRegion backgroundOverlayTexture;
     private TextureRegion enemyDefaultTexture;
+
+    /** The texture for the genre indicator in Synth mode */
+    private TextureRegion synthIndicatorTexture;
+    /** The texture for the genre indicator in Jazz mode */
+    private TextureRegion jazzIndicatorTexture;
+    /** The genre indicator UI */
+    public GenreUI genreIndicator;
 
     private HashMap<String, TextureRegion> assets = new HashMap<>();
 
@@ -173,6 +181,10 @@ public class ObjectController {
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
+
+        // Allocate genre indicator UI
+        synthIndicatorTexture = new TextureRegion(directory.getEntry("ui:synthIndicator", Texture.class));
+        jazzIndicatorTexture = new TextureRegion(directory.getEntry("ui:jazzIndicator", Texture.class));
 
         defaultConstants = directory.getEntry( "defaultConstants", JsonValue.class );
         synthSpeed =  defaultConstants.get("player").get("max_speed").getFloat("synth");
@@ -276,6 +288,9 @@ public class ObjectController {
      * @param scale The draw scale
      */
     public void populateObjects(Vector2 scale){
+        // Populate in-game UI elements
+        createGUI();
+
         if (levelJson.has("layers")) {
             int levelHeight = levelJson.getInt("height");
             int tileSize = levelJson.getInt("tileheight");
@@ -855,5 +870,11 @@ public class ObjectController {
         art.setBodyType(BodyDef.BodyType.StaticBody);
         art.setDrawScale(scale);
         GameController.getInstance().instantiate(art);
+    }
+
+    /** Creates the in-game UI elements and adds them to the genre/synced objects. */
+    private void createGUI() {
+        genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture);
+        GameController.getInstance().instantiate(genreIndicator);
     }
 }

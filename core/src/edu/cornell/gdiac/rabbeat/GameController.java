@@ -27,6 +27,7 @@ import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
+import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
@@ -380,6 +381,18 @@ public class GameController implements Screen, ContactListener {
 			objectController.genreObjects.add((IGenreObject) object);
 		}
 		object.activatePhysics(world);
+	}
+
+	/**
+	 * If the object is implements {@link ISynced}, add
+	 * to the sync. If it is a {@link IGenreObject}, add to genreObstacles.
+	 *
+	 * @param gui: The GUI element you are instantiating
+	 *
+	 */
+	protected void instantiate(GenreUI gui) {
+		syncController.addSync(gui);
+		objectController.genreObjects.add(gui);
 	}
 
 	/**
@@ -773,11 +786,11 @@ public class GameController implements Screen, ContactListener {
 		canvas.clear();
 
 		// Draw background unscaled.
-		canvas.begin();
+		canvas.begin(false);
 		canvas.draw(objectController.backgroundTexture, 0, 0);
 		canvas.end();
 
-		canvas.begin();
+		canvas.begin(false);
 		for (GameObject obj : objectController.objects) {
 			if (!objectController.foreground.contains(obj)){
 				obj.draw(canvas);
@@ -786,12 +799,12 @@ public class GameController implements Screen, ContactListener {
 		canvas.end();
 
 		// Draw the player on top
-		canvas.begin();
+		canvas.begin(false);
 		objectController.player.draw(canvas);
 		canvas.end();
 
 		// Draw the foreground on top of everything
-		canvas.begin();
+		canvas.begin(false);
 		for (GameObject obj : objectController.foreground) {
 			obj.draw(canvas);
 		}
@@ -805,15 +818,20 @@ public class GameController implements Screen, ContactListener {
 			canvas.endDebug();
 		}
 
+		// Draw genre indicator UI
+		canvas.begin(true);
+		canvas.draw(objectController.genreIndicator.getTexture(), 30, 530);
+		canvas.end();
+
 		// Final message
 		if (complete && !failed) {
 			objectController.displayFont.setColor(Color.YELLOW);
-			canvas.begin(); // DO NOT SCALE
+			canvas.begin(true); // DO NOT SCALE
 			canvas.drawTextCentered("VICTORY!", objectController.displayFont, 0.0f);
 			canvas.end();
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
-			canvas.begin(); // DO NOT SCALE
+			canvas.begin(true); // DO NOT SCALE
 			// TODO: Remove this failure text with something more appropriate for our game
 			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
 			canvas.end();
