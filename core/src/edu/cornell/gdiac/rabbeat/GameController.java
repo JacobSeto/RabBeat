@@ -113,8 +113,6 @@ public class GameController implements Screen, ContactListener {
 	private boolean debug;
 	/** Countdown active for winning or losing */
 	private int countdown;
-
-	// TODO: Add sounds and sound id fields here
 	/** synth soundtrack of game */
 	private Music synthSoundtrack;
 	/** jazz soundtrack of game */
@@ -312,7 +310,6 @@ public class GameController implements Screen, ContactListener {
 
 	}
 
-	// TODO: Adjust to the correct assets after assets have been added
 	/**
 	 * Gather the assets for this controller.
 	 *
@@ -417,7 +414,6 @@ public class GameController implements Screen, ContactListener {
 		soundController.playMusic(Genre.SYNTH);
 	}
 
-	// TODO: Reset to SYNTH defaults
 	/**
 	 * Resets the status of the game so that we can play again.
 	 *
@@ -446,7 +442,6 @@ public class GameController implements Screen, ContactListener {
 		soundController.resetMusic();
 	}
 
-	// TODO: Will use level data json to populate
 	/**
 	 * Lays out the game geography.
 	 */
@@ -454,8 +449,6 @@ public class GameController implements Screen, ContactListener {
 
 		// world starts with Synth gravity
 		world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
-		// TODO This volume constant is never used
-		float volume = objectController.defaultConstants.getFloat("volume", 1.0f);
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
@@ -514,7 +507,6 @@ public class GameController implements Screen, ContactListener {
 		return true;
 	}
 
-	// TODO: Update physics based on genre
 	/**
 	 * The core gameplay loop of this world.
 	 *
@@ -529,8 +521,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param dt Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
-		// TODO: bullet stuff needs to go and make the update in the object itself, not
-		// here
 
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
@@ -626,7 +616,6 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			//TODO: implement lethal obstacle code which checks for the first obstacle being the player, then checking if the
 			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
 				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
 					setFailure(true);
@@ -919,28 +908,4 @@ public class GameController implements Screen, ContactListener {
 	public Player getPlayer() {
 		return objectController.player;
 	}
-
-	public void createJoint(GameObject bd1, GameObject bd2){
-		Vector2 anchor1 = new Vector2();
-		Vector2 anchor2 = new Vector2();
-
-//		Vector2 anchor1 = bd1.getPosition();
-//		Vector2 anchor2 = bd2.getPosition();
-
-		// Definition for a revolute joint
-		JointDef jointDef = new PrismaticJointDef();
-
-		// Initial joint
-		jointDef.bodyA = bd1.getBody();
-		jointDef.bodyB = bd2.getBody();
-
-		jointDef.collideConnected = true;
-		Joint joint = world.createJoint(jointDef);
-	}
-
-	//TODO: destroy joint!
-//	public void breakJoint(Joint joint){
-//		world.destroyJoint(joint);
-//	}
-
 }
