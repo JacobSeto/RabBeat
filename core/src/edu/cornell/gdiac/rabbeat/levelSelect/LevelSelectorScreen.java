@@ -47,80 +47,49 @@ public class LevelSelectorScreen extends ScreenAdapter {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        buttonTexture = new Texture(Gdx.files.internal("ui/level1TempButton.png"));
-        //TextureRegion buttonRegion = new TextureRegion(buttonTexture);
-
-        // Calculate scale factor to fit the button within desired size
-//        float maxWidth = 500;  // Max width for the button
-//        float maxHeight = 500;  // Max height for the button
-//        float scaleX = maxWidth / buttonTexture.getWidth();
-//        float scaleY = maxHeight / buttonTexture.getHeight();
-//        float scale = Math.min(scaleX, scaleY); // Use the smallest scale factor
-//
-//        buttonRegion.setRegionWidth((int)(buttonRegion.getRegionWidth() * scaleX));
-//        buttonRegion.setRegionHeight((int)(buttonRegion.getRegionHeight() * scaleY));
-
-        TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-        BitmapFont font = new BitmapFont();
-
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = buttonDrawable;
-        textButtonStyle.font = font;
-
-        //TextButton level1Button = new TextButton("", textButtonStyle);
-        /** Temporary! */
-        //STYLING
-//        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-//        BitmapFont font = new BitmapFont();
-//        textButtonStyle.font = font; // Set your desired font
-//        textButtonStyle.fontColor = Color.WHITE; // Set the font color
-
-        /** Level 1 button! */
-//        TextButton level1Button = new TextButton("Level 1", textButtonStyle);
-//        level1Button.setPosition(300, 300);
-//        level1Button.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                //game.setScreen(new GameScreen(game, 1));
-//                System.out.print("HEY!");
-//            }
-//        });
-//        stage.addActor(level1Button);
-
 
         /** Loops through all buttons */
         for(int i=1; i<= numberOfLevels; i++) {
-            TextButton levelButton = new TextButton("Level " + i, textButtonStyle);
-            levelButton.setPosition(300+(200*i), 300);
             int finalI = i;
+
+            if(i <= GameController.getInstance().getLevelsUnlocked()) {
+                buttonTexture = new Texture(Gdx.files.internal("ui/unlockedLevels/unlockedLevel" + finalI + ".png"));
+            } else {
+                buttonTexture = new Texture(Gdx.files.internal("ui/lockedLevels/lockedLevel" + finalI + ".png"));
+            }
+
+            TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+            BitmapFont font = new BitmapFont();
+            TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+            textButtonStyle.up = buttonDrawable;
+            textButtonStyle.font = font;
+            TextButton levelButton = new TextButton("", textButtonStyle);
+
+            float xPos = 250 + 300*((i-1)%4);
+            float yPos = 0;
+
+            if(i <= 4) {
+                yPos = 800;
+            } else if (i <= 8) {
+                yPos = 600;
+            } else if (i <= 12) {
+                yPos = 400;
+            }
+
+            levelButton.setPosition(xPos, yPos);
+
             levelButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     listener.exitScreen(LevelSelectorScreen.this, 0);
-                    currentLevel = "level" + finalI;
-                    GameController.getInstance().setCurrentlLevel("level" + finalI);
+                    GameController.getInstance().setCurrentLevelInt(finalI);
+                    //GameController.getInstance().setCurrentlLevel("level" + finalI);
                     System.out.println(GameController.getInstance().getCurrentLevel());
                 }
             });
             stage.addActor(levelButton);
 
         }
-
-//        level1Button.setPosition(200, 200);
-//        stage.addActor(level1Button);
-
-        /**Add skin!! */
-//TextButton level1Button = new TextButton("Level 1", skin); // Replace 'skin' with your skin instance
-//        level1Button.setPosition(100, 200);
-//        level1Button.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                game.setScreen(new GameScreen(game, 1)); // Start level 1
-//            }
-//        });
-//        stage.addActor(level1Button);
-
-        // Add more buttons for other levels
     }
 
     public void render(float delta) {

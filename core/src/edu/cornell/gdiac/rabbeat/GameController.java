@@ -71,14 +71,20 @@ public class GameController implements Screen, ContactListener {
 
 	public static final int LEVEL = 1;
 
-	/** The String that represents the JSON file for the current level the player is accessing */
-	private String currentLevel = "level1";
+	/** The integer that represents the number of levels that the player has unlocked */
+	private int levelsUnlocked = 5;
+
+	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
+	private int currentLevelInt = 1;
+
+	/** The String that represents the JSON file for the current level the player selected from the LevelSelectorScreen */
+	private String currentLevel = "level" + currentLevelInt;
 
 	/** How many frames after winning/losing do we continue? */
 	public static final int EXIT_COUNT = 2;
 
 	/** The number of levels in the game */
-	private int numberOfLevels = 3;
+	private int numberOfLevels = 12;
 
 	/** The amount of time for a physics engine step. */
 	public static final float WORLD_STEP = 1 / 60.0f;
@@ -558,6 +564,7 @@ public class GameController implements Screen, ContactListener {
 			Vector2 displace = lastMCollideWith.currentVelocity();
 			objectController.player.setDisplace(displace);
 		}
+
 	}
 
 	/**
@@ -951,4 +958,39 @@ public class GameController implements Screen, ContactListener {
 		listener.exitScreen(this, EXIT_QUIT);
 	}
 
+	/** Sets the currentLevelInt variable and concurrently change the currentLevel String*/
+	public void setCurrentLevelInt(int currentLevelInt) {
+		this.currentLevelInt = currentLevelInt;
+		currentLevel = "level" + currentLevelInt;
+	}
+
+	/** Return the int variable currentLevelInt */
+	public int getCurrentLevelInt() {
+		return currentLevelInt;
+	}
+
+	/** Returns the number of levelsUnlocked */
+	public int getLevelsUnlocked() {
+		return levelsUnlocked;
+	}
+
+	/** Sets the integer levelsUnlocked */
+	public void setLevelsUnlocked(int levelsUnlocked) {
+		this.levelsUnlocked = levelsUnlocked;
+	}
+
+	/** Increments the integer levelsUnlocked once a player completes a level */
+	public void incrementLevelsUnlocked() {
+		levelsUnlocked++;
+	}
+
+	/** Return the float worldWidth */
+	public float getWorldWidth() {
+		return worldWidth;
+	}
+
+	/** Return the float worldHeight */
+	public float getWorldHeight() {
+		return worldHeight;
+	}
 }
