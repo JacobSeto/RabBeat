@@ -16,7 +16,6 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeEnemy;
@@ -28,6 +27,7 @@ import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
+import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
@@ -80,9 +80,9 @@ public class GameController implements Screen, ContactListener {
 	/** Number of position iterations for the constrain solvers */
 	public static final int WORLD_POSIT = 2;
 	/** Width of the screen in Box2d units */
-	protected static final float DEFAULT_WIDTH = 57.6f;
+	protected static final float DEFAULT_WIDTH = 38.4f;
 	/** Height of the screen in Box2d units */
-	protected static final float DEFAULT_HEIGHT = 32.4f;
+	protected static final float DEFAULT_HEIGHT = 21.64f;
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -4.9f;
 
@@ -113,8 +113,6 @@ public class GameController implements Screen, ContactListener {
 	private boolean debug;
 	/** Countdown active for winning or losing */
 	private int countdown;
-
-	// TODO: Add sounds and sound id fields here
 	/** synth soundtrack of game */
 	private Music synthSoundtrack;
 	/** jazz soundtrack of game */
@@ -312,7 +310,6 @@ public class GameController implements Screen, ContactListener {
 
 	}
 
-	// TODO: Adjust to the correct assets after assets have been added
 	/**
 	 * Gather the assets for this controller.
 	 *
@@ -384,6 +381,18 @@ public class GameController implements Screen, ContactListener {
 	}
 
 	/**
+	 * If the object is implements {@link ISynced}, add
+	 * to the sync. If it is a {@link IGenreObject}, add to genreObstacles.
+	 *
+	 * @param gui: The GUI element you are instantiating
+	 *
+	 */
+	protected void instantiate(GenreUI gui) {
+		syncController.addSync(gui);
+		objectController.genreObjects.add(gui);
+	}
+
+	/**
 	 * Returns true if the object is in bounds.
 	 *
 	 * This assertion is useful for debugging the physics.
@@ -406,8 +415,8 @@ public class GameController implements Screen, ContactListener {
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
-		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / 1920;
-		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / 1080;
+		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / getCanvas().getWidth();
+		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / getCanvas().getHeight();
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
@@ -417,7 +426,6 @@ public class GameController implements Screen, ContactListener {
 		soundController.playMusic(Genre.SYNTH);
 	}
 
-	// TODO: Reset to SYNTH defaults
 	/**
 	 * Resets the status of the game so that we can play again.
 	 *
@@ -446,7 +454,6 @@ public class GameController implements Screen, ContactListener {
 		soundController.resetMusic();
 	}
 
-	// TODO: Will use level data json to populate
 	/**
 	 * Lays out the game geography.
 	 */
@@ -454,8 +461,6 @@ public class GameController implements Screen, ContactListener {
 
 		// world starts with Synth gravity
 		world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
-		// TODO This volume constant is never used
-		float volume = objectController.defaultConstants.getFloat("volume", 1.0f);
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
@@ -514,7 +519,6 @@ public class GameController implements Screen, ContactListener {
 		return true;
 	}
 
-	// TODO: Update physics based on genre
 	/**
 	 * The core gameplay loop of this world.
 	 *
@@ -529,8 +533,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param dt Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
-		// TODO: bullet stuff needs to go and make the update in the object itself, not
-		// here
 
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
@@ -626,7 +628,6 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			//TODO: implement lethal obstacle code which checks for the first obstacle being the player, then checking if the
 			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
 				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
 					setFailure(true);
@@ -774,11 +775,11 @@ public class GameController implements Screen, ContactListener {
 		canvas.clear();
 
 		// Draw background unscaled.
-		canvas.begin();
+		canvas.begin(false);
 		canvas.draw(objectController.backgroundTexture, 0, 0);
 		canvas.end();
 
-		canvas.begin();
+		canvas.begin(false);
 		for (GameObject obj : objectController.objects) {
 			if (!objectController.foreground.contains(obj)){
 				obj.draw(canvas);
@@ -787,12 +788,12 @@ public class GameController implements Screen, ContactListener {
 		canvas.end();
 
 		// Draw the player on top
-		canvas.begin();
+		canvas.begin(false);
 		objectController.player.draw(canvas);
 		canvas.end();
 
 		// Draw the foreground on top of everything
-		canvas.begin();
+		canvas.begin(false);
 		for (GameObject obj : objectController.foreground) {
 			obj.draw(canvas);
 		}
@@ -806,15 +807,20 @@ public class GameController implements Screen, ContactListener {
 			canvas.endDebug();
 		}
 
+		// Draw genre indicator UI
+		canvas.begin(true);
+		canvas.draw(objectController.genreIndicator.getTexture(), 30, 530);
+		canvas.end();
+
 		// Final message
 		if (complete && !failed) {
 			objectController.displayFont.setColor(Color.YELLOW);
-			canvas.begin(); // DO NOT SCALE
+			canvas.begin(true); // DO NOT SCALE
 			canvas.drawTextCentered("VICTORY!", objectController.displayFont, 0.0f);
 			canvas.end();
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
-			canvas.begin(); // DO NOT SCALE
+			canvas.begin(true); // DO NOT SCALE
 			// TODO: Remove this failure text with something more appropriate for our game
 			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
 			canvas.end();
@@ -919,28 +925,4 @@ public class GameController implements Screen, ContactListener {
 	public Player getPlayer() {
 		return objectController.player;
 	}
-
-	public void createJoint(GameObject bd1, GameObject bd2){
-		Vector2 anchor1 = new Vector2();
-		Vector2 anchor2 = new Vector2();
-
-//		Vector2 anchor1 = bd1.getPosition();
-//		Vector2 anchor2 = bd2.getPosition();
-
-		// Definition for a revolute joint
-		JointDef jointDef = new PrismaticJointDef();
-
-		// Initial joint
-		jointDef.bodyA = bd1.getBody();
-		jointDef.bodyB = bd2.getBody();
-
-		jointDef.collideConnected = true;
-		Joint joint = world.createJoint(jointDef);
-	}
-
-	//TODO: destroy joint!
-//	public void breakJoint(Joint joint){
-//		world.destroyJoint(joint);
-//	}
-
 }

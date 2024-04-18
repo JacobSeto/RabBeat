@@ -10,9 +10,7 @@ import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
-public class BeeHive extends Enemy implements ISynced, IGenreObject {
-
-    public ObjectController objectController;
+public class BeeHive extends Enemy{
 
     ObjectController oc = GameController.getInstance().objectController;
 
@@ -67,7 +65,7 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
         //Compute position and velocity
         float speed = 2.5f;
         int beatcount;
-        if (curGenre == Genre.SYNTH){
+        if (GameController.getInstance().genre == Genre.SYNTH){
             beatcount = synthBeeTime;
             bee.setVY(2);
         }
@@ -79,11 +77,6 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
         bee.setVX(speed);
         bee.beatCount = beatcount;
         GameController.getInstance().instantiateQueue(bee);
-    }
-
-    @Override
-    public void genreUpdate(Genre genre) {
-        curGenre = genre;
     }
 
     @Override
