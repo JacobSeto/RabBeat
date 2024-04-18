@@ -26,14 +26,13 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
     /** Texture of the weighted platform in jazz mode **/
     private TextureRegion jazzTexture;
     private int currentGenre;
-    /** The speed at which the platform moves at**/
-    private float platformSpeed;
+
     /** Whether or not the platform is moving**/
     boolean moving;
     private Vector2 velocity;
 
     /**The distance the platform should 'lock on' to its destination */
-    private float LOCKDIST = 0.1f;
+    private float LOCKDIST = 0.01f;
 
     private float currentSpeed = 0;
 
@@ -45,6 +44,8 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
     private float SPEEDBEAT6 = (float) 3*1 /10;
     private float SPEEDBEAT7 = (float) 2*3 /10;
     private float SPEEDBEAT8 = (float) 2*6 /10;
+
+
 
     /**
      * Creates a new weighted platform with the given physics data and current genre.
@@ -71,12 +72,12 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
         setTexture(synthTexture);
         setPosition(synthPosition);
         moving = false;
-        platformSpeed = speed;
+
 
         float magnitude1 = magnitude(jazzPosition, synthPosition);
 
-        velocity = new Vector2((jazzPosition.x - synthPosition.x)*platformSpeed/magnitude1,
-                (jazzPosition.y-synthPosition.y)*platformSpeed/magnitude1);
+        velocity = new Vector2((jazzPosition.x - synthPosition.x)/magnitude1,
+                (jazzPosition.y-synthPosition.y)/magnitude1);
 
         currentGenre = 0;
     }
@@ -86,10 +87,10 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
             return new Vector2(0,0);
         }
         if (currentGenre==0){
-            return new Vector2(velocity.x *-1, velocity.y*-1);
+            return new Vector2(velocity.x *-1*currentSpeed , velocity.y*-1*currentSpeed);
         }
         else{
-            return new Vector2(velocity.x , velocity.y );
+            return new Vector2(velocity.x *currentSpeed, velocity.y*currentSpeed );
         }
     }
 
@@ -97,21 +98,25 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
     public void update(float delta){
         if(moving){
             if (currentGenre == 0){
-                move(delta, synthPosition, -1);
+                move(delta, synthPosition, -1*currentSpeed);
             }
             else{
-                move(delta, jazzPosition, 1);
+                move(delta, jazzPosition, 1*currentSpeed);
             }
         }
     }
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
-    public void move(float delta, Vector2 destination, int direction){
-        if (magnitude(getPosition(), destination)<LOCKDIST){
+    public void move(float delta, Vector2 destination, float speed){
+        if (solveDelta(currentSpeed, destination)-delta <LOCKDIST){
+            setPosition(destination.x,destination.y);
             moving = false;
-            setPosition(destination);
+            currentSpeed = 0;
         }
         else{
-            setPosition(getPosition().x + velocity.x*delta*direction, getPosition().y + velocity.y*delta*direction);
+            System.out.println("moving!");
+            System.out.println(speed);
+            System.out.println(currentSpeed);
+            setPosition(getPosition().x + velocity.x*delta*speed, getPosition().y + velocity.y*delta*speed);
         }
     }
     /**Determines the distance between two vectors */
@@ -127,9 +132,9 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
                 (pos1.y-pos2.y)*speed/magnitude);
     }
     /**Calculates the time it takes to reach the next platform given the current speed*/
-//    public float solveDelta(float velocity){
-//        return magnitude(getPosition(), positionNodes[destination])/velocity;
-//    }
+    public float solveDelta(float velocity, Vector2 destination){
+        return magnitude(getPosition(), destination)/velocity;
+    }
     @Override
     public float getBeat() {
         /** 4 pulses every quarter note*/
@@ -139,7 +144,6 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
     @Override
     public void beatAction() {
         /**Renable moving after reaching destination and incredments beat, as well as resetting the speed*/
-        moving = true;
         float BeatLength = (float) 60 /BPM;
         beat+= 1;
         if (beat==1){
@@ -147,15 +151,16 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
         }
         else if (beat==6){
             if (moving){
-                currentSpeed =1 * SPEEDBEAT6;
+                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT6);
             }
-            //currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT6);
         }
-        else if (beat== 7){
-            //currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT7);
+        else if (beat== 7 && currentSpeed>0){
+            currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT7);
         }
-        else if (beat == 8 ){
-            //currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT8);
+        else if (beat == 8){
+            if (currentSpeed>0){
+                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT8);
+            }
             beat = 0;
         }
     }
