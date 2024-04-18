@@ -109,6 +109,8 @@ public class GameController implements Screen, ContactListener {
 	private boolean complete;
 	/** Whether we have failed at this world (and need a reset) */
 	private boolean failed;
+	/** Whether or not the game is paused */
+	private boolean paused;
 	/** Whether or not debug mode is active */
 	private boolean debug;
 	/** Countdown active for winning or losing */
@@ -222,6 +224,21 @@ public class GameController implements Screen, ContactListener {
 	}
 
 	/**
+	 * Returns true if the game is paused
+	 * @return true if the game is paused
+	 */
+	public boolean isPaused() { return paused; }
+
+	/**
+	 * Sets whether the game is paused.
+	 *
+	 * @param value whether the game is paused.
+	 */
+	public void setPaused(boolean value) {
+		paused = value;
+	}
+
+	/**
 	 * Returns the canvas associated with this controller
 	 *
 	 * The canvas is shared across all controllers
@@ -259,6 +276,7 @@ public class GameController implements Screen, ContactListener {
 		setDebug(false);
 		setComplete(false);
 		setFailure(false);
+		setPaused(false);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		syncController = new SyncController();
@@ -285,6 +303,7 @@ public class GameController implements Screen, ContactListener {
 		failed = false;
 		debug = false;
 		active = false;
+		paused = false;
 		countdown = -1;
 	}
 
@@ -322,6 +341,8 @@ public class GameController implements Screen, ContactListener {
 		objectController.gatherAssets(directory);
 		// set the soundtrack
 		setSoundtrack(directory);
+		// set the sound effects
+		initializeSFX(directory);
 	}
 
 	/**
@@ -336,6 +357,13 @@ public class GameController implements Screen, ContactListener {
 		jazzSoundtrack = directory.getEntry("music:jazz1", Music.class);
 		soundController.setSynthTrack(synthSoundtrack);
 		soundController.setJazzTrack(jazzSoundtrack);
+	}
+
+	/** Initializes the sound effects, which are stored in the sound controller.
+	 * @param directory Reference to global asset manager.
+	 */
+	public void initializeSFX(AssetDirectory directory) {
+		soundController.addSound("genreSwitch", directory.getEntry("sfx:genreSwitch", Sound.class));
 	}
 
 	public Vector2 getScale() {
@@ -483,6 +511,7 @@ public class GameController implements Screen, ContactListener {
 	public boolean preUpdate(float dt) {
 		InputController input = InputController.getInstance();
 		input.readInput(bounds, scale);
+
 		if (listener != null) {
 			// Toggle debug
 			if (input.didDebug()) {
@@ -499,7 +528,28 @@ public class GameController implements Screen, ContactListener {
 				pause();
 				listener.exitScreen(this, EXIT_QUIT);
 				return false;
-			} else if (countdown > 0) {
+			}
+
+			else if (input.didPause()) {
+				// If game is already paused, hitting pause again will unpause it.
+				paused = !paused;
+				if (paused) {
+					pause();
+					return false;
+				}
+				else {
+					resume();
+					// Make sure that genre doesn't get switched while game is paused
+					InputController.getInstance().setSwitchGenre(false);
+
+				}
+			}
+			else if (paused) {
+				// If game is currently in the middle of the paused state, stop doing all this
+				return false;
+			}
+
+			else if (countdown > 0) {
 				countdown--;
 			} else if (countdown == 0) {
 				if (failed) {
@@ -711,6 +761,7 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void updateGenreSwitch() {
 		soundController.setGenre(genre);
+		soundController.playSFX("genreSwitch");
 		// update to Synth
 		if (genre == Genre.SYNTH) {
 			world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
@@ -774,6 +825,13 @@ public class GameController implements Screen, ContactListener {
 	public void draw(float dt) {
 		canvas.clear();
 
+		if (paused) {
+			objectController.displayFont.setColor(Color.CYAN);
+			canvas.begin(true); // DO NOT SCALE
+			canvas.drawTextCentered("You paused the game!", objectController.displayFont, 0.0f);
+			canvas.end();
+			return;
+		}
 		// Draw background unscaled.
 		canvas.begin(false);
 		canvas.draw(objectController.backgroundTexture, 0, 0);
@@ -867,7 +925,7 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
-		// TODO: Stop all sounds here
+		soundController.pauseMusic();
 	}
 
 	/**
@@ -876,7 +934,7 @@ public class GameController implements Screen, ContactListener {
 	 * This is usually when it regains focus.
 	 */
 	public void resume() {
-		// TODO Auto-generated method stub
+		soundController.resumeMusic();
 	}
 
 	/**

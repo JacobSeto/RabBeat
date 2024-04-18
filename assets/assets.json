@@ -127,7 +127,7 @@
         "example": "levelsJson/rabbeatLevel.tmj"
     },
     "sounds": {
-
+      "sfx:genreSwitch": "sfx/genre_switch_woosh.wav"
     },
     "music" : {
       "music:synth1": "music/synth_alpha.ogg",
