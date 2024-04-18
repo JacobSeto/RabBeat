@@ -7,7 +7,6 @@ import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
-import edu.cornell.gdiac.rabbeat.obstacles.PolygonGameObject;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 /**
