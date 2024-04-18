@@ -72,7 +72,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private int levelsUnlocked = 5;
+	private int levelsUnlocked = 6;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private int currentLevelInt = 1;
