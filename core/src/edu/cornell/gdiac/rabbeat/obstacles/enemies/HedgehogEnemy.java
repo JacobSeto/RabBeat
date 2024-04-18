@@ -3,6 +3,7 @@ package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.JsonValue;
+import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
@@ -49,37 +50,28 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
         point2 = getX() - rollingDistance;
     }
 
-    /** Updates the variable curGenre to the current genre of the game */
-    public void genreUpdate(Genre genre) {
-        curGenre = genre;
-    }
-
     @Override
     public void switchState() {
         switch(enemyState) {
             case IDLE:
-                if(curGenre.equals(Genre.JAZZ)) {
+                if(GameController.getInstance().genre == Genre.JAZZ) {
                     if(beatCount == 4) {
                         enemyState = EnemyState.ATTACKING;
-                        System.out.println("ATTACKING Jazz");
                     }
-                } else if(curGenre.equals(Genre.SYNTH)) {
+                } else {
                     if(beatCount == 4 || beatCount == 2) {
                         enemyState = EnemyState.ATTACKING;
-                        System.out.println("ATTACKING Synth");
                     }
                 }
                 break;
             case ATTACKING:
-                if(curGenre.equals(Genre.JAZZ)) {
+                if(GameController.getInstance().genre == Genre.JAZZ) {
                     if(beatCount != 4) {
                         enemyState = EnemyState.IDLE;
-                        System.out.println("IDLE Jazz");
                     }
-                } else if(curGenre.equals(Genre.SYNTH)) {
+                } else{
                     if(beatCount != 4 && beatCount != 2) {
                         enemyState = EnemyState.IDLE;
-                        System.out.println("IDLE Synth");
                     }
                 }
                 break;
@@ -115,6 +107,7 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
                 setPosition(getX()+distance, getY());
             } else {
                 setPosition(getX()-distance, getY());
+                
             }
         }
 
@@ -126,7 +119,7 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
             roll = false;
         }
 
-        if(curGenre == Genre.SYNTH) {
+        if(GameController.getInstance().genre == Genre.SYNTH) {
             distance = 0.1f;
         } else {
             distance = 0.05f;
