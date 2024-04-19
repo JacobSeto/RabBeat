@@ -110,7 +110,7 @@
 
       "world:pipes:pipestraightskinny" : "world/pipes/pipestraightskinny.png",
 
-      "world:pipes:bgpipe" : "world/pipes/bigpipe.png",
+      "world:pipes:bgpipe" : "world/pipes/bgpipe.png",
 
       "world:wires:bigwire" : "world/wires/bigwire.png",
 
@@ -120,7 +120,7 @@
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
-        "example": "levelsJson/rabbeatLevel.tmj"
+        "example": "levelsJson/rabbeatLevelTest.tmj"
     },
     "sounds": {
 

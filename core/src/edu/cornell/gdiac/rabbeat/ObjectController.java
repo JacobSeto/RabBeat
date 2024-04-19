@@ -157,6 +157,8 @@ public class ObjectController {
     /** The enemy scale for the enemy */
     private float enemyScale = 3/8f*2;
 
+    public int tileSize;
+
     public ArrayList<GameObject> foreground = new ArrayList<>();
 
     /**
@@ -169,6 +171,7 @@ public class ObjectController {
      */
     public void gatherAssets(AssetDirectory directory) {
         levelJson = directory.getEntry("example", JsonValue.class);
+        tileSize = levelJson.getInt("tileheight");
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
@@ -278,7 +281,6 @@ public class ObjectController {
     public void populateObjects(Vector2 scale){
         if (levelJson.has("layers")) {
             int levelHeight = levelJson.getInt("height");
-            int tileSize = levelJson.getInt("tileheight");
             for (JsonValue layer : levelJson.get("layers")) {
                 String layerName = layer.getString("name", "");
                 switch (layerName){
@@ -296,7 +298,7 @@ public class ObjectController {
                                 // Get x and y coordinates from where it is in the array
                                 int x = i % width;
                                 int y = height - (i / width) - 1;
-                                createWall(scale, x, y);
+                                createWall(scale, x, y, tileSize);
                             }
                         }
                         break;
@@ -306,6 +308,7 @@ public class ObjectController {
                         float[][] synthCoord = new float[layer.get("objects").size][2];
                         float[][] jazzCoord = new float[layer.get("objects").size][2];
                         float[] wpSpeed = new float[layer.get("objects").size];
+                        Vector2[] wpDimensions = new Vector2[layer.get("objects").size];
                         for (JsonValue wp : layer.get("objects")) {
                             int num = 0;
                             String genre = "";
@@ -332,15 +335,17 @@ public class ObjectController {
                                     break;
                             }
                             wpSpeed[num] = speed;
+                            wpDimensions[num] = new Vector2(wp.getFloat("width"), wp.getFloat("height"));
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
-                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpSpeed[i], levelHeight, tileSize);
+                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpSpeed[i], wpDimensions[i], levelHeight, tileSize);
                         }
                         break;
                     case "movingPlatforms":
                         HashMap<Integer, Vector2[]> positionNodes = new HashMap<>();
                         HashMap<Integer, Float> mpSpeed = new HashMap<>();
+                        HashMap<Integer, Vector2> dimensions = new HashMap<>();
                         for (JsonValue mp : layer.get("objects")) {
                             int num = 0;
                             int pos = 0;
@@ -366,34 +371,40 @@ public class ObjectController {
                             final int numOfNodes = totalPos;    // need to be final to be used in computeIfAbsent
                             positionNodes.computeIfAbsent(num, key -> new Vector2[numOfNodes]);
                             Vector2 coord = new Vector2(mp.getFloat("x"), mp.getFloat("y"));
+                            Vector2 dim = new Vector2(mp.getFloat("width"), mp.getFloat("height"));
                             positionNodes.get(num)[pos] = coord;
 
                             //  Store speed
                             mpSpeed.put(num, speed);
+
+                            //  Store dimensions
+                            dimensions.put(num, dim);
                         }
                         //  Now actually create moving platforms
                         for (int i=0; i<positionNodes.size(); i++){
-                            createMovingPlatform(scale, positionNodes.get(i), mpSpeed.get(i), levelHeight, tileSize);
+                            createMovingPlatform(scale, positionNodes.get(i), mpSpeed.get(i), dimensions.get(i), levelHeight, tileSize);
                         }
                         break;
                     case "platforms":
                         for (JsonValue platform : layer.get("objects")) {
                             float x = platform.getFloat("x");
                             float y = platform.getFloat("y");
+                            Vector2 dim = new Vector2(platform.getFloat("width"), platform.getFloat("height"));
                             String align = "";
                             for (JsonValue prop : platform.get("properties")){
                                 if (prop.getString("name").equals("align")) {
                                     align = prop.getString("value");
                                 }
                             }
-                            createPlatform(scale, align, x, y, levelHeight, tileSize);
+                            createPlatform(scale, align, x, y, dim, levelHeight, tileSize);
                         }
                         break;
                     case "platformArt":
                         for (JsonValue a : layer.get("objects")) {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
-                            createPlatformArt(scale, a.getString("type"), x, y, levelHeight, tileSize);
+                            Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
+                            createPlatformArt(scale, a.getString("type"), x, y, dim, levelHeight, tileSize);
                         }
                         break;
                     case "player":
@@ -401,7 +412,8 @@ public class ObjectController {
                             JsonValue player = layer.get("objects").get(0);
                             float x = player.getInt("x");
                             float y = player.getInt("y");
-                            createPlayer(scale, x, y, levelHeight, tileSize);
+                            Vector2 dim = new Vector2(player.getFloat("width"), player.getFloat("height"));
+                            createPlayer(scale, x, y, dim, levelHeight, tileSize);
                         }
                         break;
                     case "enemies":
@@ -411,23 +423,26 @@ public class ObjectController {
                                 case "bear":
                                     float x = enemy.getFloat("x");
                                     float y = enemy.getFloat("y");
-                                    createEnemyBear(scale, x, y, levelHeight, tileSize);
+                                    Vector2 dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
+                                    createEnemyBear(scale, x, y, dim, levelHeight, tileSize);
                                     break;
                                 case "beehive":
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
-                                    createEnemyBeehive(scale, x, y, levelHeight, tileSize);
+                                    dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
+                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize);
                                     break;
                                 case "hedgehog":
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
+                                    dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
                                     int rollingDistance = 0;
                                     for (JsonValue prop : enemy.get("properties")){
                                         if(prop.getString("name").equals("rollingDistance")){
                                             rollingDistance = prop.getInt("value");
                                         }
                                     }
-                                    createEnemyHedgehog(scale, x, y, rollingDistance, levelHeight, tileSize);
+//                                    createEnemyHedgehog(scale, x, y, dim, rollingDistance, levelHeight, tileSize);
                                     break;
                                 case "bat":
                                     break;
@@ -438,13 +453,14 @@ public class ObjectController {
                         for (JsonValue checkpoint : layer.get("objects")) {
                             float x = checkpoint.getFloat("x");
                             float y = checkpoint.getFloat("y");
+                            Vector2 dim = new Vector2(checkpoint.getFloat("width"), checkpoint.getFloat("height"));
                             int id = 0;
                             for (JsonValue prop : checkpoint.get("properties")){
                                 if (prop.getString("name").equals("num")) {
                                     id = prop.getInt("value");
                                 }
                             }
-                            createCheckpoint(scale, x, y, id, levelHeight, tileSize);
+                            createCheckpoint(scale, x, y, dim, id, levelHeight, tileSize);
                         }
                         break;
                     case "goal":
@@ -452,28 +468,32 @@ public class ObjectController {
                             JsonValue goal = layer.get("objects").get(0);
                             float x = goal.getInt("x");
                             float y = goal.getInt("y");
-                            createGoal(scale, x, y, levelHeight, tileSize);
+                            Vector2 dim = new Vector2(goal.getFloat("width"), goal.getFloat("height"));
+                            createGoal(scale, x, y, dim, levelHeight, tileSize);
                         }
                         break;
                     case "foregroundArt":
                         for (JsonValue a : layer.get("objects")) {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
-                            createGroundArt(scale, a.getString("type"), x, y, levelHeight, tileSize, "foreground");
+                            Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
+                            createGroundArt(scale, a.getString("type"), x, y, dim, levelHeight, tileSize, "foreground");
                         }
                         break;
                     case "backgroundArt":
                         for (JsonValue a : layer.get("objects")) {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
-                            createGroundArt(scale, a.getString("type"), x, y, levelHeight, tileSize, "background");
+                            Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
+                            createGroundArt(scale, a.getString("type"), x, y, dim, levelHeight, tileSize, "background");
                         }
                         break;
                     case "hangingArt":
                         for (JsonValue a : layer.get("objects")) {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
-                            createHangingArt(scale, a.getString("type"), x, y, levelHeight, tileSize);
+                            Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
+                            createHangingArt(scale, a.getString("type"), x, y, dim, levelHeight, tileSize);
                         }
                         break;
                 }
@@ -491,17 +511,22 @@ public class ObjectController {
      * @param tileSize The size of the tiles (in pixels).
      * @return A Vector2 object where the x and y attributes are the converted world coordinates.
      */
-    private Vector2 convertTiledCoord(float x, float y, int levelHeight, int tileSize){
-        x += tileSize;
-        return(new Vector2(x / tileSize, levelHeight - y / tileSize));
+    private Vector2 convertTiledCoord(float x, float y, float width, float height, int levelHeight, int tileSize){
+        x = x / tileSize;
+        y = levelHeight - y / tileSize;
+//        System.out.println(x + " " + y);
+        x = x + (width/(tileSize*2));
+        y = y + (height/ (tileSize*2));
+//        System.out.println(x + " " + y);
+        return(new Vector2(x, y));
     }
     /**
      * Create a checkpoint
      */
-    private void createCheckpoint(Vector2 scale, float x, float y, int id, int levelHeight, int tileSize) {
+    private void createCheckpoint(Vector2 scale, float x, float y, Vector2 dimensions, int id, int levelHeight, int tileSize) {
         // Adjust and Convert coordinates to world coordinates
-        y -= checkpointDefault.getRegionHeight()/2.5;
-        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+//        y -= checkpointDefault.getRegionHeight()/2.5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         if (id == 0){
             // Set first checkpoint as spawn point
@@ -539,13 +564,20 @@ public class ObjectController {
      * @param x x coordinate (world coordinates) of tile
      * @param y y coordinate (world coordinates) of tile
      */
-    private void createWall(Vector2 scale, float x, float y){
+    private void createWall(Vector2 scale, float x, float y, int tileSize){
         String wname = "wall";
         JsonValue defaults = defaultConstants.get("defaults");
         BoxGameObject obj;
         float dwidth  = blackTile.getRegionWidth()/scale.x;
         float dheight = blackTile.getRegionHeight()/scale.y;
-        obj = new BoxGameObject(x, y, dwidth, dheight);
+
+        //Adjust coordinate to be center of tile
+        System.out.println("wall " + x + " " + y);
+        float convertedX = x + ((float) blackTile.getRegionWidth()/(tileSize*2));
+        float convertedY = y + ((float) blackTile.getRegionHeight()/(tileSize*2));
+        System.out.println("converted " + convertedX + " " + convertedY);
+
+        obj = new BoxGameObject(convertedX, convertedY, dwidth, dheight);
         obj.setBodyType(BodyDef.BodyType.StaticBody);
         obj.setDensity(defaults.getFloat( "density", 0.0f ));
         obj.setFriction(defaults.getFloat( "friction", 0.0f ));
@@ -554,6 +586,10 @@ public class ObjectController {
         obj.setTexture(blackTile);
         obj.setName(wname);
         GameController.getInstance().instantiate(obj);
+
+        System.out.println("0bj xy " + obj.getX() + " " + obj.getY());
+        System.out.println("0bj texture widthheight " + obj.getTexture().getRegionWidth() + " " + obj.getTexture().getRegionHeight());
+        System.out.println("0bj textureregion xy " + obj.getTexture().getRegionX() + " " + obj.getTexture().getRegionY());
     }
     /**
      * Create a platform.
@@ -565,7 +601,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createPlatform(Vector2 scale, String align, float x, float y, int levelHeight, int tileSize){
+    private void createPlatform(Vector2 scale, String align, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
         TextureRegion textureRegion;
         switch(align){
             default:
@@ -582,8 +618,8 @@ public class ObjectController {
                 break;
         }
         //  Adjust coordinates + Convert coordinates to world coordinates
-        y -= textureRegion.getRegionHeight()/2-4;
-        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+//        y -= textureRegion.getRegionHeight()/2-4;
+        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
         JsonValue defaults = defaultConstants.get("defaults");
@@ -610,7 +646,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createPlatformArt(Vector2 scale, String type, float x, float y, int levelHeight, int tileSize){
+    private void createPlatformArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
         TextureRegion textureRegion;
         switch(type){
             default:
@@ -621,8 +657,8 @@ public class ObjectController {
                 break;
         }
         //  Adjust coordinates + Convert coordinates to world coordinates
-        y -= textureRegion.getRegionHeight()/2;
-        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+//        y -= textureRegion.getRegionHeight()/2;
+        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
         ArtObject platformArt = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
@@ -641,14 +677,14 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, float speed, int levelHeight, int tileSize){
+    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, float speed, Vector2 dimensions, int levelHeight, int tileSize){
         //  Adjust coordinates + Convert coordinates to world coordinates
-        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
-        Vector2 convertedSynthCoord = convertTiledCoord(synthCoord[0], synthCoord[1], levelHeight, tileSize);
-        convertedSynthCoord.set(convertedSynthCoord.x+1, convertedSynthCoord.y);
-        jazzCoord[1] -= weightedSynth.getRegionHeight()/2-4;
-        Vector2 convertedJazzCoord = convertTiledCoord(jazzCoord[0], jazzCoord[1], levelHeight, tileSize);
-        convertedJazzCoord.set(convertedJazzCoord.x+1, convertedJazzCoord.y);
+//        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
+        Vector2 convertedSynthCoord = convertTiledCoord(synthCoord[0], synthCoord[1], dimensions.x, dimensions.y, levelHeight, tileSize);
+        convertedSynthCoord.set(convertedSynthCoord.x, convertedSynthCoord.y);
+//        jazzCoord[1] -= weightedSynth.getRegionHeight()/2-4;
+        Vector2 convertedJazzCoord = convertTiledCoord(jazzCoord[0], jazzCoord[1], dimensions.x, dimensions.y, levelHeight, tileSize);
+        convertedJazzCoord.set(convertedJazzCoord.x, convertedJazzCoord.y);
 
         JsonValue defaults = defaultConstants.get("defaults");
         float dwidth  = weightedSynth.getRegionWidth()/scale.x;
@@ -667,12 +703,12 @@ public class ObjectController {
         GameController.getInstance().instantiate(weightedPlatform);
     }
 
-    private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, float speed, int levelHeight, int tileSize){
+    private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, float speed, Vector2 dimensions, int levelHeight, int tileSize){
         //  Adjust coordinates + Convert coordinates to world coordinates
         Vector2[] convertedPos = new Vector2[positionNodes.length];
         for(int i=0; i<positionNodes.length; i++){
-            positionNodes[i].y -= movingSynth.getRegionHeight()/2-4;
-            convertedPos[i] = convertTiledCoord(positionNodes[i].x, positionNodes[i].y, levelHeight, tileSize);
+//            positionNodes[i].y -= movingSynth.getRegionHeight()/2-4;
+            convertedPos[i] = convertTiledCoord(positionNodes[i].x, positionNodes[i].y, dimensions.x, dimensions.y, levelHeight, tileSize);
         }
 
         JsonValue defaults = defaultConstants.get("defaults");
@@ -697,9 +733,9 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createPlayer(Vector2 scale, float startX, float startY, int levelHeight, int tileSize){
+    private void createPlayer(Vector2 scale, float startX, float startY, Vector2 dimensions, int levelHeight, int tileSize){
         //  Convert coordinates to world coordinate
-        Vector2 convertedCoord = convertTiledCoord(startX, startY, levelHeight, tileSize);
+        Vector2 convertedCoord = convertTiledCoord(startX, startY, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         //TODO: Figure out if having 2 references for player fields is okay
         float dwidth  = synthDefaultTexture.getRegionWidth()/scale.x;
@@ -724,10 +760,10 @@ public class ObjectController {
         GameController.getInstance().instantiate(player);
     }
 
-    private void createGoal(Vector2 scale, float x, float y, int levelHeight, int tileSize){
+    private void createGoal(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
         //  Adjust and Convert coordinates to world coordinate
-        y -= goalTile.getRegionHeight()/2.5;
-        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+//        y -= goalTile.getRegionHeight()/2.5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         float dwidth  = goalTile.getRegionWidth()/scale.x;
         float dheight = goalTile.getRegionHeight()/scale.y;
@@ -754,10 +790,9 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createEnemyBear(Vector2 scale, float x, float y, int levelHeight, int tileSize){
+    private void createEnemyBear(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
         //  Convert coordinates to world coordinate
-        y -= enemyDefaultTexture.getRegionHeight()/5;
-        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
@@ -778,11 +813,11 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createEnemyBeehive(Vector2 scale, float x, float y, int levelHeight, int tileSize){
+    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
         //  Convert coordinates to world coordinate
         //TODO: change to beehive texture when we get art for this
         y -= enemyDefaultTexture.getRegionHeight()/2;
-        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
@@ -804,14 +839,13 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createEnemyHedgehog(Vector2 scale, float x, float y, int rollingDistance, int levelHeight, int tileSize){
+    private void createEnemyHedgehog(Vector2 scale, float x, float y, Vector2 dimensions, int rollingDistance, int levelHeight, int tileSize){
         //  Convert coordinates to world coordinate
         //TODO: change to hedgehog texture when we get art for this
-        y -= enemyDefaultTexture.getRegionHeight()/5;
-        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
+        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
-        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+        float dwidth  = dimensions.x/scale.x;
+        float dheight = dimensions.y/scale.y;
         HedgehogEnemy hedgehog = new HedgehogEnemy(defaultConstants.get("hedgehogs"), convertedCoord.x, convertedCoord.y,
                 rollingDistance, dwidth*enemyScale, dheight*enemyScale,
                 enemyScale, false, bearIdleAnimation);
@@ -821,15 +855,15 @@ public class ObjectController {
         GameController.getInstance().instantiate(hedgehog);
     }
 
-    private void createGroundArt(Vector2 scale, String type, float x, float y, int levelHeight, int tileSize, String groundLevel){
+    private void createGroundArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, String groundLevel){
         TextureRegion textureRegion = assets.get(type);
         if (textureRegion == null){
             textureRegion = assets.get("light");
         }
         //  Adjust coordinates + Convert coordinates to world coordinates
-        y -= textureRegion.getRegionHeight()/2 - tileSize/5;
-        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
-        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
+//        y -= textureRegion.getRegionHeight()/2 - tileSize/5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
+        convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
         ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
         art.setBodyType(BodyDef.BodyType.StaticBody);
@@ -840,16 +874,16 @@ public class ObjectController {
         GameController.getInstance().instantiate(art);
     }
 
-    private void createHangingArt(Vector2 scale, String type, float x, float y, int levelHeight, int tileSize){
+    private void createHangingArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
         TextureRegion textureRegion = assets.get(type);
         if (textureRegion == null){
             textureRegion = assets.get("light");
         }
         //  Adjust coordinates + Convert coordinates to world coordinates
-        y -= tileSize/5.5;
-        x += tileSize*4.5;
-        Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
-        convertedCoord.set(convertedCoord.x+1, convertedCoord.y);
+//        y -= tileSize/5.5;
+//        x += tileSize*4.5;
+        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
+        convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
         ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
         art.setBodyType(BodyDef.BodyType.StaticBody);

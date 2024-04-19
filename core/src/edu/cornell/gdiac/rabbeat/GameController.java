@@ -244,8 +244,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void setCanvas(GameCanvas canvas) {
 		this.canvas = canvas;
-		this.scale.x = canvas.getWidth() / bounds.getWidth() * 2;
-		this.scale.y = canvas.getHeight() / bounds.getHeight() * 2;
+		this.scale.x = objectController.tileSize;
+		this.scale.y = objectController.tileSize;
 	}
 
 	/**
@@ -407,7 +407,7 @@ public class GameController implements Screen, ContactListener {
 
 		world = new World(gravity, false);
 		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / 1920;
-		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / 1080;
+		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / 1088;
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
