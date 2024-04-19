@@ -876,4 +876,10 @@ public class ObjectController {
         art.setDrawScale(scale);
         GameController.getInstance().instantiate(art);
     }
+
+    /** Creates the in-game UI elements and adds them to the genre/synced objects. */
+    private void createGUI() {
+        genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture);
+        GameController.getInstance().instantiate(genreIndicator);
+    }
 }
