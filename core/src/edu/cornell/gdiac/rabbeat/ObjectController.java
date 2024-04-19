@@ -440,7 +440,7 @@ public class ObjectController {
                                             rollingDistance = prop.getInt("value");
                                         }
                                     }
-//                                    createEnemyHedgehog(scale, x, y, dim, rollingDistance, levelHeight, tileSize);
+                                    createEnemyHedgehog(scale, x, y, dim, rollingDistance, levelHeight, tileSize);
                                     break;
                                 case "bat":
                                     break;
