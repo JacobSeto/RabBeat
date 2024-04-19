@@ -114,8 +114,8 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * @param exitCode The state of the screen upon exit
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
-//enum for exitcode
 		if (screen == loading) {
+			System.out.println(GameController.getInstance().getCurrentLevel());
 			directory = loading.getAssets();
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
@@ -129,7 +129,6 @@ public class GDXRoot extends Game implements ScreenListener {
 			loading.setScreenListener(this);
 			loading.currentLevel = levelSelectorScreen.currentLevel;
 			setScreen(loading);
-
 		} else if (screen == controller) {
 			createLevelSelectorScreen();
 		}else if (exitCode == GameController.EXIT_QUIT) {

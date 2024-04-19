@@ -16,7 +16,6 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
-
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeEnemy;

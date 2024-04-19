@@ -47,11 +47,9 @@ public class LevelSelectorScreen extends ScreenAdapter {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-
         /** Loops through all buttons */
         for(int i=1; i<= numberOfLevels; i++) {
             int finalI = i;
-
             if(i <= GameController.getInstance().getLevelsUnlocked()) {
                 buttonTexture = new Texture(Gdx.files.internal("ui/unlockedLevels/unlockedLevel" + finalI + ".png"));
             } else {
@@ -65,15 +63,15 @@ public class LevelSelectorScreen extends ScreenAdapter {
             textButtonStyle.font = font;
             TextButton levelButton = new TextButton("", textButtonStyle);
 
-            float xPos = 250 + 300*((i-1)%4);
+            float xPos = 100 + 300*((i-1)%4);
             float yPos = 0;
 
             if(i <= 4) {
-                yPos = 800;
+                yPos = 475;
             } else if (i <= 8) {
-                yPos = 600;
+                yPos = 275;
             } else if (i <= 12) {
-                yPos = 400;
+                yPos = 75;
             }
 
             levelButton.setPosition(xPos, yPos);
