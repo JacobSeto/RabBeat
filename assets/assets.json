@@ -124,7 +124,19 @@
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
-        "example": "levelsJson/rabbeatLevel.tmj"
+        "example": "levelsJson/rabbeatLevel2.tmj",
+        "level1": "levelsJson/rabbeatLevel.tmj",
+        "level2": "levelsJson/rabbeatLevel2.tmj",
+        "level3": "levelsJson/rabbeatLevel3.tmj",
+        "level4": "levelsJson/rabbeatLevel.tmj",
+        "level5": "levelsJson/rabbeatLevel2.tmj",
+        "level6": "levelsJson/rabbeatLevel.tmj",
+        "level7": "levelsJson/rabbeatLevel2.tmj",
+        "level8": "levelsJson/rabbeatLevel.tmj",
+        "level9": "levelsJson/rabbeatLevel2.tmj",
+        "level10": "levelsJson/rabbeatLevel.tmj",
+        "level11": "levelsJson/rabbeatLevel2.tmj",
+        "level12": "levelsJson/rabbeatLevel.tmj"
     },
     "sounds": {
 

@@ -70,8 +70,23 @@ public class GameController implements Screen, ContactListener {
 
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
+
+	public static final int LEVEL = 1;
+
+	/** The integer that represents the number of levels that the player has unlocked */
+	private int levelsUnlocked = 6;
+
+	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
+	private int currentLevelInt = 1;
+
+	/** The String that represents the JSON file for the current level the player selected from the LevelSelectorScreen */
+	private String currentLevel = "level" + currentLevelInt;
+
 	/** How many frames after winning/losing do we continue? */
 	public static final int EXIT_COUNT = 2;
+
+	/** The number of levels in the game */
+	private int numberOfLevels = 12;
 
 	/** The amount of time for a physics engine step. */
 	public static final float WORLD_STEP = 1 / 60.0f;
@@ -133,7 +148,7 @@ public class GameController implements Screen, ContactListener {
 
 	private static GameController theController = null;
 
-	public static GameController getInstance() {
+	public static synchronized GameController getInstance() {
 		if (theController == null) {
 			theController = new GameController();
 		}
@@ -312,9 +327,9 @@ public class GameController implements Screen, ContactListener {
 
 	/**
 	 * Gather the assets for this controller.
-	 *
-	 * This method extracts the asset variables from the given asset directory. It
-	 * should only be called after the asset directory is completed.
+	 * <p>
+	 * This method extracts the asset variables from the given asset directory. It should only be
+	 * called after the asset directory is completed.
 	 *
 	 * @param directory Reference to global asset manager.
 	 */
@@ -553,6 +568,7 @@ public class GameController implements Screen, ContactListener {
 			Vector2 displace = lastMCollideWith.currentVelocity();
 			objectController.player.setDisplace(displace);
 		}
+
 	}
 
 	/**
@@ -925,4 +941,60 @@ public class GameController implements Screen, ContactListener {
 	public Player getPlayer() {
 		return objectController.player;
 	}
+
+	/** Return the currentLevel String variable */
+	public String getCurrentLevel() {
+		return currentLevel;
+	}
+
+	/** Set the currentLevel variable to the current level */
+	public void setCurrentlLevel(String currentLevel) {
+		this.currentLevel = currentLevel;
+	}
+
+	public int getNumberOfLevels() {
+		return numberOfLevels;
+	}
+
+	public void exitScreen() {
+		pause();
+		listener.exitScreen(this, EXIT_QUIT);
+	}
+
+	/** Sets the currentLevelInt variable and concurrently change the currentLevel String*/
+	public void setCurrentLevelInt(int currentLevelInt) {
+		this.currentLevelInt = currentLevelInt;
+		currentLevel = "level" + currentLevelInt;
+	}
+
+	/** Return the int variable currentLevelInt */
+	public int getCurrentLevelInt() {
+		return currentLevelInt;
+	}
+
+	/** Returns the number of levelsUnlocked */
+	public int getLevelsUnlocked() {
+		return levelsUnlocked;
+	}
+
+	/** Sets the integer levelsUnlocked */
+	public void setLevelsUnlocked(int levelsUnlocked) {
+		this.levelsUnlocked = levelsUnlocked;
+	}
+
+	/** Increments the integer levelsUnlocked once a player completes a level */
+	public void incrementLevelsUnlocked() {
+		levelsUnlocked++;
+	}
+
+	/** Return the float worldWidth */
+	public float getWorldWidth() {
+		return worldWidth;
+	}
+
+	/** Return the float worldHeight */
+	public float getWorldHeight() {
+		return worldHeight;
+	}
+
 }

@@ -351,7 +351,9 @@ public class InputController {
 			delay = -.05f;
 		}
 
-
+		if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+			GameController.getInstance().exitScreen();
+		}
 		
 		// Mouse results
         	tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
