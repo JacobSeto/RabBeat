@@ -117,40 +117,18 @@ public class GDXRoot extends Game implements ScreenListener {
 //enum for exitcode
 		if (screen == loading) {
 			directory = loading.getAssets();
-			//controller.gatherAssets(directory, loading.currentLevel);
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
 			controller.initialize();
 			setScreen(controller);
-
 			loading.dispose();
 			loading = null;
-
-			//TRY LOADING ALL ASSETS?
 		} else if (screen == levelSelectorScreen) {
-//			directory = loading.getAssets();
-//			controller.gatherAssets(directory);
-			//setScreen(loading);
 			loading = new LoadingMode("assets.json", canvas, 1);
-
-			//controller = new GameController();
 			loading.setScreenListener(this);
 			loading.currentLevel = levelSelectorScreen.currentLevel;
 			setScreen(loading);
-
-			//GOOD CODE!
-//			controller.setScreenListener(this);
-//			controller.setCanvas(canvas);
-//			controller.initialize();
-//			setScreen(controller);
-
-			//TESTING
-//			setScreen(loading);
-//			controller = new GameController();
-//			loading.setScreenListener(this);
-//			setScreen(loading);
-
 
 		} else if (screen == controller) {
 			createLevelSelectorScreen();
