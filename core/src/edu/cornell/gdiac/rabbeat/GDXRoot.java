@@ -52,18 +52,13 @@ public class GDXRoot extends Game implements ScreenListener {
 	/** 
 	 * Called when the Application is first created.
 	 * 
-	 * This is method immediately loads assets for the loading screen, and prepares
-	 * the asynchronous loader for all other assets.
+	 * This method initializes the canvas and loading screen as well as creates and displays
+	 * the levelSelector screen
 	 */
 	public void create() {
 		canvas  = new GameCanvas();
 		loading = new LoadingMode("assets.json",canvas,1);
-
-		// Initialize the three game worlds
-		controller = new GameController();
 		loading.setScreenListener(this);
-//		setScreen(loading);
-
 		levelSelectorScreen = new LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
 		setScreen(levelSelectorScreen);
@@ -125,6 +120,7 @@ public class GDXRoot extends Game implements ScreenListener {
 			loading.dispose();
 			loading = null;
 		} else if (screen == levelSelectorScreen) {
+			controller = new GameController();
 			loading = new LoadingMode("assets.json", canvas, 1);
 			loading.setScreenListener(this);
 			loading.currentLevel = levelSelectorScreen.currentLevel;
@@ -132,7 +128,6 @@ public class GDXRoot extends Game implements ScreenListener {
 		} else if (screen == controller) {
 			createLevelSelectorScreen();
 		}else if (exitCode == GameController.EXIT_QUIT) {
-			// We quit the main application
 			Gdx.app.exit();
 		}
 	}
