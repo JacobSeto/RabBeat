@@ -1,9 +1,5 @@
 package edu.cornell.gdiac.rabbeat.sync;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
 
 public class Bullet extends WheelGameObject implements ISynced {
     public int beatCount = 0;

@@ -330,7 +330,6 @@ public class InputController {
 		
 		vertical = (secondary ? vertical : 0.0f);
 		if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
-			System.out.println("up");
 			vertical += 1.0f;
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
