@@ -16,7 +16,10 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
@@ -28,6 +31,8 @@ import edu.cornell.gdiac.rabbeat.sync.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
+
+import java.awt.*;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
@@ -119,6 +124,9 @@ public class GameController implements Screen, ContactListener {
 	private Music synthSoundtrack;
 	/** jazz soundtrack of game */
 	private Music jazzSoundtrack;
+
+	/** Pause tint color */
+	private Color pauseTintColor;
 
 	// Physics objects for the game
 
@@ -277,6 +285,7 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
+		pauseTintColor = new Color(143, 0, 255, 0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		syncController = new SyncController();
@@ -535,7 +544,6 @@ public class GameController implements Screen, ContactListener {
 				paused = !paused;
 				if (paused) {
 					pause();
-					return false;
 				}
 				else {
 					resume();
@@ -546,7 +554,7 @@ public class GameController implements Screen, ContactListener {
 			}
 			else if (paused) {
 				// If game is currently in the middle of the paused state, stop doing all this
-				return false;
+
 			}
 
 			else if (countdown > 0) {
@@ -825,13 +833,8 @@ public class GameController implements Screen, ContactListener {
 	public void draw(float dt) {
 		canvas.clear();
 
-		if (paused) {
-			objectController.displayFont.setColor(Color.CYAN);
-			canvas.begin(true); // DO NOT SCALE
-			canvas.drawTextCentered("You paused the game!", objectController.displayFont, 0.0f);
-			canvas.end();
-			return;
-		}
+
+
 		// Draw background unscaled.
 		canvas.begin(false);
 		canvas.draw(objectController.backgroundTexture, 0, 0);
@@ -883,6 +886,18 @@ public class GameController implements Screen, ContactListener {
 			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
 			canvas.end();
 		}
+
+		// Put pause screen UI in this if statement
+		if (paused) {
+			objectController.displayFont.setColor(Color.CYAN);
+			canvas.begin(true); // DO NOT SCALE
+			canvas.drawTextCentered("You paused the game!", objectController.displayFont, 0.0f);
+			canvas.end();
+
+			canvas.begin(false);
+			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintColor, 0, 0, 0, 0, 0, 1, 1);
+			canvas.end();
+		}
 	}
 
 	/**
@@ -909,11 +924,13 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void render(float delta) {
 		if (active) {
-			if (preUpdate(delta)) {
+			if (preUpdate(delta) && !paused) {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
-			canvas.updateCamera(objectController.player, worldWidth, worldHeight);
+			if (!paused) {
+				canvas.updateCamera(objectController.player, worldWidth, worldHeight);
+			}
 			draw(delta);
 		}
 	}

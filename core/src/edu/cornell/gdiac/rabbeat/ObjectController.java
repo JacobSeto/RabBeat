@@ -86,6 +86,9 @@ public class ObjectController {
     public TextureRegion backgroundTexture;
     /** The texture for the background overlay*/
     public TextureRegion backgroundOverlayTexture;
+    /** The texture for tinting the pause screen overlay background */
+    public TextureRegion pauseWhiteOverlayTexture;
+
     private TextureRegion enemyDefaultTexture;
 
     /** The texture for the genre indicator in Synth mode */
@@ -186,6 +189,7 @@ public class ObjectController {
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
+        pauseWhiteOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
 
         // Allocate genre indicator UI
