@@ -1,33 +1,26 @@
 bearIdle.png
-size: 1024, 186
+size: 519, 200
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 bearIdle
   rotate: false
   xy: 0, 0
-  size: 256, 186
-  orig: 256, 186
+  size: 173, 200
+  orig: 173, 200
   offset: 0, 0
-  index: -1
+  index: 0
 bearIdle
   rotate: false
-  xy: 256, 0
-  size: 256, 186
-  orig: 256, 186
+  xy: 173, 0
+  size: 173, 200
+  orig: 173, 200
   offset: 0, 0
-  index: -1
+  index: 1
 bearIdle
   rotate: false
-  xy: 512, 0
-  size: 256, 186
-  orig: 256, 186
+  xy: 346, 0
+  size: 173, 200
+  orig: 173, 200
   offset: 0, 0
-  index: -1
-bearIdle
-  rotate: false
-  xy: 768, 0
-  size: 256, 186
-  orig: 256, 186
-  offset: 0, 0
-  index: -1
+  index: 2

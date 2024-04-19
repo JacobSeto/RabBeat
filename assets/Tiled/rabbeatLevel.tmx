@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="101" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="475">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="101" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="478">
  <editorsettings>
   <export target="../levelsJson/rabbeatLevelTest.tmj" format="json"/>
  </editorsettings>
@@ -236,14 +236,14 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="enemies">
-  <object id="27" type="hedgehog" gid="9" x="2112" y="512" width="256" height="181">
+  <object id="271" type="beehive" gid="17" x="3008" y="832" width="224" height="224"/>
+  <object id="475" type="hedgehog" gid="9" x="2112" y="512" width="173" height="200">
    <properties>
     <property name="rollingDistance" type="int" value="3"/>
    </properties>
   </object>
-  <object id="271" type="beehive" gid="17" x="3008" y="832" width="224" height="224"/>
-  <object id="315" type="bear" gid="9" x="2880" y="576" width="256" height="181"/>
-  <object id="423" type="bear" gid="9" x="5696" y="896" width="256" height="181"/>
+  <object id="476" type="bear" gid="2147483657" x="2944" y="576" width="173" height="200"/>
+  <object id="477" type="bear" gid="2147483657" x="5760" y="896" width="173" height="200"/>
  </objectgroup>
  <objectgroup id="8" name="checkpoints">
   <object id="40" gid="8" x="3456" y="896" width="128" height="130">

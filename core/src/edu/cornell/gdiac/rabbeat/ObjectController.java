@@ -79,7 +79,6 @@ public class ObjectController {
     public TextureRegion backgroundTexture;
     /** The texture for the background overlay*/
     public TextureRegion backgroundOverlayTexture;
-    private TextureRegion enemyDefaultTexture;
 
     private HashMap<String, TextureRegion> assets = new HashMap<>();
 
@@ -155,7 +154,7 @@ public class ObjectController {
     //public BearEnemy enemy;
 
     /** The enemy scale for the enemy */
-    private float enemyScale = 3/8f*2;
+    private float enemyScale = 1;
 
     public int tileSize;
 
@@ -175,7 +174,6 @@ public class ObjectController {
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
-        enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
 
         defaultConstants = directory.getEntry( "defaultConstants", JsonValue.class );
         synthSpeed =  defaultConstants.get("player").get("max_speed").getFloat("synth");
@@ -514,10 +512,8 @@ public class ObjectController {
     private Vector2 convertTiledCoord(float x, float y, float width, float height, int levelHeight, int tileSize){
         x = x / tileSize;
         y = levelHeight - y / tileSize;
-//        System.out.println(x + " " + y);
         x = x + (width/(tileSize*2));
         y = y + (height/ (tileSize*2));
-//        System.out.println(x + " " + y);
         return(new Vector2(x, y));
     }
     /**
@@ -525,7 +521,6 @@ public class ObjectController {
      */
     private void createCheckpoint(Vector2 scale, float x, float y, Vector2 dimensions, int id, int levelHeight, int tileSize) {
         // Adjust and Convert coordinates to world coordinates
-//        y -= checkpointDefault.getRegionHeight()/2.5;
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         if (id == 0){
@@ -572,10 +567,8 @@ public class ObjectController {
         float dheight = blackTile.getRegionHeight()/scale.y;
 
         //Adjust coordinate to be center of tile
-        System.out.println("wall " + x + " " + y);
         float convertedX = x + ((float) blackTile.getRegionWidth()/(tileSize*2));
         float convertedY = y + ((float) blackTile.getRegionHeight()/(tileSize*2));
-        System.out.println("converted " + convertedX + " " + convertedY);
 
         obj = new BoxGameObject(convertedX, convertedY, dwidth, dheight);
         obj.setBodyType(BodyDef.BodyType.StaticBody);
@@ -586,10 +579,6 @@ public class ObjectController {
         obj.setTexture(blackTile);
         obj.setName(wname);
         GameController.getInstance().instantiate(obj);
-
-        System.out.println("0bj xy " + obj.getX() + " " + obj.getY());
-        System.out.println("0bj texture widthheight " + obj.getTexture().getRegionWidth() + " " + obj.getTexture().getRegionHeight());
-        System.out.println("0bj textureregion xy " + obj.getTexture().getRegionX() + " " + obj.getTexture().getRegionY());
     }
     /**
      * Create a platform.
@@ -617,8 +606,7 @@ public class ObjectController {
                 textureRegion = longRight;
                 break;
         }
-        //  Adjust coordinates + Convert coordinates to world coordinates
-//        y -= textureRegion.getRegionHeight()/2-4;
+        //  Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
@@ -656,8 +644,7 @@ public class ObjectController {
                 textureRegion = platformTileArt;
                 break;
         }
-        //  Adjust coordinates + Convert coordinates to world coordinates
-//        y -= textureRegion.getRegionHeight()/2;
+        //  Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
@@ -704,10 +691,9 @@ public class ObjectController {
     }
 
     private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, float speed, Vector2 dimensions, int levelHeight, int tileSize){
-        //  Adjust coordinates + Convert coordinates to world coordinates
+        //  Convert coordinates to world coordinates
         Vector2[] convertedPos = new Vector2[positionNodes.length];
         for(int i=0; i<positionNodes.length; i++){
-//            positionNodes[i].y -= movingSynth.getRegionHeight()/2-4;
             convertedPos[i] = convertTiledCoord(positionNodes[i].x, positionNodes[i].y, dimensions.x, dimensions.y, levelHeight, tileSize);
         }
 
@@ -761,8 +747,7 @@ public class ObjectController {
     }
 
     private void createGoal(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
-        //  Adjust and Convert coordinates to world coordinate
-//        y -= goalTile.getRegionHeight()/2.5;
+        //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         float dwidth  = goalTile.getRegionWidth()/scale.x;
@@ -794,14 +779,17 @@ public class ObjectController {
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
-        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+        float dwidth  = dimensions.x/scale.x;
+        float dheight = dimensions.y/scale.y;
         BearEnemy bear = new BearEnemy(defaultConstants.get("bears"), convertedCoord.x, convertedCoord.y,
                 dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearIdleAnimation);
         bear.setBodyType(BodyDef.BodyType.StaticBody);
         bear.setDrawScale(scale);
-        bear.setTexture(enemyDefaultTexture);
         GameController.getInstance().instantiate(bear);
+        System.out.println(dimensions.x + " " + dimensions.y);
+        System.out.println(x + " " + y);
+        System.out.println(convertedCoord.x + " " + convertedCoord.y);
+        System.out.println(bear.getX() + " " + bear.getY());
     }
 
     /**
@@ -816,16 +804,14 @@ public class ObjectController {
     private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
         //  Convert coordinates to world coordinate
         //TODO: change to beehive texture when we get art for this
-        y -= enemyDefaultTexture.getRegionHeight()/2;
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
-        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+        float dwidth  = dimensions.x/scale.x;
+        float dheight = dimensions.y/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
                 dwidth*enemyScale, dheight*enemyScale, enemyScale, false, beehiveAnimation, beeAttackAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
-        beehive.setTexture(enemyDefaultTexture);
         GameController.getInstance().instantiate(beehive);
     }
 
@@ -851,8 +837,8 @@ public class ObjectController {
                 enemyScale, false, bearIdleAnimation);
         hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
         hedgehog.setDrawScale(scale);
-        hedgehog.setTexture(enemyDefaultTexture);
         GameController.getInstance().instantiate(hedgehog);
+        System.out.println(x + " ");
     }
 
     private void createGroundArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, String groundLevel){
@@ -861,7 +847,6 @@ public class ObjectController {
             textureRegion = assets.get("light");
         }
         //  Adjust coordinates + Convert coordinates to world coordinates
-//        y -= textureRegion.getRegionHeight()/2 - tileSize/5;
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
@@ -879,9 +864,7 @@ public class ObjectController {
         if (textureRegion == null){
             textureRegion = assets.get("light");
         }
-        //  Adjust coordinates + Convert coordinates to world coordinates
-//        y -= tileSize/5.5;
-//        x += tileSize*4.5;
+        //  Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
 

@@ -1009,24 +1009,6 @@
          "name":"enemies",
          "objects":[
                 {
-                 "gid":9,
-                 "height":181,
-                 "id":27,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"rollingDistance",
-                         "type":"int",
-                         "value":3
-                        }],
-                 "rotation":0,
-                 "type":"hedgehog",
-                 "visible":true,
-                 "width":256,
-                 "x":2112,
-                 "y":512
-                }, 
-                {
                  "gid":17,
                  "height":224,
                  "id":271,
@@ -1040,26 +1022,44 @@
                 }, 
                 {
                  "gid":9,
-                 "height":181,
-                 "id":315,
+                 "height":200,
+                 "id":475,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"rollingDistance",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"hedgehog",
+                 "visible":true,
+                 "width":173,
+                 "x":2112,
+                 "y":512
+                }, 
+                {
+                 "gid":2147483657,
+                 "height":200,
+                 "id":476,
                  "name":"",
                  "rotation":0,
                  "type":"bear",
                  "visible":true,
-                 "width":256,
-                 "x":2880,
+                 "width":173,
+                 "x":2944,
                  "y":576
                 }, 
                 {
-                 "gid":9,
-                 "height":181,
-                 "id":423,
+                 "gid":2147483657,
+                 "height":200,
+                 "id":477,
                  "name":"",
                  "rotation":0,
                  "type":"bear",
                  "visible":true,
-                 "width":256,
-                 "x":5696,
+                 "width":173,
+                 "x":5760,
                  "y":896
                 }],
          "opacity":1,
@@ -1360,7 +1360,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":475,
+ "nextobjectid":478,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
