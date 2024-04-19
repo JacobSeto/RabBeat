@@ -30,13 +30,17 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
 
     /**The distance the platform should 'lock on' to its destination */
     private float LOCKDIST = 0.05f;
-
+    /**Keeps track of the which beat the platform is on*/
     private int beat = 0;
-
+    /**How fast the platform should be currently moving*/
     private float currentSpeed=1.0f;
-
+    /**Stores the BPM of the current level*/
     private int BPM = 180;
 
+    /**Determines the speed of the platform on each frame */
+    private float SPEEDBEAT6 = (float) 3*1 /10;
+    private float SPEEDBEAT7 = (float) 2*3 /10;
+    private float SPEEDBEAT8 = (float) 2*6 /10;
 
 
     /**
@@ -112,7 +116,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
                 Math.pow((pos1.y-pos2.y),2));
         return (float) magnitude;
     }
-    /**Determines the normalized direction vector bewteen two vectors, with a a float multiplier*/
+    /**Determines the normalized direction vector bewteen two vectors, with a float multiplier*/
     private Vector2 direction(Vector2 pos1, Vector2 pos2, float speed){
         float magnitude = magnitude(pos1, pos2);
 
@@ -141,15 +145,18 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         moving = true;
         float BeatLength = (float) 60 /BPM;
         beat+= 1;
-        currentSpeed = 0;
-        if (beat== 7){
-            currentSpeed = 2*(magnitude(positionNodes[home], positionNodes[destination])*2/(5*BeatLength));
+        if (beat==1){
+            currentSpeed = 0;
+        }
+        else if (beat==6){
+            currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT6);
+        }
+        else if (beat== 7){
+            currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT7);
         }
         else if (beat == 8 ){
-            currentSpeed = 2*(magnitude(positionNodes[home], positionNodes[destination])*3/(5*BeatLength));
+            currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT8);
             beat = 0;
         }
-        //System.out.println("speed is "+currentSpeed);
-        //System.out.println("Beat is "+beat);
     }
 }
