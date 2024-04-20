@@ -95,6 +95,9 @@ public class ObjectController {
     public TextureRegion backgroundTexture;
     /** The texture for the background overlay*/
     public TextureRegion backgroundOverlayTexture;
+    /** The texture for tinting the pause screen overlay background */
+    public TextureRegion pauseWhiteOverlayTexture;
+
     private TextureRegion enemyDefaultTexture;
 
     /** The texture for the genre indicator in Synth mode */
@@ -199,13 +202,13 @@ public class ObjectController {
     private float synthSpeed;
     private float jazzSpeed;
 
-    //public BearEnemy enemy;
 
     /** The enemy scale for the enemy */
     private float enemyScale = 1f;
 
     public ArrayList<GameObject> foreground = new ArrayList<>();
 
+    //public GameController gc = GameController.getInstance();
     /**
      * Gather the assets for this controller.
      *
@@ -215,10 +218,14 @@ public class ObjectController {
      * @param directory	Reference to global asset manager.
      */
     public void gatherAssets(AssetDirectory directory) {
-        levelJson = directory.getEntry("example", JsonValue.class);
+//        levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
+        levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
+
+        System.out.println(GameController.getInstance().getCurrentLevel());
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
+        pauseWhiteOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
 
         // Allocate genre indicator UI

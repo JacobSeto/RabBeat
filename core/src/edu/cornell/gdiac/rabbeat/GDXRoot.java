@@ -14,6 +14,7 @@
  package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.*;
+import edu.cornell.gdiac.rabbeat.levelSelect.LevelSelectorScreen;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.assets.*;
 
@@ -33,11 +34,13 @@ public class GDXRoot extends Game implements ScreenListener {
 	private GameCanvas canvas; 
 	/** Player mode for the asset loading screen (CONTROLLER CLASS) */
 	private LoadingMode loading;
-	/** Player mode for the the game proper (CONTROLLER CLASS) */
+	/** Player mode for the game proper (CONTROLLER CLASS) */
 	private int current;
 	/** List of all WorldControllers */
 	private GameController controller;
-	
+
+	private LevelSelectorScreen levelSelectorScreen;
+
 	/**
 	 * Creates a new game from the configuration settings.
 	 *
@@ -49,17 +52,16 @@ public class GDXRoot extends Game implements ScreenListener {
 	/** 
 	 * Called when the Application is first created.
 	 * 
-	 * This is method immediately loads assets for the loading screen, and prepares
-	 * the asynchronous loader for all other assets.
+	 * This method initializes the canvas and loading screen as well as creates and displays
+	 * the levelSelector screen
 	 */
 	public void create() {
 		canvas  = new GameCanvas();
 		loading = new LoadingMode("assets.json",canvas,1);
-
-		// Initialize the three game worlds
-		controller = new GameController();
 		loading.setScreenListener(this);
-		setScreen(loading);
+		levelSelectorScreen = new LevelSelectorScreen(this);
+		levelSelectorScreen.setListener(this);
+		setScreen(levelSelectorScreen);
 	}
 
 	/** 
@@ -108,19 +110,33 @@ public class GDXRoot extends Game implements ScreenListener {
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
 		if (screen == loading) {
+			System.out.println(GameController.getInstance().getCurrentLevel());
 			directory = loading.getAssets();
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
 			controller.initialize();
 			setScreen(controller);
-			
 			loading.dispose();
 			loading = null;
+		} else if (screen == levelSelectorScreen) {
+			controller = new GameController();
+			loading = new LoadingMode("assets.json", canvas, 1);
+			loading.setScreenListener(this);
+			loading.currentLevel = levelSelectorScreen.currentLevel;
+			setScreen(loading);
+		} else if (screen == controller) {
+			createLevelSelectorScreen();
 		} else if (exitCode == GameController.EXIT_QUIT) {
-			// We quit the main application
 			Gdx.app.exit();
 		}
+	}
+
+	/** Creates the level selector screen */
+	public void createLevelSelectorScreen() {
+		levelSelectorScreen = new LevelSelectorScreen(this);
+		levelSelectorScreen.setListener(this);
+		setScreen(levelSelectorScreen);
 	}
 
 }

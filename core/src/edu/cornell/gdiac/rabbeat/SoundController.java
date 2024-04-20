@@ -2,6 +2,8 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 
 public class SoundController {
 
@@ -9,6 +11,12 @@ public class SoundController {
     private Music jazzTrack;
 
     private Genre currentGenre;
+
+    private float savedJazzVolume = 0;
+
+    private float savedSynthVolume = 0;
+
+    private Sound tempSound;
 
     /**
      * Set this to true to make genre switches instantaneous / in one frame.
@@ -24,9 +32,15 @@ public class SoundController {
     private boolean currentlyUpdating;
     private int currentUpdateFrame = 0;
 
+    private ObjectMap<String, Sound> soundNameMap;
+
+    private ObjectMap<Sound, Long> soundIDMap;
+
     public SoundController() {
         currentGenre = Genre.SYNTH;
         currentlyUpdating = false;
+        soundNameMap = new ObjectMap<String, Sound>();
+        soundIDMap = new ObjectMap<Sound, Long>();
     }
 
     public void playMusic() {
@@ -62,6 +76,20 @@ public class SoundController {
         currentGenre = Genre.SYNTH;
         currentlyUpdating = false;
         currentUpdateFrame = 0;
+    }
+
+    public void pauseMusic() {
+        savedJazzVolume = jazzTrack.getVolume();
+        savedSynthVolume = synthTrack.getVolume();
+        jazzTrack.pause();
+        synthTrack.pause();
+    }
+
+    public void resumeMusic() {
+        jazzTrack.play();
+        synthTrack.play();
+        jazzTrack.setVolume(savedJazzVolume);
+        synthTrack.setVolume(savedSynthVolume);
     }
 
     /**
@@ -105,6 +133,21 @@ public class SoundController {
         return sound.play(volume);
     }
 
+    /** This method sets the map that maps sound names (strings) to Sound objects (Sounds).
+     * It also automatically generates a second private map that maps each of these sounds to a unique ID.
+     * The first sound added is assigned ID 0, the second assigned ID 1, etc.
+     * @param map The String:Sound map to allow quick playback of a sound based on its name. This name is different from the assets.json entry name for the sound.
+     */
+
+    public void addSound(String name, Sound sound) {
+        soundNameMap.put(name, sound);
+        soundIDMap.put(sound, (long)soundIDMap.size);
+    }
+
+    public void playSFX(String soundName) {
+        tempSound = soundNameMap.get(soundName);
+        replaySound(tempSound, soundIDMap.get(tempSound));
+    }
 
     /**
      * This method sets the genre AND sets the currentlyUpdating flag to true.

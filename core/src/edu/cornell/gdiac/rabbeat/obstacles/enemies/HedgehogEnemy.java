@@ -14,9 +14,6 @@ import edu.cornell.gdiac.rabbeat.sync.ISynced;
  */
 public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
 
-    /** The distance that the hedgehog rolls */
-    private final float rollingDistance;
-
     /** The endpoint equivalent to the hedgehog's starting position */
     private final float point1 = getX();
 
@@ -25,10 +22,6 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
 
     /** The distance the hedgehog moves every update frame */
     private float distance = 0.1f;
-
-    //TODO: delete?
-    /** The angle orientation of the hedgehog */
-    private float angle = 5;
 
     /** The boolean that represents the direction that the hedgehog is rolling in  */
     private boolean rollingRight = false;
@@ -54,7 +47,6 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
             Animation<TextureRegion> hedgehogIdleAnimation) {
         super(data, startX, startY, width, height, enemyScale, faceRight, hedgehogIdleAnimation);
         setAnimation(hedgehogIdleAnimation);
-        this.rollingDistance = rollingDistance;
         point2 = getX() - rollingDistance;
     }
 
@@ -109,18 +101,14 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
     @Override
     public void update(float dt) {
         super.update(dt);
-        //setVX(-1);
 
         if(roll) {
             if(rollingRight) {
                 setPosition(getX()+distance, getY());
-                //setAngle(angle);
             } else {
                 setPosition(getX()-distance, getY());
-                //setAngle(angle);
             }
         }
-
 
         if(getX() >= point1) {
             rollingRight = false;
