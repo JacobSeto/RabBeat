@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="platforms" tilewidth="192" tileheight="64" tilecount="12" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="platforms" tilewidth="192" tileheight="64" tilecount="13" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="9">
   <image width="128" height="64" source="../world/platforms/jazzLongPlatform/jazzleft.PNG"/>
@@ -36,5 +36,8 @@
  </tile>
  <tile id="22">
   <image width="128" height="64" source="../world/platforms/longPlatform/right.PNG"/>
+ </tile>
+ <tile id="23">
+  <image width="128" height="64" source="../world/laser.PNG"/>
  </tile>
 </tileset>
