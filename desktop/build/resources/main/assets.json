@@ -118,7 +118,10 @@
 
       "world:wires:wires1" : "world/wires/wires1.png",
 
-      "world:wires:wires2" : "world/wires/wires2.png"
+      "world:wires:wires2" : "world/wires/wires2.png",
+
+      "world:laser" : "world/laser.png",
+      "world:verticalLaser" : "world/verticalLaser.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",

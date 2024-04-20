@@ -503,12 +503,17 @@ public class ObjectController {
                             float y = platform.getFloat("y");
                             Vector2 dim = new Vector2(platform.getFloat("width"), platform.getFloat("height"));
                             String align = "";
+                            boolean lethal = false;
+                            if (platform.getString("type").equals( "laser")){
+                                lethal = true;
+                                System.out.println("lasers");
+                            }
                             for (JsonValue prop : platform.get("properties")) {
                                 if (prop.getString("name").equals("align")) {
                                     align = prop.getString("value");
                                 }
                             }
-                            createPlatform(scale, align, x, y, dim, levelHeight, tileSize);
+                            createPlatform(scale, align, x, y, dim, levelHeight, tileSize, lethal);
                         }
                         break;
                     case "platformArt":
@@ -738,7 +743,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
-    private void createPlatform(Vector2 scale, String align, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createPlatform(Vector2 scale, String align, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, boolean lethal){
         TextureRegion textureRegion;
         switch (align) {
             case "left":
@@ -774,6 +779,10 @@ public class ObjectController {
         platform.setRestitution(defaults.getFloat("restitution", 0.0f));
         platform.setDrawScale(scale);
         platform.setTexture(textureRegion);
+        if (lethal){
+            platform.setType(1);
+
+        }
         GameController.getInstance().instantiate(platform);
     }
 
