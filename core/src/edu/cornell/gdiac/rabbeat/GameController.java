@@ -16,6 +16,10 @@
  */
 package edu.cornell.gdiac.rabbeat;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.projectiles.BeeProjectile;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
@@ -27,6 +31,8 @@ import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
+
+import java.awt.*;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
@@ -69,8 +75,23 @@ public class GameController implements Screen, ContactListener {
 
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
+
+	public static final int LEVEL = 1;
+
+	/** The integer that represents the number of levels that the player has unlocked */
+	private int levelsUnlocked = 6;
+
+	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
+	private int currentLevelInt = 1;
+
+	/** The String that represents the JSON file for the current level the player selected from the LevelSelectorScreen */
+	private String currentLevel = "level" + currentLevelInt;
+
 	/** How many frames after winning/losing do we continue? */
 	public static final int EXIT_COUNT = 2;
+
+	/** The number of levels in the game */
+	private int numberOfLevels = 12;
 
 	/** The amount of time for a physics engine step. */
 	public static final float WORLD_STEP = 1 / 60.0f;
@@ -108,6 +129,8 @@ public class GameController implements Screen, ContactListener {
 	private boolean complete;
 	/** Whether we have failed at this world (and need a reset) */
 	private boolean failed;
+	/** Whether or not the game is paused */
+	private boolean paused;
 	/** Whether or not debug mode is active */
 	private boolean debug;
 	/** Countdown active for winning or losing */
@@ -116,6 +139,9 @@ public class GameController implements Screen, ContactListener {
 	private Music synthSoundtrack;
 	/** jazz soundtrack of game */
 	private Music jazzSoundtrack;
+
+	/** Pause tint color */
+	private Color pauseTintColor;
 
 	// Physics objects for the game
 
@@ -132,7 +158,7 @@ public class GameController implements Screen, ContactListener {
 
 	private static GameController theController = null;
 
-	public static GameController getInstance() {
+	public static synchronized GameController getInstance() {
 		if (theController == null) {
 			theController = new GameController();
 		}
@@ -221,6 +247,21 @@ public class GameController implements Screen, ContactListener {
 	}
 
 	/**
+	 * Returns true if the game is paused
+	 * @return true if the game is paused
+	 */
+	public boolean isPaused() { return paused; }
+
+	/**
+	 * Sets whether the game is paused.
+	 *
+	 * @param value whether the game is paused.
+	 */
+	public void setPaused(boolean value) {
+		paused = value;
+	}
+
+	/**
 	 * Returns the canvas associated with this controller
 	 *
 	 * The canvas is shared across all controllers
@@ -258,6 +299,8 @@ public class GameController implements Screen, ContactListener {
 		setDebug(false);
 		setComplete(false);
 		setFailure(false);
+		setPaused(false);
+		pauseTintColor = new Color(143, 0, 255, 0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		syncController = new SyncController();
@@ -284,6 +327,7 @@ public class GameController implements Screen, ContactListener {
 		failed = false;
 		debug = false;
 		active = false;
+		paused = false;
 		countdown = -1;
 	}
 
@@ -311,9 +355,9 @@ public class GameController implements Screen, ContactListener {
 
 	/**
 	 * Gather the assets for this controller.
-	 *
-	 * This method extracts the asset variables from the given asset directory. It
-	 * should only be called after the asset directory is completed.
+	 * <p>
+	 * This method extracts the asset variables from the given asset directory. It should only be
+	 * called after the asset directory is completed.
 	 *
 	 * @param directory Reference to global asset manager.
 	 */
@@ -321,6 +365,8 @@ public class GameController implements Screen, ContactListener {
 		objectController.gatherAssets(directory);
 		// set the soundtrack
 		setSoundtrack(directory);
+		// set the sound effects
+		initializeSFX(directory);
 	}
 
 	/**
@@ -335,6 +381,13 @@ public class GameController implements Screen, ContactListener {
 		jazzSoundtrack = directory.getEntry("music:jazz1", Music.class);
 		soundController.setSynthTrack(synthSoundtrack);
 		soundController.setJazzTrack(jazzSoundtrack);
+	}
+
+	/** Initializes the sound effects, which are stored in the sound controller.
+	 * @param directory Reference to global asset manager.
+	 */
+	public void initializeSFX(AssetDirectory directory) {
+		soundController.addSound("genreSwitch", directory.getEntry("sfx:genreSwitch", Sound.class));
 	}
 
 	public Vector2 getScale() {
@@ -482,6 +535,7 @@ public class GameController implements Screen, ContactListener {
 	public boolean preUpdate(float dt) {
 		InputController input = InputController.getInstance();
 		input.readInput(bounds, scale);
+
 		if (listener != null) {
 			// Toggle debug
 			if (input.didDebug()) {
@@ -498,7 +552,27 @@ public class GameController implements Screen, ContactListener {
 				pause();
 				listener.exitScreen(this, EXIT_QUIT);
 				return false;
-			} else if (countdown > 0) {
+			}
+
+			else if (input.didPause()) {
+				// If game is already paused, hitting pause again will unpause it.
+				paused = !paused;
+				if (paused) {
+					pause();
+				}
+				else {
+					resume();
+					// Make sure that genre doesn't get switched while game is paused
+					InputController.getInstance().setSwitchGenre(false);
+
+				}
+			}
+			else if (paused) {
+				// If game is currently in the middle of the paused state, stop doing all this
+
+			}
+
+			else if (countdown > 0) {
 				countdown--;
 			} else if (countdown == 0) {
 				if (failed) {
@@ -552,6 +626,7 @@ public class GameController implements Screen, ContactListener {
 			Vector2 displace = lastMCollideWith.currentVelocity();
 			objectController.player.setDisplace(displace);
 		}
+
 	}
 
 	/**
@@ -710,6 +785,7 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void updateGenreSwitch() {
 		soundController.setGenre(genre);
+		soundController.playSFX("genreSwitch");
 		// update to Synth
 		if (genre == Genre.SYNTH) {
 			world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
@@ -773,6 +849,8 @@ public class GameController implements Screen, ContactListener {
 	public void draw(float dt) {
 		canvas.clear();
 
+
+
 		// Draw background unscaled.
 		canvas.begin(false);
 		canvas.draw(objectController.backgroundTexture, 0, 0);
@@ -824,6 +902,18 @@ public class GameController implements Screen, ContactListener {
 			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
 			canvas.end();
 		}
+
+		// Put pause screen UI in this if statement
+		if (paused) {
+			objectController.displayFont.setColor(Color.CYAN);
+			canvas.begin(true); // DO NOT SCALE
+			canvas.drawTextCentered("You paused the game!", objectController.displayFont, 0.0f);
+			canvas.end();
+
+			canvas.begin(false);
+			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintColor, 0, 0, 0, 0, 0, 1, 1);
+			canvas.end();
+		}
 	}
 
 	/**
@@ -850,11 +940,13 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void render(float delta) {
 		if (active) {
-			if (preUpdate(delta)) {
+			if (preUpdate(delta) && !paused) {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
-			canvas.updateCamera(objectController.player, worldWidth, worldHeight);
+			if (!paused) {
+				canvas.updateCamera(objectController.player, worldWidth, worldHeight);
+			}
 			draw(delta);
 		}
 	}
@@ -866,7 +958,7 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
-		// TODO: Stop all sounds here
+		soundController.pauseMusic();
 	}
 
 	/**
@@ -875,7 +967,7 @@ public class GameController implements Screen, ContactListener {
 	 * This is usually when it regains focus.
 	 */
 	public void resume() {
-		// TODO Auto-generated method stub
+		soundController.resumeMusic();
 	}
 
 	/**
@@ -924,4 +1016,60 @@ public class GameController implements Screen, ContactListener {
 	public Player getPlayer() {
 		return objectController.player;
 	}
+
+	/** Return the currentLevel String variable */
+	public String getCurrentLevel() {
+		return currentLevel;
+	}
+
+	/** Set the currentLevel variable to the current level */
+	public void setCurrentlLevel(String currentLevel) {
+		this.currentLevel = currentLevel;
+	}
+
+	public int getNumberOfLevels() {
+		return numberOfLevels;
+	}
+
+	public void exitScreen() {
+		pause();
+		listener.exitScreen(this, EXIT_QUIT);
+	}
+
+	/** Sets the currentLevelInt variable and concurrently change the currentLevel String*/
+	public void setCurrentLevelInt(int currentLevelInt) {
+		this.currentLevelInt = currentLevelInt;
+		currentLevel = "level" + currentLevelInt;
+	}
+
+	/** Return the int variable currentLevelInt */
+	public int getCurrentLevelInt() {
+		return currentLevelInt;
+	}
+
+	/** Returns the number of levelsUnlocked */
+	public int getLevelsUnlocked() {
+		return levelsUnlocked;
+	}
+
+	/** Sets the integer levelsUnlocked */
+	public void setLevelsUnlocked(int levelsUnlocked) {
+		this.levelsUnlocked = levelsUnlocked;
+	}
+
+	/** Increments the integer levelsUnlocked once a player completes a level */
+	public void incrementLevelsUnlocked() {
+		levelsUnlocked++;
+	}
+
+	/** Return the float worldWidth */
+	public float getWorldWidth() {
+		return worldWidth;
+	}
+
+	/** Return the float worldHeight */
+	public float getWorldHeight() {
+		return worldHeight;
+	}
+
 }

@@ -15,9 +15,6 @@ import edu.cornell.gdiac.rabbeat.sync.ISynced;
  */
 public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
 
-    /** The distance that the hedgehog rolls */
-    private final float rollingDistance;
-
     /** The endpoint equivalent to the hedgehog's starting position */
     private final float point1 = getX();
 
@@ -27,11 +24,7 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
     /** The distance the hedgehog moves every update frame */
     private float distance = 0.1f;
 
-    // TODO: delete?
-    /** The angle orientation of the hedgehog */
-    private float angle = 5;
-
-    /** The boolean that represents the direction that the hedgehog is rolling in */
+    /** The boolean that represents the direction that the hedgehog is rolling in  */
     private boolean rollingRight = false;
 
     /** The boolean for whether the hedgehog is in rolling mode */
@@ -57,37 +50,9 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
             Animation<TextureRegion> hedgehogIdleAnimation) {
         super(data, startX, startY, width, height, enemyScale, faceRight, hedgehogIdleAnimation, beatList);
         setAnimation(hedgehogIdleAnimation);
-        this.rollingDistance = rollingDistance;
         point2 = getX() - rollingDistance;
     }
-
-    // @Override
-    // public void switchState() {
-    // switch(enemyState) {
-    // case IDLE:
-    // if(GameController.getInstance().genre == Genre.JAZZ) {
-    // if(beatCount == 4 || beatCount == 8) {
-    // enemyState = EnemyState.ATTACKING;
-    // }
-    // } else {
-    // if(beatCount == 2 || beatCount == 4 || beatCount == 6 || beatCount == 8) {
-    // enemyState = EnemyState.ATTACKING;
-    // }
-    // }
-    // break;
-    // case ATTACKING:
-    // if(GameController.getInstance().genre == Genre.JAZZ) {
-    // if(beatCount != 4 || beatCount != 8) {
-    // enemyState = EnemyState.IDLE;
-    // }
-    // } else{
-    // if(beatCount != 2 || beatCount != 4 || beatCount != 6 || beatCount != 8) {
-    // enemyState = EnemyState.IDLE;
-    // }
-    // }
-    // break;
-    // }
-    // }
+  
     public void switchState() {
         switch (enemyState) {
             case IDLE:
@@ -107,7 +72,6 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
     @Override
     public void update(float dt) {
         super.update(dt);
-
         if (roll) {
             if (rollingRight) {
                 setPosition(getX() + distance, getY());
@@ -119,6 +83,7 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
         }
 
         if (getX() >= point1) {
+
             rollingRight = false;
             roll = false;
         } else if (getX() <= point2) {

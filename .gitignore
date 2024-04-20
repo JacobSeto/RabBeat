@@ -146,7 +146,3 @@ desktop/build/tmp/compileJava/previous-compilation-data.bin
 .gradle/buildOutputCleanup/outputFiles.bin
 .gradle/buildOutputCleanup/outputFiles.bin
 .gradle/file-system.probe
-*.bin
-.gradle/buildOutputCleanup/outputFiles.bin
-.gradle/file-system.probe
-/.gradle/buildOutputCleanup
