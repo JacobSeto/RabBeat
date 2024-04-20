@@ -10,11 +10,11 @@ import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.rabbeat.obstacles.projectiles.BeeProjectile;
 import java.util.ArrayList;
 
-public class BeeHive extends Enemy{
+public class BeeHive extends Enemy {
 
     ObjectController oc = GameController.getInstance().objectController;
 
-    /** Number of beats the bee exists in synth*/
+    /** Number of beats the bee exists in synth */
     private int synthBeeTime = 1;
 
     /** Number of beats the bee exists in jazz */
@@ -31,31 +31,34 @@ public class BeeHive extends Enemy{
     /**
      * Creates a new bee hive avatar with the given physics data
      *
-     * @param data                  The JsonValue storing information about the beehive
-     * @param startX                The starting x position of the enemy
-     * @param startY                The starting y position of the enemy
-     * @param width                 The object width in physics units
-     * @param height                The object width in physics units
-     * @param enemyScale            The scale of the beehive
-     * @param faceRight             The direction the beehive is facing in
-     * @param animation             The idle animation for the beehive
-     * @param beatActionList The list of beats that the enemy reacts to
+     * @param data       The JsonValue storing information about the beehive
+     * @param startX     The starting x position of the enemy
+     * @param startY     The starting y position of the enemy
+     * @param width      The object width in physics units
+     * @param height     The object width in physics units
+     * @param enemyScale The scale of the beehive
+     * @param faceRight  The direction the beehive is facing in
+     * @param animation  The idle animation for the beehive
+     * @param beatList   The list of beats that the enemy reacts to
      */
-    public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation, int[] beatActionList, Animation<TextureRegion> beeAnimation) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, animation, beatActionList);
+    public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
+            boolean faceRight, Animation<TextureRegion> animation, int[] beatList,
+            Animation<TextureRegion> beeAnimation) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, animation, beatList);
         beeAttackAnimation = beeAnimation;
         setAnimation(animation);
         enemyState = EnemyState.ATTACKING;
     }
 
     /** Creates a bee in front of the hive */
-    public void makeBee(){
-        //TODO: create a bullet using object controller default values.  instantiate the copy using gamecontroller
-        System.out.println("make bee");
-        float offset = oc.defaultConstants.get("bullet").getFloat("offset",0);
+    public void makeBee() {
+        // TODO: create a bullet using object controller default values. instantiate the
+        // copy using gamecontroller
+        
+        float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
-        float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
-        BeeProjectile bee = new BeeProjectile(getX()+offset, getY(), radius, beeAttackAnimation);
+        float radius = oc.bulletTexture.getRegionWidth() / (2.0f * scale.x);
+        BeeProjectile bee = new BeeProjectile(getX() + offset, getY(), radius, beeAttackAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
@@ -64,14 +67,13 @@ public class BeeHive extends Enemy{
         bee.setGravityScale(0);
         shotDirection = isFaceRight();
 
-        //Compute position and velocity
+        // Compute position and velocity
         float speed = 2.5f;
         int beatcount;
-        if (GameController.getInstance().genre == Genre.SYNTH){
+        if (GameController.getInstance().genre == Genre.SYNTH) {
             beatcount = synthBeeTime;
             bee.setVY(2);
-        }
-        else {
+        } else {
             beatcount = jazzBeeTime;
             bee.setVY(1);
         }
