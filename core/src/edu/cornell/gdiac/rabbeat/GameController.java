@@ -282,8 +282,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void setCanvas(GameCanvas canvas) {
 		this.canvas = canvas;
-		this.scale.x = canvas.getWidth() / bounds.getWidth() * 2;
-		this.scale.y = canvas.getHeight() / bounds.getHeight() * 2;
+		this.scale.x = objectController.tileSize;
+		this.scale.y = objectController.tileSize;
 	}
 
 	/**
