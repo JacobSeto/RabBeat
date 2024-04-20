@@ -7,8 +7,8 @@ import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
-import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
-import edu.cornell.gdiac.rabbeat.sync.ISynced;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.BeeProjectile;
+import java.util.ArrayList;
 
 public class BeeHive extends Enemy{
 
@@ -39,21 +39,23 @@ public class BeeHive extends Enemy{
      * @param enemyScale            The scale of the beehive
      * @param faceRight             The direction the beehive is facing in
      * @param animation             The idle animation for the beehive
+     * @param beatActionList The list of beats that the enemy reacts to
      */
-    public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation, Animation<TextureRegion> beeAnimation) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, animation);
+    public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation, int[] beatActionList, Animation<TextureRegion> beeAnimation) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, animation, beatActionList);
         beeAttackAnimation = beeAnimation;
         setAnimation(animation);
+        enemyState = EnemyState.ATTACKING;
     }
 
     /** Creates a bee in front of the hive */
     public void makeBee(){
         //TODO: create a bullet using object controller default values.  instantiate the copy using gamecontroller
-
+        System.out.println("make bee");
         float offset = oc.defaultConstants.get("bullet").getFloat("offset",0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
-        BeeEnemy bee = new BeeEnemy(getX()+offset, getY(), radius, beeAttackAnimation);
+        BeeProjectile bee = new BeeProjectile(getX()+offset, getY(), radius, beeAttackAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
@@ -85,12 +87,7 @@ public class BeeHive extends Enemy{
     }
 
     @Override
-    public float getBeat() {
-        return 0.25f;
-    }
-
-    @Override
-    public void beatAction() {
+    public void Attack() {
         makeBee();
         setFaceRight(playerXPosition() - getPosition().x > 0);
     }

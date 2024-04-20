@@ -1,26 +1,16 @@
 package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.math.Path2;
 import edu.cornell.gdiac.math.Poly2;
-import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
-import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
-import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
-import edu.cornell.gdiac.rabbeat.sync.Bullet;
-import edu.cornell.gdiac.rabbeat.sync.ISynced;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
 
 /**
  * Bat enemy avatar for the platform game.
@@ -47,10 +37,11 @@ public class BatEnemy extends Enemy {
      * @param enemyScale            The scale of the bat
      * @param faceRight             The direction the bat is facing in
      * @param batIdleAnimation      The idle animation for the bat
+     * @param beatActionList The list of beats that the enemy reacts to
      */
     public BatEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, Animation<TextureRegion> batIdleAnimation) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, batIdleAnimation);
+            boolean faceRight, Animation<TextureRegion> batIdleAnimation, int[] beatActionList) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, batIdleAnimation, beatActionList);
         setAnimation(batIdleAnimation);
     }
 
@@ -86,25 +77,6 @@ public class BatEnemy extends Enemy {
         }
     }
 
-    private int beatCount = 1;
-    private float beat = 1;
-
-    @Override
-    public float getBeat() {
-        return beat;
-    }
-
-    @Override
-    public void beatAction() {
-        beatCount++;
-        if(beatCount >= 5){
-            beatCount = 1;
-        }
-
-        if(enemyState.equals(EnemyState.ATTACKING)) {
-            sendEcho();
-        }
-    }
 
     ObjectController oc = GameController.getInstance().objectController;
     /** Scale of the world */
@@ -204,4 +176,8 @@ public class BatEnemy extends Enemy {
         }
     }
 
+    @Override
+    public void Attack() {
+        sendEcho();
+    }
 }

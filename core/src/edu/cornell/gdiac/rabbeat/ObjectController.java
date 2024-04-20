@@ -172,6 +172,7 @@ public class ObjectController {
     private float enemyScale = 3/8f*2;
 
     public ArrayList<GameObject> foreground = new ArrayList<>();
+    public int[] defaultBeatTimes = {1,2,3,5};
 
     /**
      * Gather the assets for this controller.
@@ -426,13 +427,14 @@ public class ObjectController {
                         }
                         break;
                     case "enemies":
+                        //TODO: Read the beatlist actions from Tiled
                         for (JsonValue enemy : layer.get("objects")) {
                             String enemyType = enemy.getString("type");
                             switch (enemyType){
                                 case "bear":
                                     float x = enemy.getFloat("x");
                                     float y = enemy.getFloat("y");
-                                    createEnemyBear(scale, x, y, levelHeight, tileSize);
+                                    createEnemyBear(scale, x, y, levelHeight, tileSize, defaultBeatTimes );
                                     break;
                                 case "beehive":
                                     x = enemy.getFloat("x");
@@ -770,8 +772,9 @@ public class ObjectController {
      * @param y The bear's y coordinate (in pixels)
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
+     * @param beatActionList The list of beats that the enemy reacts to
      */
-    private void createEnemyBear(Vector2 scale, float x, float y, int levelHeight, int tileSize){
+    private void createEnemyBear(Vector2 scale, float x, float y, int levelHeight, int tileSize, int[] beatActionList){
         //  Convert coordinates to world coordinate
         y -= enemyDefaultTexture.getRegionHeight()/5;
         Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
@@ -779,7 +782,7 @@ public class ObjectController {
         float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         BearEnemy bear = new BearEnemy(defaultConstants.get("bears"), convertedCoord.x, convertedCoord.y,
-                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearIdleAnimation);
+                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearIdleAnimation, beatActionList);
         bear.setBodyType(BodyDef.BodyType.StaticBody);
         bear.setDrawScale(scale);
         bear.setTexture(enemyDefaultTexture);
@@ -804,7 +807,8 @@ public class ObjectController {
         float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
-                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, beehiveAnimation, beeAttackAnimation);
+                dwidth*enemyScale, dheight*enemyScale, enemyScale,
+                false, beehiveAnimation, defaultBeatTimes, beeAttackAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
         beehive.setTexture(enemyDefaultTexture);
@@ -831,7 +835,7 @@ public class ObjectController {
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         HedgehogEnemy hedgehog = new HedgehogEnemy(defaultConstants.get("hedgehogs"), convertedCoord.x, convertedCoord.y,
                 rollingDistance, dwidth*enemyScale, dheight*enemyScale,
-                enemyScale, false, bearIdleAnimation);
+                enemyScale, false, defaultBeatTimes, bearIdleAnimation);
         hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
         hedgehog.setDrawScale(scale);
         hedgehog.setTexture(enemyDefaultTexture);

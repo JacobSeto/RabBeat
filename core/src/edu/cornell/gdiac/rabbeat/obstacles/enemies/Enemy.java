@@ -2,14 +2,12 @@ package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.CapsuleGameObject;
-import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.physics.box2d.*;
-//package edu.cornell.gdiac.physics.platform;
 
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
@@ -40,6 +38,18 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
 
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
+    /** The beat counter for an enemy. The beat counter cycles integers values starting from 1
+     * and incrementing to 8 (2 measures)*/
+
+    private float beat = 1;
+    public int beatCount = 1;
+    /** A list of beats in which the enemies act when called in beatAction. Default for enemies is
+     * acting on the downbeat (beatCount counts to 8 so the downbeats are 1 and 5)
+     */
+    public int[] beatActionList;
+
+    /** The index to cycle through beatActionList*/
+    public int beatListIndex;
 
 
     //range: how far away player is --> beat action called whenever an action is supposed to hapepn on beat
@@ -57,8 +67,10 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      * @param enemyScale    The scale of the enemy
      * @param faceRight     The direction the enemy is facing in
      * @param animation     The animation texture for the enemy
+     * @param beatActionList The list of beats that the enemy reacts to
      */
-    public Enemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
+    public Enemy(JsonValue data, float startX, float startY,
+            float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation, int[] beatActionList) {
         // The shrink factors fit the image to a tigher hitbox
         super(startX, startY,
                 width*data.get("shrink").getFloat( 0 ),
@@ -71,7 +83,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
 
         this.faceRight = faceRight; // should face the direction player is in?
         this.enemyScale = enemyScale;
-
+        this.beatActionList = beatActionList;
         setName("enemy");
     }
 
@@ -189,6 +201,30 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
             //change to jazz sprite
         }
     }
+
+    @Override
+    public float getBeat() {
+        return beat;
+    }
+
+    public void beatAction(){
+        beatCount++;
+        if(beatCount >= 9){
+            beatCount = 1;
+        }
+        if(beatActionList[beatListIndex] == beatCount){
+            if (enemyState == EnemyState.ATTACKING) {
+                Attack();
+                beatListIndex++;
+                if(beatListIndex >= beatActionList.length){
+                    beatListIndex = 0;
+                }
+            }
+        }
+
+    }
+    /** The function called whenever the enemy is supposed to attack*/
+    public abstract void Attack();
 
 
 }

@@ -1,4 +1,4 @@
-package edu.cornell.gdiac.rabbeat.obstacles.enemies;
+package edu.cornell.gdiac.rabbeat.obstacles.projectiles;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -7,10 +7,9 @@ import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
-import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
-public class BeeEnemy extends WheelGameObject implements ISyncedAnimated, IGenreObject {
+public class BeeProjectile extends WheelGameObject implements ISyncedAnimated, IGenreObject {
 
     public int beatCount = 0;
     public Animation<TextureRegion> animation;
@@ -18,7 +17,7 @@ public class BeeEnemy extends WheelGameObject implements ISyncedAnimated, IGenre
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
 
-    public BeeEnemy(float x, float y, float radius, Animation<TextureRegion> beeAttackAnimation) {
+    public BeeProjectile(float x, float y, float radius, Animation<TextureRegion> beeAttackAnimation) {
 
         super(x, y, radius);
         setAnimation(beeAttackAnimation);

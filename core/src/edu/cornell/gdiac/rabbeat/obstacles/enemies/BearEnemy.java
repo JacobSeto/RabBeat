@@ -1,16 +1,12 @@
 package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
-import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
-import edu.cornell.gdiac.rabbeat.sync.Bullet;
-import edu.cornell.gdiac.rabbeat.sync.ISynced;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
 /**
@@ -49,10 +45,11 @@ public class BearEnemy extends Enemy {
      * @param startY	    The starting y position of the enemy
      * @param enemyScale    The scale of the enemy
      * @param faceRight     The direction the enemy is facing in
+     * @param beatActionList The list of beats that the enemy reacts to
      */
     public BearEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, Animation<TextureRegion> bearIdleAnimation) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, bearIdleAnimation);
+            boolean faceRight, Animation<TextureRegion> bearIdleAnimation, int[] beatActionList) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, bearIdleAnimation, beatActionList);
         setAnimation(bearIdleAnimation);
     }
 
@@ -92,10 +89,10 @@ public class BearEnemy extends Enemy {
         bullet.setTexture(oc.bulletTexture);
         bullet.setGravityScale(0);
         shotDirection = isFaceRight();
+        int beatcount;
 
         //Compute position and velocity
         float speed;
-        int beatcount;
         if (GameController.getInstance().genre == Genre.SYNTH){
             speed = oc.defaultConstants.get("bullet").getFloat("synth speed", 0);
             beatcount = synthBulletTime;
@@ -109,15 +106,13 @@ public class BearEnemy extends Enemy {
         bullet.beatCount = beatcount;
         GameController.getInstance().instantiateQueue(bullet);
     }
-    public float getBeat() {
-        return beat;
-    }
 
     public void beatAction() {
-        if (enemyState == EnemyState.ATTACKING) {
-            makeBullet();
-        }
-
+        super.beatAction();
         flipEnemy();
+    }
+    @Override
+    public void Attack() {
+        makeBullet();
     }
 }

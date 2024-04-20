@@ -48,68 +48,63 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
      * @param enemyScale              The scale of the hedgehog
      * @param faceRight               The direction the hedgehog is facing in
      * @param hedgehogIdleAnimation   The idle animation for the hedgehog
+     * @param beatActionList The list of beats that the enemy reacts to
      */
     public HedgehogEnemy(JsonValue data, float startX, float startY, int rollingDistance, float width, float height,
-            float enemyScale, boolean faceRight,
+            float enemyScale, boolean faceRight, int[] beatActionList,
             Animation<TextureRegion> hedgehogIdleAnimation) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, hedgehogIdleAnimation);
+        super(data, startX, startY, width, height, enemyScale, faceRight, hedgehogIdleAnimation, beatActionList);
         setAnimation(hedgehogIdleAnimation);
         this.rollingDistance = rollingDistance;
         point2 = getX() - rollingDistance;
     }
 
-    @Override
-    public void switchState() {
-        switch(enemyState) {
-            case IDLE:
-                if(GameController.getInstance().genre == Genre.JAZZ) {
-                    if(beatCount == 4) {
-                        enemyState = EnemyState.ATTACKING;
-                    }
-                } else {
-                    if(beatCount == 4 || beatCount == 2) {
-                        enemyState = EnemyState.ATTACKING;
-                    }
-                }
-                break;
-            case ATTACKING:
-                if(GameController.getInstance().genre == Genre.JAZZ) {
-                    if(beatCount != 4) {
-                        enemyState = EnemyState.IDLE;
-                    }
-                } else{
-                    if(beatCount != 4 && beatCount != 2) {
-                        enemyState = EnemyState.IDLE;
-                    }
-                }
-                break;
-        }
+//    @Override
+//    public void switchState() {
+//        switch(enemyState) {
+//            case IDLE:
+//                if(GameController.getInstance().genre == Genre.JAZZ) {
+//                    if(beatCount ==  4 || beatCount ==  8) {
+//                        enemyState = EnemyState.ATTACKING;
+//                    }
+//                } else {
+//                    if(beatCount == 2 || beatCount == 4 || beatCount == 6 || beatCount == 8) {
+//                        enemyState = EnemyState.ATTACKING;
+//                    }
+//                }
+//                break;
+//            case ATTACKING:
+//                if(GameController.getInstance().genre == Genre.JAZZ) {
+//                    if(beatCount !=  4 || beatCount !=  8) {
+//                        enemyState = EnemyState.IDLE;
+//                    }
+//                } else{
+//                    if(beatCount != 2 || beatCount != 4 || beatCount != 6 || beatCount != 8) {
+//                        enemyState = EnemyState.IDLE;
+//                    }
+//                }
+//                break;
+//        }
+//    }
+public void switchState() {
+    switch(enemyState) {
+        case IDLE:
+            if(horizontalDistanceBetweenEnemyAndPlayer()<8) {
+                enemyState = EnemyState.ATTACKING;
+            }
+            break;
+        case ATTACKING:
+            if(horizontalDistanceBetweenEnemyAndPlayer()>8) {
+                enemyState = EnemyState.IDLE;
+            }
+            //TODO: make bear shoot
+            break;
     }
-
-    private int beatCount = 1;
-    private float beat = 1;
-
-    @Override
-    public float getBeat() {
-        return beat;
-    }
-
-    @Override
-    public void beatAction() {
-        beatCount++;
-        if(beatCount >= 5){
-            beatCount = 1;
-        }
-
-        if(enemyState.equals(EnemyState.ATTACKING)) {
-           roll = true;
-        }
-    }
+}
 
     @Override
     public void update(float dt) {
         super.update(dt);
-        //setVX(-1);
 
         if(roll) {
             if(rollingRight) {
@@ -136,4 +131,10 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
             distance = 0.05f;
         }
     }
+
+    @Override
+    public void Attack() {
+        roll = true;
+    }
+
 }
