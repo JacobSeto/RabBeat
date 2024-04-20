@@ -858,20 +858,26 @@
                  "type":"laser",
                  "visible":true,
                  "width":128,
-                 "x":2496,
-                 "y":256
+                 "x":1024,
+                 "y":512
                 }, 
                 {
                  "gid":81,
                  "height":128,
                  "id":491,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"vertical"
+                        }],
                  "rotation":0,
                  "type":"laser",
                  "visible":true,
                  "width":64,
-                 "x":2624,
-                 "y":256
+                 "x":576,
+                 "y":576
                 }],
          "opacity":1,
          "type":"objectgroup",

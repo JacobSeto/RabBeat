@@ -203,8 +203,12 @@
    </properties>
   </object>
   <object id="485" type="laser" gid="80" x="2688" y="256" width="128" height="64"/>
-  <object id="486" type="laser" gid="80" x="2496" y="256" width="128" height="64"/>
-  <object id="491" type="laser" gid="81" x="2624" y="256" width="64" height="128"/>
+  <object id="486" type="laser" gid="80" x="1024" y="512" width="128" height="64"/>
+  <object id="491" type="laser" gid="81" x="576" y="576" width="64" height="128">
+   <properties>
+    <property name="align" value="vertical"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="enemies">
   <object id="472" gid="9" x="2432" y="384" width="173" height="200"/>

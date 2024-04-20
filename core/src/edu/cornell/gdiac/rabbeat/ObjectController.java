@@ -66,6 +66,7 @@ public class ObjectController {
     protected TextureRegion longRight;
 
     protected TextureRegion laserTile;
+    protected TextureRegion laserTileVertical;
 
     /** The texture for weighted platforms in Synth mode */
     protected TextureRegion weightedSynth;
@@ -260,6 +261,7 @@ public class ObjectController {
         longMid = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:mid", Texture.class ));
         longRight = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:right", Texture.class ));
         laserTile = new TextureRegion(directory.getEntry("world:laser", Texture.class));
+        laserTileVertical = new TextureRegion(directory.getEntry("world:verticalLaser", Texture.class));
 
         weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
         weightedJazz = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
@@ -647,7 +649,13 @@ public class ObjectController {
                 textureRegion = longMid;
         }
         if (lethal){
-            textureRegion = laserTile;
+            if (align.equals("vertical")){
+                System.out.println("vertical");
+                textureRegion = laserTileVertical;
+            }
+            else{
+                textureRegion = laserTile;
+            }
         }
         //  Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
