@@ -571,7 +571,6 @@ public class ObjectController {
         for (int i = 0; i < beatListString.length(); i++) {
             result[i] = Integer.parseInt(beatListString.substring(i, i+1));
         }
-        System.out.println(result);
         return result;
     }
 

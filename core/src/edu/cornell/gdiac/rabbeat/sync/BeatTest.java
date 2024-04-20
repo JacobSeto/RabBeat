@@ -15,6 +15,6 @@ public class BeatTest implements ISynced {
         if(beatCount >= 5){
             beatCount = 1;
         }
-        //System.out.println(beatCount);
+        System.out.println(beatCount);
     }
 }
