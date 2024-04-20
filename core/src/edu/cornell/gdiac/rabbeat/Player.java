@@ -87,6 +87,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	public Animation<TextureRegion> synthWalkAnimation;
 	/** The synth genre jumping animation for the player */
 	public Animation<TextureRegion> synthJumpAnimation;
+	/** The synth genre fall animation for the player */
+	public Animation<TextureRegion> synthFallAnimation;
 
 	/** The jazz genre idle animation for the player */
 	public Animation<TextureRegion> jazzIdleAnimation;
@@ -94,6 +96,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	public Animation<TextureRegion> jazzWalkAnimation;
 	/** The jazz genre jumping animation for the player */
 	public Animation<TextureRegion> jazzJumpAnimation;
+	/** The jazz genre fall animation for the player */
+	public Animation<TextureRegion> jazzFallAnimation;
 
 	/** The player's current animation */
 	public Animation<TextureRegion> animation;
@@ -467,8 +471,23 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		if (animationIsJumping){
 			if (animation.isAnimationFinished(stateTime)) {
 				animationIsJumping = false;
-			} else{
-				return;
+				switch (animationGenre) {
+					case SYNTH:
+						setAnimation(synthFallAnimation);
+						break;
+					case JAZZ:
+						setAnimation(jazzFallAnimation);
+						break;
+				}
+			}
+		} else if (!isGrounded) {
+			switch (animationGenre) {
+				case SYNTH:
+					setAnimation(synthFallAnimation);
+					break;
+				case JAZZ:
+					setAnimation(jazzFallAnimation);
+					break;
 			}
 		} else if (isWalking()){
 			switch (animationGenre){
@@ -479,7 +498,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 					setAnimation(jazzWalkAnimation);
 					break;
 			}
-		} else{
+		} else {
 			switch (animationGenre){
 				case SYNTH:
 					setAnimation(synthIdleAnimation);

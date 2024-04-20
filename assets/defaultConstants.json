@@ -8,10 +8,10 @@
   },
   "player" : {
     "shrink": [0.7, 0.95],
-    "force": 25.0,
+    "force": 50.0,
     "damping": 10.0,
     "density": 1.0,
-    "friction": 0.0,
+    "friction": 0.5,
     "synth_jump_force": 20.0,
     "jazz_jump_force": 28.0,
     "jump_cool": 30,
@@ -21,8 +21,8 @@
       "height" : 0.05
     },
     "max_speed": {
-      "synth": 6.0,
-      "jazz": 3.5
+      "synth": 7.0,
+      "jazz": 4.0
     }
   },
   "goal": {

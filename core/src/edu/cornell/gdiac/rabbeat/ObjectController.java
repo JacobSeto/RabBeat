@@ -145,6 +145,10 @@ public class ObjectController {
     public TextureAtlas synthJumpAtlas;
     /** The synth genre jumping animation for the player */
     public Animation<TextureRegion> synthJumpAnimation;
+    /** The synth genre fall atlas for the player */
+    public TextureAtlas synthFallAtlas;
+    /** The synth genre fall animation for the player */
+    public Animation<TextureRegion> synthFallAnimation;
 
     //  JAZZ
     /** The jazz genre idle atlas for the player */
@@ -159,6 +163,10 @@ public class ObjectController {
     public TextureAtlas jazzJumpAtlas;
     /** The jazz genre jumping animation for the player */
     public Animation<TextureRegion> jazzJumpAnimation;
+    /** The jazz genre fall atlas for the player */
+    public TextureAtlas jazzFallAtlas;
+    /** The jazz genre fall animation for the player */
+    public Animation<TextureRegion> jazzFallAnimation;
 
     //ENEMY ANIMATIONS
     /** The idle atlas for the bear enemy */
@@ -249,20 +257,26 @@ public class ObjectController {
         synthIdleAnimation = new Animation<TextureRegion>(1f, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
 
         synthWalkAtlas = new TextureAtlas(Gdx.files.internal("player/synthWalk.atlas"));
-        synthWalkAnimation = new Animation<TextureRegion>(5/6f, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
+        synthWalkAnimation = new Animation<TextureRegion>(0.7f, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
 
         synthJumpAtlas = new TextureAtlas(Gdx.files.internal("player/synthJump.atlas"));
         synthJumpAnimation = new Animation<TextureRegion>(5/6f, synthJumpAtlas.findRegions("synthJump"), Animation.PlayMode.NORMAL);
+
+        synthFallAtlas = new TextureAtlas(Gdx.files.internal("player/synthFall.atlas"));
+        synthFallAnimation = new Animation<TextureRegion>(1.5f, synthFallAtlas.findRegions("synthFall"), Animation.PlayMode.LOOP);
 
         //  Jazz
         jazzIdleAtlas = new TextureAtlas(Gdx.files.internal("player/jazzIdle.atlas"));
         jazzIdleAnimation = new Animation<TextureRegion>(1f, jazzIdleAtlas.findRegions("jazzIdle"), Animation.PlayMode.LOOP);
 
         jazzWalkAtlas = new TextureAtlas(Gdx.files.internal("player/jazzWalk.atlas"));
-        jazzWalkAnimation = new Animation<TextureRegion>(7/6f, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
+        jazzWalkAnimation = new Animation<TextureRegion>(0.9f, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
 
         jazzJumpAtlas = new TextureAtlas(Gdx.files.internal("player/jazzJump.atlas"));
         jazzJumpAnimation = new Animation<TextureRegion>(5/6f, jazzJumpAtlas.findRegions("jazzJump"), Animation.PlayMode.NORMAL);
+
+        jazzFallAtlas = new TextureAtlas(Gdx.files.internal("player/jazzFall.atlas"));
+        jazzFallAnimation = new Animation<TextureRegion>(1.5f, jazzFallAtlas.findRegions("jazzFall"), Animation.PlayMode.LOOP);
 
         //  Allocating enemy animations
         //  Bear
@@ -795,10 +809,12 @@ public class ObjectController {
         player.synthIdleAnimation = synthIdleAnimation;
         player.synthWalkAnimation = synthWalkAnimation;
         player.synthJumpAnimation = synthJumpAnimation;
+        player.synthFallAnimation = synthFallAnimation;
         // Set animations: Jazz
         player.jazzIdleAnimation =  jazzIdleAnimation;
         player.jazzWalkAnimation = jazzWalkAnimation;
         player.jazzJumpAnimation = jazzJumpAnimation;
+        player.jazzFallAnimation = jazzFallAnimation;
 
         player.setAnimation(synthWalkAnimation);
         player.synthSpeed = synthSpeed;
