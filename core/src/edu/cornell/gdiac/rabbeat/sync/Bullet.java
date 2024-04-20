@@ -1,6 +1,5 @@
-package edu.cornell.gdiac.rabbeat.obstacles.projectiles;
+package edu.cornell.gdiac.rabbeat.sync;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
-import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 public class Bullet extends WheelGameObject implements ISynced {
     public int beatCount = 0;

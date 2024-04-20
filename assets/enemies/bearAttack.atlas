@@ -1,89 +1,47 @@
 bearAttack.png
-size: 346, 1200
+size: 1536, 186
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 bearAttack
   rotate: false
   xy: 0, 0
-  size: 173, 200
-  orig: 173, 200
+  size: 256, 186
+  orig: 256, 186
   offset: 0, 0
-  index: 0
+  index: -1
 bearAttack
   rotate: false
-  xy: 173, 0
-  size: 173, 200
-  orig: 173, 200
+  xy: 256, 0
+  size: 256, 186
+  orig: 256, 186
   offset: 0, 0
-  index: 1
+  index: -1
 bearAttack
   rotate: false
-  xy: 0, 200
-  size: 173, 200
-  orig: 173, 200
+  xy: 512, 0
+  size: 256, 186
+  orig: 256, 186
   offset: 0, 0
-  index: 2
+  index: -1
 bearAttack
   rotate: false
-  xy: 173, 200
-  size: 173, 200
-  orig: 173, 200
+  xy: 768, 0
+  size: 256, 186
+  orig: 256, 186
   offset: 0, 0
-  index: 3
-bearAttack
+  index: -1
+ATTACK-5
   rotate: false
-  xy: 0, 400
-  size: 173, 200
-  orig: 173, 200
+  xy: 1024, 0
+  size: 256, 186
+  orig: 256, 186
   offset: 0, 0
-  index: 4
-bearAttack
+  index: -1
+ATTACK-6
   rotate: false
-  xy: 173, 400
-  size: 173, 200
-  orig: 173, 200
+  xy: 1280, 0
+  size: 256, 186
+  orig: 256, 186
   offset: 0, 0
-  index: 5
-bearAttack
-  rotate: false
-  xy: 0, 600
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 6
-bearAttack
-  rotate: false
-  xy: 173, 600
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 7
-bearAttack
-  rotate: false
-  xy: 0, 800
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 8
-bearAttack
-  rotate: false
-  xy: 173, 800
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 9
-bearAttack
-  rotate: false
-  xy: 0, 1000
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 10
-bearAttack
-  rotate: false
-  xy: 173, 1000
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 11
+  index: -1

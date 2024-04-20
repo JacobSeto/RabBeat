@@ -263,7 +263,7 @@
          "name":"walls",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":101,
          "x":0,
          "y":0
@@ -991,11 +991,6 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"beatList",
-                         "type":"string",
-                         "value":"1234"
-                        }, 
-                        {
                          "name":"rollingDistance",
                          "type":"int",
                          "value":3
@@ -1012,12 +1007,6 @@
                  "height":224,
                  "id":271,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"beatList",
-                         "type":"string",
-                         "value":""
-                        }],
                  "rotation":0,
                  "type":"beehive",
                  "visible":true,
@@ -1030,12 +1019,6 @@
                  "height":181,
                  "id":315,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"beatList",
-                         "type":"string",
-                         "value":"1234"
-                        }],
                  "rotation":0,
                  "type":"bear",
                  "visible":true,
@@ -1048,12 +1031,6 @@
                  "height":181,
                  "id":423,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"beatList",
-                         "type":"string",
-                         "value":"7"
-                        }],
                  "rotation":0,
                  "type":"bear",
                  "visible":true,
@@ -1389,7 +1366,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],

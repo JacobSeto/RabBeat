@@ -1,12 +1,16 @@
 package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
+import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
+import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
+import edu.cornell.gdiac.rabbeat.sync.Bullet;
+import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
 /**
@@ -20,7 +24,7 @@ public class BearEnemy extends Enemy {
     /** The bullet the bear will be shooting */
     public Bullet bullet;
 
-    /** Number of beats the bullet exists in synth */
+    /** Number of beats the bullet exists in synth*/
     private int synthBulletTime = 3;
 
     /** Number of beats the bullet exists in jazz */
@@ -38,18 +42,17 @@ public class BearEnemy extends Enemy {
     /**
      * Creates a bear enemy avatar with the given physics data
      *
-     * @param data       The physics constants for this enemy
-     * @param width      The object width in physics units
-     * @param height     The object width in physics units
-     * @param startX     The starting x position of the enemy
-     * @param startY     The starting y position of the enemy
-     * @param enemyScale The scale of the enemy
-     * @param faceRight  The direction the enemy is facing in
-     * @param beatList   The list of beats that the enemy reacts to
+     * @param data          The physics constants for this enemy
+     * @param width         The object width in physics units
+     * @param height        The object width in physics units
+     * @param startX        The starting x position of the enemy
+     * @param startY	    The starting y position of the enemy
+     * @param enemyScale    The scale of the enemy
+     * @param faceRight     The direction the enemy is facing in
      */
     public BearEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, Animation<TextureRegion> bearIdleAnimation, int[] beatList) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, bearIdleAnimation, beatList);
+            boolean faceRight, Animation<TextureRegion> bearIdleAnimation) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, bearIdleAnimation);
         setAnimation(bearIdleAnimation);
     }
 
@@ -57,32 +60,30 @@ public class BearEnemy extends Enemy {
      * Switches the attack state of the bear depending on the player's position.
      */
     public void switchState() {
-        switch (enemyState) {
+        switch(enemyState) {
             case IDLE:
-                if (horizontalDistanceBetweenEnemyAndPlayer() < 8) {
+                if(horizontalDistanceBetweenEnemyAndPlayer()<8) {
                     enemyState = EnemyState.ATTACKING;
                 }
                 break;
             case ATTACKING:
-                if (horizontalDistanceBetweenEnemyAndPlayer() > 8) {
+                if(horizontalDistanceBetweenEnemyAndPlayer()>8) {
                     enemyState = EnemyState.IDLE;
                 }
-                // TODO: make bear shoot
+                //TODO: make bear shoot
                 break;
         }
     }
 
     /** Creates a bullet in front of the bear */
-    public void makeBullet() {
-        // TODO: create a bullet using object controller default values. instantiate the
-        // copy using gamecontroller
+    public void makeBullet(){
+          //TODO: create a bullet using object controller default values.  instantiate the copy using gamecontroller
 
         ObjectController oc = GameController.getInstance().objectController;
-        float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
+        float offset =  oc.defaultConstants.get("bullet").getFloat("offset",0);
         offset *= (isFaceRight() ? 1 : -1);
-        float radius = oc.bulletTexture.getRegionWidth() / (2.0f * scale.x);
-        bullet = new Bullet(getX() + offset, getY(), radius,
-                oc.defaultConstants.get("bullet").getFloat("synth speed", 0),
+        float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
+        bullet = new Bullet(getX()+offset, getY(), radius, oc.defaultConstants.get("bullet").getFloat("synth speed", 0),
                 oc.defaultConstants.get("bullet").getFloat("jazz speed", 0), isFaceRight());
 
         bullet.setName(getName() + "_bullet");
@@ -91,14 +92,15 @@ public class BearEnemy extends Enemy {
         bullet.setTexture(oc.bulletTexture);
         bullet.setGravityScale(0);
         shotDirection = isFaceRight();
-        int beatcount;
 
-        // Compute position and velocity
+        //Compute position and velocity
         float speed;
-        if (GameController.getInstance().genre == Genre.SYNTH) {
+        int beatcount;
+        if (GameController.getInstance().genre == Genre.SYNTH){
             speed = oc.defaultConstants.get("bullet").getFloat("synth speed", 0);
             beatcount = synthBulletTime;
-        } else {
+        }
+        else {
             speed = oc.defaultConstants.get("bullet").getFloat("jazz speed", 0);
             beatcount = jazzBulletTime;
         }
@@ -107,14 +109,15 @@ public class BearEnemy extends Enemy {
         bullet.beatCount = beatcount;
         GameController.getInstance().instantiateQueue(bullet);
     }
-
-    public void beatAction() {
-        super.beatAction();
-        flipEnemy();
+    public float getBeat() {
+        return beat;
     }
 
-    @Override
-    public void Attack() {
-        makeBullet();
+    public void beatAction() {
+        if (enemyState == EnemyState.ATTACKING) {
+            makeBullet();
+        }
+
+        flipEnemy();
     }
 }

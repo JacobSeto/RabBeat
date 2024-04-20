@@ -113,6 +113,9 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
             currentSpeed = 0;
         }
         else{
+            System.out.println("moving!");
+            System.out.println(speed);
+            System.out.println(currentSpeed);
             setPosition(getPosition().x + velocity.x*delta*speed, getPosition().y + velocity.y*delta*speed);
         }
     }
