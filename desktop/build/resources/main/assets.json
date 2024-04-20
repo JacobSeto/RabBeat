@@ -122,9 +122,7 @@
 
       "world:wires:wires1" : "world/wires/wires1.png",
 
-      "world:wires:wires2" : "world/wires/wires2.png",
-
-      "world:laser" : "world/laser.png"
+      "world:wires:wires2" : "world/wires/wires2.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
@@ -132,7 +130,7 @@
         "level1": "levelsJson/rabbeatLevel.tmj",
         "level2": "levelsJson/rabbeatLevel2.tmj",
         "level3": "levelsJson/rabbeatLevel3.tmj",
-        "level4": "levelsJson/rabbeatLaserTest.tmj",
+        "level4": "levelsJson/rabbeatLevel.tmj",
         "level5": "levelsJson/rabbeatLevel2.tmj",
         "level6": "levelsJson/rabbeatLevel.tmj",
         "level7": "levelsJson/rabbeatLevel2.tmj",
