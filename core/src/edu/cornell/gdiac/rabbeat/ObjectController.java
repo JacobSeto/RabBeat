@@ -13,6 +13,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.*;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.HedgehogEnemy;
@@ -79,14 +80,19 @@ public class ObjectController {
     public TextureRegion bulletTexture;
     /** The texture for the exit condition */
     protected TextureRegion goalTile;
-    /**
-     * The texture for the checkpoint when it is in default stage/has not been
-     * reached
-     */
-    protected TextureRegion checkpointDefault;
-    /** The texture for the checkpoint when it is active has already been reached */
-    protected TextureRegion checkpointActive;
-    /** The texture for the background */
+    /** The inactive atlas for a checkpoint */
+    protected TextureAtlas checkpointInactiveAtlas;
+    /** The inactive animation for a checkpoint */
+    protected Animation<TextureRegion> checkpointInactiveAnimation;
+    /** The active atlas for a checkpoint */
+    protected TextureAtlas checkpointActiveAtlas;
+    /** The active animation for a checkpoint */
+    protected Animation<TextureRegion> checkpointActiveAnimation;
+    /** The rise atlas for a checkpoint */
+    protected TextureAtlas checkpointRiseAtlas;
+    /** The rise animation for a checkpoint */
+    protected Animation<TextureRegion> checkpointRiseAnimation;
+    /** The texture for the background*/
     public TextureRegion backgroundTexture;
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
@@ -99,6 +105,14 @@ public class ObjectController {
     private TextureRegion synthIndicatorTexture;
     /** The texture for the genre indicator in Jazz mode */
     private TextureRegion jazzIndicatorTexture;
+    /** The synth genre atlas for the genre indicator */
+    public TextureAtlas synthCDAtlas;
+    /** The synth animation for the genre indicator */
+    private Animation<TextureRegion> synthCDAnimation;
+    /** The jazz genre atlas for the genre indicator */
+    public TextureAtlas jazzCDAtlas;
+    /** The jazz animation for the genre indicator */
+    private Animation<TextureRegion> jazzCDAnimation;
     /** The genre indicator UI */
     public GenreUI genreIndicator;
 
@@ -112,7 +126,7 @@ public class ObjectController {
     public float[] firstCheckpoint = new float[2];
 
     /** The player scale for synth */
-    private float playerScale = 3 / 8f * 2.5f;
+    private float playerScale = 1f;
 
     private TextureRegion synthDefaultTexture;
     private TextureRegion synthJazzTexture;
@@ -132,6 +146,10 @@ public class ObjectController {
     public TextureAtlas synthJumpAtlas;
     /** The synth genre jumping animation for the player */
     public Animation<TextureRegion> synthJumpAnimation;
+    /** The synth genre fall atlas for the player */
+    public TextureAtlas synthFallAtlas;
+    /** The synth genre fall animation for the player */
+    public Animation<TextureRegion> synthFallAnimation;
 
     // JAZZ
     /** The jazz genre idle atlas for the player */
@@ -146,16 +164,32 @@ public class ObjectController {
     public TextureAtlas jazzJumpAtlas;
     /** The jazz genre jumping animation for the player */
     public Animation<TextureRegion> jazzJumpAnimation;
+    /** The jazz genre fall atlas for the player */
+    public TextureAtlas jazzFallAtlas;
+    /** The jazz genre fall animation for the player */
+    public Animation<TextureRegion> jazzFallAnimation;
 
     // ENEMY ANIMATIONS
     /** The idle atlas for the bear enemy */
     public TextureAtlas bearIdleAtlas;
     /** The idle animation for the bear enemy */
     public Animation<TextureRegion> bearIdleAnimation;
+    /** The attack atlas for the bear enemy */
+    public TextureAtlas bearAttackAtlas;
+    /** The attack animation for the bear enemy */
+    public Animation<TextureRegion> bearAttackAnimation;
     /** The idle atlas for the bat enemy */
     public TextureAtlas batIdleAtlas;
     /** The idle animation for the bat enemy */
     public Animation<TextureRegion> batIdleAnimation;
+    /** The synth attack atlas for the bat enemy */
+    public TextureAtlas batAttackSynthAtlas;
+    /** The synth attack animation for the bat enemy */
+    public Animation<TextureRegion> batAttackSynthAnimation;
+    /** The jazz attack atlas for the bat enemy */
+    public TextureAtlas batAttackJazzAtlas;
+    /** The jazz attack animation for the bat enemy */
+    public Animation<TextureRegion> batAttackJazzAnimation;
     /** The idle atlas for the bee enemy */
     public TextureAtlas beeAttackAtlas;
     /** The idle animation for the bee enemy */
@@ -169,11 +203,15 @@ public class ObjectController {
     public TextureAtlas hedgehogIdleAtlas;
     /** The idle animation for the hedgehog enemy */
     public Animation<TextureRegion> hedgehogIdleAnimation;
+    /** The attack atlas for the hedgehog enemy */
+    public TextureAtlas hedgehogAttackAtlas;
+    /** The attack animation for the hedgehog enemy */
+    public Animation<TextureRegion> hedgehogAttackAnimation;
 
     private float synthSpeed;
     private float jazzSpeed;
     /** The enemy scale for the enemy */
-    private float enemyScale = 1;
+    private float enemyScale = 1f;
 
     public int tileSize;
 
@@ -205,6 +243,10 @@ public class ObjectController {
         // Allocate genre indicator UI
         synthIndicatorTexture = new TextureRegion(directory.getEntry("ui:synthIndicator", Texture.class));
         jazzIndicatorTexture = new TextureRegion(directory.getEntry("ui:jazzIndicator", Texture.class));
+        synthCDAtlas = new TextureAtlas(Gdx.files.internal("ui/synthCD.atlas"));
+        synthCDAnimation = new Animation<TextureRegion>(1f, synthCDAtlas.findRegions("synthCD"), Animation.PlayMode.LOOP);
+        jazzCDAtlas = new TextureAtlas(Gdx.files.internal("ui/jazzCD.atlas"));
+        jazzCDAnimation = new Animation<TextureRegion>(1f, jazzCDAtlas.findRegions("jazzCD"), Animation.PlayMode.LOOP);
 
         defaultConstants = directory.getEntry("defaultConstants", JsonValue.class);
         synthSpeed = defaultConstants.get("player").get("max_speed").getFloat("synth");
@@ -216,39 +258,43 @@ public class ObjectController {
         // Synth
         // Note: For animations, frame durations must be 1 for AnimationSync to work
         synthIdleAtlas = new TextureAtlas(Gdx.files.internal("player/synthIdle.atlas"));
-        synthIdleAnimation = new Animation<TextureRegion>(4 / 3f, synthIdleAtlas.findRegions("synthIdle"),
-                Animation.PlayMode.LOOP);
+        synthIdleAnimation = new Animation<TextureRegion>(1f, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
 
         synthWalkAtlas = new TextureAtlas(Gdx.files.internal("player/synthWalk.atlas"));
-        synthWalkAnimation = new Animation<TextureRegion>(1, synthWalkAtlas.findRegions("synthWalk"),
-                Animation.PlayMode.LOOP);
+        synthWalkAnimation = new Animation<TextureRegion>(0.7f, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
 
         synthJumpAtlas = new TextureAtlas(Gdx.files.internal("player/synthJump.atlas"));
-        synthJumpAnimation = new Animation<TextureRegion>(1, synthJumpAtlas.findRegions("synthJump"),
-                Animation.PlayMode.NORMAL);
+        synthJumpAnimation = new Animation<TextureRegion>(5/6f, synthJumpAtlas.findRegions("synthJump"), Animation.PlayMode.NORMAL);
+
+        synthFallAtlas = new TextureAtlas(Gdx.files.internal("player/synthFall.atlas"));
+        synthFallAnimation = new Animation<TextureRegion>(1.5f, synthFallAtlas.findRegions("synthFall"), Animation.PlayMode.LOOP);
 
         // Jazz
         jazzIdleAtlas = new TextureAtlas(Gdx.files.internal("player/jazzIdle.atlas"));
-        jazzIdleAnimation = new Animation<TextureRegion>(4 / 3f, jazzIdleAtlas.findRegions("jazzIdle"),
-                Animation.PlayMode.LOOP);
+        jazzIdleAnimation = new Animation<TextureRegion>(1f, jazzIdleAtlas.findRegions("jazzIdle"), Animation.PlayMode.LOOP);
 
         jazzWalkAtlas = new TextureAtlas(Gdx.files.internal("player/jazzWalk.atlas"));
-        jazzWalkAnimation = new Animation<TextureRegion>(1, jazzWalkAtlas.findRegions("jazzWalk"),
-                Animation.PlayMode.LOOP);
+        jazzWalkAnimation = new Animation<TextureRegion>(0.9f, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
 
         jazzJumpAtlas = new TextureAtlas(Gdx.files.internal("player/jazzJump.atlas"));
-        jazzJumpAnimation = new Animation<TextureRegion>(1, jazzJumpAtlas.findRegions("jazzJump"),
-                Animation.PlayMode.NORMAL);
+        jazzJumpAnimation = new Animation<TextureRegion>(5/6f, jazzJumpAtlas.findRegions("jazzJump"), Animation.PlayMode.NORMAL);
+
+        jazzFallAtlas = new TextureAtlas(Gdx.files.internal("player/jazzFall.atlas"));
+        jazzFallAnimation = new Animation<TextureRegion>(1.5f, jazzFallAtlas.findRegions("jazzFall"), Animation.PlayMode.LOOP);
 
         // Allocating enemy animations
         // Bear
         bearIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
-        bearIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"),
-                Animation.PlayMode.LOOP);
-        // Bat
+        bearIdleAnimation = new Animation<TextureRegion>(1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        bearAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearAttack.atlas"));
+        bearAttackAnimation = new Animation<TextureRegion>(1f, bearAttackAtlas.findRegions("bearAttack"), Animation.PlayMode.LOOP);
+        //  Bat
         batIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
-        batIdleAnimation = new Animation<TextureRegion>(1, bearIdleAtlas.findRegions("bearIdle"),
-                Animation.PlayMode.LOOP);
+        batIdleAnimation = new Animation<TextureRegion>(1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        batAttackJazzAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackJazz.atlas"));
+        batAttackJazzAnimation = new Animation<TextureRegion>(1f, batAttackJazzAtlas.findRegions("batAttackJazz"), Animation.PlayMode.LOOP);
+        batAttackSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackSynth.atlas"));
+        batAttackSynthAnimation = new Animation<TextureRegion>(1f, batAttackSynthAtlas.findRegions("batAttackSynth"), Animation.PlayMode.LOOP);
 
         // Bee
         beeAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeAttack.atlas"));
@@ -260,8 +306,10 @@ public class ObjectController {
                 Animation.PlayMode.LOOP);
         // Hedgehog
         hedgehogIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
-        hedgehogIdleAnimation = new Animation<TextureRegion>(4 / 3f, bearIdleAtlas.findRegions("bearIdle"),
-                Animation.PlayMode.LOOP);
+        hedgehogIdleAnimation = new Animation<TextureRegion>(5/3f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        hedgehogAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/hedgehogAttack.atlas"));
+        hedgehogAttackAnimation = new Animation<TextureRegion>(1.5f, hedgehogAttackAtlas.findRegions("hedgehogAttack"), Animation.PlayMode.LOOP);
+
 
         // Allocate the tiles
         blackTile = new TextureRegion(directory.getEntry("world:platforms:blackTile", Texture.class));
@@ -309,10 +357,16 @@ public class ObjectController {
         assets.put("wires2", new TextureRegion(directory.getEntry("world:wires:wires2", Texture.class)));
 
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
-        goalTile = new TextureRegion(directory.getEntry("world:goal", Texture.class));
-        checkpointDefault = new TextureRegion(directory.getEntry("checkpoint:checkDefault", Texture.class));
-        checkpointActive = new TextureRegion(directory.getEntry("checkpoint:checkActive", Texture.class));
-        displayFont = directory.getEntry("fonts:retro", BitmapFont.class);
+        goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
+        displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
+
+        // Checkpoint
+        checkpointInactiveAtlas = new TextureAtlas(Gdx.files.internal("world/checkpoints/checkpointInactive.atlas"));
+        checkpointInactiveAnimation = new Animation<TextureRegion>(1f, checkpointInactiveAtlas.findRegions("checkpointInactive"), Animation.PlayMode.LOOP);
+        checkpointActiveAtlas = new TextureAtlas(Gdx.files.internal("world/checkpoints/checkpointActive.atlas"));
+        checkpointActiveAnimation = new Animation<TextureRegion>(1f, checkpointActiveAtlas.findRegions("checkpointActive"), Animation.PlayMode.LOOP);
+        checkpointRiseAtlas = new TextureAtlas(Gdx.files.internal("world/checkpoints/checkpointRise.atlas"));
+        checkpointRiseAnimation = new Animation<TextureRegion>(1f, checkpointRiseAtlas.findRegions("checkpointRise"), Animation.PlayMode.LOOP);
     }
 
     /**
@@ -323,6 +377,11 @@ public class ObjectController {
     public void populateObjects(Vector2 scale) {
         // Populate in-game UI elements
         createGUI();
+
+        // TODO: Remove, this is temporary
+//        int x1 = 2700;
+//        int y1 = 540;
+//        createEnemyBat(scale, x1, y1, levelJson.getInt("height"), levelJson.getInt("tileheight"));
 
         if (levelJson.has("layers")) {
             int levelHeight = levelJson.getInt("height");
@@ -500,6 +559,11 @@ public class ObjectController {
                                     createEnemyHedgehog(scale, x, y, dim, rollingDistance, levelHeight, tileSize, convertTiledbeatList(beatListString));
                                     break;
                                 case "bat":
+                                    x = enemy.getFloat("x");
+                                    y = enemy.getFloat("y");
+                                    dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
+                                    createEnemyBat(scale, x, y, dim, levelHeight, tileSize,
+                                            convertTiledbeatList(beatListString));
                                     break;
                             }
                         }
@@ -604,18 +668,18 @@ public class ObjectController {
             firstCheckpoint[0] = convertedCoord.x;
             firstCheckpoint[1] = convertedCoord.y;
         }
-        float cWidth = checkpointDefault.getRegionWidth() / scale.x;
-        float cHeight = checkpointDefault.getRegionHeight() / scale.y;
+        float cWidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float cHeight = enemyDefaultTexture.getRegionHeight()/scale.y;
 
         JsonValue defaults = defaultConstants.get("defaults");
-        Checkpoint obj = new Checkpoint(id, checkpointActive, convertedCoord.x, convertedCoord.y, cWidth, cHeight);
+        Checkpoint obj = new Checkpoint(id, checkpointInactiveAnimation, checkpointActiveAnimation, checkpointRiseAnimation, convertedCoord.x, convertedCoord.y, cWidth, cHeight);
         obj.setBodyType(BodyDef.BodyType.StaticBody);
         obj.setDensity(defaults.getFloat("density", 0.0f));
         obj.setFriction(defaults.getFloat("friction", 1.0f));
         obj.setRestitution(defaults.getFloat("restitution", 0.0f));
         obj.setSensor(true);
         obj.setDrawScale(scale);
-        obj.setTexture(checkpointDefault);
+        obj.setTexture(enemyDefaultTexture);
         GameController.getInstance().instantiate(obj);
         checkpoints.add(obj);
     }
@@ -631,7 +695,7 @@ public class ObjectController {
 
     /**
      * Create wall tiles
-     * 
+     *
      * @param scale Scale to draw
      * @param x     x coordinate (world coordinates) of tile
      * @param y     y coordinate (world coordinates) of tile
@@ -812,10 +876,12 @@ public class ObjectController {
         player.synthIdleAnimation = synthIdleAnimation;
         player.synthWalkAnimation = synthWalkAnimation;
         player.synthJumpAnimation = synthJumpAnimation;
+        player.synthFallAnimation = synthFallAnimation;
         // Set animations: Jazz
         player.jazzIdleAnimation = jazzIdleAnimation;
         player.jazzWalkAnimation = jazzWalkAnimation;
         player.jazzJumpAnimation = jazzJumpAnimation;
+        player.jazzFallAnimation = jazzFallAnimation;
 
         player.setAnimation(synthWalkAnimation);
         player.synthSpeed = synthSpeed;
@@ -861,7 +927,7 @@ public class ObjectController {
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BearEnemy bear = new BearEnemy(defaultConstants.get("bears"), convertedCoord.x, convertedCoord.y,
-                dwidth * enemyScale, dheight * enemyScale, enemyScale, false, bearIdleAnimation, beatList);
+                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearAttackAnimation, beatList);
         bear.setBodyType(BodyDef.BodyType.StaticBody);
         bear.setDrawScale(scale);
         GameController.getInstance().instantiate(bear);
@@ -912,15 +978,39 @@ public class ObjectController {
         //TODO: change to hedgehog texture when we get art for this
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
-        float dwidth  = dimensions.x/scale.x;
-        float dheight = dimensions.y/scale.y;
+        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         HedgehogEnemy hedgehog = new HedgehogEnemy(defaultConstants.get("hedgehogs"), convertedCoord.x, convertedCoord.y,
                 rollingDistance, dwidth*enemyScale, dheight*enemyScale,
-                enemyScale, false, beatList, bearIdleAnimation);
+                enemyScale, false, beatList, hedgehogAttackAnimation);
         hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
         hedgehog.setDrawScale(scale);
         GameController.getInstance().instantiate(hedgehog);
         System.out.println(x + " ");
+    }
+
+    /**
+     * Create a bat enemy.
+     *
+     * @param scale The Vector2 draw scale
+     * @param x  The bear's x coordinate (in pixels)
+     * @param y The bear's y coordinate (in pixels)
+     * @param levelHeight Height of level in number of tiles
+     * @param tileSize Height of tile in pixels
+     */
+    private void createEnemyBat(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList){
+        //  Convert coordinates to world coordinate
+        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
+
+        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+        BatEnemy bat = new BatEnemy(defaultConstants.get("bats"), convertedCoord.x, convertedCoord.y,
+                dwidth*enemyScale, dheight*enemyScale,
+                enemyScale, false, batAttackSynthAnimation, beatList);
+        bat.setBodyType(BodyDef.BodyType.StaticBody);
+        bat.setDrawScale(scale);
+        bat.setTexture(enemyDefaultTexture);
+        GameController.getInstance().instantiate(bat);
     }
 
     private void createGroundArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, String groundLevel){
@@ -960,7 +1050,7 @@ public class ObjectController {
      * Creates the in-game UI elements and adds them to the genre/synced objects.
      */
     private void createGUI() {
-        genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture);
+        genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture, synthCDAnimation, jazzCDAnimation);
         GameController.getInstance().instantiate(genreIndicator);
     }
 }

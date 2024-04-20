@@ -1,10 +1,10 @@
 /*
  * WorldController.java
  *
- * This is the most important new class in this lab.  This class serves as a combination 
- * of the CollisionController and GameplayController from the previous lab.  There is not 
- * much to do for collisions; Box2d takes care of all of that for us.  This controller 
- * invokes Box2d and then performs any after the fact modifications to the data 
+ * This is the most important new class in this lab.  This class serves as a combination
+ * of the CollisionController and GameplayController from the previous lab.  There is not
+ * much to do for collisions; Box2d takes care of all of that for us.  This controller
+ * invokes Box2d and then performs any after the fact modifications to the data
  * (e.g. gameplay).
  *
  * If you study this class, and the contents of the edu.cornell.cs3152.physics.obstacles
@@ -104,7 +104,7 @@ public class GameController implements Screen, ContactListener {
 	/** Height of the screen in Box2d units */
 	protected static final float DEFAULT_HEIGHT = 21.64f;
 	/** The default value of gravity (going down) */
-	protected static final float DEFAULT_GRAVITY = -4.9f;
+	protected static final float DEFAULT_GRAVITY = -18f;
 
 
 	/** Reference to the game canvas */
@@ -416,7 +416,7 @@ public class GameController implements Screen, ContactListener {
 	/**
 	 * If the object is implements {@link ISynced}, add
 	 * to the sync. If it is a {@link IGenreObject}, add to genreObstacles.
-	 * 
+	 *
 	 * @param object: The object you are instantiating
 	 *
 	 */
@@ -512,7 +512,7 @@ public class GameController implements Screen, ContactListener {
 	private void populateLevel() {
 
 		// world starts with Synth gravity
-		world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
+		world.setGravity(new Vector2(0, objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
@@ -529,7 +529,7 @@ public class GameController implements Screen, ContactListener {
 	 * normally.
 	 *
 	 * @param dt Number of seconds since last animation frame
-	 * 
+	 *
 	 * @return whether to process the update loop
 	 */
 	public boolean preUpdate(float dt) {
@@ -786,14 +786,6 @@ public class GameController implements Screen, ContactListener {
 	public void updateGenreSwitch() {
 		soundController.setGenre(genre);
 		soundController.playSFX("genreSwitch");
-		// update to Synth
-		if (genre == Genre.SYNTH) {
-			world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
-		}
-		// update to Jazz
-		else {
-			world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("jazz", 0)));
-		}
 
 		for (IGenreObject g : objectController.genreObjects) {
 			g.genreUpdate(genre);
@@ -833,6 +825,14 @@ public class GameController implements Screen, ContactListener {
 				// Note that update is called last!
 				obj.update(dt);
 			}
+		}
+
+		// Update genre-dependent UI element
+		objectController.genreIndicator.update(dt);
+
+		// Update checkpoints
+		for (Checkpoint checkpoint : objectController.checkpoints) {
+			checkpoint.update(dt);
 		}
 	}
 
@@ -886,7 +886,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw genre indicator UI
 		canvas.begin(true);
-		canvas.draw(objectController.genreIndicator.getTexture(), 30, 530);
+		objectController.genreIndicator.draw(canvas, 30, 530);
 		canvas.end();
 
 		// Final message

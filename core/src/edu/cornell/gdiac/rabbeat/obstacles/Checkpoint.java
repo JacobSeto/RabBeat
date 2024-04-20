@@ -1,31 +1,81 @@
 package edu.cornell.gdiac.rabbeat.obstacles;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import edu.cornell.gdiac.rabbeat.GameCanvas;
+import edu.cornell.gdiac.rabbeat.Genre;
+import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
-public class Checkpoint extends BoxGameObject {
+/**
+ * Class for checkpoints, which determines if the player has reached a checkpoint and
+ * the spawn points of the player.
+ */
+public class Checkpoint extends BoxGameObject implements ISyncedAnimated {
 
     /** Index of the checkpoint in the checkpoints json */
     private final int index;
-    /** The texture for the checkpoint when it is active has already been reached */
-    private final TextureRegion activeTexture;
-
     /** Indicates whether the checkpoint is active */
     public boolean isActive;
+
+    /** The active animation */
+    private Animation<TextureRegion> activeAnimation;
+    /** The rise animation */
+    private Animation<TextureRegion> riseAnimation;
+    /** The inactive animation */
+    private Animation<TextureRegion> inactiveAnimation;
+    /** The current animation */
+    public Animation<TextureRegion> animation;
+    /** The elapsed time for animationUpdate */
+    private float stateTime = 0;
 
     /**
      * Creates a new checkpoint.
      *
-     * @param index         The index of the checkpoint in the checkpoints json
-     * @param activeTexture The texture for the checkpoint when it is active
-     * @param x             Initial x position of the box center in Box2D units
-     * @param y  		    Initial y position of the box center in Box2D units
-     * @param width         The width of the checkpoint
-     * @param height        The height of the checkpoint
+     * @param index             The index of the checkpoint in the checkpoints json
+     * @param inactiveAnimation The inactive animation for checkpoints
+     * @param activeAnimation   The active animation for checkpoints
+     * @param riseAnimation     The rise animation for checkpoints
+     * @param x                 Initial x position of the box center in Box2D units
+     * @param y  		        Initial y position of the box center in Box2D units
+     * @param width             The width of the checkpoint
+     * @param height            The height of the checkpoint
      */
-    public Checkpoint(int index, TextureRegion activeTexture, float x, float y, float width, float height) {
+    public Checkpoint(int index, Animation<TextureRegion> inactiveAnimation, Animation<TextureRegion> activeAnimation, Animation<TextureRegion> riseAnimation, float x, float y, float width, float height) {
         super(x, y, width, height);
         this.index = index;
-        this.activeTexture = activeTexture;
+        isActive = false;
+        this.inactiveAnimation = inactiveAnimation;
+        this.activeAnimation = activeAnimation;
+        this.riseAnimation = riseAnimation;
+        setAnimation(inactiveAnimation);
+    }
+
+    /**
+     * Updates the object's physics state.
+     *
+     * @param dt	Number of seconds since last animation frame
+     */
+    public void update(float dt) {
+        stateTime += dt;
+        if (isActive) {
+            if (animation.isAnimationFinished(stateTime)) {
+                stateTime = 0;
+                setAnimation(activeAnimation);
+            }
+        } else {
+            if (animation.isAnimationFinished(stateTime)) {
+                stateTime = 0;
+                setAnimation(inactiveAnimation);
+            }
+        }
+        super.update(dt);
+    }
+
+    public void draw(GameCanvas canvas) {
+        TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
+        canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
+                1,1);
     }
 
     /**
@@ -40,7 +90,23 @@ public class Checkpoint extends BoxGameObject {
      */
     public void setActive() {
         isActive = true;
-        setTexture(activeTexture);
     }
 
+    @Override
+    public float getBeat() {
+        return 1;
+    }
+
+    @Override
+    public void beatAction() { }
+
+    @Override
+    public void setAnimation(Animation<TextureRegion> animation) {
+        this.animation = animation;
+    }
+
+    @Override
+    public void updateAnimationFrame() {
+        stateTime++;
+    }
 }
