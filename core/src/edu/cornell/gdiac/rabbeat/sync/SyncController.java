@@ -19,7 +19,7 @@ public class SyncController {
     Music jazz;
 
     /**The audio delay of the audio  in seconds*/
-    private float delay = 0;
+    private float delay = 0f;
     /** The intervals of each of the synced objects in the game */
     private Array<Interval> intervals = new Array<>();
     /** The interval that represents the animation update */

@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.obstacles.*;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
+import edu.cornell.gdiac.rabbeat.sync.SyncController;
 
 /**
  * Player avatar for the plaform game.
@@ -42,8 +43,12 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	public float jazzSpeed;
 	/** Identifier to allow us to track the sensor in ContactListener */
 	private final String sensorName;
-	/** The impulse for the character jump */
-	private final float jump_force;
+	/** The current jump force */
+	private float jumpForce;
+	/** The impulse for the character jump in Synth */
+	private final float jumpForceSynth;
+	/** The impulse for the character jump in Jazz */
+	private final float jumpForceJazz;
 	/** Cooldown (in animation frames) for jumping */
 	private final int jumpLimit;
 	/** Cooldown (in animation frames) for shooting */
@@ -277,7 +282,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 
 		damping = data.getFloat("damping", 0);
 		force = data.getFloat("force", 0);
-		jump_force = data.getFloat( "jump_force", 0 );
+		jumpForceSynth = data.getFloat( "synth_jump_force", 0 );
+		jumpForceJazz = data.getFloat( "jazz_jump_force", 0 );
 		jumpLimit = data.getInt( "jump_cool", 0 );
 		shotLimit = data.getInt( "shot_cool", 0 );
 		displacement = new Vector2(0,0);
@@ -290,6 +296,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		isJumping = false;
 		faceRight = true;
 
+		jumpForce = jumpForceSynth;
 		animationGenre = Genre.SYNTH;
 
 		jumpCooldown = 0;
@@ -366,7 +373,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 
 		// Jump!
 		if (isJumping()) {
-			forceCache.set(0, jump_force);
+			forceCache.set(0, jumpForce);
 			body.applyLinearImpulse(forceCache,getPosition(),true);
 		}
 	}
@@ -432,9 +439,11 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		animationGenre = genre;
 		if (genre == Genre.SYNTH) {
 			maxspeed = synthSpeed;
+			jumpForce = jumpForceSynth;
 		}
 		else{
 			maxspeed = jazzSpeed;
+			jumpForce = jumpForceJazz;
 		}
 	}
 
@@ -491,5 +500,5 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	}
 	public float getBeat() {return 1;}
 
-	public void beatAction(){}
+	public void beatAction(){ }
 }

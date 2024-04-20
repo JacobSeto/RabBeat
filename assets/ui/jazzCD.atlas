@@ -1,0 +1,61 @@
+jazzCD.png
+size: 450, 456
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+jazzCD
+  rotate: false
+  xy: 0, 0
+  size: 150, 152
+  orig: 150, 152
+  offset: 0, 0
+  index: 0
+jazzCD
+  rotate: false
+  xy: 150, 0
+  size: 150, 152
+  orig: 150, 152
+  offset: 0, 0
+  index: 1
+jazzCD
+  rotate: false
+  xy: 300, 0
+  size: 150, 152
+  orig: 150, 152
+  offset: 0, 0
+  index: 2
+jazzCD
+  rotate: false
+  xy: 0, 152
+  size: 150, 152
+  orig: 150, 152
+  offset: 0, 0
+  index: 3
+jazzCD
+  rotate: false
+  xy: 150, 152
+  size: 150, 152
+  orig: 150, 152
+  offset: 0, 0
+  index: 4
+jazzCD
+  rotate: false
+  xy: 300, 152
+  size: 150, 152
+  orig: 150, 152
+  offset: 0, 0
+  index: 5
+jazzCD
+  rotate: false
+  xy: 0, 304
+  size: 150, 152
+  orig: 150, 152
+  offset: 0, 0
+  index: 6
+jazzCD
+  rotate: false
+  xy: 150, 304
+  size: 150, 152
+  orig: 150, 152
+  offset: 0, 0
+  index: 7

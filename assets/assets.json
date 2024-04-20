@@ -40,10 +40,6 @@
 
       "world:goal": "world/goal.png",
 
-      "checkpoint:checkDefault": "world/checkpoints/checkDefault.png",
-
-      "checkpoint:checkActive": "world/checkpoints/checkActive.png",
-
       "ui:synthIndicator": "ui/synth-indicator.png",
 
       "ui:jazzIndicator": "ui/jazz-indicator.png",

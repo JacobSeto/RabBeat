@@ -84,7 +84,7 @@ public class GameController implements Screen, ContactListener {
 	/** Height of the screen in Box2d units */
 	protected static final float DEFAULT_HEIGHT = 21.64f;
 	/** The default value of gravity (going down) */
-	protected static final float DEFAULT_GRAVITY = -4.9f;
+	protected static final float DEFAULT_GRAVITY = -18f;
 
 
 	/** Reference to the game canvas */
@@ -460,7 +460,7 @@ public class GameController implements Screen, ContactListener {
 	private void populateLevel() {
 
 		// world starts with Synth gravity
-		world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
+		world.setGravity(new Vector2(0, objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
 
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
@@ -711,14 +711,6 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void updateGenreSwitch() {
 		soundController.setGenre(genre);
-		// update to Synth
-		if (genre == Genre.SYNTH) {
-			world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("synth", 0)));
-		}
-		// update to Jazz
-		else {
-			world.setGravity(new Vector2(0, objectController.defaultConstants.get("genre_gravity").getFloat("jazz", 0)));
-		}
 
 		for (IGenreObject g : objectController.genreObjects) {
 			g.genreUpdate(genre);
@@ -758,6 +750,14 @@ public class GameController implements Screen, ContactListener {
 				// Note that update is called last!
 				obj.update(dt);
 			}
+		}
+
+		// Update genre-dependent UI element
+		objectController.genreIndicator.update(dt);
+
+		// Update checkpoints
+		for (Checkpoint checkpoint : objectController.checkpoints) {
+			checkpoint.update(dt);
 		}
 	}
 
@@ -809,7 +809,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw genre indicator UI
 		canvas.begin(true);
-		canvas.draw(objectController.genreIndicator.getTexture(), 30, 530);
+		objectController.genreIndicator.draw(canvas, 30, 530);
 		canvas.end();
 
 		// Final message
