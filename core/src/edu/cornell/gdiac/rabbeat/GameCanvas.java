@@ -94,7 +94,7 @@ public class GameCanvas {
 	private TextureRegion holder;
 
 	/** Camera movement speed */
-	float CAMERA_SPEED = 3f;
+	float CAMERA_SPEED = 7f;
 
 	/**
 	 * Creates a new GameCanvas determined by the application configuration.

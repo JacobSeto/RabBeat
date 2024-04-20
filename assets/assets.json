@@ -40,10 +40,6 @@
 
       "world:goal": "world/goal.png",
 
-      "checkpoint:checkDefault": "world/checkpoints/checkDefault.png",
-
-      "checkpoint:checkActive": "world/checkpoints/checkActive.png",
-
       "ui:synthIndicator": "ui/synth-indicator.png",
 
       "ui:jazzIndicator": "ui/jazz-indicator.png",
@@ -133,7 +129,7 @@
         "level1": "levelsJson/rabbeatLevel.tmj",
         "level2": "levelsJson/rabbeatLevel2.tmj",
         "level3": "levelsJson/rabbeatLevel3.tmj",
-        "level4": "levelsJson/rabbeatLaserTest.tmj",
+        "level4": "levelsJson/rabbeatLevel.tmj",
         "level5": "levelsJson/rabbeatLevel2.tmj",
         "level6": "levelsJson/rabbeatLevel.tmj",
         "level7": "levelsJson/rabbeatLevel2.tmj",
