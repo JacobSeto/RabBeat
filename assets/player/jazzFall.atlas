@@ -1,0 +1,19 @@
+jazzFall.png
+size: 120, 318
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+jazzFall
+  rotate: false
+  xy: 0, 0
+  size: 120, 159
+  orig: 120, 159
+  offset: 0, 0
+  index: 0
+jazzFall
+  rotate: false
+  xy: 0, 159
+  size: 120, 159
+  orig: 120, 159
+  offset: 0, 0
+  index: 1
