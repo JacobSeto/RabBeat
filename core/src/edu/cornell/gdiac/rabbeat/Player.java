@@ -396,13 +396,6 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		}
 
 		animationUpdate();
-
-		try {
-			//GameController.getInstance().createJoint(bodyCollidedWith, this);
-		} catch (Exception ignored) {}
-
-            animationUpdate();
-
 		super.update(dt);
 	}
 

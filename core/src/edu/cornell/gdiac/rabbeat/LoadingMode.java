@@ -92,6 +92,8 @@ public class LoadingMode implements Screen, InputProcessor, ControllerListener {
 	/** Listener that will update the player mode when we are done */
 	private ScreenListener listener;
 
+	public String currentLevel = "";
+
 	/** The width of the progress bar */
 	private int width;
 	/** The y-coordinate of the center of the progress bar */
@@ -265,7 +267,7 @@ public class LoadingMode implements Screen, InputProcessor, ControllerListener {
 	 * prefer this in lecture.
 	 */
 	private void draw() {
-		canvas.begin();
+		canvas.begin(true);
 		canvas.draw(background, 0, 0);
 		if (playButton == null) {
 			drawProgress(canvas);

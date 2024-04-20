@@ -22,11 +22,18 @@ import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.HedgehogEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
+import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 import edu.cornell.gdiac.util.PooledList;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ObjectController {
+/**
+ *The purpose of this class is to instantiate all {@link GameObject}s in our world and keep them in memory.
+ * When the world is loaded in from the json, all the objects are created here and placed into
+ * an object list. {@link GameController} will use this controller class to update the game logic of
+ * each GameObject in the game.
+ */
     /** All the objects in the world. */
     public PooledList<GameObject> objects = new PooledList<>();
     /** All objects that are genre-dependent */
@@ -79,6 +86,17 @@ public class ObjectController {
     public TextureRegion backgroundTexture;
     /** The texture for the background overlay*/
     public TextureRegion backgroundOverlayTexture;
+    /** The texture for tinting the pause screen overlay background */
+    public TextureRegion pauseWhiteOverlayTexture;
+
+    private TextureRegion enemyDefaultTexture;
+
+    /** The texture for the genre indicator in Synth mode */
+    private TextureRegion synthIndicatorTexture;
+    /** The texture for the genre indicator in Jazz mode */
+    private TextureRegion jazzIndicatorTexture;
+    /** The genre indicator UI */
+    public GenreUI genreIndicator;
 
     private HashMap<String, TextureRegion> assets = new HashMap<>();
 
@@ -151,7 +169,6 @@ public class ObjectController {
     private float synthSpeed;
     private float jazzSpeed;
 
-    //public BearEnemy enemy;
 
     /** The enemy scale for the enemy */
     private float enemyScale = 1;
@@ -160,6 +177,7 @@ public class ObjectController {
 
     public ArrayList<GameObject> foreground = new ArrayList<>();
 
+    //public GameController gc = GameController.getInstance();
     /**
      * Gather the assets for this controller.
      *
@@ -169,11 +187,20 @@ public class ObjectController {
      * @param directory	Reference to global asset manager.
      */
     public void gatherAssets(AssetDirectory directory) {
-        levelJson = directory.getEntry("example", JsonValue.class);
+//        levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
+        levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         tileSize = levelJson.getInt("tileheight");
+
+        System.out.println(GameController.getInstance().getCurrentLevel());
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
+        pauseWhiteOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
+        enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
+
+        // Allocate genre indicator UI
+        synthIndicatorTexture = new TextureRegion(directory.getEntry("ui:synthIndicator", Texture.class));
+        jazzIndicatorTexture = new TextureRegion(directory.getEntry("ui:jazzIndicator", Texture.class));
 
         defaultConstants = directory.getEntry( "defaultConstants", JsonValue.class );
         synthSpeed =  defaultConstants.get("player").get("max_speed").getFloat("synth");
@@ -277,6 +304,9 @@ public class ObjectController {
      * @param scale The draw scale
      */
     public void populateObjects(Vector2 scale){
+        // Populate in-game UI elements
+        createGUI();
+
         if (levelJson.has("layers")) {
             int levelHeight = levelJson.getInt("height");
             for (JsonValue layer : levelJson.get("layers")) {
@@ -593,18 +623,14 @@ public class ObjectController {
     private void createPlatform(Vector2 scale, String align, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
         TextureRegion textureRegion;
         switch(align){
-            default:
-                textureRegion = longMid;
-                break;
-            case "mid":
-                textureRegion = longMid;
-                break;
             case "left":
                 textureRegion = longLeft;
                 break;
             case "right":
                 textureRegion = longRight;
                 break;
+            default:
+                textureRegion = longMid;
         }
         //  Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -872,5 +898,11 @@ public class ObjectController {
         art.setBodyType(BodyDef.BodyType.StaticBody);
         art.setDrawScale(scale);
         GameController.getInstance().instantiate(art);
+    }
+
+    /** Creates the in-game UI elements and adds them to the genre/synced objects. */
+    private void createGUI() {
+        genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture);
+        GameController.getInstance().instantiate(genreIndicator);
     }
 }

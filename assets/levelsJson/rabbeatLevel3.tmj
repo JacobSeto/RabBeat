@@ -31,54 +31,6 @@
          "name":"backgroundArt",
          "objects":[
                 {
-                 "gid":18,
-                 "height":256,
-                 "id":390,
-                 "name":"",
-                 "rotation":0,
-                 "type":"bgpod1",
-                 "visible":true,
-                 "width":256,
-                 "x":384,
-                 "y":960
-                }, 
-                {
-                 "gid":18,
-                 "height":256,
-                 "id":391,
-                 "name":"",
-                 "rotation":0,
-                 "type":"bgpod1",
-                 "visible":true,
-                 "width":256,
-                 "x":896,
-                 "y":960
-                }, 
-                {
-                 "gid":18,
-                 "height":256,
-                 "id":392,
-                 "name":"",
-                 "rotation":0,
-                 "type":"bgpod1",
-                 "visible":true,
-                 "width":256,
-                 "x":640,
-                 "y":960
-                }, 
-                {
-                 "gid":38,
-                 "height":320,
-                 "id":406,
-                 "name":"",
-                 "rotation":0,
-                 "type":"bgpipe",
-                 "visible":true,
-                 "width":320,
-                 "x":320,
-                 "y":960
-                }, 
-                {
                  "gid":38,
                  "height":320,
                  "id":407,
@@ -88,18 +40,6 @@
                  "visible":true,
                  "width":320,
                  "x":64,
-                 "y":960
-                }, 
-                {
-                 "gid":18,
-                 "height":256,
-                 "id":408,
-                 "name":"",
-                 "rotation":0,
-                 "type":"bgpod1",
-                 "visible":true,
-                 "width":256,
-                 "x":128,
                  "y":960
                 }, 
                 {
@@ -482,8 +422,8 @@
                  "type":"",
                  "visible":true,
                  "width":192,
-                 "x":1344,
-                 "y":704
+                 "x":3264,
+                 "y":448
                 }, 
                 {
                  "gid":70,
@@ -515,8 +455,8 @@
                  "type":"",
                  "visible":true,
                  "width":192,
-                 "x":1346,
-                 "y":964
+                 "x":3264,
+                 "y":1088
                 }, 
                 {
                  "gid":70,
@@ -1304,54 +1244,6 @@
          "id":12,
          "name":"foregroundArt",
          "objects":[
-                {
-                 "gid":20,
-                 "height":256,
-                 "id":72,
-                 "name":"",
-                 "rotation":0,
-                 "type":"dolpod1",
-                 "visible":true,
-                 "width":256,
-                 "x":256,
-                 "y":960
-                }, 
-                {
-                 "gid":21,
-                 "height":256,
-                 "id":73,
-                 "name":"",
-                 "rotation":0,
-                 "type":"dolpod2",
-                 "visible":true,
-                 "width":256,
-                 "x":1024,
-                 "y":960
-                }, 
-                {
-                 "gid":34,
-                 "height":256,
-                 "id":86,
-                 "name":"",
-                 "rotation":0,
-                 "type":"wolfpod1",
-                 "visible":true,
-                 "width":256,
-                 "x":768,
-                 "y":960
-                }, 
-                {
-                 "gid":28,
-                 "height":256,
-                 "id":90,
-                 "name":"",
-                 "rotation":0,
-                 "type":"octpod1",
-                 "visible":true,
-                 "width":256,
-                 "x":512,
-                 "y":960
-                }, 
                 {
                  "gid":39,
                  "height":1088,
