@@ -504,15 +504,19 @@ public class ObjectController {
                             Vector2 dim = new Vector2(platform.getFloat("width"), platform.getFloat("height"));
                             String align = "";
                             boolean lethal = false;
+                            System.out.println("thing");
                             if (platform.getString("type").equals( "laser")){
                                 lethal = true;
                                 System.out.println("lasers");
                             }
-                            for (JsonValue prop : platform.get("properties")) {
-                                if (prop.getString("name").equals("align")) {
-                                    align = prop.getString("value");
+                            if (platform.get("properties")!= null){
+                                for (JsonValue prop : platform.get("properties")) {
+                                    if (prop.getString("name").equals("align")) {
+                                        align = prop.getString("value");
+                                    }
                                 }
                             }
+
                             createPlatform(scale, align, x, y, dim, levelHeight, tileSize, lethal);
                         }
                         break;
