@@ -414,6 +414,7 @@ public class ObjectController {
                         }
                         //  Now actually create moving platforms
                         for (int i=0; i<positionNodes.size(); i++){
+                            System.out.println(i);
                             createMovingPlatform(scale, positionNodes.get(i), mpSpeed.get(i), dimensions.get(i), levelHeight, tileSize);
                         }
                         break;
