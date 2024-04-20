@@ -27,7 +27,7 @@
   <object id="181" type="piperight" gid="44" x="5888" y="576" width="320" height="320"/>
   <object id="409" type="pipeleftskinny" gid="42" x="5952" y="576" width="320" height="320"/>
  </objectgroup>
- <layer id="1" name="walls" width="101" height="17">
+ <layer id="1" name="walls" width="101" height="17" visible="0">
   <data encoding="csv">
 7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
 7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,
@@ -236,12 +236,25 @@
  <objectgroup id="7" name="enemies">
   <object id="27" type="hedgehog" gid="9" x="2112" y="512" width="256" height="181">
    <properties>
+    <property name="beatList" value="1234"/>
     <property name="rollingDistance" type="int" value="3"/>
    </properties>
   </object>
-  <object id="271" type="beehive" gid="17" x="3008" y="832" width="224" height="224"/>
-  <object id="315" type="bear" gid="9" x="2880" y="576" width="256" height="181"/>
-  <object id="423" type="bear" gid="9" x="5696" y="896" width="256" height="181"/>
+  <object id="271" type="beehive" gid="17" x="3008" y="832" width="224" height="224">
+   <properties>
+    <property name="beatList" value=""/>
+   </properties>
+  </object>
+  <object id="315" type="bear" gid="9" x="2880" y="576" width="256" height="181">
+   <properties>
+    <property name="beatList" value="1234"/>
+   </properties>
+  </object>
+  <object id="423" type="bear" gid="9" x="5696" y="896" width="256" height="181">
+   <properties>
+    <property name="beatList" value="7"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="8" name="checkpoints">
   <object id="40" gid="8" x="3456" y="896" width="128" height="130">
@@ -279,7 +292,7 @@
   <object id="443" type="bigwire" gid="56" x="2432" y="256" width="895" height="256"/>
   <object id="444" type="bigwire" gid="56" x="4608" y="256" width="895" height="256"/>
  </objectgroup>
- <objectgroup id="12" name="foregroundArt" class="bigwire">
+ <objectgroup id="12" name="foregroundArt" class="bigwire" visible="0">
   <object id="72" type="dolpod1" gid="20" x="256" y="960" width="256" height="256"/>
   <object id="73" type="dolpod2" gid="21" x="1024" y="960" width="256" height="256"/>
   <object id="86" type="wolfpod1" gid="34" x="768" y="960" width="256" height="256"/>
