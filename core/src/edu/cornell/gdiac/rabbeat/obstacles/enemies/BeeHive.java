@@ -60,6 +60,7 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
+        bee.setSensor(true);
         bee.setTexture(oc.bulletTexture);
         bee.setGravityScale(0);
         shotDirection = isFaceRight();
@@ -101,6 +102,6 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
     @Override
     public void beatAction() {
         makeBee();
-        setFaceRight(playerXPosition() - getPosition().x > 0);
+        //setFaceRight(playerXPosition() - getPosition().x > 0);
     }
 }

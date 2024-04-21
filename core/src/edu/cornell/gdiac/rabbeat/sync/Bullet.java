@@ -4,7 +4,9 @@ import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
-
+/**
+ * Bullets shoot out and disappear on certain beats.
+ */
 public class Bullet extends WheelGameObject implements ISynced {
     public int beatCount = 0;
 

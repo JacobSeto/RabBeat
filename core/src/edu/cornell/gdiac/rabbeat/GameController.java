@@ -610,6 +610,10 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
+			if ((bd1.equals(objectController.player) && bd2 instanceof Bee)) {
+				setFailure(true);
+			}
+
 			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) ) {
 				bd1.markRemoved(true);
 			}

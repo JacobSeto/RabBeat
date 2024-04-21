@@ -759,7 +759,7 @@ public class ObjectController {
         y -= enemyDefaultTexture.getRegionHeight()/5;
         Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
 
-        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float dwidth  = (enemyDefaultTexture.getRegionWidth()/scale.x);
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         BearEnemy bear = new BearEnemy(defaultConstants.get("bears"), convertedCoord.x, convertedCoord.y,
                 dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearIdleAnimation);
@@ -810,7 +810,7 @@ public class ObjectController {
         y -= enemyDefaultTexture.getRegionHeight()/5;
         Vector2 convertedCoord = convertTiledCoord(x, y, levelHeight, tileSize);
 
-        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float dwidth  = (enemyDefaultTexture.getRegionWidth()/scale.x);
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         HedgehogEnemy hedgehog = new HedgehogEnemy(defaultConstants.get("hedgehogs"), convertedCoord.x, convertedCoord.y,
                 rollingDistance, dwidth*enemyScale, dheight*enemyScale,
