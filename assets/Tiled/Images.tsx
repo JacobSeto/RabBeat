@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="6464" tileheight="1088" tilecount="40" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="6464" tileheight="1088" tilecount="41" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2">
   <image width="64" height="123" source="playerTile.png"/>
@@ -120,5 +120,8 @@
  </tile>
  <tile id="55">
   <image width="895" height="256" source="../world/wires/bigwire.png"/>
+ </tile>
+ <tile id="56">
+  <image width="130" height="130" source="../world/checkpoints/checkpointInactive.png"/>
  </tile>
 </tileset>
