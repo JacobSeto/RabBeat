@@ -8,7 +8,7 @@
   <image width="64" height="64" source="../world/platforms/blackTile.png"/>
  </tile>
  <tile id="7">
-  <image width="128" height="130" source="../world/checkpoints/checkActive.png"/>
+  <image width="130" height="130" source="checkpointTile.png"/>
  </tile>
  <tile id="8">
   <image width="173" height="200" source="bear.png"/>
