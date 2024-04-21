@@ -66,6 +66,9 @@ public class ObjectController {
     protected TextureRegion longMid;
     protected TextureRegion longRight;
 
+    protected TextureRegion laserTile;
+    protected TextureRegion laserTileVertical;
+
     /** The texture for weighted platforms in Synth mode */
     protected TextureRegion weightedSynth;
     /** The texture for weighted platforms in Jazz mode */
@@ -312,12 +315,14 @@ public class ObjectController {
 
 
         // Allocate the tiles
-        blackTile = new TextureRegion(directory.getEntry("world:platforms:blackTile", Texture.class));
-        platformTile = new TextureRegion(directory.getEntry("world:platforms:platform", Texture.class));
-        platformTileArt = new TextureRegion(directory.getEntry("world:platforms:platformArt", Texture.class));
-        longLeft = new TextureRegion(directory.getEntry("world:platforms:longPlatform:left", Texture.class));
-        longMid = new TextureRegion(directory.getEntry("world:platforms:longPlatform:mid", Texture.class));
-        longRight = new TextureRegion(directory.getEntry("world:platforms:longPlatform:right", Texture.class));
+        blackTile = new TextureRegion(directory.getEntry( "world:platforms:blackTile", Texture.class ));
+        platformTile = new TextureRegion(directory.getEntry( "world:platforms:platform", Texture.class ));
+        platformTileArt = new TextureRegion(directory.getEntry( "world:platforms:platformArt", Texture.class ));
+        longLeft = new TextureRegion(directory.getEntry("world:platforms:longPlatform:left", Texture.class ));
+        longMid = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:mid", Texture.class ));
+        longRight = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:right", Texture.class ));
+        laserTile = new TextureRegion(directory.getEntry("world:laser", Texture.class));
+        laserTileVertical = new TextureRegion(directory.getEntry("world:verticalLaser", Texture.class));
 
         weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
         weightedJazz = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
@@ -498,12 +503,21 @@ public class ObjectController {
                             float y = platform.getFloat("y");
                             Vector2 dim = new Vector2(platform.getFloat("width"), platform.getFloat("height"));
                             String align = "";
-                            for (JsonValue prop : platform.get("properties")) {
-                                if (prop.getString("name").equals("align")) {
-                                    align = prop.getString("value");
+                            boolean lethal = false;
+                            System.out.println("thing");
+                            if (platform.getString("type").equals( "laser")){
+                                lethal = true;
+                                System.out.println("lasers");
+                            }
+                            if (platform.get("properties")!= null){
+                                for (JsonValue prop : platform.get("properties")) {
+                                    if (prop.getString("name").equals("align")) {
+                                        align = prop.getString("value");
+                                    }
                                 }
                             }
-                            createPlatform(scale, align, x, y, dim, levelHeight, tileSize);
+
+                            createPlatform(scale, align, x, y, dim, levelHeight, tileSize, lethal);
                         }
                         break;
                     case "platformArt":
@@ -733,7 +747,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
-    private void createPlatform(Vector2 scale, String align, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createPlatform(Vector2 scale, String align, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, boolean lethal){
         TextureRegion textureRegion;
         switch (align) {
             case "left":
@@ -744,6 +758,15 @@ public class ObjectController {
                 break;
             default:
                 textureRegion = longMid;
+        }
+        if (lethal){
+            if (align.equals("vertical")){
+                System.out.println("vertical");
+                textureRegion = laserTileVertical;
+            }
+            else{
+                textureRegion = laserTile;
+            }
         }
         //  Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -760,6 +783,10 @@ public class ObjectController {
         platform.setRestitution(defaults.getFloat("restitution", 0.0f));
         platform.setDrawScale(scale);
         platform.setTexture(textureRegion);
+        if (lethal){
+            platform.setType(1);
+
+        }
         GameController.getInstance().instantiate(platform);
     }
 

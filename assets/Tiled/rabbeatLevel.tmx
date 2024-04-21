@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="101" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="478">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="101" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="482">
  <editorsettings>
-  <export target="../levelsJson/rabbeatLevelTest.tmj" format="json"/>
+  <export target="../levelsJson/rabbeatLaserTest.tmj" format="json"/>
  </editorsettings>
  <tileset firstgid="1" source="Images.tsx"/>
  <tileset firstgid="57" source="platforms.tsx"/>
@@ -29,7 +29,7 @@
   <object id="443" type="bigwire" gid="56" x="2496" y="320" width="895" height="256"/>
   <object id="444" type="bigwire" gid="56" x="4608" y="320" width="895" height="256"/>
  </objectgroup>
- <layer id="1" name="walls" width="101" height="17" visible="0">
+ <layer id="1" name="walls" width="101" height="17">
   <data encoding="csv">
 7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
 7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,
@@ -234,28 +234,18 @@
     <property name="align" value="right"/>
    </properties>
   </object>
+  <object id="479" type="laser" gid="81" x="960" y="768" width="168" height="120">
+   <properties>
+    <property name="align" value="vertical"/>
+   </properties>
+  </object>
+  <object id="481" type="laser" gid="82" x="1216" y="832" width="128" height="64"/>
  </objectgroup>
  <objectgroup id="7" name="enemies">
-  <object id="271" type="beehive" gid="17" x="3008" y="832" width="224" height="224"/>
   <object id="475" type="hedgehog" gid="9" x="2112" y="512" width="173" height="200">
    <properties>
     <property name="beatList" value="1234"/>
     <property name="rollingDistance" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="271" type="beehive" gid="17" x="3008" y="832" width="224" height="224">
-   <properties>
-    <property name="beatList" value=""/>
-   </properties>
-  </object>
-  <object id="315" type="bear" gid="9" x="2880" y="576" width="256" height="181">
-   <properties>
-    <property name="beatList" value="1234"/>
-   </properties>
-  </object>
-  <object id="423" type="bear" gid="9" x="5696" y="896" width="256" height="181">
-   <properties>
-    <property name="beatList" value="7"/>
    </properties>
   </object>
  </objectgroup>
