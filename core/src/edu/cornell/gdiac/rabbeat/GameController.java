@@ -948,9 +948,9 @@ public class GameController implements Screen, ContactListener {
 			canvas.begin(true);
 			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintColor, 0, 0, 0, 0, 0, 1, 1);
 			canvas.draw(objectController.overlayTexture.getTexture(), Color.WHITE, 0, 0, 0, -10, 0,1.05f, 1.05f);
-			canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 420, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 330, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.exitLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 240, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 370, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.exitLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 0.5f, 0.5f);
 			canvas.draw(objectController.musicTexture.getTexture(), Color.WHITE, 0, 0, 800, 160, 0, 0.5f, 0.5f);
 			canvas.draw(objectController.SFXTexture.getTexture(), Color.WHITE, 0, 0, 850, 80, 0, 0.5f, 0.5f);
 			for (int i = 0; i < musicVolume; i++) {
@@ -966,19 +966,19 @@ public class GameController implements Screen, ContactListener {
 
 			switch (pauseItemSelected) {
 				case 0: // Restart Level
-					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800, 420, 0, 0.5f, 0.5f);
+					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800, 370, 0, 0.5f, 0.5f);
 					break;
 				case 1: // Resume Level
-					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800,330, 0, 0.5f, 0.5f);
+					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800,310, 0, 0.5f, 0.5f);
 					break;
 				case 2: // Exit Level
-					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 240,0, 0.5f, 0.5f);
+					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 250,0, 0.5f, 0.5f);
 					break;
 				case 3: // Music
-					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 730,160, 0, 0.5f, 0.5f);
+					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 740,160, 0, 0.5f, 0.5f);
 					break;
 				case 4: // SFX
-					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 770,80, 0, 0.5f, 0.5f);
+					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,80, 0, 0.5f, 0.5f);
 					break;
 			}
 			canvas.end();
