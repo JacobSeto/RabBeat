@@ -119,7 +119,7 @@ public class GDXRoot extends Game implements ScreenListener {
 			setScreen(controller);
 			loading.dispose();
 			loading = null;
-		} else if (screen == levelSelectorScreen|| exitCode == 1) {
+		} else if (screen == levelSelectorScreen || exitCode == 1) {
 			controller = new GameController();
 			loading = new LoadingMode("assets.json", canvas, 1);
 			loading.setScreenListener(this);
