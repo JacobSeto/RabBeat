@@ -88,6 +88,7 @@ public class BearEnemy extends Enemy {
         bullet.setName(getName() + "_bullet");
         bullet.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bullet.setDrawScale(scale);
+        bullet.setSensor(true);
         bullet.setTexture(oc.bulletTexture);
         bullet.setGravityScale(0);
         shotDirection = isFaceRight();

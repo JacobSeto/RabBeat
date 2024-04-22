@@ -7,8 +7,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.BeeProjectile;
-import java.util.ArrayList;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bee;
 
 public class BeeHive extends Enemy {
 
@@ -57,8 +56,8 @@ public class BeeHive extends Enemy {
         
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
-        float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
-        BeeProjectile bee = new BeeProjectile(getX() + offset, getY(), radius, beeAttackAnimation);
+        float radius = oc.bulletTexture.getRegionWidth() / (2.0f * scale.x);
+        Bee bee = new Bee(getX() + offset, getY(), radius, beeAttackAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
@@ -70,16 +69,19 @@ public class BeeHive extends Enemy {
 
         // Compute position and velocity
         float speed = 2.5f;
+        float vSpeed;
         int beatcount;
         if (GameController.getInstance().genre == Genre.SYNTH) {
             beatcount = synthBeeTime;
-            bee.setVY(2);
-        } else {
+            vSpeed = 4;
+        }
+        else {
             beatcount = jazzBeeTime;
-            bee.setVY(1);
+            vSpeed = 2;
         }
         speed *= (isFaceRight() ? 1 : -1);
         bee.setVX(speed);
+        bee.setVY(vSpeed);
         bee.beatCount = beatcount;
         GameController.getInstance().instantiateQueue(bee);
     }
@@ -92,6 +94,6 @@ public class BeeHive extends Enemy {
     @Override
     public void Attack() {
         makeBee();
-        setFaceRight(playerXPosition() - getPosition().x > 0);
+        //setFaceRight(playerXPosition() - getPosition().x > 0);
     }
 }
