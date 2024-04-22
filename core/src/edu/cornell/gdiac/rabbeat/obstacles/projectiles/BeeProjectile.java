@@ -12,39 +12,18 @@ import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 public class BeeProjectile extends WheelGameObject implements ISyncedAnimated, IGenreObject {
 
     public int beatCount = 0;
-    private float hiveY;
-    private boolean switched = false;
     public Animation<TextureRegion> animation;
     public Genre curGenre = Genre.SYNTH;
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
+
     public BeeProjectile(float x, float y, float radius, Animation<TextureRegion> beeAttackAnimation) {
+
         super(x, y, radius);
-        hiveY = y;
         setAnimation(beeAttackAnimation);
     }
     public void update(float dt) {
         stateTime += dt;
-        if (getY() == hiveY){
-            if (switched == true){
-                if (curGenre == Genre.SYNTH){
-                    if (getVY() < 0){
-                        setVY(-4);
-                    }
-                    else{
-                        setVY(4);
-                    }
-                }
-                else{
-                    if (getVY() < 0){
-                        setVY(-2);
-                    }
-                    else{
-                        setVY(2);
-                    }
-                }
-            }
-        }
         super.update(dt);
     }
 
@@ -55,8 +34,8 @@ public class BeeProjectile extends WheelGameObject implements ISyncedAnimated, I
 
     @Override
     public void beatAction() {
+
         beatCount++;
-        setVY(getVY() * -1);
         if (curGenre == Genre.SYNTH) {
             if (getVY() < 0){
                 setVY(2);
@@ -77,8 +56,6 @@ public class BeeProjectile extends WheelGameObject implements ISyncedAnimated, I
 
     @Override
     public void genreUpdate(Genre genre) {
-        curGenre = genre;
-        switched = true;
     }
     public void setAnimation(Animation<TextureRegion> animation){
         this.animation = animation;
