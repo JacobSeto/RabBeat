@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.Array;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.CapsuleGameObject;
 import com.badlogic.gdx.graphics.*;
 

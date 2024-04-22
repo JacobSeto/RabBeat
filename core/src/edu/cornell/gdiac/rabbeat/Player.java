@@ -132,7 +132,6 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		} else if (movement > 0) {
 			faceRight = true;
 		}
-		setVX(movement*maxspeed);
 	}
 
 	/**
@@ -358,10 +357,15 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		if (!isActive()) {
 			return;
 		}
+		
 		// Don't want to be moving. Damp out player motion
 		if (getMovement() == 0f) {
 			forceCache.set(-getDamping()*getVX(),0);
 			body.applyForce(forceCache,getPosition(),true);
+		}
+
+		if(Math.abs(getMovement() + getVX()) != Math.abs(getMovement()) + Math.abs(getVX())){
+			setVX(0);
 		}
 		forceCache.set(getMovement(),0);
 		body.applyForce(forceCache,getPosition(),true);

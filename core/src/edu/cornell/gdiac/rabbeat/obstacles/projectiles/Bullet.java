@@ -3,10 +3,6 @@ import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 public class Bullet extends WheelGameObject implements ISynced {
-    /**
-    * Bullets shoot out and disappear on certain beats.
-    */
-    
     public int beatCount = 0;
 
     public Bullet(float x, float y, float radius, float synthVX, float jazzVX, boolean fr) {
