@@ -35,9 +35,14 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
 
     /** The enemy's current animation */
     public Animation<TextureRegion> animation;
-
     /** The elapsed time for animationUpdate */
-    private float stateTime = 0;
+    protected float stateTime = 0;
+    /** Holds the genre of the ANIMATION. Doesn't specifically detect genre. */
+    protected Genre animationGenre;
+
+    /** Whether the enemy is flippable */
+    protected boolean isFlippable = true;
+
     /**
      * The beat counter for an enemy. The beat counter cycles integers values
      * starting from 1
@@ -70,12 +75,10 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      * @param height     The object width in physics units
      * @param enemyScale The scale of the enemy
      * @param faceRight  The direction the enemy is facing in
-     * @param animation  The animation texture for the enemy
      * @param beatList   The list of beats that the enemy reacts to
      */
     public Enemy(JsonValue data, float startX, float startY,
-            float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation,
-            int[] beatList) {
+            float width, float height, float enemyScale, boolean faceRight, int[] beatList) {
         // The shrink factors fit the image to a tigher hitbox
         super(startX, startY,
                 width * data.get("shrink").getFloat(0),
@@ -86,6 +89,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
         setFixedRotation(true);
         // setType(data.getString("type"));
 
+        animationGenre = Genre.SYNTH;
         this.faceRight = faceRight; // should face the direction player is in?
         this.enemyScale = enemyScale;
         this.beatList = beatList;
@@ -108,7 +112,6 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      */
     public void update(float dt) {
         switchState();
-        stateTime += dt;
         super.update(dt);
     }
 
@@ -118,11 +121,10 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      * @param canvas Drawing context
      */
     public void draw(GameCanvas canvas) {
-        float effect = faceRight ? -1.0f : 1.0f;
+        float effect = (faceRight && isFlippable) ? -1.0f : 1.0f;
         TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
         canvas.draw(currentFrame, Color.WHITE, origin.x, origin.y, getX() * drawScale.x, getY() * drawScale.y,
-                getAngle(),
-                enemyScale * effect, enemyScale);
+                getAngle(), enemyScale * effect, enemyScale);
     }
 
     /**
@@ -199,6 +201,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
 
     public void genreUpdate(Genre genre) {
         // TODO: Change sprites to reflect the genre
+        animationGenre = genre;
         if (GameController.getInstance().genre == Genre.SYNTH) {
             // change to synth sprite
         } else {

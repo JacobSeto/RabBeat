@@ -32,8 +32,10 @@ public class BearEnemy extends Enemy {
     /** Tells whether the bear was facing right or not when they shot */
     private boolean shotDirection;
 
-    /** The idle animation for the bat */
-    public Animation<TextureRegion> bearIdleAnimation;
+    /** The attack animation in synth for the bear */
+    public Animation<TextureRegion> attackSynthAnimation;
+    /** The attack animation in jazz for the bear */
+    public Animation<TextureRegion> attackJazzAnimation;
 
     /**
      * Creates a bear enemy avatar with the given physics data
@@ -48,9 +50,8 @@ public class BearEnemy extends Enemy {
      * @param beatList   The list of beats that the enemy reacts to
      */
     public BearEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, Animation<TextureRegion> bearIdleAnimation, int[] beatList) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, bearIdleAnimation, beatList);
-        setAnimation(bearIdleAnimation);
+            boolean faceRight, int[] beatList) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
     }
 
     /**
@@ -70,6 +71,12 @@ public class BearEnemy extends Enemy {
                 // TODO: make bear shoot
                 break;
         }
+    }
+
+    @Override
+    public void update(float dt) {
+        super.update(dt);
+        animationUpdate();
     }
 
     /** Creates a bullet in front of the bear */
@@ -116,5 +123,22 @@ public class BearEnemy extends Enemy {
     @Override
     public void Attack() {
         makeBullet();
+    }
+
+    /**
+     * Updates the animation based on the physics state.
+     */
+    private void animationUpdate() {
+        if (animation.isAnimationFinished(stateTime)) {
+            stateTime = 0;
+        }
+        switch (animationGenre) {
+            case SYNTH:
+                setAnimation(attackSynthAnimation);
+                break;
+            case JAZZ:
+                setAnimation(attackJazzAnimation);
+                break;
+        }
     }
 }
