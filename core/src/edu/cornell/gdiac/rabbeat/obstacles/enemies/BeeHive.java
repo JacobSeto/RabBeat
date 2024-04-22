@@ -57,13 +57,14 @@ public class BeeHive extends Enemy {
         
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
-        float radius = oc.bulletTexture.getRegionWidth() / (2.0f * scale.x);
+        float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
         BeeProjectile bee = new BeeProjectile(getX() + offset, getY(), radius, beeAttackAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
-        bee.setTexture(oc.bulletTexture);
+        bee.setSensor(true);
+        bee.setTexture(oc.beeTexture);
         bee.setGravityScale(0);
         shotDirection = isFaceRight();
 

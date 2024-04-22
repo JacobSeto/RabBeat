@@ -81,6 +81,18 @@ public class ObjectController {
 
     /** The texture for bullets */
     public TextureRegion bulletTexture;
+
+    /** The texture for bees */
+    public TextureRegion beeTexture;
+
+    /** The texture for bees */
+    private TextureRegion bearTexture;
+
+    /** The texture for beehives */
+    private TextureRegion beehiveTexture;
+
+    /** The texture for hedgehogs */
+    private TextureRegion hedgehogTexture;
     /** The texture for the exit condition */
     protected TextureRegion goalTile;
     /** The inactive atlas for a checkpoint */
@@ -242,6 +254,10 @@ public class ObjectController {
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
         pauseWhiteOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
+        beeTexture = new TextureRegion(directory.getEntry("enemies:bee", Texture.class));
+        bearTexture = new TextureRegion(directory.getEntry("enemies:bear", Texture.class));
+        beehiveTexture = new TextureRegion(directory.getEntry("enemies:beehive", Texture.class));
+        hedgehogTexture = new TextureRegion(directory.getEntry("enemies:hedgehog", Texture.class));
 
         // Allocate genre indicator UI
         synthIndicatorTexture = new TextureRegion(directory.getEntry("ui:synthIndicator", Texture.class));
@@ -957,6 +973,7 @@ public class ObjectController {
                 dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearAttackAnimation, beatList);
         bear.setBodyType(BodyDef.BodyType.StaticBody);
         bear.setDrawScale(scale);
+        bear.setTexture(bearTexture);
         GameController.getInstance().instantiate(bear);
         System.out.println(dimensions.x + " " + dimensions.y);
         System.out.println(x + " " + y);
@@ -986,6 +1003,7 @@ public class ObjectController {
                 false, beehiveAnimation, beatList, beeAttackAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
+        beehive.setTexture(beehiveTexture);
         GameController.getInstance().instantiate(beehive);
     }
 
@@ -1012,6 +1030,7 @@ public class ObjectController {
                 enemyScale, false, beatList, hedgehogAttackAnimation);
         hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
         hedgehog.setDrawScale(scale);
+        hedgehog.setTexture(hedgehogTexture);
         GameController.getInstance().instantiate(hedgehog);
         System.out.println(x + " ");
     }
