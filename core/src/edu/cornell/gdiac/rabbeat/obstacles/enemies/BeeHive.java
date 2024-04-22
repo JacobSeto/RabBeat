@@ -7,8 +7,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.BeeProjectile;
-import java.util.ArrayList;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bee;
 
 public class BeeHive extends Enemy {
 
@@ -53,16 +52,17 @@ public class BeeHive extends Enemy {
     public void makeBee() {
         // TODO: create a bullet using object controller default values. instantiate the
         // copy using gamecontroller
-        
+
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
-        float radius = oc.bulletTexture.getRegionWidth() / (2.0f * scale.x);
-        BeeProjectile bee = new BeeProjectile(getX() + offset, getY(), radius, beeAttackSynthAnimation);
+        float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
+        Bee bee = new Bee(getX() + offset, getY(), radius, beeAttackSynthAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
-        bee.setTexture(oc.bulletTexture);
+        bee.setSensor(true);
+        bee.setTexture(oc.beeTexture);
         bee.setGravityScale(0);
         shotDirection = isFaceRight();
 

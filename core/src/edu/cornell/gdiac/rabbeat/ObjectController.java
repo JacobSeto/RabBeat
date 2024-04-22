@@ -81,6 +81,18 @@ public class ObjectController {
 
     /** The texture for bullets */
     public TextureRegion bulletTexture;
+
+    /** The texture for bees */
+    public TextureRegion beeTexture;
+
+    /** The texture for bees */
+    private TextureRegion bearTexture;
+
+    /** The texture for beehives */
+    private TextureRegion beehiveTexture;
+
+    /** The texture for hedgehogs */
+    private TextureRegion hedgehogTexture;
     /** The texture for the exit condition */
     protected TextureRegion goalTile;
     /** The inactive atlas for a checkpoint */
@@ -101,6 +113,20 @@ public class ObjectController {
     public TextureRegion backgroundOverlayTexture;
     /** The texture for tinting the pause screen overlay background */
     public TextureRegion pauseWhiteOverlayTexture;
+
+    public TextureRegion exitLevelTexture;
+    public TextureRegion hoverLowerSoundTexture;
+    public TextureRegion hoverUpSoundTexture;
+    public TextureRegion indicatorStarTexture;
+    public TextureRegion musicTexture;
+    public TextureRegion overlayTexture;
+    public TextureRegion restartLevelTexture;
+    public TextureRegion resumeTexture;
+    public TextureRegion SFXTexture;
+    public TextureRegion unhoverLowerSoundTexture;
+    public TextureRegion unhoverUpSoundTexture;
+    public TextureRegion volumeBoxTexture;
+
 
     private TextureRegion enemyDefaultTexture;
     /** The texture for the bat enemy */
@@ -239,8 +265,25 @@ public class ObjectController {
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
         pauseWhiteOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
+        exitLevelTexture = new TextureRegion(directory.getEntry("ui:pause:exitLevel",Texture.class));
+        hoverLowerSoundTexture = new TextureRegion(directory.getEntry("ui:pause:hoverLowerSound",Texture.class));
+        hoverUpSoundTexture = new TextureRegion(directory.getEntry("ui:pause:hoverUpSound",Texture.class));
+        indicatorStarTexture = new TextureRegion(directory.getEntry("ui:pause:indicatorStar",Texture.class));
+        musicTexture = new TextureRegion(directory.getEntry("ui:pause:music",Texture.class));
+        overlayTexture = new TextureRegion(directory.getEntry("ui:pause:overlay",Texture.class));
+        restartLevelTexture = new TextureRegion(directory.getEntry("ui:pause:restartLevel",Texture.class));
+        resumeTexture = new TextureRegion(directory.getEntry("ui:pause:resume",Texture.class));
+        SFXTexture = new TextureRegion(directory.getEntry("ui:pause:SFX",Texture.class));
+        unhoverLowerSoundTexture = new TextureRegion(directory.getEntry("ui:pause:unhoverLowerSound",Texture.class));
+        unhoverUpSoundTexture = new TextureRegion(directory.getEntry("ui:pause:unhoverUpSound",Texture.class));
+        volumeBoxTexture = new TextureRegion(directory.getEntry("ui:pause:volumeBox",Texture.class));
+
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
         batTexture = new TextureRegion(directory.getEntry("enemies:bat", Texture.class));
+        beeTexture = new TextureRegion(directory.getEntry("enemies:bee", Texture.class));
+        bearTexture = new TextureRegion(directory.getEntry("enemies:bear", Texture.class));
+        beehiveTexture = new TextureRegion(directory.getEntry("enemies:beehive", Texture.class));
+        hedgehogTexture = new TextureRegion(directory.getEntry("enemies:hedgehog", Texture.class));
 
         // Allocate genre indicator UI
         synthIndicatorTexture = new TextureRegion(directory.getEntry("ui:synthIndicator", Texture.class));
@@ -957,6 +1000,7 @@ public class ObjectController {
         bear.setAnimation(bearAttackAnimation);
         bear.setBodyType(BodyDef.BodyType.StaticBody);
         bear.setDrawScale(scale);
+        bear.setTexture(bearTexture);
         GameController.getInstance().instantiate(bear);
         System.out.println(dimensions.x + " " + dimensions.y);
         System.out.println(x + " " + y);
@@ -988,6 +1032,7 @@ public class ObjectController {
         beehive.setAnimation(beehiveAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
+        beehive.setTexture(beehiveTexture);
         GameController.getInstance().instantiate(beehive);
     }
 
@@ -1016,6 +1061,7 @@ public class ObjectController {
         hedgehog.setAnimation(hedgehogAttackAnimation);
         hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
         hedgehog.setDrawScale(scale);
+        hedgehog.setTexture(hedgehogTexture);
         GameController.getInstance().instantiate(hedgehog);
         System.out.println(x + " ");
     }
