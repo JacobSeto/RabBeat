@@ -1,4 +1,4 @@
-package edu.cornell.gdiac.rabbeat.obstacles.projectiles;
+package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
