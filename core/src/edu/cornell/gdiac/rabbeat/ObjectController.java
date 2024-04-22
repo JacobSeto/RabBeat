@@ -114,6 +114,20 @@ public class ObjectController {
     /** The texture for tinting the pause screen overlay background */
     public TextureRegion pauseWhiteOverlayTexture;
 
+    public TextureRegion exitLevelTexture;
+    public TextureRegion hoverLowerSoundTexture;
+    public TextureRegion hoverUpSoundTexture;
+    public TextureRegion indicatorStarTexture;
+    public TextureRegion musicTexture;
+    public TextureRegion overlayTexture;
+    public TextureRegion restartLevelTexture;
+    public TextureRegion resumeTexture;
+    public TextureRegion SFXTexture;
+    public TextureRegion unhoverLowerSoundTexture;
+    public TextureRegion unhoverUpSoundTexture;
+    public TextureRegion volumeBoxTexture;
+
+
     private TextureRegion enemyDefaultTexture;
 
     /** The texture for the genre indicator in Synth mode */
@@ -253,6 +267,19 @@ public class ObjectController {
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
         pauseWhiteOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
+        exitLevelTexture = new TextureRegion(directory.getEntry("ui:pause:exitLevel",Texture.class));
+        hoverLowerSoundTexture = new TextureRegion(directory.getEntry("ui:pause:hoverLowerSound",Texture.class));
+        hoverUpSoundTexture = new TextureRegion(directory.getEntry("ui:pause:hoverUpSound",Texture.class));
+        indicatorStarTexture = new TextureRegion(directory.getEntry("ui:pause:indicatorStar",Texture.class));
+        musicTexture = new TextureRegion(directory.getEntry("ui:pause:music",Texture.class));
+        overlayTexture = new TextureRegion(directory.getEntry("ui:pause:overlay",Texture.class));
+        restartLevelTexture = new TextureRegion(directory.getEntry("ui:pause:restartLevel",Texture.class));
+        resumeTexture = new TextureRegion(directory.getEntry("ui:pause:resume",Texture.class));
+        SFXTexture = new TextureRegion(directory.getEntry("ui:pause:SFX",Texture.class));
+        unhoverLowerSoundTexture = new TextureRegion(directory.getEntry("ui:pause:unhoverLowerSound",Texture.class));
+        unhoverUpSoundTexture = new TextureRegion(directory.getEntry("ui:pause:unhoverUpSound",Texture.class));
+        volumeBoxTexture = new TextureRegion(directory.getEntry("ui:pause:volumeBox",Texture.class));
+
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
         beeTexture = new TextureRegion(directory.getEntry("enemies:bee", Texture.class));
         bearTexture = new TextureRegion(directory.getEntry("enemies:bear", Texture.class));
