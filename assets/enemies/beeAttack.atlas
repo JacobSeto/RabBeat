@@ -9,11 +9,11 @@ beeAttack
   size: 192, 181
   orig: 192, 181
   offset: 0, 0
-  index: -1
+  index: 0
 beeAttack
   rotate: false
   xy: 192, 0
   size: 192, 181
   orig: 192, 181
   offset: 0, 0
-  index: -1
+  index: 1

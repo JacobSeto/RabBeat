@@ -26,8 +26,10 @@ public class BeeHive extends Enemy {
     /** Tells whether the hive should shoot bees to the left or right */
     private boolean shotDirection;
 
-    public Animation<TextureRegion> beeAttackAnimation;
-
+    /** The attack animation for the bee */
+    public Animation<TextureRegion> attackAnimation;
+    /** The attack animation in synth for the bee */
+    public Animation<TextureRegion> beeAttackSynthAnimation;
     /**
      * Creates a new bee hive avatar with the given physics data
      *
@@ -38,16 +40,13 @@ public class BeeHive extends Enemy {
      * @param height     The object width in physics units
      * @param enemyScale The scale of the beehive
      * @param faceRight  The direction the beehive is facing in
-     * @param animation  The idle animation for the beehive
      * @param beatList   The list of beats that the enemy reacts to
      */
     public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, Animation<TextureRegion> animation, int[] beatList,
-            Animation<TextureRegion> beeAnimation) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, animation, beatList);
-        beeAttackAnimation = beeAnimation;
-        setAnimation(animation);
+            boolean faceRight, int[] beatList) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
         enemyState = EnemyState.ATTACKING;
+        isFlippable = false;
     }
 
     /** Creates a bee in front of the hive */
@@ -58,7 +57,7 @@ public class BeeHive extends Enemy {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.bulletTexture.getRegionWidth() / (2.0f * scale.x);
-        BeeProjectile bee = new BeeProjectile(getX() + offset, getY(), radius, beeAttackAnimation);
+        BeeProjectile bee = new BeeProjectile(getX() + offset, getY(), radius, beeAttackSynthAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
@@ -84,6 +83,12 @@ public class BeeHive extends Enemy {
     }
 
     @Override
+    public void update(float dt) {
+        super.update(dt);
+        animationUpdate();
+    }
+
+    @Override
     public void switchState() {
 
     }
@@ -92,5 +97,15 @@ public class BeeHive extends Enemy {
     public void Attack() {
         makeBee();
         setFaceRight(playerXPosition() - getPosition().x > 0);
+    }
+
+    /**
+     * Updates the animation based on the physics state.
+     */
+    private void animationUpdate() {
+        setAnimation(attackAnimation);
+        if (animation.isAnimationFinished(stateTime)) {
+            stateTime = 0;
+        }
     }
 }

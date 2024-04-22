@@ -1,5 +1,5 @@
 jazzJump.png
-size: 120, 636
+size: 120, 477
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -24,10 +24,3 @@ jazzJump
   orig: 120, 159
   offset: 0, 0
   index: 2
-jazzJump
-  rotate: false
-  xy: 0, 477
-  size: 120, 159
-  orig: 120, 159
-  offset: 0, 0
-  index: 3

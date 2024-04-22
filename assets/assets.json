@@ -54,6 +54,8 @@
 
       "backgrounds:pauseTint": "backgrounds/white_texture.png",
 
+      "enemies:bat": "enemies/bat.png",
+
       "world:bullet": "world/bullet.png",
 
       "world:shelves:shelf1": "world/shelves/shelf1.png",
@@ -127,7 +129,7 @@
         "defaultConstants": "defaultConstants.json",
         "example": "levelsJson/rabbeatLevelTest.tmj",
         "level1": "levelsJson/rabbeatLevel.tmj",
-        "level2": "levelsJson/rabbeatLevel2.tmj",
+        "level2": "levelsJson/rabbeatLevelBat.tmj",
         "level3": "levelsJson/rabbeatLevel3.tmj",
         "level4": "levelsJson/rabbeatLaserTest.tmj",
         "level5": "levelsJson/rabbeatLevel2.tmj",

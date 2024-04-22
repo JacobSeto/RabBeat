@@ -23,8 +23,10 @@ public class BatEnemy extends Enemy {
     /** the radius of attack of the bat's echo */
     private float echoRadius;
 
-    /** The idle animation for the bat */
-    public Animation<TextureRegion> batIdleAnimation;
+    /** The attack animation in synth for the bat */
+    public Animation<TextureRegion> attackSynthAnimation;
+    /** The attack animation in jazz for the bat */
+    public Animation<TextureRegion> attackJazzAnimation;
 
     /**
      * Creates a bat enemy avatar with the given physics data
@@ -36,13 +38,11 @@ public class BatEnemy extends Enemy {
      * @param height           The object width in physics units
      * @param enemyScale       The scale of the bat
      * @param faceRight        The direction the bat is facing in
-     * @param batIdleAnimation The idle animation for the bat
      * @param beatList         The list of beats that the enemy reacts to
      */
     public BatEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, Animation<TextureRegion> batIdleAnimation, int[] beatList) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, batIdleAnimation, beatList);
-        setAnimation(batIdleAnimation);
+            boolean faceRight, int[] beatList) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
     }
 
     /**
@@ -172,10 +172,28 @@ public class BatEnemy extends Enemy {
         } else {
             echoRadius = 4f;
         }
+        animationUpdate();
     }
 
     @Override
     public void Attack() {
         sendEcho();
+    }
+
+    /**
+     * Updates the animation based on the physics state.
+     */
+    private void animationUpdate() {
+        if (animation.isAnimationFinished(stateTime)) {
+            stateTime = 0;
+        }
+        switch (animationGenre) {
+            case SYNTH:
+                setAnimation(attackSynthAnimation);
+                break;
+            case JAZZ:
+                setAnimation(attackJazzAnimation);
+                break;
+        }
     }
 }

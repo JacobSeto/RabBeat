@@ -1,12 +1,89 @@
 beehive.png
-size: 224, 224
+size: 1800, 150
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 beehive
   rotate: false
   xy: 0, 0
-  size: 224, 224
-  orig: 224, 224
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
-  index: -1
+  index: 0
+beehive
+  rotate: false
+  xy: 150, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+beehive
+  rotate: false
+  xy: 300, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+beehive
+  rotate: false
+  xy: 450, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+beehive
+  rotate: false
+  xy: 600, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+beehive
+  rotate: false
+  xy: 750, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+beehive
+  rotate: false
+  xy: 900, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+beehive
+  rotate: false
+  xy: 1050, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+beehive
+  rotate: false
+  xy: 1200, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+beehive
+  rotate: false
+  xy: 1350, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+beehive
+  rotate: false
+  xy: 1500, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+beehive
+  rotate: false
+  xy: 1650, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
