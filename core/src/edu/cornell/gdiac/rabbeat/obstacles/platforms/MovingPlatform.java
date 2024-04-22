@@ -60,7 +60,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         home = 0;
         setTexture(texture);
         setPosition(positionNodes[0]);
-        velocity = direction(positionNodes[home], positionNodes[destination], platformSpeed);
+        velocity = direction(positionNodes[home], positionNodes[destination], 2);
         moving = true;
     }
 
@@ -77,7 +77,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
                 else{
                     destination+=1;
                 }
-                velocity = direction(positionNodes[home], positionNodes[destination], platformSpeed);
+                velocity = direction(positionNodes[home], positionNodes[destination], 2);
                 moving = false;
                 currentSpeed = 0;
             }
@@ -148,13 +148,13 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         if (beat==1){
             currentSpeed = 0;
         }
-        else if (beat==6){
+        else if (beat==(6+8*platformSpeed)){
             currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT6);
         }
-        else if (beat== 7){
+        else if (beat== (7+8*platformSpeed)){
             currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT7);
         }
-        else if (beat == 8 ){
+        else if (beat == (8+8*platformSpeed) ){
             currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT8);
             beat = 0;
         }

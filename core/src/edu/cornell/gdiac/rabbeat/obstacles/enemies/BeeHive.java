@@ -69,19 +69,16 @@ public class BeeHive extends Enemy {
 
         // Compute position and velocity
         float speed = 2.5f;
-        float vSpeed;
         int beatcount;
         if (GameController.getInstance().genre == Genre.SYNTH) {
             beatcount = synthBeeTime;
-            vSpeed = 4;
-        }
-        else {
+            bee.setVY(2);
+        } else {
             beatcount = jazzBeeTime;
-            vSpeed = 2;
+            bee.setVY(1);
         }
         speed *= (isFaceRight() ? 1 : -1);
         bee.setVX(speed);
-        bee.setVY(vSpeed);
         bee.beatCount = beatcount;
         GameController.getInstance().instantiateQueue(bee);
     }
@@ -94,6 +91,6 @@ public class BeeHive extends Enemy {
     @Override
     public void Attack() {
         makeBee();
-        //setFaceRight(playerXPosition() - getPosition().x > 0);
+        setFaceRight(playerXPosition() - getPosition().x > 0);
     }
 }
