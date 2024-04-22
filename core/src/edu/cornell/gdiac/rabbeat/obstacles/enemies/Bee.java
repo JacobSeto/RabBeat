@@ -7,13 +7,11 @@ import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
+import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
-<<<<<<<< HEAD:core/src/edu/cornell/gdiac/rabbeat/obstacles/enemies/Bee.java
+
 public class Bee extends WheelGameObject implements ISynced, IGenreObject {
-========
-public class BeeProjectile extends WheelGameObject implements ISyncedAnimated, IGenreObject {
->>>>>>>> programmer-branch:core/src/edu/cornell/gdiac/rabbeat/obstacles/projectiles/BeeProjectile.java
 
     public int beatCount = 0;
     private float hiveY;
@@ -23,12 +21,7 @@ public class BeeProjectile extends WheelGameObject implements ISyncedAnimated, I
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
 
-<<<<<<<< HEAD:core/src/edu/cornell/gdiac/rabbeat/obstacles/enemies/Bee.java
     public Bee(float x, float y, float radius, Animation<TextureRegion> beeAttackAnimation) {
-========
-    public BeeProjectile(float x, float y, float radius, Animation<TextureRegion> beeAttackAnimation) {
-
->>>>>>>> programmer-branch:core/src/edu/cornell/gdiac/rabbeat/obstacles/projectiles/BeeProjectile.java
         super(x, y, radius);
         hiveY = y;
         setAnimation(beeAttackAnimation);
@@ -66,31 +59,11 @@ public class BeeProjectile extends WheelGameObject implements ISyncedAnimated, I
     @Override
     public void beatAction() {
         beatCount++;
-<<<<<<<< HEAD:core/src/edu/cornell/gdiac/rabbeat/obstacles/enemies/Bee.java
         setVY(getVY() * -1);
-========
-        if (curGenre == Genre.SYNTH) {
-            if (getVY() < 0){
-                setVY(2);
-            }
-            else{
-                setVY(-2);
-            }
-        }
-        else {
-            if (getVY() < 0){
-                setVY(1);
-            }
-            else{
-                setVY(-1);
-            }
-        }
->>>>>>>> programmer-branch:core/src/edu/cornell/gdiac/rabbeat/obstacles/projectiles/BeeProjectile.java
     }
 
     @Override
     public void genreUpdate(Genre genre) {
-<<<<<<<< HEAD:core/src/edu/cornell/gdiac/rabbeat/obstacles/enemies/Bee.java
         curGenre = genre;
         switched = true;
 //        if (genre == Genre.SYNTH){
@@ -109,8 +82,6 @@ public class BeeProjectile extends WheelGameObject implements ISyncedAnimated, I
 //                setVY(1);
 //            }
 //        }
-========
->>>>>>>> programmer-branch:core/src/edu/cornell/gdiac/rabbeat/obstacles/projectiles/BeeProjectile.java
     }
     public void setAnimation(Animation<TextureRegion> animation){
         this.animation = animation;
