@@ -894,7 +894,7 @@ public class GameController implements Screen, ContactListener {
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
 			canvas.begin(true); // DO NOT SCALE
-			canvas.drawTextCentered("VICTORY!", objectController.displayFont, 0.0f);
+			canvas.drawTextCentered("VICTORY! \n \n Press Tab \n to continue or \n L to return to \n the Level Select menu", objectController.displayFont, 0.0f);
 			canvas.end();
 			incrementLevelsUnlocked();
 		} else if (failed) {
