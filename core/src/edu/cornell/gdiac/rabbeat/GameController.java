@@ -143,6 +143,17 @@ public class GameController implements Screen, ContactListener {
 	/** Pause tint color */
 	private Color pauseTintColor;
 
+	/** Current item selected in the pause menu */
+	private int pauseItemSelected = 0;
+
+	/** Global music volume, which can be changed in pause menu */
+
+	private int musicVolume = 10;
+
+	/** Global SFX volume, which can be changed in pause menu */
+
+	private int SFXVolume = 10;
+
 	// Physics objects for the game
 
 	/** last platform collided with*/
@@ -381,6 +392,8 @@ public class GameController implements Screen, ContactListener {
 		jazzSoundtrack = directory.getEntry("music:jazz1", Music.class);
 		soundController.setSynthTrack(synthSoundtrack);
 		soundController.setJazzTrack(jazzSoundtrack);
+		soundController.setGlobalMusicVolume(musicVolume / 10f);
+		soundController.setGlobalSFXVolume(SFXVolume / 10f);
 	}
 
 	/** Initializes the sound effects, which are stored in the sound controller.
@@ -568,8 +581,30 @@ public class GameController implements Screen, ContactListener {
 				}
 			}
 			else if (paused) {
-				// If game is currently in the middle of the paused state, stop doing all this
-
+				// If game is currently in the middle of the paused state, do all this. It won't work the first frame of pausing but that should be fine
+				if (input.didPressDownWhilePaused()) {
+					pauseItemSelected = (pauseItemSelected + 1) % 5;
+				}
+				if (input.didPressUpWhilePaused()) { // not using else if on purpose
+					pauseItemSelected--;
+					if (pauseItemSelected == -1) pauseItemSelected = 4;
+				}
+				if (pauseItemSelected == 3) {
+					if (input.didPressLeftWhilePaused() && musicVolume > 0) { // change this to 1 if it causes bugs
+						musicVolume--;
+					}
+					if (input.didPressRightWhilePaused() && musicVolume < 10) {
+						musicVolume++;
+					}
+				}
+				else if (pauseItemSelected == 4) {
+					if (input.didPressLeftWhilePaused() && SFXVolume > 0) { // again, change this to 1 if it causes bugs
+						SFXVolume--;
+					}
+					if (input.didPressRightWhilePaused() && SFXVolume < 10) {
+						SFXVolume++;
+					}
+				}
 			}
 
 			else if (countdown > 0) {
@@ -906,12 +941,46 @@ public class GameController implements Screen, ContactListener {
 		// Put pause screen UI in this if statement
 		if (paused) {
 			objectController.displayFont.setColor(Color.CYAN);
-			canvas.begin(true); // DO NOT SCALE
-			canvas.drawTextCentered("You paused the game!", objectController.displayFont, 0.0f);
-			canvas.end();
+			//canvas.begin(true); // DO NOT SCALE
+			//canvas.drawTextCentered("You paused the game!", objectController.displayFont, 0.0f);
+			//canvas.end();
 
-			canvas.begin(false);
+			canvas.begin(true);
 			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintColor, 0, 0, 0, 0, 0, 1, 1);
+			canvas.draw(objectController.overlayTexture.getTexture(), Color.WHITE, -500, 0, 0, 0, 0,0.45f, 0.45f);
+			canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 960, 420, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 960, 330, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.exitLevelTexture.getTexture(), Color.WHITE, 0, 0, 960, 240, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.musicTexture.getTexture(), Color.WHITE, 0, 0, 850, 160, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.SFXTexture.getTexture(), Color.WHITE, 0, 0, 900, 80, 0, 0.5f, 0.5f);
+			for (int i = 0; i < musicVolume; i++) {
+				canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 1020 + i * 20, 160, 0, 0.5f, 0.5f);
+			}
+			for (int i = 0; i < SFXVolume; i++) {
+				canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 1020 + i * 20, 80, 0, 0.5f, 0.5f);
+			}
+			canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 985, 160, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 985, 80, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1225, 160, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1225, 80, 0, 0.5f, 0.5f);
+
+			switch (pauseItemSelected) {
+				case 0: // Restart Level
+					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  900, 420, 0, 0.5f, 0.5f);
+					break;
+				case 1: // Resume Level
+					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  900,330, 0, 0.5f, 0.5f);
+					break;
+				case 2: // Exit Level
+					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 900, 240,0, 0.5f, 0.5f);
+					break;
+				case 3: // Music
+					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,160, 0, 0.5f, 0.5f);
+					break;
+				case 4: // SFX
+					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 820,80, 0, 0.5f, 0.5f);
+					break;
+			}
 			canvas.end();
 		}
 	}
@@ -958,7 +1027,9 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
+
 		soundController.pauseMusic();
+		InputController.getInstance().setPaused(true);
 	}
 
 	/**
@@ -967,7 +1038,11 @@ public class GameController implements Screen, ContactListener {
 	 * This is usually when it regains focus.
 	 */
 	public void resume() {
+		soundController.setGlobalMusicVolume(musicVolume / 10f);
+		soundController.setGlobalSFXVolume(SFXVolume / 10f);
 		soundController.resumeMusic();
+		InputController.getInstance().setPaused(false);
+		pauseItemSelected = 0; // delete this line if pause menu should "save" where you were last time
 	}
 
 	/**
