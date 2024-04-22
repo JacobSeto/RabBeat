@@ -8,7 +8,7 @@
   <image width="64" height="64" source="../world/platforms/blackTile.png"/>
  </tile>
  <tile id="7">
-  <image width="128" height="130" source="../world/checkpoints/checkActive.png"/>
+  <image width="130" height="130" source="checkpointTile.png"/>
  </tile>
  <tile id="8">
   <image width="173" height="200" source="bear.png"/>
@@ -16,8 +16,8 @@
  <tile id="12">
   <image width="128" height="130" source="../world/goal.png"/>
  </tile>
- <tile id="13">
-  <image width="150" height="150" source="../../../../../Downloads/beehive.png"/>
+ <tile id="13" x="0" y="0" width="150" height="150">
+  <image width="1800" height="150" source="../enemies/beehive.png"/>
  </tile>
  <tile id="14">
   <image width="256" height="256" source="../world/pods/bearpod1.png"/>
@@ -122,8 +122,6 @@
   <image width="895" height="256" source="../world/wires/bigwire.png"/>
  </tile>
  <tile id="58">
-  <image width="220" height="121" source="../../../../../Downloads/bat.png"/>
- <tile id="56">
-  <image width="130" height="130" source="../world/checkpoints/checkpointInactive.png"/>
+  <image width="220" height="121" source="../enemies/bat.png"/>
  </tile>
 </tileset>
