@@ -3,6 +3,12 @@ import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.utils.*;
 
 public class SyncController {
+    /**
+     * The purpose of this class is to track all synced objects in the game and update them appropriately.
+     * This is achieved by taking in all synced objects and creating a list of intervals representing
+     * each synced object. in the update loop of {@link edu.cornell.gdiac.rabbeat.GameController},
+     * each interval is checked and updated when the tracked beat has passed.
+     */
 
     /** The bpm of the soundtrack*/
     private final int BPM = 180;
@@ -13,7 +19,7 @@ public class SyncController {
     Music jazz;
 
     /**The audio delay of the audio  in seconds*/
-    private float delay = 0;
+    private float delay = 0f;
     /** The intervals of each of the synced objects in the game */
     private Array<Interval> intervals = new Array<>();
     /** The interval that represents the animation update */
@@ -31,7 +37,6 @@ public class SyncController {
      * */
     public void addDelay(float _delay){
         delay += _delay;
-        System.out.println("New Delay: " + delay);
     }
 
     /**The update function for everything synced in the world*/

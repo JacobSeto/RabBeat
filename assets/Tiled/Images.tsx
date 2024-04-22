@@ -5,13 +5,13 @@
   <image width="64" height="123" source="playerTile.png"/>
  </tile>
  <tile id="6">
-  <image width="120" height="120" source="../world/platforms/blackTile.png"/>
+  <image width="64" height="64" source="../world/platforms/blackTile.png"/>
  </tile>
  <tile id="7">
-  <image width="128" height="130" source="../world/checkpoints/checkActive.png"/>
+  <image width="130" height="130" source="checkpointTile.png"/>
  </tile>
  <tile id="8">
-  <image width="256" height="181" source="bearTile.png"/>
+  <image width="173" height="200" source="bear.png"/>
  </tile>
  <tile id="12">
   <image width="128" height="130" source="../world/goal.png"/>

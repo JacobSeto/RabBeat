@@ -74,6 +74,11 @@ public class InputController {
 	/** Whether the exit button was pressed. */
 	private boolean exitPressed;
 	private boolean exitPrevious;
+
+	/** Whether or not the pause button was pressed */
+	private boolean pausePressed;
+
+	private boolean pausePrevious;
 	
 	/** How much did we move horizontally? */
 	private float horizontal;
@@ -222,6 +227,12 @@ public class InputController {
 	 * The input controller attempts to connect to the X-Box controller at device 0,
 	 * if it exists.  Otherwise, it falls back to the keyboard control.
 	 */
+
+	/**
+	 * Returns true if the pause button was pressed.
+	 * @return true if the pause button was pressed.
+	 */
+	public boolean didPause() { return pausePressed && !pausePrevious; }
 	public InputController() {
 		// If we have a game-pad for id, then use it.
 		Array<XBoxController> controllers = Controllers.get().getXBoxControllers();
@@ -254,6 +265,7 @@ public class InputController {
 		exitPrevious = exitPressed;
 		nextPrevious = nextPressed;
 		prevPrevious = prevPressed;
+		pausePrevious = pausePressed;
 		
 		// Check to see if a GamePad is connected
 		if (xbox != null && xbox.isConnected()) {
@@ -318,6 +330,7 @@ public class InputController {
 		primePressed = (secondary && primePressed) || (Gdx.input.isKeyPressed(Input.Keys.UP)
 				|| Gdx.input.isKeyPressed(Input.Keys.W));
 		exitPressed  = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
+		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
 		
 		// Directional controls
 		horizontal = (secondary ? horizontal : 0.0f);
@@ -351,7 +364,9 @@ public class InputController {
 			delay = -.05f;
 		}
 
-
+		if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+			GameController.getInstance().exitScreen();
+		}
 		
 		// Mouse results
         	tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);

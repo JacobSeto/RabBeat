@@ -1,13 +1,12 @@
-package edu.cornell.gdiac.rabbeat.sync;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.rabbeat.Genre;
+package edu.cornell.gdiac.rabbeat.obstacles.projectiles;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.SyncedProjectile;
-/**
- * Bullets shoot out and disappear on certain beats.
- */
+import edu.cornell.gdiac.rabbeat.sync.ISynced;
+
 public class Bullet extends WheelGameObject implements ISynced {
+    /**
+    * Bullets shoot out and disappear on certain beats.
+    */
+    
     public int beatCount = 0;
 
     public Bullet(float x, float y, float radius, float synthVX, float jazzVX, boolean fr) {

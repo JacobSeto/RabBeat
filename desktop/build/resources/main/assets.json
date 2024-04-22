@@ -40,9 +40,9 @@
 
       "world:goal": "world/goal.png",
 
-      "checkpoint:checkDefault": "world/checkpoints/checkDefault.png",
+      "ui:synthIndicator": "ui/synth-indicator.png",
 
-      "checkpoint:checkActive": "world/checkpoints/checkActive.png",
+      "ui:jazzIndicator": "ui/jazz-indicator.png",
 
       "player:synth":  "player/synth.png",
 
@@ -51,6 +51,8 @@
       "backgrounds:test-bg":  "backgrounds/background.png",
 
       "backgrounds:overlay": "backgrounds/background-overlay.png",
+
+      "backgrounds:pauseTint": "backgrounds/white_texture.png",
 
       "world:bullet": "world/bullet.png",
 
@@ -110,20 +112,35 @@
 
       "world:pipes:pipestraightskinny" : "world/pipes/pipestraightskinny.png",
 
-      "world:pipes:bgpipe" : "world/pipes/bigpipe.png",
+      "world:pipes:bgpipe" : "world/pipes/bgpipe.png",
 
       "world:wires:bigwire" : "world/wires/bigwire.png",
 
       "world:wires:wires1" : "world/wires/wires1.png",
 
-      "world:wires:wires2" : "world/wires/wires2.png"
+      "world:wires:wires2" : "world/wires/wires2.png",
+
+      "world:laser" : "world/laser.png",
+      "world:verticalLaser" : "world/verticalLaser.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
-        "example": "levelsJson/rabbeatLevel.tmj"
+        "example": "levelsJson/rabbeatLevelTest.tmj",
+        "level1": "levelsJson/rabbeatLevel.tmj",
+        "level2": "levelsJson/rabbeatLevel2.tmj",
+        "level3": "levelsJson/rabbeatLevel3.tmj",
+        "level4": "levelsJson/rabbeatLaserTest.tmj",
+        "level5": "levelsJson/rabbeatLevel2.tmj",
+        "level6": "levelsJson/rabbeatLevel.tmj",
+        "level7": "levelsJson/rabbeatLevel2.tmj",
+        "level8": "levelsJson/rabbeatLevel.tmj",
+        "level9": "levelsJson/rabbeatLevel2.tmj",
+        "level10": "levelsJson/rabbeatLevel.tmj",
+        "level11": "levelsJson/rabbeatLevel2.tmj",
+        "level12": "levelsJson/rabbeatLevel.tmj"
     },
     "sounds": {
-
+      "sfx:genreSwitch": "sfx/genre_switch_woosh.wav"
     },
     "music" : {
       "music:synth1": "music/synth_alpha.ogg",
