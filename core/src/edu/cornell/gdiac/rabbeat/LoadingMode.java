@@ -92,8 +92,6 @@ public class LoadingMode implements Screen, InputProcessor, ControllerListener {
 	/** Listener that will update the player mode when we are done */
 	private ScreenListener listener;
 
-	public String currentLevel = "";
-
 	/** The width of the progress bar */
 	private int width;
 	/** The y-coordinate of the center of the progress bar */

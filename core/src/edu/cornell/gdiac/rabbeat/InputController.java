@@ -365,7 +365,15 @@ public class InputController {
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-			GameController.getInstance().exitScreen();
+			GameController.getInstance().exitScreen(0);
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.TAB) && GameController.getInstance()
+				.getPlayerCompletedLevel()) {
+			GameController gc = GameController.getInstance();
+			gc.exitScreen(1);
+			gc.setPlayerCompletedLevel(false);
+			gc.setCurrentlLevel(gc.getCurrentLevel()+1);
 		}
 		
 		// Mouse results

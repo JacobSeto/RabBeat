@@ -75,7 +75,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private int levelsUnlocked = 6;
+	private static int levelsUnlocked = 1;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private int currentLevelInt = 1;
@@ -102,6 +102,11 @@ public class GameController implements Screen, ContactListener {
 	/** The default value of gravity (going down) */
 	protected static final float DEFAULT_GRAVITY = -18f;
 
+	/** The boolean representing whether the player has completed the level */
+	private boolean playerCompletedLevel = false;
+
+	/** The boolean indicating whether the player desires to go to the next level */
+	private boolean goToNextLevel = false;
 
 	/** Reference to the game canvas */
 	protected GameCanvas canvas;
@@ -513,7 +518,7 @@ public class GameController implements Screen, ContactListener {
 		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
 		objectController.populateObjects(scale);
-		;
+
 
 	}
 
@@ -602,7 +607,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param dt Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
-
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
@@ -887,10 +891,12 @@ public class GameController implements Screen, ContactListener {
 
 		// Final message
 		if (complete && !failed) {
+			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
 			canvas.begin(true); // DO NOT SCALE
 			canvas.drawTextCentered("VICTORY!", objectController.displayFont, 0.0f);
 			canvas.end();
+			incrementLevelsUnlocked();
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
 			canvas.begin(true); // DO NOT SCALE
@@ -1027,9 +1033,10 @@ public class GameController implements Screen, ContactListener {
 		return numberOfLevels;
 	}
 
-	public void exitScreen() {
+	/** Called when the game screen needs to be exited out of */
+	public void exitScreen(int exitCode) {
 		pause();
-		listener.exitScreen(this, EXIT_QUIT);
+		listener.exitScreen(this, exitCode);
 	}
 
 	/** Sets the currentLevelInt variable and concurrently change the currentLevel String*/
@@ -1053,19 +1060,29 @@ public class GameController implements Screen, ContactListener {
 		this.levelsUnlocked = levelsUnlocked;
 	}
 
-	/** Increments the integer levelsUnlocked once a player completes a level */
+	/** Increments the integer levelsUnlocked if a player completes a level and the next level is locked*/
 	public void incrementLevelsUnlocked() {
-		levelsUnlocked++;
+		if(currentLevelInt == levelsUnlocked) {
+			levelsUnlocked++;
+		}
+
+		System.out.println(getLevelsUnlocked());
 	}
 
-	/** Return the float worldWidth */
-	public float getWorldWidth() {
-		return worldWidth;
+	/** Returns whether player has completed the level */
+	public boolean getPlayerCompletedLevel() {
+		return playerCompletedLevel;
 	}
 
-	/** Return the float worldHeight */
-	public float getWorldHeight() {
-		return worldHeight;
+	/** Sets the boolean playerCompletedLevel */
+	public void setPlayerCompletedLevel(boolean playerCompletedLevel) {
+		this.playerCompletedLevel = playerCompletedLevel;
+	}
+
+
+	/** Sets the boolean goToNextLevel */
+	public void setGoToNextLevel(boolean goToNextLevel) {
+		this.goToNextLevel = goToNextLevel;
 	}
 
 }
