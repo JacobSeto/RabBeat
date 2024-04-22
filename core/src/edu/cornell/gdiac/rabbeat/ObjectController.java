@@ -869,7 +869,7 @@ public class ObjectController {
                 weightedSynth, weightedJazz);
         weightedPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         weightedPlatform.setDensity(defaults.getFloat("density", 0.0f));
-        weightedPlatform.setFriction(defaults.getFloat("friction", 1.0f));
+        weightedPlatform.setFriction(defaults.getFloat("friction", 0.0f));
         weightedPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         weightedPlatform.setDrawScale(scale);
         GameController.getInstance().instantiate(weightedPlatform);
@@ -889,7 +889,7 @@ public class ObjectController {
         movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, speed, platformTile);
         movingPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         movingPlatform.setDensity(defaults.getFloat("density", 0.0f));
-        movingPlatform.setFriction(defaults.getFloat("friction", 1.0f));
+        movingPlatform.setFriction(defaults.getFloat("friction", 0.0f));
         movingPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         movingPlatform.setDrawScale(scale);
         GameController.getInstance().instantiate(movingPlatform);
@@ -909,7 +909,7 @@ public class ObjectController {
         Vector2 convertedCoord = convertTiledCoord(startX, startY, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         // TODO: Figure out if having 2 references for player fields is okay
-        float dwidth = synthDefaultTexture.getRegionWidth() / scale.x;
+        float dwidth =synthDefaultTexture.getRegionWidth() / scale.x;
         float dheight = synthDefaultTexture.getRegionHeight() / scale.y;
         player = new Player(defaultConstants.get("player"), convertedCoord.x, convertedCoord.y,
                 dwidth * playerScale, dheight * playerScale, playerScale);
