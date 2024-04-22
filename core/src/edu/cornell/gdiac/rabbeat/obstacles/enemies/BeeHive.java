@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bee;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bee;
 
 public class BeeHive extends Enemy {
 
