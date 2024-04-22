@@ -18,10 +18,8 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.BeeProjectile;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bee;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
@@ -32,14 +30,12 @@ import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 
-import java.awt.*;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.*;
-import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.physics.box2d.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.util.*;
@@ -686,11 +682,11 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			if (bd1 instanceof BeeProjectile && !(bd2 instanceof BeeHive) ) {
+			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) ) {
 				bd1.markRemoved(true);
 			}
 
-			if (bd2 instanceof BeeProjectile && !(bd1 instanceof BeeHive) ) {
+			if (bd2 instanceof Bee && !(bd1 instanceof BeeHive) ) {
 				bd2.markRemoved(true);
 			}
 
