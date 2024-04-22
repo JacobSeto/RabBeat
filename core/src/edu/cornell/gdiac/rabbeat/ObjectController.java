@@ -1005,7 +1005,7 @@ public class ObjectController {
         //TODO: change to hedgehog texture when we get art for this
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
-        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float dwidth  = (enemyDefaultTexture.getRegionWidth()/scale.x);
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         HedgehogEnemy hedgehog = new HedgehogEnemy(defaultConstants.get("hedgehogs"), convertedCoord.x, convertedCoord.y,
                 rollingDistance, dwidth*enemyScale, dheight*enemyScale,
