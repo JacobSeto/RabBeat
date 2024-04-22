@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="6464" tileheight="1088" tilecount="40" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="6464" tileheight="1088" tilecount="41" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2">
   <image width="64" height="123" source="playerTile.png"/>
@@ -16,8 +16,8 @@
  <tile id="12">
   <image width="128" height="130" source="../world/goal.png"/>
  </tile>
- <tile id="13">
-  <image width="224" height="224" source="../enemies/beehive.png"/>
+ <tile id="13" x="0" y="0" width="150" height="150">
+  <image width="1800" height="150" source="../enemies/beehive.png"/>
  </tile>
  <tile id="14">
   <image width="256" height="256" source="../world/pods/bearpod1.png"/>
@@ -120,5 +120,8 @@
  </tile>
  <tile id="55">
   <image width="895" height="256" source="../world/wires/bigwire.png"/>
+ </tile>
+ <tile id="58">
+  <image width="220" height="121" source="../enemies/bat.png"/>
  </tile>
 </tileset>

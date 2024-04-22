@@ -114,7 +114,23 @@ public class ObjectController {
     /** The texture for tinting the pause screen overlay background */
     public TextureRegion pauseWhiteOverlayTexture;
 
+    public TextureRegion exitLevelTexture;
+    public TextureRegion hoverLowerSoundTexture;
+    public TextureRegion hoverUpSoundTexture;
+    public TextureRegion indicatorStarTexture;
+    public TextureRegion musicTexture;
+    public TextureRegion overlayTexture;
+    public TextureRegion restartLevelTexture;
+    public TextureRegion resumeTexture;
+    public TextureRegion SFXTexture;
+    public TextureRegion unhoverLowerSoundTexture;
+    public TextureRegion unhoverUpSoundTexture;
+    public TextureRegion volumeBoxTexture;
+
+
     private TextureRegion enemyDefaultTexture;
+    /** The texture for the bat enemy */
+    private TextureRegion batTexture;
 
     /** The texture for the genre indicator in Synth mode */
     private TextureRegion synthIndicatorTexture;
@@ -193,10 +209,6 @@ public class ObjectController {
     public TextureAtlas bearAttackAtlas;
     /** The attack animation for the bear enemy */
     public Animation<TextureRegion> bearAttackAnimation;
-    /** The idle atlas for the bat enemy */
-    public TextureAtlas batIdleAtlas;
-    /** The idle animation for the bat enemy */
-    public Animation<TextureRegion> batIdleAnimation;
     /** The synth attack atlas for the bat enemy */
     public TextureAtlas batAttackSynthAtlas;
     /** The synth attack animation for the bat enemy */
@@ -210,9 +222,9 @@ public class ObjectController {
     /** The idle animation for the bee enemy */
     public Animation<TextureRegion> beeAttackAnimation;
     /** The idle atlas for the beehive */
-    public TextureAtlas beehiveAtlas;
+    public TextureAtlas beehiveAttackAtlas;
     /** The idle animation for the beehive */
-    public Animation<TextureRegion> beehiveAnimation;
+    public Animation<TextureRegion> beehiveAttackAnimation;
 
     /** The idle atlas for the hedgehog enemy */
     public TextureAtlas hedgehogIdleAtlas;
@@ -253,7 +265,21 @@ public class ObjectController {
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
         pauseWhiteOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
+        exitLevelTexture = new TextureRegion(directory.getEntry("ui:pause:exitLevel",Texture.class));
+        hoverLowerSoundTexture = new TextureRegion(directory.getEntry("ui:pause:hoverLowerSound",Texture.class));
+        hoverUpSoundTexture = new TextureRegion(directory.getEntry("ui:pause:hoverUpSound",Texture.class));
+        indicatorStarTexture = new TextureRegion(directory.getEntry("ui:pause:indicatorStar",Texture.class));
+        musicTexture = new TextureRegion(directory.getEntry("ui:pause:music",Texture.class));
+        overlayTexture = new TextureRegion(directory.getEntry("ui:pause:overlay",Texture.class));
+        restartLevelTexture = new TextureRegion(directory.getEntry("ui:pause:restartLevel",Texture.class));
+        resumeTexture = new TextureRegion(directory.getEntry("ui:pause:resume",Texture.class));
+        SFXTexture = new TextureRegion(directory.getEntry("ui:pause:SFX",Texture.class));
+        unhoverLowerSoundTexture = new TextureRegion(directory.getEntry("ui:pause:unhoverLowerSound",Texture.class));
+        unhoverUpSoundTexture = new TextureRegion(directory.getEntry("ui:pause:unhoverUpSound",Texture.class));
+        volumeBoxTexture = new TextureRegion(directory.getEntry("ui:pause:volumeBox",Texture.class));
+
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
+        batTexture = new TextureRegion(directory.getEntry("enemies:bat", Texture.class));
         beeTexture = new TextureRegion(directory.getEntry("enemies:bee", Texture.class));
         bearTexture = new TextureRegion(directory.getEntry("enemies:bear", Texture.class));
         beehiveTexture = new TextureRegion(directory.getEntry("enemies:beehive", Texture.class));
@@ -280,26 +306,26 @@ public class ObjectController {
         synthIdleAnimation = new Animation<TextureRegion>(1f, synthIdleAtlas.findRegions("synthIdle"), Animation.PlayMode.LOOP);
 
         synthWalkAtlas = new TextureAtlas(Gdx.files.internal("player/synthWalk.atlas"));
-        synthWalkAnimation = new Animation<TextureRegion>(0.7f, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
+        synthWalkAnimation = new Animation<TextureRegion>(1f, synthWalkAtlas.findRegions("synthWalk"), Animation.PlayMode.LOOP);
 
         synthJumpAtlas = new TextureAtlas(Gdx.files.internal("player/synthJump.atlas"));
-        synthJumpAnimation = new Animation<TextureRegion>(5/6f, synthJumpAtlas.findRegions("synthJump"), Animation.PlayMode.NORMAL);
+        synthJumpAnimation = new Animation<TextureRegion>(1f, synthJumpAtlas.findRegions("synthJump"), Animation.PlayMode.NORMAL);
 
         synthFallAtlas = new TextureAtlas(Gdx.files.internal("player/synthFall.atlas"));
-        synthFallAnimation = new Animation<TextureRegion>(1.5f, synthFallAtlas.findRegions("synthFall"), Animation.PlayMode.LOOP);
+        synthFallAnimation = new Animation<TextureRegion>(1f, synthFallAtlas.findRegions("synthFall"), Animation.PlayMode.LOOP);
 
         // Jazz
         jazzIdleAtlas = new TextureAtlas(Gdx.files.internal("player/jazzIdle.atlas"));
         jazzIdleAnimation = new Animation<TextureRegion>(1f, jazzIdleAtlas.findRegions("jazzIdle"), Animation.PlayMode.LOOP);
 
         jazzWalkAtlas = new TextureAtlas(Gdx.files.internal("player/jazzWalk.atlas"));
-        jazzWalkAnimation = new Animation<TextureRegion>(0.9f, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
+        jazzWalkAnimation = new Animation<TextureRegion>(1f, jazzWalkAtlas.findRegions("jazzWalk"), Animation.PlayMode.LOOP);
 
         jazzJumpAtlas = new TextureAtlas(Gdx.files.internal("player/jazzJump.atlas"));
-        jazzJumpAnimation = new Animation<TextureRegion>(5/6f, jazzJumpAtlas.findRegions("jazzJump"), Animation.PlayMode.NORMAL);
+        jazzJumpAnimation = new Animation<TextureRegion>(1f, jazzJumpAtlas.findRegions("jazzJump"), Animation.PlayMode.NORMAL);
 
         jazzFallAtlas = new TextureAtlas(Gdx.files.internal("player/jazzFall.atlas"));
-        jazzFallAnimation = new Animation<TextureRegion>(1.5f, jazzFallAtlas.findRegions("jazzFall"), Animation.PlayMode.LOOP);
+        jazzFallAnimation = new Animation<TextureRegion>(1f, jazzFallAtlas.findRegions("jazzFall"), Animation.PlayMode.LOOP);
 
         // Allocating enemy animations
         // Bear
@@ -308,8 +334,6 @@ public class ObjectController {
         bearAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearAttack.atlas"));
         bearAttackAnimation = new Animation<TextureRegion>(1f, bearAttackAtlas.findRegions("bearAttack"), Animation.PlayMode.LOOP);
         //  Bat
-        batIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
-        batIdleAnimation = new Animation<TextureRegion>(1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
         batAttackJazzAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackJazz.atlas"));
         batAttackJazzAnimation = new Animation<TextureRegion>(1f, batAttackJazzAtlas.findRegions("batAttackJazz"), Animation.PlayMode.LOOP);
         batAttackSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackSynth.atlas"));
@@ -320,8 +344,8 @@ public class ObjectController {
         beeAttackAnimation = new Animation<TextureRegion>(0.25f, beeAttackAtlas.findRegions("beeAttack"),
                 Animation.PlayMode.LOOP);
 
-        beehiveAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehive.atlas"));
-        beehiveAnimation = new Animation<TextureRegion>(1, beehiveAtlas.findRegions("beehive"),
+        beehiveAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehiveAttack.atlas"));
+        beehiveAttackAnimation = new Animation<TextureRegion>(1, beehiveAttackAtlas.findRegions("beehiveAttack"),
                 Animation.PlayMode.LOOP);
         // Hedgehog
         hedgehogIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
@@ -970,7 +994,10 @@ public class ObjectController {
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BearEnemy bear = new BearEnemy(defaultConstants.get("bears"), convertedCoord.x, convertedCoord.y,
-                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, bearAttackAnimation, beatList);
+                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, beatList);
+        bear.attackSynthAnimation = bearAttackAnimation;
+        bear.attackJazzAnimation = bearAttackAnimation;
+        bear.setAnimation(bearAttackAnimation);
         bear.setBodyType(BodyDef.BodyType.StaticBody);
         bear.setDrawScale(scale);
         bear.setTexture(bearTexture);
@@ -999,8 +1026,10 @@ public class ObjectController {
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
-                dwidth * enemyScale, dheight * enemyScale, enemyScale,
-                false, beehiveAnimation, beatList, beeAttackAnimation);
+                dwidth * enemyScale, dheight * enemyScale, enemyScale, false, beatList);
+        beehive.attackAnimation = beehiveAttackAnimation;
+        beehive.beeAttackSynthAnimation = beeAttackAnimation;
+        beehive.setAnimation(beehiveAttackAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
         beehive.setTexture(beehiveTexture);
@@ -1027,7 +1056,9 @@ public class ObjectController {
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         HedgehogEnemy hedgehog = new HedgehogEnemy(defaultConstants.get("hedgehogs"), convertedCoord.x, convertedCoord.y,
                 rollingDistance, dwidth*enemyScale, dheight*enemyScale,
-                enemyScale, false, beatList, hedgehogAttackAnimation);
+                enemyScale, false, beatList);
+        hedgehog.attackSynthAnimation = hedgehogAttackAnimation;
+        hedgehog.setAnimation(hedgehogAttackAnimation);
         hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
         hedgehog.setDrawScale(scale);
         hedgehog.setTexture(hedgehogTexture);
@@ -1048,14 +1079,17 @@ public class ObjectController {
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
-        float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-        float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
+        float dwidth  = batTexture.getRegionWidth()/scale.x;
+        float dheight = batTexture.getRegionHeight()/scale.y;
         BatEnemy bat = new BatEnemy(defaultConstants.get("bats"), convertedCoord.x, convertedCoord.y,
                 dwidth*enemyScale, dheight*enemyScale,
-                enemyScale, false, batAttackSynthAnimation, beatList);
+                enemyScale, false, beatList);
+        bat.attackSynthAnimation = batAttackSynthAnimation;
+        bat.attackJazzAnimation = batAttackJazzAnimation;
+        bat.setAnimation(batAttackSynthAnimation);
         bat.setBodyType(BodyDef.BodyType.StaticBody);
         bat.setDrawScale(scale);
-        bat.setTexture(enemyDefaultTexture);
+        bat.setTexture(batTexture);
         GameController.getInstance().instantiate(bat);
     }
 

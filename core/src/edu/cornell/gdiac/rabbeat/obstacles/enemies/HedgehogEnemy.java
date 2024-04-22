@@ -30,6 +30,9 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
     /** The boolean for whether the hedgehog is in rolling mode */
     private boolean roll = false;
 
+    /** The attack animation in synth for the hedgehog */
+    public Animation<TextureRegion> attackSynthAnimation;
+
     /**
      * Creates a new enemy avatar with the given physics data
      *
@@ -42,14 +45,11 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
      * @param height                The object width in physics units
      * @param enemyScale            The scale of the hedgehog
      * @param faceRight             The direction the hedgehog is facing in
-     * @param hedgehogIdleAnimation The idle animation for the hedgehog
      * @param beatList              The list of beats that the enemy reacts to
      */
     public HedgehogEnemy(JsonValue data, float startX, float startY, int rollingDistance, float width, float height,
-            float enemyScale, boolean faceRight, int[] beatList,
-            Animation<TextureRegion> hedgehogIdleAnimation) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, hedgehogIdleAnimation, beatList);
-        setAnimation(hedgehogIdleAnimation);
+            float enemyScale, boolean faceRight, int[] beatList) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
         point2 = getX() - rollingDistance;
     }
   
@@ -96,11 +96,29 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
         } else {
             distance = 0.05f;
         }
+        animationUpdate();
     }
 
     @Override
     public void Attack() {
         roll = true;
+    }
+
+    /**
+     * Updates the animation based on the physics state.
+     */
+    private void animationUpdate() {
+        if (animation.isAnimationFinished(stateTime)) {
+            stateTime = 0;
+        }
+        switch (animationGenre) {
+            case SYNTH:
+                setAnimation(attackSynthAnimation);
+                break;
+            case JAZZ:
+                setAnimation(attackSynthAnimation);
+                break;
+        }
     }
 
 }

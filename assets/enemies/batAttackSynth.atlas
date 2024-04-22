@@ -1,47 +1,47 @@
 batAttackSynth.png
-size: 1734, 159
+size: 1320, 121
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 batAttackSynth
   rotate: false
   xy: 0, 0
-  size: 289, 159
-  orig: 289, 159
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 0
 batAttackSynth
   rotate: false
-  xy: 289, 0
-  size: 289, 159
-  orig: 289, 159
+  xy: 220, 0
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 1
 batAttackSynth
   rotate: false
-  xy: 578, 0
-  size: 289, 159
-  orig: 289, 159
+  xy: 440, 0
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 2
 batAttackSynth
   rotate: false
-  xy: 867, 0
-  size: 289, 159
-  orig: 289, 159
+  xy: 660, 0
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 3
 batAttackSynth
   rotate: false
-  xy: 1156, 0
-  size: 289, 159
-  orig: 289, 159
+  xy: 880, 0
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 4
 batAttackSynth
   rotate: false
-  xy: 1445, 0
-  size: 289, 159
-  orig: 289, 159
+  xy: 1100, 0
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 5

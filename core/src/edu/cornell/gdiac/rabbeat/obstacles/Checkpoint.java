@@ -57,7 +57,6 @@ public class Checkpoint extends BoxGameObject implements ISyncedAnimated {
      * @param dt	Number of seconds since last animation frame
      */
     public void update(float dt) {
-        stateTime += dt;
         if (isActive) {
             if (animation.isAnimationFinished(stateTime)) {
                 stateTime = 0;

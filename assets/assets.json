@@ -44,6 +44,30 @@
 
       "ui:jazzIndicator": "ui/jazz-indicator.png",
 
+      "ui:pause:exitLevel": "ui/pause/exitLevel.png",
+
+      "ui:pause:hoverLowerSound": "ui/pause/hoverLowerSound.png",
+
+      "ui:pause:hoverUpSound": "ui/pause/hoverUpSound.png",
+
+      "ui:pause:indicatorStar": "ui/pause/indicatorStar.png",
+
+      "ui:pause:music": "ui/pause/music.png",
+
+      "ui:pause:overlay": "ui/pause/overlay.png",
+
+      "ui:pause:restartLevel": "ui/pause/restartLevel.png",
+
+      "ui:pause:resume": "ui/pause/resume.png",
+
+      "ui:pause:SFX": "ui/pause/SFX.png",
+
+      "ui:pause:unhoverLowerSound": "ui/pause/unhoverLowerSound.png",
+
+      "ui:pause:unhoverUpSound": "ui/pause/unhoverUpSound.png",
+
+      "ui:pause:volumeBox": "ui/pause/volumeBox.png",
+
       "player:synth":  "player/synth.png",
 
       "player:synth-jazz":   "player/synth-jazz.png",
@@ -53,6 +77,8 @@
       "backgrounds:overlay": "backgrounds/background-overlay.png",
 
       "backgrounds:pauseTint": "backgrounds/white_texture.png",
+
+      "enemies:bat": "enemies/bat.png",
 
       "world:bullet": "world/bullet.png",
 
@@ -135,8 +161,8 @@
         "defaultConstants": "defaultConstants.json",
         "example": "levelsJson/rabbeatLevelTest.tmj",
         "level1": "levelsJson/rabbeatLevel.tmj",
-        "level2": "levelsJson/rabbeatLevel.tmj",
-        "level3": "levelsJson/rabbeatLevel.tmj",
+        "level2": "levelsJson/rabbeatLevelBat.tmj",
+        "level3": "levelsJson/rabbeatLevel3.tmj",
         "level4": "levelsJson/rabbeatLaserTest.tmj",
         "level5": "levelsJson/rabbeatLevel2.tmj",
         "level6": "levelsJson/rabbeatLevel.tmj",
