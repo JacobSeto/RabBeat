@@ -38,6 +38,8 @@
 
       "world:weightedLaserTile" : "world/weightedLaserTile.png",
 
+      "world:checkpoints:checkpointInactive": "world/checkpoints/checkpointInactive.png",
+
       "world:goal": "world/goal.png",
 
       "ui:synthIndicator": "ui/synth-indicator.png",

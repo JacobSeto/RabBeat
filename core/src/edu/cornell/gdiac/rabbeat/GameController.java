@@ -917,7 +917,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw genre indicator UI
 		canvas.begin(true);
-		objectController.genreIndicator.draw(canvas, 30, 530);
+		objectController.genreIndicator.draw(canvas, 50, 50);
 		canvas.end();
 
 		// Final message
