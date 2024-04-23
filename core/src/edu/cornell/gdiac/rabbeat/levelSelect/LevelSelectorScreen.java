@@ -37,8 +37,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
         this.game = game;
     }
 
-    public String currentLevel = "";
-
     /** Displays the button UI for each level and adds a clickListener that detects whether
      * the button has been clicked and takes the player to the desired level
      */
@@ -86,7 +84,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 }
             });
             stage.addActor(levelButton);
-
         }
     }
 

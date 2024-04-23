@@ -88,8 +88,8 @@ public class SoundController {
     }
 
     public void pauseMusic() {
-        savedJazzVolume = jazzTrack.getVolume() * globalMusicVolume;
-        savedSynthVolume = synthTrack.getVolume() * globalMusicVolume;
+        savedJazzVolume = jazzTrack.getVolume();
+        savedSynthVolume = synthTrack.getVolume();
         savedGlobalMusicTempVolume = globalMusicVolume;
         jazzTrack.pause();
         synthTrack.pause();
@@ -98,8 +98,21 @@ public class SoundController {
     public void resumeMusic() {
         jazzTrack.play();
         synthTrack.play();
-        jazzTrack.setVolume(savedJazzVolume / (savedGlobalMusicTempVolume == 0 ? 1: savedGlobalMusicTempVolume));
-        synthTrack.setVolume(savedSynthVolume / (savedGlobalMusicTempVolume == 0 ? 1: savedGlobalMusicTempVolume));
+
+        if (savedGlobalMusicTempVolume == 0) {
+            jazzTrack.setVolume(globalMusicVolume * (currentGenre == Genre.JAZZ ? 1 : 0));
+            synthTrack.setVolume(globalMusicVolume * (currentGenre == Genre.SYNTH ? 1: 0));
+        }
+        else {
+            jazzTrack.setVolume(savedJazzVolume * globalMusicVolume / (savedGlobalMusicTempVolume == 0 ? 1 : savedGlobalMusicTempVolume));
+            synthTrack.setVolume(savedSynthVolume * globalMusicVolume / (savedGlobalMusicTempVolume == 0 ? 1 : savedGlobalMusicTempVolume));
+        }
+
+        if (jazzTrack.getVolume() > 1) jazzTrack.setVolume(1);
+        else if (jazzTrack.getVolume() < 0) jazzTrack.setVolume(0);
+        if (synthTrack.getVolume() > 1) synthTrack.setVolume(1);
+        else if (synthTrack.getVolume() < 0) synthTrack.setVolume(0);
+
     }
 
     /**
@@ -239,5 +252,9 @@ public class SoundController {
             currentUpdateFrame = 0;
             currentlyUpdating = false;
         }
+        if (jazzTrack.getVolume() > 1) jazzTrack.setVolume(1);
+        else if (jazzTrack.getVolume() < 0) jazzTrack.setVolume(0);
+        if (synthTrack.getVolume() > 1) synthTrack.setVolume(1);
+        else if (synthTrack.getVolume() < 0) synthTrack.setVolume(0);
     }
 }
