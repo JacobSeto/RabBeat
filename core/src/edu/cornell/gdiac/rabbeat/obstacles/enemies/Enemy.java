@@ -179,7 +179,6 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
 
         return 0;
     }
-
     /** Flips the direction the enemy is facing based on the player's position */
     public void flipEnemy() {
         if (playerXPosition() - getPosition().x > 0 && !faceRight) {

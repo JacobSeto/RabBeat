@@ -108,12 +108,6 @@ public class BatEnemy extends Enemy {
         }
 
     }
-
-    public void beatAction() {
-        super.beatAction();
-        flipEnemy();
-    }
-
     @Override
     public void Attack() {
         makeEcho();
