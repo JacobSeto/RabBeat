@@ -11,7 +11,7 @@
     "force": 75.0,
     "damping": 6.0,
     "density": 1.3,
-    "friction": 0.05,
+    "friction": 0.3,
     "synth_jump_force": 37.0,
     "jazz_jump_force": 52,
     "jump_cool": 30,
