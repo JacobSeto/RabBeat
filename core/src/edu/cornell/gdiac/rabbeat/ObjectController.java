@@ -205,6 +205,14 @@ public class ObjectController {
     public TextureAtlas bearIdleAtlas;
     /** The idle animation for the bear enemy */
     public Animation<TextureRegion> bearIdleAnimation;
+    /** The idle atlas for jazz bullets */
+    public TextureAtlas bulletJazzAtlas;
+    /** The animation for jazz bullets */
+    public Animation<TextureRegion> bulletJazzAnimation;
+    /** The idle atlas for synth bullets */
+    public TextureAtlas bulletSynthAtlas;
+    /** The animation for synth bullets */
+    public Animation<TextureRegion> bulletSynthAnimation;
     /** The attack atlas for the bear enemy */
     public TextureAtlas bearAttackAtlas;
     /** The attack animation for the bear enemy */
@@ -292,6 +300,12 @@ public class ObjectController {
         synthCDAnimation = new Animation<TextureRegion>(1f, synthCDAtlas.findRegions("synthCD"), Animation.PlayMode.LOOP);
         jazzCDAtlas = new TextureAtlas(Gdx.files.internal("ui/jazzCD.atlas"));
         jazzCDAnimation = new Animation<TextureRegion>(1f, jazzCDAtlas.findRegions("jazzCD"), Animation.PlayMode.LOOP);
+
+        // Bullet Animations
+        bulletJazzAtlas = new TextureAtlas(Gdx.files.internal("enemies/jazzBullet.atlas"));
+        bulletJazzAnimation = new Animation<TextureRegion>(1f, bulletJazzAtlas.findRegions("jazzBullet"), Animation.PlayMode.LOOP);
+        bulletSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/synthBullet.atlas"));
+        bulletSynthAnimation = new Animation<TextureRegion>(1f, bulletSynthAtlas.findRegions("synthBullet"), Animation.PlayMode.LOOP);
 
         defaultConstants = directory.getEntry("defaultConstants", JsonValue.class);
         synthSpeed = defaultConstants.get("player").get("max_speed").getFloat("synth");
