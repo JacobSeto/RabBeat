@@ -258,6 +258,7 @@ public class ObjectController {
     public void gatherAssets(AssetDirectory directory) {
 //        levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
+        System.out.println(GameController.getInstance().getCurrentLevel());
         tileSize = levelJson.getInt("tileheight");
 
         System.out.println(GameController.getInstance().getCurrentLevel());
@@ -544,10 +545,8 @@ public class ObjectController {
                             Vector2 dim = new Vector2(platform.getFloat("width"), platform.getFloat("height"));
                             String align = "";
                             boolean lethal = false;
-                            System.out.println("thing");
                             if (platform.getString("type").equals( "laser")){
                                 lethal = true;
-                                System.out.println("lasers");
                             }
                             if (platform.get("properties")!= null){
                                 for (JsonValue prop : platform.get("properties")) {
@@ -801,7 +800,6 @@ public class ObjectController {
         }
         if (lethal){
             if (align.equals("vertical")){
-                System.out.println("vertical");
                 textureRegion = laserTileVertical;
             }
             else{
@@ -1002,10 +1000,6 @@ public class ObjectController {
         bear.setDrawScale(scale);
         bear.setTexture(bearTexture);
         GameController.getInstance().instantiate(bear);
-        System.out.println(dimensions.x + " " + dimensions.y);
-        System.out.println(x + " " + y);
-        System.out.println(convertedCoord.x + " " + convertedCoord.y);
-        System.out.println(bear.getX() + " " + bear.getY());
     }
 
     /**

@@ -78,10 +78,10 @@ public class GameController implements Screen, ContactListener {
 	private static int levelsUnlocked = 1;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
-	private int currentLevelInt = 1;
+	private static int currentLevelInt = 1;
 
 	/** The String that represents the JSON file for the current level the player selected from the LevelSelectorScreen */
-	private String currentLevel = "level" + currentLevelInt;
+	private static String currentLevel = "level" + currentLevelInt;
 
 	/** How many frames after winning/losing do we continue? */
 	public static final int EXIT_COUNT = 2;
@@ -616,7 +616,6 @@ public class GameController implements Screen, ContactListener {
 				} else if (complete) {
 					pause();
 					// TODO: Make Win Condition
-					System.out.println("You win the game");
 					return false;
 				}
 			}

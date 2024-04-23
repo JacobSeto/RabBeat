@@ -410,18 +410,21 @@ public class InputController {
 			delay = -.05f;
 		}
 
+		//Click L to return to Level Select
 		if (Gdx.input.isKeyPressed(Input.Keys.L)) {
 			GameController.getInstance().exitScreen(0);
 		}
 
+		//Press tab to go to the next level (only if level has been completed
 		if (Gdx.input.isKeyPressed(Keys.TAB) && GameController.getInstance()
 				.getPlayerCompletedLevel()) {
 			GameController gc = GameController.getInstance();
 			gc.exitScreen(1);
 			gc.setPlayerCompletedLevel(false);
-			gc.setCurrentlLevel(gc.getCurrentLevel()+1);
+			gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
 		}
 
+		//C = shortcut to complete the level
 		if (Gdx.input.isKeyPressed(Keys.C)) {
 			GameController.getInstance().setComplete(true);
 			GameController.getInstance().setPlayerCompletedLevel(false);
