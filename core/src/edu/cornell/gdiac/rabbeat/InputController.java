@@ -78,6 +78,10 @@ public class InputController {
 	/** Whether or not the pause button was pressed */
 	private boolean pausePressed;
 
+	private boolean enterPressed;
+
+	private boolean enterPrevious;
+
 	private boolean pausePrevious;
 
 	private boolean pauseUpPressed;
@@ -257,6 +261,8 @@ public class InputController {
 	 */
 	public boolean didPause() { return pausePressed && !pausePrevious; }
 
+	public boolean didPressEnter() { return enterPressed && !enterPrevious;}
+
 	/** Sets whether or not the game is currently paused.
 	 *
 	 * @param p whether or not the game is currently paused.
@@ -296,6 +302,7 @@ public class InputController {
 		nextPrevious = nextPressed;
 		prevPrevious = prevPressed;
 		pausePrevious = pausePressed;
+		enterPrevious = enterPressed;
 		if (paused) {
 			pauseUpPrevious = pauseUpPressed;
 			pauseDownPrevious = pauseDownPressed;
@@ -400,6 +407,7 @@ public class InputController {
 			pauseLeftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
 			pauseUpPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
 			pauseDownPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
+			enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
 
 		}
 		//TODO: This is temporary code to add artificial delay to the syncing

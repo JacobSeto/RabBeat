@@ -136,8 +136,12 @@ public class GameController implements Screen, ContactListener {
 	/** jazz soundtrack of game */
 	private Music jazzSoundtrack;
 
-	/** Pause tint color */
-	private Color pauseTintColor;
+	/** Pause tint synth color */
+	private Color pauseTintSynthColor;
+
+	/** Pause tint jazz color */
+
+	private Color pauseTintJazzColor;
 
 	/** Current item selected in the pause menu */
 	private int pauseItemSelected = 0;
@@ -307,7 +311,8 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
-		pauseTintColor = new Color(143, 0, 255, 0.55f);
+		pauseTintSynthColor = new Color(143, 0, 255, 0.55f);
+		pauseTintJazzColor = new Color(0.9f, 0, 0, 0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		syncController = new SyncController();
@@ -572,7 +577,6 @@ public class GameController implements Screen, ContactListener {
 				else {
 					resume();
 					// Make sure that genre doesn't get switched while game is paused
-					InputController.getInstance().setSwitchGenre(false);
 
 				}
 			}
@@ -599,6 +603,11 @@ public class GameController implements Screen, ContactListener {
 					}
 					if (input.didPressRightWhilePaused() && SFXVolume < 10) {
 						SFXVolume++;
+					}
+				}
+				else {
+					if (input.didPressEnter()) {
+						pauseAction(pauseItemSelected);
 					}
 				}
 			}
@@ -942,7 +951,7 @@ public class GameController implements Screen, ContactListener {
 			//canvas.end();
 
 			canvas.begin(true);
-			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintColor, 0, 0, 0, 0, 0, 1, 1);
+			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
 			canvas.draw(objectController.overlayTexture.getTexture(), Color.WHITE, 0, 0, 0, -10, 0,1.05f, 1.05f);
 			canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 370, 0, 0.5f, 0.5f);
 			canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.5f, 0.5f);
@@ -1039,8 +1048,32 @@ public class GameController implements Screen, ContactListener {
 		soundController.resumeMusic();
 		InputController.getInstance().setPaused(false);
 		pauseItemSelected = 0; // delete this line if pause menu should "save" where you were last time
+		InputController.getInstance().setSwitchGenre(false);
 	}
 
+	public void pauseAction(int sel) {
+		switch (sel) {
+			case 0: // Restart Level
+				paused = false;
+				for (Checkpoint checkpoint : objectController.checkpoints) {
+					checkpoint.setActive(false);
+				}
+				if (objectController.checkpoints.size() > 0) {
+					objectController.checkpoints.get(0).setActive(true);
+				}
+				objectController.setFirstCheckpointAsSpawn(scale);
+				resume();
+				reset();
+				break;
+			case 1: // Resume Level
+				paused = false;
+				resume();
+				break;
+			case 2: // Exit Level
+				break;
+			default: break;
+		}
+	}
 	/**
 	 * Called when this screen becomes the current screen for a Game.
 	 */
