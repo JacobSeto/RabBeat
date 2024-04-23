@@ -112,7 +112,6 @@ public class GDXRoot extends Game implements ScreenListener {
 		if (screen == loading) {
 			InputController.getInstance().setPaused(false);
 			directory = loading.getAssets();
-			System.out.println("Level going to" + GameController.getInstance().getCurrentLevel());
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);

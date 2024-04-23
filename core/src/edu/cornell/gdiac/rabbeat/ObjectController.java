@@ -109,6 +109,16 @@ public class ObjectController {
     protected Animation<TextureRegion> checkpointRiseAnimation;
     /** The texture for the background*/
     public TextureRegion backgroundTexture;
+
+    /** The texture for the next level text */
+    public TextureRegion nextLevelText;
+
+    /** The texture for the level select text */
+    public TextureRegion levelSelectText;
+
+    /** The texture for the victory logo */
+    public TextureRegion victoryLogo;
+
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
     /** The texture for tinting the pause screen overlay background */
@@ -256,12 +266,12 @@ public class ObjectController {
      * @param directory Reference to global asset manager.
      */
     public void gatherAssets(AssetDirectory directory) {
-//        levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
-        System.out.println(GameController.getInstance().getCurrentLevel());
         tileSize = levelJson.getInt("tileheight");
 
-        System.out.println(GameController.getInstance().getCurrentLevel());
+        nextLevelText = new TextureRegion(directory.getEntry("ui:victory:nextLevelText",Texture.class));
+        levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));
+        victoryLogo = new TextureRegion(directory.getEntry("ui:victory:victoryLogo",Texture.class));
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));

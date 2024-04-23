@@ -75,7 +75,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private static int levelsUnlocked = 1;
+	private static int levelsUnlocked = 2;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;
@@ -150,6 +150,9 @@ public class GameController implements Screen, ContactListener {
 
 	/** Current item selected in the pause menu */
 	private int pauseItemSelected = 0;
+
+	/** Current item selected in the victory screen menu */
+	private int victoryScreenItemSelected = 0;
 
 	/** Global music volume, which can be changed in pause menu */
 
@@ -582,7 +585,6 @@ public class GameController implements Screen, ContactListener {
 				else {
 					resume();
 					// Make sure that genre doesn't get switched while game is paused
-
 				}
 			}
 			else if (paused) {
@@ -892,8 +894,6 @@ public class GameController implements Screen, ContactListener {
 	public void draw(float dt) {
 		canvas.clear();
 
-
-
 		// Draw background unscaled.
 		canvas.begin(false);
 		canvas.draw(objectController.backgroundTexture, 0, 0);
@@ -932,13 +932,31 @@ public class GameController implements Screen, ContactListener {
 		objectController.genreIndicator.draw(canvas, 30, 530);
 		canvas.end();
 
-		// Final message
+		// Victory Screen
 		if (complete && !failed) {
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
+
 			canvas.begin(true); // DO NOT SCALE
-			canvas.drawTextCentered("VICTORY! \n \n Press Tab \n to continue or \n L to return to \n the Level Select menu", objectController.displayFont, 0.0f);
+			//canvas.drawTextCentered("VICTORY! \n \n Press Tab \n to continue or \n L to return to \n the Level Select menu", objectController.displayFont, 0.0f);
+			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
+			canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
+			canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
+
+			switch (victoryScreenItemSelected) {
+				case 0: // Next Level
+					canvas.draw(objectController.indicatorStarTexture.getTexture(),
+							Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
+					break;
+				case 1: // Level Select
+					canvas.draw(objectController.indicatorStarTexture.getTexture(),
+							Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
+					break;
+			}
+
 			canvas.end();
+
 			incrementLevelsUnlocked();
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
@@ -1189,4 +1207,13 @@ public class GameController implements Screen, ContactListener {
 		this.goToNextLevel = goToNextLevel;
 	}
 
+	/** Sets the integer victoryScreenItemSelected */
+	public void setVictoryScreenItemSelected(int victoryScreenItemSelected) {
+		this.victoryScreenItemSelected = victoryScreenItemSelected;
+	}
+
+	/** Returns teh integer victoryScreenItemSelected */
+	public int getVictoryScreenItemSelected() {
+		return victoryScreenItemSelected;
+	}
 }
