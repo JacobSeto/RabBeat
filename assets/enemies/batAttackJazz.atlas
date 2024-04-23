@@ -1,173 +1,173 @@
 batAttackJazz.png
-size: 880, 485
+size: 440, 1452
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 batAttackJazz
   rotate: false
   xy: 0, 0
-  size: 176, 97
-  orig: 176, 97
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 0
 batAttackJazz
   rotate: false
-  xy: 176, 0
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 0
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 1
 batAttackJazz
   rotate: false
-  xy: 352, 0
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 121
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 2
 batAttackJazz
   rotate: false
-  xy: 528, 0
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 121
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 3
 batAttackJazz
   rotate: false
-  xy: 704, 0
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 242
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 4
 batAttackJazz
   rotate: false
-  xy: 0, 97
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 242
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 5
 batAttackJazz
   rotate: false
-  xy: 176, 97
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 363
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 6
 batAttackJazz
   rotate: false
-  xy: 352, 97
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 363
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 7
 batAttackJazz
   rotate: false
-  xy: 528, 97
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 484
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 8
 batAttackJazz
   rotate: false
-  xy: 704, 97
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 484
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 9
 batAttackJazz
   rotate: false
-  xy: 0, 194
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 605
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 10
 batAttackJazz
   rotate: false
-  xy: 176, 194
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 605
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 11
 batAttackJazz
   rotate: false
-  xy: 352, 194
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 726
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 12
 batAttackJazz
   rotate: false
-  xy: 528, 194
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 726
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 13
 batAttackJazz
   rotate: false
-  xy: 704, 194
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 847
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 14
 batAttackJazz
   rotate: false
-  xy: 0, 291
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 847
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 15
 batAttackJazz
   rotate: false
-  xy: 176, 291
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 968
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 16
 batAttackJazz
   rotate: false
-  xy: 352, 291
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 968
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 17
 batAttackJazz
   rotate: false
-  xy: 528, 291
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 1089
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 18
 batAttackJazz
   rotate: false
-  xy: 704, 291
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 1089
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 19
 batAttackJazz
   rotate: false
-  xy: 0, 388
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 1210
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 20
 batAttackJazz
   rotate: false
-  xy: 176, 388
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 1210
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 21
 batAttackJazz
   rotate: false
-  xy: 352, 388
-  size: 176, 97
-  orig: 176, 97
+  xy: 0, 1331
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 22
 batAttackJazz
   rotate: false
-  xy: 528, 388
-  size: 176, 97
-  orig: 176, 97
+  xy: 220, 1331
+  size: 220, 121
+  orig: 220, 121
   offset: 0, 0
   index: 23

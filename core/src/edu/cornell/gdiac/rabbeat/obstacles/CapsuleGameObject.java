@@ -145,13 +145,6 @@ public class CapsuleGameObject extends SimpleGameObject {
 		sizeCache.set(dimension.x,value);
 		setDimension(sizeCache);
 	}
-
-	public void setPlayer(){
-		end1.setRadius(0);
-		vertices[3] = center.y+center.height;
-		vertices[5] = center.y+center.height;
-		shape.set(vertices);
-	}
 	
     /**
      * Returns the orientation of this capsule

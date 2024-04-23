@@ -91,8 +91,6 @@ public class Checkpoint extends BoxGameObject implements ISyncedAnimated {
         isActive = true;
     }
 
-    public void setActive(boolean act) { isActive = act;}
-
     @Override
     public float getBeat() {
         return 1;

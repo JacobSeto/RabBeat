@@ -987,6 +987,65 @@
                 {
                  "gid":9,
                  "height":181,
+                 "id":27,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"beatList",
+                         "type":"string",
+                         "value":"1234"
+                        }, 
+                        {
+                         "name":"rollingDistance",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"hedgehog",
+                 "visible":true,
+                 "width":256,
+                 "x":2112,
+                 "y":512
+                }, 
+                {
+                 "gid":17,
+                 "height":224,
+                 "id":271,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"beatList",
+                         "type":"string",
+                         "value":""
+                        }],
+                 "rotation":0,
+                 "type":"beehive",
+                 "visible":true,
+                 "width":224,
+                 "x":3008,
+                 "y":832
+                }, 
+                {
+                 "gid":9,
+                 "height":181,
+                 "id":315,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"beatList",
+                         "type":"string",
+                         "value":"1234"
+                        }],
+                 "rotation":0,
+                 "type":"bear",
+                 "visible":true,
+                 "width":256,
+                 "x":2880,
+                 "y":576
+                }, 
+                {
+                 "gid":9,
+                 "height":181,
                  "id":423,
                  "name":"",
                  "properties":[

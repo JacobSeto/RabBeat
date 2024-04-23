@@ -66,9 +66,6 @@ public class ObjectController {
     protected TextureRegion longLeft;
     protected TextureRegion longMid;
     protected TextureRegion longRight;
-    protected TextureRegion longLeftSquare;
-    protected TextureRegion longRightSquare;
-    protected TextureRegion longSingle;
 
     protected TextureRegion laserTile;
     protected TextureRegion laserTileVertical;
@@ -86,10 +83,6 @@ public class ObjectController {
     /** The texture for bullets */
     public TextureRegion bulletTexture;
 
-    /** The default texture for enemies */
-    private TextureRegion enemyDefaultTexture;
-    /** The texture for the bat enemy */
-    private TextureRegion batTexture;
     /** The texture for bees */
     public TextureRegion beeTexture;
 
@@ -100,13 +93,10 @@ public class ObjectController {
 
     /** The texture for beehives */
     private TextureRegion beehiveTexture;
+
     /** The texture for hedgehogs */
     private TextureRegion hedgehogTexture;
     /** The texture for the exit condition */
-
-    /** The texture for the checkpoint */
-    private TextureRegion checkpointTexture;
-    /** The texture ofr the goal */
     protected TextureRegion goalTile;
     /** The inactive atlas for a checkpoint */
     protected TextureAtlas checkpointInactiveAtlas;
@@ -122,16 +112,6 @@ public class ObjectController {
     protected Animation<TextureRegion> checkpointRiseAnimation;
     /** The texture for the background*/
     public TextureRegion backgroundTexture;
-
-    /** The texture for the next level text */
-    public TextureRegion nextLevelText;
-
-    /** The texture for the level select text */
-    public TextureRegion levelSelectText;
-
-    /** The texture for the victory logo */
-    public TextureRegion victoryLogo;
-
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
     /** The texture for tinting the pause screen overlay background */
@@ -150,6 +130,11 @@ public class ObjectController {
     public TextureRegion unhoverUpSoundTexture;
     public TextureRegion volumeBoxTexture;
 
+
+    private TextureRegion enemyDefaultTexture;
+    /** The texture for the bat enemy */
+    private TextureRegion batTexture;
+
     /** The texture for the genre indicator in Synth mode */
     private TextureRegion synthIndicatorTexture;
     /** The texture for the genre indicator in Jazz mode */
@@ -165,11 +150,7 @@ public class ObjectController {
     /** The genre indicator UI */
     public GenreUI genreIndicator;
 
-    public TextureRegion blackGradient;
-
     private HashMap<String, TextureRegion> assets = new HashMap<>();
-    //  Tilesets
-    private HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
 
     /** Reference to the goalDoor (for collision detection) */
     public BoxGameObject goalDoor;
@@ -227,14 +208,6 @@ public class ObjectController {
     public TextureAtlas bearIdleAtlas;
     /** The idle animation for the bear enemy */
     public Animation<TextureRegion> bearIdleAnimation;
-    /** The idle atlas for jazz bullets */
-    public TextureAtlas bulletJazzAtlas;
-    /** The animation for jazz bullets */
-    public Animation<TextureRegion> bulletJazzAnimation;
-    /** The idle atlas for synth bullets */
-    public TextureAtlas bulletSynthAtlas;
-    /** The animation for synth bullets */
-    public Animation<TextureRegion> bulletSynthAnimation;
     /** The attack atlas for the bear enemy */
     public TextureAtlas bearAttackAtlas;
     /** The attack animation for the bear enemy */
@@ -293,9 +266,7 @@ public class ObjectController {
         levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         tileSize = levelJson.getInt("tileheight");
 
-        nextLevelText = new TextureRegion(directory.getEntry("ui:victory:nextLevelText",Texture.class));
-        levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));
-        victoryLogo = new TextureRegion(directory.getEntry("ui:victory:victoryLogo",Texture.class));
+        System.out.println(GameController.getInstance().getCurrentLevel());
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
@@ -327,13 +298,6 @@ public class ObjectController {
         synthCDAnimation = new Animation<TextureRegion>(1f, synthCDAtlas.findRegions("synthCD"), Animation.PlayMode.LOOP);
         jazzCDAtlas = new TextureAtlas(Gdx.files.internal("ui/jazzCD.atlas"));
         jazzCDAnimation = new Animation<TextureRegion>(1f, jazzCDAtlas.findRegions("jazzCD"), Animation.PlayMode.LOOP);
-
-        // Bullet Animations
-        bulletJazzAtlas = new TextureAtlas(Gdx.files.internal("enemies/jazzBullet.atlas"));
-        bulletJazzAnimation = new Animation<TextureRegion>(1f, bulletJazzAtlas.findRegions("jazzBullet"), Animation.PlayMode.LOOP);
-        bulletSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/synthBullet.atlas"));
-        bulletSynthAnimation = new Animation<TextureRegion>(1f, bulletSynthAtlas.findRegions("synthBullet"), Animation.PlayMode.LOOP);
-        blackGradient = new TextureRegion(directory.getEntry("ui:blackGradient", Texture.class));
 
         defaultConstants = directory.getEntry("defaultConstants", JsonValue.class);
         synthSpeed = defaultConstants.get("player").get("max_speed").getFloat("synth");
@@ -405,9 +369,6 @@ public class ObjectController {
         longLeft = new TextureRegion(directory.getEntry("world:platforms:longPlatform:left", Texture.class ));
         longMid = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:mid", Texture.class ));
         longRight = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:right", Texture.class ));
-        longLeftSquare = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:leftSquare", Texture.class ));
-        longRightSquare = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:rightSquare", Texture.class ));
-        longSingle = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:single", Texture.class ));
         laserTile = new TextureRegion(directory.getEntry("world:laser", Texture.class));
         laserTileVertical = new TextureRegion(directory.getEntry("world:verticalLaser", Texture.class));
 
@@ -448,19 +409,8 @@ public class ObjectController {
         assets.put("wires1", new TextureRegion(directory.getEntry("world:wires:wires1", Texture.class)));
         assets.put("wires2", new TextureRegion(directory.getEntry("world:wires:wires2", Texture.class)));
 
-        wallsTileset.put(3, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:3", Texture.class)));
-        wallsTileset.put(4, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:4", Texture.class)));
-        wallsTileset.put(5, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:5", Texture.class)));
-        wallsTileset.put(6, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:6", Texture.class)));
-        wallsTileset.put(7, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:7", Texture.class)));
-        wallsTileset.put(8, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:8", Texture.class)));
-        wallsTileset.put(9, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:9", Texture.class)));
-        wallsTileset.put(10, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:10", Texture.class)));
-        wallsTileset.put(11, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:11", Texture.class)));
-
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         echoTexture = new TextureRegion(directory.getEntry("enemies:echoStill", Texture.class));
-        checkpointTexture = new TextureRegion(directory.getEntry("world:checkpoints:checkpointInactive", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
         displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
 
@@ -482,20 +432,13 @@ public class ObjectController {
         // Populate in-game UI elements
         createGUI();
 
+        // TODO: Remove, this is temporary
+//        int x1 = 2700;
+//        int y1 = 540;
+//        createEnemyBat(scale, x1, y1, levelJson.getInt("height"), levelJson.getInt("tileheight"));
+
         if (levelJson.has("layers")) {
-
-            // Get level height
             int levelHeight = levelJson.getInt("height");
-
-            // Get first gid
-            int firstGid = 0;
-            for (JsonValue tileset : levelJson.get("tilesets")){
-                if (tileset.getString("source").contains("walls.tsx")){
-                    firstGid = tileset.getInt("firstgid");
-                }
-            }
-
-            //  Process layers
             for (JsonValue layer : levelJson.get("layers")) {
                 String layerName = layer.getString("name", "");
                 switch (layerName) {
@@ -514,8 +457,7 @@ public class ObjectController {
                                 // Get x and y coordinates from where it is in the array
                                 int x = i % width;
                                 int y = height - (i / width) - 1;
-                                System.out.println(tileTypeID + " " + firstGid + " " + (tileTypeID-firstGid));
-                                createWall(scale, x, y, tileTypeID-firstGid, tileSize);
+                                createWall(scale, x, y, tileSize);
                             }
                         }
                         break;
@@ -554,12 +496,10 @@ public class ObjectController {
                                     break;
                             }
                             wpSpeed[num] = speed;
-                            System.out.println("get"+" "+wp.getFloat("width")+" "+wp.getFloat("height"));
                             wpDimensions[num] = new Vector2(wp.getFloat("width"), wp.getFloat("height"));
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
-                            System.out.println("pre"+wpDimensions[i].x + " "+ wpDimensions[i].y);
                             createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpSpeed[i], wpDimensions[i], levelHeight, tileSize);
                         }
                         break;
@@ -613,8 +553,10 @@ public class ObjectController {
                             Vector2 dim = new Vector2(platform.getFloat("width"), platform.getFloat("height"));
                             String align = "";
                             boolean lethal = false;
+                            System.out.println("thing");
                             if (platform.getString("type").equals( "laser")){
                                 lethal = true;
+                                System.out.println("lasers");
                             }
                             if (platform.get("properties")!= null){
                                 for (JsonValue prop : platform.get("properties")) {
@@ -789,8 +731,8 @@ public class ObjectController {
             firstCheckpoint[0] = convertedCoord.x;
             firstCheckpoint[1] = convertedCoord.y;
         }
-        float cWidth  = dimensions.x/scale.x;
-        float cHeight = dimensions.y/scale.y;
+        float cWidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
+        float cHeight = enemyDefaultTexture.getRegionHeight()/scale.y;
 
         JsonValue defaults = defaultConstants.get("defaults");
         Checkpoint obj = new Checkpoint(id, checkpointInactiveAnimation, checkpointActiveAnimation, checkpointRiseAnimation, convertedCoord.x, convertedCoord.y, cWidth, cHeight);
@@ -800,7 +742,7 @@ public class ObjectController {
         obj.setRestitution(defaults.getFloat("restitution", 0.0f));
         obj.setSensor(true);
         obj.setDrawScale(scale);
-        obj.setTexture(checkpointTexture);
+        obj.setTexture(enemyDefaultTexture);
         GameController.getInstance().instantiate(obj);
         checkpoints.add(obj);
     }
@@ -821,19 +763,16 @@ public class ObjectController {
      * @param x     x coordinate (world coordinates) of tile
      * @param y     y coordinate (world coordinates) of tile
      */
-    private void createWall(Vector2 scale, float x, float y, int tileId, int tileSize){
-        //  Set texture
-        TextureRegion textureRegion = wallsTileset.get(tileId);
-
+    private void createWall(Vector2 scale, float x, float y, int tileSize){
         String wname = "wall";
         JsonValue defaults = defaultConstants.get("defaults");
         BoxGameObject obj;
-        float dwidth  = textureRegion.getRegionWidth()/scale.x;
-        float dheight = textureRegion.getRegionHeight()/scale.y;
+        float dwidth  = blackTile.getRegionWidth()/scale.x;
+        float dheight = blackTile.getRegionHeight()/scale.y;
 
         //Adjust coordinate to be center of tile
-        float convertedX = x + ((float) textureRegion.getRegionWidth()/(tileSize*2));
-        float convertedY = y + ((float) textureRegion.getRegionHeight()/(tileSize*2));
+        float convertedX = x + ((float) blackTile.getRegionWidth()/(tileSize*2));
+        float convertedY = y + ((float) blackTile.getRegionHeight()/(tileSize*2));
 
         obj = new BoxGameObject(convertedX, convertedY, dwidth, dheight);
         obj.setBodyType(BodyDef.BodyType.StaticBody);
@@ -841,7 +780,7 @@ public class ObjectController {
         obj.setFriction(defaults.getFloat("friction", 0.0f));
         obj.setRestitution(defaults.getFloat("restitution", 0.0f));
         obj.setDrawScale(scale);
-        obj.setTexture(textureRegion);
+        obj.setTexture(blackTile);
         obj.setName(wname);
         GameController.getInstance().instantiate(obj);
     }
@@ -866,23 +805,12 @@ public class ObjectController {
             case "right":
                 textureRegion = longRight;
                 break;
-            case "mid":
-                textureRegion = longMid;
-                break;
-            case "leftSquare":
-                textureRegion = longLeftSquare;
-                break;
-            case "rightSquare":
-                textureRegion = longRightSquare;
-                break;
-            case "single":
-                textureRegion = longSingle;
-                break;
             default:
-                textureRegion = platformTile;
+                textureRegion = longMid;
         }
         if (lethal){
             if (align.equals("vertical")){
+                System.out.println("vertical");
                 textureRegion = laserTileVertical;
             }
             else{
@@ -957,7 +885,6 @@ public class ObjectController {
     private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, float speed, Vector2 dimensions, int levelHeight, int tileSize){
         //  Adjust coordinates + Convert coordinates to world coordinates
 //        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
-        System.out.println(dimensions.x + " " + dimensions.y);
         Vector2 convertedSynthCoord = convertTiledCoord(synthCoord[0], synthCoord[1], dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedSynthCoord.set(convertedSynthCoord.x, convertedSynthCoord.y);
 //        jazzCoord[1] -= weightedSynth.getRegionHeight()/2-4;
@@ -975,7 +902,7 @@ public class ObjectController {
                 weightedSynth, weightedJazz);
         weightedPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         weightedPlatform.setDensity(defaults.getFloat("density", 0.0f));
-        weightedPlatform.setFriction(defaults.getFloat("friction", 0.0f));
+        weightedPlatform.setFriction(defaults.getFloat("friction", 1.0f));
         weightedPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         weightedPlatform.setDrawScale(scale);
         GameController.getInstance().instantiate(weightedPlatform);
@@ -995,7 +922,7 @@ public class ObjectController {
         movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, speed, platformTile);
         movingPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         movingPlatform.setDensity(defaults.getFloat("density", 0.0f));
-        movingPlatform.setFriction(defaults.getFloat("friction", 0.0f));
+        movingPlatform.setFriction(defaults.getFloat("friction", 1.0f));
         movingPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         movingPlatform.setDrawScale(scale);
         GameController.getInstance().instantiate(movingPlatform);
@@ -1015,13 +942,11 @@ public class ObjectController {
         Vector2 convertedCoord = convertTiledCoord(startX, startY, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         // TODO: Figure out if having 2 references for player fields is okay
-        float dwidth =synthDefaultTexture.getRegionWidth() / scale.x;
+        float dwidth = synthDefaultTexture.getRegionWidth() / scale.x;
         float dheight = synthDefaultTexture.getRegionHeight() / scale.y;
         player = new Player(defaultConstants.get("player"), convertedCoord.x, convertedCoord.y,
-                dwidth * playerScale - .3f, dheight * playerScale, playerScale);
+                dwidth * playerScale, dheight * playerScale, playerScale);
         player.setDrawScale(scale);
-        player.setPlayer();
-        System.out.println("density: " + player.getDensity());
 
         // Set animations: Synth
         player.synthIdleAnimation = synthIdleAnimation;
@@ -1086,6 +1011,10 @@ public class ObjectController {
         bear.setDrawScale(scale);
         bear.setTexture(bearTexture);
         GameController.getInstance().instantiate(bear);
+        System.out.println(dimensions.x + " " + dimensions.y);
+        System.out.println(x + " " + y);
+        System.out.println(convertedCoord.x + " " + convertedCoord.y);
+        System.out.println(bear.getX() + " " + bear.getY());
     }
 
     /**
