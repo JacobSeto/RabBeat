@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="101" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="658">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="101" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="667">
  <editorsettings>
   <export target="../levelsJson/rabbeatLevelBat.tmj" format="json"/>
  </editorsettings>
@@ -9,12 +9,12 @@
  <objectgroup id="2" name="background" locked="1">
   <object id="628" gid="61" x="0" y="1088" width="6464" height="1088"/>
  </objectgroup>
- <objectgroup id="18" name="backgroundArt" locked="1">
-  <object id="615" gid="31" x="1024" y="768" width="256" height="256"/>
-  <object id="616" gid="30" x="1344" y="768" width="256" height="256"/>
-  <object id="621" gid="68" x="3840" y="896" width="128" height="128"/>
-  <object id="624" gid="72" x="4928" y="448" width="320" height="320"/>
-  <object id="626" gid="73" x="832" y="768" width="320" height="320"/>
+ <objectgroup id="18" name="backgroundArt">
+  <object id="615" type="shelf3" gid="31" x="1024" y="768" width="256" height="256"/>
+  <object id="616" type="shelf2" gid="30" x="1344" y="768" width="256" height="256"/>
+  <object id="621" type="caution_0" gid="68" x="3840" y="896" width="128" height="128"/>
+  <object id="624" type="cam_0" gid="72" x="4928" y="448" width="320" height="320"/>
+  <object id="626" type="cam_1" gid="73" x="832" y="768" width="320" height="320"/>
  </objectgroup>
  <layer id="1" name="walls" width="101" height="17">
   <data encoding="csv">
@@ -52,21 +52,21 @@
     <property name="speed" type="float" value="2"/>
    </properties>
   </object>
-  <object id="573" gid="114" x="3264" y="612" width="192" height="36">
+  <object id="573" gid="114" x="3273" y="612" width="192" height="36">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="1"/>
     <property name="speed" type="float" value="2"/>
    </properties>
   </object>
-  <object id="576" gid="115" x="3264" y="996" width="192" height="36">
+  <object id="576" gid="115" x="3273" y="996" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="1"/>
     <property name="speed" type="float" value="2"/>
    </properties>
   </object>
-  <object id="577" gid="115" x="3584" y="996" width="192" height="36">
+  <object id="577" gid="115" x="3648" y="996" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="2"/>
@@ -132,6 +132,9 @@
   </object>
  </objectgroup>
  <objectgroup id="13" name="platforms">
+  <properties>
+   <property name="align" value="single"/>
+  </properties>
   <object id="563" gid="134" x="5219.27" y="801.445" width="128" height="32"/>
   <object id="564" gid="134" x="5536.07" y="543.992" width="128" height="32"/>
   <object id="565" gid="134" x="5858.57" y="800.445" width="128" height="32"/>
@@ -152,6 +155,7 @@
   </object>
   <object id="571" gid="135" x="1855.34" y="870.049" width="192" height="36"/>
   <object id="572" gid="135" x="1856.32" y="740.025" width="192" height="36"/>
+  <object id="665" gid="135" x="3456" y="996" width="192" height="36"/>
  </objectgroup>
  <objectgroup id="7" name="enemies">
   <properties>
@@ -172,12 +176,12 @@
     <property name="beatList" value="13"/>
    </properties>
   </object>
-  <object id="530" type="bat" gid="60" x="2381.51" y="575.195" width="176" height="97">
+  <object id="530" type="bat" gid="60" x="2432" y="576" width="176" height="97">
    <properties>
     <property name="beatList" value="13"/>
    </properties>
   </object>
-  <object id="531" type="bat" gid="60" x="3085.17" y="576.415" width="176" height="97">
+  <object id="531" type="bat" gid="60" x="3072" y="576" width="176" height="97">
    <properties>
     <property name="beatList" value="13"/>
    </properties>
@@ -211,12 +215,22 @@
   </object>
   <object id="537" gid="8" x="2749.69" y="576.855" width="130" height="130">
    <properties>
-    <property name="num" type="int" value="1"/>
+    <property name="num" type="int" value="2"/>
    </properties>
   </object>
   <object id="538" gid="8" x="4958.36" y="449.046" width="130" height="130">
    <properties>
-    <property name="num" type="int" value="2"/>
+    <property name="num" type="int" value="4"/>
+   </properties>
+  </object>
+  <object id="661" gid="8" x="1885" y="704" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="666" gid="8" x="3485" y="960" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="3"/>
    </properties>
   </object>
  </objectgroup>
@@ -227,29 +241,30 @@
   <object id="410" gid="13" x="6144" y="576" width="128" height="130"/>
  </objectgroup>
  <objectgroup id="12" name="foregroundArt" class="bigwire">
-  <object id="585" gid="46" x="1408" y="768" width="320" height="320"/>
-  <object id="591" gid="51" x="4672" y="256" width="875" height="128"/>
+  <object id="585" type="pipestraight" gid="46" x="1408" y="768" width="320" height="320"/>
+  <object id="591" type="wires1" gid="51" x="4672" y="256" width="875" height="128"/>
   <object id="600" gid="27" x="2304" y="320" width="192" height="192"/>
   <object id="601" gid="27" x="2688" y="320" width="192" height="192"/>
   <object id="602" gid="27" x="3520" y="704" width="192" height="192"/>
   <object id="603" gid="27" x="3968" y="704" width="192" height="192"/>
   <object id="604" gid="27" x="4352" y="704" width="192" height="192"/>
-  <object id="619" gid="43" x="960" y="768" width="320" height="320"/>
-  <object id="620" gid="51" x="3584" y="640" width="875" height="128"/>
-  <object id="629" gid="51" x="128" y="256" width="875" height="128"/>
+  <object id="619" type="pipeposter" gid="43" x="960" y="768" width="320" height="320"/>
+  <object id="620" type="wires1" gid="51" x="3584" y="640" width="875" height="128"/>
+  <object id="629" type="wires1" gid="51" x="128" y="256" width="875" height="128"/>
   <object id="630" gid="27" x="3072" y="320" width="192" height="192"/>
-  <object id="631" gid="51" x="5440" y="256" width="875" height="128"/>
-  <object id="635" gid="64" x="1024" y="896" width="64" height="64"/>
-  <object id="636" gid="63" x="1088" y="960" width="64" height="64"/>
-  <object id="637" gid="62" x="1280" y="896" width="64" height="64"/>
-  <object id="642" gid="71" x="6144" y="704" width="90" height="90"/>
-  <object id="644" gid="45" x="1344" y="768" width="320" height="320"/>
-  <object id="645" gid="71" x="6208" y="768" width="90" height="90"/>
-  <object id="647" gid="70" x="6144" y="832" width="75" height="75"/>
-  <object id="651" gid="70" x="192" y="896" width="75" height="75"/>
-  <object id="652" gid="71" x="256" y="960" width="90" height="90"/>
-  <object id="653" gid="71" x="1472" y="896" width="90" height="90"/>
-  <object id="654" gid="64" x="2496" y="704" width="64" height="64"/>
-  <object id="655" gid="62" x="2752" y="768" width="64" height="64"/>
+  <object id="631" type="wires1" gid="51" x="5440" y="256" width="875" height="128"/>
+  <object id="635" type="emoji_2" gid="64" x="1024" y="896" width="64" height="64"/>
+  <object id="636" type="graffiti_0" gid="63" x="1088" y="960" width="64" height="64"/>
+  <object id="637" type="emoji_0" gid="62" x="1280" y="896" width="64" height="64"/>
+  <object id="642" type="graffiti_2" gid="71" x="6144" y="704" width="90" height="90"/>
+  <object id="644" type="piperightskinny" gid="45" x="1344" y="768" width="320" height="320"/>
+  <object id="645" type="graffiti_2" gid="71" x="6208" y="768" width="90" height="90"/>
+  <object id="647" type="graffiti_3" gid="70" x="6144" y="832" width="75" height="75"/>
+  <object id="651" type="graffiti_3" gid="70" x="192" y="896" width="75" height="75"/>
+  <object id="652" type="graffiti_2" gid="71" x="256" y="960" width="90" height="90"/>
+  <object id="653" type="graffiti_2" gid="71" x="1472" y="896" width="90" height="90"/>
+  <object id="654" type="emoji_2" gid="64" x="2496" y="704" width="64" height="64"/>
+  <object id="655" type="emoji_0" gid="62" x="2752" y="768" width="64" height="64"/>
+  <object id="658" type="graffiti_1" gid="69" x="3072" y="704" width="84" height="84"/>
  </objectgroup>
 </map>

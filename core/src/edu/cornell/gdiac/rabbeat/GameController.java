@@ -712,7 +712,7 @@ public class GameController implements Screen, ContactListener {
 				setComplete(true);
 			}
 
-			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy)) {
+			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy && !(bd2 instanceof BatEnemy))) {
 				getPlayer().isDying = true;
 //				setFailure(true);
 			}
@@ -743,13 +743,13 @@ public class GameController implements Screen, ContactListener {
 				bd2.markRemoved(true);
 			}
 
-			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy)) {
+			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy && !(bd2 instanceof BatEnemy))) {
 				getPlayer().isDying = true;
 //				setFailure(true);
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof BatEnemy)) {
-				getPlayer().isDying = true;
+//				getPlayer().isDying = true;
 //				setFailure(true);
 			}
 

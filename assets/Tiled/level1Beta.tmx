@@ -20,8 +20,12 @@
   <object id="645" type="pipeleftskinny" gid="42" x="64" y="832" width="320" height="320"/>
   <object id="647" type="pipeposter" gid="43" x="128" y="832" width="320" height="320"/>
   <object id="583" type="pipeposter" gid="43" x="2560" y="384" width="320" height="320"/>
-  <object id="648" type="caution_0" gid="27" x="3072" y="320" width="192" height="192"/>
-  <object id="649" type="caution_0" gid="27" x="3072" y="960" width="192" height="192"/>
+  <object id="648" gid="27" x="3072" y="320" width="192" height="192"/>
+  <object id="649" gid="27" x="3072" y="960" width="192" height="192"/>
+  <object id="591" type="tv" gid="66" x="2688" y="384" width="128" height="128"/>
+  <object id="619" type="bgpod1" gid="18" x="1536" y="576" width="256" height="256"/>
+  <object id="620" type="bgpod2" gid="19" x="1664" y="576" width="256" height="256"/>
+  <object id="623" type="dolpod1" gid="20" x="1600" y="576" width="256" height="256"/>
  </objectgroup>
  <layer id="1" name="walls" width="130" height="17">
   <data encoding="csv">
@@ -145,17 +149,13 @@
  <objectgroup id="12" name="foregroundArt" class="bigwire">
   <object id="581" type="wires1" gid="51" x="1856" y="192" width="875" height="128"/>
   <object id="582" type="light" gid="27" x="1536" y="832" width="192" height="192"/>
-  <object id="591" type="tv" gid="66" x="2688" y="384" width="128" height="128"/>
-  <object id="595" name="graffiti_0" gid="63" x="384" y="1024" width="64" height="64"/>
+  <object id="595" type="graffiti_0" gid="63" x="384" y="1024" width="64" height="64"/>
   <object id="599" type="emoji_2" gid="64" x="128" y="1024" width="64" height="64"/>
   <object id="601" type="tv" gid="66" x="64" y="896" width="128" height="128"/>
   <object id="602" type="tv" gid="66" x="192" y="896" width="128" height="128"/>
   <object id="604" type="tv" gid="66" x="101" y="804" width="128" height="128"/>
-  <object id="619" type="bgpod1" gid="18" x="1536" y="576" width="256" height="256"/>
-  <object id="620" type="bgpod2" gid="19" x="1664" y="576" width="256" height="256"/>
-  <object id="623" type="dolpod1" gid="20" x="1600" y="576" width="256" height="256"/>
-  <object id="624" gid="68" x="3072" y="320" width="128" height="128"/>
-  <object id="625" gid="68" x="3072" y="960" width="128" height="128"/>
+  <object id="624" type="caution_0" gid="68" x="3072" y="320" width="128" height="128"/>
+  <object id="625" type="caution_0" gid="68" x="3072" y="960" width="128" height="128"/>
   <object id="639" type="emoji_1" gid="65" x="960" y="448" width="64" height="64"/>
   <object id="640" type="emoji_1" gid="64" x="960" y="896" width="64" height="64"/>
   <object id="644" type="emoji_0" gid="62" x="1024" y="704" width="64" height="64"/>
