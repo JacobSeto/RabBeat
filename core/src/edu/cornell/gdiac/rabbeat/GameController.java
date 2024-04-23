@@ -247,6 +247,7 @@ public class GameController implements Screen, ContactListener {
 	 * @param value whether the level is failed.
 	 */
 	public void setFailure(boolean value) {
+
 		if (value) {
 			countdown = EXIT_COUNT;
 		}
@@ -521,7 +522,6 @@ public class GameController implements Screen, ContactListener {
 		syncController = new SyncController();
 		populateLevel();
 		objectController.player.setPosition(respawnPoint);
-		syncController.setSync(synthSoundtrack, jazzSoundtrack);
 		soundController.resetMusic();
 	}
 
@@ -713,7 +713,8 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy)) {
-				setFailure(true);
+				getPlayer().isDying = true;
+//				setFailure(true);
 			}
 
 			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) && !(bd2 instanceof Bullet) ) {
@@ -725,11 +726,13 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Bullet)) {
-				setFailure(true);
+				getPlayer().isDying = true;
+//				setFailure(true);
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Bee)) {
-				setFailure(true);
+				getPlayer().isDying = true;
+//				setFailure(true);
 			}
 
 			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) ) {
@@ -741,16 +744,19 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy)) {
-				setFailure(true);
+				getPlayer().isDying = true;
+//				setFailure(true);
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof BatEnemy)) {
-				setFailure(true);
+				getPlayer().isDying = true;
+//				setFailure(true);
 			}
 
 			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
 				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
-					setFailure(true);
+					getPlayer().isDying = true;
+//					setFailure(true);
 				}
 			}
 			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
@@ -940,7 +946,7 @@ public class GameController implements Screen, ContactListener {
 			objectController.displayFont.setColor(Color.YELLOW);
 
 			canvas.begin(true); // DO NOT SCALE
-			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
+			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
 			canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
 			canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
 			canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);

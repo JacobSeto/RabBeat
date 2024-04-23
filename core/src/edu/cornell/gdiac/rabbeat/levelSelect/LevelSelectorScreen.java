@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -44,6 +45,13 @@ public class LevelSelectorScreen extends ScreenAdapter {
     public void show() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+
+        // Background
+        Texture background = new Texture(Gdx.files.internal("backgrounds/test-bg.png"));
+        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(background));
+        Image bg = new Image(backgroundDrawable);
+        bg.setPosition(0, 0);
+        stage.addActor(bg);
 
         /** Loops through all buttons */
         for(int i=1; i<= numberOfLevels; i++) {
