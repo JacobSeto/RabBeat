@@ -372,10 +372,10 @@ public class InputController {
 		debugPressed = (secondary && debugPressed) || (Gdx.input.isKeyPressed(Input.Keys.B));
 		primePressed = (secondary && primePressed) || (Gdx.input.isKeyPressed(Input.Keys.UP)
 				|| Gdx.input.isKeyPressed(Input.Keys.W));
-		exitPressed  = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
+		exitPressed = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
 
-		
+
 		// Directional controls
 		if (!paused) {
 			horizontal = (secondary ? horizontal : 0.0f);
@@ -409,48 +409,45 @@ public class InputController {
 			pauseDownPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
 			enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
 
-		if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && !genreSwitched) {
-			genreSwitched = true;
-			switchGenre = true;
-		} else if (!Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-			genreSwitched = false;
+			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && !genreSwitched) {
+				genreSwitched = true;
+				switchGenre = true;
+			} else if (!Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+				genreSwitched = false;
+			}
+			//TODO: This is temporary code to add artificial delay to the syncing
+			delay = 0;
+			if (Gdx.input.isKeyPressed(Keys.EQUALS)) {
+				delay = .05f;
+			} else if (Gdx.input.isKeyPressed(Keys.MINUS)) {
+				delay = -.05f;
+			}
+
+			if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+				GameController.getInstance().exitScreen(0);
+			}
+
+			if (Gdx.input.isKeyPressed(Keys.TAB) && GameController.getInstance()
+					.getPlayerCompletedLevel()) {
+				GameController gc = GameController.getInstance();
+				gc.exitScreen(1);
+				gc.setPlayerCompletedLevel(false);
+				gc.setCurrentlLevel(gc.getCurrentLevel() + 1);
+			}
+
+			if (Gdx.input.isKeyPressed(Keys.C)) {
+				GameController.getInstance().setComplete(true);
+				GameController.getInstance().setPlayerCompletedLevel(false);
+			}
+
+
+			// Mouse results
+			tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+			crosshair.set(Gdx.input.getX(), Gdx.input.getY());
+			crosshair.scl(1 / scale.x, -1 / scale.y);
+			crosshair.y += bounds.height;
+			clampPosition(bounds);
 		}
-		//TODO: This is temporary code to add artificial delay to the syncing
-		delay = 0;
-		if (Gdx.input.isKeyPressed(Keys.EQUALS)){
-			delay = .05f;
-		}
-		else if(Gdx.input.isKeyPressed(Keys.MINUS)){
-			delay = -.05f;
-		}
-
-		if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-			GameController.getInstance().exitScreen(0);
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.TAB) && GameController.getInstance()
-				.getPlayerCompletedLevel()) {
-			GameController gc = GameController.getInstance();
-			gc.exitScreen(1);
-			gc.setPlayerCompletedLevel(false);
-			gc.setCurrentlLevel(gc.getCurrentLevel()+1);
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.C)) {
-			GameController.getInstance().setComplete(true);
-			GameController.getInstance().setPlayerCompletedLevel(false);
-		}
-
-
-
-
-		
-		// Mouse results
-        	tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
-		crosshair.set(Gdx.input.getX(), Gdx.input.getY());
-		crosshair.scl(1/scale.x,-1/scale.y);
-		crosshair.y += bounds.height;
-		clampPosition(bounds);
 	}
 	
 	/**
