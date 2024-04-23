@@ -22,9 +22,9 @@ import edu.cornell.gdiac.util.*;
 
 
 /**
- * Class for reading player input. 
+ * Class for reading player input.
  *
- * This supports both a keyboard and X-Box controller. In previous solutions, we only 
+ * This supports both a keyboard and X-Box controller. In previous solutions, we only
  * detected the X-Box controller on start-up.  This class allows us to hot-swap in
  * a controller via the new XBox360Controller class.
  */
@@ -37,8 +37,8 @@ public class InputController {
 	/** The singleton instance of the input controller */
 	private static InputController theController = null;
 
-	
-	/** 
+
+	/**
 	 * Return the singleton instance of the input controller
 	 *
 	 * @return the singleton instance of the input controller
@@ -49,7 +49,7 @@ public class InputController {
 		}
 		return theController;
 	}
-	
+
 	// Fields to manage buttons
 	/** Whether the reset button was pressed. */
 	private boolean resetPressed;
@@ -95,7 +95,7 @@ public class InputController {
 
 	private boolean pauseLeftPressed;
 	private boolean pauseLeftPrevious;
-	
+
 	/** How much did we move horizontally? */
 	private float horizontal;
 	/** How much did we move vertically? */
@@ -118,37 +118,37 @@ public class InputController {
 
 	/** Whether or not the game is paused. Set by GameController */
 	private boolean paused;
-	
+
 	/** An X-Box controller (if it is connected) */
 	XBoxController xbox;
 
 	/**
-	 * Returns the amount of sideways movement. 
+	 * Returns the amount of sideways movement.
 	 *
 	 * -1 = left, 1 = right, 0 = still
 	 *
-	 * @return the amount of sideways movement. 
+	 * @return the amount of sideways movement.
 	 */
 	public float getHorizontal() {
 		return horizontal;
 	}
-	
+
 	/**
-	 * Returns the amount of vertical movement. 
+	 * Returns the amount of vertical movement.
 	 *
 	 * -1 = down, 1 = up, 0 = still
 	 *
-	 * @return the amount of vertical movement. 
+	 * @return the amount of vertical movement.
 	 */
 	public float getVertical() {
 		return vertical;
 	}
-	
+
 	/**
 	 * Returns the current position of the crosshairs on the screen.
 	 *
 	 * This value does not return the actual reference to the crosshairs position.
-	 * That way this method can be called multiple times without any fair that 
+	 * That way this method can be called multiple times without any fair that
 	 * the position has been corrupted.  However, it does return the same object
 	 * each time.  So if you modify the object, the object will be reset in a
 	 * subsequent call to this getter.
@@ -220,7 +220,7 @@ public class InputController {
 	public boolean didPressUpWhilePaused() {return pauseUpPressed && !pauseUpPrevious;}
 
 	public boolean didPressDownWhilePaused() {return pauseDownPressed && !pauseDownPrevious;}
-	
+
 	/**
 	 * Returns true if the player wants to go to the previous level.
 	 *
@@ -229,7 +229,7 @@ public class InputController {
 	public boolean didRetreat() {
 		return prevPressed && !prevPrevious;
 	}
-	
+
 	/**
 	 * Returns true if the player wants to go toggle the debug mode.
 	 *
@@ -238,7 +238,7 @@ public class InputController {
 	public boolean didDebug() {
 		return debugPressed && !debugPrevious;
 	}
-	
+
 	/**
 	 * Returns true if the exit button was pressed.
 	 *
@@ -247,10 +247,10 @@ public class InputController {
 	public boolean didExit() {
 		return exitPressed && !exitPrevious;
 	}
-	
+
 	/**
 	 * Creates a new input controller
-	 * 
+	 *
 	 * The input controller attempts to connect to the X-Box controller at device 0,
 	 * if it exists.  Otherwise, it falls back to the keyboard control.
 	 */
@@ -288,7 +288,7 @@ public class InputController {
 	 * the drawing scale to convert screen coordinates to world coordinates.  The
 	 * bounds are for the crosshair.  They cannot go outside of this zone.
 	 *
-	 * @param bounds The input bounds for the crosshair.  
+	 * @param bounds The input bounds for the crosshair.
 	 * @param scale  The drawing scale
 	 */
 	public void readInput(Rectangle bounds, Vector2 scale) {
@@ -309,7 +309,7 @@ public class InputController {
 			pauseLeftPrevious = pauseLeftPressed;
 			pauseRightPrevious = pauseRightPressed;
 		}
-		
+
 		// Check to see if a GamePad is connected
 		if (xbox != null && xbox.isConnected()) {
 			readGamepad(bounds, scale);
@@ -326,7 +326,7 @@ public class InputController {
 	 * the drawing scale to convert screen coordinates to world coordinates.  The
 	 * bounds are for the crosshair.  They cannot go outside of this zone.
 	 *
-	 * @param bounds The input bounds for the crosshair.  
+	 * @param bounds The input bounds for the crosshair.
 	 * @param scale  The drawing scale
 	 */
 	private void readGamepad(Rectangle bounds, Vector2 scale) {
@@ -341,7 +341,7 @@ public class InputController {
 		horizontal = xbox.getLeftX();
 		vertical   = xbox.getLeftY();
 		secondPressed = xbox.getRightTrigger() > 0.6f;
-		
+
 		// Move the crosshairs with the right stick.
 		tertiaryPressed = xbox.getA();
 		crosscache.set(xbox.getLeftX(), xbox.getLeftY());
@@ -372,10 +372,10 @@ public class InputController {
 		debugPressed = (secondary && debugPressed) || (Gdx.input.isKeyPressed(Input.Keys.B));
 		primePressed = (secondary && primePressed) || (Gdx.input.isKeyPressed(Input.Keys.UP)
 				|| Gdx.input.isKeyPressed(Input.Keys.W));
-		exitPressed  = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
+		exitPressed = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
 
-		
+
 		// Directional controls
 		if (!paused) {
 			horizontal = (secondary ? horizontal : 0.0f);
@@ -409,6 +409,44 @@ public class InputController {
 			pauseDownPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
 			enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
 
+			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && !genreSwitched) {
+				genreSwitched = true;
+				switchGenre = true;
+			} else if (!Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+				genreSwitched = false;
+			}
+			//TODO: This is temporary code to add artificial delay to the syncing
+			delay = 0;
+			if (Gdx.input.isKeyPressed(Keys.EQUALS)) {
+				delay = .05f;
+			} else if (Gdx.input.isKeyPressed(Keys.MINUS)) {
+				delay = -.05f;
+			}
+
+			if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+				GameController.getInstance().exitScreen(0);
+			}
+
+			if (Gdx.input.isKeyPressed(Keys.TAB) && GameController.getInstance()
+					.getPlayerCompletedLevel()) {
+				GameController gc = GameController.getInstance();
+				gc.exitScreen(1);
+				gc.setPlayerCompletedLevel(false);
+				gc.setCurrentlLevel(gc.getCurrentLevel() + 1);
+			}
+
+			if (Gdx.input.isKeyPressed(Keys.C)) {
+				GameController.getInstance().setComplete(true);
+				GameController.getInstance().setPlayerCompletedLevel(false);
+			}
+
+
+			// Mouse results
+			tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+			crosshair.set(Gdx.input.getX(), Gdx.input.getY());
+			crosshair.scl(1 / scale.x, -1 / scale.y);
+			crosshair.y += bounds.height;
+			clampPosition(bounds);
 		}
 		//TODO: This is temporary code to add artificial delay to the syncing
 		delay = 0;
@@ -468,7 +506,7 @@ public class InputController {
 
 
 
-		
+
 		// Mouse results
         	tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
 		crosshair.set(Gdx.input.getX(), Gdx.input.getY());
@@ -476,11 +514,11 @@ public class InputController {
 		crosshair.y += bounds.height;
 		clampPosition(bounds);
 	}
-	
+
 	/**
 	 * Clamp the cursor position so that it does not go outside the window
 	 *
-	 * While this is not usually a problem with mouse control, this is critical 
+	 * While this is not usually a problem with mouse control, this is critical
 	 * for the gamepad controls.
 	 */
 	private void clampPosition(Rectangle bounds) {
