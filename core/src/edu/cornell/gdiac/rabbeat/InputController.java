@@ -400,7 +400,6 @@ public class InputController {
 			pauseLeftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
 			pauseUpPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
 			pauseDownPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
-
 		}
 		//TODO: This is temporary code to add artificial delay to the syncing
 		delay = 0;
@@ -422,6 +421,15 @@ public class InputController {
 			gc.setPlayerCompletedLevel(false);
 			gc.setCurrentlLevel(gc.getCurrentLevel()+1);
 		}
+
+		if (Gdx.input.isKeyPressed(Keys.C)) {
+			GameController.getInstance().setComplete(true);
+			GameController.getInstance().setPlayerCompletedLevel(false);
+		}
+
+
+
+
 		
 		// Mouse results
         	tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);

@@ -563,7 +563,7 @@ public class GameController implements Screen, ContactListener {
 
 			// Now it is time to maybe switch screens.
 			if (input.didExit()) {
-				pause();
+				//pause();
 				listener.exitScreen(this, EXIT_QUIT);
 				return false;
 			}
@@ -1029,7 +1029,6 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
-
 		soundController.pauseMusic();
 		InputController.getInstance().setPaused(true);
 	}
@@ -1110,7 +1109,7 @@ public class GameController implements Screen, ContactListener {
 
 	/** Called when the game screen needs to be exited out of */
 	public void exitScreen(int exitCode) {
-		pause();
+		//pause();
 		listener.exitScreen(this, exitCode);
 	}
 
@@ -1140,8 +1139,6 @@ public class GameController implements Screen, ContactListener {
 		if(currentLevelInt == levelsUnlocked) {
 			levelsUnlocked++;
 		}
-
-		System.out.println(getLevelsUnlocked());
 	}
 
 	/** Returns whether player has completed the level */
