@@ -419,18 +419,47 @@ public class InputController {
 			delay = -.05f;
 		}
 
+		//Click L to return to Level Select
 		if (Gdx.input.isKeyPressed(Input.Keys.L)) {
 			GameController.getInstance().exitScreen(0);
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.TAB) && GameController.getInstance()
-				.getPlayerCompletedLevel()) {
+
+		if(GameController.getInstance().getPlayerCompletedLevel()) {
 			GameController gc = GameController.getInstance();
-			gc.exitScreen(1);
-			gc.setPlayerCompletedLevel(false);
-			gc.setCurrentlLevel(gc.getCurrentLevel()+1);
+
+			//Press tab to go to the next level (only if level has been completed)
+			if (Gdx.input.isKeyPressed(Keys.TAB)) {
+				gc.exitScreen(1);
+				gc.setPlayerCompletedLevel(false);
+				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
+			}
+
+			//Switch between the texts nextLevel (0) and levelSelect (1)
+			if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
+				gc.setVictoryScreenItemSelected(1);
+			} else if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)){
+				gc.setVictoryScreenItemSelected(0);
+			}
+
+			//Click enter/return once selection has been chosen
+			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
+				gc.setPlayerCompletedLevel(false);
+				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
+
+				if(gc.getVictoryScreenItemSelected() == 0) {
+					//GO TO NEXT LEVEL
+					gc.exitScreen(1);
+				} else if(gc.getVictoryScreenItemSelected() == 1) {
+					//GO BACK TO LEVEL SELECT
+					gc.exitScreen(0);
+				}
+			}
+
+
 		}
 
+		//C = shortcut to complete the level
 		if (Gdx.input.isKeyPressed(Keys.C)) {
 			GameController.getInstance().setComplete(true);
 			GameController.getInstance().setPlayerCompletedLevel(false);
