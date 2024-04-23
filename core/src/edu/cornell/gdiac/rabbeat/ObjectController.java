@@ -436,7 +436,23 @@ public class ObjectController {
         assets.put("bigwire", new TextureRegion(directory.getEntry("world:wires:bigwire", Texture.class)));
         assets.put("wires1", new TextureRegion(directory.getEntry("world:wires:wires1", Texture.class)));
         assets.put("wires2", new TextureRegion(directory.getEntry("world:wires:wires2", Texture.class)));
+        assets.put("emoji_0", new TextureRegion(directory.getEntry("world:graffiti:emoji_0", Texture.class)));
+        assets.put("emoji_1", new TextureRegion(directory.getEntry("world:graffiti:emoji_1", Texture.class)));
+        assets.put("emoji_2", new TextureRegion(directory.getEntry("world:graffiti:emoji_2", Texture.class)));
+        assets.put("graffiti_0", new TextureRegion(directory.getEntry("world:graffiti:graffiti_0", Texture.class)));
+        assets.put("graffiti_1", new TextureRegion(directory.getEntry("world:graffiti:graffiti_1", Texture.class)));
+        assets.put("graffiti_2", new TextureRegion(directory.getEntry("world:graffiti:graffiti_2", Texture.class)));
+        assets.put("graffiti_3", new TextureRegion(directory.getEntry("world:graffiti:graffiti_3", Texture.class)));
+        assets.put("caution_0", new TextureRegion(directory.getEntry("world:graffiti:caution_0", Texture.class)));
+        assets.put("tv", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
+        assets.put("cam_0", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
+        assets.put("cam_1", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
+        assets.put("cam_2", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
+        assets.put("ceilingCamera", new TextureRegion(directory.getEntry("world:other:ceilingCamera", Texture.class)));
 
+        wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
+        wallsTileset.put(1, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:1", Texture.class)));
+        wallsTileset.put(2, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:2", Texture.class)));
         wallsTileset.put(3, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:3", Texture.class)));
         wallsTileset.put(4, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:4", Texture.class)));
         wallsTileset.put(5, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:5", Texture.class)));
@@ -714,14 +730,6 @@ public class ObjectController {
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
                             createGroundArt(scale, a.getString("type"), x, y, dim, levelHeight, tileSize, "background");
-                        }
-                        break;
-                    case "hangingArt":
-                        for (JsonValue a : layer.get("objects")) {
-                            float x = a.getFloat("x");
-                            float y = a.getFloat("y");
-                            Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
-                            createHangingArt(scale, a.getString("type"), x, y, dim, levelHeight, tileSize);
                         }
                         break;
                 }
