@@ -567,16 +567,8 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			// Now it is time to maybe switch screens.
-			if (input.didExit()) {
-				//pause();
-				listener.exitScreen(this, EXIT_QUIT);
-				return false;
-			}
-
-			else if (input.didPressLevelSelect()) {
-				soundController.resetMusic();
-				soundController.pauseMusic();
-				GameController.getInstance().exitScreen(0);
+			if (input.didExit() || input.didPressLevelSelect()) {
+				exitLevel();
 			}
 
 			else if (input.didPause()) {
@@ -1105,9 +1097,18 @@ public class GameController implements Screen, ContactListener {
 				resume();
 				break;
 			case 2: // Exit Level
+				exitLevel();
 				break;
 			default: break;
 		}
+	}
+	/** Returns to the level select screen and resets the SoundController accordingly. */
+
+
+	public void exitLevel() {
+		soundController.resetMusic();
+		soundController.pauseMusic();
+		exitScreen(0);
 	}
 	/**
 	 * Called when this screen becomes the current screen for a Game.
