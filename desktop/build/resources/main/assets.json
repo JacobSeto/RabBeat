@@ -121,12 +121,11 @@
       "ui:victory:star": "ui/victory/star.png",
       "ui:victory:victoryLogo": "ui/victory/victoryLogo.png",
 
-
       "player:synth":  "player/synth.png",
 
       "player:synth-jazz":   "player/synth-jazz.png",
 
-      "backgrounds:test-bg":  "backgrounds/background.png",
+      "backgrounds:test-bg":  "backgrounds/labBG.png",
 
       "backgrounds:overlay": "backgrounds/background-overlay.png",
 
