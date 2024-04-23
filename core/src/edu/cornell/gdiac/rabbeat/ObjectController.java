@@ -960,8 +960,10 @@ public class ObjectController {
         float dwidth = synthDefaultTexture.getRegionWidth() / scale.x;
         float dheight = synthDefaultTexture.getRegionHeight() / scale.y;
         player = new Player(defaultConstants.get("player"), convertedCoord.x, convertedCoord.y,
-                dwidth * playerScale, dheight * playerScale, playerScale);
+                dwidth * playerScale - .3f, dheight * playerScale, playerScale);
         player.setDrawScale(scale);
+        player.setPlayer();
+        System.out.println("density: " + player.getDensity());
 
         // Set animations: Synth
         player.synthIdleAnimation = synthIdleAnimation;
