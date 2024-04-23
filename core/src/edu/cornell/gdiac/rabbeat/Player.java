@@ -66,6 +66,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	private boolean isJumping;
 	/** Whether our feet are on the ground */
 	private boolean isGrounded;
+	/** Whether we are dying */
+	public boolean isDying;
 
 	/** The physics shape of this object */
 	private PolygonShape sensorShape;
@@ -89,6 +91,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	public Animation<TextureRegion> synthJumpAnimation;
 	/** The synth genre fall animation for the player */
 	public Animation<TextureRegion> synthFallAnimation;
+	/** The synth genre death animation for the player */
+	public Animation<TextureRegion> synthDeathAnimation;
 
 	/** The jazz genre idle animation for the player */
 	public Animation<TextureRegion> jazzIdleAnimation;
@@ -98,6 +102,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	public Animation<TextureRegion> jazzJumpAnimation;
 	/** The jazz genre fall animation for the player */
 	public Animation<TextureRegion> jazzFallAnimation;
+	/** The jazz genre death animation for the player */
+	public Animation<TextureRegion> jazzDeathAnimation;
 
 	/** The player's current animation */
 	public Animation<TextureRegion> animation;
@@ -105,6 +111,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	private float stateTime = 0;
 	/** A flag to check if the player's animation is jumping */
 	private boolean animationIsJumping = false;
+	/** A flag to check if the player's animation is dying */
+	private boolean animationIsDying = false;
 
 	/**
 	 * Returns left/right movement of this character.
@@ -393,10 +401,12 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		// Process actions in object model
 		setPosition(getPosition().x+ dt*displacement.x, getPosition().y+ dt*displacement.y);
 
-		setWalking(InputController.getInstance().getHorizontal() != 0 && !isJumping);
-		setMovement(InputController.getInstance().getHorizontal() * getForce());
-		setJumping(InputController.getInstance().didPrimary());
-		applyForce();
+		if (!isDying) {
+			setWalking(InputController.getInstance().getHorizontal() != 0 && !isJumping);
+			setMovement(InputController.getInstance().getHorizontal() * getForce());
+			setJumping(InputController.getInstance().didPrimary());
+			applyForce();
+		}
 
 		// Apply cooldowns
 		if (isJumping()) {
@@ -456,7 +466,18 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	 * Updates the animation based on the physics state.
 	 */
 	private void animationUpdate() {
-		if (isJumping) {
+		if (isDying && !animationIsDying) {
+			stateTime = 0;
+			switch (animationGenre) {
+				case SYNTH:
+					setAnimation(synthDeathAnimation);
+					break;
+				case JAZZ:
+					setAnimation(jazzDeathAnimation);
+					break;
+			}
+			animationIsDying = true;
+		} else if (isJumping && !animationIsDying) {
 			animationIsJumping = true;
 			stateTime = 0;
 			switch (animationGenre) {
@@ -469,9 +490,25 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 			}
 		}
 
-		if (animationIsJumping){
-			if (animation.isAnimationFinished(stateTime)) {
-				animationIsJumping = false;
+		if (animationIsDying) {
+			if (jazzDeathAnimation.isAnimationFinished(stateTime) || synthDeathAnimation.isAnimationFinished(stateTime)) {
+				GameController.getInstance().setFailure(true);
+				animationIsDying = false;
+			}
+		} else {
+			if (animationIsJumping) {
+				if (animation.isAnimationFinished(stateTime)) {
+					animationIsJumping = false;
+					switch (animationGenre) {
+						case SYNTH:
+							setAnimation(synthFallAnimation);
+							break;
+						case JAZZ:
+							setAnimation(jazzFallAnimation);
+							break;
+					}
+				}
+			} else if (!isGrounded) {
 				switch (animationGenre) {
 					case SYNTH:
 						setAnimation(synthFallAnimation);
@@ -480,33 +517,24 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 						setAnimation(jazzFallAnimation);
 						break;
 				}
-			}
-		} else if (!isGrounded) {
-			switch (animationGenre) {
-				case SYNTH:
-					setAnimation(synthFallAnimation);
-					break;
-				case JAZZ:
-					setAnimation(jazzFallAnimation);
-					break;
-			}
-		} else if (isWalking()){
-			switch (animationGenre){
-				case SYNTH:
-					setAnimation(synthWalkAnimation);
-					break;
-				case JAZZ:
-					setAnimation(jazzWalkAnimation);
-					break;
-			}
-		} else {
-			switch (animationGenre){
-				case SYNTH:
-					setAnimation(synthIdleAnimation);
-					break;
-				case JAZZ:
-					setAnimation(jazzIdleAnimation);
-					break;
+			} else if (isWalking()) {
+				switch (animationGenre) {
+					case SYNTH:
+						setAnimation(synthWalkAnimation);
+						break;
+					case JAZZ:
+						setAnimation(jazzWalkAnimation);
+						break;
+				}
+			} else {
+				switch (animationGenre) {
+					case SYNTH:
+						setAnimation(synthIdleAnimation);
+						break;
+					case JAZZ:
+						setAnimation(jazzIdleAnimation);
+						break;
+				}
 			}
 		}
 	}
