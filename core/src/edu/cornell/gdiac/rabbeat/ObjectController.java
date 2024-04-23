@@ -147,6 +147,8 @@ public class ObjectController {
     /** The genre indicator UI */
     public GenreUI genreIndicator;
 
+    public TextureRegion blackGradient;
+
     private HashMap<String, TextureRegion> assets = new HashMap<>();
     //  Tilesets
     private HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
@@ -294,6 +296,8 @@ public class ObjectController {
         synthCDAnimation = new Animation<TextureRegion>(1f, synthCDAtlas.findRegions("synthCD"), Animation.PlayMode.LOOP);
         jazzCDAtlas = new TextureAtlas(Gdx.files.internal("ui/jazzCD.atlas"));
         jazzCDAnimation = new Animation<TextureRegion>(1f, jazzCDAtlas.findRegions("jazzCD"), Animation.PlayMode.LOOP);
+
+        blackGradient = new TextureRegion(directory.getEntry("ui:blackGradient", Texture.class));
 
         defaultConstants = directory.getEntry("defaultConstants", JsonValue.class);
         synthSpeed = defaultConstants.get("player").get("max_speed").getFloat("synth");

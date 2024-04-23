@@ -88,6 +88,8 @@
 
       "ui:pause:volumeBox": "ui/pause/volumeBox.png",
 
+      "ui:blackGradient": "ui/blackGradient.png",
+
       "player:synth":  "player/synth.png",
 
       "player:synth-jazz":   "player/synth-jazz.png",
