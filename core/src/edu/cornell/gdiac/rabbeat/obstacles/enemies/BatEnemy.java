@@ -68,7 +68,6 @@ public class BatEnemy extends Enemy {
                 if (horizontalDistanceBetweenEnemyAndPlayer() > 8) {
                     enemyState = EnemyState.IDLE;
                 }
-                // TODO: make bear shoot
                 break;
         }
     }
@@ -85,12 +84,12 @@ public class BatEnemy extends Enemy {
         ObjectController oc = GameController.getInstance().objectController;
         float offset = oc.defaultConstants.get("echo").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
-        float radius = oc.echoTexture.getRegionWidth() / (2.0f * scale.x);
-        echo = new Echo(getX() + offset, getY(), radius, isFaceRight(), echoAnimation);
+        echo = new Echo(getX() + offset, getY(),
+                oc.echoTexture.getRegionWidth(), oc.echoTexture.getRegionHeight(),  echoAnimation);
 
         echo.setDensity(oc.defaultConstants.get("echo").getFloat("density", 0));
         echo.setDrawScale(scale);
-        echo.setTexture(oc.bulletTexture);
+        echo.setTexture(oc.echoTexture);
         echo.setGravityScale(0);
         GameController.getInstance().instantiateQueue(echo);
     }

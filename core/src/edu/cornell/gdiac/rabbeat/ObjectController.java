@@ -86,8 +86,10 @@ public class ObjectController {
     /** The texture for bees */
     public TextureRegion beeTexture;
 
-    /** The texture for bees */
+    /** The texture for bear */
     private TextureRegion bearTexture;
+    /** The texture for echo*/
+    public TextureRegion echoTexture;
 
     /** The texture for beehives */
     private TextureRegion beehiveTexture;
@@ -342,12 +344,13 @@ public class ObjectController {
         batAttackJazzAnimation = new Animation<TextureRegion>(1f, batAttackJazzAtlas.findRegions("batAttackJazz"), Animation.PlayMode.LOOP);
         batAttackSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackSynth.atlas"));
         batAttackSynthAnimation = new Animation<TextureRegion>(1f, batAttackSynthAtlas.findRegions("batAttackSynth"), Animation.PlayMode.LOOP);
-        echoAtlas = new TextureAtlas(Gdx.files.internal("atlas/atlas:echoAtlas");
-        echoAnimation = new Animation<TextureRegion>(1f, echoAtlas.findRegions("echo"));
         // Bee
         beeAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeAttack.atlas"));
         beeAttackAnimation = new Animation<TextureRegion>(0.25f, beeAttackAtlas.findRegions("beeAttack"),
                 Animation.PlayMode.LOOP);
+        echoAtlas = new TextureAtlas(Gdx.files.internal("atlas/echo.atlas"));
+        echoAnimation = new Animation<TextureRegion>(1f, echoAtlas.findRegions("echo"));
+
 
         beehiveAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehiveAttack.atlas"));
         beehiveAttackAnimation = new Animation<TextureRegion>(1, beehiveAttackAtlas.findRegions("beehiveAttack"),
@@ -407,6 +410,7 @@ public class ObjectController {
         assets.put("wires2", new TextureRegion(directory.getEntry("world:wires:wires2", Texture.class)));
 
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
+        echoTexture = new TextureRegion(directory.getEntry("enemies:echoStill", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
         displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
 

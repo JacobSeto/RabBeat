@@ -5,20 +5,21 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
+import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 
-public class Echo extends WheelGameObject implements ISyncedAnimated {
+public class Echo extends BoxGameObject implements ISyncedAnimated {
 
-    public int beatCount = 0;
+    public int beatCount = 4;
 
     public Animation<TextureRegion> animation;
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
 
-    public Echo(float x, float y, float radius, boolean fr, Animation _animation) {
-        super(x, y, radius);
+    public Echo(float x, float y, float width, float height, Animation _animation) {
+        super(x, y, width, height);
         setAnimation(_animation);
     }
 
