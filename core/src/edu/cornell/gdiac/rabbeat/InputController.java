@@ -96,6 +96,10 @@ public class InputController {
 	private boolean pauseLeftPressed;
 	private boolean pauseLeftPrevious;
 
+	private boolean levelSelectPressed;
+
+	private boolean levelSelectPrevious;
+
 	/** How much did we move horizontally? */
 	private float horizontal;
 	/** How much did we move vertically? */
@@ -221,6 +225,8 @@ public class InputController {
 
 	public boolean didPressDownWhilePaused() {return pauseDownPressed && !pauseDownPrevious;}
 
+	public boolean didPressLevelSelect() {return levelSelectPressed && !levelSelectPrevious;}
+
 	/**
 	 * Returns true if the player wants to go to the previous level.
 	 *
@@ -303,6 +309,7 @@ public class InputController {
 		prevPrevious = prevPressed;
 		pausePrevious = pausePressed;
 		enterPrevious = enterPressed;
+		levelSelectPrevious = levelSelectPressed;
 		if (paused) {
 			pauseUpPrevious = pauseUpPressed;
 			pauseDownPrevious = pauseDownPressed;
@@ -374,6 +381,7 @@ public class InputController {
 				|| Gdx.input.isKeyPressed(Input.Keys.W));
 		exitPressed = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
+		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
 
 
 		// Directional controls
@@ -424,7 +432,7 @@ public class InputController {
 			}
 
 			if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-				GameController.getInstance().exitScreen(0);
+				levelSelectPressed = true;
 			}
 
 			if (Gdx.input.isKeyPressed(Keys.TAB) && GameController.getInstance()
@@ -456,12 +464,6 @@ public class InputController {
 		else if(Gdx.input.isKeyPressed(Keys.MINUS)){
 			delay = -.05f;
 		}
-
-		//Click L to return to Level Select
-		if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-			GameController.getInstance().exitScreen(0);
-		}
-
 
 		if(GameController.getInstance().getPlayerCompletedLevel()) {
 			GameController gc = GameController.getInstance();
