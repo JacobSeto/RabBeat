@@ -10,6 +10,24 @@
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
+      "world:tilesets:wallsTileset:3" : "world/tilesets/wallsTileset/3.png",
+
+      "world:tilesets:wallsTileset:4" : "world/tilesets/wallsTileset/4.png",
+
+      "world:tilesets:wallsTileset:5" : "world/tilesets/wallsTileset/5.png",
+
+      "world:tilesets:wallsTileset:6" : "world/tilesets/wallsTileset/6.png",
+
+      "world:tilesets:wallsTileset:7" : "world/tilesets/wallsTileset/7.png",
+
+      "world:tilesets:wallsTileset:8" : "world/tilesets/wallsTileset/8.png",
+
+      "world:tilesets:wallsTileset:9" : "world/tilesets/wallsTileset/9.png",
+
+      "world:tilesets:wallsTileset:10" : "world/tilesets/wallsTileset/10.png",
+
+      "world:tilesets:wallsTileset:11" : "world/tilesets/wallsTileset/11.png",
+
       "world:platforms:weightedSynth" : "world/platforms/synthPlat.PNG",
 
       "world:platforms:weightedJazz" : "world/platforms/jazzPlat.PNG",
