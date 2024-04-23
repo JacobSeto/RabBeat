@@ -521,7 +521,6 @@ public class GameController implements Screen, ContactListener {
 		syncController = new SyncController();
 		populateLevel();
 		objectController.player.setPosition(respawnPoint);
-		syncController.setSync(synthSoundtrack, jazzSoundtrack);
 		soundController.resetMusic();
 	}
 
