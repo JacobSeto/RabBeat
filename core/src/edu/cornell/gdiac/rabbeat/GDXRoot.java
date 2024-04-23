@@ -110,7 +110,7 @@ public class GDXRoot extends Game implements ScreenListener {
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
 		if (screen == loading) {
-			System.out.println(GameController.getInstance().getCurrentLevel());
+			InputController.getInstance().setPaused(false);
 			directory = loading.getAssets();
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
@@ -119,11 +119,10 @@ public class GDXRoot extends Game implements ScreenListener {
 			setScreen(controller);
 			loading.dispose();
 			loading = null;
-		} else if (screen == levelSelectorScreen) {
+		} else if (screen == levelSelectorScreen || exitCode == 1) {
 			controller = new GameController();
 			loading = new LoadingMode("assets.json", canvas, 1);
 			loading.setScreenListener(this);
-			loading.currentLevel = levelSelectorScreen.currentLevel;
 			setScreen(loading);
 		} else if (screen == controller) {
 			createLevelSelectorScreen();

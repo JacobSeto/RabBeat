@@ -61,6 +61,7 @@ public class BeeHive extends Enemy {
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
+      
         bee.setSensor(true);
         bee.setTexture(oc.beeTexture);
         bee.setGravityScale(0);
