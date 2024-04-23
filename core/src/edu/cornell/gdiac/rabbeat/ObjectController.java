@@ -89,6 +89,12 @@ public class ObjectController {
     private TextureRegion enemyDefaultTexture;
     /** The texture for the bat enemy */
     private TextureRegion batTexture;
+    /** The texture for the echo*/
+    public TextureRegion echoTexture;
+    /** The atlas for the echo animation*/
+    public TextureAtlas echoAtlas;
+    /** The echo animation*/
+    public Animation<TextureRegion> echoAnimation;
     /** The texture for bees */
     public TextureRegion beeTexture;
     /** The texture for bees */
@@ -371,6 +377,9 @@ public class ObjectController {
         batAttackJazzAnimation = new Animation<TextureRegion>(1f, batAttackJazzAtlas.findRegions("batAttackJazz"), Animation.PlayMode.LOOP);
         batAttackSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackSynth.atlas"));
         batAttackSynthAnimation = new Animation<TextureRegion>(1f, batAttackSynthAtlas.findRegions("batAttackSynth"), Animation.PlayMode.LOOP);
+        echoAtlas = new TextureAtlas(Gdx.files.internal("atlas/echo.atlas"));
+        echoAnimation = new Animation<TextureRegion>(1f, echoAtlas.findRegions("echo"));
+        echoTexture = new TextureRegion(directory.getEntry("enemies:echoStill", Texture.class));
 
         // Bee
         beeAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeAttack.atlas"));
@@ -1158,6 +1167,7 @@ public class ObjectController {
         bat.setBodyType(BodyDef.BodyType.StaticBody);
         bat.setDrawScale(scale);
         bat.setTexture(batTexture);
+        bat.echoAnimation = echoAnimation;
         GameController.getInstance().instantiate(bat);
     }
 
