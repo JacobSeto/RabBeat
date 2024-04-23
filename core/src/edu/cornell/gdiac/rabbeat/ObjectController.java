@@ -70,7 +70,10 @@ public class ObjectController {
     protected TextureRegion longSingle;
 
     protected TextureRegion laserTile;
-    protected TextureRegion laserTileVertical;
+    /** Textures for laser stuff*/
+    protected TextureRegion laserMiddle;
+    protected TextureRegion laserTop;
+    protected TextureRegion laserBottom;
 
     /** The texture for weighted platforms in Synth mode */
     protected TextureRegion weightedSynth;
@@ -421,7 +424,9 @@ public class ObjectController {
         longRightSquare = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:rightSquare", Texture.class ));
         longSingle = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:single", Texture.class ));
         laserTile = new TextureRegion(directory.getEntry("world:laser", Texture.class));
-        laserTileVertical = new TextureRegion(directory.getEntry("world:verticalLaser", Texture.class));
+        laserMiddle = new TextureRegion(directory.getEntry("world:laserMiddle", Texture.class));
+        laserTop = new TextureRegion(directory.getEntry("world:laserTop", Texture.class));
+        laserBottom = new TextureRegion(directory.getEntry("world:laserBottom", Texture.class));
 
         weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
         weightedJazz = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
@@ -901,8 +906,14 @@ public class ObjectController {
                 textureRegion = platformTile;
         }
         if (lethal){
-            if (align.equals("vertical")){
-                textureRegion = laserTileVertical;
+            if (align.equals("vertical") || align.equals("middle")){
+                textureRegion = laserMiddle;
+            }
+            else if (align.equals("top")){
+                textureRegion = laserTop;
+            }
+            else if (align.equals("bottom")){
+                textureRegion = laserBottom;
             }
             else{
                 textureRegion = laserTile;
