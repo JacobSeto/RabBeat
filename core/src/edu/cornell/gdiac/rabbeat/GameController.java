@@ -573,6 +573,12 @@ public class GameController implements Screen, ContactListener {
 				return false;
 			}
 
+			else if (input.didPressLevelSelect()) {
+				soundController.resetMusic();
+				soundController.pauseMusic();
+				GameController.getInstance().exitScreen(0);
+			}
+
 			else if (input.didPause()) {
 				// If game is already paused, hitting pause again will unpause it.
 				paused = !paused;
