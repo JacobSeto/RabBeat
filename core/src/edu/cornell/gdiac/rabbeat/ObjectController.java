@@ -82,18 +82,23 @@ public class ObjectController {
     /** The texture for bullets */
     public TextureRegion bulletTexture;
 
+    /** The default texture for enemies */
+    private TextureRegion enemyDefaultTexture;
+    /** The texture for the bat enemy */
+    private TextureRegion batTexture;
     /** The texture for bees */
     public TextureRegion beeTexture;
-
     /** The texture for bees */
     private TextureRegion bearTexture;
-
     /** The texture for beehives */
     private TextureRegion beehiveTexture;
-
     /** The texture for hedgehogs */
     private TextureRegion hedgehogTexture;
     /** The texture for the exit condition */
+
+    /** The texture for the checkpoint */
+    private TextureRegion checkpointTexture;
+    /** The texture ofr the goal */
     protected TextureRegion goalTile;
     /** The inactive atlas for a checkpoint */
     protected TextureAtlas checkpointInactiveAtlas;
@@ -126,11 +131,6 @@ public class ObjectController {
     public TextureRegion unhoverLowerSoundTexture;
     public TextureRegion unhoverUpSoundTexture;
     public TextureRegion volumeBoxTexture;
-
-
-    private TextureRegion enemyDefaultTexture;
-    /** The texture for the bat enemy */
-    private TextureRegion batTexture;
 
     /** The texture for the genre indicator in Synth mode */
     private TextureRegion synthIndicatorTexture;
@@ -402,6 +402,7 @@ public class ObjectController {
         assets.put("wires2", new TextureRegion(directory.getEntry("world:wires:wires2", Texture.class)));
 
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
+        checkpointTexture = new TextureRegion(directory.getEntry("world:checkpoints:checkpointInactive", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
         displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
 
@@ -422,11 +423,6 @@ public class ObjectController {
     public void populateObjects(Vector2 scale) {
         // Populate in-game UI elements
         createGUI();
-
-        // TODO: Remove, this is temporary
-//        int x1 = 2700;
-//        int y1 = 540;
-//        createEnemyBat(scale, x1, y1, levelJson.getInt("height"), levelJson.getInt("tileheight"));
 
         if (levelJson.has("layers")) {
             int levelHeight = levelJson.getInt("height");
@@ -722,8 +718,8 @@ public class ObjectController {
             firstCheckpoint[0] = convertedCoord.x;
             firstCheckpoint[1] = convertedCoord.y;
         }
-        float cWidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
-        float cHeight = enemyDefaultTexture.getRegionHeight()/scale.y;
+        float cWidth  = dimensions.x/scale.x;
+        float cHeight = dimensions.y/scale.y;
 
         JsonValue defaults = defaultConstants.get("defaults");
         Checkpoint obj = new Checkpoint(id, checkpointInactiveAnimation, checkpointActiveAnimation, checkpointRiseAnimation, convertedCoord.x, convertedCoord.y, cWidth, cHeight);
@@ -733,7 +729,7 @@ public class ObjectController {
         obj.setRestitution(defaults.getFloat("restitution", 0.0f));
         obj.setSensor(true);
         obj.setDrawScale(scale);
-        obj.setTexture(enemyDefaultTexture);
+        obj.setTexture(checkpointTexture);
         GameController.getInstance().instantiate(obj);
         checkpoints.add(obj);
     }
