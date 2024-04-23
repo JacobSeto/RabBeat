@@ -939,8 +939,10 @@ public class ObjectController {
         float dwidth = synthDefaultTexture.getRegionWidth() / scale.x;
         float dheight = synthDefaultTexture.getRegionHeight() / scale.y;
         player = new Player(defaultConstants.get("player"), convertedCoord.x, convertedCoord.y,
-                dwidth * playerScale, dheight * playerScale, playerScale);
+                dwidth * playerScale - .3f, dheight * playerScale, playerScale);
         player.setDrawScale(scale);
+        player.setPlayer();
+        System.out.println("density: " + player.getDensity());
 
         // Set animations: Synth
         player.synthIdleAnimation = synthIdleAnimation;
@@ -1026,7 +1028,7 @@ public class ObjectController {
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
-                dwidth * enemyScale, dheight * enemyScale, enemyScale,
+                dwidth * enemyScale, dheight * enemyScale - 0.5f, enemyScale,
                 false, beehiveAnimation, beatList, beeAttackAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
@@ -1053,7 +1055,7 @@ public class ObjectController {
         float dwidth  = enemyDefaultTexture.getRegionWidth()/scale.x;
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         HedgehogEnemy hedgehog = new HedgehogEnemy(defaultConstants.get("hedgehogs"), convertedCoord.x, convertedCoord.y,
-                rollingDistance, dwidth*enemyScale, dheight*enemyScale,
+                rollingDistance, dwidth*enemyScale, dheight*enemyScale - 1,
                 enemyScale, false, beatList, hedgehogAttackAnimation);
         hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
         hedgehog.setDrawScale(scale);
