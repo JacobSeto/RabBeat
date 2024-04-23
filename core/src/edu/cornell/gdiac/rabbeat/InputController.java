@@ -78,7 +78,23 @@ public class InputController {
 	/** Whether or not the pause button was pressed */
 	private boolean pausePressed;
 
+	private boolean enterPressed;
+
+	private boolean enterPrevious;
+
 	private boolean pausePrevious;
+
+	private boolean pauseUpPressed;
+	private boolean pauseUpPrevious;
+
+	private boolean pauseDownPressed;
+	private boolean pauseDownPrevious;
+
+	private boolean pauseRightPressed;
+	private boolean pauseRightPrevious;
+
+	private boolean pauseLeftPressed;
+	private boolean pauseLeftPrevious;
 	
 	/** How much did we move horizontally? */
 	private float horizontal;
@@ -99,10 +115,13 @@ public class InputController {
 
 	/** Whether the delay buttons have been pressed*/
 	private float delay;
+
+	/** Whether or not the game is paused. Set by GameController */
+	private boolean paused;
 	
 	/** An X-Box controller (if it is connected) */
 	XBoxController xbox;
-	
+
 	/**
 	 * Returns the amount of sideways movement. 
 	 *
@@ -193,6 +212,14 @@ public class InputController {
 	public boolean didAdvance() {
 		return nextPressed && !nextPrevious;
 	}
+
+	public boolean didPressRightWhilePaused() {return pauseRightPressed && !pauseRightPrevious;}
+
+	public boolean didPressLeftWhilePaused() {return pauseLeftPressed && !pauseLeftPrevious;}
+
+	public boolean didPressUpWhilePaused() {return pauseUpPressed && !pauseUpPrevious;}
+
+	public boolean didPressDownWhilePaused() {return pauseDownPressed && !pauseDownPrevious;}
 	
 	/**
 	 * Returns true if the player wants to go to the previous level.
@@ -233,6 +260,15 @@ public class InputController {
 	 * @return true if the pause button was pressed.
 	 */
 	public boolean didPause() { return pausePressed && !pausePrevious; }
+
+	public boolean didPressEnter() { return enterPressed && !enterPrevious;}
+
+	/** Sets whether or not the game is currently paused.
+	 *
+	 * @param p whether or not the game is currently paused.
+	 */
+	public void setPaused(boolean p) { paused = p;}
+
 	public InputController() {
 		// If we have a game-pad for id, then use it.
 		Array<XBoxController> controllers = Controllers.get().getXBoxControllers();
@@ -266,6 +302,13 @@ public class InputController {
 		nextPrevious = nextPressed;
 		prevPrevious = prevPressed;
 		pausePrevious = pausePressed;
+		enterPrevious = enterPressed;
+		if (paused) {
+			pauseUpPrevious = pauseUpPressed;
+			pauseDownPrevious = pauseDownPressed;
+			pauseLeftPrevious = pauseLeftPressed;
+			pauseRightPrevious = pauseRightPressed;
+		}
 		
 		// Check to see if a GamePad is connected
 		if (xbox != null && xbox.isConnected()) {
@@ -331,23 +374,40 @@ public class InputController {
 				|| Gdx.input.isKeyPressed(Input.Keys.W));
 		exitPressed  = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
+
 		
 		// Directional controls
-		horizontal = (secondary ? horizontal : 0.0f);
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-			horizontal += 1.0f;
+		if (!paused) {
+			horizontal = (secondary ? horizontal : 0.0f);
+			if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+				horizontal += 1.0f;
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+				horizontal -= 1.0f;
+			}
+
+			vertical = (secondary ? vertical : 0.0f);
+			if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
+				vertical += 1.0f;
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
+				vertical -= 1.0f;
+			}
+
+			if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !genreSwitched) {
+				genreSwitched = true;
+				switchGenre = true;
+			} else if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+				genreSwitched = false;
+			}
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-			horizontal -= 1.0f;
-		}
-		
-		vertical = (secondary ? vertical : 0.0f);
-		if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
-			vertical += 1.0f;
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
-			vertical -= 1.0f;
-		}
+		// When the game IS paused
+		else {
+			pauseRightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D);
+			pauseLeftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
+			pauseUpPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
+			pauseDownPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
+			enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && !genreSwitched) {
 			genreSwitched = true;
@@ -365,8 +425,25 @@ public class InputController {
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-			GameController.getInstance().exitScreen();
+			GameController.getInstance().exitScreen(0);
 		}
+
+		if (Gdx.input.isKeyPressed(Keys.TAB) && GameController.getInstance()
+				.getPlayerCompletedLevel()) {
+			GameController gc = GameController.getInstance();
+			gc.exitScreen(1);
+			gc.setPlayerCompletedLevel(false);
+			gc.setCurrentlLevel(gc.getCurrentLevel()+1);
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.C)) {
+			GameController.getInstance().setComplete(true);
+			GameController.getInstance().setPlayerCompletedLevel(false);
+		}
+
+
+
+
 		
 		// Mouse results
         	tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);

@@ -1,0 +1,89 @@
+beehiveAttack.png
+size: 1800, 150
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+beehiveAttack
+  rotate: false
+  xy: 0, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+beehiveAttack
+  rotate: false
+  xy: 150, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+beehiveAttack
+  rotate: false
+  xy: 300, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+beehive
+  rotate: false
+  xy: 450, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+beehiveAttack
+  rotate: false
+  xy: 600, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+beehiveAttack
+  rotate: false
+  xy: 750, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+beehiveAttack
+  rotate: false
+  xy: 900, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+beehiveAttack
+  rotate: false
+  xy: 1050, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+beehiveAttack
+  rotate: false
+  xy: 1200, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+beehiveAttack
+  rotate: false
+  xy: 1350, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+beehiveAttack
+  rotate: false
+  xy: 1500, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+beehiveAttack
+  rotate: false
+  xy: 1650, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
