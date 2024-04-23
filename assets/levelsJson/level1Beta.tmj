@@ -386,7 +386,7 @@
                  "visible":true,
                  "width":192,
                  "x":1920,
-                 "y":320
+                 "y":640
                 }, 
                 {
                  "gid":115,
@@ -443,6 +443,62 @@
                  "width":192,
                  "x":2880,
                  "y":384
+                }, 
+                {
+                 "gid":114,
+                 "height":36,
+                 "id":653,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"genre",
+                         "type":"string",
+                         "value":"jazz"
+                        }, 
+                        {
+                         "name":"num",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":192,
+                 "x":1920,
+                 "y":320
+                }, 
+                {
+                 "gid":115,
+                 "height":36,
+                 "id":654,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"genre",
+                         "type":"string",
+                         "value":"synth"
+                        }, 
+                        {
+                         "name":"num",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":192,
+                 "x":1920,
+                 "y":640
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -477,7 +533,6 @@
         {
          "draworder":"topdown",
          "id":7,
-         "locked":true,
          "name":"enemies",
          "objects":[
                 {
@@ -495,7 +550,7 @@
                  "type":"bear",
                  "visible":true,
                  "width":173,
-                 "x":3648,
+                 "x":3328,
                  "y":960
                 }, 
                 {
@@ -513,7 +568,7 @@
                  "type":"bear",
                  "visible":true,
                  "width":173,
-                 "x":3648,
+                 "x":3264,
                  "y":320
                 }],
          "opacity":1,
@@ -838,7 +893,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":653,
+ "nextobjectid":655,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
