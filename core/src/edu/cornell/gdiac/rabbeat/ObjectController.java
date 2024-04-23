@@ -114,6 +114,16 @@ public class ObjectController {
     protected Animation<TextureRegion> checkpointRiseAnimation;
     /** The texture for the background*/
     public TextureRegion backgroundTexture;
+
+    /** The texture for the next level text */
+    public TextureRegion nextLevelText;
+
+    /** The texture for the level select text */
+    public TextureRegion levelSelectText;
+
+    /** The texture for the victory logo */
+    public TextureRegion victoryLogo;
+
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
     /** The texture for tinting the pause screen overlay background */
@@ -260,11 +270,12 @@ public class ObjectController {
      * @param directory Reference to global asset manager.
      */
     public void gatherAssets(AssetDirectory directory) {
-//        levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         tileSize = levelJson.getInt("tileheight");
 
-        System.out.println(GameController.getInstance().getCurrentLevel());
+        nextLevelText = new TextureRegion(directory.getEntry("ui:victory:nextLevelText",Texture.class));
+        levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));
+        victoryLogo = new TextureRegion(directory.getEntry("ui:victory:victoryLogo",Texture.class));
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
@@ -569,10 +580,8 @@ public class ObjectController {
                             Vector2 dim = new Vector2(platform.getFloat("width"), platform.getFloat("height"));
                             String align = "";
                             boolean lethal = false;
-                            System.out.println("thing");
                             if (platform.getString("type").equals( "laser")){
                                 lethal = true;
-                                System.out.println("lasers");
                             }
                             if (platform.get("properties")!= null){
                                 for (JsonValue prop : platform.get("properties")) {
@@ -829,7 +838,6 @@ public class ObjectController {
         }
         if (lethal){
             if (align.equals("vertical")){
-                System.out.println("vertical");
                 textureRegion = laserTileVertical;
             }
             else{
@@ -1032,10 +1040,6 @@ public class ObjectController {
         bear.setDrawScale(scale);
         bear.setTexture(bearTexture);
         GameController.getInstance().instantiate(bear);
-        System.out.println(dimensions.x + " " + dimensions.y);
-        System.out.println(x + " " + y);
-        System.out.println(convertedCoord.x + " " + convertedCoord.y);
-        System.out.println(bear.getX() + " " + bear.getY());
     }
 
     /**
