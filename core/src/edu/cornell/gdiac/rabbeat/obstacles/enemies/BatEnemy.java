@@ -1,6 +1,7 @@
 package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
@@ -52,6 +53,7 @@ public class BatEnemy extends Enemy {
     public BatEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
             boolean faceRight, int[] beatList) {
         super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
+        isFlippable = false;
     }
 
     /**
@@ -60,12 +62,12 @@ public class BatEnemy extends Enemy {
     public void switchState() {
         switch (enemyState) {
             case IDLE:
-                if (horizontalDistanceBetweenEnemyAndPlayer() < 8) {
+                if (horizontalDistanceBetweenEnemyAndPlayer() < 16) {
                     enemyState = EnemyState.ATTACKING;
                 }
                 break;
             case ATTACKING:
-                if (horizontalDistanceBetweenEnemyAndPlayer() > 8) {
+                if (horizontalDistanceBetweenEnemyAndPlayer() > 16) {
                     enemyState = EnemyState.IDLE;
                 }
                 break;
@@ -84,14 +86,27 @@ public class BatEnemy extends Enemy {
         ObjectController oc = GameController.getInstance().objectController;
         float offset = oc.defaultConstants.get("echo").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
-        echo = new Echo(getX() + offset, getY(),
-                oc.echoTexture.getRegionWidth(), oc.echoTexture.getRegionHeight(),  echoAnimation);
+        for(int i = 0; i < 2; i++){
+            if(GameController.getInstance().genre == Genre.SYNTH){
+                echo = new Echo(getX() + offset, getY(),
+                        2, 1,  echoAnimation);
+            }
+            else{
+                echo = new Echo(getX(), getY()+ offset,
+                        1, 2,  echoAnimation);
+                echo.vertical = true;
+            }
+            if(i == 1) echo.flipX = !echo.flipX;
+            echo.setSensor(true);
+            echo.setDensity(oc.defaultConstants.get("echo").getFloat("density", 0));
+            echo.setDrawScale(scale);
+            echo.setTexture(oc.echoTexture);
+            echo.setGravityScale(0);
+            echo.setType(1);
+            GameController.getInstance().instantiateQueue(echo);
+            offset *= -1;
+        }
 
-        echo.setDensity(oc.defaultConstants.get("echo").getFloat("density", 0));
-        echo.setDrawScale(scale);
-        echo.setTexture(oc.echoTexture);
-        echo.setGravityScale(0);
-        GameController.getInstance().instantiateQueue(echo);
     }
 
     public void beatAction() {

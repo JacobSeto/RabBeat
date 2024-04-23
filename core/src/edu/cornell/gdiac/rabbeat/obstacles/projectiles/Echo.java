@@ -17,6 +17,11 @@ public class Echo extends BoxGameObject implements ISyncedAnimated {
     public Animation<TextureRegion> animation;
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
+    public boolean flipX = false;
+
+    public boolean flipY = false;
+
+    public boolean vertical = false;
 
     public Echo(float x, float y, float width, float height, Animation _animation) {
         super(x, y, width, height);
@@ -43,6 +48,10 @@ public class Echo extends BoxGameObject implements ISyncedAnimated {
     }
     public void draw(GameCanvas canvas) {
         TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
-        canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(), 0.4f,0.4f);
+        float scaleX = flipX ? -1 : 1;
+        float scaleY = flipY ? -1 : 1;
+        float rotate = vertical ? (float)(Math.PI/2) : 0;
+        canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,
+                getAngle() + rotate, scaleX,scaleY);
     }
 }

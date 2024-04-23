@@ -113,7 +113,7 @@
     "density": 10.0
   },
   "echo": {
-    "offset" : 1,
+    "offset" : 1.75,
     "density": 1.0
   }
 }

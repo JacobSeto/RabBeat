@@ -110,7 +110,6 @@ public class GDXRoot extends Game implements ScreenListener {
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
 		if (screen == loading) {
-			System.out.println(GameController.getInstance().getCurrentLevel());
 			directory = loading.getAssets();
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
