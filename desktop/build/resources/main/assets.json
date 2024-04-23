@@ -10,6 +10,12 @@
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
+      "world:tilesets:wallsTileset:0" : "world/tilesets/wallsTileset/0.png",
+
+      "world:tilesets:wallsTileset:1" : "world/tilesets/wallsTileset/1.png",
+
+      "world:tilesets:wallsTileset:2" : "world/tilesets/wallsTileset/2.png",
+
       "world:tilesets:wallsTileset:3" : "world/tilesets/wallsTileset/3.png",
 
       "world:tilesets:wallsTileset:4" : "world/tilesets/wallsTileset/4.png",
@@ -191,8 +197,6 @@
 
       "world:pods:wolfpod2": "world/pods/wolfpod2.png",
 
-      "world:other:light": "world/other/light.png",
-
       "world:pipes:bigpipe" : "world/pipes/bigpipe.png",
 
       "world:pipes:bigpipetv" : "world/pipes/bigpipetv.png",
@@ -217,6 +221,34 @@
 
       "world:wires:wires2" : "world/wires/wires2.png",
 
+      "world:other:light": "world/other/light.png",
+
+      "world:other:tv": "world/other/tv.png",
+
+      "world:other:ceilingCamera": "world/other/ceilingCamera.png",
+
+      "world:other:cam_0": "world/other/cam_0.png",
+
+      "world:other:cam_1": "world/other/cam_1.png",
+
+      "world:other:cam_2": "world/other/cam_2.png",
+
+      "world:graffiti:emoji_0" : "world/graffiti/emoji_0.png",
+
+      "world:graffiti:emoji_1" : "world/graffiti/emoji_1.png",
+
+      "world:graffiti:emoji_2" : "world/graffiti/emoji_2.png",
+
+      "world:graffiti:graffiti_0" : "world/graffiti/graffiti_0.png",
+
+      "world:graffiti:graffiti_1" : "world/graffiti/graffiti_1.png",
+
+      "world:graffiti:graffiti_2" : "world/graffiti/graffiti_2.png",
+
+      "world:graffiti:graffiti_3" : "world/graffiti/graffiti_3.png",
+
+      "world:graffiti:caution_0" : "world/graffiti/caution_0.png",
+
       "world:laser" : "world/laser.png",
       "world:verticalLaser" : "world/verticalLaser.png"
     },
@@ -225,8 +257,8 @@
         "example": "levelsJson/rabbeatLevelTest.tmj",
         "level1": "levelsJson/level1Beta.tmj",
         "level2": "levelsJson/rabbeatLevelBat.tmj",
-        "level3": "levelsJson/rabbeatLevel.tmj",
-        "level4": "levelsJson/rabbeatLaserTest.tmj",
+        "level3": "levelsJson/rabbeatLaserTest.tmj",
+        "level4": "levelsJson/rabbeatLevel.tmj",
         "level5": "levelsJson/rabbeatLevel.tmj",
         "level6": "levelsJson/rabbeatLevel.tmj",
         "level7": "levelsJson/rabbeatLevel.tmj",

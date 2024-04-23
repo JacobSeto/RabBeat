@@ -75,7 +75,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private static int levelsUnlocked = 4;
+	private static int levelsUnlocked = 3;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;
@@ -712,7 +712,7 @@ public class GameController implements Screen, ContactListener {
 				setComplete(true);
 			}
 
-			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy)) {
+			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy && !(bd2 instanceof BatEnemy))) {
 				getPlayer().isDying = true;
 //				setFailure(true);
 			}
@@ -743,13 +743,13 @@ public class GameController implements Screen, ContactListener {
 				bd2.markRemoved(true);
 			}
 
-			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy)) {
+			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy && !(bd2 instanceof BatEnemy))) {
 				getPlayer().isDying = true;
 //				setFailure(true);
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof BatEnemy)) {
-				getPlayer().isDying = true;
+//				getPlayer().isDying = true;
 //				setFailure(true);
 			}
 
