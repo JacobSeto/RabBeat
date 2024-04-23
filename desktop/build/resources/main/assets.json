@@ -12,13 +12,13 @@
       },
       "world:platforms:weightedSynth" : "world/platforms/synthPlat.PNG",
 
-      "world:platforms:weightedJazz" : "world/platforms/jazzPlat.PNG",
+      "world:platforms:weightedJazz" : "world/platforms/jazzPlat.png",
 
       "world:platforms:movingSynth" : "world/platforms/synthPlat.PNG",
 
-      "world:platforms:movingJazz" : "world/platforms/jazzPlat.PNG",
+      "world:platforms:movingJazz" : "world/platforms/jazzPlat.png",
 
-      "world:platforms:platform" : "world/platforms/platform.PNG",
+      "world:platforms:platform" : "world/platforms/platform.png",
 
       "world:platforms:platformArt" : "world/platforms/purplePlatArt.png",
 
@@ -27,6 +27,12 @@
       "world:platforms:longPlatform:mid" : "world/platforms/longPlatform/mid.PNG",
 
       "world:platforms:longPlatform:right" : "world/platforms/longPlatform/right.PNG",
+
+      "world:platforms:longPlatform:leftSquare" : "world/platforms/longPlatform/leftSquare.PNG",
+
+      "world:platforms:longPlatform:rightSquare" : "world/platforms/longPlatform/rightSquare.PNG",
+
+      "world:platforms:longPlatform:single" : "world/platforms/longPlatform/single.png",
 
       "world:platforms:endPlatform" : "world/platforms/endPlatform.png",
 

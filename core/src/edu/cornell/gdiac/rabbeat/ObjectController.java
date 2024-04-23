@@ -65,6 +65,9 @@ public class ObjectController {
     protected TextureRegion longLeft;
     protected TextureRegion longMid;
     protected TextureRegion longRight;
+    protected TextureRegion longLeftSquare;
+    protected TextureRegion longRightSquare;
+    protected TextureRegion longSingle;
 
     protected TextureRegion laserTile;
     protected TextureRegion laserTileVertical;
@@ -361,6 +364,9 @@ public class ObjectController {
         longLeft = new TextureRegion(directory.getEntry("world:platforms:longPlatform:left", Texture.class ));
         longMid = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:mid", Texture.class ));
         longRight = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:right", Texture.class ));
+        longLeftSquare = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:leftSquare", Texture.class ));
+        longRightSquare = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:rightSquare", Texture.class ));
+        longSingle = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:single", Texture.class ));
         laserTile = new TextureRegion(directory.getEntry("world:laser", Texture.class));
         laserTileVertical = new TextureRegion(directory.getEntry("world:verticalLaser", Texture.class));
 
@@ -483,10 +489,12 @@ public class ObjectController {
                                     break;
                             }
                             wpSpeed[num] = speed;
+                            System.out.println("get"+" "+wp.getFloat("width")+" "+wp.getFloat("height"));
                             wpDimensions[num] = new Vector2(wp.getFloat("width"), wp.getFloat("height"));
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
+                            System.out.println("pre"+wpDimensions[i].x + " "+ wpDimensions[i].y);
                             createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpSpeed[i], wpDimensions[i], levelHeight, tileSize);
                         }
                         break;
@@ -792,8 +800,20 @@ public class ObjectController {
             case "right":
                 textureRegion = longRight;
                 break;
-            default:
+            case "mid":
                 textureRegion = longMid;
+                break;
+            case "leftSquare":
+                textureRegion = longLeftSquare;
+                break;
+            case "rightSquare":
+                textureRegion = longRightSquare;
+                break;
+            case "single":
+                textureRegion = longSingle;
+                break;
+            default:
+                textureRegion = platformTile;
         }
         if (lethal){
             if (align.equals("vertical")){
@@ -872,6 +892,7 @@ public class ObjectController {
     private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, float speed, Vector2 dimensions, int levelHeight, int tileSize){
         //  Adjust coordinates + Convert coordinates to world coordinates
 //        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
+        System.out.println(dimensions.x + " " + dimensions.y);
         Vector2 convertedSynthCoord = convertTiledCoord(synthCoord[0], synthCoord[1], dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedSynthCoord.set(convertedSynthCoord.x, convertedSynthCoord.y);
 //        jazzCoord[1] -= weightedSynth.getRegionHeight()/2-4;
