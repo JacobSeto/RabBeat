@@ -407,6 +407,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		}
 
 		animationUpdate();
+		setRestitution(0.0f);
 		super.update(dt);
 	}
 
