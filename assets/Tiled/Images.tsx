@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="6464" tileheight="1088" tilecount="41" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="6464" tileheight="1088" tilecount="42" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2">
   <image width="64" height="123" source="playerTile.png"/>
@@ -8,7 +8,7 @@
   <image width="64" height="64" source="../world/platforms/blackTile.png"/>
  </tile>
  <tile id="7">
-  <image width="130" height="130" source="checkpointTile.png"/>
+  <image width="130" height="130" source="../world/checkpoints/checkpointInactive.png"/>
  </tile>
  <tile id="8">
   <image width="173" height="200" source="bear.png"/>
@@ -121,7 +121,10 @@
  <tile id="55">
   <image width="895" height="256" source="../world/wires/bigwire.png"/>
  </tile>
- <tile id="58">
+ <tile id="58" x="0" y="0" width="176" height="97">
   <image width="220" height="121" source="../enemies/bat.png"/>
+ </tile>
+ <tile id="59">
+  <image width="176" height="97" source="../enemies/bat.png"/>
  </tile>
 </tileset>

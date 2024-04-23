@@ -10,15 +10,33 @@
         "wrapU": "repeated",
         "wrapV": "repeated"
       },
+      "world:tilesets:wallsTileset:3" : "world/tilesets/wallsTileset/3.png",
+
+      "world:tilesets:wallsTileset:4" : "world/tilesets/wallsTileset/4.png",
+
+      "world:tilesets:wallsTileset:5" : "world/tilesets/wallsTileset/5.png",
+
+      "world:tilesets:wallsTileset:6" : "world/tilesets/wallsTileset/6.png",
+
+      "world:tilesets:wallsTileset:7" : "world/tilesets/wallsTileset/7.png",
+
+      "world:tilesets:wallsTileset:8" : "world/tilesets/wallsTileset/8.png",
+
+      "world:tilesets:wallsTileset:9" : "world/tilesets/wallsTileset/9.png",
+
+      "world:tilesets:wallsTileset:10" : "world/tilesets/wallsTileset/10.png",
+
+      "world:tilesets:wallsTileset:11" : "world/tilesets/wallsTileset/11.png",
+
       "world:platforms:weightedSynth" : "world/platforms/synthPlat.PNG",
 
-      "world:platforms:weightedJazz" : "world/platforms/jazzPlat.PNG",
+      "world:platforms:weightedJazz" : "world/platforms/jazzPlat.png",
 
       "world:platforms:movingSynth" : "world/platforms/synthPlat.PNG",
 
-      "world:platforms:movingJazz" : "world/platforms/jazzPlat.PNG",
+      "world:platforms:movingJazz" : "world/platforms/jazzPlat.png",
 
-      "world:platforms:platform" : "world/platforms/platform.PNG",
+      "world:platforms:platform" : "world/platforms/platform.png",
 
       "world:platforms:platformArt" : "world/platforms/purplePlatArt.png",
 
@@ -27,6 +45,12 @@
       "world:platforms:longPlatform:mid" : "world/platforms/longPlatform/mid.PNG",
 
       "world:platforms:longPlatform:right" : "world/platforms/longPlatform/right.PNG",
+
+      "world:platforms:longPlatform:leftSquare" : "world/platforms/longPlatform/leftSquare.PNG",
+
+      "world:platforms:longPlatform:rightSquare" : "world/platforms/longPlatform/rightSquare.PNG",
+
+      "world:platforms:longPlatform:single" : "world/platforms/longPlatform/single.png",
 
       "world:platforms:endPlatform" : "world/platforms/endPlatform.png",
 
@@ -37,6 +61,8 @@
       "world:platforms:guitarPlatform" : "world/platforms/guitarPlatform.png",
 
       "world:weightedLaserTile" : "world/weightedLaserTile.png",
+
+      "world:checkpoints:checkpointInactive": "world/checkpoints/checkpointInactive.png",
 
       "world:goal": "world/goal.png",
 
@@ -67,6 +93,39 @@
       "ui:pause:unhoverUpSound": "ui/pause/unhoverUpSound.png",
 
       "ui:pause:volumeBox": "ui/pause/volumeBox.png",
+
+      "ui:blackGradient": "ui/blackGradient.png",
+
+      "ui:unlockedLevels:unlockedLevel1": "ui/unlockedLevels/unlockedLevel1.png",
+      "ui:unlockedLevels:unlockedLevel2": "ui/unlockedLevels/unlockedLevel2.png",
+      "ui:unlockedLevels:unlockedLevel3": "ui/unlockedLevels/unlockedLevel3.png",
+      "ui:unlockedLevels:unlockedLevel4": "ui/unlockedLevels/unlockedLevel4.png",
+      "ui:unlockedLevels:unlockedLevel5": "ui/unlockedLevels/unlockedLevel5.png",
+      "ui:unlockedLevels:unlockedLevel6": "ui/unlockedLevels/unlockedLevel6.png",
+      "ui:unlockedLevels:unlockedLevel7": "ui/unlockedLevels/unlockedLevel7.png",
+      "ui:unlockedLevels:unlockedLevel8": "ui/unlockedLevels/unlockedLevel8.png",
+      "ui:unlockedLevels:unlockedLevel9": "ui/unlockedLevels/unlockedLevel9.png",
+      "ui:unlockedLevels:unlockedLevel10": "ui/unlockedLevels/unlockedLevel10.png",
+      "ui:unlockedLevels:unlockedLevel11": "ui/unlockedLevels/unlockedLevel11.png",
+      "ui:unlockedLevels:unlockedLevel12": "ui/unlockedLevels/unlockedLevel12.png",
+
+      "ui:lockedLevels:lockedLevel1": "ui/lockedLevels/lockedLevel1.png",
+      "ui:lockedLevels:lockedLevel2": "ui/lockedLevels/lockedLevel2.png",
+      "ui:lockedLevels:lockedLevel3": "ui/lockedLevels/lockedLevel3.png",
+      "ui:lockedLevels:lockedLevel4": "ui/lockedLevels/lockedLevel4.png",
+      "ui:lockedLevels:lockedLevel5": "ui/lockedLevels/lockedLevel5.png",
+      "ui:lockedLevels:lockedLevel6": "ui/lockedLevels/lockedLevel6.png",
+      "ui:lockedLevels:lockedLevel7": "ui/lockedLevels/lockedLevel7.png",
+      "ui:lockedLevels:lockedLevel8": "ui/lockedLevels/lockedLevel8.png",
+      "ui:lockedLevels:lockedLevel9": "ui/lockedLevels/lockedLevel9.png",
+      "ui:lockedLevels:lockedLevel10": "ui/lockedLevels/lockedLevel10.png",
+      "ui:lockedLevels:lockedLevel11": "ui/lockedLevels/lockedLevel11.png",
+      "ui:lockedLevels:lockedLevel12": "ui/lockedLevels/lockedLevel12.png",
+
+      "ui:victory:levelSelectText": "ui/victory/levelSelect.png",
+      "ui:victory:nextLevelText": "ui/victory/nextLevel.png",
+      "ui:victory:star": "ui/victory/star.png",
+      "ui:victory:victoryLogo": "ui/victory/victoryLogo.png",
 
       "player:synth":  "player/synth.png",
 
@@ -164,17 +223,17 @@
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
         "example": "levelsJson/rabbeatLevelTest.tmj",
-        "level1": "levelsJson/rabbeatLevel.tmj",
+        "level1": "levelsJson/level1Beta.tmj",
         "level2": "levelsJson/rabbeatLevelBat.tmj",
-        "level3": "levelsJson/rabbeatLevel3.tmj",
+        "level3": "levelsJson/rabbeatLevel.tmj",
         "level4": "levelsJson/rabbeatLaserTest.tmj",
-        "level5": "levelsJson/rabbeatLevel2.tmj",
+        "level5": "levelsJson/rabbeatLevel.tmj",
         "level6": "levelsJson/rabbeatLevel.tmj",
-        "level7": "levelsJson/rabbeatLevel2.tmj",
+        "level7": "levelsJson/rabbeatLevel.tmj",
         "level8": "levelsJson/rabbeatLevel.tmj",
-        "level9": "levelsJson/rabbeatLevel2.tmj",
+        "level9": "levelsJson/rabbeatLevel.tmj",
         "level10": "levelsJson/rabbeatLevel.tmj",
-        "level11": "levelsJson/rabbeatLevel2.tmj",
+        "level11": "levelsJson/rabbeatLevel.tmj",
         "level12": "levelsJson/rabbeatLevel.tmj"
     },
     "sounds": {

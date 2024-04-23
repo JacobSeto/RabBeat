@@ -82,15 +82,18 @@ public class BearEnemy extends Enemy {
         ObjectController oc = GameController.getInstance().objectController;
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
-        float radius = oc.bulletTexture.getRegionWidth() / (2.0f * scale.x);
+        float radius = (animationGenre == Genre.SYNTH ?
+                (oc.bulletTexture.getRegionWidth() / (0.3f * scale.x)) :
+                (oc.bulletTexture.getRegionWidth() / (0.24f * scale.x)));
         bullet = new Bullet(getX() + offset, getY(), radius,
                 oc.defaultConstants.get("bullet").getFloat("synth speed", 0),
-                oc.defaultConstants.get("bullet").getFloat("jazz speed", 0), isFaceRight());
+                oc.defaultConstants.get("bullet").getFloat("jazz speed", 0), isFaceRight(),
+                animationGenre);
 
         bullet.setName(getName() + "_bullet");
         bullet.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bullet.setDrawScale(scale);
-        bullet.setTexture(oc.bulletTexture);
+        //bullet.setTexture(oc.bulletTexture);
         bullet.setGravityScale(0);
         int beatcount;
 

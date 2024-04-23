@@ -61,6 +61,7 @@ public class BeeHive extends Enemy {
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
+      
         bee.setSensor(true);
         bee.setTexture(oc.beeTexture);
         bee.setGravityScale(0);
@@ -71,10 +72,10 @@ public class BeeHive extends Enemy {
         int beatcount;
         if (GameController.getInstance().genre == Genre.SYNTH) {
             beatcount = synthBeeTime;
-            bee.setVY(2);
+            bee.setVY(4);
         } else {
             beatcount = jazzBeeTime;
-            bee.setVY(1);
+            bee.setVY(2);
         }
         speed *= (isFaceRight() ? 1 : -1);
         bee.setVX(speed);
@@ -90,13 +91,12 @@ public class BeeHive extends Enemy {
 
     @Override
     public void switchState() {
-
     }
 
     @Override
     public void Attack() {
         makeBee();
-        setFaceRight(playerXPosition() - getPosition().x > 0);
+        //setFaceRight(playerXPosition() - getPosition().x > 0);
     }
 
     /**

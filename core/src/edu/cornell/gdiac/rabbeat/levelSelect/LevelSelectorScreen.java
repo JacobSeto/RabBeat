@@ -37,8 +37,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
         this.game = game;
     }
 
-    public String currentLevel = "";
-
     /** Displays the button UI for each level and adds a clickListener that detects whether
      * the button has been clicked and takes the player to the desired level
      */
@@ -51,6 +49,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
         for(int i=1; i<= numberOfLevels; i++) {
             int finalI = i;
             if(i <= GameController.getInstance().getLevelsUnlocked()) {
+//                buttonTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
                 buttonTexture = new Texture(Gdx.files.internal("ui/unlockedLevels/unlockedLevel" + finalI + ".png"));
             } else {
                 buttonTexture = new Texture(Gdx.files.internal("ui/lockedLevels/lockedLevel" + finalI + ".png"));
@@ -86,7 +85,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 }
             });
             stage.addActor(levelButton);
-
         }
     }
 
