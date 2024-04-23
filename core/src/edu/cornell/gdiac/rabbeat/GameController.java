@@ -718,15 +718,19 @@ public class GameController implements Screen, ContactListener {
 				setFailure(true);
 			}
 
-			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) ) {
+			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) && !(bd2 instanceof Bullet) ) {
 				bd1.markRemoved(true);
 			}
 
-			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy) ) {
+			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy) && !(bd1 instanceof Bullet) ) {
 				bd2.markRemoved(true);
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Bullet)) {
+				setFailure(true);
+			}
+
+			if ((bd1.equals(objectController.player) && bd2 instanceof Bee)) {
 				setFailure(true);
 			}
 
