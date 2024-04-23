@@ -148,6 +148,8 @@ public class ObjectController {
     public GenreUI genreIndicator;
 
     private HashMap<String, TextureRegion> assets = new HashMap<>();
+    //  Tilesets
+    private HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
 
     /** Reference to the goalDoor (for collision detection) */
     public BoxGameObject goalDoor;
@@ -401,6 +403,16 @@ public class ObjectController {
         assets.put("wires1", new TextureRegion(directory.getEntry("world:wires:wires1", Texture.class)));
         assets.put("wires2", new TextureRegion(directory.getEntry("world:wires:wires2", Texture.class)));
 
+        wallsTileset.put(3, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:3", Texture.class)));
+        wallsTileset.put(4, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:4", Texture.class)));
+        wallsTileset.put(5, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:5", Texture.class)));
+        wallsTileset.put(6, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:6", Texture.class)));
+        wallsTileset.put(7, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:7", Texture.class)));
+        wallsTileset.put(8, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:8", Texture.class)));
+        wallsTileset.put(9, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:9", Texture.class)));
+        wallsTileset.put(10, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:10", Texture.class)));
+        wallsTileset.put(11, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:11", Texture.class)));
+
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         checkpointTexture = new TextureRegion(directory.getEntry("world:checkpoints:checkpointInactive", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
@@ -425,7 +437,19 @@ public class ObjectController {
         createGUI();
 
         if (levelJson.has("layers")) {
+
+            // Get level height
             int levelHeight = levelJson.getInt("height");
+
+            // Get first gid
+            int firstGid = 0;
+            for (JsonValue tileset : levelJson.get("tilesets")){
+                if (tileset.getString("source").contains("walls.tsx")){
+                    firstGid = tileset.getInt("firstgid");
+                }
+            }
+
+            //  Process layers
             for (JsonValue layer : levelJson.get("layers")) {
                 String layerName = layer.getString("name", "");
                 switch (layerName) {
@@ -444,7 +468,8 @@ public class ObjectController {
                                 // Get x and y coordinates from where it is in the array
                                 int x = i % width;
                                 int y = height - (i / width) - 1;
-                                createWall(scale, x, y, tileSize);
+                                System.out.println(tileTypeID + " " + firstGid + " " + (tileTypeID-firstGid));
+                                createWall(scale, x, y, tileTypeID-firstGid, tileSize);
                             }
                         }
                         break;
@@ -750,16 +775,19 @@ public class ObjectController {
      * @param x     x coordinate (world coordinates) of tile
      * @param y     y coordinate (world coordinates) of tile
      */
-    private void createWall(Vector2 scale, float x, float y, int tileSize){
+    private void createWall(Vector2 scale, float x, float y, int tileId, int tileSize){
+        //  Set texture
+        TextureRegion textureRegion = wallsTileset.get(tileId);
+
         String wname = "wall";
         JsonValue defaults = defaultConstants.get("defaults");
         BoxGameObject obj;
-        float dwidth  = blackTile.getRegionWidth()/scale.x;
-        float dheight = blackTile.getRegionHeight()/scale.y;
+        float dwidth  = textureRegion.getRegionWidth()/scale.x;
+        float dheight = textureRegion.getRegionHeight()/scale.y;
 
         //Adjust coordinate to be center of tile
-        float convertedX = x + ((float) blackTile.getRegionWidth()/(tileSize*2));
-        float convertedY = y + ((float) blackTile.getRegionHeight()/(tileSize*2));
+        float convertedX = x + ((float) textureRegion.getRegionWidth()/(tileSize*2));
+        float convertedY = y + ((float) textureRegion.getRegionHeight()/(tileSize*2));
 
         obj = new BoxGameObject(convertedX, convertedY, dwidth, dheight);
         obj.setBodyType(BodyDef.BodyType.StaticBody);
@@ -767,7 +795,7 @@ public class ObjectController {
         obj.setFriction(defaults.getFloat("friction", 0.0f));
         obj.setRestitution(defaults.getFloat("restitution", 0.0f));
         obj.setDrawScale(scale);
-        obj.setTexture(blackTile);
+        obj.setTexture(textureRegion);
         obj.setName(wname);
         GameController.getInstance().instantiate(obj);
     }
