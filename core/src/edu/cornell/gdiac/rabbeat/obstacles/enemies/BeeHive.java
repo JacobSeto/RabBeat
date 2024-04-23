@@ -71,10 +71,10 @@ public class BeeHive extends Enemy {
         int beatcount;
         if (GameController.getInstance().genre == Genre.SYNTH) {
             beatcount = synthBeeTime;
-            bee.setVY(2);
+            bee.setVY(4);
         } else {
             beatcount = jazzBeeTime;
-            bee.setVY(1);
+            bee.setVY(2);
         }
         speed *= (isFaceRight() ? 1 : -1);
         bee.setVX(speed);
