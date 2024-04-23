@@ -75,7 +75,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private static int levelsUnlocked = 2;
+	private static int levelsUnlocked = 1;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;
@@ -104,9 +104,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** The boolean representing whether the player has completed the level */
 	private boolean playerCompletedLevel = false;
-
-	/** The boolean indicating whether the player desires to go to the next level */
-	private boolean goToNextLevel = false;
 
 	/** Reference to the game canvas */
 	protected GameCanvas canvas;
@@ -938,7 +935,6 @@ public class GameController implements Screen, ContactListener {
 			objectController.displayFont.setColor(Color.YELLOW);
 
 			canvas.begin(true); // DO NOT SCALE
-			//canvas.drawTextCentered("VICTORY! \n \n Press Tab \n to continue or \n L to return to \n the Level Select menu", objectController.displayFont, 0.0f);
 			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
 			canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
 			canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
@@ -1199,12 +1195,6 @@ public class GameController implements Screen, ContactListener {
 	/** Sets the boolean playerCompletedLevel */
 	public void setPlayerCompletedLevel(boolean playerCompletedLevel) {
 		this.playerCompletedLevel = playerCompletedLevel;
-	}
-
-
-	/** Sets the boolean goToNextLevel */
-	public void setGoToNextLevel(boolean goToNextLevel) {
-		this.goToNextLevel = goToNextLevel;
 	}
 
 	/** Sets the integer victoryScreenItemSelected */
