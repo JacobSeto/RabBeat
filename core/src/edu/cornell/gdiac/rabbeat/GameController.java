@@ -247,6 +247,7 @@ public class GameController implements Screen, ContactListener {
 	 * @param value whether the level is failed.
 	 */
 	public void setFailure(boolean value) {
+
 		if (value) {
 			countdown = EXIT_COUNT;
 		}
@@ -713,7 +714,8 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy)) {
-				setFailure(true);
+				getPlayer().isDying = true;
+//				setFailure(true);
 			}
 
 			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) && !(bd2 instanceof Bullet) ) {
@@ -725,11 +727,13 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Bullet)) {
-				setFailure(true);
+				getPlayer().isDying = true;
+//				setFailure(true);
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Bee)) {
-				setFailure(true);
+				getPlayer().isDying = true;
+//				setFailure(true);
 			}
 
 			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) ) {
@@ -741,16 +745,19 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy)) {
-				setFailure(true);
+				getPlayer().isDying = true;
+//				setFailure(true);
 			}
 
 			if ((bd1.equals(objectController.player) && bd2 instanceof BatEnemy)) {
-				setFailure(true);
+				getPlayer().isDying = true;
+//				setFailure(true);
 			}
 
 			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
 				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
-					setFailure(true);
+					getPlayer().isDying = true;
+//					setFailure(true);
 				}
 			}
 			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
