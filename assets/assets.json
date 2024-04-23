@@ -82,6 +82,8 @@
 
       "world:bullet": "world/bullet.png",
 
+      "world:echo" : "world/echo.png",
+
       "enemies:bee": "enemies/beeStill.png",
 
       "enemies:bear": "enemies/bearStill.png",
@@ -185,5 +187,8 @@
             "file": "fonts/RetroGame.ttf",
             "size": 64
         }
-    }
+    },
+  "atlas" : {
+    "atlas:echoAtlas" : "atlas/echo.atlas"
+  }
 }

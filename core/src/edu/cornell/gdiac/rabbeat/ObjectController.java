@@ -23,6 +23,7 @@ import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 import edu.cornell.gdiac.util.PooledList;
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.w3c.dom.Text;
 
 public class ObjectController {
     /**
@@ -217,11 +218,15 @@ public class ObjectController {
     public TextureAtlas batAttackJazzAtlas;
     /** The jazz attack animation for the bat enemy */
     public Animation<TextureRegion> batAttackJazzAnimation;
+    /** The echo atlas*/
+    public TextureAtlas echoAtlas;
+    /** The echo animation*/
+    public Animation<TextureRegion> echoAnimation;
     /** The idle atlas for the bee enemy */
     public TextureAtlas beeAttackAtlas;
     /** The idle animation for the bee enemy */
     public Animation<TextureRegion> beeAttackAnimation;
-    /** The idle atlas for the beehive */
+    /** The animation for the echo*/
     public TextureAtlas beehiveAttackAtlas;
     /** The idle animation for the beehive */
     public Animation<TextureRegion> beehiveAttackAnimation;
@@ -256,7 +261,6 @@ public class ObjectController {
      * @param directory Reference to global asset manager.
      */
     public void gatherAssets(AssetDirectory directory) {
-//        levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         tileSize = levelJson.getInt("tileheight");
 
@@ -338,7 +342,8 @@ public class ObjectController {
         batAttackJazzAnimation = new Animation<TextureRegion>(1f, batAttackJazzAtlas.findRegions("batAttackJazz"), Animation.PlayMode.LOOP);
         batAttackSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackSynth.atlas"));
         batAttackSynthAnimation = new Animation<TextureRegion>(1f, batAttackSynthAtlas.findRegions("batAttackSynth"), Animation.PlayMode.LOOP);
-
+        echoAtlas = new TextureAtlas(Gdx.files.internal("atlas/atlas:echoAtlas");
+        echoAnimation = new Animation<TextureRegion>(1f, echoAtlas.findRegions("echo"));
         // Bee
         beeAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeAttack.atlas"));
         beeAttackAnimation = new Animation<TextureRegion>(0.25f, beeAttackAtlas.findRegions("beeAttack"),
@@ -1090,6 +1095,7 @@ public class ObjectController {
         bat.setBodyType(BodyDef.BodyType.StaticBody);
         bat.setDrawScale(scale);
         bat.setTexture(batTexture);
+        bat.echoAnimation = echoAnimation;
         GameController.getInstance().instantiate(bat);
     }
 

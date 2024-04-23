@@ -15,8 +15,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
  */
 public class BearEnemy extends Enemy {
 
-    private final float beat = .25f;
-
     /** The bullet the bear will be shooting */
     public Bullet bullet;
 
@@ -28,9 +26,6 @@ public class BearEnemy extends Enemy {
 
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
-
-    /** Tells whether the bear was facing right or not when they shot */
-    private boolean shotDirection;
 
     /** The attack animation in synth for the bear */
     public Animation<TextureRegion> attackSynthAnimation;
@@ -97,7 +92,6 @@ public class BearEnemy extends Enemy {
         bullet.setDrawScale(scale);
         bullet.setTexture(oc.bulletTexture);
         bullet.setGravityScale(0);
-        shotDirection = isFaceRight();
         int beatcount;
 
         // Compute position and velocity

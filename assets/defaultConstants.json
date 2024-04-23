@@ -111,5 +111,9 @@
     "synth speed"  : 5.0,
     "jazz speed" : 2.5,
     "density": 10.0
+  },
+  "echo": {
+    "offset" : 0.5,
+    "density": 1.0
   }
 }
