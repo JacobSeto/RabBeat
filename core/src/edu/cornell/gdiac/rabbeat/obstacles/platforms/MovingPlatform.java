@@ -1,6 +1,5 @@
 package edu.cornell.gdiac.rabbeat.obstacles.platforms;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import edu.cornell.gdiac.rabbeat.Genre;
@@ -18,7 +17,9 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     /** Position for the weighted platform when the game is in Synth mode **/
     private Vector2[] positionNodes;
     /** The speed at which the platform moves at**/
-    private float platformSpeed;
+    private int beatWaitTime;
+    /**Move */
+    private  int moveTime = 2;
     /** the direction the platform is moving in*/
     private Vector2 velocity;
     /**The next platform in positionNodes that the platform is moving to*/
@@ -49,12 +50,12 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
      * @param width The width of the moving platform
      * @param height The height of the moving platform
      * @param nodes The points where the platform goes to, must be of even length
-     * @param speed The speed of the platform
+     * @param waitTime The number of 4 beat intervals the platform waits at each position
      * @param texture The texture region for the platform
      */
-    public MovingPlatform(float width, float height, Vector2[] nodes, float speed, TextureRegion texture) {
+    public MovingPlatform(float width, float height, Vector2[] nodes, int waitTime, TextureRegion texture) {
         super(nodes[0].x, nodes[0].y, width, height);
-        platformSpeed = speed;
+        beatWaitTime = waitTime;
         positionNodes = nodes;
         destination = 1;
         home = 0;
@@ -136,25 +137,25 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     @Override
     public float getBeat() {
         /** 4 pulses every quarter note*/
-        return 4;
+        return (float) 4/2;
     }
 
     @Override
     public void beatAction() {
         /**Renable moving after reaching destination and incredments beat, as well as resetting the speed*/
         moving = true;
-        float BeatLength = (float) 60 /BPM;
+        float BeatLength = (float) (60*2) /BPM;
         beat+= 1;
         if (beat==1){
             currentSpeed = 0;
         }
-        else if (beat==(6+8*platformSpeed)){
+        else if (beat==(2+4* beatWaitTime)){
             currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT6);
         }
-        else if (beat== (7+8*platformSpeed)){
+        else if (beat== (3+4* beatWaitTime)){
             currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT7);
         }
-        else if (beat == (8+8*platformSpeed) ){
+        else if (beat == (4+4* beatWaitTime) ){
             currentSpeed = (magnitude(positionNodes[home], positionNodes[destination])*(1/BeatLength)*SPEEDBEAT8);
             beat = 0;
         }

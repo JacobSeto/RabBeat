@@ -286,14 +286,14 @@
                          "value":0
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":3
                         }],
                  "rotation":0,
                  "type":"",
@@ -352,14 +352,14 @@
                          "value":2
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":3
                         }],
                  "rotation":0,
                  "type":"",
@@ -385,14 +385,14 @@
                          "value":0
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -418,14 +418,14 @@
                          "value":1
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -451,14 +451,14 @@
                          "value":2
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -484,14 +484,14 @@
                          "value":3
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":3
                         }],
                  "rotation":0,
                  "type":"",
@@ -517,14 +517,14 @@
                          "value":3
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -550,14 +550,14 @@
                          "value":0
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":2
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -583,14 +583,14 @@
                          "value":1
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":2
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -616,14 +616,14 @@
                          "value":1
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":2
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -649,14 +649,14 @@
                          "value":0
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":2
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -682,14 +682,14 @@
                          "value":0
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":2
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -715,14 +715,14 @@
                          "value":1
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":2
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -748,14 +748,14 @@
                          "value":0
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -781,14 +781,14 @@
                          "value":1
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -814,14 +814,14 @@
                          "value":2
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -847,14 +847,14 @@
                          "value":3
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -880,14 +880,14 @@
                          "value":1
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -913,14 +913,14 @@
                          "value":0
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -946,14 +946,14 @@
                          "value":2
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -979,14 +979,14 @@
                          "value":3
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -1012,14 +1012,14 @@
                          "value":1
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -1045,14 +1045,14 @@
                          "value":0
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -1078,14 +1078,14 @@
                          "value":2
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -1111,14 +1111,14 @@
                          "value":3
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"int",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",

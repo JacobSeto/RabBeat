@@ -33,20 +33,19 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
 
     /**The distance the platform should 'lock on' to its destination */
     private float LOCKDIST = 0.01f;
-
+/**The current speed  of the platform*/
     private float currentSpeed = 0;
-
+/** The current beat we are on*/
     private int beat = 0;
-
+/** The internal BPM*/
     private int BPM = 180;
+    /**The amount of 8 beat intervals that the platform has to wait before it moves*/
+    private int interval = 0;
 
     /**Determines the speed of the platform on each frame */
     private float SPEEDBEAT6 = (float) 3*1 /10;
     private float SPEEDBEAT7 = (float) 2*3 /10;
     private float SPEEDBEAT8 = (float) 2*6 /10;
-
-
-
     /**
      * Creates a new weighted platform with the given physics data and current genre.
      *
@@ -56,13 +55,12 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
      *                  synth mode
      * @param jazzPos	The array with index 0 and 1 holding the x and y coordinates for the platform's position in jazz
      *                  mode
-     * @param speed     The speed of the platform
+     * @param intervals  The amount of 8- beat intervals the platform has to wait before it moves
      * @param synthTexture The weighted platform's texture region used in synth mode.
      * @param jazzTexture The weighted platform's texture region used in jazz mode.
      */
-    public WeightedPlatform(float width, float height, float[] synthPos, float[] jazzPos, float speed,
+    public WeightedPlatform(float width, float height, float[] synthPos, float[] jazzPos, int intervals,
                             TextureRegion synthTexture, TextureRegion jazzTexture) {
-
         super(synthPos[0], synthPos[1], width, height);
 
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
@@ -72,14 +70,11 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
         setTexture(synthTexture);
         setPosition(synthPosition);
         moving = false;
-
-
         float magnitude1 = magnitude(jazzPosition, synthPosition);
-
         velocity = new Vector2((jazzPosition.x - synthPosition.x)/magnitude1,
                 (jazzPosition.y-synthPosition.y)/magnitude1);
-
         currentGenre = 0;
+        interval = intervals;
     }
     /** */
     public Vector2 currentVelocity(){
@@ -135,28 +130,28 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
     @Override
     public float getBeat() {
         /** 4 pulses every quarter note*/
-        return 4;
+        return 2;
     }
 
     @Override
     public void beatAction() {
         /**Renable moving after reaching destination and incredments beat, as well as resetting the speed*/
-        float BeatLength = (float) 60 /BPM;
+        float BeatLength = (float) (60*2) /BPM;
         beat+= 1;
-        if (beat==1){
+        if (beat==(1)){
             currentSpeed = 0;
         }
-        else if (beat==6){
+        else if (beat==(6)){
             if (moving){
-                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT6);
+                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT6*((float) 1 /(1+interval)));
             }
         }
-        else if (beat== 7 && currentSpeed>0){
-            currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT7);
+        else if (beat==(7) && currentSpeed>0){
+            currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT7*((float) 1 /(1+interval)));
         }
-        else if (beat == 8){
+        else if (beat == (8)){
             if (currentSpeed>0){
-                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT8);
+                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT8*((float) 1 /(1+interval)));
             }
             beat = 0;
         }

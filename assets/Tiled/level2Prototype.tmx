@@ -64,8 +64,8 @@
    <properties>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="0"/>
-    <property name="speed" type="int" value="0"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="3"/>
    </properties>
   </object>
   <object id="318" gid="88" x="1024" y="640" width="192" height="64">
@@ -80,192 +80,192 @@
    <properties>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="2"/>
-    <property name="speed" type="int" value="0"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="3"/>
    </properties>
   </object>
   <object id="485" gid="88" x="1792" y="448" width="192" height="64">
    <properties>
     <property name="num" type="int" value="1"/>
     <property name="pos" type="int" value="0"/>
-    <property name="speed" type="int" value="0"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="486" gid="88" x="1792" y="704" width="192" height="64">
    <properties>
     <property name="num" type="int" value="1"/>
     <property name="pos" type="int" value="1"/>
-    <property name="speed" type="int" value="0"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="487" gid="88" x="1792" y="960" width="192" height="64">
    <properties>
     <property name="num" type="int" value="1"/>
     <property name="pos" type="int" value="2"/>
-    <property name="speed" type="int" value="0"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="489" gid="88" x="1024" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="3"/>
-    <property name="speed" type="int" value="0"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="3"/>
    </properties>
   </object>
   <object id="490" gid="88" x="1792" y="704" width="192" height="64">
    <properties>
     <property name="num" type="int" value="1"/>
     <property name="pos" type="int" value="3"/>
-    <property name="speed" type="int" value="0"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="491" gid="88" x="2496" y="704" width="192" height="64">
    <properties>
     <property name="num" type="int" value="2"/>
     <property name="pos" type="int" value="0"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="2"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="492" gid="88" x="2880" y="704" width="192" height="64">
    <properties>
     <property name="num" type="int" value="2"/>
     <property name="pos" type="int" value="1"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="2"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="493" gid="88" x="3072" y="896" width="192" height="64">
    <properties>
     <property name="num" type="int" value="3"/>
     <property name="pos" type="int" value="1"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="2"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="494" gid="88" x="3456" y="896" width="192" height="64">
    <properties>
     <property name="num" type="int" value="3"/>
     <property name="pos" type="int" value="0"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="2"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="495" gid="88" x="3648" y="704" width="192" height="64">
    <properties>
     <property name="num" type="int" value="4"/>
     <property name="pos" type="int" value="0"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="2"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="496" gid="88" x="4032" y="704" width="192" height="64">
    <properties>
     <property name="num" type="int" value="4"/>
     <property name="pos" type="int" value="1"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="2"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="501" gid="88" x="4672" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="5"/>
     <property name="pos" type="int" value="0"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="502" gid="88" x="4864" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="5"/>
     <property name="pos" type="int" value="1"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="503" gid="88" x="5056" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="5"/>
     <property name="pos" type="int" value="2"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="504" gid="88" x="4864" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="5"/>
     <property name="pos" type="int" value="3"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="507" gid="88" x="5824" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="6"/>
     <property name="pos" type="int" value="1"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="508" gid="88" x="5504" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="6"/>
     <property name="pos" type="int" value="0"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="509" gid="88" x="6144" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="6"/>
     <property name="pos" type="int" value="2"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="510" gid="88" x="5824" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="6"/>
     <property name="pos" type="int" value="3"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="538" gid="88" x="6144" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="7"/>
     <property name="pos" type="int" value="1"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="539" gid="88" x="5824" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="7"/>
     <property name="pos" type="int" value="0"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="540" gid="88" x="6462" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="7"/>
     <property name="pos" type="int" value="2"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
   <object id="541" gid="88" x="6144" y="640" width="192" height="64">
    <properties>
     <property name="num" type="int" value="7"/>
     <property name="pos" type="int" value="3"/>
-    <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>
