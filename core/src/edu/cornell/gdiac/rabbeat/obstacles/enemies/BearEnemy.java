@@ -60,12 +60,12 @@ public class BearEnemy extends Enemy {
     public void switchState() {
         switch (enemyState) {
             case IDLE:
-                if (horizontalDistanceBetweenEnemyAndPlayer() < 8) {
+                if (horizontalDistanceBetweenEnemyAndPlayer() < 16) {
                     enemyState = EnemyState.ATTACKING;
                 }
                 break;
             case ATTACKING:
-                if (horizontalDistanceBetweenEnemyAndPlayer() > 8) {
+                if (horizontalDistanceBetweenEnemyAndPlayer() > 16) {
                     enemyState = EnemyState.IDLE;
                 }
                 // TODO: make bear shoot
