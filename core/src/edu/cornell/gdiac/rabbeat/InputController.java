@@ -402,10 +402,10 @@ public class InputController {
 				vertical -= 1.0f;
 			}
 
-			if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && !genreSwitched) {
+			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && !genreSwitched) {
 				genreSwitched = true;
 				switchGenre = true;
-			} else if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			} else if (!Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 				genreSwitched = false;
 			}
 		}

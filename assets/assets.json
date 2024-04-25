@@ -250,7 +250,9 @@
       "world:graffiti:caution_0" : "world/graffiti/caution_0.png",
 
       "world:laser" : "world/laser.png",
-      "world:verticalLaser" : "world/verticalLaser.png"
+      "world:laserMiddle" : "world/lasers/laserMiddle.png",
+      "world:laserTop" : "world/lasers/laserTop.png",
+      "world:laserBottom" : "world/lasers/laserBottom.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",

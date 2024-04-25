@@ -70,7 +70,10 @@ public class ObjectController {
     protected TextureRegion longSingle;
 
     protected TextureRegion laserTile;
-    protected TextureRegion laserTileVertical;
+    /** Textures for laser stuff*/
+    protected TextureRegion laserMiddle;
+    protected TextureRegion laserTop;
+    protected TextureRegion laserBottom;
 
     /** The texture for weighted platforms in Synth mode */
     protected TextureRegion weightedSynth;
@@ -421,7 +424,9 @@ public class ObjectController {
         longRightSquare = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:rightSquare", Texture.class ));
         longSingle = new TextureRegion(directory.getEntry( "world:platforms:longPlatform:single", Texture.class ));
         laserTile = new TextureRegion(directory.getEntry("world:laser", Texture.class));
-        laserTileVertical = new TextureRegion(directory.getEntry("world:verticalLaser", Texture.class));
+        laserMiddle = new TextureRegion(directory.getEntry("world:laserMiddle", Texture.class));
+        laserTop = new TextureRegion(directory.getEntry("world:laserTop", Texture.class));
+        laserBottom = new TextureRegion(directory.getEntry("world:laserBottom", Texture.class));
 
         weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
         weightedJazz = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
@@ -553,12 +558,12 @@ public class ObjectController {
                         // and its speed
                         float[][] synthCoord = new float[layer.get("objects").size][2];
                         float[][] jazzCoord = new float[layer.get("objects").size][2];
-                        float[] wpSpeed = new float[layer.get("objects").size];
+                        int[] wpInterval = new int[layer.get("objects").size];
                         Vector2[] wpDimensions = new Vector2[layer.get("objects").size];
                         for (JsonValue wp : layer.get("objects")) {
                             int num = 0;
                             String genre = "";
-                            float speed = 0;
+                            int interval = 0;
                             for (JsonValue prop : wp.get("properties")) {
                                 switch (prop.getString("name")) {
                                     case "num":
@@ -568,7 +573,7 @@ public class ObjectController {
                                         genre = prop.getString("value");
                                         break;
                                     case "speed":
-                                        speed = prop.getFloat("value");
+                                        interval = prop.getInt("value");
                                         break;
                                 }
                             }
@@ -580,24 +585,26 @@ public class ObjectController {
                                     jazzCoord[num] = new float[] { wp.getFloat("x"), wp.getFloat("y") };
                                     break;
                             }
-                            wpSpeed[num] = speed;
+                            wpInterval[num] = interval;
                             System.out.println("get"+" "+wp.getFloat("width")+" "+wp.getFloat("height"));
                             wpDimensions[num] = new Vector2(wp.getFloat("width"), wp.getFloat("height"));
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
                             System.out.println("pre"+wpDimensions[i].x + " "+ wpDimensions[i].y);
-                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpSpeed[i], wpDimensions[i], levelHeight, tileSize);
+                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpInterval[i], wpDimensions[i], levelHeight, tileSize);
                         }
                         break;
                     case "movingPlatforms":
                         HashMap<Integer, Vector2[]> positionNodes = new HashMap<>();
-                        HashMap<Integer, Float> mpSpeed = new HashMap<>();
+                        HashMap<Integer, Integer> mpWait = new HashMap<>();
+                        HashMap<Integer, Integer> mpMove = new HashMap<>();
                         HashMap<Integer, Vector2> dimensions = new HashMap<>();
                         for (JsonValue mp : layer.get("objects")) {
                             int num = 0;
                             int pos = 0;
-                            float speed = 0;
+                            int wait = 1;
+                            int move = 0;
                             int totalPos = 1; // number of positions in this moving platform
                             for (JsonValue prop : mp.get("properties")) {
                                 switch (prop.getString("name")) {
@@ -607,8 +614,11 @@ public class ObjectController {
                                     case "pos":
                                         pos = prop.getInt("value");
                                         break;
-                                    case "speed":
-                                        speed = prop.getFloat("value");
+                                    case "wait":
+                                        wait = prop.getInt("value");
+                                        break;
+                                    case "moveTime":
+                                        move = prop.getInt("value");
                                         break;
                                     case "totalPos":
                                         totalPos = prop.getInt("value");
@@ -622,15 +632,16 @@ public class ObjectController {
                             Vector2 dim = new Vector2(mp.getFloat("width"), mp.getFloat("height"));
                             positionNodes.get(num)[pos] = coord;
 
-                            // Store speed
-                            mpSpeed.put(num, speed);
-
+                            // Store nodewaitTime
+                            mpWait.put(num, wait);
+                            // store Movespeed
+                            mpMove.put(num, move);
                             //  Store dimensions
                             dimensions.put(num, dim);
                         }
                         //  Now actually create moving platforms
                         for (int i=0; i<positionNodes.size(); i++){
-                            createMovingPlatform(scale, positionNodes.get(i), mpSpeed.get(i), dimensions.get(i), levelHeight, tileSize);
+                            createMovingPlatform(scale, positionNodes.get(i), mpWait.get(i), mpMove.get(i), dimensions.get(i), levelHeight, tileSize);
                         }
                         break;
                     case "platforms":
@@ -901,8 +912,14 @@ public class ObjectController {
                 textureRegion = platformTile;
         }
         if (lethal){
-            if (align.equals("vertical")){
-                textureRegion = laserTileVertical;
+            if (align.equals("vertical") || align.equals("middle")){
+                textureRegion = laserMiddle;
+            }
+            else if (align.equals("top")){
+                textureRegion = laserTop;
+            }
+            else if (align.equals("bottom")){
+                textureRegion = laserBottom;
             }
             else{
                 textureRegion = laserTile;
@@ -969,11 +986,11 @@ public class ObjectController {
      *                    coordinates in synth mode
      * @param jazzCoord   A float array which holds the weighted platform's x and y
      *                    coordinates in jazz mode
-     * @param speed       The speed of the weighted platform
+     * @param intervals      The speed of the weighted platform
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
-    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, float speed, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, int intervals, Vector2 dimensions, int levelHeight, int tileSize){
         //  Adjust coordinates + Convert coordinates to world coordinates
 //        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
         System.out.println(dimensions.x + " " + dimensions.y);
@@ -990,7 +1007,7 @@ public class ObjectController {
         weightedPlatform = new WeightedPlatform(dwidth, dheight,
                 new float[] { convertedSynthCoord.x, convertedSynthCoord.y },
                 new float[] { convertedJazzCoord.x, convertedJazzCoord.y },
-                speed,
+                intervals, 0, 1,
                 weightedSynth, weightedJazz);
         weightedPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         weightedPlatform.setDensity(defaults.getFloat("density", 0.0f));
@@ -1000,7 +1017,7 @@ public class ObjectController {
         GameController.getInstance().instantiate(weightedPlatform);
     }
 
-    private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, float speed, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, int waitTime, int beatMoveTime, Vector2 dimensions, int levelHeight, int tileSize){
         //  Convert coordinates to world coordinates
         Vector2[] convertedPos = new Vector2[positionNodes.length];
         for(int i=0; i<positionNodes.length; i++){
@@ -1011,7 +1028,7 @@ public class ObjectController {
         float dwidth = movingSynth.getRegionWidth() / scale.x;
         float dheight = movingSynth.getRegionHeight() / scale.y;
         MovingPlatform movingPlatform;
-        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, speed, platformTile);
+        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, waitTime, beatMoveTime, platformTile);
         movingPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         movingPlatform.setDensity(defaults.getFloat("density", 0.0f));
         movingPlatform.setFriction(defaults.getFloat("friction", 0.0f));

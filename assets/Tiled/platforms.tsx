@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="platforms" tilewidth="192" tileheight="128" tilecount="12" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="platforms" tilewidth="192" tileheight="128" tilecount="15" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="23">
   <image width="64" height="128" source="../world/verticalLaser.PNG"/>
@@ -36,5 +36,14 @@
  </tile>
  <tile id="60">
   <image width="192" height="36" source="../world/platforms/platform.png"/>
+ </tile>
+ <tile id="61">
+  <image width="64" height="64" source="../world/lasers/laserBottom.png"/>
+ </tile>
+ <tile id="62">
+  <image width="64" height="64" source="../world/lasers/laserMiddle.png"/>
+ </tile>
+ <tile id="63">
+  <image width="64" height="64" source="../world/lasers/laserTop.png"/>
  </tile>
 </tileset>

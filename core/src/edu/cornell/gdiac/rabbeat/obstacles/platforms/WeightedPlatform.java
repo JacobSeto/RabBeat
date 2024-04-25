@@ -1,9 +1,7 @@
 package edu.cornell.gdiac.rabbeat.obstacles.platforms;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
@@ -33,20 +31,24 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
 
     /**The distance the platform should 'lock on' to its destination */
     private float LOCKDIST = 0.01f;
-
+/**The current speed  of the platform*/
     private float currentSpeed = 0;
-
+/** The current beat we are on*/
     private int beat = 0;
-
+/** The internal BPM*/
     private int BPM = 180;
+    /**two times the amount of intervals that the platform has to wait before it moves*/
+    private int platformBeatIntervals = 0;
+    /**Determines how quickly the platform moves between each 'node'. This divides the default sixteenth notes movement by powers of 2. */
+    private int moveTime;
+    /**The number of 4 beat intervals the platform waits at each 'node'. Note that weighted platforms don't have nodes like moving platforms,
+     * so the 'nodes' are defined by platformbeatintervals. */
+    private int waitTime;
 
     /**Determines the speed of the platform on each frame */
     private float SPEEDBEAT6 = (float) 3*1 /10;
     private float SPEEDBEAT7 = (float) 2*3 /10;
     private float SPEEDBEAT8 = (float) 2*6 /10;
-
-
-
     /**
      * Creates a new weighted platform with the given physics data and current genre.
      *
@@ -56,13 +58,13 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
      *                  synth mode
      * @param jazzPos	The array with index 0 and 1 holding the x and y coordinates for the platform's position in jazz
      *                  mode
-     * @param speed     The speed of the platform
+     * @param beatIntervals  Twice the amount of 8- beat intervals the platform has to move before it reaches its final destination-Ex. If beatIntervals were 2, the platform would take 32 sixteenth notes to move to the final position
+     *
      * @param synthTexture The weighted platform's texture region used in synth mode.
      * @param jazzTexture The weighted platform's texture region used in jazz mode.
      */
-    public WeightedPlatform(float width, float height, float[] synthPos, float[] jazzPos, float speed,
+    public WeightedPlatform(float width, float height, float[] synthPos, float[] jazzPos, int beatIntervals, int beatMoveTime, int beatWaitTime,
                             TextureRegion synthTexture, TextureRegion jazzTexture) {
-
         super(synthPos[0], synthPos[1], width, height);
 
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
@@ -72,14 +74,13 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
         setTexture(synthTexture);
         setPosition(synthPosition);
         moving = false;
-
-
         float magnitude1 = magnitude(jazzPosition, synthPosition);
-
         velocity = new Vector2((jazzPosition.x - synthPosition.x)/magnitude1,
                 (jazzPosition.y-synthPosition.y)/magnitude1);
-
         currentGenre = 0;
+        platformBeatIntervals = beatIntervals;
+        moveTime = (int) Math.pow(2, beatMoveTime);
+        waitTime = beatWaitTime;
     }
     /** */
     public Vector2 currentVelocity(){
@@ -135,28 +136,28 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
     @Override
     public float getBeat() {
         /** 4 pulses every quarter note*/
-        return 4;
+        return ((float) 4/ moveTime);
     }
 
     @Override
     public void beatAction() {
         /**Renable moving after reaching destination and incredments beat, as well as resetting the speed*/
-        float BeatLength = (float) 60 /BPM;
+        float BeatLength = (float) (60* moveTime) /BPM;
         beat+= 1;
-        if (beat==1){
+        if (beat==(1)){
             currentSpeed = 0;
         }
-        else if (beat==6){
+        else if (beat==(2+4* waitTime)){
             if (moving){
-                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT6);
+                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT6*((float) 1 /(1+ platformBeatIntervals)));
             }
         }
-        else if (beat== 7 && currentSpeed>0){
-            currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT7);
+        else if (beat==(3+4* waitTime) && currentSpeed>0){
+            currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT7*((float) 1 /(1+ platformBeatIntervals)));
         }
-        else if (beat == 8){
+        else if (beat == (4+4* waitTime)){
             if (currentSpeed>0){
-                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT8);
+                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT8*((float) 1 /(1+ platformBeatIntervals)));
             }
             beat = 0;
         }

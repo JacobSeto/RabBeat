@@ -75,7 +75,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private static int levelsUnlocked = 6;
+	private static int levelsUnlocked = 3;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;
@@ -317,8 +317,8 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
-		pauseTintSynthColor = new Color(1, 0, 1, 0.55f);
-		pauseTintJazzColor = new Color(1, 0, 1, 0.55f);
+		pauseTintSynthColor = new Color(143, 0, 255, 0.55f);
+		pauseTintJazzColor = new Color(0.9f, 0, 0, 0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		syncController = new SyncController();
