@@ -1,0 +1,167 @@
+[
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
+        "id": 1,
+        "members": [
+            {
+                "name": "beatList",
+                "type": "string",
+                "value": "15"
+            }
+        ],
+        "name": "Bat",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
+        "id": 5,
+        "members": [
+            {
+                "name": "beatList",
+                "type": "string",
+                "value": "15"
+            }
+        ],
+        "name": "Bear",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
+        "id": 6,
+        "members": [
+            {
+                "name": "beatList",
+                "type": "string",
+                "value": "15"
+            }
+        ],
+        "name": "Bee Hive",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
+        "id": 2,
+        "members": [
+            {
+                "name": "moveTime",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "num",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "pos",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "totalPos",
+                "type": "int",
+                "value": 2
+            },
+            {
+                "name": "waitTime",
+                "type": "int",
+                "value": 1
+            }
+        ],
+        "name": "Moving Platform",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
+        "id": 3,
+        "members": [
+            {
+                "name": "genre",
+                "type": "string",
+                "value": "synth"
+            },
+            {
+                "name": "moveTime",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "num",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "platformInterval",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "waitTime",
+                "type": "int",
+                "value": 0
+            }
+        ],
+        "name": "Weighted Platform",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
+    }
+]
