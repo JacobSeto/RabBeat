@@ -108,7 +108,7 @@
     <property name="pos" type="int" value="0"/>
     <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
-    <property name="wait" value="2"/>
+    <property name="wait" value="4"/>
    </properties>
   </object>
   <object id="583" gid="135" x="5824" y="548" width="192" height="36">
@@ -117,7 +117,7 @@
     <property name="pos" type="int" value="2"/>
     <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
-    <property name="wait" value="2"/>
+    <property name="wait" value="4"/>
    </properties>
   </object>
   <object id="584" gid="135" x="5504" y="804" width="192" height="36">
@@ -134,7 +134,7 @@
     <property name="pos" type="int" value="1"/>
     <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
-    <property name="wait" value="2"/>
+    <property name="wait" value="4"/>
    </properties>
   </object>
  </objectgroup>
