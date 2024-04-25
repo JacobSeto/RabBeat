@@ -147,9 +147,9 @@
                          "value":0
                         }, 
                         {
-                         "name":"platformInterval",
-                         "type":"int",
-                         "value":0
+                         "name":"speed",
+                         "type":"float",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -175,9 +175,9 @@
                          "value":0
                         }, 
                         {
-                         "name":"platformInterval",
-                         "type":"int",
-                         "value":0
+                         "name":"speed",
+                         "type":"float",
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -203,9 +203,9 @@
                          "value":1
                         }, 
                         {
-                         "name":"platformInterval",
-                         "type":"int",
-                         "value":0
+                         "name":"speed",
+                         "type":"float",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"",
@@ -231,9 +231,9 @@
                          "value":1
                         }, 
                         {
-                         "name":"platformInterval",
-                         "type":"int",
-                         "value":0
+                         "name":"speed",
+                         "type":"float",
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"",
@@ -259,9 +259,14 @@
                          "value":2
                         }, 
                         {
-                         "name":"platformInterval",
-                         "type":"int",
-                         "value":0
+                         "name":"speed",
+                         "type":"float",
+                         "value":2
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"string",
+                         "value":"2"
                         }],
                  "rotation":0,
                  "type":"",
@@ -287,9 +292,14 @@
                          "value":2
                         }, 
                         {
-                         "name":"platformInterval",
-                         "type":"int",
-                         "value":0
+                         "name":"speed",
+                         "type":"float",
+                         "value":2
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"string",
+                         "value":"2"
                         }],
                  "rotation":0,
                  "type":"",
@@ -334,6 +344,11 @@
                          "name":"totalPos",
                          "type":"int",
                          "value":2
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"string",
+                         "value":"2"
                         }],
                  "rotation":0,
                  "type":"",
@@ -367,6 +382,11 @@
                          "name":"totalPos",
                          "type":"int",
                          "value":2
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"string",
+                         "value":"2"
                         }],
                  "rotation":0,
                  "type":"",
@@ -400,6 +420,11 @@
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"string",
+                         "value":"4"
                         }],
                  "rotation":0,
                  "type":"",
@@ -433,6 +458,11 @@
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"string",
+                         "value":"4"
                         }],
                  "rotation":0,
                  "type":"",
@@ -499,6 +529,11 @@
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"wait",
+                         "type":"string",
+                         "value":"4"
                         }],
                  "rotation":0,
                  "type":"",
@@ -670,7 +705,7 @@
                         {
                          "name":"beatList",
                          "type":"string",
-                         "value":"13"
+                         "value":"1"
                         }],
                  "rotation":0,
                  "type":"bat",
@@ -688,7 +723,7 @@
                         {
                          "name":"beatList",
                          "type":"string",
-                         "value":"13"
+                         "value":"1"
                         }],
                  "rotation":0,
                  "type":"bat",
@@ -706,7 +741,7 @@
                         {
                          "name":"beatList",
                          "type":"string",
-                         "value":"13"
+                         "value":"1"
                         }],
                  "rotation":0,
                  "type":"bat",
@@ -724,7 +759,7 @@
                         {
                          "name":"beatList",
                          "type":"string",
-                         "value":"13"
+                         "value":"1"
                         }],
                  "rotation":0,
                  "type":"bat",
@@ -742,7 +777,7 @@
                         {
                          "name":"beatList",
                          "type":"string",
-                         "value":"13"
+                         "value":"1"
                         }],
                  "rotation":0,
                  "type":"bat",
@@ -760,7 +795,7 @@
                         {
                          "name":"beatList",
                          "type":"string",
-                         "value":"13"
+                         "value":"1"
                         }],
                  "rotation":0,
                  "type":"bat",
@@ -778,7 +813,7 @@
                         {
                          "name":"beatList",
                          "type":"string",
-                         "value":"13"
+                         "value":"1"
                         }],
                  "rotation":0,
                  "type":"bat",
@@ -796,7 +831,7 @@
                         {
                          "name":"beatList",
                          "type":"string",
-                         "value":"13"
+                         "value":"1"
                         }],
                  "rotation":0,
                  "type":"bat",
@@ -814,7 +849,7 @@
                         {
                          "name":"beatList",
                          "type":"string",
-                         "value":"13"
+                         "value":"1"
                         }],
                  "rotation":0,
                  "type":"bat",

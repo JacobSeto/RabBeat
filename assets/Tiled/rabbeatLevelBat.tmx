@@ -42,42 +42,44 @@
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="0"/>
-    <property name="platformInterval" type="int" value="0"/>
+    <property name="speed" type="float" value="1"/>
    </properties>
   </object>
   <object id="549" gid="114" x="2112" y="613" width="192" height="36">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="0"/>
-    <property name="platformInterval" type="int" value="0"/>
+    <property name="speed" type="float" value="1"/>
    </properties>
   </object>
   <object id="573" gid="114" x="3273" y="612" width="192" height="36">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="1"/>
-    <property name="platformInterval" type="int" value="0"/>
+    <property name="speed" type="float" value="2"/>
    </properties>
   </object>
   <object id="576" gid="115" x="3273" y="996" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="1"/>
-    <property name="platformInterval" type="int" value="0"/>
+    <property name="speed" type="float" value="2"/>
    </properties>
   </object>
   <object id="577" gid="115" x="3648" y="996" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="2"/>
-    <property name="platformInterval" type="int" value="0"/>
+    <property name="speed" type="float" value="2"/>
+    <property name="wait" value="2"/>
    </properties>
   </object>
   <object id="578" gid="114" x="4352" y="996" width="192" height="36">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="2"/>
-    <property name="platformInterval" type="int" value="0"/>
+    <property name="speed" type="float" value="2"/>
+    <property name="wait" value="2"/>
    </properties>
   </object>
  </objectgroup>
@@ -88,6 +90,7 @@
     <property name="pos" type="int" value="0"/>
     <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="2"/>
+    <property name="wait" value="2"/>
    </properties>
   </object>
   <object id="580" gid="135" x="4736" y="484" width="192" height="36">
@@ -96,6 +99,7 @@
     <property name="pos" type="int" value="1"/>
     <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="2"/>
+    <property name="wait" value="2"/>
    </properties>
   </object>
   <object id="581" gid="135" x="5184" y="548" width="192" height="36">
@@ -104,6 +108,7 @@
     <property name="pos" type="int" value="0"/>
     <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" value="4"/>
    </properties>
   </object>
   <object id="583" gid="135" x="5824" y="548" width="192" height="36">
@@ -112,6 +117,7 @@
     <property name="pos" type="int" value="2"/>
     <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" value="4"/>
    </properties>
   </object>
   <object id="584" gid="135" x="5504" y="804" width="192" height="36">
@@ -128,6 +134,7 @@
     <property name="pos" type="int" value="1"/>
     <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
+    <property name="wait" value="4"/>
    </properties>
   </object>
  </objectgroup>
@@ -163,47 +170,47 @@
   </properties>
   <object id="527" type="bat" gid="60" x="653.463" y="767.293" width="176" height="97">
    <properties>
-    <property name="beatList" value="13"/>
+    <property name="beatList" value="1"/>
    </properties>
   </object>
   <object id="528" type="bat" gid="60" x="1244.93" y="542.902" width="176" height="97">
    <properties>
-    <property name="beatList" value="13"/>
+    <property name="beatList" value="1"/>
    </properties>
   </object>
   <object id="529" type="bat" gid="60" x="1869.33" y="835.658" width="176" height="97">
    <properties>
-    <property name="beatList" value="13"/>
+    <property name="beatList" value="1"/>
    </properties>
   </object>
   <object id="530" type="bat" gid="60" x="2432" y="576" width="176" height="97">
    <properties>
-    <property name="beatList" value="13"/>
+    <property name="beatList" value="1"/>
    </properties>
   </object>
   <object id="531" type="bat" gid="60" x="3072" y="576" width="176" height="97">
    <properties>
-    <property name="beatList" value="13"/>
+    <property name="beatList" value="1"/>
    </properties>
   </object>
   <object id="532" type="bat" gid="60" x="3949.12" y="894.561" width="176" height="97">
    <properties>
-    <property name="beatList" value="13"/>
+    <property name="beatList" value="1"/>
    </properties>
   </object>
   <object id="533" type="bat" gid="60" x="5199.59" y="767.878" width="176" height="97">
    <properties>
-    <property name="beatList" value="13"/>
+    <property name="beatList" value="1"/>
    </properties>
   </object>
   <object id="534" type="bat" gid="60" x="5517.88" y="511.78" width="176" height="97">
    <properties>
-    <property name="beatList" value="13"/>
+    <property name="beatList" value="1"/>
    </properties>
   </object>
   <object id="535" type="bat" gid="60" x="5837.61" y="766.878" width="176" height="97">
    <properties>
-    <property name="beatList" value="13"/>
+    <property name="beatList" value="1"/>
    </properties>
   </object>
  </objectgroup>
