@@ -237,9 +237,9 @@
                          "value":0
                         }, 
                         {
-                         "name":"speed",
+                         "name":"platformInterval",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -265,9 +265,9 @@
                          "value":0
                         }, 
                         {
-                         "name":"speed",
+                         "name":"platformInterval",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -293,7 +293,7 @@
                          "value":1
                         }, 
                         {
-                         "name":"speed",
+                         "name":"platformInterval",
                          "type":"int",
                          "value":1
                         }],
@@ -321,7 +321,7 @@
                          "value":1
                         }, 
                         {
-                         "name":"speed",
+                         "name":"platformInterval",
                          "type":"int",
                          "value":1
                         }],
@@ -349,9 +349,9 @@
                          "value":2
                         }, 
                         {
-                         "name":"speed",
+                         "name":"platformInterval",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -377,9 +377,9 @@
                          "value":2
                         }, 
                         {
-                         "name":"speed",
+                         "name":"platformInterval",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -405,9 +405,9 @@
                          "value":3
                         }, 
                         {
-                         "name":"speed",
+                         "name":"platformInterval",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -433,9 +433,9 @@
                          "value":3
                         }, 
                         {
-                         "name":"speed",
+                         "name":"platformInterval",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -461,9 +461,9 @@
                          "value":4
                         }, 
                         {
-                         "name":"speed",
+                         "name":"platformInterval",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -489,9 +489,9 @@
                          "value":4
                         }, 
                         {
-                         "name":"speed",
+                         "name":"platformInterval",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",

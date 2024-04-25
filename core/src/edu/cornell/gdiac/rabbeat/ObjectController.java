@@ -558,12 +558,16 @@ public class ObjectController {
                         // and its speed
                         float[][] synthCoord = new float[layer.get("objects").size][2];
                         float[][] jazzCoord = new float[layer.get("objects").size][2];
-                        int[] wpInterval = new int[layer.get("objects").size];
+                        int[] wpPlatformInterval = new int[layer.get("objects").size];
+                        int[] wpWait = new int[layer.get("objects").size];
+                        int[] wpMove = new int[layer.get("objects").size];
                         Vector2[] wpDimensions = new Vector2[layer.get("objects").size];
                         for (JsonValue wp : layer.get("objects")) {
                             int num = 0;
                             String genre = "";
-                            int interval = 0;
+                            int platformInterval = 1;
+                            int waitTime = 1;
+                            int moveTime = 1;
                             for (JsonValue prop : wp.get("properties")) {
                                 switch (prop.getString("name")) {
                                     case "num":
@@ -572,8 +576,14 @@ public class ObjectController {
                                     case "genre":
                                         genre = prop.getString("value");
                                         break;
-                                    case "speed":
-                                        interval = prop.getInt("value");
+                                    case "platInterval":
+                                        platformInterval = prop.getInt("value");
+                                        break;
+                                    case "moveTime":
+                                        moveTime= prop.getInt("value");
+                                        break;
+                                    case "waitTIme":
+                                        waitTime = prop.getInt("value");
                                         break;
                                 }
                             }
@@ -585,14 +595,16 @@ public class ObjectController {
                                     jazzCoord[num] = new float[] { wp.getFloat("x"), wp.getFloat("y") };
                                     break;
                             }
-                            wpInterval[num] = interval;
+                            wpPlatformInterval[num] = platformInterval;
+                            wpMove[num] = moveTime;
+                            wpWait[num] = waitTime;
                             System.out.println("get"+" "+wp.getFloat("width")+" "+wp.getFloat("height"));
                             wpDimensions[num] = new Vector2(wp.getFloat("width"), wp.getFloat("height"));
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
                             System.out.println("pre"+wpDimensions[i].x + " "+ wpDimensions[i].y);
-                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpInterval[i], wpDimensions[i], levelHeight, tileSize);
+                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpPlatformInterval[i], wpMove[i], wpWait[i], wpDimensions[i], levelHeight, tileSize);
                         }
                         break;
                     case "movingPlatforms":
@@ -614,7 +626,7 @@ public class ObjectController {
                                     case "pos":
                                         pos = prop.getInt("value");
                                         break;
-                                    case "wait":
+                                    case "waitTime":
                                         wait = prop.getInt("value");
                                         break;
                                     case "moveTime":
@@ -990,7 +1002,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
-    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, int intervals, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, int platformIntervals, int waitTime, int moveTime, Vector2 dimensions, int levelHeight, int tileSize){
         //  Adjust coordinates + Convert coordinates to world coordinates
 //        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
         System.out.println(dimensions.x + " " + dimensions.y);
@@ -1007,7 +1019,7 @@ public class ObjectController {
         weightedPlatform = new WeightedPlatform(dwidth, dheight,
                 new float[] { convertedSynthCoord.x, convertedSynthCoord.y },
                 new float[] { convertedJazzCoord.x, convertedJazzCoord.y },
-                intervals, 0, 1,
+                platformIntervals, waitTime, moveTime,
                 weightedSynth, weightedJazz);
         weightedPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         weightedPlatform.setDensity(defaults.getFloat("density", 0.0f));
