@@ -317,8 +317,8 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
-		pauseTintSynthColor = new Color(143, 0, 255, 0.55f);
-		pauseTintJazzColor = new Color(0.9f, 0, 0, 0.55f);
+		pauseTintSynthColor = new Color(1, 0, 1, 0.55f);
+		pauseTintJazzColor = new Color(1, 0, 1, 0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		syncController = new SyncController();
