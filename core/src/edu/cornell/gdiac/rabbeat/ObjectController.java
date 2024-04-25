@@ -598,11 +598,13 @@ public class ObjectController {
                     case "movingPlatforms":
                         HashMap<Integer, Vector2[]> positionNodes = new HashMap<>();
                         HashMap<Integer, Integer> mpWait = new HashMap<>();
+                        HashMap<Integer, Integer> mpMove = new HashMap<>();
                         HashMap<Integer, Vector2> dimensions = new HashMap<>();
                         for (JsonValue mp : layer.get("objects")) {
                             int num = 0;
                             int pos = 0;
-                            int wait = 0;
+                            int wait = 1;
+                            int move = 0;
                             int totalPos = 1; // number of positions in this moving platform
                             for (JsonValue prop : mp.get("properties")) {
                                 switch (prop.getString("name")) {
@@ -614,6 +616,9 @@ public class ObjectController {
                                         break;
                                     case "wait":
                                         wait = prop.getInt("value");
+                                        break;
+                                    case "moveTime":
+                                        move = prop.getInt("value");
                                         break;
                                     case "totalPos":
                                         totalPos = prop.getInt("value");
@@ -627,15 +632,16 @@ public class ObjectController {
                             Vector2 dim = new Vector2(mp.getFloat("width"), mp.getFloat("height"));
                             positionNodes.get(num)[pos] = coord;
 
-                            // Store speed
+                            // Store nodewaitTime
                             mpWait.put(num, wait);
-
+                            // store Movespeed
+                            mpMove.put(num, move);
                             //  Store dimensions
                             dimensions.put(num, dim);
                         }
                         //  Now actually create moving platforms
                         for (int i=0; i<positionNodes.size(); i++){
-                            createMovingPlatform(scale, positionNodes.get(i), mpWait.get(i), dimensions.get(i), levelHeight, tileSize);
+                            createMovingPlatform(scale, positionNodes.get(i), mpWait.get(i), mpMove.get(i), dimensions.get(i), levelHeight, tileSize);
                         }
                         break;
                     case "platforms":
@@ -1001,7 +1007,7 @@ public class ObjectController {
         weightedPlatform = new WeightedPlatform(dwidth, dheight,
                 new float[] { convertedSynthCoord.x, convertedSynthCoord.y },
                 new float[] { convertedJazzCoord.x, convertedJazzCoord.y },
-                intervals,
+                intervals, 0, 1,
                 weightedSynth, weightedJazz);
         weightedPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         weightedPlatform.setDensity(defaults.getFloat("density", 0.0f));
@@ -1011,7 +1017,7 @@ public class ObjectController {
         GameController.getInstance().instantiate(weightedPlatform);
     }
 
-    private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, int waitTime, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, int waitTime, int beatMoveTime, Vector2 dimensions, int levelHeight, int tileSize){
         //  Convert coordinates to world coordinates
         Vector2[] convertedPos = new Vector2[positionNodes.length];
         for(int i=0; i<positionNodes.length; i++){
@@ -1022,7 +1028,7 @@ public class ObjectController {
         float dwidth = movingSynth.getRegionWidth() / scale.x;
         float dheight = movingSynth.getRegionHeight() / scale.y;
         MovingPlatform movingPlatform;
-        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, waitTime, platformTile);
+        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, waitTime, beatMoveTime, platformTile);
         movingPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         movingPlatform.setDensity(defaults.getFloat("density", 0.0f));
         movingPlatform.setFriction(defaults.getFloat("friction", 0.0f));
