@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="130" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="655">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="130" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="657">
  <editorsettings>
   <export target="../levelsJson/level1Beta.tmj" format="json"/>
  </editorsettings>
@@ -49,35 +49,35 @@
 </data>
  </layer>
  <objectgroup id="10" name="weightedPlatforms">
-  <object id="569" gid="115" x="704" y="960" width="192" height="36">
+  <object id="569" type="Weighted Platform" gid="115" x="704" y="960" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="0"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>
-  <object id="570" gid="114" x="704" y="384" width="192" height="36">
+  <object id="570" type="Weighted Platform" gid="114" x="704" y="384" width="192" height="36">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="0"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>
-  <object id="571" gid="115" x="1152" y="960" width="192" height="36">
+  <object id="571" type="Weighted Platform" gid="115" x="1152" y="960" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="1"/>
-    <property name="speed" type="int" value="1"/>
+    <property name="speed" type="int" value="0"/>
    </properties>
   </object>
-  <object id="572" gid="114" x="1152" y="384" width="192" height="36">
+  <object id="572" type="Weighted Platform" gid="114" x="1152" y="384" width="192" height="36">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="1"/>
-    <property name="speed" type="int" value="1"/>
+    <property name="speed" type="int" value="0"/>
    </properties>
   </object>
-  <object id="573" gid="115" x="1920" y="1024" width="192" height="36">
+  <object id="573" type="Weighted Platform" gid="115" x="1920" y="1024" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="2"/>
@@ -91,28 +91,30 @@
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>
-  <object id="577" gid="115" x="2880" y="1024" width="192" height="36">
+  <object id="577" type="Weighted Platform" gid="115" x="2880" y="1024" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="3"/>
     <property name="speed" type="int" value="0"/>
+    <property name="waitTime" type="int" value="4"/>
    </properties>
   </object>
-  <object id="578" gid="114" x="2880" y="384" width="192" height="36">
+  <object id="578" type="Weighted Platform" gid="114" x="2880" y="384" width="192" height="36">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="3"/>
     <property name="speed" type="int" value="0"/>
+    <property name="waitTime" type="int" value="4"/>
    </properties>
   </object>
-  <object id="653" gid="114" x="1920" y="320" width="192" height="36">
+  <object id="653" type="Weighted Platform" gid="114" x="1920" y="320" width="192" height="36">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="4"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>
-  <object id="654" gid="115" x="1920" y="640" width="192" height="36">
+  <object id="654" type="Weighted Platform" gid="115" x="1920" y="640" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="4"/>
@@ -123,29 +125,29 @@
  <objectgroup id="16" name="movingPlatforms" locked="1"/>
  <objectgroup id="13" name="platforms" locked="1"/>
  <objectgroup id="7" name="enemies">
-  <object id="475" type="bear" gid="9" x="3328" y="960" width="173" height="200">
+  <object id="475" type="Bear" gid="9" x="3264" y="960" width="173" height="200">
    <properties>
     <property name="beatList" value="15"/>
    </properties>
   </object>
-  <object id="548" type="bear" gid="9" x="3264" y="320" width="173" height="200">
+  <object id="548" type="Bear" gid="9" x="3264" y="320" width="173" height="200">
    <properties>
     <property name="beatList" value="15"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="8" name="checkpoints">
-  <object id="565" gid="8" x="320" y="896" width="130" height="130">
+  <object id="565" type="Checkpoint" gid="8" x="320" y="896" width="130" height="130">
    <properties>
     <property name="num" type="int" value="0"/>
    </properties>
   </object>
-  <object id="566" gid="2147483656" x="1472" y="960" width="130" height="130">
+  <object id="566" type="Checkpoint" gid="2147483656" x="1472" y="960" width="130" height="130">
    <properties>
     <property name="num" type="int" value="1"/>
    </properties>
   </object>
-  <object id="576" gid="8" x="2496" y="384" width="130" height="130">
+  <object id="576" type="Checkpoint" gid="8" x="2496" y="384" width="130" height="130">
    <properties>
     <property name="num" type="int" value="2"/>
    </properties>
@@ -158,7 +160,11 @@
   <object id="608" type="ceilingCamera" gid="67" x="896" y="256" width="128" height="128"/>
  </objectgroup>
  <objectgroup id="9" name="goal">
-  <object id="549" gid="13" x="3840" y="640" width="128" height="130"/>
+  <object id="549" type="Checkpoint" gid="13" x="3840" y="640" width="128" height="130">
+   <properties>
+    <property name="num" type="int" value="3"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="12" name="foregroundArt" class="bigwire">
   <object id="581" type="wires1" gid="51" x="1856" y="192" width="875" height="128"/>

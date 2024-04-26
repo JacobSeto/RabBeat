@@ -60,7 +60,32 @@
                 "value": "15"
             }
         ],
-        "name": "Bee Hive",
+        "name": "Beehive",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
+        "id": 8,
+        "members": [
+            {
+                "name": "num",
+                "type": "int",
+                "value": 0
+            }
+        ],
+        "name": "Checkpoint",
         "type": "class",
         "useAs": [
             "property",

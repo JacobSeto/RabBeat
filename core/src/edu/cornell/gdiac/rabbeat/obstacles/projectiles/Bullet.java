@@ -3,6 +3,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
+import edu.cornell.gdiac.rabbeat.obstacles.Type;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
@@ -20,6 +21,8 @@ public class Bullet extends WheelGameObject implements ISynced, ISyncedAnimated 
         super(x, y, radius);
         float dir = (fr ? 1 : -1);
         bulletGenre = genre;
+        setType(Type.LETHAL);
+        //setSensor(true);
     }
 
     @Override

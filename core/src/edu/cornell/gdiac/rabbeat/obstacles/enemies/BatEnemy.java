@@ -102,7 +102,6 @@ public class BatEnemy extends Enemy {
             echo.setDrawScale(scale);
             echo.setTexture(oc.echoTexture);
             echo.setGravityScale(0);
-            echo.setType(1);
             GameController.getInstance().instantiateQueue(echo);
             offset *= -1;
         }

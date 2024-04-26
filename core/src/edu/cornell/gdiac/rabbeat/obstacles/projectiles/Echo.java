@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
+import edu.cornell.gdiac.rabbeat.obstacles.Type;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 
@@ -24,6 +25,8 @@ public class Echo extends BoxGameObject implements ISyncedAnimated {
     public Echo(float x, float y, float width, float height, Animation _animation) {
         super(x, y, width, height);
         setAnimation(_animation);
+        setType(Type.LETHAL);
+        setSensor(true);
     }
 
     @Override
