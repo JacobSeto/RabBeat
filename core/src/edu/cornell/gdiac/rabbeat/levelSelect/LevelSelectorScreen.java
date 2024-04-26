@@ -57,10 +57,9 @@ public class LevelSelectorScreen extends ScreenAdapter {
         for(int i=1; i<= numberOfLevels; i++) {
             int finalI = i;
             if(i <= GameController.getInstance().getLevelsUnlocked()) {
-//                buttonTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
-                buttonTexture = new Texture(Gdx.files.internal("ui/unlockedLevels/unlockedLevel" + finalI + ".png"));
+                buttonTexture = GameController.getInstance().objectController.getUnlockedButtonTexture(finalI);
             } else {
-                buttonTexture = new Texture(Gdx.files.internal("ui/lockedLevels/lockedLevel" + finalI + ".png"));
+                buttonTexture = GameController.getInstance().objectController.getLockedButtonTexture(finalI);
             }
 
             TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(buttonTexture));

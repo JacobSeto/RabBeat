@@ -31,7 +31,11 @@ public class GDXRoot extends Game implements ScreenListener {
 	/** AssetManager to load game assets (textures, sounds, etc.) */
 	AssetDirectory directory;
 	/** Drawing context to display graphics (VIEW CLASS) */
-	private GameCanvas canvas; 
+	private GameCanvas canvas;
+
+	/** Player mode for the initial loading screen asset (CONTROLLER CLASS) */
+	private LoadingMode initialLoading;
+
 	/** Player mode for the asset loading screen (CONTROLLER CLASS) */
 	private LoadingMode loading;
 	/** Player mode for the game proper (CONTROLLER CLASS) */
@@ -47,7 +51,7 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * This method configures the asset manager, but does not load any assets
 	 * or assign any screen.
 	 */
-	public GDXRoot() { }
+	public GDXRoot() { controller = new GameController(); }
 
 	/** 
 	 * Called when the Application is first created.
@@ -56,12 +60,17 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * the levelSelector screen
 	 */
 	public void create() {
-		canvas  = new GameCanvas();
-		loading = new LoadingMode("assets.json",canvas,1);
-		loading.setScreenListener(this);
+		canvas = new GameCanvas();
+		initialLoading = new LoadingMode("assets.json", canvas, 1);
+		initialLoading.setScreenListener(this);
+		setScreen(initialLoading);
+//		canvas  = new GameCanvas();
+//		initialLoading = new LoadingMode("assets.json",canvas,1);
+//		initialLoading.setScreenListener(this);
 		levelSelectorScreen = new LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
-		setScreen(levelSelectorScreen);
+//		setScreen(initialLoading);
+		//setScreen(levelSelectorScreen);
 	}
 
 	/** 
@@ -109,6 +118,15 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * @param exitCode The state of the screen upon exit
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
+		if(screen == initialLoading) {
+			directory = initialLoading.getAssets();
+			controller.gatherAssets(directory);
+			controller.setScreenListener(this);
+			controller.setCanvas(canvas);
+			controller.initialize();
+			InputController.getInstance().setPaused(true);
+			setScreen(levelSelectorScreen);
+		}
 		if (screen == loading) {
 			InputController.getInstance().setPaused(false);
 			directory = loading.getAssets();
@@ -120,6 +138,8 @@ public class GDXRoot extends Game implements ScreenListener {
 			loading.dispose();
 			loading = null;
 		} else if (screen == levelSelectorScreen || exitCode == 1) {
+			InputController.getInstance().setPaused(true);
+			InputController.getInstance().setPaused(false);
 			controller = new GameController();
 			loading = new LoadingMode("assets.json", canvas, 1);
 			loading.setScreenListener(this);

@@ -1183,4 +1183,9 @@ public class GameController implements Screen, ContactListener {
 	public int getVictoryScreenItemSelected() {
 		return victoryScreenItemSelected;
 	}
+
+	/** Returns the object controller */
+	public ObjectController getObjectController() {
+		return objectController;
+	}
 }
