@@ -168,22 +168,22 @@
   <properties>
    <property name="beatList" value="13"/>
   </properties>
-  <object id="527" type="bat" gid="60" x="653.463" y="767.293" width="176" height="97">
+  <object id="527" type="Bat" gid="60" x="653.463" y="767.293" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="528" type="bat" gid="60" x="1244.93" y="542.902" width="176" height="97">
+  <object id="528" type="Bat" gid="60" x="1244.93" y="542.902" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="529" type="bat" gid="60" x="1869.33" y="835.658" width="176" height="97">
+  <object id="529" type="Bat" gid="60" x="1869.33" y="835.658" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="530" type="bat" gid="60" x="2432" y="576" width="176" height="97">
+  <object id="530" type="Bat" gid="60" x="2432" y="576" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
@@ -193,49 +193,49 @@
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="532" type="bat" gid="60" x="3949.12" y="894.561" width="176" height="97">
+  <object id="532" type="Bat" gid="60" x="3949.12" y="894.561" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="533" type="bat" gid="60" x="5199.59" y="767.878" width="176" height="97">
+  <object id="533" type="Bat" gid="60" x="5199.59" y="767.878" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="534" type="bat" gid="60" x="5517.88" y="511.78" width="176" height="97">
+  <object id="534" type="Bat" gid="60" x="5517.88" y="511.78" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="535" type="bat" gid="60" x="5837.61" y="766.878" width="176" height="97">
+  <object id="535" type="Bat" gid="60" x="5837.61" y="766.878" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="8" name="checkpoints">
-  <object id="536" gid="8" x="195.507" y="768.165" width="130" height="130">
+  <object id="536" type="Checkpoint" gid="8" x="195.507" y="768.165" width="130" height="130">
    <properties>
     <property name="num" type="int" value="0"/>
    </properties>
   </object>
-  <object id="537" gid="8" x="2749.69" y="576.855" width="130" height="130">
+  <object id="537" type="Checkpoint" gid="8" x="2752" y="576" width="130" height="130">
    <properties>
     <property name="num" type="int" value="2"/>
    </properties>
   </object>
-  <object id="538" gid="8" x="4958.36" y="449.046" width="130" height="130">
+  <object id="538" type="Checkpoint" gid="8" x="4958.36" y="449.046" width="130" height="130">
    <properties>
     <property name="num" type="int" value="4"/>
    </properties>
   </object>
-  <object id="661" gid="8" x="1885" y="704" width="130" height="130">
+  <object id="661" type="Checkpoint" gid="8" x="1885" y="704" width="130" height="130">
    <properties>
     <property name="num" type="int" value="1"/>
    </properties>
   </object>
-  <object id="666" gid="8" x="3485" y="960" width="130" height="130">
+  <object id="666" type="Checkpoint" gid="8" x="3488" y="960" width="130" height="130">
    <properties>
     <property name="num" type="int" value="3"/>
    </properties>
@@ -245,7 +245,11 @@
   <object id="2" name="player" gid="3" x="128" y="768" width="75" height="142"/>
  </objectgroup>
  <objectgroup id="9" name="goal">
-  <object id="410" gid="13" x="6144" y="576" width="128" height="130"/>
+  <object id="410" type="Checkpoint" gid="13" x="6144" y="576" width="128" height="130">
+   <properties>
+    <property name="num" type="int" value="5"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="12" name="foregroundArt" class="bigwire">
   <object id="585" type="pipestraight" gid="46" x="1408" y="768" width="320" height="320"/>

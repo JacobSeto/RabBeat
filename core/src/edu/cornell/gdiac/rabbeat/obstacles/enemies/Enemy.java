@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.*;
 
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
+import edu.cornell.gdiac.rabbeat.obstacles.Type;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 /**
@@ -93,6 +94,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
         this.faceRight = faceRight; // should face the direction player is in?
         this.enemyScale = enemyScale;
         this.beatList = beatList;
+        setType(Type.LETHAL);
         setName("enemy");
     }
 

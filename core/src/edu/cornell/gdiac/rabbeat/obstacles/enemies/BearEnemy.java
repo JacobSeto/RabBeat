@@ -20,12 +20,6 @@ public class BearEnemy extends Enemy {
     /** The bullet the bear will be shooting */
     public Bullet bullet;
 
-    /** Number of beats the bullet exists in synth */
-    private int synthBulletTime = 3;
-
-    /** Number of beats the bullet exists in jazz */
-    private int jazzBulletTime = 8;
-
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
 
@@ -60,12 +54,12 @@ public class BearEnemy extends Enemy {
     public void switchState() {
         switch (enemyState) {
             case IDLE:
-                if (horizontalDistanceBetweenEnemyAndPlayer() < 16) {
+                if (horizontalDistanceBetweenEnemyAndPlayer() < 20) {
                     enemyState = EnemyState.ATTACKING;
                 }
                 break;
             case ATTACKING:
-                if (horizontalDistanceBetweenEnemyAndPlayer() > 16) {
+                if (horizontalDistanceBetweenEnemyAndPlayer() > 20) {
                     enemyState = EnemyState.IDLE;
                 }
                 // TODO: make bear shoot
@@ -95,7 +89,6 @@ public class BearEnemy extends Enemy {
                 oc.defaultConstants.get("bullet").getFloat("jazz speed", 0), isFaceRight(),
                 animationGenre);
 
-        bullet.setName(getName() + "_bullet");
         bullet.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bullet.setDrawScale(scale);
         //bullet.setTexture(oc.bulletTexture);
@@ -108,10 +101,10 @@ public class BearEnemy extends Enemy {
         float speed;
         if (GameController.getInstance().genre == Genre.SYNTH) {
             speed = oc.defaultConstants.get("bullet").getFloat("synth speed", 0);
-            beatcount = synthBulletTime;
+            beatcount = oc.defaultConstants.get("bullet").getInt("synth bullet time", 0);
         } else {
             speed = oc.defaultConstants.get("bullet").getFloat("jazz speed", 0);
-            beatcount = jazzBulletTime;
+            beatcount = oc.defaultConstants.get("bullet").getInt("jazz bullet time", 0);
         }
         speed *= (isFaceRight() ? 1 : -1);
         bullet.setVX(speed);

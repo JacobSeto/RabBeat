@@ -242,7 +242,7 @@
                          "value":0
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
                  "x":704,
@@ -270,7 +270,7 @@
                          "value":0
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
                  "x":704,
@@ -295,10 +295,10 @@
                         {
                          "name":"speed",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
                  "x":1152,
@@ -323,10 +323,10 @@
                         {
                          "name":"speed",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
                  "x":1152,
@@ -354,7 +354,7 @@
                          "value":0
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
                  "x":1920,
@@ -408,9 +408,14 @@
                          "name":"speed",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"waitTime",
+                         "type":"int",
+                         "value":4
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
                  "x":2880,
@@ -436,9 +441,14 @@
                          "name":"speed",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"waitTime",
+                         "type":"int",
+                         "value":4
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
                  "x":2880,
@@ -466,7 +476,7 @@
                          "value":0
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
                  "x":1920,
@@ -494,7 +504,7 @@
                          "value":0
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
                  "x":1920,
@@ -547,10 +557,10 @@
                          "value":"15"
                         }],
                  "rotation":0,
-                 "type":"bear",
+                 "type":"Bear",
                  "visible":true,
                  "width":173,
-                 "x":3328,
+                 "x":3264,
                  "y":960
                 }, 
                 {
@@ -565,7 +575,7 @@
                          "value":"15"
                         }],
                  "rotation":0,
-                 "type":"bear",
+                 "type":"Bear",
                  "visible":true,
                  "width":173,
                  "x":3264,
@@ -594,7 +604,7 @@
                          "value":0
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Checkpoint",
                  "visible":true,
                  "width":130,
                  "x":320,
@@ -612,7 +622,7 @@
                          "value":1
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Checkpoint",
                  "visible":true,
                  "width":130,
                  "x":1472,
@@ -630,7 +640,7 @@
                          "value":2
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Checkpoint",
                  "visible":true,
                  "width":130,
                  "x":2496,
@@ -711,8 +721,14 @@
                  "height":130,
                  "id":549,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"num",
+                         "type":"int",
+                         "value":3
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Checkpoint",
                  "visible":true,
                  "width":128,
                  "x":3840,
@@ -893,7 +909,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":655,
+ "nextobjectid":657,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

@@ -1,4 +1,4 @@
-package edu.cornell.gdiac.rabbeat.obstacles.enemies;
+package edu.cornell.gdiac.rabbeat.obstacles.projectiles;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
+import edu.cornell.gdiac.rabbeat.obstacles.Type;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
@@ -25,6 +26,8 @@ public class Bee extends WheelGameObject implements ISynced, IGenreObject {
         super(x, y, radius);
         hiveY = y;
         setAnimation(beeAttackAnimation);
+        setType(Type.LETHAL);
+        setSensor(true);
     }
     public void update(float dt) {
         stateTime += dt;

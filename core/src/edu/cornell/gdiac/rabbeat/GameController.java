@@ -19,13 +19,11 @@ package edu.cornell.gdiac.rabbeat;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.Bee;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
-import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
+import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
@@ -703,64 +701,25 @@ public class GameController implements Screen, ContactListener {
 					sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
 				}
 			}
-
 			// Check for win condition
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
 					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
 				setComplete(true);
 			}
 
-			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy && !(bd2 instanceof BatEnemy))) {
-				getPlayer().isDying = true;
-//				setFailure(true);
-			}
-
-			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy) && !(bd2 instanceof Bullet) ) {
-				bd1.markRemoved(true);
-			}
-
-			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy) && !(bd1 instanceof Bullet) ) {
-				bd2.markRemoved(true);
-			}
-
-			if ((bd1.equals(objectController.player) && bd2 instanceof Bullet)) {
-				getPlayer().isDying = true;
-//				setFailure(true);
-			}
-
-			if ((bd1.equals(objectController.player) && bd2 instanceof Bee)) {
-				getPlayer().isDying = true;
-//				setFailure(true);
-			}
-
-			if (bd1 instanceof Bee && !(bd2 instanceof BeeHive) ) {
-				bd1.markRemoved(true);
-			}
-
-			if (bd2 instanceof Bee && !(bd1 instanceof BeeHive) ) {
-				bd2.markRemoved(true);
-			}
-
-			if ((bd1.equals(objectController.player) && bd2 instanceof Enemy && !(bd2 instanceof BatEnemy))) {
-				getPlayer().isDying = true;
-//				setFailure(true);
-			}
-
-			if ((bd1.equals(objectController.player) && bd2 instanceof BatEnemy)) {
-//				getPlayer().isDying = true;
-//				setFailure(true);
-			}
-
-			if ((bd2 instanceof Player && bd1 instanceof SimpleGameObject)){
-				if (((SimpleGameObject) bd1).getType() == SimpleGameObject.ObjectType.LETHAL){
+			//player collision checks
+			if (bd1.getType() == Type.Player){
+				if(bd2.getType() == Type.LETHAL){
 					getPlayer().isDying = true;
-//					setFailure(true);
+				}
+				if(bd2 instanceof  WeightedPlatform){
+					lastCollideWith = (WeightedPlatform) bd1;
 				}
 			}
-			if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
+			if ((bd1 instanceof WeightedPlatform) && (bd2.getType() ==  Type.Player)){
 				lastCollideWith = (WeightedPlatform) bd1;
 			}
-			if ((bd1 instanceof MovingPlatform) && (bd2 instanceof Player)){
+			if ((bd1 instanceof MovingPlatform) && (bd2.getType() ==  Type.Player)){
 				lastMCollideWith = (MovingPlatform) bd1;
 			}
 			// Check for collision with checkpoints and set new current checkpoint

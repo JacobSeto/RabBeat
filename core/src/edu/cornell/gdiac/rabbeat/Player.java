@@ -312,7 +312,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		animationGenre = Genre.SYNTH;
 
 		jumpCooldown = 0;
-		setName("dude");
+		setType(Type.Player);
 	}
 
 	/**
