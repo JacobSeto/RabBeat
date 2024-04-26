@@ -546,7 +546,6 @@ public class ObjectController {
                                 // Get x and y coordinates from where it is in the array
                                 int x = i % width;
                                 int y = height - (i / width) - 1;
-                                System.out.println(tileTypeID + " " + firstGid + " " + (tileTypeID-firstGid));
                                 createWall(scale, x, y, tileTypeID-firstGid, tileSize);
                             }
                         }
@@ -705,19 +704,19 @@ public class ObjectController {
                                 }
                             }
                             switch (enemyType) {
-                                case "bear":
+                                case "Bear":
                                     float x = enemy.getFloat("x");
                                     float y = enemy.getFloat("y");
                                     Vector2 dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
                                     createEnemyBear(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString));
                                     break;
-                                case "beehive":
+                                case "Beehive":
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
                                     createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString));
                                     break;
-                                case "hedgehog":
+                                case "Hedgehog":
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
@@ -729,7 +728,7 @@ public class ObjectController {
                                     }
                                     createEnemyHedgehog(scale, x, y, dim, rollingDistance, levelHeight, tileSize, convertTiledbeatList(beatListString));
                                     break;
-                                case "bat":
+                                case "Bat":
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
@@ -953,8 +952,11 @@ public class ObjectController {
         platform.setDrawScale(scale);
         platform.setTexture(textureRegion);
         if (lethal){
-            platform.setType(1);
+            platform.setType(Type.LETHAL);
 
+        }
+        else{
+            platform.setType(Type.NONE);
         }
         GameController.getInstance().instantiate(platform);
     }
@@ -1005,7 +1007,6 @@ public class ObjectController {
     private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, int platformIntervals, int waitTime, int moveTime, Vector2 dimensions, int levelHeight, int tileSize){
         //  Adjust coordinates + Convert coordinates to world coordinates
 //        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
-        System.out.println(dimensions.x + " " + dimensions.y);
         Vector2 convertedSynthCoord = convertTiledCoord(synthCoord[0], synthCoord[1], dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedSynthCoord.set(convertedSynthCoord.x, convertedSynthCoord.y);
 //        jazzCoord[1] -= weightedSynth.getRegionHeight()/2-4;
@@ -1069,7 +1070,6 @@ public class ObjectController {
                 dwidth * playerScale - .3f, dheight * playerScale, playerScale);
         player.setDrawScale(scale);
         player.setPlayer();
-        System.out.println("density: " + player.getDensity());
 
         // Set animations: Synth
         player.synthIdleAnimation = synthIdleAnimation;
@@ -1193,7 +1193,6 @@ public class ObjectController {
         hedgehog.setDrawScale(scale);
         hedgehog.setTexture(hedgehogTexture);
         GameController.getInstance().instantiate(hedgehog);
-        System.out.println(x + " ");
     }
 
     /**

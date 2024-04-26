@@ -109,6 +109,8 @@
   "bullet": {
     "offset" : 0.5,
     "synth speed"  : 5.0,
+    "synth bullet time"  : 6,
+    "jazz bullet time" : 24,
     "jazz speed" : 2.5,
     "density": 10.0
   },
