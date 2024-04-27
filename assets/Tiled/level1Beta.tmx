@@ -52,28 +52,36 @@
   <object id="569" type="Weighted Platform" gid="115" x="704" y="960" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="2"/>
     <property name="num" type="int" value="0"/>
+    <property name="platformInterval" type="int" value="1"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>
   <object id="570" type="Weighted Platform" gid="114" x="704" y="384" width="192" height="36">
    <properties>
     <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="2"/>
     <property name="num" type="int" value="0"/>
+    <property name="platformInterval" type="int" value="1"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>
   <object id="571" type="Weighted Platform" gid="115" x="1152" y="960" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="1"/>
     <property name="num" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="1"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>
   <object id="572" type="Weighted Platform" gid="114" x="1152" y="384" width="192" height="36">
    <properties>
     <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="1"/>
     <property name="num" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="1"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>

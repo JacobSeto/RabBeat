@@ -62,66 +62,74 @@
  <objectgroup id="16" name="movingPlatforms">
   <object id="317" type="Moving Platform" gid="88" x="768" y="640" width="192" height="64">
    <properties>
+    <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="0"/>
-    <property name="totalPos" type="int" value="0"/>
+    <property name="totalPos" type="int" value="4"/>
     <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
   <object id="318" type="Moving Platform" gid="88" x="1024" y="640" width="192" height="64">
    <properties>
+    <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="1"/>
-    <property name="totalPos" type="int" value="0"/>
+    <property name="totalPos" type="int" value="4"/>
     <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
   <object id="483" type="Moving Platform" gid="88" x="1280" y="640" width="192" height="64">
    <properties>
+    <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="2"/>
-    <property name="totalPos" type="int" value="0"/>
+    <property name="totalPos" type="int" value="4"/>
     <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
   <object id="485" type="Moving Platform" gid="88" x="1792" y="448" width="192" height="64">
    <properties>
+    <property name="moveTime" type="int" value="1"/>
     <property name="num" type="int" value="1"/>
     <property name="pos" type="int" value="0"/>
     <property name="totalPos" type="int" value="4"/>
-    <property name="wait" type="int" value="2"/>
+    <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
   <object id="486" gid="88" x="1792" y="704" width="192" height="64">
    <properties>
+    <property name="moveTime" type="int" value="1"/>
     <property name="num" type="int" value="1"/>
     <property name="pos" type="int" value="1"/>
     <property name="totalPos" type="int" value="4"/>
-    <property name="wait" type="int" value="2"/>
+    <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
   <object id="487" type="Moving Platform" gid="88" x="1792" y="960" width="192" height="64">
    <properties>
+    <property name="moveTime" type="int" value="1"/>
     <property name="num" type="int" value="1"/>
     <property name="pos" type="int" value="2"/>
     <property name="totalPos" type="int" value="4"/>
-    <property name="wait" type="int" value="2"/>
+    <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
   <object id="489" type="Moving Platform" gid="88" x="1024" y="640" width="192" height="64">
    <properties>
+    <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="3"/>
-    <property name="totalPos" type="int" value="0"/>
+    <property name="totalPos" type="int" value="4"/>
     <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
   <object id="490" type="Moving Platform" gid="88" x="1792" y="704" width="192" height="64">
    <properties>
+    <property name="moveTime" type="int" value="1"/>
     <property name="num" type="int" value="1"/>
     <property name="pos" type="int" value="3"/>
     <property name="totalPos" type="int" value="4"/>
-    <property name="wait" type="int" value="2"/>
+    <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
   <object id="491" gid="88" x="2496" y="704" width="192" height="64">

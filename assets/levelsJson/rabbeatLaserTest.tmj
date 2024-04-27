@@ -276,6 +276,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":0
@@ -291,12 +296,12 @@
                          "value":4
                         }, 
                         {
-                         "name":"wait",
+                         "name":"waitTime",
                          "type":"int",
                          "value":3
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Moving Platform",
                  "visible":true,
                  "width":192,
                  "x":768,
@@ -309,6 +314,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":0
@@ -319,17 +329,17 @@
                          "value":1
                         }, 
                         {
-                         "name":"speed",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
                          "name":"totalPos",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"waitTime",
+                         "type":"int",
+                         "value":3
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Moving Platform",
                  "visible":true,
                  "width":192,
                  "x":1024,
@@ -342,6 +352,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":0
@@ -357,12 +372,12 @@
                          "value":4
                         }, 
                         {
-                         "name":"wait",
+                         "name":"waitTime",
                          "type":"int",
                          "value":3
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Moving Platform",
                  "visible":true,
                  "width":192,
                  "x":1280,
@@ -375,6 +390,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":1
@@ -390,12 +410,12 @@
                          "value":4
                         }, 
                         {
-                         "name":"wait",
+                         "name":"waitTime",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Moving Platform",
                  "visible":true,
                  "width":192,
                  "x":1792,
@@ -407,6 +427,11 @@
                  "id":486,
                  "name":"",
                  "properties":[
+                        {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":1
+                        }, 
                         {
                          "name":"num",
                          "type":"int",
@@ -423,9 +448,9 @@
                          "value":4
                         }, 
                         {
-                         "name":"wait",
+                         "name":"waitTime",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }],
                  "rotation":0,
                  "type":"",
@@ -441,6 +466,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":1
@@ -456,12 +486,12 @@
                          "value":4
                         }, 
                         {
-                         "name":"wait",
+                         "name":"waitTime",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Moving Platform",
                  "visible":true,
                  "width":192,
                  "x":1792,
@@ -473,6 +503,11 @@
                  "id":489,
                  "name":"",
                  "properties":[
+                        {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":0
+                        }, 
                         {
                          "name":"num",
                          "type":"int",
@@ -489,12 +524,12 @@
                          "value":4
                         }, 
                         {
-                         "name":"wait",
+                         "name":"waitTime",
                          "type":"int",
                          "value":3
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Moving Platform",
                  "visible":true,
                  "width":192,
                  "x":1024,
@@ -506,6 +541,11 @@
                  "id":490,
                  "name":"",
                  "properties":[
+                        {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":1
+                        }, 
                         {
                          "name":"num",
                          "type":"int",
@@ -522,12 +562,12 @@
                          "value":4
                         }, 
                         {
-                         "name":"wait",
+                         "name":"waitTime",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Moving Platform",
                  "visible":true,
                  "width":192,
                  "x":1792,
@@ -1923,7 +1963,7 @@
                          "value":"1234"
                         }],
                  "rotation":0,
-                 "type":"bear",
+                 "type":"Bear",
                  "visible":true,
                  "width":173,
                  "x":2240,
@@ -1941,7 +1981,7 @@
                          "value":""
                         }],
                  "rotation":0,
-                 "type":"bear",
+                 "type":"Bear",
                  "visible":true,
                  "width":173,
                  "x":3840,
@@ -1970,7 +2010,7 @@
                          "value":0
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Checkpoint",
                  "visible":true,
                  "width":130,
                  "x":256,
@@ -2221,7 +2261,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":606,
+ "nextobjectid":608,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

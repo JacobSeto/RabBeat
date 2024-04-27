@@ -78,9 +78,13 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
         velocity = new Vector2((jazzPosition.x - synthPosition.x)/magnitude1,
                 (jazzPosition.y-synthPosition.y)/magnitude1);
         currentGenre = 0;
-        platformIntervals = platformInterval;
+        platformIntervals = platformInterval-1;
         moveTime = (int) Math.pow(2, beatMoveTime);
         waitTime = beatWaitTime;
+        System.out.println("movtime is");
+        System.out.println(moveTime);
+        System.out.println(beatMoveTime);
+        System.out.println( Math.pow(2, beatMoveTime));
     }
     /** */
     public Vector2 currentVelocity(){
@@ -149,15 +153,15 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
         }
         else if (beat==(2+4* waitTime)){
             if (moving){
-                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT6*((float) 1 /(1+ platformIntervals)));
+                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT6*((float) 1 /(1+ (float) platformIntervals /2)));
             }
         }
         else if (beat==(3+4* waitTime) && currentSpeed>0){
-            currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT7*((float) 1 /(1+ platformIntervals)));
+            currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT7*((float) 1 /(1+ (float) platformIntervals /2)));
         }
         else if (beat == (4+4* waitTime)){
             if (currentSpeed>0){
-                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT8*((float) 1 /(1+ platformIntervals)));
+                currentSpeed = (magnitude(jazzPosition, synthPosition)*(1/BeatLength)*SPEEDBEAT8*((float) 1 /(1+ (float) platformIntervals /2)));
             }
             beat = 0;
         }

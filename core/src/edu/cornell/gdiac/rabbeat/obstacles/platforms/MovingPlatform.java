@@ -62,8 +62,12 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         setTexture(texture);
         setPosition(positionNodes[0]);
         velocity = direction(positionNodes[home], positionNodes[destination], 2);
+        System.out.println("beatMovTime is");
+        System.out.println(beatMoveTime);
         moving = true;
         moveTime = (int) Math.pow(2, beatMoveTime);
+        System.out.println("movtime is");
+        System.out.println(moveTime);
     }
 
     /** updates the platform to determine what direction it should be moving in */

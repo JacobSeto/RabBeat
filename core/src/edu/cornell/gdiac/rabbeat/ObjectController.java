@@ -575,11 +575,12 @@ public class ObjectController {
                                     case "genre":
                                         genre = prop.getString("value");
                                         break;
-                                    case "platInterval":
+                                    case "platformInterval":
                                         platformInterval = prop.getInt("value");
                                         break;
                                     case "moveTime":
                                         moveTime= prop.getInt("value");
+
                                         break;
                                     case "waitTIme":
                                         waitTime = prop.getInt("value");
@@ -602,7 +603,9 @@ public class ObjectController {
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
-                            System.out.println("pre"+wpDimensions[i].x + " "+ wpDimensions[i].y);
+                            //System.out.println("pre"+wpDimensions[i].x + " "+ wpDimensions[i].y);
+                            System.out.println("fuck");
+                            System.out.println(wpMove[i]);
                             createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpPlatformInterval[i], wpMove[i], wpWait[i], wpDimensions[i], levelHeight, tileSize);
                         }
                         break;

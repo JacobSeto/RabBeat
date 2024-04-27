@@ -232,9 +232,19 @@
                          "value":"synth"
                         }, 
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"platformInterval",
+                         "type":"int",
+                         "value":1
                         }, 
                         {
                          "name":"speed",
@@ -260,9 +270,19 @@
                          "value":"jazz"
                         }, 
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"platformInterval",
+                         "type":"int",
+                         "value":1
                         }, 
                         {
                          "name":"speed",
@@ -288,7 +308,17 @@
                          "value":"synth"
                         }, 
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"num",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"platformInterval",
                          "type":"int",
                          "value":1
                         }, 
@@ -316,7 +346,17 @@
                          "value":"jazz"
                         }, 
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"num",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"platformInterval",
                          "type":"int",
                          "value":1
                         }, 
