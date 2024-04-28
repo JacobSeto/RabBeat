@@ -326,6 +326,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":0
@@ -349,9 +354,14 @@
                          "name":"wait",
                          "type":"string",
                          "value":"2"
+                        }, 
+                        {
+                         "name":"waitTime",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Moving Platform",
                  "visible":true,
                  "width":192,
                  "x":4736,
@@ -364,6 +374,11 @@
                  "name":"",
                  "properties":[
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":0
@@ -387,9 +402,14 @@
                          "name":"wait",
                          "type":"string",
                          "value":"2"
+                        }, 
+                        {
+                         "name":"waitTime",
+                         "type":"int",
+                         "value":2
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Moving Platform",
                  "visible":true,
                  "width":192,
                  "x":4736,

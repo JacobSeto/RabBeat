@@ -84,22 +84,24 @@
   </object>
  </objectgroup>
  <objectgroup id="16" name="movingPlatforms">
-  <object id="579" gid="135" x="4736" y="996" width="192" height="36">
+  <object id="579" type="Moving Platform" gid="135" x="4736" y="996" width="192" height="36">
    <properties>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="0"/>
     <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="2"/>
     <property name="wait" value="2"/>
+    <property name="waitTime" type="int" value="2"/>
    </properties>
   </object>
-  <object id="580" gid="135" x="4736" y="484" width="192" height="36">
+  <object id="580" type="Moving Platform" gid="135" x="4736" y="484" width="192" height="36">
    <properties>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="1"/>
     <property name="speed" type="int" value="1"/>
     <property name="totalPos" type="int" value="2"/>
     <property name="wait" value="2"/>
+    <property name="waitTime" type="int" value="2"/>
    </properties>
   </object>
   <object id="581" gid="135" x="5184" y="548" width="192" height="36">
