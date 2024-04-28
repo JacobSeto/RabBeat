@@ -8,11 +8,10 @@ import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
 import edu.cornell.gdiac.rabbeat.obstacles.Type;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
-import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 
-public class Bee extends WheelGameObject implements ISynced, IGenreObject {
+public class Bee extends WheelGameObject implements ISyncedAnimated, IGenreObject {
 
     public int beatCount = 0;
     private float hiveY;
