@@ -2,13 +2,27 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 
 public class SoundController {
 
     private Music synthTrack;
     private Music jazzTrack;
 
+    private float globalMusicVolume = 1.0f;
+
+    private float globalSFXVolume = 1.0f;
+
     private Genre currentGenre;
+
+    private float savedJazzVolume = 0;
+
+    private float savedSynthVolume = 0;
+
+    private float savedGlobalMusicTempVolume = 0;
+
+    private Sound tempSound;
 
     /**
      * Set this to true to make genre switches instantaneous / in one frame.
@@ -24,9 +38,15 @@ public class SoundController {
     private boolean currentlyUpdating;
     private int currentUpdateFrame = 0;
 
+    private ObjectMap<String, Sound> soundNameMap;
+
+    private ObjectMap<Sound, Long> soundIDMap;
+
     public SoundController() {
         currentGenre = Genre.SYNTH;
         currentlyUpdating = false;
+        soundNameMap = new ObjectMap<String, Sound>();
+        soundIDMap = new ObjectMap<Sound, Long>();
     }
 
     public void playMusic() {
@@ -39,11 +59,11 @@ public class SoundController {
     public void playMusic(Genre genre) {
         playMusic();
         if (genre == Genre.SYNTH) {
-            synthTrack.setVolume(1);
+            synthTrack.setVolume(globalMusicVolume);
             jazzTrack.setVolume(0);
         }
         else {
-            jazzTrack.setVolume(1);
+            jazzTrack.setVolume(globalMusicVolume);
             synthTrack.setVolume(0);
         }
     }
@@ -54,14 +74,45 @@ public class SoundController {
 
     public void setJazzTrack(Music track) { jazzTrack = track;}
 
+    public void setGlobalMusicVolume(float vol) { globalMusicVolume = vol;}
+
+    public void setGlobalSFXVolume(float vol) { globalSFXVolume = vol;}
     public void resetMusic() {
         synthTrack.setPosition(1/44100f);
         jazzTrack.setPosition(1/44100f);
-        synthTrack.setVolume(1);
+        synthTrack.setVolume(globalMusicVolume);
         jazzTrack.setVolume(0);
         currentGenre = Genre.SYNTH;
         currentlyUpdating = false;
         currentUpdateFrame = 0;
+    }
+
+    public void pauseMusic() {
+        savedJazzVolume = jazzTrack.getVolume();
+        savedSynthVolume = synthTrack.getVolume();
+        savedGlobalMusicTempVolume = globalMusicVolume;
+        jazzTrack.pause();
+        synthTrack.pause();
+    }
+
+    public void resumeMusic() {
+        jazzTrack.play();
+        synthTrack.play();
+
+        if (savedGlobalMusicTempVolume == 0) {
+            jazzTrack.setVolume(globalMusicVolume * (currentGenre == Genre.JAZZ ? 1 : 0));
+            synthTrack.setVolume(globalMusicVolume * (currentGenre == Genre.SYNTH ? 1: 0));
+        }
+        else {
+            jazzTrack.setVolume(savedJazzVolume * globalMusicVolume / (savedGlobalMusicTempVolume == 0 ? 1 : savedGlobalMusicTempVolume));
+            synthTrack.setVolume(savedSynthVolume * globalMusicVolume / (savedGlobalMusicTempVolume == 0 ? 1 : savedGlobalMusicTempVolume));
+        }
+
+        if (jazzTrack.getVolume() > 1) jazzTrack.setVolume(1);
+        else if (jazzTrack.getVolume() < 0) jazzTrack.setVolume(0);
+        if (synthTrack.getVolume() > 1) synthTrack.setVolume(1);
+        else if (synthTrack.getVolume() < 0) synthTrack.setVolume(0);
+
     }
 
     /**
@@ -79,7 +130,7 @@ public class SoundController {
      * @return the new sound instance for this asset.
      */
     public long replaySound(Sound sound, long soundId) {
-        return replaySound( sound, soundId, 1.0f );
+        return replaySound( sound, soundId, globalSFXVolume );
     }
 
 
@@ -102,9 +153,24 @@ public class SoundController {
         if (soundId != -1) {
             sound.stop( soundId );
         }
-        return sound.play(volume);
+        return sound.play(volume * globalSFXVolume);
     }
 
+    /** This method sets the map that maps sound names (strings) to Sound objects (Sounds).
+     * It also automatically generates a second private map that maps each of these sounds to a unique ID.
+     * The first sound added is assigned ID 0, the second assigned ID 1, etc.
+     * @param map The String:Sound map to allow quick playback of a sound based on its name. This name is different from the assets.json entry name for the sound.
+     */
+
+    public void addSound(String name, Sound sound) {
+        soundNameMap.put(name, sound);
+        soundIDMap.put(sound, (long)soundIDMap.size);
+    }
+
+    public void playSFX(String soundName) {
+        tempSound = soundNameMap.get(soundName);
+        replaySound(tempSound, soundIDMap.get(tempSound));
+    }
 
     /**
      * This method sets the genre AND sets the currentlyUpdating flag to true.
@@ -131,12 +197,12 @@ public class SoundController {
         // The genre just changed from synth to jazz
         if (genre == Genre.JAZZ) {
             jazzTrack.setVolume(0);
-            synthTrack.setVolume(1);
+            synthTrack.setVolume(globalMusicVolume);
         }
         // The genre just changed from jazz to synth
         else {
             synthTrack.setVolume(0);
-            jazzTrack.setVolume(1);
+            jazzTrack.setVolume(globalMusicVolume);
         }
     }
 
@@ -158,8 +224,8 @@ public class SoundController {
      * The switch has no delay.
      */
     public void switchMusicGenreInstant() {
-        synthTrack.setVolume(1 - synthTrack.getVolume());
-        jazzTrack.setVolume(1 - jazzTrack.getVolume());
+        synthTrack.setVolume(globalMusicVolume - synthTrack.getVolume());
+        jazzTrack.setVolume(globalMusicVolume - jazzTrack.getVolume());
         currentlyUpdating = false;
     }
 
@@ -173,18 +239,22 @@ public class SoundController {
         currentUpdateFrame++;
         // The genre just switched from synth to jazz
         if (currentGenre == Genre.JAZZ) {
-            jazzTrack.setVolume(jazzTrack.getVolume() + 1/frameCount);
-            synthTrack.setVolume(synthTrack.getVolume() - 1/frameCount);
+            jazzTrack.setVolume(jazzTrack.getVolume() + globalMusicVolume/frameCount);
+            synthTrack.setVolume(synthTrack.getVolume() - globalMusicVolume/frameCount);
         }
 
         // The genre just switched from jazz to synth
         else {
-            synthTrack.setVolume(synthTrack.getVolume() + 1/frameCount);
-            jazzTrack.setVolume(jazzTrack.getVolume() - 1/frameCount);
+            synthTrack.setVolume(synthTrack.getVolume() + globalMusicVolume/frameCount);
+            jazzTrack.setVolume(jazzTrack.getVolume() - globalMusicVolume/frameCount);
         }
         if (currentUpdateFrame == frameCount) {
             currentUpdateFrame = 0;
             currentlyUpdating = false;
         }
+        if (jazzTrack.getVolume() > 1) jazzTrack.setVolume(1);
+        else if (jazzTrack.getVolume() < 0) jazzTrack.setVolume(0);
+        if (synthTrack.getVolume() > 1) synthTrack.setVolume(1);
+        else if (synthTrack.getVolume() < 0) synthTrack.setVolume(0);
     }
 }

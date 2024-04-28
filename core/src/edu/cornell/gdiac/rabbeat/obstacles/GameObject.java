@@ -66,6 +66,8 @@ public abstract class GameObject {
 	protected Vector2 centroidCache = new Vector2();
 	/** A cache value for when the user wants to access the drawing scale */
 	protected Vector2 scaleCache = new Vector2();
+	/** The type the GameObject is*/
+	private Type type;
 
 
 	/// BodyDef Methods
@@ -906,6 +908,14 @@ public abstract class GameObject {
 		
 		// Set the default drawing scale
 		drawScale = new Vector2(1,1);
+	}
+
+	/** returns the type of the object*/
+	public Type getType() {
+		return type;
+	}
+	public void setType(Type _type){
+		type = _type;
 	}
 
 	/// Abstract Methods

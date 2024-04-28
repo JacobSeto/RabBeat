@@ -7,16 +7,13 @@ import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
-import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
-import edu.cornell.gdiac.rabbeat.sync.ISynced;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bee;
 
-public class BeeHive extends Enemy implements ISynced, IGenreObject {
-
-    public ObjectController objectController;
+public class BeeHive extends Enemy {
 
     ObjectController oc = GameController.getInstance().objectController;
 
-    /** Number of beats the bee exists in synth*/
+    /** Number of beats the bee exists in synth */
     private int synthBeeTime = 1;
 
     /** Number of beats the bee exists in jazz */
@@ -28,52 +25,57 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
     /** Tells whether the hive should shoot bees to the left or right */
     private boolean shotDirection;
 
-    public Animation<TextureRegion> beeAttackAnimation;
-
+    /** The attack animation for the bee */
+    public Animation<TextureRegion> attackAnimation;
+    /** The attack animation in synth for the bee */
+    public Animation<TextureRegion> beeAttackSynthAnimation;
     /**
      * Creates a new bee hive avatar with the given physics data
      *
-     * @param data                  The JsonValue storing information about the beehive
-     * @param startX                The starting x position of the enemy
-     * @param startY                The starting y position of the enemy
-     * @param width                 The object width in physics units
-     * @param height                The object width in physics units
-     * @param enemyScale            The scale of the beehive
-     * @param faceRight             The direction the beehive is facing in
-     * @param animation             The idle animation for the beehive
+     * @param data       The JsonValue storing information about the beehive
+     * @param startX     The starting x position of the enemy
+     * @param startY     The starting y position of the enemy
+     * @param width      The object width in physics units
+     * @param height     The object width in physics units
+     * @param enemyScale The scale of the beehive
+     * @param faceRight  The direction the beehive is facing in
+     * @param beatList   The list of beats that the enemy reacts to
      */
-    public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation, Animation<TextureRegion> beeAnimation) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, animation);
-        beeAttackAnimation = beeAnimation;
-        setAnimation(animation);
+    public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
+            boolean faceRight, int[] beatList) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
+        enemyState = EnemyState.ATTACKING;
+        isFlippable = false;
     }
 
     /** Creates a bee in front of the hive */
-    public void makeBee(){
-        //TODO: create a bullet using object controller default values.  instantiate the copy using gamecontroller
+    public void makeBee() {
+        // TODO: create a bullet using object controller default values. instantiate the
+        // copy using gamecontroller
 
-        float offset = oc.defaultConstants.get("bullet").getFloat("offset",0);
+        float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
-        float radius = oc.bulletTexture.getRegionWidth()/(2.0f*scale.x);
-        BeeEnemy bee = new BeeEnemy(getX()+offset, getY(), radius, beeAttackAnimation);
+        float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
+        Bee bee = new Bee(getX() + offset, getY(), radius, beeAttackSynthAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
-        bee.setTexture(oc.bulletTexture);
+      
+        bee.setSensor(true);
+        bee.setTexture(oc.beeTexture);
         bee.setGravityScale(0);
         shotDirection = isFaceRight();
 
-        //Compute position and velocity
+        // Compute position and velocity
         float speed = 2.5f;
         int beatcount;
-        if (curGenre == Genre.SYNTH){
+        if (GameController.getInstance().genre == Genre.SYNTH) {
             beatcount = synthBeeTime;
-            bee.setVY(2);
-        }
-        else {
+            bee.setVY(4);
+        } else {
             beatcount = jazzBeeTime;
-            bee.setVY(1);
+            bee.setVY(2);
         }
         speed *= (isFaceRight() ? 1 : -1);
         bee.setVX(speed);
@@ -82,23 +84,28 @@ public class BeeHive extends Enemy implements ISynced, IGenreObject {
     }
 
     @Override
-    public void genreUpdate(Genre genre) {
-        curGenre = genre;
+    public void update(float dt) {
+        super.update(dt);
+        animationUpdate();
     }
 
     @Override
     public void switchState() {
-
     }
 
     @Override
-    public float getBeat() {
-        return 0.25f;
-    }
-
-    @Override
-    public void beatAction() {
+    public void Attack() {
         makeBee();
-        setFaceRight(playerXPosition() - getPosition().x > 0);
+        //setFaceRight(playerXPosition() - getPosition().x > 0);
+    }
+
+    /**
+     * Updates the animation based on the physics state.
+     */
+    private void animationUpdate() {
+        setAnimation(attackAnimation);
+        if (animation.isAnimationFinished(stateTime)) {
+            stateTime = 0;
+        }
     }
 }

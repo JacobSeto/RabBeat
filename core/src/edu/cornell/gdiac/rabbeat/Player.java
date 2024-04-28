@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.obstacles.*;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
+import edu.cornell.gdiac.rabbeat.sync.SyncController;
 
 /**
  * Player avatar for the plaform game.
@@ -42,8 +43,12 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	public float jazzSpeed;
 	/** Identifier to allow us to track the sensor in ContactListener */
 	private final String sensorName;
-	/** The impulse for the character jump */
-	private final float jump_force;
+	/** The current jump force */
+	private float jumpForce;
+	/** The impulse for the character jump in Synth */
+	private final float jumpForceSynth;
+	/** The impulse for the character jump in Jazz */
+	private final float jumpForceJazz;
 	/** Cooldown (in animation frames) for jumping */
 	private final int jumpLimit;
 	/** Cooldown (in animation frames) for shooting */
@@ -61,6 +66,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	private boolean isJumping;
 	/** Whether our feet are on the ground */
 	private boolean isGrounded;
+	/** Whether we are dying */
+	public boolean isDying;
 
 	/** The physics shape of this object */
 	private PolygonShape sensorShape;
@@ -82,6 +89,10 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	public Animation<TextureRegion> synthWalkAnimation;
 	/** The synth genre jumping animation for the player */
 	public Animation<TextureRegion> synthJumpAnimation;
+	/** The synth genre fall animation for the player */
+	public Animation<TextureRegion> synthFallAnimation;
+	/** The synth genre death animation for the player */
+	public Animation<TextureRegion> synthDeathAnimation;
 
 	/** The jazz genre idle animation for the player */
 	public Animation<TextureRegion> jazzIdleAnimation;
@@ -89,6 +100,10 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	public Animation<TextureRegion> jazzWalkAnimation;
 	/** The jazz genre jumping animation for the player */
 	public Animation<TextureRegion> jazzJumpAnimation;
+	/** The jazz genre fall animation for the player */
+	public Animation<TextureRegion> jazzFallAnimation;
+	/** The jazz genre death animation for the player */
+	public Animation<TextureRegion> jazzDeathAnimation;
 
 	/** The player's current animation */
 	public Animation<TextureRegion> animation;
@@ -96,6 +111,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	private float stateTime = 0;
 	/** A flag to check if the player's animation is jumping */
 	private boolean animationIsJumping = false;
+	/** A flag to check if the player's animation is dying */
+	private boolean animationIsDying = false;
 
 	/**
 	 * Returns left/right movement of this character.
@@ -277,7 +294,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 
 		damping = data.getFloat("damping", 0);
 		force = data.getFloat("force", 0);
-		jump_force = data.getFloat( "jump_force", 0 );
+		jumpForceSynth = data.getFloat( "synth_jump_force", 0 );
+		jumpForceJazz = data.getFloat( "jazz_jump_force", 0 );
 		jumpLimit = data.getInt( "jump_cool", 0 );
 		shotLimit = data.getInt( "shot_cool", 0 );
 		displacement = new Vector2(0,0);
@@ -290,10 +308,11 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		isJumping = false;
 		faceRight = true;
 
+		jumpForce = jumpForceSynth;
 		animationGenre = Genre.SYNTH;
 
 		jumpCooldown = 0;
-		setName("dude");
+		setType(Type.Player);
 	}
 
 	/**
@@ -366,7 +385,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 
 		// Jump!
 		if (isJumping()) {
-			forceCache.set(0, jump_force);
+			forceCache.set(0, jumpForce);
 			body.applyLinearImpulse(forceCache,getPosition(),true);
 		}
 	}
@@ -382,10 +401,12 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		// Process actions in object model
 		setPosition(getPosition().x+ dt*displacement.x, getPosition().y+ dt*displacement.y);
 
-		setWalking(InputController.getInstance().getHorizontal() != 0 && !isJumping);
-		setMovement(InputController.getInstance().getHorizontal() * getForce());
-		setJumping(InputController.getInstance().didPrimary());
-		applyForce();
+		if (!isDying) {
+			setWalking(InputController.getInstance().getHorizontal() != 0 && !isJumping);
+			setMovement(InputController.getInstance().getHorizontal() * getForce());
+			setJumping(InputController.getInstance().didPrimary());
+			applyForce();
+		}
 
 		// Apply cooldowns
 		if (isJumping()) {
@@ -396,13 +417,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		}
 
 		animationUpdate();
-
-		try {
-			//GameController.getInstance().createJoint(bodyCollidedWith, this);
-		} catch (Exception ignored) {}
-
-            animationUpdate();
-
+		setRestitution(0.0f);
 		super.update(dt);
 	}
 
@@ -439,9 +454,11 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		animationGenre = genre;
 		if (genre == Genre.SYNTH) {
 			maxspeed = synthSpeed;
+			jumpForce = jumpForceSynth;
 		}
 		else{
 			maxspeed = jazzSpeed;
+			jumpForce = jumpForceJazz;
 		}
 	}
 
@@ -449,7 +466,18 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	 * Updates the animation based on the physics state.
 	 */
 	private void animationUpdate() {
-		if (isJumping) {
+		if (isDying && !animationIsDying) {
+			stateTime = 0;
+			switch (animationGenre) {
+				case SYNTH:
+					setAnimation(synthDeathAnimation);
+					break;
+				case JAZZ:
+					setAnimation(jazzDeathAnimation);
+					break;
+			}
+			animationIsDying = true;
+		} else if (isJumping && !animationIsDying) {
 			animationIsJumping = true;
 			stateTime = 0;
 			switch (animationGenre) {
@@ -462,29 +490,51 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 			}
 		}
 
-		if (animationIsJumping){
-			if (animation.isAnimationFinished(stateTime)) {
-				animationIsJumping = false;
-			} else{
-				return;
+		if (animationIsDying) {
+			if (jazzDeathAnimation.isAnimationFinished(stateTime) || synthDeathAnimation.isAnimationFinished(stateTime)) {
+				GameController.getInstance().setFailure(true);
+				animationIsDying = false;
 			}
-		} else if (isWalking()){
-			switch (animationGenre){
-				case SYNTH:
-					setAnimation(synthWalkAnimation);
-					break;
-				case JAZZ:
-					setAnimation(jazzWalkAnimation);
-					break;
-			}
-		} else{
-			switch (animationGenre){
-				case SYNTH:
-					setAnimation(synthIdleAnimation);
-					break;
-				case JAZZ:
-					setAnimation(jazzIdleAnimation);
-					break;
+		} else {
+			if (animationIsJumping) {
+				if (animation.isAnimationFinished(stateTime)) {
+					animationIsJumping = false;
+					switch (animationGenre) {
+						case SYNTH:
+							setAnimation(synthFallAnimation);
+							break;
+						case JAZZ:
+							setAnimation(jazzFallAnimation);
+							break;
+					}
+				}
+			} else if (!isGrounded) {
+				switch (animationGenre) {
+					case SYNTH:
+						setAnimation(synthFallAnimation);
+						break;
+					case JAZZ:
+						setAnimation(jazzFallAnimation);
+						break;
+				}
+			} else if (isWalking()) {
+				switch (animationGenre) {
+					case SYNTH:
+						setAnimation(synthWalkAnimation);
+						break;
+					case JAZZ:
+						setAnimation(jazzWalkAnimation);
+						break;
+				}
+			} else {
+				switch (animationGenre) {
+					case SYNTH:
+						setAnimation(synthIdleAnimation);
+						break;
+					case JAZZ:
+						setAnimation(jazzIdleAnimation);
+						break;
+				}
 			}
 		}
 	}
@@ -498,5 +548,5 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	}
 	public float getBeat() {return 1;}
 
-	public void beatAction(){}
+	public void beatAction(){ }
 }

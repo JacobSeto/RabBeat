@@ -2,37 +2,31 @@ package edu.cornell.gdiac.rabbeat.obstacles.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.CapsuleGameObject;
-import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.physics.box2d.*;
-//package edu.cornell.gdiac.physics.platform;
 
 import com.badlogic.gdx.utils.JsonValue;
+import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
+import edu.cornell.gdiac.rabbeat.obstacles.Type;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 /**
  * Enemy parent class for the platform game.
  */
-public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated {
+public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated, IGenreObject {
 
     /** Enum containing the state of the enemy */
-    protected enum EnemyState{
+    protected enum EnemyState {
         IDLE,
         ATTACKING
     }
 
-    /** Current genre that the game is on */
-    public Genre curGenre = Genre.SYNTH;
-
     /** The scale of the enemy */
     private float enemyScale;
-
-    /** The physics shape of this object */
-    private PolygonShape sensorShape;
 
     /** Whether the enemy is facing right */
     private boolean faceRight;
@@ -42,41 +36,65 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
 
     /** The enemy's current animation */
     public Animation<TextureRegion> animation;
-
     /** The elapsed time for animationUpdate */
-    private float stateTime = 0;
+    protected float stateTime = 0;
+    /** Holds the genre of the ANIMATION. Doesn't specifically detect genre. */
+    protected Genre animationGenre;
 
+    /** Whether the enemy is flippable */
+    protected boolean isFlippable = true;
 
-    //range: how far away player is --> beat action called whenever an action is supposed to hapepn on beat
-    //create switch states (wandering, shooting, etc). ENUM
+    /**
+     * The beat counter for an enemy. The beat counter cycles integers values
+     * starting from 1
+     * and incrementing to 8 (2 measures)
+     */
 
+    private float beat = 1;
+    public int beatCount = 1;
+    /**
+     * A list of beats in which the enemies act when called in beatAction. Default
+     * for enemies is
+     * acting on the downbeat (beatCount counts to 8 so the downbeats are 1 and 5)
+     */
+    public int[] beatList;
+
+    /** The index to cycle through beatList */
+    public int beatListIndex;
+
+    // range: how far away player is --> beat action called whenever an action is
+    // supposed to hapepn on beat
+    // create switch states (wandering, shooting, etc). ENUM
 
     /**
      * Creates a new enemy avatar with the given physics data
      *
-     * @param data   	    The physics constants for this enemy
-     * @param startX        The starting x position of the enemy
-     * @param startY	    The starting y position of the enemy
-     * @param width	    The object width in physics units
-     * @param height	    The object width in physics units
-     * @param enemyScale    The scale of the enemy
-     * @param faceRight     The direction the enemy is facing in
-     * @param animation     The animation texture for the enemy
+     * @param data       The physics constants for this enemy
+     * @param startX     The starting x position of the enemy
+     * @param startY     The starting y position of the enemy
+     * @param width      The object width in physics units
+     * @param height     The object width in physics units
+     * @param enemyScale The scale of the enemy
+     * @param faceRight  The direction the enemy is facing in
+     * @param beatList   The list of beats that the enemy reacts to
      */
-    public Enemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale, boolean faceRight, Animation<TextureRegion> animation) {
+    public Enemy(JsonValue data, float startX, float startY,
+            float width, float height, float enemyScale, boolean faceRight, int[] beatList) {
         // The shrink factors fit the image to a tigher hitbox
         super(startX, startY,
-                width*data.get("shrink").getFloat( 0 ),
-                height*data.get("shrink").getFloat( 1 ));
+                width * data.get("shrink").getFloat(0),
+                height * data.get("shrink").getFloat(1));
 
         setDensity(data.getFloat("density", 0));
         setFriction(data.getFloat("friction", 0));
         setFixedRotation(true);
-        //setType(data.getString("type"));
+        // setType(data.getString("type"));
 
+        animationGenre = Genre.SYNTH;
         this.faceRight = faceRight; // should face the direction player is in?
         this.enemyScale = enemyScale;
-
+        this.beatList = beatList;
+        setType(Type.LETHAL);
         setName("enemy");
     }
 
@@ -88,20 +106,14 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     }
 
     /**
-     * Implement this with any updates necessary after the genre switches.
-     */
-    public abstract void genreUpdate(Genre genre);
-
-    /**
      * Updates the object's physics state (NOT GAME LOGIC).
      *
      * We use this method to reset cooldowns.
      *
-     * @param dt	Number of seconds since last animation frame
+     * @param dt Number of seconds since last animation frame
      */
     public void update(float dt) {
         switchState();
-        stateTime += dt;
         super.update(dt);
     }
 
@@ -111,10 +123,10 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      * @param canvas Drawing context
      */
     public void draw(GameCanvas canvas) {
-        float effect = faceRight ? -1.0f : 1.0f;
+        float effect = (faceRight && isFlippable) ? -1.0f : 1.0f;
         TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
-        canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(),
-                enemyScale*effect,enemyScale);
+        canvas.draw(currentFrame, Color.WHITE, origin.x, origin.y, getX() * drawScale.x, getY() * drawScale.y,
+                getAngle(), enemyScale * effect, enemyScale);
     }
 
     /**
@@ -126,7 +138,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      */
     public void drawDebug(GameCanvas canvas) {
         super.drawDebug(canvas);
-        //canvas.drawPhysics(sensorShape,Color.RED,getX(),getY(),getAngle(),drawScale.x,drawScale.y);
+        // canvas.drawPhysics(sensorShape,Color.RED,getX(),getY(),getAngle(),drawScale.x,drawScale.y);
     }
 
     /** Sets the direction that the enemy is facing in */
@@ -140,22 +152,21 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     }
 
     /** Returns the horizontal distance between the enemy and the player */
-    public float horizontalDistanceBetweenEnemyAndPlayer(){
+    public float horizontalDistanceBetweenEnemyAndPlayer() {
         return Math.abs(playerXPosition() - getPosition().x);
     }
 
     /** Returns the vertical distance between the enemy and the player */
-    public float verticalDistanceBetweenEnemyAndPlayer(){
+    public float verticalDistanceBetweenEnemyAndPlayer() {
         return Math.abs(playerYPosition() - getPosition().y);
     }
 
     /** Switches enemy attacking state depending on its current state */
     public abstract void switchState();
 
-
     /** Returns the x position of the player */
-    public float playerXPosition(){
-        if(GameController.getInstance() !=  null) {
+    public float playerXPosition() {
+        if (GameController.getInstance() != null) {
             return GameController.getInstance().getPlayer().getPosition().x;
         }
 
@@ -163,39 +174,65 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     }
 
     /** Returns the y position of the player */
-    public float playerYPosition(){
-        if(GameController.getInstance() !=  null) {
+    public float playerYPosition() {
+        if (GameController.getInstance() != null) {
             return GameController.getInstance().getPlayer().getPosition().y;
         }
 
         return 0;
     }
-
     /** Flips the direction the enemy is facing based on the player's position */
     public void flipEnemy() {
-        if( playerXPosition() - getPosition().x > 0 && !faceRight) {
+        if (playerXPosition() - getPosition().x > 0 && !faceRight) {
             setFaceRight(true);
-            setPosition(getX()+1, getY());
-        } else if( playerXPosition() - getPosition().x < 0 && faceRight) {
+            setPosition(getX() + 1, getY());
+        } else if (playerXPosition() - getPosition().x < 0 && faceRight) {
             setFaceRight(false);
-            setPosition(getX()-1, getY());
+            setPosition(getX() - 1, getY());
         }
     }
 
-    private String type;
-    public void setType (String type) {
-        this.type = type;
-    }
-
-    public void setAnimation(Animation<TextureRegion> animation){
+    public void setAnimation(Animation<TextureRegion> animation) {
         this.animation = animation;
     }
 
-    public void updateAnimationFrame(){
+    public void updateAnimationFrame() {
         stateTime++;
     }
-    public float getBeat() {return 1;}
 
-    public void beatAction(){}
+    public void genreUpdate(Genre genre) {
+        // TODO: Change sprites to reflect the genre
+        animationGenre = genre;
+        if (GameController.getInstance().genre == Genre.SYNTH) {
+            // change to synth sprite
+        } else {
+            // change to jazz sprite
+        }
+    }
+
+    @Override
+    public float getBeat() {
+        return beat;
+    }
+
+    public void beatAction() {
+        beatCount++;
+        if (beatCount >= 9) {
+            beatCount = 1;
+        }
+        if (beatList[beatListIndex] == beatCount) {
+            if (enemyState == EnemyState.ATTACKING) {
+                Attack();
+                beatListIndex++;
+                if (beatListIndex >= beatList.length) {
+                    beatListIndex = 0;
+                }
+            }
+        }
+
+    }
+
+    /** The function called whenever the enemy is supposed to attack */
+    public abstract void Attack();
 
 }
