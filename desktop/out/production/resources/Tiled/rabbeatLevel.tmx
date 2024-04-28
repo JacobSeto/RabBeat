@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="101" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="472">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="101" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="482">
  <editorsettings>
-  <export target="rabbeatLevelOverlay2.tmj" format="json"/>
+  <export target="../levelsJson/rabbeatLaserTest.tmj" format="json"/>
  </editorsettings>
  <tileset firstgid="1" source="Images.tsx"/>
  <tileset firstgid="57" source="platforms.tsx"/>
@@ -26,6 +26,8 @@
   <object id="404" type="pipeposter" gid="43" x="3776" y="896" width="320" height="320"/>
   <object id="181" type="piperight" gid="44" x="5888" y="576" width="320" height="320"/>
   <object id="409" type="pipeleftskinny" gid="42" x="5952" y="576" width="320" height="320"/>
+  <object id="443" type="bigwire" gid="56" x="2496" y="320" width="895" height="256"/>
+  <object id="444" type="bigwire" gid="56" x="4608" y="320" width="895" height="256"/>
  </objectgroup>
  <layer id="1" name="walls" width="101" height="17">
   <data encoding="csv">
@@ -93,7 +95,7 @@
   </object>
  </objectgroup>
  <objectgroup id="16" name="movingPlatforms">
-  <object id="317" gid="70" x="3264" y="448" width="192" height="64">
+  <object id="317" gid="70" x="1347" y="831" width="192" height="64">
    <properties>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="0"/>
@@ -101,7 +103,7 @@
     <property name="totalPos" type="int" value="2"/>
    </properties>
   </object>
-  <object id="318" gid="70" x="3264" y="1088" width="192" height="64">
+  <object id="318" gid="70" x="1344" y="1087" width="192" height="64">
    <properties>
     <property name="num" type="int" value="0"/>
     <property name="pos" type="int" value="1"/>
@@ -127,12 +129,12 @@
   </object>
  </objectgroup>
  <objectgroup id="13" name="platforms">
-  <object id="323" gid="78" x="1280" y="1088" width="128" height="64">
+  <object id="323" gid="78" x="1536" y="1088" width="128" height="64">
    <properties>
     <property name="align" value="mid"/>
    </properties>
   </object>
-  <object id="324" gid="79" x="1408" y="1088" width="128" height="64">
+  <object id="324" gid="79" x="1664" y="1088" width="128" height="64">
    <properties>
     <property name="align" value="right"/>
    </properties>
@@ -232,16 +234,20 @@
     <property name="align" value="right"/>
    </properties>
   </object>
+  <object id="479" type="laser" gid="81" x="960" y="768" width="168" height="120">
+   <properties>
+    <property name="align" value="vertical"/>
+   </properties>
+  </object>
+  <object id="481" type="laser" gid="82" x="1216" y="832" width="128" height="64"/>
  </objectgroup>
  <objectgroup id="7" name="enemies">
-  <object id="27" type="hedgehog" gid="9" x="2112" y="512" width="256" height="181">
+  <object id="475" type="hedgehog" gid="9" x="2112" y="512" width="173" height="200">
    <properties>
+    <property name="beatList" value="1234"/>
     <property name="rollingDistance" type="int" value="3"/>
    </properties>
   </object>
-  <object id="271" type="beehive" gid="17" x="3008" y="832" width="224" height="224"/>
-  <object id="315" type="bear" gid="9" x="2880" y="576" width="256" height="181"/>
-  <object id="423" type="bear" gid="9" x="5696" y="896" width="256" height="181"/>
  </objectgroup>
  <objectgroup id="8" name="checkpoints">
   <object id="40" gid="8" x="3456" y="896" width="128" height="130">
@@ -266,24 +272,20 @@
  <objectgroup id="9" name="goal">
   <object id="410" gid="13" x="6080" y="576" width="128" height="130"/>
  </objectgroup>
- <objectgroup id="19" name="hangingArt">
-  <object id="156" type="light" gid="27" x="704" y="480" width="192" height="192"/>
-  <object id="394" type="light" gid="27" x="384" y="480" width="192" height="192"/>
-  <object id="157" type="light" gid="27" x="2688" y="224" width="192" height="192"/>
-  <object id="422" type="light" gid="27" x="2112" y="224" width="192" height="192"/>
-  <object id="81" type="light" gid="27" x="3392" y="800" width="192" height="192"/>
-  <object id="428" type="wires1" gid="51" x="512" y="448" width="875" height="128"/>
-  <object id="431" type="wires1" gid="51" x="3520" y="768" width="875" height="128"/>
-  <object id="440" type="wires2" gid="55" x="1408" y="192" width="875" height="128"/>
-  <object id="442" type="wires2" gid="55" x="5184" y="192" width="875" height="128"/>
-  <object id="443" type="bigwire" gid="56" x="2432" y="256" width="895" height="256"/>
-  <object id="444" type="bigwire" gid="56" x="4608" y="256" width="895" height="256"/>
- </objectgroup>
  <objectgroup id="12" name="foregroundArt" class="bigwire">
   <object id="72" type="dolpod1" gid="20" x="256" y="960" width="256" height="256"/>
   <object id="73" type="dolpod2" gid="21" x="1024" y="960" width="256" height="256"/>
   <object id="86" type="wolfpod1" gid="34" x="768" y="960" width="256" height="256"/>
   <object id="90" type="octpod1" gid="28" x="512" y="960" width="256" height="256"/>
-  <object id="188" type="bigpipe" gid="39" x="3200" y="1088" width="1024" height="1088"/>
+  <object id="156" type="light" gid="27" x="1152" y="512" width="192" height="192"/>
+  <object id="394" type="light" gid="27" x="640" y="512" width="192" height="192"/>
+  <object id="157" type="light" gid="27" x="2944" y="256" width="192" height="192"/>
+  <object id="422" type="light" gid="27" x="2432" y="256" width="192" height="192"/>
+  <object id="81" type="light" gid="27" x="3456" y="832" width="192" height="192"/>
+  <object id="428" type="wires1" gid="51" x="512" y="448" width="875" height="128"/>
+  <object id="431" type="wires1" gid="51" x="3520" y="768" width="875" height="128"/>
+  <object id="440" type="wires2" gid="55" x="1408" y="192" width="875" height="128"/>
+  <object id="442" type="wires2" gid="55" x="5184" y="192" width="875" height="128"/>
+  <object id="474" type="bigpipe" gid="39" x="3136" y="1088" width="1024" height="1024"/>
  </objectgroup>
 </map>

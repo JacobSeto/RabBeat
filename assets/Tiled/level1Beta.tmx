@@ -89,6 +89,7 @@
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="2"/>
+    <property name="platformInterval" type="int" value="1"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>
@@ -96,6 +97,7 @@
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="2"/>
+    <property name="platformInterval" type="int" value="1"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>
@@ -103,6 +105,7 @@
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="3"/>
+    <property name="platformInterval" type="int" value="1"/>
     <property name="speed" type="int" value="0"/>
     <property name="waitTime" type="int" value="4"/>
    </properties>
@@ -111,6 +114,7 @@
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="3"/>
+    <property name="platformInterval" type="int" value="1"/>
     <property name="speed" type="int" value="0"/>
     <property name="waitTime" type="int" value="4"/>
    </properties>
@@ -119,13 +123,15 @@
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="4"/>
+    <property name="platformInterval" type="int" value="1"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>
-  <object id="654" type="Weighted Platform" gid="115" x="1920" y="640" width="192" height="36">
+  <object id="654" type="Weighted Platform" gid="115" x="1929.09" y="640" width="192" height="36">
    <properties>
     <property name="genre" value="synth"/>
     <property name="num" type="int" value="4"/>
+    <property name="platformInterval" type="int" value="1"/>
     <property name="speed" type="int" value="0"/>
    </properties>
   </object>

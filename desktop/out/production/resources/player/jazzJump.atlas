@@ -1,54 +1,26 @@
 jazzJump.png
-size: 120, 1365
+size: 120, 477
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 jazzJump
   rotate: false
   xy: 0, 0
-  size: 120, 195
-  orig: 120, 195
+  size: 120, 159
+  orig: 120, 159
   offset: 0, 0
   index: 0
 jazzJump
   rotate: false
-  xy: 0, 195
-  size: 120, 195
-  orig: 120, 195
+  xy: 0, 159
+  size: 120, 159
+  orig: 120, 159
   offset: 0, 0
   index: 1
 jazzJump
   rotate: false
-  xy: 0, 390
-  size: 120, 195
-  orig: 120, 195
+  xy: 0, 318
+  size: 120, 159
+  orig: 120, 159
   offset: 0, 0
   index: 2
-jazzJump
-  rotate: false
-  xy: 0, 585
-  size: 120, 195
-  orig: 120, 195
-  offset: 0, 0
-  index: 3
-jazzJump
-  rotate: false
-  xy: 0, 780
-  size: 120, 195
-  orig: 120, 195
-  offset: 0, 0
-  index: 4
-jazzJump
-  rotate: false
-  xy: 0, 975
-  size: 120, 195
-  orig: 120, 195
-  offset: 0, 0
-  index: 5
-jazzJump
-  rotate: false
-  xy: 0, 1170
-  size: 120, 195
-  orig: 120, 195
-  offset: 0, 0
-  index: 6

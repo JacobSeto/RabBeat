@@ -7,23 +7,24 @@
     "gravity": -49.0
   },
   "player" : {
-    "shrink": [0.7, 0.95],
+    "shrink": [0.6, 0.95],
     "force": 75.0,
     "damping": 6.0,
     "density": 1.3,
     "friction": 0.3,
     "synth_jump_force": 38.0,
     "jazz_jump_force": 49,
+    "jazz_jump_force": 49,
     "jump_cool": 30,
     "shot_cool": 40,
     "sensor": {
-      "shrink" : 0.6,
+      "shrink" : 0.8,
       "height" : 0.05
     },
     "max_speed": {
       "synth": 8.5,
       "jazz": 4.7
-    }
+    },
   },
   "goal": {
     "density": 0.0,
@@ -89,8 +90,8 @@
   },
   "bats": {
     "shrink": [
-      0.7,
-      0.95
+      0.6,
+      0.8
     ],
     "force": 20.0,
     "damping": 10.0,

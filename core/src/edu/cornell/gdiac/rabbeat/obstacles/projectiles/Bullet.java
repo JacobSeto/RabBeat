@@ -22,7 +22,7 @@ public class Bullet extends WheelGameObject implements ISynced, ISyncedAnimated 
         float dir = (fr ? 1 : -1);
         bulletGenre = genre;
         setType(Type.LETHAL);
-        //setSensor(true);
+        setSensor(true);
     }
 
     @Override

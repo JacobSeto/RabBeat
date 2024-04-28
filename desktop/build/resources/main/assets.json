@@ -34,11 +34,11 @@
 
       "world:tilesets:wallsTileset:11" : "world/tilesets/wallsTileset/11.png",
 
-      "world:platforms:weightedSynth" : "world/platforms/synthPlat.PNG",
+      "world:platforms:weightedSynth" : "world/platforms/synthPlat.png",
 
       "world:platforms:weightedJazz" : "world/platforms/jazzPlat.png",
 
-      "world:platforms:movingSynth" : "world/platforms/synthPlat.PNG",
+      "world:platforms:movingSynth" : "world/platforms/synthPlat.png",
 
       "world:platforms:movingJazz" : "world/platforms/jazzPlat.png",
 
@@ -213,7 +213,7 @@
 
       "world:pipes:pipestraightskinny" : "world/pipes/pipestraightskinny.png",
 
-      "world:pipes:bgpipe" : "world/pipes/bgpipe.png",
+      "world:pipes:bgpipe" : "world/pipes/bgpipe.PNG",
 
       "world:wires:bigwire" : "world/wires/bigwire.png",
 
@@ -227,11 +227,11 @@
 
       "world:other:ceilingCamera": "world/other/ceilingCamera.png",
 
-      "world:other:cam_0": "world/other/cam_0.png",
+      "world:other:cam_0": "world/other/cam_0.PNG",
 
-      "world:other:cam_1": "world/other/cam_1.png",
+      "world:other:cam_1": "world/other/cam_1.PNG",
 
-      "world:other:cam_2": "world/other/cam_2.png",
+      "world:other:cam_2": "world/other/cam_2.PNG",
 
       "world:graffiti:emoji_0" : "world/graffiti/emoji_0.png",
 
@@ -249,7 +249,7 @@
 
       "world:graffiti:caution_0" : "world/graffiti/caution_0.png",
 
-      "world:laser" : "world/laser.png",
+      "world:laser" : "world/laser.PNG",
       "world:laserMiddle" : "world/lasers/laserMiddle.png",
       "world:laserTop" : "world/lasers/laserTop.png",
       "world:laserBottom" : "world/lasers/laserBottom.png"

@@ -89,7 +89,7 @@ public class BatEnemy extends Enemy {
         for(int i = 0; i < 2; i++){
             if(GameController.getInstance().genre == Genre.SYNTH){
                 echo = new Echo(getX() + offset, getY(),
-                        3, .75f,  echoAnimation);
+                        2, .75f,  echoAnimation);
             }
             else{
                 echo = new Echo(getX(), getY()+ offset,

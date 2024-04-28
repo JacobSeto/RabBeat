@@ -389,6 +389,11 @@
                          "value":2
                         }, 
                         {
+                         "name":"platformInterval",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"speed",
                          "type":"int",
                          "value":0
@@ -417,6 +422,11 @@
                          "value":2
                         }, 
                         {
+                         "name":"platformInterval",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"speed",
                          "type":"int",
                          "value":0
@@ -443,6 +453,11 @@
                          "name":"num",
                          "type":"int",
                          "value":3
+                        }, 
+                        {
+                         "name":"platformInterval",
+                         "type":"int",
+                         "value":1
                         }, 
                         {
                          "name":"speed",
@@ -478,6 +493,11 @@
                          "value":3
                         }, 
                         {
+                         "name":"platformInterval",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"speed",
                          "type":"int",
                          "value":0
@@ -511,6 +531,11 @@
                          "value":4
                         }, 
                         {
+                         "name":"platformInterval",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"speed",
                          "type":"int",
                          "value":0
@@ -539,6 +564,11 @@
                          "value":4
                         }, 
                         {
+                         "name":"platformInterval",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"speed",
                          "type":"int",
                          "value":0
@@ -547,7 +577,7 @@
                  "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
-                 "x":1920,
+                 "x":1929.09090909091,
                  "y":640
                 }],
          "opacity":1,
