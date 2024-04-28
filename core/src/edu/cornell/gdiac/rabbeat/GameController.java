@@ -1159,7 +1159,8 @@ public class GameController implements Screen, ContactListener {
 
 	/** Increments the integer levelsUnlocked if a player completes a level and the next level is locked*/
 	public void incrementLevelsUnlocked() {
-		if(currentLevelInt == levelsUnlocked) {
+		//TODO Implement more levels beyond 3
+		if(currentLevelInt == levelsUnlocked && levelsUnlocked != 3) {
 			levelsUnlocked++;
 		}
 	}

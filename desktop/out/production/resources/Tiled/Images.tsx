@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="6464" tileheight="1088" tilecount="40" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="9000" tileheight="1088" tilecount="56" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2">
   <image width="64" height="123" source="playerTile.png"/>
  </tile>
  <tile id="6">
-  <image width="120" height="120" source="../world/platforms/blackTile.png"/>
+  <image width="64" height="64" source="../world/platforms/blackTile.png"/>
  </tile>
  <tile id="7">
-  <image width="128" height="130" source="../world/checkpoints/checkActive.png"/>
+  <image width="130" height="130" source="../world/checkpoints/checkpointInactive.png"/>
  </tile>
  <tile id="8">
-  <image width="256" height="181" source="bearTile.png"/>
+  <image width="173" height="200" source="bear.png"/>
  </tile>
  <tile id="12">
   <image width="128" height="130" source="../world/goal.png"/>
  </tile>
  <tile id="13">
-  <image width="224" height="224" source="../enemies/beehive.png"/>
+  <image width="150" height="150" source="../enemies/beehive.png"/>
  </tile>
  <tile id="14">
   <image width="256" height="256" source="../world/pods/bearpod1.png"/>
@@ -26,7 +26,7 @@
   <image width="256" height="256" source="../world/pods/bearpod2.png"/>
  </tile>
  <tile id="16">
-  <image width="224" height="224" source="../enemies/beehive.png"/>
+  <image width="150" height="150" source="../enemies/beehive.png"/>
  </tile>
  <tile id="17">
   <image width="256" height="256" source="../world/pods/bgpod1.png"/>
@@ -110,7 +110,7 @@
   <image width="320" height="320" source="../world/pipes/pipestraightskinny.png"/>
  </tile>
  <tile id="47">
-  <image width="6464" height="1088" source="../backgrounds/background.png"/>
+  <image width="9000" height="1088" source="../backgrounds/background.png"/>
  </tile>
  <tile id="50">
   <image width="875" height="128" source="../world/wires/wires1.PNG"/>
@@ -120,5 +120,53 @@
  </tile>
  <tile id="55">
   <image width="895" height="256" source="../world/wires/bigwire.png"/>
+ </tile>
+ <tile id="58">
+  <image width="176" height="97" source="../enemies/bat.png"/>
+ </tile>
+ <tile id="59">
+  <image width="176" height="97" source="../enemies/bat.png"/>
+ </tile>
+ <tile id="60">
+  <image width="6464" height="1088" source="../backgrounds/labGrafiti.png"/>
+ </tile>
+ <tile id="61">
+  <image width="64" height="64" source="../world/graffiti/emoji_0.png"/>
+ </tile>
+ <tile id="62">
+  <image width="64" height="64" source="../world/graffiti/graffiti_0.png"/>
+ </tile>
+ <tile id="63">
+  <image width="64" height="64" source="../world/graffiti/emoji_2.png"/>
+ </tile>
+ <tile id="64">
+  <image width="64" height="64" source="../world/graffiti/emoji_1.png"/>
+ </tile>
+ <tile id="65">
+  <image width="128" height="128" source="../world/other/tv.png"/>
+ </tile>
+ <tile id="66">
+  <image width="128" height="128" source="../world/other/ceilingCamera.png"/>
+ </tile>
+ <tile id="67">
+  <image width="128" height="128" source="../world/graffiti/caution_0.png"/>
+ </tile>
+ <tile id="68">
+  <image width="84" height="84" source="../world/graffiti/graffiti_1.png"/>
+ </tile>
+ <tile id="69">
+  <image width="75" height="75" source="../world/graffiti/graffiti_3.png"/>
+ </tile>
+ <tile id="70">
+  <image width="90" height="90" source="../world/graffiti/graffiti_2.png"/>
+ </tile>
+ <tile id="71">
+  <image width="320" height="320" source="../world/other/cam_0.PNG"/>
+ </tile>
+ <tile id="72">
+  <image width="320" height="320" source="../world/other/cam_1.PNG"/>
+ </tile>
+ <tile id="73">
+  <image width="320" height="320" source="../world/other/cam_2.PNG"/>
  </tile>
 </tileset>
