@@ -86,9 +86,10 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
-                        listener.exitScreen(LevelSelectorScreen.this, 0);
                         GameController.getInstance().setCurrentLevelInt(finalI);
+                        listener.exitScreen(LevelSelectorScreen.this, 0);
                     }
+
                 }
             });
             stage.addActor(levelButton);
