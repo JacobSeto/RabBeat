@@ -145,6 +145,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     public void beatAction() {
         /**Renable moving after reaching destination and incredments beat, as well as resetting the speed*/
         moving = true;
+
         float BeatLength = (float) (60*moveTime) /BPM;
         beat+= 1;
         if (beat==1){

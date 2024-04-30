@@ -1053,7 +1053,6 @@ public class ObjectController {
         platform.setTexture(textureRegion);
         if (lethal){
             platform.setType(Type.LETHAL);
-
         }
         else{
             platform.setType(Type.NONE);
