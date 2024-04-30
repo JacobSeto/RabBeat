@@ -426,6 +426,10 @@ public class GameController implements Screen, ContactListener {
 		return genre;
 	}
 
+	public int getBPM() {
+		return syncController.BPM;
+	}
+
 	/**
 	 *
 	 * Adds a physics object in to the insertion queue.
