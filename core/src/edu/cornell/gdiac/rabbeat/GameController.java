@@ -157,8 +157,9 @@ public class GameController implements Screen, ContactListener {
 
 	private int SFXVolume = 10;
 
+	/**lIST  of enemies that are 'bounded' to a moving or weighted platform*/
 	private Enemy[] boundedEnemies;
-	
+	/**lIST  of platforms that are 'bounded' to an enemy*/
 	private BoxGameObject[] boundedPlatforms;
 
 	// Physics objects for the game
