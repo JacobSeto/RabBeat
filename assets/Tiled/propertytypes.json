@@ -147,6 +147,41 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
+        "id": 10,
+        "members": [
+            {
+                "name": "pulsePerBeat",
+                "type": "float",
+                "value": 1
+            },
+            {
+                "name": "pulseScale",
+                "type": "float",
+                "value": 1.25
+            },
+            {
+                "name": "shrinkRate",
+                "type": "float",
+                "value": 0.01
+            }
+        ],
+        "name": "Pulse",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
         "id": 3,
         "members": [
             {
