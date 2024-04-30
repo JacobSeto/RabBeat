@@ -532,6 +532,7 @@ public class GameController implements Screen, ContactListener {
 			obj.deactivatePhysics(world);
 		}
 		objectController.objects.clear();
+		objectController.foreground.clear();
 		objectController.addQueue.clear();
 		world.dispose();
 
