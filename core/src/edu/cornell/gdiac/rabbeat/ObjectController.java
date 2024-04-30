@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.joints.PulleyJointDef;
 import com.badlogic.gdx.utils.JsonValue;
 
 import edu.cornell.gdiac.assets.AssetDirectory;
@@ -598,14 +599,10 @@ public class ObjectController {
                             wpPlatformInterval[num] = platformInterval;
                             wpMove[num] = moveTime;
                             wpWait[num] = waitTime;
-                            System.out.println("get"+" "+wp.getFloat("width")+" "+wp.getFloat("height"));
                             wpDimensions[num] = new Vector2(wp.getFloat("width"), wp.getFloat("height"));
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
-                            //System.out.println("pre"+wpDimensions[i].x + " "+ wpDimensions[i].y);
-                            System.out.println("fuck");
-                            System.out.println(wpMove[i]);
                             createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpPlatformInterval[i], wpMove[i], wpWait[i], wpDimensions[i], levelHeight, tileSize);
                         }
                         break;
@@ -769,7 +766,8 @@ public class ObjectController {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
-                            createGroundArt(scale, a.getString("type"), x, y, dim, levelHeight, tileSize, "foreground");
+                            createGroundArt(scale, a.getString("name"), x, y, dim, levelHeight, tileSize, "foreground",
+                                    a);
                         }
                         break;
                     case "backgroundArt":
@@ -777,7 +775,8 @@ public class ObjectController {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
-                            createGroundArt(scale, a.getString("type"), x, y, dim, levelHeight, tileSize, "background");
+                            createGroundArt(scale, a.getString("name"), x, y, dim, levelHeight, tileSize, "background",
+                                    a);
                         }
                         break;
                 }
@@ -1226,7 +1225,7 @@ public class ObjectController {
         GameController.getInstance().instantiate(bat);
     }
 
-    private void createGroundArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, String groundLevel){
+    private void createGroundArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, String groundLevel, JsonValue artJson){
         TextureRegion textureRegion = assets.get(type);
         if (textureRegion == null) {
             textureRegion = assets.get("light");
@@ -1235,13 +1234,47 @@ public class ObjectController {
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
-        ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
-        art.setBodyType(BodyDef.BodyType.StaticBody);
-        art.setDrawScale(scale);
-        if (groundLevel.equals("foreground")) {
-            foreground.add(art);
+        //Create a Pulse Art Object if the class is Pulse marked in Tiled
+        float pulsePerBeat = 0;
+        float pulseScale = 0;
+        float shrinkRate = 0;
+        boolean isPulse = false;
+        if(artJson.getString("type") != null &&  artJson.getString("type").equals("Pulse")){
+            isPulse = true;
+            if(artJson.get("properties") != null){
+                for (JsonValue prop : artJson.get("properties")) {
+                    switch (prop.getString("name")){
+                        case "pulsePerBeat":
+                            pulsePerBeat = prop.getFloat("value");
+                            break;
+                        case "pulseScale":
+                            pulseScale = prop.getFloat("value");
+                        case "shrinkRate":
+                            shrinkRate = prop.getFloat("value");
+
+                    }
+                }
+            }
         }
-        GameController.getInstance().instantiate(art);
+        if(isPulse){
+            PulsingArtObject art = new PulsingArtObject(textureRegion, convertedCoord.x, convertedCoord.y,
+                    pulsePerBeat, pulseScale, shrinkRate);
+            art.setBodyType(BodyDef.BodyType.StaticBody);
+            art.setDrawScale(scale);
+            if (groundLevel.equals("foreground")) {
+                foreground.add(art);
+            }
+            GameController.getInstance().instantiate(art);
+        }
+        else{
+            ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
+            art.setBodyType(BodyDef.BodyType.StaticBody);
+            art.setDrawScale(scale);
+            if (groundLevel.equals("foreground")) {
+                foreground.add(art);
+            }
+            GameController.getInstance().instantiate(art);
+        }
     }
 
     private void createHangingArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
