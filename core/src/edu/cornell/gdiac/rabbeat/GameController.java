@@ -18,11 +18,8 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
@@ -510,6 +507,7 @@ public class GameController implements Screen, ContactListener {
 			obj.deactivatePhysics(world);
 		}
 		objectController.objects.clear();
+		objectController.artObjects.clear();
 		objectController.addQueue.clear();
 		world.dispose();
 
@@ -865,7 +863,7 @@ public class GameController implements Screen, ContactListener {
 
 		canvas.begin(false);
 		for (GameObject obj : objectController.objects) {
-			if (!objectController.foreground.contains(obj)){
+			if (!objectController.artObjects.contains(obj)){
 				obj.draw(canvas);
 			}
 		}
@@ -878,7 +876,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw the foreground on top of everything
 		canvas.begin(false);
-		for (GameObject obj : objectController.foreground) {
+		for (GameObject obj : objectController.artObjects) {
 			obj.draw(canvas);
 		}
 		canvas.end();

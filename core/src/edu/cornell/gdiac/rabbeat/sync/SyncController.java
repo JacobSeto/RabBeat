@@ -43,7 +43,7 @@ public class SyncController {
     public void updateBeat(){
 
         for(Interval i : intervals){
-            float sample = synth.getPosition() / i.getIntervalLength(BPM) + delay * i.syncedObject.getBeat();
+            float sample = (synth.getPosition() + delay) / i.getIntervalLength(BPM);
             i.checkForNewInterval(sample);
         }
 

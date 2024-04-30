@@ -40,6 +40,8 @@ public class ObjectController {
     public PooledList<IGenreObject> genreObjects = new PooledList<>();
     /** Queue for adding objects */
     public PooledList<GameObject> addQueue = new PooledList<>();
+    /** foreground and background art objects that cannot be interactive with*/
+    public ArrayList<ArtObject> artObjects = new ArrayList<>();
 
     /** Reference to the character avatar */
     public Player player;
@@ -106,7 +108,6 @@ public class ObjectController {
     private TextureRegion beehiveTexture;
     /** The texture for hedgehogs */
     private TextureRegion hedgehogTexture;
-    /** The texture for the exit condition */
 
     /** The texture for the checkpoint */
     private TextureRegion checkpointTexture;
@@ -171,9 +172,9 @@ public class ObjectController {
 
     public TextureRegion blackGradient;
 
-    private HashMap<String, TextureRegion> assets = new HashMap<>();
+    private final HashMap<String, TextureRegion> assets = new HashMap<>();
     //  Tilesets
-    private HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
+    private final HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
 
     /** Reference to the goalDoor (for collision detection) */
     public BoxGameObject goalDoor;
@@ -283,12 +284,6 @@ public class ObjectController {
     private float enemyScale = 1f;
 
     public int tileSize;
-
-    public ArrayList<GameObject> foreground = new ArrayList<>();
-    /** the default beat list is on the downbeats within 2 measures (beat 1 and beat 5)*/
-    public int[] defaultBeatList = { 1, 5 };
-
-    //public GameController gc = GameController.getInstance();
     /**
      * Gather the assets for this controller.
      *
@@ -811,9 +806,6 @@ public class ObjectController {
      */
     private int[] convertTiledbeatList(String beatListString){
         int listLen = beatListString.length();
-        if(listLen == 0){
-            return defaultBeatList;
-        }
         int[] result = new int[listLen];
         for (int i = 0; i < beatListString.length(); i++) {
             result[i] = Integer.parseInt(beatListString.substring(i, i+1));
@@ -1003,7 +995,6 @@ public class ObjectController {
      *                    coordinates in synth mode
      * @param jazzCoord   A float array which holds the weighted platform's x and y
      *                    coordinates in jazz mode
-     * @param intervals      The speed of the weighted platform
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
@@ -1234,12 +1225,46 @@ public class ObjectController {
         //  Adjust coordinates + Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
+        //Create a Pulse Art Object if the class is Pulse marked in Tiled
+        float pulsePerBeat = 0;
+        float pulseScale = 0;
+        float shrinkRate = 0;
+        boolean isPulse = false;
+        if(artJson.getString("type") != null &&  artJson.getString("type").equals("Pulse")){
+            isPulse = true;
+            if(artJson.get("properties") != null){
+                for (JsonValue prop : artJson.get("properties")) {
+                    switch (prop.getString("name")){
+                        case "pulsePerBeat":
+                            pulsePerBeat = prop.getFloat("value");
+                            break;
+                        case "pulseScale":
+                            pulseScale = prop.getFloat("value");
+                        case "shrinkRate":
+                            shrinkRate = prop.getFloat("value");
 
-        ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
-        art.setBodyType(BodyDef.BodyType.StaticBody);
-        art.setDrawScale(scale);
-        if (groundLevel.equals("foreground")) {
-            foreground.add(art);
+                    }
+                }
+            }
+        }
+        if(isPulse){
+            PulsingArtObject art = new PulsingArtObject(textureRegion, convertedCoord.x, convertedCoord.y,
+                    pulsePerBeat, pulseScale, shrinkRate);
+            art.setBodyType(BodyDef.BodyType.StaticBody);
+            art.setDrawScale(scale);
+            if (groundLevel.equals("foreground")) {
+                artObjects.add(art);
+            }
+            GameController.getInstance().instantiate(art);
+        }
+        else{
+            ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
+            art.setBodyType(BodyDef.BodyType.StaticBody);
+            art.setDrawScale(scale);
+            if (groundLevel.equals("foreground")) {
+                artObjects.add(art);
+            }
+            GameController.getInstance().instantiate(art);
         }
         GameController.getInstance().instantiate(art);
     }
