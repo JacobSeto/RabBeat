@@ -166,7 +166,7 @@
   <object id="696" gid="130" x="6976" y="672" width="128" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="enemies">
-  <object id="475" type="Bear" gid="9" x="1792" y="512" width="173" height="200">
+  <object id="475" type="Bear" gid="1073741833" x="1792" y="512" width="173" height="200">
    <properties>
     <property name="beatList" value="37"/>
    </properties>
@@ -240,7 +240,7 @@
   </object>
  </objectgroup>
  <objectgroup id="6" name="player">
-  <object id="2" name="player" gid="3" x="1808" y="896" width="75" height="142"/>
+  <object id="2" name="player" gid="3" x="208" y="896" width="75" height="142"/>
   <object id="605" type="ceilingCamera" gid="67" x="448" y="256" width="128" height="128"/>
   <object id="607" type="ceilingCamera" gid="67" x="1920" y="192" width="128" height="128"/>
   <object id="608" type="ceilingCamera" gid="67" x="1296" y="320" width="128" height="128"/>
