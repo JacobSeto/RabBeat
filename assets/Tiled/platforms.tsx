@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="platforms" tilewidth="192" tileheight="128" tilecount="15" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="platforms" tilewidth="192" tileheight="64" tilecount="19" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
- <tile id="23">
-  <image width="64" height="128" source="../world/verticalLaser.PNG"/>
- </tile>
- <tile id="24">
-  <image width="168" height="120" source="../world/weightedLaserTile.png"/>
- </tile>
- <tile id="25">
-  <image width="128" height="64" source="../world/laser.PNG"/>
- </tile>
- <tile id="39">
-  <image width="192" height="36" source="../world/platforms/jazzPlat.png"/>
- </tile>
- <tile id="40">
-  <image width="192" height="36" source="../world/platforms/synthPlat.png"/>
- </tile>
  <tile id="53">
   <image width="128" height="32" source="../world/platforms/longPlatform/leftSquare.PNG"/>
  </tile>
@@ -35,15 +20,42 @@
   <image width="128" height="32" source="../world/platforms/longPlatform/single.png"/>
  </tile>
  <tile id="60">
-  <image width="192" height="36" source="../world/platforms/platform.png"/>
+  <image width="192" height="32" source="../world/platforms/platform.png"/>
  </tile>
  <tile id="61">
-  <image width="64" height="64" source="../world/lasers/laserBottom.png"/>
+  <image width="36" height="64" source="../world/lasers/laserBottom.png"/>
  </tile>
  <tile id="62">
-  <image width="64" height="64" source="../world/lasers/laserMiddle.png"/>
+  <image width="36" height="64" source="../world/lasers/laserMiddle.png"/>
  </tile>
  <tile id="63">
-  <image width="64" height="64" source="../world/lasers/laserTop.png"/>
+  <image width="36" height="64" source="../world/lasers/laserTop.png"/>
+ </tile>
+ <tile id="64">
+  <image width="192" height="32" source="../world/platforms/jazzPlat.png"/>
+ </tile>
+ <tile id="65">
+  <image width="192" height="32" source="../world/platforms/platform.png"/>
+ </tile>
+ <tile id="66">
+  <image width="192" height="32" source="../world/platforms/synthPlat.png"/>
+ </tile>
+ <tile id="67">
+  <image width="128" height="32" source="../world/platforms/jazzLongPlatform/jazzleft.PNG"/>
+ </tile>
+ <tile id="68">
+  <image width="128" height="32" source="../world/platforms/jazzLongPlatform/jazzmid.PNG"/>
+ </tile>
+ <tile id="69">
+  <image width="128" height="32" source="../world/platforms/jazzLongPlatform/jazzright.PNG"/>
+ </tile>
+ <tile id="70">
+  <image width="128" height="32" source="../world/platforms/synthLongPlatform/synthleft.PNG"/>
+ </tile>
+ <tile id="71">
+  <image width="128" height="32" source="../world/platforms/synthLongPlatform/synthmid.PNG"/>
+ </tile>
+ <tile id="72">
+  <image width="128" height="32" source="../world/platforms/synthLongPlatform/synthright.PNG"/>
  </tile>
 </tileset>

@@ -157,6 +157,10 @@ public class GameController implements Screen, ContactListener {
 
 	private int SFXVolume = 10;
 
+	private Enemy[] boundedEnemies;
+	
+	private BoxGameObject[] boundedPlatforms;
+
 	// Physics objects for the game
 
 	/** last platform collided with*/
@@ -169,6 +173,8 @@ public class GameController implements Screen, ContactListener {
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
+
+
 
 	private static GameController theController = null;
 
