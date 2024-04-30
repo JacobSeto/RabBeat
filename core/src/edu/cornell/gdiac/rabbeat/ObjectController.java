@@ -1351,63 +1351,39 @@ public class ObjectController {
 
     /** Returns the texture of the desired unlocked button number, represented by i */
     public Texture getUnlockedButtonTexture (int i) {
-        if (i == 1) {
-            return unlockedButton1;
-        } else if (i == 2) {
-            return unlockedButton2;
-        } else if (i == 3) {
-            return unlockedButton3;
-        } else if (i == 4) {
-            return unlockedButton4;
-        } else if (i == 5) {
-            return unlockedButton5;
-        } else if (i == 6) {
-            return unlockedButton6;
-        } else if (i == 7) {
-            return unlockedButton7;
-        } else if (i == 8) {
-            return unlockedButton8;
-        } else if (i == 9) {
-            return unlockedButton9;
-        } else if (i == 10) {
-            return unlockedButton10;
-        } else if (i == 11) {
-            return unlockedButton11;
-        } else if (i == 12) {
-            return unlockedButton12;
-        } else {
-            return null;
+        switch(i) {
+            case(1): return unlockedButton1;
+            case(2): return unlockedButton2;
+            case(3): return unlockedButton3;
+            case(4): return unlockedButton4;
+            case(5): return unlockedButton5;
+            case(6): return unlockedButton6;
+            case(7): return unlockedButton7;
+            case(8): return unlockedButton8;
+            case(9): return unlockedButton9;
+            case(10): return unlockedButton10;
+            case(11): return unlockedButton11;
+            case(12): return unlockedButton12;
         }
+        return null;
     }
 
     /** Returns the texture of the desired unlocked button number, represented by i */
     public Texture getLockedButtonTexture (int i) {
-        if (i == 1) {
-            return lockedButton1;
-        } else if (i == 2) {
-            return lockedButton2;
-        } else if (i == 3) {
-            return lockedButton3;
-        } else if (i == 4) {
-            return lockedButton4;
-        } else if (i == 5) {
-            return lockedButton5;
-        } else if (i == 6) {
-            return lockedButton6;
-        } else if (i == 7) {
-            return lockedButton7;
-        } else if (i == 8) {
-            return lockedButton8;
-        } else if (i == 9) {
-            return lockedButton9;
-        } else if (i == 10) {
-            return lockedButton10;
-        } else if (i == 11) {
-            return lockedButton11;
-        } else if (i == 12) {
-            return lockedButton12;
-        } else {
-            return null;
+        switch(i) {
+            case(1): return lockedButton1;
+            case(2): return lockedButton2;
+            case(3): return lockedButton3;
+            case(4): return lockedButton4;
+            case(5): return lockedButton5;
+            case(6): return lockedButton6;
+            case(7): return lockedButton7;
+            case(8): return lockedButton8;
+            case(9): return lockedButton9;
+            case(10): return lockedButton10;
+            case(11): return lockedButton11;
+            case(12): return lockedButton12;
         }
+        return null;
     }
 }
