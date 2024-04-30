@@ -13,12 +13,6 @@ public class BeeHive extends Enemy {
 
     ObjectController oc = GameController.getInstance().objectController;
 
-    /** Number of beats the bee exists in synth */
-    private int synthBeeTime = 1;
-
-    /** Number of beats the bee exists in jazz */
-    private int jazzBeeTime = 1;
-
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
 
@@ -56,7 +50,7 @@ public class BeeHive extends Enemy {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
-        Bee bee = new Bee(getX() + offset, getY(), radius, beeAttackSynthAnimation);
+        Bee bee = new Bee(getX() + offset, getY(), radius, GameController.getInstance().genre, beeAttackSynthAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
@@ -69,17 +63,10 @@ public class BeeHive extends Enemy {
 
         // Compute position and velocity
         float speed = 2.5f;
-        int beatcount;
-        if (GameController.getInstance().genre == Genre.SYNTH) {
-            beatcount = synthBeeTime;
-            bee.setVY(4);
-        } else {
-            beatcount = jazzBeeTime;
-            bee.setVY(2);
-        }
+        float vSpeed = 4;
         speed *= (isFaceRight() ? 1 : -1);
         bee.setVX(speed);
-        bee.beatCount = beatcount;
+        bee.setVY(vSpeed);
         GameController.getInstance().instantiateQueue(bee);
     }
 

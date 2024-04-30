@@ -67,8 +67,16 @@ public class GameController implements Screen, ContactListener {
 	public SoundController soundController;
 	public ObjectController objectController;
 
+
+
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
+
+	/** Exit code for going back to the level select menu */
+	public static final int BACK_TO_LEVEL_SELECT = 1;
+
+	/** Exit code for going to the next level */
+	public static final int NEXT_LEVEL = 2;
 
 	public static final int LEVEL = 1;
 
@@ -123,6 +131,7 @@ public class GameController implements Screen, ContactListener {
 	private boolean active;
 	/** Whether we have completed this level */
 	private boolean complete;
+
 	/** Whether we have failed at this world (and need a reset) */
 	private boolean failed;
 	/** Whether or not the game is paused */
@@ -272,7 +281,7 @@ public class GameController implements Screen, ContactListener {
 	 * Returns true if the game is paused
 	 * @return true if the game is paused
 	 */
-	public boolean isPaused() { return paused; }
+	public boolean getPaused() { return paused; }
 
 	/**
 	 * Sets whether the game is paused.
@@ -282,6 +291,7 @@ public class GameController implements Screen, ContactListener {
 	public void setPaused(boolean value) {
 		paused = value;
 	}
+
 
 	/**
 	 * Returns the canvas associated with this controller
@@ -500,6 +510,7 @@ public class GameController implements Screen, ContactListener {
 		populateLevel();
 		objectController.setFirstCheckpointAsSpawn(scale);
 		objectController.player.setPosition(respawnPoint);
+		soundController.resetMusic();
 		soundController.playMusic(Genre.SYNTH);
 	}
 
@@ -1190,5 +1201,10 @@ public class GameController implements Screen, ContactListener {
 	/** Returns teh integer victoryScreenItemSelected */
 	public int getVictoryScreenItemSelected() {
 		return victoryScreenItemSelected;
+	}
+
+	/** Returns the object controller */
+	public ObjectController getObjectController() {
+		return objectController;
 	}
 }
