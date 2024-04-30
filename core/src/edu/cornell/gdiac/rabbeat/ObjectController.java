@@ -136,6 +136,79 @@ public class ObjectController {
     /** The texture for the victory logo */
     public TextureRegion victoryLogo;
 
+    /** The texture for unlocked button 1 */
+    public Texture unlockedButton1;
+
+    /** The texture for unlocked button 2 */
+    public Texture unlockedButton2;
+
+    /** The texture for unlocked button 3 */
+    public Texture unlockedButton3;
+
+    /** The texture for unlocked button 4 */
+    public Texture unlockedButton4;
+
+    /** The texture for unlocked button 5 */
+    public Texture unlockedButton5;
+
+    /** The texture for unlocked button 6 */
+    public Texture unlockedButton6;
+
+    /** The texture for unlocked button 7 */
+    public Texture unlockedButton7;
+
+    /** The texture for unlocked button 8 */
+    public Texture unlockedButton8;
+
+    /** The texture for unlocked button 9 */
+    public Texture unlockedButton9;
+
+    /** The texture for unlocked button 10 */
+    public Texture unlockedButton10;
+
+    /** The texture for unlocked button 11 */
+    public Texture unlockedButton11;
+
+    /** The texture for unlocked button 12 */
+    public Texture unlockedButton12;
+
+
+    /** The texture for locked button 1 */
+    public Texture lockedButton1;
+
+    /** The texture for locked button 2 */
+    public Texture lockedButton2;
+
+    /** The texture for locked button 3 */
+    public Texture lockedButton3;
+
+    /** The texture for locked button 4 */
+    public Texture lockedButton4;
+
+    /** The texture for locked button 5 */
+    public Texture lockedButton5;
+
+    /** The texture for locked button 6 */
+    public Texture lockedButton6;
+
+    /** The texture for locked button 7 */
+    public Texture lockedButton7;
+
+    /** The texture for locked button 8 */
+    public Texture lockedButton8;
+
+    /** The texture for locked button 9 */
+    public Texture lockedButton9;
+
+    /** The texture for locked button 10 */
+    public Texture lockedButton10;
+
+    /** The texture for locked button 11 */
+    public Texture lockedButton11;
+
+    /** The texture for locked button 12 */
+    public Texture lockedButton12;
+
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
     /** The texture for tinting the pause screen overlay background */
@@ -304,6 +377,32 @@ public class ObjectController {
         nextLevelText = new TextureRegion(directory.getEntry("ui:victory:nextLevelText",Texture.class));
         levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));
         victoryLogo = new TextureRegion(directory.getEntry("ui:victory:victoryLogo",Texture.class));
+
+        unlockedButton1 = directory.getEntry("ui:unlockedLevels:unlockedLevel1", Texture.class);
+        unlockedButton2 = directory.getEntry("ui:unlockedLevels:unlockedLevel2", Texture.class);
+        unlockedButton3 = directory.getEntry("ui:unlockedLevels:unlockedLevel3", Texture.class);
+        unlockedButton4 = directory.getEntry("ui:unlockedLevels:unlockedLevel4", Texture.class);
+        unlockedButton5 = directory.getEntry("ui:unlockedLevels:unlockedLevel5", Texture.class);
+        unlockedButton6 = directory.getEntry("ui:unlockedLevels:unlockedLevel6", Texture.class);
+        unlockedButton7 = directory.getEntry("ui:unlockedLevels:unlockedLevel7", Texture.class);
+        unlockedButton8 = directory.getEntry("ui:unlockedLevels:unlockedLevel8", Texture.class);
+        unlockedButton9 = directory.getEntry("ui:unlockedLevels:unlockedLevel9", Texture.class);
+        unlockedButton10 = directory.getEntry("ui:unlockedLevels:unlockedLevel10", Texture.class);
+        unlockedButton11 = directory.getEntry("ui:unlockedLevels:unlockedLevel11", Texture.class);
+        unlockedButton12 = directory.getEntry("ui:unlockedLevels:unlockedLevel12", Texture.class);
+
+        lockedButton1 = directory.getEntry("ui:lockedLevels:lockedLevel1", Texture.class);
+        lockedButton2 = directory.getEntry("ui:lockedLevels:lockedLevel2", Texture.class);
+        lockedButton3 = directory.getEntry("ui:lockedLevels:lockedLevel3", Texture.class);
+        lockedButton4 = directory.getEntry("ui:lockedLevels:lockedLevel4", Texture.class);
+        lockedButton5 = directory.getEntry("ui:lockedLevels:lockedLevel5", Texture.class);
+        lockedButton6 = directory.getEntry("ui:lockedLevels:lockedLevel6", Texture.class);
+        lockedButton7 = directory.getEntry("ui:lockedLevels:lockedLevel7", Texture.class);
+        lockedButton8 = directory.getEntry("ui:lockedLevels:lockedLevel8", Texture.class);
+        lockedButton9 = directory.getEntry("ui:lockedLevels:lockedLevel9", Texture.class);
+        lockedButton10 = directory.getEntry("ui:lockedLevels:lockedLevel10", Texture.class);
+        lockedButton11 = directory.getEntry("ui:lockedLevels:lockedLevel11", Texture.class);
+        lockedButton12 = directory.getEntry("ui:lockedLevels:lockedLevel12", Texture.class);
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
@@ -1265,5 +1364,43 @@ public class ObjectController {
     private void createGUI() {
         genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture, synthCDAnimation, jazzCDAnimation);
         GameController.getInstance().instantiate(genreIndicator);
+    }
+
+    /** Returns the texture of the desired unlocked button number, represented by i */
+    public Texture getUnlockedButtonTexture (int i) {
+        switch(i) {
+            case(1): return unlockedButton1;
+            case(2): return unlockedButton2;
+            case(3): return unlockedButton3;
+            case(4): return unlockedButton4;
+            case(5): return unlockedButton5;
+            case(6): return unlockedButton6;
+            case(7): return unlockedButton7;
+            case(8): return unlockedButton8;
+            case(9): return unlockedButton9;
+            case(10): return unlockedButton10;
+            case(11): return unlockedButton11;
+            case(12): return unlockedButton12;
+        }
+        return null;
+    }
+
+    /** Returns the texture of the desired unlocked button number, represented by i */
+    public Texture getLockedButtonTexture (int i) {
+        switch(i) {
+            case(1): return lockedButton1;
+            case(2): return lockedButton2;
+            case(3): return lockedButton3;
+            case(4): return lockedButton4;
+            case(5): return lockedButton5;
+            case(6): return lockedButton6;
+            case(7): return lockedButton7;
+            case(8): return lockedButton8;
+            case(9): return lockedButton9;
+            case(10): return lockedButton10;
+            case(11): return lockedButton11;
+            case(12): return lockedButton12;
+        }
+        return null;
     }
 }

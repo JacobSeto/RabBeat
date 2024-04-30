@@ -412,6 +412,7 @@ public class InputController {
 		}
 		// When the game IS paused
 		else {
+			GameController.getInstance().resume();
 			pauseRightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D);
 			pauseLeftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
 			pauseUpPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
@@ -490,10 +491,10 @@ public class InputController {
 
 				if(gc.getVictoryScreenItemSelected() == 0) {
 					//GO TO NEXT LEVEL
-					gc.exitScreen(1);
+					gc.exitScreen(gc.NEXT_LEVEL);
 				} else if(gc.getVictoryScreenItemSelected() == 1) {
 					//GO BACK TO LEVEL SELECT
-					gc.exitScreen(0);
+					gc.exitScreen(gc.BACK_TO_LEVEL_SELECT);
 				}
 			}
 
@@ -505,9 +506,6 @@ public class InputController {
 			GameController.getInstance().setComplete(true);
 			GameController.getInstance().setPlayerCompletedLevel(false);
 		}
-
-
-
 
 
 		// Mouse results
@@ -545,5 +543,10 @@ public class InputController {
 	/** returns the delay value*/
 	public float getDelay(){
 		return delay;
+	}
+
+	/** returns whether the game is paused */
+	public boolean getPaused() {
+		return paused;
 	}
 }
