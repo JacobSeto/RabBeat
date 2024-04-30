@@ -40,8 +40,6 @@ public class ObjectController {
     public PooledList<IGenreObject> genreObjects = new PooledList<>();
     /** Queue for adding objects */
     public PooledList<GameObject> addQueue = new PooledList<>();
-    /** foreground and background art objects that cannot be interactive with*/
-    public ArrayList<ArtObject> artObjects = new ArrayList<>();
 
     /** Reference to the character avatar */
     public Player player;
@@ -108,6 +106,7 @@ public class ObjectController {
     private TextureRegion beehiveTexture;
     /** The texture for hedgehogs */
     private TextureRegion hedgehogTexture;
+    /** The texture for the exit condition */
 
     /** The texture for the checkpoint */
     private TextureRegion checkpointTexture;
@@ -136,6 +135,79 @@ public class ObjectController {
 
     /** The texture for the victory logo */
     public TextureRegion victoryLogo;
+
+    /** The texture for unlocked button 1 */
+    public Texture unlockedButton1;
+
+    /** The texture for unlocked button 2 */
+    public Texture unlockedButton2;
+
+    /** The texture for unlocked button 3 */
+    public Texture unlockedButton3;
+
+    /** The texture for unlocked button 4 */
+    public Texture unlockedButton4;
+
+    /** The texture for unlocked button 5 */
+    public Texture unlockedButton5;
+
+    /** The texture for unlocked button 6 */
+    public Texture unlockedButton6;
+
+    /** The texture for unlocked button 7 */
+    public Texture unlockedButton7;
+
+    /** The texture for unlocked button 8 */
+    public Texture unlockedButton8;
+
+    /** The texture for unlocked button 9 */
+    public Texture unlockedButton9;
+
+    /** The texture for unlocked button 10 */
+    public Texture unlockedButton10;
+
+    /** The texture for unlocked button 11 */
+    public Texture unlockedButton11;
+
+    /** The texture for unlocked button 12 */
+    public Texture unlockedButton12;
+
+
+    /** The texture for locked button 1 */
+    public Texture lockedButton1;
+
+    /** The texture for locked button 2 */
+    public Texture lockedButton2;
+
+    /** The texture for locked button 3 */
+    public Texture lockedButton3;
+
+    /** The texture for locked button 4 */
+    public Texture lockedButton4;
+
+    /** The texture for locked button 5 */
+    public Texture lockedButton5;
+
+    /** The texture for locked button 6 */
+    public Texture lockedButton6;
+
+    /** The texture for locked button 7 */
+    public Texture lockedButton7;
+
+    /** The texture for locked button 8 */
+    public Texture lockedButton8;
+
+    /** The texture for locked button 9 */
+    public Texture lockedButton9;
+
+    /** The texture for locked button 10 */
+    public Texture lockedButton10;
+
+    /** The texture for locked button 11 */
+    public Texture lockedButton11;
+
+    /** The texture for locked button 12 */
+    public Texture lockedButton12;
 
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
@@ -172,9 +244,9 @@ public class ObjectController {
 
     public TextureRegion blackGradient;
 
-    private final HashMap<String, TextureRegion> assets = new HashMap<>();
+    private HashMap<String, TextureRegion> assets = new HashMap<>();
     //  Tilesets
-    private final HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
+    private HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
 
     /** Reference to the goalDoor (for collision detection) */
     public BoxGameObject goalDoor;
@@ -284,6 +356,12 @@ public class ObjectController {
     private float enemyScale = 1f;
 
     public int tileSize;
+
+    public ArrayList<GameObject> foreground = new ArrayList<>();
+    /** the default beat list is on the downbeats within 2 measures (beat 1 and beat 5)*/
+    public int[] defaultBeatList = { 1, 5 };
+
+    //public GameController gc = GameController.getInstance();
     /**
      * Gather the assets for this controller.
      *
@@ -299,6 +377,32 @@ public class ObjectController {
         nextLevelText = new TextureRegion(directory.getEntry("ui:victory:nextLevelText",Texture.class));
         levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));
         victoryLogo = new TextureRegion(directory.getEntry("ui:victory:victoryLogo",Texture.class));
+
+        unlockedButton1 = directory.getEntry("ui:unlockedLevels:unlockedLevel1", Texture.class);
+        unlockedButton2 = directory.getEntry("ui:unlockedLevels:unlockedLevel2", Texture.class);
+        unlockedButton3 = directory.getEntry("ui:unlockedLevels:unlockedLevel3", Texture.class);
+        unlockedButton4 = directory.getEntry("ui:unlockedLevels:unlockedLevel4", Texture.class);
+        unlockedButton5 = directory.getEntry("ui:unlockedLevels:unlockedLevel5", Texture.class);
+        unlockedButton6 = directory.getEntry("ui:unlockedLevels:unlockedLevel6", Texture.class);
+        unlockedButton7 = directory.getEntry("ui:unlockedLevels:unlockedLevel7", Texture.class);
+        unlockedButton8 = directory.getEntry("ui:unlockedLevels:unlockedLevel8", Texture.class);
+        unlockedButton9 = directory.getEntry("ui:unlockedLevels:unlockedLevel9", Texture.class);
+        unlockedButton10 = directory.getEntry("ui:unlockedLevels:unlockedLevel10", Texture.class);
+        unlockedButton11 = directory.getEntry("ui:unlockedLevels:unlockedLevel11", Texture.class);
+        unlockedButton12 = directory.getEntry("ui:unlockedLevels:unlockedLevel12", Texture.class);
+
+        lockedButton1 = directory.getEntry("ui:lockedLevels:lockedLevel1", Texture.class);
+        lockedButton2 = directory.getEntry("ui:lockedLevels:lockedLevel2", Texture.class);
+        lockedButton3 = directory.getEntry("ui:lockedLevels:lockedLevel3", Texture.class);
+        lockedButton4 = directory.getEntry("ui:lockedLevels:lockedLevel4", Texture.class);
+        lockedButton5 = directory.getEntry("ui:lockedLevels:lockedLevel5", Texture.class);
+        lockedButton6 = directory.getEntry("ui:lockedLevels:lockedLevel6", Texture.class);
+        lockedButton7 = directory.getEntry("ui:lockedLevels:lockedLevel7", Texture.class);
+        lockedButton8 = directory.getEntry("ui:lockedLevels:lockedLevel8", Texture.class);
+        lockedButton9 = directory.getEntry("ui:lockedLevels:lockedLevel9", Texture.class);
+        lockedButton10 = directory.getEntry("ui:lockedLevels:lockedLevel10", Texture.class);
+        lockedButton11 = directory.getEntry("ui:lockedLevels:lockedLevel11", Texture.class);
+        lockedButton12 = directory.getEntry("ui:lockedLevels:lockedLevel12", Texture.class);
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
@@ -593,14 +697,10 @@ public class ObjectController {
                             wpPlatformInterval[num] = platformInterval;
                             wpMove[num] = moveTime;
                             wpWait[num] = waitTime;
-                            System.out.println("get"+" "+wp.getFloat("width")+" "+wp.getFloat("height"));
                             wpDimensions[num] = new Vector2(wp.getFloat("width"), wp.getFloat("height"));
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
-                            //System.out.println("pre"+wpDimensions[i].x + " "+ wpDimensions[i].y);
-                            System.out.println("fuck");
-                            System.out.println(wpMove[i]);
                             createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpPlatformInterval[i], wpMove[i], wpWait[i], wpDimensions[i], levelHeight, tileSize);
                         }
                         break;
@@ -764,7 +864,8 @@ public class ObjectController {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
-                            createGroundArt(scale, a.getString("type"), x, y, dim, levelHeight, tileSize, "foreground");
+                            createGroundArt(scale, a.getString("name"), x, y, dim, levelHeight, tileSize, "foreground",
+                                    a);
                         }
                         break;
                     case "backgroundArt":
@@ -772,7 +873,8 @@ public class ObjectController {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
-                            createGroundArt(scale, a.getString("type"), x, y, dim, levelHeight, tileSize, "background");
+                            createGroundArt(scale, a.getString("name"), x, y, dim, levelHeight, tileSize, "background",
+                                    a);
                         }
                         break;
                 }
@@ -806,6 +908,9 @@ public class ObjectController {
      */
     private int[] convertTiledbeatList(String beatListString){
         int listLen = beatListString.length();
+        if(listLen == 0){
+            return defaultBeatList;
+        }
         int[] result = new int[listLen];
         for (int i = 0; i < beatListString.length(); i++) {
             result[i] = Integer.parseInt(beatListString.substring(i, i+1));
@@ -948,7 +1053,6 @@ public class ObjectController {
         platform.setTexture(textureRegion);
         if (lethal){
             platform.setType(Type.LETHAL);
-
         }
         else{
             platform.setType(Type.NONE);
@@ -995,6 +1099,7 @@ public class ObjectController {
      *                    coordinates in synth mode
      * @param jazzCoord   A float array which holds the weighted platform's x and y
      *                    coordinates in jazz mode
+     * @param intervals      The speed of the weighted platform
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
@@ -1217,7 +1322,7 @@ public class ObjectController {
         GameController.getInstance().instantiate(bat);
     }
 
-    private void createGroundArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, String groundLevel){
+    private void createGroundArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, String groundLevel, JsonValue artJson){
         TextureRegion textureRegion = assets.get(type);
         if (textureRegion == null) {
             textureRegion = assets.get("light");
@@ -1225,6 +1330,7 @@ public class ObjectController {
         //  Adjust coordinates + Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
+
         //Create a Pulse Art Object if the class is Pulse marked in Tiled
         float pulsePerBeat = 0;
         float pulseScale = 0;
@@ -1253,7 +1359,7 @@ public class ObjectController {
             art.setBodyType(BodyDef.BodyType.StaticBody);
             art.setDrawScale(scale);
             if (groundLevel.equals("foreground")) {
-                artObjects.add(art);
+                foreground.add(art);
             }
             GameController.getInstance().instantiate(art);
         }
@@ -1262,11 +1368,10 @@ public class ObjectController {
             art.setBodyType(BodyDef.BodyType.StaticBody);
             art.setDrawScale(scale);
             if (groundLevel.equals("foreground")) {
-                artObjects.add(art);
+                foreground.add(art);
             }
             GameController.getInstance().instantiate(art);
         }
-        GameController.getInstance().instantiate(art);
     }
 
     private void createHangingArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
@@ -1290,5 +1395,43 @@ public class ObjectController {
     private void createGUI() {
         genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture, synthCDAnimation, jazzCDAnimation);
         GameController.getInstance().instantiate(genreIndicator);
+    }
+
+    /** Returns the texture of the desired unlocked button number, represented by i */
+    public Texture getUnlockedButtonTexture (int i) {
+        switch(i) {
+            case(1): return unlockedButton1;
+            case(2): return unlockedButton2;
+            case(3): return unlockedButton3;
+            case(4): return unlockedButton4;
+            case(5): return unlockedButton5;
+            case(6): return unlockedButton6;
+            case(7): return unlockedButton7;
+            case(8): return unlockedButton8;
+            case(9): return unlockedButton9;
+            case(10): return unlockedButton10;
+            case(11): return unlockedButton11;
+            case(12): return unlockedButton12;
+        }
+        return null;
+    }
+
+    /** Returns the texture of the desired unlocked button number, represented by i */
+    public Texture getLockedButtonTexture (int i) {
+        switch(i) {
+            case(1): return lockedButton1;
+            case(2): return lockedButton2;
+            case(3): return lockedButton3;
+            case(4): return lockedButton4;
+            case(5): return lockedButton5;
+            case(6): return lockedButton6;
+            case(7): return lockedButton7;
+            case(8): return lockedButton8;
+            case(9): return lockedButton9;
+            case(10): return lockedButton10;
+            case(11): return lockedButton11;
+            case(12): return lockedButton12;
+        }
+        return null;
     }
 }

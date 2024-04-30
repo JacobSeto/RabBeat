@@ -81,10 +81,6 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
         platformIntervals = platformInterval-1;
         moveTime = (int) Math.pow(2, beatMoveTime);
         waitTime = beatWaitTime;
-        System.out.println("movtime is");
-        System.out.println(moveTime);
-        System.out.println(beatMoveTime);
-        System.out.println( Math.pow(2, beatMoveTime));
     }
     /** */
     public Vector2 currentVelocity(){

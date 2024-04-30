@@ -11,7 +11,7 @@ public class SyncController {
      */
 
     /** The bpm of the soundtrack*/
-    private final int BPM = 180;
+    public int BPM = 180;
 
     /** The synth soundtrack*/
     Music synth;
@@ -46,7 +46,6 @@ public class SyncController {
             float sample = (synth.getPosition() + delay) / i.getIntervalLength(BPM);
             i.checkForNewInterval(sample);
         }
-
     }
 
     /**The calibration for audio delay.  The audio delay is dependent on the audio output source

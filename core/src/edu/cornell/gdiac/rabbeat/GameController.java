@@ -18,8 +18,11 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
+import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
@@ -64,13 +67,21 @@ public class GameController implements Screen, ContactListener {
 	public SoundController soundController;
 	public ObjectController objectController;
 
+
+
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
+
+	/** Exit code for going back to the level select menu */
+	public static final int BACK_TO_LEVEL_SELECT = 1;
+
+	/** Exit code for going to the next level */
+	public static final int NEXT_LEVEL = 2;
 
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private static int levelsUnlocked = 4;
+	private static int levelsUnlocked = 5;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;
@@ -120,6 +131,7 @@ public class GameController implements Screen, ContactListener {
 	private boolean active;
 	/** Whether we have completed this level */
 	private boolean complete;
+
 	/** Whether we have failed at this world (and need a reset) */
 	private boolean failed;
 	/** Whether or not the game is paused */
@@ -154,6 +166,11 @@ public class GameController implements Screen, ContactListener {
 
 	private int SFXVolume = 10;
 
+	/**lIST  of enemies that are 'bounded' to a moving or weighted platform*/
+	private Enemy[] boundedEnemies;
+	/**lIST  of platforms that are 'bounded' to an enemy*/
+	private BoxGameObject[] boundedPlatforms;
+
 	// Physics objects for the game
 
 	/** last platform collided with*/
@@ -166,6 +183,8 @@ public class GameController implements Screen, ContactListener {
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
+
+
 
 	private static GameController theController = null;
 
@@ -262,7 +281,7 @@ public class GameController implements Screen, ContactListener {
 	 * Returns true if the game is paused
 	 * @return true if the game is paused
 	 */
-	public boolean isPaused() { return paused; }
+	public boolean getPaused() { return paused; }
 
 	/**
 	 * Sets whether the game is paused.
@@ -272,6 +291,7 @@ public class GameController implements Screen, ContactListener {
 	public void setPaused(boolean value) {
 		paused = value;
 	}
+
 
 	/**
 	 * Returns the canvas associated with this controller
@@ -413,6 +433,10 @@ public class GameController implements Screen, ContactListener {
 		return genre;
 	}
 
+	public int getBPM() {
+		return syncController.BPM;
+	}
+
 	/**
 	 *
 	 * Adds a physics object in to the insertion queue.
@@ -490,6 +514,7 @@ public class GameController implements Screen, ContactListener {
 		populateLevel();
 		objectController.setFirstCheckpointAsSpawn(scale);
 		objectController.player.setPosition(respawnPoint);
+		soundController.resetMusic();
 		soundController.playMusic(Genre.SYNTH);
 	}
 
@@ -507,7 +532,7 @@ public class GameController implements Screen, ContactListener {
 			obj.deactivatePhysics(world);
 		}
 		objectController.objects.clear();
-		objectController.artObjects.clear();
+		objectController.foreground.clear();
 		objectController.addQueue.clear();
 		world.dispose();
 
@@ -706,8 +731,8 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			//player collision checks
-			if (bd1.getType() == Type.Player){
-				if(bd2.getType() == Type.LETHAL){
+			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player){
+				if(bd2.getType() == Type.LETHAL || bd1.getType() == Type.LETHAL){
 					getPlayer().isDying = true;
 				}
 				if(bd2 instanceof  WeightedPlatform){
@@ -863,7 +888,7 @@ public class GameController implements Screen, ContactListener {
 
 		canvas.begin(false);
 		for (GameObject obj : objectController.objects) {
-			if (!objectController.artObjects.contains(obj)){
+			if (!objectController.foreground.contains(obj)){
 				obj.draw(canvas);
 			}
 		}
@@ -876,7 +901,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw the foreground on top of everything
 		canvas.begin(false);
-		for (GameObject obj : objectController.artObjects) {
+		for (GameObject obj : objectController.foreground) {
 			obj.draw(canvas);
 		}
 		canvas.end();
@@ -1181,5 +1206,10 @@ public class GameController implements Screen, ContactListener {
 	/** Returns teh integer victoryScreenItemSelected */
 	public int getVictoryScreenItemSelected() {
 		return victoryScreenItemSelected;
+	}
+
+	/** Returns the object controller */
+	public ObjectController getObjectController() {
+		return objectController;
 	}
 }
