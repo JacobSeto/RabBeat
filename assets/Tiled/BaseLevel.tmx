@@ -138,7 +138,7 @@
     <property name="align" value="middle"/>
    </properties>
   </object>
-  <object id="672" type="laser" gid="138" x="320" y="1456" width="36" height="64">
+  <object id="672" type="laser" gid="138" x="400" y="880" width="36" height="64">
    <properties>
     <property name="align" value="top"/>
    </properties>

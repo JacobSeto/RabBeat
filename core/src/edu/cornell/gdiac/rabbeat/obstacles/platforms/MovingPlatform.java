@@ -62,12 +62,8 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         setTexture(texture);
         setPosition(positionNodes[0]);
         velocity = direction(positionNodes[home], positionNodes[destination], 2);
-        System.out.println("beatMovTime is");
-        System.out.println(beatMoveTime);
         moving = true;
         moveTime = (int) Math.pow(2, beatMoveTime);
-        System.out.println("movtime is");
-        System.out.println(moveTime);
     }
 
     /** updates the platform to determine what direction it should be moving in */
@@ -149,6 +145,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     public void beatAction() {
         /**Renable moving after reaching destination and incredments beat, as well as resetting the speed*/
         moving = true;
+
         float BeatLength = (float) (60*moveTime) /BPM;
         beat+= 1;
         if (beat==1){

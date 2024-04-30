@@ -73,7 +73,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private static int levelsUnlocked = 4;
+	private static int levelsUnlocked = 5;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;
@@ -715,8 +715,8 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			//player collision checks
-			if (bd1.getType() == Type.Player){
-				if(bd2.getType() == Type.LETHAL){
+			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player){
+				if(bd2.getType() == Type.LETHAL || bd1.getType() == Type.LETHAL){
 					getPlayer().isDying = true;
 				}
 				if(bd2 instanceof  WeightedPlatform){

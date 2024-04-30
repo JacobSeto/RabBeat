@@ -46,7 +46,6 @@ public class SyncController {
             float sample = synth.getPosition() / i.getIntervalLength(BPM) + delay * i.syncedObject.getBeat();
             i.checkForNewInterval(sample);
         }
-
     }
 
     /**The calibration for audio delay.  The audio delay is dependent on the audio output source
