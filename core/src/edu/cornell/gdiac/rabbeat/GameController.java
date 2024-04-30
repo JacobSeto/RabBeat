@@ -131,6 +131,7 @@ public class GameController implements Screen, ContactListener {
 	private boolean active;
 	/** Whether we have completed this level */
 	private boolean complete;
+
 	/** Whether we have failed at this world (and need a reset) */
 	private boolean failed;
 	/** Whether or not the game is paused */
@@ -273,7 +274,7 @@ public class GameController implements Screen, ContactListener {
 	 * Returns true if the game is paused
 	 * @return true if the game is paused
 	 */
-	public boolean isPaused() { return paused; }
+	public boolean getPaused() { return paused; }
 
 	/**
 	 * Sets whether the game is paused.
@@ -283,6 +284,7 @@ public class GameController implements Screen, ContactListener {
 	public void setPaused(boolean value) {
 		paused = value;
 	}
+
 
 	/**
 	 * Returns the canvas associated with this controller
@@ -501,6 +503,7 @@ public class GameController implements Screen, ContactListener {
 		populateLevel();
 		objectController.setFirstCheckpointAsSpawn(scale);
 		objectController.player.setPosition(respawnPoint);
+		soundController.resetMusic();
 		soundController.playMusic(Genre.SYNTH);
 	}
 
@@ -653,7 +656,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param dt Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
-//		System.out.println(InputController.getInstance().getpaused());
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);

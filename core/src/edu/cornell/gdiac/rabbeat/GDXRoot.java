@@ -64,13 +64,8 @@ public class GDXRoot extends Game implements ScreenListener {
 		initialLoading = new LoadingMode("assets.json", canvas, 1);
 		initialLoading.setScreenListener(this);
 		setScreen(initialLoading);
-//		canvas  = new GameCanvas();
-//		initialLoading = new LoadingMode("assets.json",canvas,1);
-//		initialLoading.setScreenListener(this);
 		levelSelectorScreen = new LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
-//		setScreen(initialLoading);
-		//setScreen(levelSelectorScreen);
 	}
 
 	/** 
@@ -123,38 +118,19 @@ public class GDXRoot extends Game implements ScreenListener {
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
-//			controller.initialize();
 			InputController.getInstance().setPaused(true);
 			setScreen(levelSelectorScreen);
-		}
-		if (screen == loading) {
-//			InputController.getInstance().setPaused(false);
-//			//directory = loading.getAssets();
-//			controller.gatherAssets(directory);
-//			controller.setScreenListener(this);
-//			controller.setCanvas(canvas);
-//			controller.initialize();
-//			setScreen(controller);
-//			loading.dispose();
-//			loading = null;
-		} else if (screen == levelSelectorScreen || exitCode == GameController.getInstance().NEXT_LEVEL) {
-//			InputController.getInstance().setPaused(true);
-//			InputController.getInstance().setPaused(false);
+		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
 			controller = new GameController();
-//			loading = new LoadingMode("assets.json", canvas, 1);
-//			loading.setScreenListener(this);
-//			setScreen(loading);
-
 			InputController.getInstance().setPaused(false);
-			//directory = loading.getAssets();
-			System.out.println(controller.getCurrentLevelInt());
+			GameController.getInstance().setPaused(false);
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
+			controller.resume();
 			controller.initialize();
 			setScreen(controller);
-//			System.out.println(InputController.getInstance().getPaused());
-		} else if (screen == controller || exitCode == GameController.getInstance().BACK_TO_LEVEL_SELECT) {
+		} else if (screen == controller || exitCode == GameController.BACK_TO_LEVEL_SELECT) {
 			createLevelSelectorScreen();
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			Gdx.app.exit();
