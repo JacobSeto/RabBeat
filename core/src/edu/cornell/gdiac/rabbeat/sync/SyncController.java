@@ -25,6 +25,11 @@ public class SyncController {
     /** The interval that represents the animation update */
     private AnimationSync animationSync = new AnimationSync();
 
+    public SyncController(int bpm) {
+        this.BPM = bpm;
+    }
+    public SyncController() {}
+
     /** TODO: Create description and use SoundController instead.  Maybe even delete this function*/
     public void setSync(Music _synth, Music _jazz){
         synth = _synth;
