@@ -67,7 +67,6 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      * Generally called by moving platforms to shift the player so they 'stick' to said platforms
      * */
     private Vector2 displacement;
-
     // range: how far away player is --> beat action called whenever an action is
     // supposed to hapepn on beat
     // create switch states (wandering, shooting, etc). ENUM
@@ -125,7 +124,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     public void update(float dt) {
 
         switchState();
-        setPosition(getPosition().x+ dt*displacement.x, getPosition().y+ dt*displacement.y);
+        //setPosition(getPosition().x+ dt*displacement.x, getPosition().y+ dt*displacement.y);
         super.update(dt);
     }
 
@@ -137,6 +136,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     public void draw(GameCanvas canvas) {
         float effect = (faceRight && isFlippable) ? -1.0f : 1.0f;
         TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
+
         canvas.draw(currentFrame, Color.WHITE, origin.x, origin.y, getX() * drawScale.x, getY() * drawScale.y,
                 getAngle(), enemyScale * effect, enemyScale);
     }
@@ -197,10 +197,10 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     public void flipEnemy() {
         if (playerXPosition() - getPosition().x > 0 && !faceRight) {
             setFaceRight(true);
-            setPosition(getX() + 1, getY());
+            setPosition(getX(), getY());
         } else if (playerXPosition() - getPosition().x < 0 && faceRight) {
             setFaceRight(false);
-            setPosition(getX() - 1, getY());
+            setPosition(getX(), getY());
         }
     }
 
@@ -241,7 +241,6 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
                 }
             }
         }
-
     }
 
     /** The function called whenever the enemy is supposed to attack */

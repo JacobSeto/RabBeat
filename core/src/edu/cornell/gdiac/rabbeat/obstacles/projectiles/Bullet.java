@@ -3,26 +3,33 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
+import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.Type;
 import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 import edu.cornell.gdiac.rabbeat.Genre;
 
-public class Bullet extends WheelGameObject implements ISynced, ISyncedAnimated {
+public class Bullet extends BoxGameObject implements ISynced, ISyncedAnimated {
     public int beatCount = 0;
 
     private float stateTime = 0;
     public Genre bulletGenre;
 
+    public float dir;
+
     private Animation animation;
 
-    public Bullet(float x, float y, float radius, float synthVX, float jazzVX, boolean fr, Genre genre) {
-        super(x, y, radius);
-        float dir = (fr ? 1 : -1);
+    public Bullet(float x, float y, float width, float height, float synthVX, float jazzVX, boolean fr, Genre genre) {
+        super(x, y, width, height);
+        System.out.println(width);
+        System.out.println(height);
+        setVX(synthVX);
+        dir = (fr ? 1 : -1);
         bulletGenre = genre;
         setType(Type.LETHAL);
         setSensor(true);
+        System.out.println(dir);
     }
 
     @Override
@@ -53,7 +60,8 @@ public class Bullet extends WheelGameObject implements ISynced, ISyncedAnimated 
 
     public void draw(GameCanvas canvas) {
         TextureRegion currentFrame = (TextureRegion) animation.getKeyFrame(stateTime, true);
-        canvas.draw(currentFrame, Color.WHITE,origin.x + 30,origin.y + (bulletGenre == Genre.SYNTH ? 35 : 50),getX()*drawScale.x,getY()*drawScale.y,getAngle(), 1.2f,1.2f);
+
+        canvas.draw(currentFrame, Color.WHITE,origin.x+30 ,origin.y+(bulletGenre == Genre.SYNTH ? 35 : 50),getX()*drawScale.x,getY()*drawScale.y,getAngle(), 1.2f*dir*-1,1.2f);
     }
 
 }
