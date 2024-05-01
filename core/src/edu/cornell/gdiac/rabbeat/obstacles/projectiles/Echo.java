@@ -11,7 +11,7 @@ import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 public class Echo extends BoxGameObject implements ISyncedAnimated {
 
-    public int beatCount = 4;
+    public int beatCount = 2;
 
     public Animation<TextureRegion> animation;
     /** The elapsed time for animationUpdate */
@@ -48,7 +48,7 @@ public class Echo extends BoxGameObject implements ISyncedAnimated {
         stateTime++;
     }
     public void draw(GameCanvas canvas) {
-        TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
+        TextureRegion currentFrame = animation.getKeyFrame(6+stateTime, true);
         float scaleX = flipX ? -1 : 1;
         float scaleY = flipY ? -1 : 1;
         float rotate = vertical ? (float)(Math.PI/2) : 0;

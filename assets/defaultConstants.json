@@ -111,8 +111,8 @@
     "offset" : 0.5,
     "synth speed"  : 7.5,
     "synth bullet time"  : 4,
-    "jazz bullet time" : 12,
-    "jazz speed" : 2.5,
+    "jazz bullet time" : 8.5,
+    "jazz speed" : 3.5,
     "density": 10.0
   },
   "echo": {
