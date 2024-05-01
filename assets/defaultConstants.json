@@ -24,7 +24,7 @@
     "max_speed": {
       "synth": 8.5,
       "jazz": 4.7
-    },
+    }
   },
   "goal": {
     "density": 0.0,
@@ -118,5 +118,67 @@
   "echo": {
     "offset" : 1.75,
     "density": 1.0
+  },
+  "music": {
+    "level1": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 120
+    },
+    "level2": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    },
+    "level3": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    },
+    "level4": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    },
+    "level5": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    },
+    "level6": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    },
+    "level7": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    },
+    "level8": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    },
+    "level9": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    },
+    "level10": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    },
+    "level11": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    },
+    "level12": {
+      "synth": "music:synth1",
+      "jazz": "music:jazz1",
+      "bpm": 180
+    }
   }
 }
