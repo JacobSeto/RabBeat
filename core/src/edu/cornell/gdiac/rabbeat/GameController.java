@@ -22,6 +22,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bee;
 import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
@@ -716,6 +717,20 @@ public class GameController implements Screen, ContactListener {
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
 					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
 				setComplete(true);
+			}
+
+			//Bullet and Bee Collision checks
+			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy)){
+				bd1.markRemoved(true);
+			}
+			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy)){
+				bd2.markRemoved(true);
+			}
+			if (bd1 instanceof Bee && !(bd2 instanceof Enemy)){
+				bd1.markRemoved(true);
+			}
+			if (bd2 instanceof Bee && !(bd1 instanceof Enemy)){
+				bd2.markRemoved(true);
 			}
 
 			//player collision checks
