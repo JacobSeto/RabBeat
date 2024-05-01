@@ -31,7 +31,11 @@ public class GDXRoot extends Game implements ScreenListener {
 	/** AssetManager to load game assets (textures, sounds, etc.) */
 	AssetDirectory directory;
 	/** Drawing context to display graphics (VIEW CLASS) */
-	private GameCanvas canvas; 
+	private GameCanvas canvas;
+
+	/** Player mode for the initial loading screen asset (CONTROLLER CLASS) */
+	private LoadingMode initialLoading;
+
 	/** Player mode for the asset loading screen (CONTROLLER CLASS) */
 	private LoadingMode loading;
 	/** Player mode for the game proper (CONTROLLER CLASS) */
@@ -47,7 +51,7 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * This method configures the asset manager, but does not load any assets
 	 * or assign any screen.
 	 */
-	public GDXRoot() { }
+	public GDXRoot() { controller = new GameController(); }
 
 	/** 
 	 * Called when the Application is first created.
@@ -56,12 +60,12 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * the levelSelector screen
 	 */
 	public void create() {
-		canvas  = new GameCanvas();
-		loading = new LoadingMode("assets.json",canvas,1);
-		loading.setScreenListener(this);
+		canvas = new GameCanvas();
+		initialLoading = new LoadingMode("assets.json", canvas, 1);
+		initialLoading.setScreenListener(this);
+		setScreen(initialLoading);
 		levelSelectorScreen = new LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
-		setScreen(levelSelectorScreen);
 	}
 
 	/** 
@@ -109,22 +113,24 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * @param exitCode The state of the screen upon exit
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
-		if (screen == loading) {
-			InputController.getInstance().setPaused(false);
-			directory = loading.getAssets();
+		if(screen == initialLoading) {
+			directory = initialLoading.getAssets();
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
+			InputController.getInstance().setPaused(true);
+			setScreen(levelSelectorScreen);
+		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
+			controller = new GameController();
+			InputController.getInstance().setPaused(false);
+			GameController.getInstance().setPaused(false);
+			controller.gatherAssets(directory);
+			controller.setScreenListener(this);
+			controller.setCanvas(canvas);
+			controller.resume();
 			controller.initialize();
 			setScreen(controller);
-			loading.dispose();
-			loading = null;
-		} else if (screen == levelSelectorScreen || exitCode == 1) {
-			controller = new GameController();
-			loading = new LoadingMode("assets.json", canvas, 1);
-			loading.setScreenListener(this);
-			setScreen(loading);
-		} else if (screen == controller) {
+		}else if (screen == controller || exitCode == GameController.BACK_TO_LEVEL_SELECT) {
 			createLevelSelectorScreen();
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			Gdx.app.exit();

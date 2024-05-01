@@ -2,6 +2,7 @@ package edu.cornell.gdiac.rabbeat.obstacles.platforms;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
@@ -36,7 +37,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     /**How fast the platform should be currently moving*/
     private float currentSpeed=1.0f;
     /**Stores the BPM of the current level*/
-    private int BPM = 180;
+    private int BPM;
 
     /**Determines the speed of the platform on each frame */
     private float SPEEDBEAT6 = (float) 3*1 /10;
@@ -62,12 +63,9 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         setTexture(texture);
         setPosition(positionNodes[0]);
         velocity = direction(positionNodes[home], positionNodes[destination], 2);
-        System.out.println("beatMovTime is");
-        System.out.println(beatMoveTime);
         moving = true;
         moveTime = (int) Math.pow(2, beatMoveTime);
-        System.out.println("movtime is");
-        System.out.println(moveTime);
+        BPM = GameController.getInstance().getBPM();
     }
 
     /** updates the platform to determine what direction it should be moving in */
@@ -149,6 +147,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     public void beatAction() {
         /**Renable moving after reaching destination and incredments beat, as well as resetting the speed*/
         moving = true;
+
         float BeatLength = (float) (60*moveTime) /BPM;
         beat+= 1;
         if (beat==1){

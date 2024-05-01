@@ -250,6 +250,11 @@
                          "name":"speed",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"waitTime",
+                         "type":"int",
+                         "value":0
                         }],
                  "rotation":0,
                  "type":"Weighted Platform",
@@ -286,6 +291,11 @@
                         }, 
                         {
                          "name":"speed",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"waitTime",
                          "type":"int",
                          "value":0
                         }],
@@ -326,6 +336,11 @@
                          "name":"speed",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"waitTime",
+                         "type":"int",
+                         "value":0
                         }],
                  "rotation":0,
                  "type":"Weighted Platform",
@@ -364,6 +379,11 @@
                          "name":"speed",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"waitTime",
+                         "type":"int",
+                         "value":0
                         }],
                  "rotation":0,
                  "type":"Weighted Platform",
@@ -384,6 +404,11 @@
                          "value":"synth"
                         }, 
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":2
@@ -395,6 +420,11 @@
                         }, 
                         {
                          "name":"speed",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"waitTime",
                          "type":"int",
                          "value":0
                         }],
@@ -450,6 +480,11 @@
                          "value":"synth"
                         }, 
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":3
@@ -486,6 +521,11 @@
                          "name":"genre",
                          "type":"string",
                          "value":"jazz"
+                        }, 
+                        {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":0
                         }, 
                         {
                          "name":"num",
@@ -526,6 +566,11 @@
                          "value":"jazz"
                         }, 
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":4
@@ -537,6 +582,11 @@
                         }, 
                         {
                          "name":"speed",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"waitTime",
                          "type":"int",
                          "value":0
                         }],
@@ -559,6 +609,11 @@
                          "value":"synth"
                         }, 
                         {
+                         "name":"moveTime",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"num",
                          "type":"int",
                          "value":4
@@ -572,12 +627,17 @@
                          "name":"speed",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"waitTime",
+                         "type":"int",
+                         "value":0
                         }],
                  "rotation":0,
                  "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
-                 "x":1929.09090909091,
+                 "x":1929.09,
                  "y":640
                 }],
          "opacity":1,
@@ -844,9 +904,9 @@
                  "gid":63,
                  "height":64,
                  "id":595,
-                 "name":"",
+                 "name":"graffiti_0",
                  "rotation":0,
-                 "type":"graffiti_0",
+                 "type":"",
                  "visible":true,
                  "width":64,
                  "x":384,
@@ -856,9 +916,25 @@
                  "gid":64,
                  "height":64,
                  "id":599,
-                 "name":"",
+                 "name":"emoji_1",
+                 "properties":[
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.25
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
+                        }],
                  "rotation":0,
-                 "type":"emoji_2",
+                 "type":"",
                  "visible":true,
                  "width":64,
                  "x":128,
@@ -928,9 +1004,25 @@
                  "gid":65,
                  "height":64,
                  "id":639,
-                 "name":"",
+                 "name":"emoji_1",
+                 "properties":[
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":0.25
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.75
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
+                        }],
                  "rotation":0,
-                 "type":"emoji_1",
+                 "type":"Pulse",
                  "visible":true,
                  "width":64,
                  "x":960,
@@ -940,9 +1032,25 @@
                  "gid":64,
                  "height":64,
                  "id":640,
-                 "name":"",
+                 "name":"emoji_1",
+                 "properties":[
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.25
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
+                        }],
                  "rotation":0,
-                 "type":"emoji_1",
+                 "type":"Pulse",
                  "visible":true,
                  "width":64,
                  "x":960,
@@ -952,9 +1060,25 @@
                  "gid":62,
                  "height":64,
                  "id":644,
-                 "name":"",
+                 "name":"emoji_0",
+                 "properties":[
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":0.5
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.5
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
+                        }],
                  "rotation":0,
-                 "type":"emoji_0",
+                 "type":"Pulse",
                  "visible":true,
                  "width":64,
                  "x":1024,
@@ -979,7 +1103,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":657,
+ "nextobjectid":659,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

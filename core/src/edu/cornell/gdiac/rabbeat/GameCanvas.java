@@ -95,6 +95,8 @@ public class GameCanvas {
 
 	/** Camera movement speed */
 	float CAMERA_SPEED = 7f;
+	/** Camera in-game zoom */
+	float CAMERA_ZOOM = 1.2f;
 
 	/**
 	 * Creates a new GameCanvas determined by the application configuration.
@@ -110,6 +112,7 @@ public class GameCanvas {
 		
 		// Set the projection matrix (for proper scaling)
 		camera = new OrthographicCamera(getWidth(),getHeight());
+		camera.zoom = CAMERA_ZOOM;
 		camera.setToOrtho(false);
 		spriteBatch.setProjectionMatrix(camera.combined);
 		debugRender.setProjectionMatrix(camera.combined);
@@ -1171,17 +1174,22 @@ public class GameCanvas {
 	 * @param worldHeight The height of the world in Box2D units
 	 */
 	protected void updateCamera(Player player, float worldWidth, float worldHeight) {
-		float minX = camera.viewportWidth/2;
-		float maxX = worldWidth * (getWidth()/ GameController.DEFAULT_WIDTH) - camera.viewportWidth/2;
-		float minY = camera.viewportHeight/2;
-		float maxY = worldHeight * (getHeight()/ GameController.DEFAULT_HEIGHT) - camera.viewportHeight/2;
+		float minX = camera.viewportWidth * CAMERA_ZOOM / 2;
+		float maxX = worldWidth * (getWidth()/ GameController.DEFAULT_WIDTH) - camera.viewportWidth * CAMERA_ZOOM / 2;
+		float minY = camera.viewportHeight * CAMERA_ZOOM / 2;
+		float maxY = worldHeight * (getHeight()/ GameController.DEFAULT_HEIGHT) - camera.viewportHeight * CAMERA_ZOOM / 2;
 
+		// Horizontal movement
 		camera.position.lerp(new Vector3(
-						// TODO: Still need to figure out why 67f
-						player.getX() * 67f, 0, 0),
+				player.getX() * 67f, camera.position.y, 0),
 				CAMERA_SPEED * Gdx.graphics.getDeltaTime()
 		);
-		camera.position.set(new Vector2(camera.position.x, player.getY() * 67f), 0);
+		// Vertical movement
+		camera.position.lerp(new Vector3(
+				camera.position.x, player.getY() * 67f, 0),
+				CAMERA_SPEED / 3 * Gdx.graphics.getDeltaTime()
+		);
+
 		camera.position.x = MathUtils.clamp(camera.position.x, minX, maxX);
 		camera.position.y = MathUtils.clamp(camera.position.y, minY, maxY);
 

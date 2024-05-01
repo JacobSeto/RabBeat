@@ -33,8 +33,8 @@
   },
   "bears": {
     "shrink": [
-      0.7,
-      0.95
+      0.5,
+      0.7
     ],
     "force": 20.0,
     "damping": 10.0,
@@ -43,7 +43,7 @@
     "shot_cool": 40,
     "sensor": {
       "shrink": 0.6,
-      "height": 0.05
+      "height": -0.25
     },
     "max_speed": {
       "synth": 6.0,
@@ -109,9 +109,9 @@
   },
   "bullet": {
     "offset" : 0.5,
-    "synth speed"  : 5.0,
-    "synth bullet time"  : 6,
-    "jazz bullet time" : 24,
+    "synth speed"  : 7.5,
+    "synth bullet time"  : 4,
+    "jazz bullet time" : 12,
     "jazz speed" : 2.5,
     "density": 10.0
   },
@@ -138,7 +138,7 @@
     "level4": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level5": {
       "synth": "music:synth1",

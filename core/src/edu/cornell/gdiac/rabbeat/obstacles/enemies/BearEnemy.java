@@ -84,7 +84,9 @@ public class BearEnemy extends Enemy {
         float radius = (animationGenre == Genre.SYNTH ?
                 (oc.bulletTexture.getRegionWidth() / (0.3f * scale.x)) :
                 (oc.bulletTexture.getRegionWidth() / (0.24f * scale.x)));
-        bullet = new Bullet(getX() + offset, getY(), radius,
+        float width  = oc.bulletTexture.getRegionWidth()*0.1f;
+        float height = oc.bulletTexture.getRegionHeight()*0.05f;
+        bullet = new Bullet(getX()+offset, getY()+0.1f, width, height,
                 oc.defaultConstants.get("bullet").getFloat("synth speed", 0),
                 oc.defaultConstants.get("bullet").getFloat("jazz speed", 0), isFaceRight(),
                 animationGenre);

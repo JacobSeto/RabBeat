@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="130" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="657">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="130" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="659">
  <editorsettings>
   <export target="../levelsJson/level1Beta.tmj" format="json"/>
  </editorsettings>
@@ -183,16 +183,37 @@
  <objectgroup id="12" name="foregroundArt" class="bigwire">
   <object id="581" type="wires1" gid="51" x="1856" y="192" width="875" height="128"/>
   <object id="582" type="light" gid="27" x="1536" y="832" width="192" height="192"/>
-  <object id="595" type="graffiti_0" gid="63" x="384" y="1024" width="64" height="64"/>
-  <object id="599" type="emoji_2" gid="64" x="128" y="1024" width="64" height="64"/>
+  <object id="595" name="graffiti_0" gid="63" x="384" y="1024" width="64" height="64"/>
+  <object id="599" name="emoji_1" gid="64" x="128" y="1024" width="64" height="64">
+   <properties>
+    <property name="pulsePerBeat" type="float" value="1"/>
+    <property name="pulseScale" type="float" value="1.25"/>
+    <property name="shrinkRate" type="float" value="0.010000000000000009"/>
+   </properties>
+  </object>
   <object id="601" type="tv" gid="66" x="64" y="896" width="128" height="128"/>
   <object id="602" type="tv" gid="66" x="192" y="896" width="128" height="128"/>
   <object id="604" type="tv" gid="66" x="101" y="804" width="128" height="128"/>
   <object id="624" type="caution_0" gid="68" x="3072" y="320" width="128" height="128"/>
   <object id="625" type="caution_0" gid="68" x="3072" y="960" width="128" height="128"/>
-  <object id="639" type="emoji_1" gid="65" x="960" y="448" width="64" height="64"/>
-  <object id="640" type="emoji_1" gid="64" x="960" y="896" width="64" height="64"/>
-  <object id="644" type="emoji_0" gid="62" x="1024" y="704" width="64" height="64"/>
+  <object id="639" name="emoji_1" type="Pulse" gid="65" x="960" y="448" width="64" height="64">
+   <properties>
+    <property name="pulsePerBeat" type="float" value="0.25"/>
+    <property name="pulseScale" type="float" value="1.75"/>
+   </properties>
+  </object>
+  <object id="640" name="emoji_1" type="Pulse" gid="64" x="960" y="896" width="64" height="64">
+   <properties>
+    <property name="pulsePerBeat" type="float" value="1"/>
+    <property name="pulseScale" type="float" value="1.25"/>
+   </properties>
+  </object>
+  <object id="644" name="emoji_0" type="Pulse" gid="62" x="1024" y="704" width="64" height="64">
+   <properties>
+    <property name="pulsePerBeat" type="float" value="0.5"/>
+    <property name="pulseScale" type="float" value="1.5"/>
+   </properties>
+  </object>
   <object id="652" gid="27" x="2462" y="258" width="192" height="192"/>
  </objectgroup>
 </map>

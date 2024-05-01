@@ -15,7 +15,7 @@ import edu.cornell.gdiac.rabbeat.GameCanvas;
 public class ArtObject extends GameObject{
 
     /** The art object's texture */
-    private TextureRegion textureRegion;
+    protected TextureRegion textureRegion;
     /** The texture origin for drawing */
     protected Vector2 origin;
 

@@ -2,6 +2,7 @@ package edu.cornell.gdiac.rabbeat.obstacles.platforms;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
@@ -81,10 +82,7 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
         platformIntervals = platformInterval-1;
         moveTime = (int) Math.pow(2, beatMoveTime);
         waitTime = beatWaitTime;
-        System.out.println("movtime is");
-        System.out.println(moveTime);
-        System.out.println(beatMoveTime);
-        System.out.println( Math.pow(2, beatMoveTime));
+        BPM = GameController.getInstance().getBPM();
     }
     /** */
     public Vector2 currentVelocity(){
