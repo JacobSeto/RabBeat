@@ -16,8 +16,6 @@ public class BeeHive extends Enemy {
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
 
-    /** Tells whether the hive should shoot bees to the left or right */
-    private boolean shotDirection;
 
     /** The attack animation for the bee */
     public Animation<TextureRegion> attackAnimation;
@@ -50,7 +48,7 @@ public class BeeHive extends Enemy {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
-        Bee bee = new Bee(getX() + offset, getY(), radius, GameController.getInstance().genre, beeAttackSynthAnimation);
+        Bee bee = new Bee(getX() + offset, getY(), radius, GameController.getInstance().genre, isFaceRight(), beeAttackSynthAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
@@ -59,7 +57,6 @@ public class BeeHive extends Enemy {
         bee.setSensor(true);
         bee.setTexture(oc.beeTexture);
         bee.setGravityScale(0);
-        shotDirection = isFaceRight();
 
         // Compute position and velocity
         float speed = 2.5f;
