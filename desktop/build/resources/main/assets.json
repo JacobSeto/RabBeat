@@ -11,95 +11,79 @@
         "wrapV": "repeated"
       },
       "world:tilesets:wallsTileset:0" : "world/tilesets/wallsTileset/0.png",
-
       "world:tilesets:wallsTileset:1" : "world/tilesets/wallsTileset/1.png",
-
       "world:tilesets:wallsTileset:2" : "world/tilesets/wallsTileset/2.png",
-
       "world:tilesets:wallsTileset:3" : "world/tilesets/wallsTileset/3.png",
-
       "world:tilesets:wallsTileset:4" : "world/tilesets/wallsTileset/4.png",
-
       "world:tilesets:wallsTileset:5" : "world/tilesets/wallsTileset/5.png",
-
       "world:tilesets:wallsTileset:6" : "world/tilesets/wallsTileset/6.png",
-
       "world:tilesets:wallsTileset:7" : "world/tilesets/wallsTileset/7.png",
-
       "world:tilesets:wallsTileset:8" : "world/tilesets/wallsTileset/8.png",
-
       "world:tilesets:wallsTileset:9" : "world/tilesets/wallsTileset/9.png",
-
       "world:tilesets:wallsTileset:10" : "world/tilesets/wallsTileset/10.png",
-
       "world:tilesets:wallsTileset:11" : "world/tilesets/wallsTileset/11.png",
 
+      "world:tilesets:rabbeatTileset:0" : "world/tilesets/rabbeatTileset/0.png",
+      "world:tilesets:rabbeatTileset:1" : "world/tilesets/rabbeatTileset/1.png",
+      "world:tilesets:rabbeatTileset:2" : "world/tilesets/rabbeatTileset/2.png",
+      "world:tilesets:rabbeatTileset:3" : "world/tilesets/rabbeatTileset/3.png",
+      "world:tilesets:rabbeatTileset:4" : "world/tilesets/rabbeatTileset/4.png",
+      "world:tilesets:rabbeatTileset:5" : "world/tilesets/rabbeatTileset/5.png",
+      "world:tilesets:rabbeatTileset:6" : "world/tilesets/rabbeatTileset/6.png",
+      "world:tilesets:rabbeatTileset:7" : "world/tilesets/rabbeatTileset/7.png",
+      "world:tilesets:rabbeatTileset:8" : "world/tilesets/rabbeatTileset/8.png",
+      "world:tilesets:rabbeatTileset:9" : "world/tilesets/rabbeatTileset/9.png",
+      "world:tilesets:rabbeatTileset:10" : "world/tilesets/rabbeatTileset/10.png",
+      "world:tilesets:rabbeatTileset:11" : "world/tilesets/rabbeatTileset/11.png",
+      "world:tilesets:rabbeatTileset:12" : "world/tilesets/rabbeatTileset/12.png",
+      "world:tilesets:rabbeatTileset:13" : "world/tilesets/rabbeatTileset/13.png",
+      "world:tilesets:rabbeatTileset:14" : "world/tilesets/rabbeatTileset/14.png",
+      "world:tilesets:rabbeatTileset:15" : "world/tilesets/rabbeatTileset/15.png",
+      "world:tilesets:rabbeatTileset:16" : "world/tilesets/rabbeatTileset/16.png",
+      "world:tilesets:rabbeatTileset:17" : "world/tilesets/rabbeatTileset/17.png",
+      "world:tilesets:rabbeatTileset:18" : "world/tilesets/rabbeatTileset/18.png",
+      "world:tilesets:rabbeatTileset:19" : "world/tilesets/rabbeatTileset/19.png",
+
       "world:platforms:weightedSynth" : "world/platforms/synthPlat.png",
-
       "world:platforms:weightedJazz" : "world/platforms/jazzPlat.png",
-
       "world:platforms:movingSynth" : "world/platforms/synthPlat.png",
-
       "world:platforms:movingJazz" : "world/platforms/jazzPlat.png",
-
       "world:platforms:platform" : "world/platforms/platform.png",
-
       "world:platforms:platformArt" : "world/platforms/purplePlatArt.png",
-
       "world:platforms:longPlatform:left" : "world/platforms/longPlatform/left.PNG",
-
       "world:platforms:longPlatform:mid" : "world/platforms/longPlatform/mid.PNG",
-
       "world:platforms:longPlatform:right" : "world/platforms/longPlatform/right.PNG",
-
       "world:platforms:longPlatform:leftSquare" : "world/platforms/longPlatform/leftSquare.PNG",
-
       "world:platforms:longPlatform:rightSquare" : "world/platforms/longPlatform/rightSquare.PNG",
-
       "world:platforms:longPlatform:single" : "world/platforms/longPlatform/single.png",
-
       "world:platforms:endPlatform" : "world/platforms/endPlatform.png",
-
       "world:platforms:wirePlatform" : "world/platforms/wirePlatform.png",
-
       "world:platforms:radioPlatform" : "world/platforms/radioPlatform.png",
-
       "world:platforms:guitarPlatform" : "world/platforms/guitarPlatform.png",
 
       "world:weightedLaserTile" : "world/weightedLaserTile.png",
+      "world:laser" : "world/laser.PNG",
+      "world:laserMiddle" : "world/lasers/laserMiddle.png",
+      "world:laserTop" : "world/lasers/laserTop.png",
+      "world:laserBottom" : "world/lasers/laserBottom.png",
 
       "world:checkpoints:checkpointInactive": "world/checkpoints/checkpointInactive.png",
-
       "world:goal": "world/goal.png",
 
       "ui:synthIndicator": "ui/synth-indicator.png",
-
       "ui:jazzIndicator": "ui/jazz-indicator.png",
-
       "ui:pause:exitLevel": "ui/pause/exitLevel.png",
-
       "ui:pause:hoverLowerSound": "ui/pause/hoverLowerSound.png",
-
       "ui:pause:hoverUpSound": "ui/pause/hoverUpSound.png",
-
       "ui:pause:indicatorStar": "ui/pause/indicatorStar.png",
-
       "ui:pause:music": "ui/pause/music.png",
-
       "ui:pause:overlay": "ui/pause/overlay.png",
-
       "ui:pause:restartLevel": "ui/pause/restartLevel.png",
-
       "ui:pause:resume": "ui/pause/resume.png",
-
       "ui:pause:SFX": "ui/pause/SFX.png",
-
       "ui:pause:unhoverLowerSound": "ui/pause/unhoverLowerSound.png",
-
       "ui:pause:unhoverUpSound": "ui/pause/unhoverUpSound.png",
-
       "ui:pause:volumeBox": "ui/pause/volumeBox.png",
-
       "ui:blackGradient": "ui/blackGradient.png",
 
       "ui:unlockedLevels:unlockedLevel1": "ui/unlockedLevels/unlockedLevel1.png",
@@ -134,130 +118,132 @@
       "ui:victory:victoryLogo": "ui/victory/victoryLogo.png",
 
       "player:synth":  "player/synth.png",
-
       "player:synth-jazz":   "player/synth-jazz.png",
 
-      "backgrounds:test-bg":  "backgrounds/labGrafiti.png",
-
+      "backgrounds:test-bg":  "backgrounds/bgColor1.png",
       "backgrounds:overlay": "backgrounds/background-overlay.png",
-
       "backgrounds:pauseTint": "backgrounds/white_texture.png",
 
       "enemies:bat": "enemies/bat.png",
-
       "enemies:echo" : "atlas/echo.png",
-
       "enemies:echoStill" : "enemies/echoStill.png",
-
       "world:bullet": "world/bullet.png",
-
       "enemies:bee": "enemies/beeStill.png",
-
       "enemies:bear": "enemies/bearStill.png",
-
       "enemies:beehive": "enemies/beehive.png",
-
       "enemies:hedgehog": "enemies/hedgehogStill.png",
 
       "world:shelves:shelf1": "world/shelves/shelf1.png",
-
       "world:shelves:shelf2": "world/shelves/shelf2.png",
-
       "world:shelves:shelf3": "world/shelves/shelf3.png",
-
       "world:shelves:shelf4": "world/shelves/shelf4.png",
-
       "world:shelves:shelf5": "world/shelves/shelf5.png",
 
       "world:pods:bearpod1": "world/pods/bearpod1.png",
-
       "world:pods:bearpod2": "world/pods/bearpod2.png",
-
       "world:pods:bgpod1": "world/pods/bgpod1.png",
-
       "world:pods:bgpod2": "world/pods/bgpod2.png",
-
       "world:pods:dolpod1": "world/pods/dolpod1.png",
-
       "world:pods:dolpod2": "world/pods/dolpod2.png",
-
       "world:pods:emptypod1": "world/pods/emptypod1.png",
-
       "world:pods:emptypod2": "world/pods/emptypod2.png",
-
       "world:pods:emptypod3": "world/pods/emptypod3.png",
-
       "world:pods:emptypod4": "world/pods/emptypod4.png",
-
       "world:pods:emptypod5": "world/pods/emptypod5.png",
-
       "world:pods:octpod1": "world/pods/octpod1.png",
-
       "world:pods:wolfpod1": "world/pods/wolfpod1.png",
-
       "world:pods:wolfpod2": "world/pods/wolfpod2.png",
 
       "world:pipes:bigpipe" : "world/pipes/bigpipe.png",
-
       "world:pipes:bigpipetv" : "world/pipes/bigpipetv.png",
-
       "world:pipes:pipeleftskinny" : "world/pipes/pipeleftskinny.PNG",
-
       "world:pipes:pipeposter" : "world/pipes/pipeposter.PNG",
-
       "world:pipes:piperight" : "world/pipes/piperight.PNG",
-
       "world:pipes:piperightskinny" : "world/pipes/piperightskinny.PNG",
-
       "world:pipes:pipestraight" : "world/pipes/pipestraight.PNG",
-
       "world:pipes:pipestraightskinny" : "world/pipes/pipestraightskinny.png",
-
       "world:pipes:bgpipe" : "world/pipes/bgpipe.PNG",
 
       "world:wires:bigwire" : "world/wires/bigwire.png",
-
       "world:wires:wires1" : "world/wires/wires1.png",
-
       "world:wires:wires2" : "world/wires/wires2.png",
 
       "world:other:light": "world/other/light.png",
-
       "world:other:tv": "world/other/tv.png",
-
       "world:other:ceilingCamera": "world/other/ceilingCamera.png",
-
       "world:other:cam_0": "world/other/cam_0.PNG",
-
       "world:other:cam_1": "world/other/cam_1.PNG",
-
       "world:other:cam_2": "world/other/cam_2.PNG",
+      "world:other:fan_0": "world/other/fan_0.png",
+      "world:other:fan_1": "world/other/fan_1.png",
+      "world:other:windows_0": "world/other/windows_0.PNG",
+      "world:other:windows_1": "world/other/window_1.png",
+      "world:other:windows_2": "world/other/window_2.png",
+      "world:other:trash_0": "world/other/trash_0.png",
+      "world:other:trash_1": "world/other/trash_1.png",
+      "world:other:trash_2": "world/other/trash_2.png",
+      "world:other:trash_3": "world/other/trash_3.png",
 
       "world:graffiti:emoji_0" : "world/graffiti/emoji_0.png",
-
       "world:graffiti:emoji_1" : "world/graffiti/emoji_1.png",
-
       "world:graffiti:emoji_2" : "world/graffiti/emoji_2.png",
-
       "world:graffiti:graffiti_0" : "world/graffiti/graffiti_0.png",
-
       "world:graffiti:graffiti_1" : "world/graffiti/graffiti_1.png",
-
       "world:graffiti:graffiti_2" : "world/graffiti/graffiti_2.png",
-
       "world:graffiti:graffiti_3" : "world/graffiti/graffiti_3.png",
-
       "world:graffiti:caution_0" : "world/graffiti/caution_0.png",
 
-      "world:laser" : "world/laser.PNG",
-      "world:laserMiddle" : "world/lasers/laserMiddle.png",
-      "world:laserTop" : "world/lasers/laserTop.png",
-      "world:laserBottom" : "world/lasers/laserBottom.png"
+      "world:decals:decal_0" : "world/decals/decal_0.png",
+      "world:decals:decal_1" : "world/decals/decal_1.png",
+      "world:decals:decal_2" : "world/decals/decal_2.png",
+      "world:decals:decal_3" : "world/decals/decal_3.png",
+      "world:decals:decal_4" : "world/decals/decal_4.png",
+      "world:decals:decal_5" : "world/decals/decal_5.png",
+      "world:decals:decal_6" : "world/decals/decal_6.png",
+      "world:decals:decal_7" : "world/decals/decal_7.png",
+      "world:decals:decal_8" : "world/decals/decal_8.png",
+      "world:decals:decal_9" : "world/decals/decal_9.png",
+      "world:decals:decal_10" : "world/decals/decal_10.png",
+
+      "world:cracks:crack_0" : "world/cracks/crack_0.png",
+      "world:cracks:crack_1" : "world/cracks/crack_1.png",
+      "world:cracks:crack_2" : "world/cracks/crack_2.png",
+      "world:cracks:crack_3" : "world/cracks/crack_3.png",
+      "world:cracks:crack_4" : "world/cracks/crack_4.png",
+      "world:cracks:crack_5" : "world/cracks/crack_5.png",
+      "world:cracks:crack_6" : "world/cracks/crack_6.png",
+      "world:cracks:crack_7" : "world/cracks/crack_7.png",
+      "world:cracks:crack_8" : "world/cracks/crack_8.png",
+
+      "world:spots:spot_0" : "world/spots/spot_0.png",
+      "world:spots:spot_1" : "world/spots/spot_1.png",
+      "world:spots:spot_2" : "world/spots/spot_2.png",
+      "world:spots:spot_3" : "world/spots/spot_3.png",
+      "world:spots:spot_4" : "world/spots/spot_4.png",
+      "world:spots:spot_5" : "world/spots/spot_5.png",
+      "world:spots:spot_6" : "world/spots/spot_6.png",
+      "world:spots:spot_7" : "world/spots/spot_7.png",
+      "world:spots:texture_0" : "world/spots/texture_0.png",
+      "world:spots:texture_1" : "world/spots/texture_1.png",
+
+      "world:signs:pole_0" : "world/signs/pole_0.png",
+      "world:signs:pole_1" : "world/signs/pole_1.png",
+      "world:signs:pole_2" : "world/signs/pole_2.png",
+      "world:signs:stop_0" : "world/signs/stop_0.png",
+      "world:signs:stop_1" : "world/signs/stop_1.png",
+      "world:signs:stop_2" : "world/signs/stop_2.png",
+      "world:signs:stop_3" : "world/signs/stop_3.png",
+      "world:signs:yield_0" : "world/signs/yield_0.png",
+      "world:signs:yield_1" : "world/signs/yield_1.png",
+      "world:signs:dead_0" : "world/signs/dead_0.png",
+      "world:signs:dead_1" : "world/signs/dead_1.png",
+      "world:signs:dead_2" : "world/signs/dead_2.png",
+      "world:signs:exit_0" : "world/signs/exit_0.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
         "example": "levelsJson/rabbeatLevelTest.tmj",
-        "level1": "levelsJson/level1Beta.tmj",
+        "level1": "levelsJson/level1Art.tmj",
         "level2": "levelsJson/rabbeatLevelBat.tmj",
         "level3": "levelsJson/benlevel2.tmj",
         "level4": "levelsJson/rabbeatLevel4.tmj",
