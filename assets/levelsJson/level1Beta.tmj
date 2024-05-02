@@ -180,6 +180,34 @@
                  "width":256,
                  "x":1600,
                  "y":576
+                }, 
+                {
+                 "gid":67,
+                 "height":128,
+                 "id":608,
+                 "name":"ceilingCamera",
+                 "properties":[
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.25
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
+                        }],
+                 "rotation":0,
+                 "type":"Pulse",
+                 "visible":true,
+                 "width":128,
+                 "x":896,
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -822,18 +850,6 @@
                  "width":128,
                  "x":2944,
                  "y":192
-                }, 
-                {
-                 "gid":67,
-                 "height":128,
-                 "id":608,
-                 "name":"",
-                 "rotation":0,
-                 "type":"ceilingCamera",
-                 "visible":true,
-                 "width":128,
-                 "x":896,
-                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",

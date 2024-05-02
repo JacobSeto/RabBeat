@@ -114,8 +114,11 @@ public class InputController {
 	/** Whether genre has been changed in the instance that the space key was pressed */
 	private boolean genreSwitched = false;
 
-	/** Whether space bar has been pressed to switch genre */
+	/** Whether shift key has been pressed to switch genre */
 	private boolean switchGenre;
+
+	/** Whether the space key has been pressed during calibration*/
+	private boolean calibrate;
 
 	/** Whether the delay buttons have been pressed*/
 	private float delay;
@@ -383,6 +386,18 @@ public class InputController {
 		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
 
+		if(Gdx.input.isKeyJustPressed(Keys.C)){
+			GameController.getInstance().inCalibration = true;
+		}
+
+		if( Gdx.input.isKeyJustPressed(Keys.SPACE)){
+			calibrate = true;
+		}
+		else{
+			calibrate = false;
+		}
+
+
 
 		// Directional controls
 		if (!paused) {
@@ -412,7 +427,7 @@ public class InputController {
 		}
 		// When the game IS paused
 		else {
-			GameController.getInstance().resume();
+			//GameController.getInstance().resume();
 			pauseRightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D);
 			pauseLeftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
 			pauseUpPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
@@ -444,12 +459,6 @@ public class InputController {
 				gc.setPlayerCompletedLevel(false);
 				gc.setCurrentlLevel(gc.getCurrentLevel() + 1);
 			}
-
-			if (Gdx.input.isKeyPressed(Keys.C)) {
-				GameController.getInstance().setComplete(true);
-				GameController.getInstance().setPlayerCompletedLevel(false);
-			}
-
 
 			// Mouse results
 			tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
@@ -502,10 +511,10 @@ public class InputController {
 		}
 
 		//C = shortcut to complete the level
-		if (Gdx.input.isKeyPressed(Keys.C)) {
-			GameController.getInstance().setComplete(true);
-			GameController.getInstance().setPlayerCompletedLevel(false);
-		}
+//		if (Gdx.input.isKeyPressed(Keys.C)) {
+//			GameController.getInstance().setComplete(true);
+//			GameController.getInstance().setPlayerCompletedLevel(false);
+//		}
 
 
 		// Mouse results
@@ -538,6 +547,13 @@ public class InputController {
 	 * */
 	public boolean getSwitchGenre(){
 		return switchGenre;
+	}
+
+	/**
+	 * Returns the boolean value of calibrate
+	 */
+	public boolean getCalibrate(){
+		return calibrate;
 	}
 
 	/** returns the delay value*/

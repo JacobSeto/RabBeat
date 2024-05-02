@@ -18,12 +18,9 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
-import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
@@ -136,6 +133,9 @@ public class GameController implements Screen, ContactListener {
 	private boolean failed;
 	/** Whether or not the game is paused */
 	private boolean paused;
+	/** Whether calibration is happening*/
+	public boolean inCalibration = false;
+
 	/** Whether or not debug mode is active */
 	private boolean debug;
 	/** Countdown active for winning or losing */
@@ -532,7 +532,7 @@ public class GameController implements Screen, ContactListener {
 			obj.deactivatePhysics(world);
 		}
 		objectController.objects.clear();
-		objectController.foreground.clear();
+		objectController.artObjects.clear();
 		objectController.addQueue.clear();
 		world.dispose();
 
@@ -554,11 +554,8 @@ public class GameController implements Screen, ContactListener {
 		// world starts with Synth gravity
 		world.setGravity(new Vector2(0, objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
 
-		syncController.addSync(new BeatTest());
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
 		objectController.populateObjects(scale);
-
-
 	}
 
 	/**
@@ -634,6 +631,13 @@ public class GameController implements Screen, ContactListener {
 					}
 				}
 			}
+			//calibrating
+			if(inCalibration){
+				syncController.updateCalibrate(dt);
+				if(InputController.getInstance().getCalibrate()){
+					syncController.calibrate();
+				}
+			}
 
 			else if (countdown > 0) {
 				countdown--;
@@ -676,7 +680,8 @@ public class GameController implements Screen, ContactListener {
 		if(InputController.getInstance().getDelay() != 0f){
 			syncController.addDelay(InputController.getInstance().getDelay());
 		}
-		syncController.updateBeat();
+
+		syncController.update(dt);
 		soundController.update();
 
 		if (lastCollideWith != null){
@@ -888,7 +893,7 @@ public class GameController implements Screen, ContactListener {
 
 		canvas.begin(false);
 		for (GameObject obj : objectController.objects) {
-			if (!objectController.foreground.contains(obj)){
+			if (!objectController.artObjects.contains(obj)){
 				obj.draw(canvas);
 			}
 		}
@@ -901,7 +906,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw the foreground on top of everything
 		canvas.begin(false);
-		for (GameObject obj : objectController.foreground) {
+		for (GameObject obj : objectController.artObjects) {
 			obj.draw(canvas);
 		}
 		canvas.end();

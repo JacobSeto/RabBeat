@@ -357,7 +357,7 @@ public class ObjectController {
 
     public int tileSize;
 
-    public ArrayList<GameObject> foreground = new ArrayList<>();
+    public ArrayList<ArtObject> artObjects = new ArrayList<>();
     /** the default beat list is on the downbeats within 2 measures (beat 1 and beat 5)*/
     public int[] defaultBeatList = { 1, 5 };
 
@@ -1099,7 +1099,6 @@ public class ObjectController {
      *                    coordinates in synth mode
      * @param jazzCoord   A float array which holds the weighted platform's x and y
      *                    coordinates in jazz mode
-     * @param intervals      The speed of the weighted platform
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
@@ -1359,7 +1358,7 @@ public class ObjectController {
             art.setBodyType(BodyDef.BodyType.StaticBody);
             art.setDrawScale(scale);
             if (groundLevel.equals("foreground")) {
-                foreground.add(art);
+                artObjects.add(art);
             }
             GameController.getInstance().instantiate(art);
         }
@@ -1368,7 +1367,7 @@ public class ObjectController {
             art.setBodyType(BodyDef.BodyType.StaticBody);
             art.setDrawScale(scale);
             if (groundLevel.equals("foreground")) {
-                foreground.add(art);
+                artObjects.add(art);
             }
             GameController.getInstance().instantiate(art);
         }
