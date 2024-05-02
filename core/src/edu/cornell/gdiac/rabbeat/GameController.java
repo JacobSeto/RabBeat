@@ -552,7 +552,7 @@ public class GameController implements Screen, ContactListener {
 		syncController = new SyncController(levelBPM);
 		populateLevel();
 		objectController.player.setPosition(respawnPoint);
-		soundController.resetMusic();
+		//soundController.resetMusic();
 	}
 
 	/**
@@ -581,6 +581,8 @@ public class GameController implements Screen, ContactListener {
 	public boolean preUpdate(float dt) {
 		InputController input = InputController.getInstance();
 		input.readInput(bounds, scale);
+		soundController.update();
+		syncController.beatUpdate();
 
 		if (listener != null) {
 			// Toggle debug
@@ -610,6 +612,19 @@ public class GameController implements Screen, ContactListener {
 				}
 			}
 			else if (paused) {
+				//calibrating for audio delay
+				if(inCalibration){
+					syncController.updateCalibrate(dt);
+					if(InputController.getInstance().getCalibrate()){
+						syncController.calibrate();
+					}
+				}
+				//calibrating for visual delay
+				if(InputController.getInstance().getDelay() != 0f){
+					syncController.addVisualDelay(InputController.getInstance().getDelay());
+				}
+
+
 				// If game is currently in the middle of the paused state, do all this. It won't work the first frame of pausing but that should be fine
 				if (input.didPressDownWhilePaused()) {
 					pauseItemSelected = (pauseItemSelected + 1) % 5;
@@ -640,15 +655,8 @@ public class GameController implements Screen, ContactListener {
 					}
 				}
 			}
-			//calibrating
-			if(inCalibration){
-				syncController.updateCalibrate(dt);
-				if(InputController.getInstance().getCalibrate()){
-					syncController.calibrate();
-				}
-			}
 
-			else if (countdown > 0) {
+			if (countdown > 0) {
 				countdown--;
 			} else if (countdown == 0) {
 				if (failed) {
@@ -681,18 +689,13 @@ public class GameController implements Screen, ContactListener {
 	 * @param dt Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
+		syncController.update(dt);
+
 		if (InputController.getInstance().getSwitchGenre()) {
 			switchGenre();
 			InputController.getInstance().setSwitchGenre(false);
 			updateGenreSwitch();
 		}
-		if(InputController.getInstance().getDelay() != 0f){
-			syncController.addDelay(InputController.getInstance().getDelay());
-		}
-
-		syncController.update(dt);
-		soundController.update();
-
 		if (lastCollideWith != null){
 			Vector2 displace = lastCollideWith.currentVelocity();
 			objectController.player.setDisplace(displace);
@@ -1070,7 +1073,7 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
-		soundController.pauseMusic();
+		//soundController.pauseMusic();
 		InputController.getInstance().setPaused(true);
 	}
 

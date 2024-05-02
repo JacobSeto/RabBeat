@@ -386,17 +386,6 @@ public class InputController {
 		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
 
-		if(Gdx.input.isKeyJustPressed(Keys.C)){
-			GameController.getInstance().inCalibration = true;
-		}
-
-		if( Gdx.input.isKeyJustPressed(Keys.SPACE)){
-			calibrate = true;
-		}
-		else{
-			calibrate = false;
-		}
-
 
 
 		// Directional controls
@@ -465,14 +454,28 @@ public class InputController {
 			crosshair.scl(1 / scale.x, -1 / scale.y);
 			crosshair.y += bounds.height;
 			clampPosition(bounds);
-		}
-		//TODO: This is temporary code to add artificial delay to the syncing
-		delay = 0;
-		if (Gdx.input.isKeyPressed(Keys.EQUALS)){
-			delay = .05f;
-		}
-		else if(Gdx.input.isKeyPressed(Keys.MINUS)){
-			delay = -.05f;
+
+			//TODO: Initiate calibration with a button press
+			if(Gdx.input.isKeyJustPressed(Keys.V)){
+				GameController.getInstance().inCalibration = true;
+			}
+
+			if( Gdx.input.isKeyJustPressed(Keys.SPACE)){
+				calibrate = true;
+			}
+			else{
+				calibrate = false;
+			}
+
+			//TODO: This is temporary code to add artificial audio delay to the syncing.
+			// Change to a button in pause
+			delay = 0;
+			if (Gdx.input.isKeyPressed(Keys.EQUALS)){
+				delay = .05f;
+			}
+			else if(Gdx.input.isKeyPressed(Keys.MINUS)){
+				delay = -.05f;
+			}
 		}
 
 		if(GameController.getInstance().getPlayerCompletedLevel()) {
@@ -510,10 +513,10 @@ public class InputController {
 		}
 
 		//C = shortcut to complete the level
-//		if (Gdx.input.isKeyPressed(Keys.C)) {
-//			GameController.getInstance().setComplete(true);
-//			GameController.getInstance().setPlayerCompletedLevel(false);
-//		}
+		if (Gdx.input.isKeyPressed(Keys.C)) {
+			GameController.getInstance().setComplete(true);
+			GameController.getInstance().setPlayerCompletedLevel(false);
+		}
 
 
 		// Mouse results

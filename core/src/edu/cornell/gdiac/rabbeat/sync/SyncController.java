@@ -24,15 +24,22 @@ public class SyncController {
     Music jazz;
 
     /** The audio delay of the audio in seconds */
-    private float delay = 0f;
+    private float audioDelay = 0f;
+    /** The visual delay of the animations in seconds*/
+    private float visualDelay = 0f;
     /** The intervals of each of the synced objects in the game */
     private Array<Interval> intervals = new Array<>();
 
     /** The beat of the game*/
     public Beat beat = new Beat();
+    /** The beat interval of the game*/
+    private Interval beatInterval;
 
     /** The interval that represents the animation update */
     private AnimationSync animationSync = new AnimationSync();
+    /** *The interval for animationSync*/
+    private Interval animationInterval;
+
 
     private float calibrateDT = 0f;
 
@@ -42,8 +49,8 @@ public class SyncController {
 
     public SyncController(int bpm) {
         this.BPM = bpm;
-        addSync(beat);
-        addSync(animationSync);
+        animationInterval = new Interval(animationSync);
+        beatInterval = new Interval(beat);
     }
 
     /**
@@ -54,14 +61,20 @@ public class SyncController {
         synth = _synth;
         jazz = _jazz;
     }
-
     /**
-     * Adds _delay to the delay field
-     * 
-     * @param _delay A float value that represents the added delay
+     * Adds delay to visualDelay
+     *
+     * @param delay A float value that represents the added delay
      */
-    public void addDelay(float _delay) {
-        delay += _delay;
+    public void addVisualDelay(float delay) {
+        visualDelay += delay;
+    }
+    /** Updates beat in the preupdate instead of update. The seperation is to allow for a continous
+     * soundtrack*/
+    public void beatUpdate(){
+        beatInterval.checkForNewInterval(
+                (synth.getPosition() + audioDelay) / beatInterval.getIntervalLength(BPM)
+        );
     }
 
     /**
@@ -71,8 +84,11 @@ public class SyncController {
      */
     public void update(float dt) {
 
+        animationInterval.checkForNewInterval(
+                (synth.getPosition() + visualDelay) / animationInterval.getIntervalLength(BPM)
+        );
         for (Interval i : intervals) {
-            float sample = (synth.getPosition() + delay) / i.getIntervalLength(BPM);
+            float sample = (synth.getPosition() + audioDelay) / i.getIntervalLength(BPM);
             i.checkForNewInterval(sample);
         }
 
@@ -100,17 +116,14 @@ public class SyncController {
         if (calibrationCount >= NUM_CALIBRATION_STEPS) {
             GameController.getInstance().inCalibration = false;
             float averageDelay = 0;
-            System.out.println("beatTest len: " + beat.beatLatencyList.size);
-            System.out.println("sync len: " + beatLatencyList.size);
             for (int i = 0; i < Math.min(beatLatencyList.size, beat.beatLatencyList.size); i++) {
                 averageDelay += (beatLatencyList.get(i) - beat.beatLatencyList.get(i));
-                System.out.println(averageDelay);
             }
             calibrationCount = 0;
             beatLatencyList.clear();
             beat.beatLatencyList.clear();
-            delay = averageDelay;
-            System.out.println("delay: " + delay);
+            audioDelay = averageDelay;
+            System.out.println("delay: " + audioDelay);
         }
         calibrateDT = 0;
     }
