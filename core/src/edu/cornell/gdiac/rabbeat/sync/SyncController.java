@@ -16,7 +16,7 @@ public class SyncController {
      */
 
     /** The bpm of the soundtrack */
-    public int BPM = 90;
+    public int BPM;
 
     /** The synth soundtrack */
     Music synth;
