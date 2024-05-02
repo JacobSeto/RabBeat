@@ -21,6 +21,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 import edu.cornell.gdiac.util.PooledList;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -693,14 +694,6 @@ public class ObjectController {
             // Get level height
             int levelHeight = levelJson.getInt("height");
 
-            // Get first gid
-            int firstGid = 0;
-            for (JsonValue tileset : levelJson.get("tilesets")){
-                if (tileset.getString("source").contains("rabbeatTileset.tsx")){
-                    firstGid = tileset.getInt("firstgid");
-                }
-            }
-
             //  Process layers
             for (JsonValue layer : levelJson.get("layers")) {
                 String layerName = layer.getString("name", "");
@@ -720,7 +713,10 @@ public class ObjectController {
                                 // Get x and y coordinates from where it is in the array
                                 int x = i % width;
                                 int y = height - (i / width) - 1;
-                                createWall(scale, x, y, tileTypeID-firstGid, tileSize);
+
+                                Tileset tileset = getTileset(tileTypeID);
+
+                                createWall(scale, x, y, tileTypeID-tileset.firstGID, tileSize, tileset.tilesetSource);
                             }
                         }
                         break;
@@ -1074,9 +1070,14 @@ public class ObjectController {
      * @param x     x coordinate (world coordinates) of tile
      * @param y     y coordinate (world coordinates) of tile
      */
-    private void createWall(Vector2 scale, float x, float y, int tileId, int tileSize){
+    private void createWall(Vector2 scale, float x, float y, int tileId, int tileSize, String tilesetSource){
         //  Set texture
-        TextureRegion textureRegion = rabbeatTileset.get(tileId);
+        TextureRegion textureRegion = null;
+        if (tilesetSource.contains("rabbeatTileset")){
+            textureRegion = rabbeatTileset.get(tileId);
+        } else if (tilesetSource.contains("walls")){
+            textureRegion = wallsTileset.get(tileId);
+        }
 
         String wname = "wall";
         JsonValue defaults = defaultConstants.get("defaults");
@@ -1097,6 +1098,36 @@ public class ObjectController {
         obj.setTexture(textureRegion);
         obj.setName(wname);
         GameController.getInstance().instantiate(obj);
+    }
+
+    /**
+     * Class for Tileset objects with the tileset's firstGID and tilesetSource.
+     */
+    static class Tileset {
+        public int firstGID;
+        public String tilesetSource;
+        public Tileset(int firstGID, String tilesetSource) {
+            this.firstGID = firstGID;
+            this.tilesetSource = tilesetSource;
+        }
+    }
+
+    /**
+     * Takes in the GID of a tile and returns the info of the tileset that the tile is in.
+     * @param gid The GID of the tile.
+     * @return The Pair object with firstGID and tilesetName of the tileset that the tile is in.
+     */
+    private Tileset getTileset(int gid){
+        Tileset tileset = new Tileset(0, "");
+        for (JsonValue t : levelJson.get("tilesets")){
+            if (gid < t.getInt("firstgid")){
+                break;
+            } else{
+                tileset.firstGID = t.getInt("firstgid");
+                tileset.tilesetSource = t.getString("source");
+            }
+        }
+        return tileset;
     }
 
     /**
@@ -1484,21 +1515,6 @@ public class ObjectController {
             }
             GameController.getInstance().instantiate(art);
         }
-    }
-
-    private void createHangingArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
-        TextureRegion textureRegion = assets.get(type);
-        if (textureRegion == null) {
-            textureRegion = assets.get("light");
-        }
-        //  Convert coordinates to world coordinates
-        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
-        convertedCoord.set(convertedCoord.x, convertedCoord.y);
-
-        ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
-        art.setBodyType(BodyDef.BodyType.StaticBody);
-        art.setDrawScale(scale);
-        GameController.getInstance().instantiate(art);
     }
 
     /**
