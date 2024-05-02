@@ -58,6 +58,11 @@
                 "name": "beatList",
                 "type": "string",
                 "value": "15"
+            },
+            {
+                "name": "isRight",
+                "type": "bool",
+                "value": false
             }
         ],
         "name": "Beehive",
