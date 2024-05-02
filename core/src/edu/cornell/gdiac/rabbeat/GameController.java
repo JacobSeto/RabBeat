@@ -28,6 +28,7 @@ import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 
+import java.io.FileReader;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
@@ -80,7 +81,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private static int levelsUnlocked = 4;
+	private static int levelsUnlocked;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;
@@ -332,6 +333,7 @@ public class GameController implements Screen, ContactListener {
 		soundController = new SoundController();
 		objectController = new ObjectController();
 		theController = this;
+
 	}
 
 	/**
@@ -1173,6 +1175,9 @@ public class GameController implements Screen, ContactListener {
 		//TODO Implement more levels beyond 3
 		if(currentLevelInt == levelsUnlocked && levelsUnlocked != 3) {
 			levelsUnlocked++;
+			Preferences prefs = Gdx.app.getPreferences("Saved Levels Unlocked");
+			prefs.putInteger("levelsUnlocked", levelsUnlocked);
+			prefs.flush();
 		}
 	}
 
@@ -1200,4 +1205,24 @@ public class GameController implements Screen, ContactListener {
 	public ObjectController getObjectController() {
 		return objectController;
 	}
+
+//	public void loadLevelsUnlockedJSON(String filePath) {
+//		JSONParser parser = new JSONParser();
+//
+//		try (FileReader reader = new FileReader(filePath)) {
+//			// Parse JSON file
+//			JSONObject jsonObject = (JSONObject) parser.parse(reader);
+//
+//			// Get the number of levels unlocked
+//			long numberOfLevelsUnlocked = (long) jsonObject.get("numberOfLevelsUnlocked");
+//
+//			// Set currentLevelInt to numberOfLevelsUnlocked
+//			currentLevelInt = (int) numberOfLevelsUnlocked;
+//
+//			// Update currentLevel
+//			currentLevel = "level" + currentLevelInt;
+//		} catch (IOException | ParseException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }

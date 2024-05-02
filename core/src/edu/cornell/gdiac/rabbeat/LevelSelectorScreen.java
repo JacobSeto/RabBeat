@@ -2,6 +2,7 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,7 +30,14 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private ScreenListener listener;
 
     public LevelSelectorScreen(Game game) {
+
         this.game = game;
+        Preferences prefs = Gdx.app.getPreferences("Saved Levels Unlocked");
+
+        //COMMENT OUT THE FOLLOWING LINE IF YOU ONLY WANT 1ST LEVEL TO BE UNLOCKED
+        //prefs.putInteger("levelsUnlocked", 1);
+
+        GameController.getInstance().setLevelsUnlocked(prefs.getInteger("levelsUnlocked", 1));
     }
 
     /** Displays the button UI for each level and adds a clickListener that detects whether

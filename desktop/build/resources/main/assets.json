@@ -257,7 +257,7 @@
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
         "example": "levelsJson/rabbeatLevelTest.tmj",
-        "level1": "levelsJson/level1Beta.tmj",
+        "level1": "levelsJson/rabbeatLevelBat.tmj",
         "level2": "levelsJson/rabbeatLevelBat.tmj",
         "level3": "levelsJson/rabbeatLaserTest.tmj",
         "level4": "levelsJson/exampleLevel.tmj",
@@ -269,6 +269,7 @@
         "level10": "levelsJson/rabbeatLevel.tmj",
         "level11": "levelsJson/rabbeatLevel.tmj",
         "level12": "levelsJson/rabbeatLevel.tmj"
+
     },
     "sounds": {
       "sfx:genreSwitch": "sfx/genre_switch_woosh.wav"
@@ -285,5 +286,8 @@
     },
   "atlas": {
     "atlas:echoAtlas": "atlas/echo.atlas"
-  }
+  },
+
+
+
 }
