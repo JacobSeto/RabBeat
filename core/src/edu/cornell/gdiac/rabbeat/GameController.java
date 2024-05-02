@@ -336,15 +336,14 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
-		pauseTintSynthColor = new Color(143, 0, 255, 0.55f);
-		pauseTintJazzColor = new Color(0.9f, 0, 0, 0.55f);
+		pauseTintSynthColor = new Color(1,0,1, 0.55f);
+		pauseTintJazzColor = new Color(1,0,1,0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		syncController = new SyncController();
 		soundController = new SoundController();
 		objectController = new ObjectController();
 		theController = this;
-
 	}
 
 	/**
@@ -647,7 +646,7 @@ public class GameController implements Screen, ContactListener {
 			} else if (countdown == 0) {
 				if (failed) {
 					reset();
-				} else if (complete) {
+				} else if (GameController.getInstance().isComplete()) {
 					pause();
 					// TODO: Make Win Condition
 					return false;
