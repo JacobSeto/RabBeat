@@ -128,27 +128,27 @@
     "level2": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level3": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 132
+      "bpm": 180
     },
     "level4": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level5": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level6": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level7": {
       "synth": "music:synth1",

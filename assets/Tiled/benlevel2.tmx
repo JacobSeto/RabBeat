@@ -3,8 +3,9 @@
  <tileset firstgid="1" source="Images.tsx"/>
  <tileset firstgid="75" source="platforms.tsx"/>
  <tileset firstgid="148" source="walls.tsx"/>
+ <tileset firstgid="160" source="Backgrounds.tsx"/>
  <objectgroup id="2" name="background">
-  <object id="204" gid="48" x="0" y="1088" width="7040" height="1088"/>
+  <object id="204" gid="163" x="0" y="1088" width="7040" height="1088"/>
   <object id="564" type="Checkpoint" gid="8" x="481" y="477" width="130" height="130">
    <properties>
     <property name="num" type="int" value="1"/>
