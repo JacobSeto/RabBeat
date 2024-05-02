@@ -363,6 +363,8 @@ public class ObjectController {
     /** the default beat list is on the downbeats within 2 measures (beat 1 and beat 5)*/
     public int[] defaultBeatList = { 1, 5 };
 
+    public int numberOfLevelsUnlocked;
+
     //public GameController gc = GameController.getInstance();
     /**
      * Gather the assets for this controller.
@@ -375,6 +377,10 @@ public class ObjectController {
     public void gatherAssets(AssetDirectory directory) {
         levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         tileSize = levelJson.getInt("tileheight");
+
+//        int value = (directory.getEntry("numberOfLevelsUnlocked", JsonValue.class).getInt("numberOfLevelsUnlocked"));
+//        GameController.getInstance().setLevelsUnlocked(value);
+        //numberOfLevelsUnlocked = directory.getEntry("numberOfLevelsUnlocked", int.class);
 
         nextLevelText = new TextureRegion(directory.getEntry("ui:victory:nextLevelText",Texture.class));
         levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));

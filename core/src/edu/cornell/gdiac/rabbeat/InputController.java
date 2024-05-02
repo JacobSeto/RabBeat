@@ -383,6 +383,12 @@ public class InputController {
 		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
 
+		//TO SET ALL LEVELS TO COMPLETE
+		if(Gdx.input.isKeyPressed(Keys.K)) {
+			Preferences prefs = Gdx.app.getPreferences("Saved Levels Unlocked");
+			prefs.putInteger("levelsUnlocked", 12);
+			prefs.flush();
+		}
 
 		// Directional controls
 		if (!paused) {
@@ -493,12 +499,14 @@ public class InputController {
 					gc.exitScreen(gc.NEXT_LEVEL);
 				} else if(gc.getVictoryScreenItemSelected() == 1) {
 					//GO BACK TO LEVEL SELECT
-					gc.exitScreen(gc.BACK_TO_LEVEL_SELECT);
+					gc.exitScreen(gc.GO_TO_LEVEL_SELECT);
 				}
 			}
 
 
 		}
+
+
 
 		//C = shortcut to complete the level
 		if (Gdx.input.isKeyPressed(Keys.C)) {

@@ -29,6 +29,7 @@ import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 
+import java.io.FileReader;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
@@ -68,13 +69,12 @@ public class GameController implements Screen, ContactListener {
 	public SoundController soundController;
 	public ObjectController objectController;
 
-
-
+	
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
 
 	/** Exit code for going back to the level select menu */
-	public static final int BACK_TO_LEVEL_SELECT = 1;
+	public static final int GO_TO_LEVEL_SELECT = 1;
 
 	/** Exit code for going to the next level */
 	public static final int NEXT_LEVEL = 2;
@@ -343,6 +343,7 @@ public class GameController implements Screen, ContactListener {
 		soundController = new SoundController();
 		objectController = new ObjectController();
 		theController = this;
+
 	}
 
 	/**
@@ -1204,6 +1205,9 @@ public class GameController implements Screen, ContactListener {
 		//TODO Implement more levels beyond 3
 		if(currentLevelInt == levelsUnlocked && levelsUnlocked != 3) {
 			levelsUnlocked++;
+			Preferences prefs = Gdx.app.getPreferences("Saved Levels Unlocked");
+			prefs.putInteger("levelsUnlocked", levelsUnlocked);
+			prefs.flush();
 		}
 	}
 
@@ -1231,4 +1235,24 @@ public class GameController implements Screen, ContactListener {
 	public ObjectController getObjectController() {
 		return objectController;
 	}
+
+//	public void loadLevelsUnlockedJSON(String filePath) {
+//		JSONParser parser = new JSONParser();
+//
+//		try (FileReader reader = new FileReader(filePath)) {
+//			// Parse JSON file
+//			JSONObject jsonObject = (JSONObject) parser.parse(reader);
+//
+//			// Get the number of levels unlocked
+//			long numberOfLevelsUnlocked = (long) jsonObject.get("numberOfLevelsUnlocked");
+//
+//			// Set currentLevelInt to numberOfLevelsUnlocked
+//			currentLevelInt = (int) numberOfLevelsUnlocked;
+//
+//			// Update currentLevel
+//			currentLevel = "level" + currentLevelInt;
+//		} catch (IOException | ParseException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }

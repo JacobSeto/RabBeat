@@ -1,4 +1,4 @@
-package edu.cornell.gdiac.rabbeat.levelSelect;
+package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -23,7 +23,7 @@ import edu.cornell.gdiac.rabbeat.LoadingMode;
 import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.util.ScreenListener;
 
-public class LevelSelectorScreen extends ScreenAdapter {
+public class MainMenuScreen extends ScreenAdapter {
     private Game game;
     private Stage stage;
     private Skin skin;
@@ -34,7 +34,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
     private ScreenListener listener;
 
-    public LevelSelectorScreen(Game game) {
+    public MainMenuScreen(Game game) {
         this.game = game;
     }
 
@@ -53,47 +53,24 @@ public class LevelSelectorScreen extends ScreenAdapter {
         bg.setPosition(0, 0);
         stage.addActor(bg);
 
-        /** Loops through all buttons */
-        for(int i=1; i<= numberOfLevels; i++) {
-            int finalI = i;
-            if(i <= GameController.getInstance().getLevelsUnlocked()) {
-                buttonTexture = GameController.getInstance().objectController.getUnlockedButtonTexture(finalI);
-            } else {
-                buttonTexture = GameController.getInstance().objectController.getLockedButtonTexture(finalI);
+        buttonTexture = GameController.getInstance().objectController.getUnlockedButtonTexture(1);
+
+        TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+        BitmapFont font = new BitmapFont();
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = buttonDrawable;
+        textButtonStyle.font = font;
+        TextButton levelButton = new TextButton("", textButtonStyle);
+
+        levelButton.setPosition(200, 200);
+
+        levelButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                listener.exitScreen(MainMenuScreen.this, GameController.getInstance().GO_TO_LEVEL_SELECT);
             }
-
-            TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(buttonTexture));
-            BitmapFont font = new BitmapFont();
-            TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-            textButtonStyle.up = buttonDrawable;
-            textButtonStyle.font = font;
-            TextButton levelButton = new TextButton("", textButtonStyle);
-
-            float xPos = 100 + 300*((i-1)%4);
-            float yPos = 0;
-
-            if(i <= 4) {
-                yPos = 475;
-            } else if (i <= 8) {
-                yPos = 275;
-            } else if (i <= 12) {
-                yPos = 75;
-            }
-
-            levelButton.setPosition(xPos, yPos);
-
-            levelButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
-                        GameController.getInstance().setCurrentLevelInt(finalI);
-                        listener.exitScreen(LevelSelectorScreen.this, 0);
-                    }
-
-                }
-            });
-            stage.addActor(levelButton);
-        }
+        });
+        stage.addActor(levelButton);
     }
 
     public void render(float delta) {
