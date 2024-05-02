@@ -27,7 +27,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 5,
+        "id": 2,
         "members": [
             {
                 "name": "beatList",
@@ -52,12 +52,17 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 6,
+        "id": 3,
         "members": [
             {
                 "name": "beatList",
                 "type": "string",
                 "value": "15"
+            },
+            {
+                "name": "isRight",
+                "type": "bool",
+                "value": false
             }
         ],
         "name": "Beehive",
@@ -77,7 +82,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 8,
+        "id": 4,
         "members": [
             {
                 "name": "num",
@@ -102,7 +107,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 2,
+        "id": 5,
         "members": [
             {
                 "name": "moveTime",
@@ -147,7 +152,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 10,
+        "id": 6,
         "members": [
             {
                 "name": "pulsePerBeat",
@@ -157,7 +162,7 @@
             {
                 "name": "pulseScale",
                 "type": "float",
-                "value": 1.25
+                "value": 1.1
             },
             {
                 "name": "shrinkRate",
@@ -182,7 +187,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 3,
+        "id": 7,
         "members": [
             {
                 "name": "genre",

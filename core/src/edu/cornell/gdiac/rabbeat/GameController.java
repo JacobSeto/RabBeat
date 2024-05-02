@@ -22,6 +22,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bee;
 import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.BeatTest;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
@@ -81,6 +82,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
+
 	private static int levelsUnlocked;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
@@ -138,6 +140,8 @@ public class GameController implements Screen, ContactListener {
 	private boolean paused;
 	/** Whether or not debug mode is active */
 	private boolean debug;
+	/** Stores the bpm after it's loaded in. Don't use this for anything, use getBPM() instead. */
+	private int levelBPM;
 	/** Countdown active for winning or losing */
 	private int countdown;
 	/** synth soundtrack of game */
@@ -166,6 +170,11 @@ public class GameController implements Screen, ContactListener {
 
 	private int SFXVolume = 10;
 
+	/**lIST  of enemies that are 'bounded' to a moving or weighted platform*/
+	private Enemy[] boundedEnemies;
+	/**lIST  of platforms that are 'bounded' to an enemy*/
+	private BoxGameObject[] boundedPlatforms;
+
 	// Physics objects for the game
 
 	/** last platform collided with*/
@@ -178,6 +187,8 @@ public class GameController implements Screen, ContactListener {
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
+
+
 
 	private static GameController theController = null;
 
@@ -390,6 +401,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void gatherAssets(AssetDirectory directory) {
 		objectController.gatherAssets(directory);
+		levelBPM = objectController.defaultConstants.get("music").get(getCurrentLevel()).getInt("bpm");
+		syncController.BPM = levelBPM;
 		// set the soundtrack
 		setSoundtrack(directory);
 		// set the sound effects
@@ -404,8 +417,8 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory Reference to global asset manager.
 	 */
 	public void setSoundtrack(AssetDirectory directory) {
-		synthSoundtrack = directory.getEntry("music:synth1", Music.class);
-		jazzSoundtrack = directory.getEntry("music:jazz1", Music.class);
+		synthSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("synth"), Music.class);
+		jazzSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("jazz"), Music.class);
 		soundController.setSynthTrack(synthSoundtrack);
 		soundController.setJazzTrack(jazzSoundtrack);
 		soundController.setGlobalMusicVolume(musicVolume / 10f);
@@ -425,6 +438,10 @@ public class GameController implements Screen, ContactListener {
 
 	public Genre getGenre() {
 		return genre;
+	}
+
+	public int getBPM() {
+		return syncController.BPM;
 	}
 
 	/**
@@ -530,7 +547,7 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
-		syncController = new SyncController();
+		syncController = new SyncController(levelBPM);
 		populateLevel();
 		objectController.player.setPosition(respawnPoint);
 		soundController.resetMusic();
@@ -720,9 +737,23 @@ public class GameController implements Screen, ContactListener {
 				setComplete(true);
 			}
 
+			//Bullet and Bee Collision checks
+			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy)){
+				bd1.markRemoved(true);
+			}
+			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy)){
+				bd2.markRemoved(true);
+			}
+			if (bd1 instanceof Bee && !(bd2 instanceof Enemy)){
+				bd1.markRemoved(true);
+			}
+			if (bd2 instanceof Bee && !(bd1 instanceof Enemy)){
+				bd2.markRemoved(true);
+			}
+
 			//player collision checks
-			if (bd1.getType() == Type.Player){
-				if(bd2.getType() == Type.LETHAL){
+			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player){
+				if(bd2.getType() == Type.LETHAL || bd1.getType() == Type.LETHAL){
 					getPlayer().isDying = true;
 				}
 				if(bd2 instanceof  WeightedPlatform){

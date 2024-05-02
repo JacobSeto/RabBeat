@@ -11,7 +11,7 @@ public class SyncController {
      */
 
     /** The bpm of the soundtrack*/
-    private final int BPM = 180;
+    public int BPM = 180;
 
     /** The synth soundtrack*/
     Music synth;
@@ -24,6 +24,11 @@ public class SyncController {
     private Array<Interval> intervals = new Array<>();
     /** The interval that represents the animation update */
     private AnimationSync animationSync = new AnimationSync();
+
+    public SyncController(int bpm) {
+        this.BPM = bpm;
+    }
+    public SyncController() {}
 
     /** TODO: Create description and use SoundController instead.  Maybe even delete this function*/
     public void setSync(Music _synth, Music _jazz){
@@ -46,7 +51,6 @@ public class SyncController {
             float sample = synth.getPosition() / i.getIntervalLength(BPM) + delay * i.syncedObject.getBeat();
             i.checkForNewInterval(sample);
         }
-
     }
 
     /**The calibration for audio delay.  The audio delay is dependent on the audio output source
