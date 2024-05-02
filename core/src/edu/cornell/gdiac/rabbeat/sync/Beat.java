@@ -3,7 +3,7 @@ package edu.cornell.gdiac.rabbeat.sync;
 import com.badlogic.gdx.utils.Array;
 import edu.cornell.gdiac.rabbeat.GameController;
 
-public class BeatTest implements ISynced {
+public class Beat implements ISynced {
 
     int beatCount = 0;
     float beat = 1;
@@ -41,6 +41,11 @@ public class BeatTest implements ISynced {
 
     void AddDelay(float dt){
         beatLatencyList.add(dt);
+    }
+
+    /** Returns the beat count*/
+    public int getBeatCount(){
+        return beatCount;
     }
 
 }

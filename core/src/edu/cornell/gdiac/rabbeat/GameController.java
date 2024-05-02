@@ -21,6 +21,8 @@ import com.badlogic.gdx.math.Rectangle;
 import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
+import edu.cornell.gdiac.rabbeat.sync.AnimationSync;
+import edu.cornell.gdiac.rabbeat.sync.Beat;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
@@ -59,6 +61,8 @@ public class GameController implements Screen, ContactListener {
 	public Genre genre = Genre.SYNTH;
 	/** The Sync object that will sync the world to the beat */
 	public SyncController syncController;
+	/** The beat of the game*/
+	public Beat beat = new Beat();
 
 	/** The SoundController object to handle audio */
 	public SoundController soundController;
@@ -133,6 +137,7 @@ public class GameController implements Screen, ContactListener {
 	private boolean failed;
 	/** Whether or not the game is paused */
 	private boolean paused;
+	/** The beat the */
 	/** Whether calibration is happening*/
 	public boolean inCalibration = false;
 
@@ -555,6 +560,7 @@ public class GameController implements Screen, ContactListener {
 		world.setGravity(new Vector2(0, objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
 
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
+		syncController.addSync(beat);
 		objectController.populateObjects(scale);
 	}
 
@@ -634,8 +640,9 @@ public class GameController implements Screen, ContactListener {
 			//calibrating
 			if(inCalibration){
 				syncController.updateCalibrate(dt);
+				beat.updateBeatDT(dt);
 				if(InputController.getInstance().getCalibrate()){
-					syncController.calibrate();
+					syncController.calibrate(beat);
 				}
 			}
 

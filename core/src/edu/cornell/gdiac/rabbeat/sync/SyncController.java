@@ -2,7 +2,6 @@ package edu.cornell.gdiac.rabbeat.sync;
 import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.utils.*;
 import edu.cornell.gdiac.rabbeat.GameController;
-import edu.cornell.gdiac.rabbeat.InputController;
 
 public class SyncController {
     /**
@@ -24,8 +23,6 @@ public class SyncController {
     private float delay = 0f;
     /** The intervals of each of the synced objects in the game */
     private Array<Interval> intervals = new Array<>();
-    /** The synced object used for calibration*/
-    private BeatTest beatTest = new BeatTest();
 
     /** The interval that represents the animation update */
     private AnimationSync animationSync = new AnimationSync();
@@ -40,8 +37,6 @@ public class SyncController {
     public void setSync(Music _synth, Music _jazz){
         synth = _synth;
         jazz = _jazz;
-        addSync(animationSync);
-        addSync(beatTest);
     }
 
     /**Adds _delay to the delay field
@@ -63,9 +58,8 @@ public class SyncController {
 
     }
 
-    /** Adds delta values to the local delta values in this class and {@link BeatTest}*/
+    /** Adds delta values to the local delta values in this class and {@link Beat}*/
     public void updateCalibrate(float dt){
-        beatTest.updateBeatDT(dt);
         calibrateDT+= dt;
     }
 
@@ -73,21 +67,21 @@ public class SyncController {
      * the player is using.  Delay is calculated by the average delay of a player clicking an input
      * to when they hear the beat.  The average delay is then stored to be used for beat calculation
      * */
-    public void calibrate(){
+    public void calibrate(Beat beat){
         beatLatencyList.add(calibrateDT);
         calibrationCount++;
         if(calibrationCount >= NUM_CALIBRATION_STEPS){
             GameController.getInstance().inCalibration = false;
             float averageDelay = 0;
-            System.out.println("beatTest len: " + beatTest.beatLatencyList.size);
+            System.out.println("beatTest len: " + beat.beatLatencyList.size);
             System.out.println("sync len: " + beatLatencyList.size);
-            for (int i = 0; i < Math.min(beatLatencyList.size, beatTest.beatLatencyList.size); i++) {
-                averageDelay += (beatLatencyList.get(i) - beatTest.beatLatencyList.get(i));
+            for (int i = 0; i < Math.min(beatLatencyList.size, beat.beatLatencyList.size); i++) {
+                averageDelay += (beatLatencyList.get(i) - beat.beatLatencyList.get(i));
                 System.out.println(averageDelay);
             }
             calibrationCount = 0;
             beatLatencyList.clear();
-            beatTest.beatLatencyList.clear();
+            beat.beatLatencyList.clear();
             delay = averageDelay;
             System.out.println("delay: " + delay);
         }
