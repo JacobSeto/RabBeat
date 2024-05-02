@@ -133,12 +133,12 @@
     "level3": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 132
     },
     "level4": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 120
+      "bpm": 180
     },
     "level5": {
       "synth": "music:synth1",
