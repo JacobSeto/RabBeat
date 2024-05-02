@@ -28,6 +28,9 @@ public class SyncController {
     /** The intervals of each of the synced objects in the game */
     private Array<Interval> intervals = new Array<>();
 
+    /** The beat of the game*/
+    public Beat beat = new Beat();
+
     /** The interval that represents the animation update */
     private AnimationSync animationSync = new AnimationSync();
 
@@ -39,6 +42,8 @@ public class SyncController {
 
     public SyncController(int bpm) {
         this.BPM = bpm;
+        addSync(beat);
+        addSync(animationSync);
     }
 
     /**
@@ -78,6 +83,7 @@ public class SyncController {
      */
     public void updateCalibrate(float dt) {
         calibrateDT += dt;
+        beat.updateBeatDT(dt);
     }
 
     /**
@@ -88,7 +94,7 @@ public class SyncController {
      * to when they hear the beat. The average delay is then stored to be used for
      * beat calculation
      */
-    public void calibrate(Beat beat) {
+    public void calibrate() {
         beatLatencyList.add(calibrateDT);
         calibrationCount++;
         if (calibrationCount >= NUM_CALIBRATION_STEPS) {

@@ -63,8 +63,6 @@ public class GameController implements Screen, ContactListener {
 	public Genre genre = Genre.SYNTH;
 	/** The Sync object that will sync the world to the beat */
 	public SyncController syncController;
-	/** The beat of the game*/
-	public Beat beat = new Beat();
 
 	/** The SoundController object to handle audio */
 	public SoundController soundController;
@@ -345,7 +343,7 @@ public class GameController implements Screen, ContactListener {
 		pauseTintJazzColor = new Color(0.9f, 0, 0, 0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
-		syncController = new SyncController();
+		syncController = new SyncController(levelBPM);
 		soundController = new SoundController();
 		objectController = new ObjectController();
 		theController = this;
@@ -566,7 +564,6 @@ public class GameController implements Screen, ContactListener {
 		world.setGravity(new Vector2(0, objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
 
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
-		syncController.addSync(beat);
 		objectController.populateObjects(scale);
 	}
 
@@ -646,9 +643,8 @@ public class GameController implements Screen, ContactListener {
 			//calibrating
 			if(inCalibration){
 				syncController.updateCalibrate(dt);
-				beat.updateBeatDT(dt);
 				if(InputController.getInstance().getCalibrate()){
-					syncController.calibrate(beat);
+					syncController.calibrate();
 				}
 			}
 
