@@ -21,6 +21,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 import edu.cornell.gdiac.util.PooledList;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -247,6 +248,7 @@ public class ObjectController {
     private HashMap<String, TextureRegion> assets = new HashMap<>();
     //  Tilesets
     private HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
+    private HashMap<Integer, TextureRegion> rabbeatTileset = new HashMap<>();
 
     /** Reference to the goalDoor (for collision detection) */
     public BoxGameObject goalDoor;
@@ -572,10 +574,63 @@ public class ObjectController {
         assets.put("graffiti_3", new TextureRegion(directory.getEntry("world:graffiti:graffiti_3", Texture.class)));
         assets.put("caution_0", new TextureRegion(directory.getEntry("world:graffiti:caution_0", Texture.class)));
         assets.put("tv", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
-        assets.put("cam_0", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
-        assets.put("cam_1", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
-        assets.put("cam_2", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
+        assets.put("cam_0", new TextureRegion(directory.getEntry("world:other:cam_0", Texture.class)));
+        assets.put("cam_1", new TextureRegion(directory.getEntry("world:other:cam_1", Texture.class)));
+        assets.put("cam_2", new TextureRegion(directory.getEntry("world:other:cam_2", Texture.class)));
+        assets.put("fan_0", new TextureRegion(directory.getEntry("world:other:fan_0", Texture.class)));
+        assets.put("fan_1", new TextureRegion(directory.getEntry("world:other:fan_1", Texture.class)));
+        assets.put("windows_0", new TextureRegion(directory.getEntry("world:other:windows_0", Texture.class)));
+        assets.put("windows_1", new TextureRegion(directory.getEntry("world:other:windows_1", Texture.class)));
+        assets.put("windows_2", new TextureRegion(directory.getEntry("world:other:windows_2", Texture.class)));
         assets.put("ceilingCamera", new TextureRegion(directory.getEntry("world:other:ceilingCamera", Texture.class)));
+        assets.put("trash_0", new TextureRegion(directory.getEntry("world:other:trash_0", Texture.class)));
+        assets.put("trash_1", new TextureRegion(directory.getEntry("world:other:trash_1", Texture.class)));
+        assets.put("trash_2", new TextureRegion(directory.getEntry("world:other:trash_2", Texture.class)));
+        assets.put("trash_3", new TextureRegion(directory.getEntry("world:other:trash_3", Texture.class)));
+        assets.put("decal_0", new TextureRegion(directory.getEntry("world:decals:decal_0", Texture.class)));
+        assets.put("decal_1", new TextureRegion(directory.getEntry("world:decals:decal_1", Texture.class)));
+        assets.put("decal_2", new TextureRegion(directory.getEntry("world:decals:decal_2", Texture.class)));
+        assets.put("decal_3", new TextureRegion(directory.getEntry("world:decals:decal_3", Texture.class)));
+        assets.put("decal_4", new TextureRegion(directory.getEntry("world:decals:decal_4", Texture.class)));
+        assets.put("decal_5", new TextureRegion(directory.getEntry("world:decals:decal_5", Texture.class)));
+        assets.put("decal_6", new TextureRegion(directory.getEntry("world:decals:decal_6", Texture.class)));
+        assets.put("decal_7", new TextureRegion(directory.getEntry("world:decals:decal_7", Texture.class)));
+        assets.put("decal_8", new TextureRegion(directory.getEntry("world:decals:decal_8", Texture.class)));
+        assets.put("decal_9", new TextureRegion(directory.getEntry("world:decals:decal_9", Texture.class)));
+        assets.put("decal_10", new TextureRegion(directory.getEntry("world:decals:decal_10", Texture.class)));
+        assets.put("crack_0", new TextureRegion(directory.getEntry("world:cracks:crack_0", Texture.class)));
+        assets.put("crack_1", new TextureRegion(directory.getEntry("world:cracks:crack_1", Texture.class)));
+        assets.put("crack_2", new TextureRegion(directory.getEntry("world:cracks:crack_2", Texture.class)));
+        assets.put("crack_3", new TextureRegion(directory.getEntry("world:cracks:crack_3", Texture.class)));
+        assets.put("crack_4", new TextureRegion(directory.getEntry("world:cracks:crack_4", Texture.class)));
+        assets.put("crack_5", new TextureRegion(directory.getEntry("world:cracks:crack_5", Texture.class)));
+        assets.put("crack_6", new TextureRegion(directory.getEntry("world:cracks:crack_6", Texture.class)));
+        assets.put("crack_7", new TextureRegion(directory.getEntry("world:cracks:crack_7", Texture.class)));
+        assets.put("crack_8", new TextureRegion(directory.getEntry("world:cracks:crack_8", Texture.class)));
+        assets.put("spot_0", new TextureRegion(directory.getEntry("world:spots:spot_0", Texture.class)));
+        assets.put("spot_1", new TextureRegion(directory.getEntry("world:spots:spot_1", Texture.class)));
+        assets.put("spot_2", new TextureRegion(directory.getEntry("world:spots:spot_2", Texture.class)));
+        assets.put("spot_3", new TextureRegion(directory.getEntry("world:spots:spot_3", Texture.class)));
+        assets.put("spot_4", new TextureRegion(directory.getEntry("world:spots:spot_4", Texture.class)));
+        assets.put("spot_5", new TextureRegion(directory.getEntry("world:spots:spot_5", Texture.class)));
+        assets.put("spot_6", new TextureRegion(directory.getEntry("world:spots:spot_6", Texture.class)));
+        assets.put("spot_7", new TextureRegion(directory.getEntry("world:spots:spot_7", Texture.class)));
+        assets.put("texture_0", new TextureRegion(directory.getEntry("world:spots:texture_0", Texture.class)));
+        assets.put("texture_1", new TextureRegion(directory.getEntry("world:spots:texture_1", Texture.class)));
+
+        assets.put("pole_0", new TextureRegion(directory.getEntry("world:signs:pole_0", Texture.class)));
+        assets.put("pole_1", new TextureRegion(directory.getEntry("world:signs:pole_1", Texture.class)));
+        assets.put("pole_2", new TextureRegion(directory.getEntry("world:signs:pole_2", Texture.class)));
+        assets.put("stop_0", new TextureRegion(directory.getEntry("world:signs:stop_0", Texture.class)));
+        assets.put("stop_1", new TextureRegion(directory.getEntry("world:signs:stop_1", Texture.class)));
+        assets.put("stop_2", new TextureRegion(directory.getEntry("world:signs:stop_2", Texture.class)));
+        assets.put("stop_3", new TextureRegion(directory.getEntry("world:signs:stop_3", Texture.class)));
+        assets.put("yield_0", new TextureRegion(directory.getEntry("world:signs:yield_0", Texture.class)));
+        assets.put("yield_1", new TextureRegion(directory.getEntry("world:signs:yield_1", Texture.class)));
+        assets.put("dead_0", new TextureRegion(directory.getEntry("world:signs:dead_0", Texture.class)));
+        assets.put("dead_1", new TextureRegion(directory.getEntry("world:signs:dead_1", Texture.class)));
+        assets.put("dead_2", new TextureRegion(directory.getEntry("world:signs:dead_2", Texture.class)));
+        assets.put("exit_0", new TextureRegion(directory.getEntry("world:signs:exit_0", Texture.class)));
 
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
         wallsTileset.put(1, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:1", Texture.class)));
@@ -589,6 +644,27 @@ public class ObjectController {
         wallsTileset.put(9, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:9", Texture.class)));
         wallsTileset.put(10, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:10", Texture.class)));
         wallsTileset.put(11, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:11", Texture.class)));
+
+        rabbeatTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:0", Texture.class)));
+        rabbeatTileset.put(1, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:1", Texture.class)));
+        rabbeatTileset.put(2, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:2", Texture.class)));
+        rabbeatTileset.put(3, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:3", Texture.class)));
+        rabbeatTileset.put(4, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:4", Texture.class)));
+        rabbeatTileset.put(5, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:5", Texture.class)));
+        rabbeatTileset.put(6, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:6", Texture.class)));
+        rabbeatTileset.put(7, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:7", Texture.class)));
+        rabbeatTileset.put(8, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:8", Texture.class)));
+        rabbeatTileset.put(9, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:9", Texture.class)));
+        rabbeatTileset.put(10, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:10", Texture.class)));
+        rabbeatTileset.put(11, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:11", Texture.class)));
+        rabbeatTileset.put(12, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:12", Texture.class)));
+        rabbeatTileset.put(13, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:13", Texture.class)));
+        rabbeatTileset.put(14, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:14", Texture.class)));
+        rabbeatTileset.put(15, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:15", Texture.class)));
+        rabbeatTileset.put(16, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:16", Texture.class)));
+        rabbeatTileset.put(17, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:17", Texture.class)));
+        rabbeatTileset.put(18, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:18", Texture.class)));
+        rabbeatTileset.put(19, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:19", Texture.class)));
 
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         checkpointTexture = new TextureRegion(directory.getEntry("world:checkpoints:checkpointInactive", Texture.class));
@@ -618,14 +694,6 @@ public class ObjectController {
             // Get level height
             int levelHeight = levelJson.getInt("height");
 
-            // Get first gid
-            int firstGid = 0;
-            for (JsonValue tileset : levelJson.get("tilesets")){
-                if (tileset.getString("source").contains("walls.tsx")){
-                    firstGid = tileset.getInt("firstgid");
-                }
-            }
-
             //  Process layers
             for (JsonValue layer : levelJson.get("layers")) {
                 String layerName = layer.getString("name", "");
@@ -645,7 +713,10 @@ public class ObjectController {
                                 // Get x and y coordinates from where it is in the array
                                 int x = i % width;
                                 int y = height - (i / width) - 1;
-                                createWall(scale, x, y, tileTypeID-firstGid, tileSize);
+
+                                Tileset tileset = getTileset(tileTypeID);
+
+                                createWall(scale, x, y, tileTypeID-tileset.firstGID, tileSize, tileset.tilesetSource);
                             }
                         }
                         break;
@@ -863,12 +934,37 @@ public class ObjectController {
                             createGoal(scale, x, y, dim, levelHeight, tileSize);
                         }
                         break;
-                    case "foregroundArt":
+                    case "wallArt":
                         for (JsonValue a : layer.get("objects")) {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
-                            createGroundArt(scale, a.getString("name"), x, y, dim, levelHeight, tileSize, "foreground",
+                            String assetName = "";
+                            if (a.get("properties")!=null) {
+                                for (JsonValue prop : a.get("properties")) {
+                                    if (prop.getString("name").equals("assetName")) {
+                                        assetName = prop.getString("value");
+                                    }
+                                }
+                            }
+                            createGroundArt(scale, assetName, x, y, dim, levelHeight, tileSize, "foreground",
+                                    a);
+                        }
+                        break;
+                    case "decals":
+                        for (JsonValue a : layer.get("objects")) {
+                            float x = a.getFloat("x");
+                            float y = a.getFloat("y");
+                            Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
+                            String assetName = "";
+                            if (a.get("properties")!=null) {
+                                for (JsonValue prop : a.get("properties")) {
+                                    if (prop.getString("name").equals("assetName")) {
+                                        assetName = prop.getString("value");
+                                    }
+                                }
+                            }
+                            createGroundArt(scale, assetName, x, y, dim, levelHeight, tileSize, "background",
                                     a);
                         }
                         break;
@@ -877,7 +973,15 @@ public class ObjectController {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
-                            createGroundArt(scale, a.getString("name"), x, y, dim, levelHeight, tileSize, "background",
+                            String assetName = "";
+                            if (a.get("properties")!=null) {
+                                for (JsonValue prop : a.get("properties")) {
+                                    if (prop.getString("name").equals("assetName")) {
+                                        assetName = prop.getString("value");
+                                    }
+                                }
+                            }
+                            createGroundArt(scale, assetName, x, y, dim, levelHeight, tileSize, "background",
                                     a);
                         }
                         break;
@@ -966,9 +1070,14 @@ public class ObjectController {
      * @param x     x coordinate (world coordinates) of tile
      * @param y     y coordinate (world coordinates) of tile
      */
-    private void createWall(Vector2 scale, float x, float y, int tileId, int tileSize){
+    private void createWall(Vector2 scale, float x, float y, int tileId, int tileSize, String tilesetSource){
         //  Set texture
-        TextureRegion textureRegion = wallsTileset.get(tileId);
+        TextureRegion textureRegion = null;
+        if (tilesetSource.contains("rabbeatTileset")){
+            textureRegion = rabbeatTileset.get(tileId);
+        } else if (tilesetSource.contains("walls")){
+            textureRegion = wallsTileset.get(tileId);
+        }
 
         String wname = "wall";
         JsonValue defaults = defaultConstants.get("defaults");
@@ -989,6 +1098,36 @@ public class ObjectController {
         obj.setTexture(textureRegion);
         obj.setName(wname);
         GameController.getInstance().instantiate(obj);
+    }
+
+    /**
+     * Class for Tileset objects with the tileset's firstGID and tilesetSource.
+     */
+    static class Tileset {
+        public int firstGID;
+        public String tilesetSource;
+        public Tileset(int firstGID, String tilesetSource) {
+            this.firstGID = firstGID;
+            this.tilesetSource = tilesetSource;
+        }
+    }
+
+    /**
+     * Takes in the GID of a tile and returns the info of the tileset that the tile is in.
+     * @param gid The GID of the tile.
+     * @return The Pair object with firstGID and tilesetName of the tileset that the tile is in.
+     */
+    private Tileset getTileset(int gid){
+        Tileset tileset = new Tileset(0, "");
+        for (JsonValue t : levelJson.get("tilesets")){
+            if (gid < t.getInt("firstgid")){
+                break;
+            } else{
+                tileset.firstGID = t.getInt("firstgid");
+                tileset.tilesetSource = t.getString("source");
+            }
+        }
+        return tileset;
     }
 
     /**
@@ -1376,21 +1515,6 @@ public class ObjectController {
             }
             GameController.getInstance().instantiate(art);
         }
-    }
-
-    private void createHangingArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
-        TextureRegion textureRegion = assets.get(type);
-        if (textureRegion == null) {
-            textureRegion = assets.get("light");
-        }
-        //  Convert coordinates to world coordinates
-        Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
-        convertedCoord.set(convertedCoord.x, convertedCoord.y);
-
-        ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
-        art.setBodyType(BodyDef.BodyType.StaticBody);
-        art.setDrawScale(scale);
-        GameController.getInstance().instantiate(art);
     }
 
     /**
