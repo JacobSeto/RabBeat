@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="39" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="51" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7">
   <properties>
@@ -143,43 +143,43 @@
   <properties>
    <property name="assetName" value="windows_0"/>
   </properties>
-  <image width="192" height="192" source="../world/other/windows_0.PNG"/>
+  <image width="256" height="256" source="../world/other/windows_0.PNG"/>
  </tile>
  <tile id="32">
   <properties>
    <property name="assetName" value="pole_0"/>
   </properties>
-  <image width="128" height="128" source="../world/stopSigns/pole_0.png"/>
+  <image width="128" height="128" source="../world/signs/pole_0.png"/>
  </tile>
  <tile id="33">
   <properties>
    <property name="assetName" value="pole_1"/>
   </properties>
-  <image width="128" height="128" source="../world/stopSigns/pole_1.png"/>
+  <image width="128" height="128" source="../world/signs/pole_1.png"/>
  </tile>
  <tile id="34">
   <properties>
    <property name="assetName" value="stop_0"/>
   </properties>
-  <image width="128" height="128" source="../world/stopSigns/stop_0.png"/>
+  <image width="128" height="128" source="../world/signs/stop_0.png"/>
  </tile>
  <tile id="35">
   <properties>
    <property name="assetName" value="stop_1"/>
   </properties>
-  <image width="128" height="128" source="../world/stopSigns/stop_1.png"/>
+  <image width="128" height="128" source="../world/signs/stop_1.png"/>
  </tile>
  <tile id="36">
   <properties>
    <property name="assetName" value="stop_2"/>
   </properties>
-  <image width="128" height="128" source="../world/stopSigns/stop_2.png"/>
+  <image width="128" height="128" source="../world/signs/stop_2.png"/>
  </tile>
  <tile id="37">
   <properties>
    <property name="assetName" value="stop_3"/>
   </properties>
-  <image width="128" height="128" source="../world/stopSigns/stop_3.png"/>
+  <image width="128" height="128" source="../world/signs/stop_3.png"/>
  </tile>
  <tile id="38">
   <properties>
@@ -197,13 +197,13 @@
   <properties>
    <property name="assetName" value="windows_1"/>
   </properties>
-  <image width="192" height="192" source="../world/other/window_1.png"/>
+  <image width="256" height="256" source="../world/other/window_1.png"/>
  </tile>
  <tile id="41">
   <properties>
    <property name="assetName" value="windows_2"/>
   </properties>
-  <image width="192" height="192" source="../world/other/window_2.png"/>
+  <image width="256" height="256" source="../world/other/window_2.png"/>
  </tile>
  <tile id="42">
   <properties>
@@ -234,5 +234,77 @@
    <property name="assetName" value="decal_10"/>
   </properties>
   <image width="192" height="192" source="../world/decals/decal_10.png"/>
+ </tile>
+ <tile id="47">
+  <properties>
+   <property name="assetName" value="yield_1"/>
+  </properties>
+  <image width="128" height="128" source="../world/signs/yield_1.png"/>
+ </tile>
+ <tile id="48">
+  <properties>
+   <property name="assetName" value="yield_0"/>
+  </properties>
+  <image width="128" height="128" source="../world/signs/yield_0.png"/>
+ </tile>
+ <tile id="49">
+  <properties>
+   <property name="assetName" value="dead_0"/>
+  </properties>
+  <image width="128" height="128" source="../world/signs/dead_0.png"/>
+ </tile>
+ <tile id="50">
+  <properties>
+   <property name="assetName" value="dead_1"/>
+  </properties>
+  <image width="128" height="128" source="../world/signs/dead_1.png"/>
+ </tile>
+ <tile id="51">
+  <properties>
+   <property name="assetName" value="dead_2"/>
+  </properties>
+  <image width="128" height="128" source="../world/signs/dead_2.png"/>
+ </tile>
+ <tile id="52">
+  <properties>
+   <property name="assetName" value="fan_1"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/fan_1.png"/>
+ </tile>
+ <tile id="53">
+  <properties>
+   <property name="assetName" value="exit_0"/>
+  </properties>
+  <image width="128" height="128" source="../world/signs/exit_0.png"/>
+ </tile>
+ <tile id="54">
+  <properties>
+   <property name="assetName" value="trash_0"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/trash_0.png"/>
+ </tile>
+ <tile id="55">
+  <properties>
+   <property name="assetName" value="trash_1"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/trash_1.png"/>
+ </tile>
+ <tile id="56">
+  <properties>
+   <property name="assetName" value="trash_2"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/trash_2.png"/>
+ </tile>
+ <tile id="57">
+  <properties>
+   <property name="assetName" value="trash_3"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/trash_3.png"/>
+ </tile>
+ <tile id="58">
+  <properties>
+   <property name="assetName" value="pole_2"/>
+  </properties>
+  <image width="128" height="128" source="../world/signs/pole_2.png"/>
  </tile>
 </tileset>

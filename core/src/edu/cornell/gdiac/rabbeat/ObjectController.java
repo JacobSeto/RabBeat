@@ -577,10 +577,15 @@ public class ObjectController {
         assets.put("cam_1", new TextureRegion(directory.getEntry("world:other:cam_1", Texture.class)));
         assets.put("cam_2", new TextureRegion(directory.getEntry("world:other:cam_2", Texture.class)));
         assets.put("fan_0", new TextureRegion(directory.getEntry("world:other:fan_0", Texture.class)));
+        assets.put("fan_1", new TextureRegion(directory.getEntry("world:other:fan_1", Texture.class)));
         assets.put("windows_0", new TextureRegion(directory.getEntry("world:other:windows_0", Texture.class)));
         assets.put("windows_1", new TextureRegion(directory.getEntry("world:other:windows_1", Texture.class)));
         assets.put("windows_2", new TextureRegion(directory.getEntry("world:other:windows_2", Texture.class)));
         assets.put("ceilingCamera", new TextureRegion(directory.getEntry("world:other:ceilingCamera", Texture.class)));
+        assets.put("trash_0", new TextureRegion(directory.getEntry("world:other:trash_0", Texture.class)));
+        assets.put("trash_1", new TextureRegion(directory.getEntry("world:other:trash_1", Texture.class)));
+        assets.put("trash_2", new TextureRegion(directory.getEntry("world:other:trash_2", Texture.class)));
+        assets.put("trash_3", new TextureRegion(directory.getEntry("world:other:trash_3", Texture.class)));
         assets.put("decal_0", new TextureRegion(directory.getEntry("world:decals:decal_0", Texture.class)));
         assets.put("decal_1", new TextureRegion(directory.getEntry("world:decals:decal_1", Texture.class)));
         assets.put("decal_2", new TextureRegion(directory.getEntry("world:decals:decal_2", Texture.class)));
@@ -612,12 +617,19 @@ public class ObjectController {
         assets.put("texture_0", new TextureRegion(directory.getEntry("world:spots:texture_0", Texture.class)));
         assets.put("texture_1", new TextureRegion(directory.getEntry("world:spots:texture_1", Texture.class)));
 
-        assets.put("pole_0", new TextureRegion(directory.getEntry("world:stopSigns:pole_0", Texture.class)));
-        assets.put("pole_1", new TextureRegion(directory.getEntry("world:stopSigns:pole_1", Texture.class)));
-        assets.put("stop_0", new TextureRegion(directory.getEntry("world:stopSigns:stop_0", Texture.class)));
-        assets.put("stop_1", new TextureRegion(directory.getEntry("world:stopSigns:stop_1", Texture.class)));
-        assets.put("stop_2", new TextureRegion(directory.getEntry("world:stopSigns:stop_2", Texture.class)));
-        assets.put("stop_3", new TextureRegion(directory.getEntry("world:stopSigns:stop_3", Texture.class)));
+        assets.put("pole_0", new TextureRegion(directory.getEntry("world:signs:pole_0", Texture.class)));
+        assets.put("pole_1", new TextureRegion(directory.getEntry("world:signs:pole_1", Texture.class)));
+        assets.put("pole_2", new TextureRegion(directory.getEntry("world:signs:pole_2", Texture.class)));
+        assets.put("stop_0", new TextureRegion(directory.getEntry("world:signs:stop_0", Texture.class)));
+        assets.put("stop_1", new TextureRegion(directory.getEntry("world:signs:stop_1", Texture.class)));
+        assets.put("stop_2", new TextureRegion(directory.getEntry("world:signs:stop_2", Texture.class)));
+        assets.put("stop_3", new TextureRegion(directory.getEntry("world:signs:stop_3", Texture.class)));
+        assets.put("yield_0", new TextureRegion(directory.getEntry("world:signs:yield_0", Texture.class)));
+        assets.put("yield_1", new TextureRegion(directory.getEntry("world:signs:yield_1", Texture.class)));
+        assets.put("dead_0", new TextureRegion(directory.getEntry("world:signs:dead_0", Texture.class)));
+        assets.put("dead_1", new TextureRegion(directory.getEntry("world:signs:dead_1", Texture.class)));
+        assets.put("dead_2", new TextureRegion(directory.getEntry("world:signs:dead_2", Texture.class)));
+        assets.put("exit_0", new TextureRegion(directory.getEntry("world:signs:exit_0", Texture.class)));
 
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
         wallsTileset.put(1, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:1", Texture.class)));

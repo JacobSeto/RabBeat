@@ -68,7 +68,6 @@
       "world:laserBottom" : "world/lasers/laserBottom.png",
 
       "world:checkpoints:checkpointInactive": "world/checkpoints/checkpointInactive.png",
-
       "world:goal": "world/goal.png",
 
       "ui:synthIndicator": "ui/synth-indicator.png",
@@ -135,65 +134,38 @@
       "enemies:hedgehog": "enemies/hedgehogStill.png",
 
       "world:shelves:shelf1": "world/shelves/shelf1.png",
-
       "world:shelves:shelf2": "world/shelves/shelf2.png",
-
       "world:shelves:shelf3": "world/shelves/shelf3.png",
-
       "world:shelves:shelf4": "world/shelves/shelf4.png",
-
       "world:shelves:shelf5": "world/shelves/shelf5.png",
 
       "world:pods:bearpod1": "world/pods/bearpod1.png",
-
       "world:pods:bearpod2": "world/pods/bearpod2.png",
-
       "world:pods:bgpod1": "world/pods/bgpod1.png",
-
       "world:pods:bgpod2": "world/pods/bgpod2.png",
-
       "world:pods:dolpod1": "world/pods/dolpod1.png",
-
       "world:pods:dolpod2": "world/pods/dolpod2.png",
-
       "world:pods:emptypod1": "world/pods/emptypod1.png",
-
       "world:pods:emptypod2": "world/pods/emptypod2.png",
-
       "world:pods:emptypod3": "world/pods/emptypod3.png",
-
       "world:pods:emptypod4": "world/pods/emptypod4.png",
-
       "world:pods:emptypod5": "world/pods/emptypod5.png",
-
       "world:pods:octpod1": "world/pods/octpod1.png",
-
       "world:pods:wolfpod1": "world/pods/wolfpod1.png",
-
       "world:pods:wolfpod2": "world/pods/wolfpod2.png",
 
       "world:pipes:bigpipe" : "world/pipes/bigpipe.png",
-
       "world:pipes:bigpipetv" : "world/pipes/bigpipetv.png",
-
       "world:pipes:pipeleftskinny" : "world/pipes/pipeleftskinny.PNG",
-
       "world:pipes:pipeposter" : "world/pipes/pipeposter.PNG",
-
       "world:pipes:piperight" : "world/pipes/piperight.PNG",
-
       "world:pipes:piperightskinny" : "world/pipes/piperightskinny.PNG",
-
       "world:pipes:pipestraight" : "world/pipes/pipestraight.PNG",
-
       "world:pipes:pipestraightskinny" : "world/pipes/pipestraightskinny.png",
-
       "world:pipes:bgpipe" : "world/pipes/bgpipe.PNG",
 
       "world:wires:bigwire" : "world/wires/bigwire.png",
-
       "world:wires:wires1" : "world/wires/wires1.png",
-
       "world:wires:wires2" : "world/wires/wires2.png",
 
       "world:other:light": "world/other/light.png",
@@ -202,25 +174,23 @@
       "world:other:cam_0": "world/other/cam_0.PNG",
       "world:other:cam_1": "world/other/cam_1.PNG",
       "world:other:cam_2": "world/other/cam_2.PNG",
-      "world:other:fan_0": "world/other/fan_0.PNG",
+      "world:other:fan_0": "world/other/fan_0.png",
+      "world:other:fan_1": "world/other/fan_1.png",
       "world:other:windows_0": "world/other/windows_0.PNG",
-          "world:other:windows_1": "world/other/window_1.png",
-          "world:other:windows_2": "world/other/window_2.png",
+      "world:other:windows_1": "world/other/window_1.png",
+      "world:other:windows_2": "world/other/window_2.png",
+      "world:other:trash_0": "world/other/trash_0.png",
+      "world:other:trash_1": "world/other/trash_1.png",
+      "world:other:trash_2": "world/other/trash_2.png",
+      "world:other:trash_3": "world/other/trash_3.png",
 
       "world:graffiti:emoji_0" : "world/graffiti/emoji_0.png",
-
       "world:graffiti:emoji_1" : "world/graffiti/emoji_1.png",
-
       "world:graffiti:emoji_2" : "world/graffiti/emoji_2.png",
-
       "world:graffiti:graffiti_0" : "world/graffiti/graffiti_0.png",
-
       "world:graffiti:graffiti_1" : "world/graffiti/graffiti_1.png",
-
       "world:graffiti:graffiti_2" : "world/graffiti/graffiti_2.png",
-
       "world:graffiti:graffiti_3" : "world/graffiti/graffiti_3.png",
-
       "world:graffiti:caution_0" : "world/graffiti/caution_0.png",
 
       "world:decals:decal_0" : "world/decals/decal_0.png",
@@ -233,17 +203,17 @@
       "world:decals:decal_7" : "world/decals/decal_7.png",
       "world:decals:decal_8" : "world/decals/decal_8.png",
       "world:decals:decal_9" : "world/decals/decal_9.png",
-          "world:decals:decal_10" : "world/decals/decal_10.png",
+      "world:decals:decal_10" : "world/decals/decal_10.png",
 
       "world:cracks:crack_0" : "world/cracks/crack_0.png",
       "world:cracks:crack_1" : "world/cracks/crack_1.png",
       "world:cracks:crack_2" : "world/cracks/crack_2.png",
       "world:cracks:crack_3" : "world/cracks/crack_3.png",
       "world:cracks:crack_4" : "world/cracks/crack_4.png",
-          "world:cracks:crack_5" : "world/cracks/crack_5.png",
-          "world:cracks:crack_6" : "world/cracks/crack_6.png",
-          "world:cracks:crack_7" : "world/cracks/crack_7.png",
-          "world:cracks:crack_8" : "world/cracks/crack_8.png",
+      "world:cracks:crack_5" : "world/cracks/crack_5.png",
+      "world:cracks:crack_6" : "world/cracks/crack_6.png",
+      "world:cracks:crack_7" : "world/cracks/crack_7.png",
+      "world:cracks:crack_8" : "world/cracks/crack_8.png",
 
       "world:spots:spot_0" : "world/spots/spot_0.png",
       "world:spots:spot_1" : "world/spots/spot_1.png",
@@ -256,17 +226,24 @@
       "world:spots:texture_0" : "world/spots/texture_0.png",
       "world:spots:texture_1" : "world/spots/texture_1.png",
 
-      "world:stopSigns:pole_0" : "world/stopSigns/pole_0.png",
-    "world:stopSigns:pole_1" : "world/stopSigns/pole_1.png",
-    "world:stopSigns:stop_0" : "world/stopSigns/stop_0.png",
-    "world:stopSigns:stop_1" : "world/stopSigns/stop_1.png",
-    "world:stopSigns:stop_2" : "world/stopSigns/stop_2.png",
-    "world:stopSigns:stop_3" : "world/stopSigns/stop_3.png"
+      "world:signs:pole_0" : "world/signs/pole_0.png",
+      "world:signs:pole_1" : "world/signs/pole_1.png",
+      "world:signs:pole_2" : "world/signs/pole_2.png",
+      "world:signs:stop_0" : "world/signs/stop_0.png",
+      "world:signs:stop_1" : "world/signs/stop_1.png",
+      "world:signs:stop_2" : "world/signs/stop_2.png",
+      "world:signs:stop_3" : "world/signs/stop_3.png",
+      "world:signs:yield_0" : "world/signs/yield_0.png",
+      "world:signs:yield_1" : "world/signs/yield_1.png",
+      "world:signs:dead_0" : "world/signs/dead_0.png",
+      "world:signs:dead_1" : "world/signs/dead_1.png",
+      "world:signs:dead_2" : "world/signs/dead_2.png",
+      "world:signs:exit_0" : "world/signs/exit_0.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
         "example": "levelsJson/rabbeatLevelTest.tmj",
-        "level1": "levelsJson/level1Beta.tmj",
+        "level1": "levelsJson/level1Art.tmj",
         "level2": "levelsJson/rabbeatLevelBat.tmj",
         "level3": "levelsJson/rabbeatLaserTest.tmj",
         "level4": "levelsJson/rabbeatLevel4.tmj",
