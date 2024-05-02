@@ -23,6 +23,8 @@ import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.sync.AnimationSync;
 import edu.cornell.gdiac.rabbeat.sync.Beat;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bee;
+import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
@@ -143,6 +145,8 @@ public class GameController implements Screen, ContactListener {
 
 	/** Whether or not debug mode is active */
 	private boolean debug;
+	/** Stores the bpm after it's loaded in. Don't use this for anything, use getBPM() instead. */
+	private int levelBPM;
 	/** Countdown active for winning or losing */
 	private int countdown;
 	/** synth soundtrack of game */
@@ -401,6 +405,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void gatherAssets(AssetDirectory directory) {
 		objectController.gatherAssets(directory);
+		levelBPM = objectController.defaultConstants.get("music").get(getCurrentLevel()).getInt("bpm");
+		syncController.BPM = levelBPM;
 		// set the soundtrack
 		setSoundtrack(directory);
 		// set the sound effects
@@ -415,8 +421,8 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory Reference to global asset manager.
 	 */
 	public void setSoundtrack(AssetDirectory directory) {
-		synthSoundtrack = directory.getEntry("music:synth1", Music.class);
-		jazzSoundtrack = directory.getEntry("music:jazz1", Music.class);
+		synthSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("synth"), Music.class);
+		jazzSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("jazz"), Music.class);
 		soundController.setSynthTrack(synthSoundtrack);
 		soundController.setJazzTrack(jazzSoundtrack);
 		soundController.setGlobalMusicVolume(musicVolume / 10f);
@@ -545,7 +551,7 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
-		syncController = new SyncController();
+		syncController = new SyncController(levelBPM);
 		populateLevel();
 		objectController.player.setPosition(respawnPoint);
 		soundController.resetMusic();
@@ -740,6 +746,20 @@ public class GameController implements Screen, ContactListener {
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
 					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
 				setComplete(true);
+			}
+
+			//Bullet and Bee Collision checks
+			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy)){
+				bd1.markRemoved(true);
+			}
+			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy)){
+				bd2.markRemoved(true);
+			}
+			if (bd1 instanceof Bee && !(bd2 instanceof Enemy)){
+				bd1.markRemoved(true);
+			}
+			if (bd2 instanceof Bee && !(bd1 instanceof Enemy)){
+				bd2.markRemoved(true);
 			}
 
 			//player collision checks

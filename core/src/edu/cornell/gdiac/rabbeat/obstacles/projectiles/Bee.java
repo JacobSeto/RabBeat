@@ -16,13 +16,15 @@ public class Bee extends WheelGameObject implements ISyncedAnimated, IGenreObjec
 
     public int beatCount = 0;
     private Genre hiveGenre;
+    private boolean isFaceRight;
     public Animation<TextureRegion> animation;
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
 
-    public Bee(float x, float y, float radius, Genre genre, Animation<TextureRegion> beeAttackAnimation) {
+    public Bee(float x, float y, float radius, Genre genre, boolean faceRight, Animation<TextureRegion> beeAttackAnimation) {
         super(x, y, radius);
         hiveGenre = genre;
+        isFaceRight = faceRight;
         setAnimation(beeAttackAnimation);
         setType(Type.LETHAL);
         setSensor(true);
@@ -58,7 +60,8 @@ public class Bee extends WheelGameObject implements ISyncedAnimated, IGenreObjec
         stateTime++;
     }
     public void draw(GameCanvas canvas) {
+        float effect = (isFaceRight) ? -1.0f : 1.0f;
         TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
-        canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(), 0.4f,0.4f);
+        canvas.draw(currentFrame, Color.WHITE,origin.x,origin.y,getX()*drawScale.x,getY()*drawScale.y,getAngle(), 0.4f * effect,0.4f);
     }
 }
