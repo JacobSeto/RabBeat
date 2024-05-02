@@ -271,8 +271,5 @@
     },
   "atlas": {
     "atlas:echoAtlas": "atlas/echo.atlas"
-  },
-
-
-
+  }
 }
