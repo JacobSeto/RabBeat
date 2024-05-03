@@ -17,9 +17,8 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
 import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.rabbeat.obstacles.*;
+import edu.cornell.gdiac.rabbeat.objects.*;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
-import edu.cornell.gdiac.rabbeat.sync.SyncController;
 
 /**
  * Player avatar for the plaform game.

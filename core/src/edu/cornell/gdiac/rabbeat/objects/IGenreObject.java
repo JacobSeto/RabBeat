@@ -1,4 +1,4 @@
-package edu.cornell.gdiac.rabbeat.obstacles;
+package edu.cornell.gdiac.rabbeat.objects;
 
 import edu.cornell.gdiac.rabbeat.Genre;
 
