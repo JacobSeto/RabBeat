@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="51" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="81" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7">
   <properties>
@@ -306,5 +306,185 @@
    <property name="assetName" value="pole_2"/>
   </properties>
   <image width="128" height="128" source="../world/signs/pole_2.png"/>
+ </tile>
+ <tile id="59">
+  <properties>
+   <property name="assetName" value="discoBall_0"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/discoBall_0.png"/>
+ </tile>
+ <tile id="60">
+  <properties>
+   <property name="assetName" value="discoBall_1"/>
+  </properties>
+  <image width="128" height="216" source="../world/other/discoBall_1.png"/>
+ </tile>
+ <tile id="61">
+  <properties>
+   <property name="assetName" value="speaker_0"/>
+  </properties>
+  <image width="128" height="128" source="../world/speakers/speaker_0.png"/>
+ </tile>
+ <tile id="62">
+  <properties>
+   <property name="assetName" value="speaker_1"/>
+  </properties>
+  <image width="128" height="128" source="../world/speakers/speaker_1.png"/>
+ </tile>
+ <tile id="63">
+  <properties>
+   <property name="assetName" value="speaker_2"/>
+  </properties>
+  <image width="128" height="128" source="../world/speakers/speaker_2.png"/>
+ </tile>
+ <tile id="64">
+  <properties>
+   <property name="assetName" value="speaker_3"/>
+  </properties>
+  <image width="128" height="128" source="../world/speakers/speaker_3.png"/>
+ </tile>
+ <tile id="65">
+  <properties>
+   <property name="assetName" value="speaker_4"/>
+  </properties>
+  <image width="192" height="192" source="../world/speakers/speaker_4.png"/>
+ </tile>
+ <tile id="66">
+  <properties>
+   <property name="assetName" value="speaker_5"/>
+  </properties>
+  <image width="192" height="192" source="../world/speakers/speaker_5.png"/>
+ </tile>
+ <tile id="67">
+  <properties>
+   <property name="assetName" value="speaker_6"/>
+  </properties>
+  <image width="128" height="128" source="../world/speakers/speaker_6.png"/>
+ </tile>
+ <tile id="68">
+  <properties>
+   <property name="assetName" value="spotlight_0"/>
+  </properties>
+  <image width="128" height="128" source="../world/lights/spotlight_0.png"/>
+ </tile>
+ <tile id="69">
+  <properties>
+   <property name="assetName" value="spotlight_1"/>
+  </properties>
+  <image width="128" height="128" source="../world/lights/spotlight_1.png"/>
+ </tile>
+ <tile id="70">
+  <properties>
+   <property name="assetName" value="spotlight_2"/>
+  </properties>
+  <image width="128" height="128" source="../world/lights/spotlight_2.png"/>
+ </tile>
+ <tile id="71">
+  <properties>
+   <property name="assetName" value="spotlight_3"/>
+  </properties>
+  <image width="128" height="128" source="../world/lights/spotlight_3.png"/>
+ </tile>
+ <tile id="72">
+  <properties>
+   <property name="assetName" value="spotlight_5"/>
+  </properties>
+  <image width="110" height="110" source="../world/lights/spotlight_5.png"/>
+ </tile>
+ <tile id="73">
+  <properties>
+   <property name="assetName" value="spotlight_6"/>
+  </properties>
+  <image width="110" height="110" source="../world/lights/spotlight_6.png"/>
+ </tile>
+ <tile id="74">
+  <properties>
+   <property name="assetName" value="spotlight_7"/>
+  </properties>
+  <image width="110" height="110" source="../world/lights/spotlight_7.png"/>
+ </tile>
+ <tile id="75">
+  <properties>
+   <property name="assetName" value="spotlight_4"/>
+  </properties>
+  <image width="110" height="110" source="../world/lights/spotlight_4.png"/>
+ </tile>
+ <tile id="76">
+  <properties>
+   <property name="assetName" value="discoDecal_0"/>
+  </properties>
+  <image width="128" height="128" source="../world/decals/discoDecal_0.png"/>
+ </tile>
+ <tile id="77">
+  <properties>
+   <property name="assetName" value="discoDecal_1"/>
+  </properties>
+  <image width="128" height="128" source="../world/decals/discoDecal_1.png"/>
+ </tile>
+ <tile id="78">
+  <properties>
+   <property name="assetName" value="discoDecal_2"/>
+  </properties>
+  <image width="128" height="121" source="../world/decals/discoDecal_2.png"/>
+ </tile>
+ <tile id="79">
+  <properties>
+   <property name="assetName" value="discoDecal_3"/>
+  </properties>
+  <image width="128" height="121" source="../world/decals/discoDecal_3.png"/>
+ </tile>
+ <tile id="80">
+  <properties>
+   <property name="assetName" value="cup_0"/>
+  </properties>
+  <image width="70" height="70" source="../world/other/cup_0.png"/>
+ </tile>
+ <tile id="81">
+  <properties>
+   <property name="assetName" value="cup_1"/>
+  </properties>
+  <image width="70" height="70" source="../world/other/cup_1.png"/>
+ </tile>
+ <tile id="82">
+  <properties>
+   <property name="assetName" value="cup_2"/>
+  </properties>
+  <image width="100" height="100" source="../world/other/cup_2.png"/>
+ </tile>
+ <tile id="83">
+  <properties>
+   <property name="assetName" value="boombox"/>
+  </properties>
+  <image width="140" height="140" source="../world/other/boombox.png"/>
+ </tile>
+ <tile id="84">
+  <properties>
+   <property name="assetName" value="showlight_0"/>
+  </properties>
+  <image width="400" height="456" source="../world/lights/showlight_0.png"/>
+ </tile>
+ <tile id="85">
+  <properties>
+   <property name="assetName" value="showlight_1"/>
+  </properties>
+  <image width="400" height="456" source="../world/lights/showlight_1.png"/>
+ </tile>
+ <tile id="86">
+  <properties>
+   <property name="assetName" value="showlight_2"/>
+  </properties>
+  <image width="400" height="456" source="../world/lights/showlight_2.png"/>
+ </tile>
+ <tile id="87">
+  <properties>
+   <property name="assetName" value="showlight_3"/>
+  </properties>
+  <image width="400" height="456" source="../world/lights/showlight_3.png"/>
+ </tile>
+ <tile id="88">
+  <properties>
+   <property name="assetName" value="showlight_4"/>
+  </properties>
+  <image width="400" height="456" source="../world/lights/showlight_4.png"/>
  </tile>
 </tileset>

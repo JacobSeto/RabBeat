@@ -2,13 +2,13 @@
 <tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="895" tileheight="320" tilecount="23" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2">
-  <image width="64" height="123" source="playerTile.png"/>
+  <image width="64" height="123" source="tiles/playerTile.png"/>
  </tile>
  <tile id="7">
   <image width="130" height="130" source="../world/checkpoints/checkpointInactive.png"/>
  </tile>
  <tile id="8">
-  <image width="173" height="200" source="bear.png"/>
+  <image width="173" height="200" source="tiles/bear.png"/>
  </tile>
  <tile id="12">
   <image width="128" height="130" source="../world/goal.png"/>

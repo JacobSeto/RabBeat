@@ -125,8 +125,6 @@ public class ObjectController {
     protected TextureAtlas checkpointRiseAtlas;
     /** The rise animation for a checkpoint */
     protected Animation<TextureRegion> checkpointRiseAnimation;
-    /** The texture for the background*/
-    public TextureRegion backgroundTexture;
 
     /** The texture for the next level text */
     public TextureRegion nextLevelText;
@@ -210,8 +208,12 @@ public class ObjectController {
     /** The texture for locked button 12 */
     public Texture lockedButton12;
 
-    /** The texture for the background overlay */
-    public TextureRegion backgroundOverlayTexture;
+    //  Backgrounds
+    public TextureRegion levelBackground;
+    /** The texture for the lab background */
+    public TextureRegion labBgTexture;
+    /** The texture for the disco background */
+    public TextureRegion discoBgTexture;
     /** The texture for tinting the pause screen overlay background */
     public TextureRegion pauseWhiteOverlayTexture;
 
@@ -245,10 +247,14 @@ public class ObjectController {
 
     public TextureRegion blackGradient;
 
+    //  HashMaps
     private HashMap<String, TextureRegion> assets = new HashMap<>();
+    private HashMap<String, TextureAtlas> animatedArtAtlas = new HashMap<>();
+    private HashMap<String, Animation<TextureRegion>> animatedArtAnimation = new HashMap<>();
     //  Tilesets
     private HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
     private HashMap<Integer, TextureRegion> rabbeatTileset = new HashMap<>();
+    private HashMap<Integer, TextureRegion> discoTileset = new HashMap<>();
 
     /** Reference to the goalDoor (for collision detection) */
     public BoxGameObject goalDoor;
@@ -412,8 +418,8 @@ public class ObjectController {
         lockedButton11 = directory.getEntry("ui:lockedLevels:lockedLevel11", Texture.class);
         lockedButton12 = directory.getEntry("ui:lockedLevels:lockedLevel12", Texture.class);
 
-        backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
-        backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
+        labBgTexture = new TextureRegion(directory.getEntry("backgrounds:labBg",Texture.class));
+        discoBgTexture = new TextureRegion(directory.getEntry("backgrounds:discoBg",Texture.class));
         pauseWhiteOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
         exitLevelTexture = new TextureRegion(directory.getEntry("ui:pause:exitLevel",Texture.class));
         hoverLowerSoundTexture = new TextureRegion(directory.getEntry("ui:pause:hoverLowerSound",Texture.class));
@@ -550,27 +556,27 @@ public class ObjectController {
         assets.put("octpod1", new TextureRegion(directory.getEntry("world:pods:octpod1", Texture.class)));
         assets.put("emptypod4", new TextureRegion(directory.getEntry("world:pods:emptypod4", Texture.class)));
         assets.put("wolfpod1", new TextureRegion(directory.getEntry("world:pods:wolfpod1", Texture.class)));
+
         assets.put("shelf1", new TextureRegion(directory.getEntry("world:shelves:shelf1", Texture.class)));
         assets.put("shelf2", new TextureRegion(directory.getEntry("world:shelves:shelf2", Texture.class)));
         assets.put("shelf3", new TextureRegion(directory.getEntry("world:shelves:shelf3", Texture.class)));
         assets.put("shelf4", new TextureRegion(directory.getEntry("world:shelves:shelf4", Texture.class)));
         assets.put("shelf5", new TextureRegion(directory.getEntry("world:shelves:shelf5", Texture.class)));
-        assets.put("light", new TextureRegion(directory.getEntry("world:other:light", Texture.class)));
+
         assets.put("pipeposter", new TextureRegion(directory.getEntry("world:pipes:pipeposter", Texture.class)));
         assets.put("piperight", new TextureRegion(directory.getEntry("world:pipes:piperight", Texture.class)));
-        assets.put("piperightskinny",
-                new TextureRegion(directory.getEntry("world:pipes:piperightskinny", Texture.class)));
+        assets.put("piperightskinny", new TextureRegion(directory.getEntry("world:pipes:piperightskinny", Texture.class)));
         assets.put("pipestraight", new TextureRegion(directory.getEntry("world:pipes:pipestraight", Texture.class)));
-        assets.put("pipestraightskinny",
-                new TextureRegion(directory.getEntry("world:pipes:pipestraightskinny", Texture.class)));
-        assets.put("pipeleftskinny",
-                new TextureRegion(directory.getEntry("world:pipes:pipeleftskinny", Texture.class)));
+        assets.put("pipestraightskinny", new TextureRegion(directory.getEntry("world:pipes:pipestraightskinny", Texture.class)));
+        assets.put("pipeleftskinny", new TextureRegion(directory.getEntry("world:pipes:pipeleftskinny", Texture.class)));
         assets.put("bgpipe", new TextureRegion(directory.getEntry("world:pipes:bgpipe", Texture.class)));
         assets.put("bigpipe", new TextureRegion(directory.getEntry("world:pipes:bigpipe", Texture.class)));
         assets.put("bigpipetv", new TextureRegion(directory.getEntry("world:pipes:bigpipetv", Texture.class)));
+
         assets.put("bigwire", new TextureRegion(directory.getEntry("world:wires:bigwire", Texture.class)));
         assets.put("wires1", new TextureRegion(directory.getEntry("world:wires:wires1", Texture.class)));
         assets.put("wires2", new TextureRegion(directory.getEntry("world:wires:wires2", Texture.class)));
+
         assets.put("emoji_0", new TextureRegion(directory.getEntry("world:graffiti:emoji_0", Texture.class)));
         assets.put("emoji_1", new TextureRegion(directory.getEntry("world:graffiti:emoji_1", Texture.class)));
         assets.put("emoji_2", new TextureRegion(directory.getEntry("world:graffiti:emoji_2", Texture.class)));
@@ -579,20 +585,8 @@ public class ObjectController {
         assets.put("graffiti_2", new TextureRegion(directory.getEntry("world:graffiti:graffiti_2", Texture.class)));
         assets.put("graffiti_3", new TextureRegion(directory.getEntry("world:graffiti:graffiti_3", Texture.class)));
         assets.put("caution_0", new TextureRegion(directory.getEntry("world:graffiti:caution_0", Texture.class)));
-        assets.put("tv", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
-        assets.put("cam_0", new TextureRegion(directory.getEntry("world:other:cam_0", Texture.class)));
-        assets.put("cam_1", new TextureRegion(directory.getEntry("world:other:cam_1", Texture.class)));
-        assets.put("cam_2", new TextureRegion(directory.getEntry("world:other:cam_2", Texture.class)));
-        assets.put("fan_0", new TextureRegion(directory.getEntry("world:other:fan_0", Texture.class)));
-        assets.put("fan_1", new TextureRegion(directory.getEntry("world:other:fan_1", Texture.class)));
-        assets.put("windows_0", new TextureRegion(directory.getEntry("world:other:windows_0", Texture.class)));
-        assets.put("windows_1", new TextureRegion(directory.getEntry("world:other:windows_1", Texture.class)));
-        assets.put("windows_2", new TextureRegion(directory.getEntry("world:other:windows_2", Texture.class)));
-        assets.put("ceilingCamera", new TextureRegion(directory.getEntry("world:other:ceilingCamera", Texture.class)));
-        assets.put("trash_0", new TextureRegion(directory.getEntry("world:other:trash_0", Texture.class)));
-        assets.put("trash_1", new TextureRegion(directory.getEntry("world:other:trash_1", Texture.class)));
-        assets.put("trash_2", new TextureRegion(directory.getEntry("world:other:trash_2", Texture.class)));
-        assets.put("trash_3", new TextureRegion(directory.getEntry("world:other:trash_3", Texture.class)));
+
+        //  Decals
         assets.put("decal_0", new TextureRegion(directory.getEntry("world:decals:decal_0", Texture.class)));
         assets.put("decal_1", new TextureRegion(directory.getEntry("world:decals:decal_1", Texture.class)));
         assets.put("decal_2", new TextureRegion(directory.getEntry("world:decals:decal_2", Texture.class)));
@@ -604,6 +598,12 @@ public class ObjectController {
         assets.put("decal_8", new TextureRegion(directory.getEntry("world:decals:decal_8", Texture.class)));
         assets.put("decal_9", new TextureRegion(directory.getEntry("world:decals:decal_9", Texture.class)));
         assets.put("decal_10", new TextureRegion(directory.getEntry("world:decals:decal_10", Texture.class)));
+        assets.put("discoDecal_0", new TextureRegion(directory.getEntry("world:decals:discoDecal_0", Texture.class)));
+        assets.put("discoDecal_1", new TextureRegion(directory.getEntry("world:decals:discoDecal_1", Texture.class)));
+        assets.put("discoDecal_2", new TextureRegion(directory.getEntry("world:decals:discoDecal_2", Texture.class)));
+        assets.put("discoDecal_3", new TextureRegion(directory.getEntry("world:decals:discoDecal_3", Texture.class)));
+
+        //  Cracks
         assets.put("crack_0", new TextureRegion(directory.getEntry("world:cracks:crack_0", Texture.class)));
         assets.put("crack_1", new TextureRegion(directory.getEntry("world:cracks:crack_1", Texture.class)));
         assets.put("crack_2", new TextureRegion(directory.getEntry("world:cracks:crack_2", Texture.class)));
@@ -613,6 +613,8 @@ public class ObjectController {
         assets.put("crack_6", new TextureRegion(directory.getEntry("world:cracks:crack_6", Texture.class)));
         assets.put("crack_7", new TextureRegion(directory.getEntry("world:cracks:crack_7", Texture.class)));
         assets.put("crack_8", new TextureRegion(directory.getEntry("world:cracks:crack_8", Texture.class)));
+
+        //  Spots
         assets.put("spot_0", new TextureRegion(directory.getEntry("world:spots:spot_0", Texture.class)));
         assets.put("spot_1", new TextureRegion(directory.getEntry("world:spots:spot_1", Texture.class)));
         assets.put("spot_2", new TextureRegion(directory.getEntry("world:spots:spot_2", Texture.class)));
@@ -624,6 +626,7 @@ public class ObjectController {
         assets.put("texture_0", new TextureRegion(directory.getEntry("world:spots:texture_0", Texture.class)));
         assets.put("texture_1", new TextureRegion(directory.getEntry("world:spots:texture_1", Texture.class)));
 
+        //  Signs
         assets.put("pole_0", new TextureRegion(directory.getEntry("world:signs:pole_0", Texture.class)));
         assets.put("pole_1", new TextureRegion(directory.getEntry("world:signs:pole_1", Texture.class)));
         assets.put("pole_2", new TextureRegion(directory.getEntry("world:signs:pole_2", Texture.class)));
@@ -638,6 +641,60 @@ public class ObjectController {
         assets.put("dead_2", new TextureRegion(directory.getEntry("world:signs:dead_2", Texture.class)));
         assets.put("exit_0", new TextureRegion(directory.getEntry("world:signs:exit_0", Texture.class)));
 
+        //  Speakers
+        assets.put("speaker_0", new TextureRegion(directory.getEntry("world:speakers:speaker_0", Texture.class)));
+        assets.put("speaker_1", new TextureRegion(directory.getEntry("world:speakers:speaker_1", Texture.class)));
+        assets.put("speaker_2", new TextureRegion(directory.getEntry("world:speakers:speaker_2", Texture.class)));
+        assets.put("speaker_3", new TextureRegion(directory.getEntry("world:speakers:speaker_3", Texture.class)));
+        assets.put("speaker_4", new TextureRegion(directory.getEntry("world:speakers:speaker_4", Texture.class)));
+        assets.put("speaker_5", new TextureRegion(directory.getEntry("world:speakers:speaker_5", Texture.class)));
+        assets.put("speaker_6", new TextureRegion(directory.getEntry("world:speakers:speaker_6", Texture.class)));
+
+        //  Lights
+        assets.put("light", new TextureRegion(directory.getEntry("world:lights:light", Texture.class)));
+        assets.put("spotlight_0", new TextureRegion(directory.getEntry("world:lights:spotlight_0", Texture.class)));
+        assets.put("spotlight_1", new TextureRegion(directory.getEntry("world:lights:spotlight_1", Texture.class)));
+        assets.put("spotlight_2", new TextureRegion(directory.getEntry("world:lights:spotlight_2", Texture.class)));
+        assets.put("spotlight_3", new TextureRegion(directory.getEntry("world:lights:spotlight_3", Texture.class)));
+        assets.put("spotlight_4", new TextureRegion(directory.getEntry("world:lights:spotlight_4", Texture.class)));
+        assets.put("spotlight_5", new TextureRegion(directory.getEntry("world:lights:spotlight_5", Texture.class)));
+        assets.put("spotlight_6", new TextureRegion(directory.getEntry("world:lights:spotlight_6", Texture.class)));
+        assets.put("spotlight_7", new TextureRegion(directory.getEntry("world:lights:spotlight_7", Texture.class)));
+        assets.put("showlight_0", new TextureRegion(directory.getEntry("world:lights:showlight_0", Texture.class)));
+        assets.put("showlight_1", new TextureRegion(directory.getEntry("world:lights:showlight_1", Texture.class)));
+        assets.put("showlight_2", new TextureRegion(directory.getEntry("world:lights:showlight_2", Texture.class)));
+        assets.put("showlight_3", new TextureRegion(directory.getEntry("world:lights:showlight_3", Texture.class)));
+        assets.put("showlight_4", new TextureRegion(directory.getEntry("world:lights:showlight_4", Texture.class)));
+
+        //  Other
+        assets.put("tv", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
+        assets.put("cam_0", new TextureRegion(directory.getEntry("world:other:cam_0", Texture.class)));
+        assets.put("cam_1", new TextureRegion(directory.getEntry("world:other:cam_1", Texture.class)));
+        assets.put("cam_2", new TextureRegion(directory.getEntry("world:other:cam_2", Texture.class)));
+        assets.put("fan_0", new TextureRegion(directory.getEntry("world:other:fan_0", Texture.class)));
+        assets.put("fan_1", new TextureRegion(directory.getEntry("world:other:fan_1", Texture.class)));
+        assets.put("windows_0", new TextureRegion(directory.getEntry("world:other:windows_0", Texture.class)));
+        assets.put("windows_1", new TextureRegion(directory.getEntry("world:other:windows_1", Texture.class)));
+        assets.put("windows_2", new TextureRegion(directory.getEntry("world:other:windows_2", Texture.class)));
+        assets.put("ceilingCamera", new TextureRegion(directory.getEntry("world:other:ceilingCamera", Texture.class)));
+        assets.put("trash_0", new TextureRegion(directory.getEntry("world:other:trash_0", Texture.class)));
+        assets.put("trash_1", new TextureRegion(directory.getEntry("world:other:trash_1", Texture.class)));
+        assets.put("trash_2", new TextureRegion(directory.getEntry("world:other:trash_2", Texture.class)));
+        assets.put("trash_3", new TextureRegion(directory.getEntry("world:other:trash_3", Texture.class)));
+        assets.put("discoBall_0", new TextureRegion(directory.getEntry("world:other:discoBall_0", Texture.class)));
+        assets.put("discoBall_1", new TextureRegion(directory.getEntry("world:other:discoBall_1", Texture.class)));
+        assets.put("cup_0", new TextureRegion(directory.getEntry("world:other:cup_0", Texture.class)));
+        assets.put("cup_1", new TextureRegion(directory.getEntry("world:other:cup_1", Texture.class)));
+        assets.put("cup_2", new TextureRegion(directory.getEntry("world:other:cup_2", Texture.class)));
+        assets.put("boombox", new TextureRegion(directory.getEntry("world:other:boombox", Texture.class)));
+
+        //  Animated art
+        animatedArtAtlas.put("sparkle", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkle.atlas")));
+        animatedArtAnimation.put("sparkle", new Animation<TextureRegion>(1f, animatedArtAtlas.get("sparkle").findRegions("sparkle"), Animation.PlayMode.LOOP));
+        animatedArtAtlas.put("sparkleTwo", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkleTwo.atlas")));
+        animatedArtAnimation.put("sparkleTwo", new Animation<TextureRegion>(1f, animatedArtAtlas.get("sparkleTwo").findRegions("sparkleTwo"), Animation.PlayMode.LOOP));
+
+        //  Tilesets
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
         wallsTileset.put(1, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:1", Texture.class)));
         wallsTileset.put(2, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:2", Texture.class)));
@@ -672,6 +729,12 @@ public class ObjectController {
         rabbeatTileset.put(18, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:18", Texture.class)));
         rabbeatTileset.put(19, new TextureRegion(directory.getEntry("world:tilesets:rabbeatTileset:19", Texture.class)));
 
+        discoTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:discoTileset:0", Texture.class)));
+        discoTileset.put(1, new TextureRegion(directory.getEntry("world:tilesets:discoTileset:1", Texture.class)));
+        discoTileset.put(2, new TextureRegion(directory.getEntry("world:tilesets:discoTileset:2", Texture.class)));
+        discoTileset.put(3, new TextureRegion(directory.getEntry("world:tilesets:discoTileset:3", Texture.class)));
+        discoTileset.put(4, new TextureRegion(directory.getEntry("world:tilesets:discoTileset:4", Texture.class)));
+
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         checkpointTexture = new TextureRegion(directory.getEntry("world:checkpoints:checkpointInactive", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
@@ -705,8 +768,24 @@ public class ObjectController {
                 String layerName = layer.getString("name", "");
                 switch (layerName) {
                     case "background":
-                        // TODO: change background image depending on tiled info – may do this when we
-                        // have more levels
+                        String bgName = "";
+                        for (JsonValue b : layer.get("objects")) {
+                            if (b.get("properties")!=null) {
+                                for (JsonValue prop : b.get("properties")) {
+                                    if (prop.getString("name").equals("assetName")) {
+                                        bgName = prop.getString("value");
+                                    }
+                                }
+                            }
+                        }
+                        switch (bgName){
+                            case "labBg":
+                                levelBackground = labBgTexture;
+                                break;
+                            case "discoBg":
+                                levelBackground = discoBgTexture;
+                            break;
+                        }
                         break;
                     case "walls":
                         int[] data = layer.get("data").asIntArray();
@@ -945,16 +1024,21 @@ public class ObjectController {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
+
                             String assetName = "";
+                            boolean animated = false;
+
                             if (a.get("properties")!=null) {
                                 for (JsonValue prop : a.get("properties")) {
                                     if (prop.getString("name").equals("assetName")) {
                                         assetName = prop.getString("value");
+                                    } else if (prop.getString("name").equals("animated")) {
+                                        animated = true;
                                     }
                                 }
                             }
                             createGroundArt(scale, assetName, x, y, dim, levelHeight, tileSize, "foreground",
-                                    a);
+                                    a, animated);
                         }
                         break;
                     case "decals":
@@ -962,16 +1046,21 @@ public class ObjectController {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
+
                             String assetName = "";
+                            boolean animated = false;
+
                             if (a.get("properties")!=null) {
                                 for (JsonValue prop : a.get("properties")) {
                                     if (prop.getString("name").equals("assetName")) {
                                         assetName = prop.getString("value");
+                                    } else if (prop.getString("name").equals("animated")) {
+                                        animated = true;
                                     }
                                 }
                             }
                             createGroundArt(scale, assetName, x, y, dim, levelHeight, tileSize, "background",
-                                    a);
+                                    a, animated);
                         }
                         break;
                     case "backgroundArt":
@@ -979,16 +1068,21 @@ public class ObjectController {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
+
                             String assetName = "";
+                            boolean animated = false;
+
                             if (a.get("properties")!=null) {
                                 for (JsonValue prop : a.get("properties")) {
                                     if (prop.getString("name").equals("assetName")) {
                                         assetName = prop.getString("value");
+                                    } else if (prop.getString("name").equals("animated")) {
+                                        animated = true;
                                     }
                                 }
                             }
                             createGroundArt(scale, assetName, x, y, dim, levelHeight, tileSize, "background",
-                                    a);
+                                    a, animated);
                         }
                         break;
                 }
@@ -1083,6 +1177,8 @@ public class ObjectController {
             textureRegion = rabbeatTileset.get(tileId);
         } else if (tilesetSource.contains("walls")){
             textureRegion = wallsTileset.get(tileId);
+        } else if (tilesetSource.contains("discoTileset")){
+            textureRegion = discoTileset.get(tileId);
         }
 
         String wname = "wall";
@@ -1470,55 +1566,72 @@ public class ObjectController {
         GameController.getInstance().instantiate(bat);
     }
 
-    private void createGroundArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, String groundLevel, JsonValue artJson){
-        TextureRegion textureRegion = assets.get(type);
-        if (textureRegion == null) {
-            textureRegion = assets.get("light");
-        }
+    private void createGroundArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight,
+                                 int tileSize, String groundLevel, JsonValue artJson, boolean animated){
         //  Adjust coordinates + Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
-        //Create a Pulse Art Object if the class is Pulse marked in Tiled
-        float pulsePerBeat = 0;
-        float pulseScale = 0;
-        float shrinkRate = 0;
-        boolean isPulse = false;
-        if(artJson.getString("type") != null &&  artJson.getString("type").equals("Pulse")){
-            isPulse = true;
-            if(artJson.get("properties") != null){
-                for (JsonValue prop : artJson.get("properties")) {
-                    switch (prop.getString("name")){
-                        case "pulsePerBeat":
-                            pulsePerBeat = prop.getFloat("value");
-                            break;
-                        case "pulseScale":
-                            pulseScale = prop.getFloat("value");
-                        case "shrinkRate":
-                            shrinkRate = prop.getFloat("value");
+        //  Create Animated Art Object
+        //  Animated art objects will never also be pulse art objects
+        if (animated){
+            Animation<TextureRegion> animation = animatedArtAnimation.get(type);
+            //TODO: Add default null
+            AnimatedArtObject art = new AnimatedArtObject(animation, convertedCoord.x, convertedCoord.y);
+            art.setBodyType(BodyDef.BodyType.StaticBody);
+            art.setDrawScale(scale);
+            if (groundLevel.equals("foreground")) {
+                artObjects.add(art);
+            }
+            GameController.getInstance().instantiate(art);
+        } else {
 
+            //  Set texture region
+            TextureRegion textureRegion = assets.get(type);
+            if (textureRegion == null) {
+                textureRegion = assets.get("light");
+            }
+
+            //Create a Pulse Art Object if the class is Pulse marked in Tiled
+            float pulsePerBeat = 0;
+            float pulseScale = 0;
+            float shrinkRate = 0;
+            boolean isPulse = false;
+            if (artJson.getString("type") != null && artJson.getString("type").equals("Pulse")) {
+                isPulse = true;
+                if (artJson.get("properties") != null) {
+                    for (JsonValue prop : artJson.get("properties")) {
+                        switch (prop.getString("name")) {
+                            case "pulsePerBeat":
+                                pulsePerBeat = prop.getFloat("value");
+                                break;
+                            case "pulseScale":
+                                pulseScale = prop.getFloat("value");
+                            case "shrinkRate":
+                                shrinkRate = prop.getFloat("value");
+
+                        }
                     }
                 }
             }
-        }
-        if(isPulse){
-            PulsingArtObject art = new PulsingArtObject(textureRegion, convertedCoord.x, convertedCoord.y,
-                    pulsePerBeat, pulseScale, shrinkRate);
-            art.setBodyType(BodyDef.BodyType.StaticBody);
-            art.setDrawScale(scale);
-            if (groundLevel.equals("foreground")) {
-                artObjects.add(art);
+            if (isPulse) {
+                PulsingArtObject art = new PulsingArtObject(textureRegion, convertedCoord.x, convertedCoord.y,
+                        pulsePerBeat, pulseScale, shrinkRate);
+                art.setBodyType(BodyDef.BodyType.StaticBody);
+                art.setDrawScale(scale);
+                if (groundLevel.equals("foreground")) {
+                    artObjects.add(art);
+                }
+                GameController.getInstance().instantiate(art);
+            } else {
+                ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
+                art.setBodyType(BodyDef.BodyType.StaticBody);
+                art.setDrawScale(scale);
+                if (groundLevel.equals("foreground")) {
+                    artObjects.add(art);
+                }
+                GameController.getInstance().instantiate(art);
             }
-            GameController.getInstance().instantiate(art);
-        }
-        else{
-            ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
-            art.setBodyType(BodyDef.BodyType.StaticBody);
-            art.setDrawScale(scale);
-            if (groundLevel.equals("foreground")) {
-                artObjects.add(art);
-            }
-            GameController.getInstance().instantiate(art);
         }
     }
 
