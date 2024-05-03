@@ -953,26 +953,7 @@ public class GameController implements Screen, ContactListener {
 		if (complete && !failed) {
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
-
-			canvas.begin(true); // DO NOT SCALE
-			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
-			canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
-
-			switch (victoryScreenItemSelected) {
-				case 0: // Next Level
-					canvas.draw(objectController.indicatorStarTexture.getTexture(),
-							Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
-					break;
-				case 1: // Level Select
-					canvas.draw(objectController.indicatorStarTexture.getTexture(),
-							Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
-					break;
-			}
-
-			canvas.end();
-
+			drawVictoryScreen();
 			incrementLevelsUnlocked();
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
@@ -1211,10 +1192,9 @@ public class GameController implements Screen, ContactListener {
 
 	/** Increments the integer levelsUnlocked if a player completes a level and the next level is locked*/
 	public void incrementLevelsUnlocked() {
-		//TODO Implement more levels beyond 3
-		if(currentLevelInt == levelsUnlocked && levelsUnlocked != 3) {
+		if(currentLevelInt == levelsUnlocked && currentLevelInt < 12) {
 			levelsUnlocked++;
-			Preferences prefs = Gdx.app.getPreferences("Saved Levels Unlocked");
+			Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
 			prefs.putInteger("levelsUnlocked", levelsUnlocked);
 			prefs.flush();
 		}
@@ -1235,7 +1215,7 @@ public class GameController implements Screen, ContactListener {
 		this.victoryScreenItemSelected = victoryScreenItemSelected;
 	}
 
-	/** Returns teh integer victoryScreenItemSelected */
+	/** Returns the integer victoryScreenItemSelected */
 	public int getVictoryScreenItemSelected() {
 		return victoryScreenItemSelected;
 	}
@@ -1245,23 +1225,27 @@ public class GameController implements Screen, ContactListener {
 		return objectController;
 	}
 
-//	public void loadLevelsUnlockedJSON(String filePath) {
-//		JSONParser parser = new JSONParser();
-//
-//		try (FileReader reader = new FileReader(filePath)) {
-//			// Parse JSON file
-//			JSONObject jsonObject = (JSONObject) parser.parse(reader);
-//
-//			// Get the number of levels unlocked
-//			long numberOfLevelsUnlocked = (long) jsonObject.get("numberOfLevelsUnlocked");
-//
-//			// Set currentLevelInt to numberOfLevelsUnlocked
-//			currentLevelInt = (int) numberOfLevelsUnlocked;
-//
-//			// Update currentLevel
-//			currentLevel = "level" + currentLevelInt;
-//		} catch (IOException | ParseException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	/** Displays the victory screen after player completes a level */
+	public void drawVictoryScreen() {
+
+		canvas.begin(true);
+		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
+		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
+		canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
+		canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
+
+		switch (victoryScreenItemSelected) {
+			case 0: // Next Level
+				canvas.draw(objectController.indicatorStarTexture.getTexture(),
+						Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
+				break;
+			case 1: // Level Select
+				canvas.draw(objectController.indicatorStarTexture.getTexture(),
+						Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
+				break;
+		}
+
+		canvas.end();
+
+	}
 }

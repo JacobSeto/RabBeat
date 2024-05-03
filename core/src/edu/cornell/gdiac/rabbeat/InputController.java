@@ -404,7 +404,7 @@ public class InputController {
 		switchPressed = (secondary && switchPressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT));
 		//TO SET ALL LEVELS TO COMPLETE
 		if(Gdx.input.isKeyPressed(Keys.K)) {
-			Preferences prefs = Gdx.app.getPreferences("Saved Levels Unlocked");
+			Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
 			prefs.putInteger("levelsUnlocked", 12);
 			prefs.flush();
 		}
