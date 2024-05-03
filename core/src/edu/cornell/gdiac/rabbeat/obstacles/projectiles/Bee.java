@@ -36,18 +36,20 @@ public class Bee extends WheelGameObject implements ISyncedAnimated, IGenreObjec
 
     @Override
     public float getBeat() {
-        if (hiveGenre == Genre.SYNTH){
-            return 1;
-        }
-        else {
-            return 0.5f;
-        }
+        return 1;
     }
 
     @Override
     public void beatAction() {
         beatCount++;
-        setVY(getVY() * -1);
+        if (hiveGenre == Genre.SYNTH){
+            setVY(getVY() * -1);
+        }
+        else {
+            if (beatCount % 2 == 1){
+                setVY(getVY() * -1);
+            }
+        }
     }
 
     @Override
