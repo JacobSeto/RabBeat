@@ -18,18 +18,15 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
-import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
-import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
-import edu.cornell.gdiac.rabbeat.sync.AnimationSync;
-import edu.cornell.gdiac.rabbeat.sync.Beat;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bee;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
+import edu.cornell.gdiac.rabbeat.objects.enemies.Enemy;
+import edu.cornell.gdiac.rabbeat.objects.platforms.MovingPlatform;
+import edu.cornell.gdiac.rabbeat.objects.platforms.WeightedPlatform;
+import edu.cornell.gdiac.rabbeat.objects.projectiles.Bee;
+import edu.cornell.gdiac.rabbeat.objects.projectiles.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 
-import java.io.FileReader;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
@@ -39,7 +36,7 @@ import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.physics.box2d.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.util.*;
-import edu.cornell.gdiac.rabbeat.obstacles.*;
+import edu.cornell.gdiac.rabbeat.objects.*;
 
 /**
  * Base class for a world-specific controller.

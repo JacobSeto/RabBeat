@@ -1,15 +1,13 @@
-package edu.cornell.gdiac.rabbeat.obstacles.enemies;
+package edu.cornell.gdiac.rabbeat.objects.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Echo;
+import edu.cornell.gdiac.rabbeat.objects.projectiles.Echo;
 
 /**
  * Bat enemy avatar for the platform game.
