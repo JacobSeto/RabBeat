@@ -243,21 +243,18 @@
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
         "example": "levelsJson/rabbeatLevelTest.tmj",
-
-        "level1": "levelsJson/rabbeatLevelBat.tmj",
-        "level1": "levelsJson/level1Art.tmj",
-        "level2": "levelsJson/rabbeatLevelBat.tmj",
+        "level1": "levelsJson/benlevel2.tmj",
+        "level2": "levelsJson/level1Art.tmj",
         "level3": "levelsJson/benlevel2.tmj",
-        "level4": "levelsJson/rabbeatLevel4.tmj",
-        "level5": "levelsJson/rabbeatLevel.tmj",
-        "level6": "levelsJson/rabbeatLevel3.tmj",
-        "level7": "levelsJson/rabbeatLevel.tmj",
-        "level8": "levelsJson/rabbeatLevel.tmj",
-        "level9": "levelsJson/rabbeatLevel.tmj",
-        "level10": "levelsJson/rabbeatLevel.tmj",
-        "level11": "levelsJson/rabbeatLevel.tmj",
-        "level12": "levelsJson/rabbeatLevel.tmj"
-
+        "level4": "levelsJson/level1Art.tmj",
+        "level5": "levelsJson/benlevel2.tmj",
+        "level6": "levelsJson/level1Art.tmj",
+        "level7": "levelsJson/benlevel2.tmj",
+        "level8": "levelsJson/benlevel2.tmj",
+        "level9": "levelsJson/benlevel2.tmj",
+        "level10": "levelsJson/benlevel2.tmj",
+        "level11": "levelsJson/benlevel2.tmj",
+        "level12": "levelsJson/benlevel2.tmj"
     },
     "sounds": {
       "sfx:genreSwitch": "sfx/genre_switch_woosh.wav"
@@ -274,8 +271,5 @@
     },
   "atlas": {
     "atlas:echoAtlas": "atlas/echo.atlas"
-  },
-
-
-
+  }
 }
