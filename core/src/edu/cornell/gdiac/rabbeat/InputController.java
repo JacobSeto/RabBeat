@@ -388,7 +388,7 @@ public class InputController {
 
 		//TO SET ALL LEVELS TO COMPLETE
 		if(Gdx.input.isKeyPressed(Keys.K)) {
-			Preferences prefs = Gdx.app.getPreferences("Saved Levels Unlocked");
+			Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
 			prefs.putInteger("levelsUnlocked", 12);
 			prefs.flush();
 		}
