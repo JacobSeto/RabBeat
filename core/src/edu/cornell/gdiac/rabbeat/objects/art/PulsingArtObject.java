@@ -1,4 +1,4 @@
-package edu.cornell.gdiac.rabbeat.obstacles;
+package edu.cornell.gdiac.rabbeat.objects.art;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -6,6 +6,10 @@ import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 public class PulsingArtObject extends ArtObject implements ISynced {
+    /** This class is an artobject that pulses to the beat by increasing its scale to the beat
+     * and decreasing the scale over time*/
+
+
     /** The number of pulses per beat*/
     float pulsePerBeat;
 
@@ -23,6 +27,7 @@ public class PulsingArtObject extends ArtObject implements ISynced {
      * @param textureRegion The art object's texture region.
      * @param x             The art object's x coordinate in world coordinates.
      * @param y             The art object's y coordinate in world coordinates.
+     * @param pulseScale    The art object's pulse scale
      */
     public PulsingArtObject(TextureRegion textureRegion, float x,
             float y, float pulsePerBeat, float pulseScale, float shrinkRate) {

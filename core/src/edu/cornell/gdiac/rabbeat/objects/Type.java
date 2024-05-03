@@ -1,4 +1,4 @@
-package edu.cornell.gdiac.rabbeat.obstacles;
+package edu.cornell.gdiac.rabbeat.objects;
 
 public enum Type {
     /** Enum type that determines what happens when the player collides with the object*/

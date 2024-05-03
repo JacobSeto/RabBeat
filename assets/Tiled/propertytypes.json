@@ -27,7 +27,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 2,
+        "id": 5,
         "members": [
             {
                 "name": "beatList",
@@ -52,7 +52,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 3,
+        "id": 6,
         "members": [
             {
                 "name": "beatList",
@@ -82,7 +82,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 4,
+        "id": 8,
         "members": [
             {
                 "name": "num",
@@ -107,7 +107,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 5,
+        "id": 2,
         "members": [
             {
                 "name": "moveTime",
@@ -152,7 +152,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 6,
+        "id": 10,
         "members": [
             {
                 "name": "pulsePerBeat",
@@ -187,7 +187,47 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 7,
+        "id": 11,
+        "members": [
+            {
+                "name": "horizontalGrowRate",
+                "type": "float",
+                "value": 0.01
+            },
+            {
+                "name": "pulsePerBeat",
+                "type": "float",
+                "value": 1
+            },
+            {
+                "name": "shrinkRate",
+                "type": "float",
+                "value": 0.01
+            },
+            {
+                "name": "verticalGrowRate",
+                "type": "float",
+                "value": 0.01
+            }
+        ],
+        "name": "Stretch",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
+        "id": 3,
         "members": [
             {
                 "name": "genre",

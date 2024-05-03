@@ -1,10 +1,11 @@
-package edu.cornell.gdiac.rabbeat.obstacles;
+package edu.cornell.gdiac.rabbeat.objects.art;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
+import edu.cornell.gdiac.rabbeat.objects.GameObject;
 
 /**
  * ArtObject.java
@@ -12,7 +13,7 @@ import edu.cornell.gdiac.rabbeat.GameCanvas;
  * This class provides an art object which is not interact-able by the player.
  */
 
-public class ArtObject extends GameObject{
+public class ArtObject extends GameObject {
 
     /** The art object's texture */
     protected TextureRegion textureRegion;
