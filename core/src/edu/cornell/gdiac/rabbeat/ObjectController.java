@@ -213,6 +213,21 @@ public class ObjectController {
     /** The texture for locked button 12 */
     public Texture lockedButton12;
 
+    /** The texture for the options button */
+    public Texture optionsButton;
+
+    /** The texture for the main menu background */
+    public Texture mainMenuBackground;
+
+    /** The texture for the play button */
+    public Texture playButton;
+
+    /** The texture for the quit button */
+    public Texture quitButton;
+
+    /** The texture for the select */
+    public Texture select;
+
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
     /** The texture for tinting the pause screen overlay background */
@@ -381,13 +396,15 @@ public class ObjectController {
         levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         tileSize = levelJson.getInt("tileheight");
 
-//        int value = (directory.getEntry("numberOfLevelsUnlocked", JsonValue.class).getInt("numberOfLevelsUnlocked"));
-//        GameController.getInstance().setLevelsUnlocked(value);
-        //numberOfLevelsUnlocked = directory.getEntry("numberOfLevelsUnlocked", int.class);
-
         nextLevelText = new TextureRegion(directory.getEntry("ui:victory:nextLevelText",Texture.class));
         levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));
         victoryLogo = new TextureRegion(directory.getEntry("ui:victory:victoryLogo",Texture.class));
+
+        optionsButton = directory.getEntry("ui:maineMenuScreen:optionsButton",Texture.class);
+        playButton = directory.getEntry("ui:maineMenuScreen:playButton",Texture.class);
+        quitButton = directory.getEntry("ui:maineMenuScreen:quitButton",Texture.class);
+        select = directory.getEntry("ui:maineMenuScreen:select",Texture.class);
+        mainMenuBackground = directory.getEntry("ui:maineMenuScreen:playButton",Texture.class);
 
         unlockedButton1 = directory.getEntry("ui:unlockedLevels:unlockedLevel1", Texture.class);
         unlockedButton2 = directory.getEntry("ui:unlockedLevels:unlockedLevel2", Texture.class);

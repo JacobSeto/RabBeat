@@ -123,7 +123,7 @@
     "level1": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level2": {
       "synth": "music:synth1",

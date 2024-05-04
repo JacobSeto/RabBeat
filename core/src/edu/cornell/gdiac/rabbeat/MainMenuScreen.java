@@ -27,7 +27,12 @@ public class MainMenuScreen extends ScreenAdapter {
     private Game game;
     private Stage stage;
     private Skin skin;
-    private Texture buttonTexture;
+
+    /** The texture for the select */
+    private Texture select;
+
+    /** The texture for the optionsButton */
+    private Texture optionsButtonTexture;
 
     /** Reference to the numberOfLevels variable in GameController */
     private int numberOfLevels = GameController.getInstance().getNumberOfLevels();
@@ -53,24 +58,27 @@ public class MainMenuScreen extends ScreenAdapter {
         bg.setPosition(0, 0);
         stage.addActor(bg);
 
-        buttonTexture = GameController.getInstance().objectController.getUnlockedButtonTexture(1);
-
-        TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+        //options button
+        optionsButtonTexture = GameController.getInstance().objectController.optionsButton;
+        TextureRegionDrawable optionsButtonDrawable = new TextureRegionDrawable(new TextureRegion(optionsButtonTexture));
         BitmapFont font = new BitmapFont();
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = buttonDrawable;
+        textButtonStyle.up = optionsButtonDrawable;
         textButtonStyle.font = font;
-        TextButton levelButton = new TextButton("", textButtonStyle);
+        TextButton optionsButton = new TextButton("", textButtonStyle);
 
-        levelButton.setPosition(200, 200);
+        optionsButton.setPosition(200, 200);
 
-        levelButton.addListener(new ClickListener() {
+        optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                listener.exitScreen(MainMenuScreen.this, GameController.getInstance().GO_TO_LEVEL_SELECT);
+                listener.exitScreen(MainMenuScreen.this, GameController.GO_TO_LEVEL_SELECT);
             }
         });
-        stage.addActor(levelButton);
+        stage.addActor(optionsButton);
+
+
+
     }
 
     public void render(float delta) {
