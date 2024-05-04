@@ -867,6 +867,7 @@ public class ObjectController {
                         for (JsonValue enemy : layer.get("objects")) {
                             String enemyType = enemy.getString("type");
                             String beatListString = "";
+                            int color = 0;
                             boolean faceRight = false;
                             for (JsonValue prop : enemy.get("properties")) {
                                 if (prop.getString("name").equals("beatList")) {
@@ -875,19 +876,22 @@ public class ObjectController {
                                 if (prop.getString("name").equals("isRight")){
                                     faceRight = prop.getBoolean("value");
                                 }
+                                if (prop.getString("name").equals("color")){
+                                    color = prop.getInt("value");
+                                }
                             }
                             switch (enemyType) {
                                 case "Bear":
                                     float x = enemy.getFloat("x");
                                     float y = enemy.getFloat("y");
                                     Vector2 dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
-                                    createEnemyBear(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString));
+                                    createEnemyBear(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString), color);
                                     break;
                                 case "Beehive":
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
-                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString), faceRight);
+                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString), faceRight, color);
                                     break;
                                 case "Hedgehog":
                                     x = enemy.getFloat("x");
@@ -906,7 +910,7 @@ public class ObjectController {
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
                                     createEnemyBat(scale, x, y, dim, levelHeight, tileSize,
-                                            convertTiledbeatList(beatListString));
+                                            convertTiledbeatList(beatListString), color);
                                     break;
                             }
                         }
@@ -1363,7 +1367,7 @@ public class ObjectController {
      * @param tileSize    Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyBear(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList){
+    private void createEnemyBear(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, int color){
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
@@ -1390,7 +1394,7 @@ public class ObjectController {
      * @param tileSize    Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight){
+    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight, int color){
         //  Convert coordinates to world coordinate
         //TODO: change to beehive texture when we get art for this
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -1446,7 +1450,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createEnemyBat(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList){
+    private void createEnemyBat(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, int color){
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
