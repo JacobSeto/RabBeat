@@ -1,18 +1,17 @@
-package edu.cornell.gdiac.rabbeat.obstacles.enemies;
+package edu.cornell.gdiac.rabbeat.objects.enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.obstacles.CapsuleGameObject;
+import edu.cornell.gdiac.rabbeat.objects.CapsuleGameObject;
 import com.badlogic.gdx.graphics.*;
 
 import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
-import edu.cornell.gdiac.rabbeat.obstacles.Type;
+import edu.cornell.gdiac.rabbeat.objects.IGenreObject;
+import edu.cornell.gdiac.rabbeat.objects.Type;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 /**

@@ -1,11 +1,11 @@
-package edu.cornell.gdiac.rabbeat.obstacles.platforms;
+package edu.cornell.gdiac.rabbeat.objects.platforms;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
-import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
+import edu.cornell.gdiac.rabbeat.objects.BoxGameObject;
+import edu.cornell.gdiac.rabbeat.objects.IGenreObject;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 /**

@@ -36,6 +36,12 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
     public LevelSelectorScreen(Game game) {
         this.game = game;
+        Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
+
+        //COMMENT OUT THE FOLLOWING LINE IF YOU ONLY WANT 1ST LEVEL TO BE UNLOCKED
+//        prefs.putInteger("levelsUnlocked", 12);
+
+        GameController.getInstance().setLevelsUnlocked(prefs.getInteger("levelsUnlocked", 1));
     }
 
     /** Displays the button UI for each level and adds a clickListener that detects whether

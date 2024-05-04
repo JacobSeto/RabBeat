@@ -1,11 +1,10 @@
-package edu.cornell.gdiac.rabbeat.obstacles.projectiles;
+package edu.cornell.gdiac.rabbeat.objects.projectiles;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
-import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
-import edu.cornell.gdiac.rabbeat.obstacles.Type;
-import edu.cornell.gdiac.rabbeat.obstacles.WheelGameObject;
+import edu.cornell.gdiac.rabbeat.objects.BoxGameObject;
+import edu.cornell.gdiac.rabbeat.objects.Type;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 import edu.cornell.gdiac.rabbeat.Genre;
@@ -22,14 +21,11 @@ public class Bullet extends BoxGameObject implements ISynced, ISyncedAnimated {
 
     public Bullet(float x, float y, float width, float height, float synthVX, float jazzVX, boolean fr, Genre genre) {
         super(x, y, width, height);
-        System.out.println(width);
-        System.out.println(height);
         setVX(synthVX);
         dir = (fr ? 1 : -1);
         bulletGenre = genre;
         setType(Type.LETHAL);
         setSensor(true);
-        System.out.println(dir);
     }
 
     @Override

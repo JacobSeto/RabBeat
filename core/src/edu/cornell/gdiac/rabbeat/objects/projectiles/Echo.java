@@ -1,11 +1,11 @@
-package edu.cornell.gdiac.rabbeat.obstacles.projectiles;
+package edu.cornell.gdiac.rabbeat.objects.projectiles;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
-import edu.cornell.gdiac.rabbeat.obstacles.BoxGameObject;
-import edu.cornell.gdiac.rabbeat.obstacles.Type;
+import edu.cornell.gdiac.rabbeat.objects.BoxGameObject;
+import edu.cornell.gdiac.rabbeat.objects.Type;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 

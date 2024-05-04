@@ -114,8 +114,11 @@ public class InputController {
 	/** Whether genre has been changed in the instance that the space key was pressed */
 	private boolean genreSwitched = false;
 
-	/** Whether space bar has been pressed to switch genre */
+	/** Whether shift key has been pressed to switch genre */
 	private boolean switchGenre;
+
+	/** Whether the space key has been pressed during calibration*/
+	private boolean calibrate;
 
 	/** Whether the delay buttons have been pressed*/
 	private float delay;
@@ -383,6 +386,13 @@ public class InputController {
 		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
 
+		//TO SET ALL LEVELS TO COMPLETE
+		if(Gdx.input.isKeyPressed(Keys.K)) {
+			Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
+			prefs.putInteger("levelsUnlocked", 12);
+			prefs.flush();
+		}
+
 
 		// Directional controls
 		if (!paused) {
@@ -444,26 +454,34 @@ public class InputController {
 				gc.setCurrentlLevel(gc.getCurrentLevel() + 1);
 			}
 
-			if (Gdx.input.isKeyPressed(Keys.C)) {
-				GameController.getInstance().setComplete(true);
-				GameController.getInstance().setPlayerCompletedLevel(false);
-			}
-
-
 			// Mouse results
 			tertiaryPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
 			crosshair.set(Gdx.input.getX(), Gdx.input.getY());
 			crosshair.scl(1 / scale.x, -1 / scale.y);
 			crosshair.y += bounds.height;
 			clampPosition(bounds);
-		}
-		//TODO: This is temporary code to add artificial delay to the syncing
-		delay = 0;
-		if (Gdx.input.isKeyPressed(Keys.EQUALS)){
-			delay = .05f;
-		}
-		else if(Gdx.input.isKeyPressed(Keys.MINUS)){
-			delay = -.05f;
+
+			//TODO: Initiate calibration with a button press
+			if(Gdx.input.isKeyJustPressed(Keys.V)){
+				GameController.getInstance().inCalibration = true;
+			}
+
+			if( Gdx.input.isKeyJustPressed(Keys.SPACE)){
+				calibrate = true;
+			}
+			else{
+				calibrate = false;
+			}
+
+			//TODO: This is temporary code to add artificial audio delay to the syncing.
+			// Change to a button in pause
+			delay = 0;
+			if (Gdx.input.isKeyPressed(Keys.EQUALS)){
+				delay = .05f;
+			}
+			else if(Gdx.input.isKeyPressed(Keys.MINUS)){
+				delay = -.05f;
+			}
 		}
 
 		if(GameController.getInstance().getPlayerCompletedLevel()) {
@@ -537,6 +555,13 @@ public class InputController {
 	 * */
 	public boolean getSwitchGenre(){
 		return switchGenre;
+	}
+
+	/**
+	 * Returns the boolean value of calibrate
+	 */
+	public boolean getCalibrate(){
+		return calibrate;
 	}
 
 	/** returns the delay value*/

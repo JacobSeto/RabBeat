@@ -9,16 +9,19 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.JsonValue;
 
 import edu.cornell.gdiac.assets.AssetDirectory;
-import edu.cornell.gdiac.rabbeat.obstacles.*;
+import edu.cornell.gdiac.rabbeat.objects.*;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.BatEnemy;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.BearEnemy;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.BeeHive;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.HedgehogEnemy;
-import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
-import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
+import edu.cornell.gdiac.rabbeat.objects.art.ArtObject;
+import edu.cornell.gdiac.rabbeat.objects.art.PulsingArtObject;
+import edu.cornell.gdiac.rabbeat.objects.art.StretchingArtObject;
+import edu.cornell.gdiac.rabbeat.objects.enemies.BatEnemy;
+import edu.cornell.gdiac.rabbeat.objects.enemies.BearEnemy;
+import edu.cornell.gdiac.rabbeat.objects.enemies.BeeHive;
+import edu.cornell.gdiac.rabbeat.objects.enemies.HedgehogEnemy;
+import edu.cornell.gdiac.rabbeat.objects.platforms.MovingPlatform;
+import edu.cornell.gdiac.rabbeat.objects.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
 import edu.cornell.gdiac.util.PooledList;
 
@@ -359,7 +362,7 @@ public class ObjectController {
 
     public int tileSize;
 
-    public ArrayList<GameObject> foreground = new ArrayList<>();
+    public ArrayList<ArtObject> artObjects = new ArrayList<>();
     /** the default beat list is on the downbeats within 2 measures (beat 1 and beat 5)*/
     public int[] defaultBeatList = { 1, 5 };
 
@@ -1246,7 +1249,6 @@ public class ObjectController {
      *                    coordinates in synth mode
      * @param jazzCoord   A float array which holds the weighted platform's x and y
      *                    coordinates in jazz mode
-     * @param intervals      The speed of the weighted platform
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
@@ -1478,16 +1480,13 @@ public class ObjectController {
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedCoord.set(convertedCoord.x, convertedCoord.y);
 
-        //Create a Pulse Art Object if the class is Pulse marked in Tiled
-        float pulsePerBeat = 0;
-        float pulseScale = 0;
-        float shrinkRate = 0;
-        boolean isPulse = false;
-        if(artJson.getString("type") != null &&  artJson.getString("type").equals("Pulse")){
-            isPulse = true;
-            if(artJson.get("properties") != null){
+        switch (artJson.getString("type")){
+            case "Pulse": {
+                float pulsePerBeat = 0;
+                float pulseScale = 0;
+                float shrinkRate = 0;
                 for (JsonValue prop : artJson.get("properties")) {
-                    switch (prop.getString("name")){
+                    switch (prop.getString("name")) {
                         case "pulsePerBeat":
                             pulsePerBeat = prop.getFloat("value");
                             break;
@@ -1498,26 +1497,59 @@ public class ObjectController {
 
                     }
                 }
+                PulsingArtObject pulseArt = new PulsingArtObject(textureRegion, convertedCoord.x,
+                        convertedCoord.y,
+                        pulsePerBeat, pulseScale, shrinkRate);
+                pulseArt.setBodyType(BodyDef.BodyType.StaticBody);
+                pulseArt.setDrawScale(scale);
+                if (groundLevel.equals("foreground")) {
+                    artObjects.add(pulseArt);
+                }
+                GameController.getInstance().instantiate(pulseArt);
+
+                break;
             }
-        }
-        if(isPulse){
-            PulsingArtObject art = new PulsingArtObject(textureRegion, convertedCoord.x, convertedCoord.y,
-                    pulsePerBeat, pulseScale, shrinkRate);
-            art.setBodyType(BodyDef.BodyType.StaticBody);
-            art.setDrawScale(scale);
-            if (groundLevel.equals("foreground")) {
-                foreground.add(art);
+            case "Stretch": {
+                System.out.println("Stretch");
+                float pulsePerBeat = 0;
+                float horizontalGrowRate = 0;
+                float verticalGrowRate = 0;
+                for (JsonValue prop : artJson.get("properties")) {
+                    switch (prop.getString("name")) {
+                        case "pulsePerBeat": {
+                            pulsePerBeat = prop.getFloat("value");
+                            break;
+                        }
+                        case "verticalGrowRate": {
+                            verticalGrowRate = prop.getFloat("value");
+                            break;
+                        }
+                        case "horizontalGrowRate": {
+                            horizontalGrowRate = prop.getFloat("value");
+                            break;
+                        }
+                    }
+                }
+                StretchingArtObject stretchArt = new StretchingArtObject(textureRegion,
+                        convertedCoord.x, convertedCoord.y,
+                        pulsePerBeat, horizontalGrowRate, verticalGrowRate);
+                stretchArt.setBodyType(BodyDef.BodyType.StaticBody);
+                stretchArt.setDrawScale(scale);
+                if (groundLevel.equals("foreground")) {
+                    artObjects.add(stretchArt);
+                }
+                GameController.getInstance().instantiate(stretchArt);
+                break;
             }
-            GameController.getInstance().instantiate(art);
-        }
-        else{
-            ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
-            art.setBodyType(BodyDef.BodyType.StaticBody);
-            art.setDrawScale(scale);
-            if (groundLevel.equals("foreground")) {
-                foreground.add(art);
+            default: {
+                ArtObject art = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
+                art.setBodyType(BodyDef.BodyType.StaticBody);
+                art.setDrawScale(scale);
+                if (groundLevel.equals("foreground")) {
+                    artObjects.add(art);
+                }
+                GameController.getInstance().instantiate(art);
             }
-            GameController.getInstance().instantiate(art);
         }
     }
 
