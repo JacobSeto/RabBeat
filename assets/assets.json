@@ -117,6 +117,12 @@
       "ui:victory:star": "ui/victory/star.png",
       "ui:victory:victoryLogo": "ui/victory/victoryLogo.png",
 
+      "ui:maineMenuScreen:optionsButton": "ui/mainMenuScreen/optionsButton.png",
+      "ui:maineMenuScreen:playButton": "ui/mainMenuScreen/playButton.png",
+      "ui:maineMenuScreen:quitButton": "ui/mainMenuScreen/quitButton.png",
+      "ui:maineMenuScreen:select": "ui/mainMenuScreen/select.png",
+      "ui:maineMenuScreen:mainMenuBackground": "ui/mainMenuScreen/mainMenuBackground.png",
+
       "player:synth":  "player/synth.png",
       "player:synth-jazz":   "player/synth-jazz.png",
 
