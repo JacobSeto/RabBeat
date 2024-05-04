@@ -23,21 +23,18 @@ import edu.cornell.gdiac.rabbeat.LoadingMode;
 import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.util.ScreenListener;
 
+/** Class that represents the main menu screen for the game
+ * Displays a play button, options button, and quit button
+ */
 public class MainMenuScreen extends ScreenAdapter {
     private Game game;
     private Stage stage;
-    private Skin skin;
-
-    /** The texture for the select */
-    private Texture select;
-
-    /** The texture for the optionsButton */
-    private Texture optionsButtonTexture;
-
-    /** Reference to the numberOfLevels variable in GameController */
-    private int numberOfLevels = GameController.getInstance().getNumberOfLevels();
 
     private ScreenListener listener;
+
+    /** The texture for the select */
+    private Texture selectTexture;
+
 
     public MainMenuScreen(Game game) {
         this.game = game;
@@ -52,22 +49,53 @@ public class MainMenuScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
 
         // Background
-        Texture background = new Texture(Gdx.files.internal("backgrounds/test-bg.png"));
+        Texture background = GameController.getInstance().objectController.mainMenuBackground;
         TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(background));
         Image bg = new Image(backgroundDrawable);
         bg.setPosition(0, 0);
         stage.addActor(bg);
 
-        //options button
-        optionsButtonTexture = GameController.getInstance().objectController.optionsButton;
-        TextureRegionDrawable optionsButtonDrawable = new TextureRegionDrawable(new TextureRegion(optionsButtonTexture));
-        BitmapFont font = new BitmapFont();
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = optionsButtonDrawable;
-        textButtonStyle.font = font;
-        TextButton optionsButton = new TextButton("", textButtonStyle);
+        Texture selectTexture = GameController.getInstance().objectController.select;
+        TextureRegionDrawable selectDrawable = new TextureRegionDrawable(new TextureRegion(selectTexture));
+        Image playSelectImage = new Image(selectDrawable);
+        Image optionsSelectImage = new Image(selectDrawable);
+        Image quitSelectImage = new Image(selectDrawable);
 
-        optionsButton.setPosition(200, 200);
+
+
+        // play button
+        /** The texture for the play button */
+        Texture playButtonTexture = GameController.getInstance().objectController.playButton;
+        BitmapFont font = new BitmapFont();
+        TextButton.TextButtonStyle playTextButtonStyle = new TextButton.TextButtonStyle();
+        playTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(playButtonTexture));
+        playTextButtonStyle.font = font;
+        TextButton playButton = new TextButton("", playTextButtonStyle);
+
+        playButton.setPosition((float) background.getWidth()/2 - playButton.getWidth()/2, 375);
+
+        playButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                listener.exitScreen(MainMenuScreen.this, GameController.GO_TO_LEVEL_SELECT);
+            }
+        });
+
+        playSelectImage.setPosition((float) background.getWidth()/2 - playSelectImage.getWidth()/2, playButton.getY() - 10);
+        stage.addActor(playSelectImage);
+        stage.addActor(playButton);
+
+
+        // options button
+        /** The texture for the options button */
+        Texture optionsButtonTexture = GameController.getInstance().objectController.optionsButton;
+        TextButton.TextButtonStyle optionsTextButtonStyle = new TextButton.TextButtonStyle();
+        optionsTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(
+                optionsButtonTexture));
+        optionsTextButtonStyle.font = font;
+        TextButton optionsButton = new TextButton("", optionsTextButtonStyle);
+
+        optionsButton.setPosition((float) background.getWidth()/2 - optionsButton.getWidth()/2, 300);
 
         optionsButton.addListener(new ClickListener() {
             @Override
@@ -75,8 +103,31 @@ public class MainMenuScreen extends ScreenAdapter {
                 listener.exitScreen(MainMenuScreen.this, GameController.GO_TO_LEVEL_SELECT);
             }
         });
+
+        optionsSelectImage.setPosition((float) background.getWidth()/2 - optionsSelectImage.getWidth()/2, optionsButton.getY() - 10);
+        stage.addActor(optionsSelectImage);
         stage.addActor(optionsButton);
 
+        // quit button
+        /** The texture for the quit button */
+        Texture quitButtonTexture = GameController.getInstance().objectController.quitButton;
+        TextButton.TextButtonStyle quitTextButtonStyle = new TextButton.TextButtonStyle();
+        quitTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(quitButtonTexture));
+        quitTextButtonStyle.font = font;
+        TextButton quitButton = new TextButton("", quitTextButtonStyle);
+
+        quitButton.setPosition((float) background.getWidth()/2 - quitButton.getWidth()/2, 175);
+
+        quitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                listener.exitScreen(MainMenuScreen.this, GameController.GO_TO_LEVEL_SELECT);
+            }
+        });
+
+        quitSelectImage.setPosition((float) background.getWidth()/2 - quitSelectImage.getWidth()/2, quitButton.getY() + 35);
+        stage.addActor(quitSelectImage);
+        stage.addActor(quitButton);
 
 
     }
