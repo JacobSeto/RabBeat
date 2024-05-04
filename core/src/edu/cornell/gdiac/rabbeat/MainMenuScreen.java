@@ -2,6 +2,7 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
@@ -36,7 +37,7 @@ public class MainMenuScreen extends ScreenAdapter {
     /** The texture for the select */
     private Texture selectTexture;
 
-    /** String that represents what button the select is hovering over */
+    /** String that represents what button the select is behind */
     private String buttonSelected = "play";
 
     /** Images for the buttons */
@@ -108,7 +109,7 @@ public class MainMenuScreen extends ScreenAdapter {
         optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                listener.exitScreen(MainMenuScreen.this, GameController.GO_TO_LEVEL_SELECT);
+                //TODO: GO TO OPTIONS SCREEN
             }
         });
 
@@ -129,7 +130,7 @@ public class MainMenuScreen extends ScreenAdapter {
         quitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                listener.exitScreen(MainMenuScreen.this, GameController.GO_TO_LEVEL_SELECT);
+                listener.exitScreen(MainMenuScreen.this, GameController.EXIT_QUIT);
             }
         });
 
@@ -137,8 +138,6 @@ public class MainMenuScreen extends ScreenAdapter {
 
         stage.addActor(quitSelectImage);
         stage.addActor(quitButton);
-
-
     }
 
     public void render(float delta) {
@@ -170,7 +169,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
     /** reads the data from the input keys and changes the buttonSelected String accordingly */
     public void handleInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             switch (buttonSelected) {
                 case "play":
                     buttonSelected = "quit";
@@ -182,7 +181,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     buttonSelected = "options";
                     break;
             }
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)|| Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             switch (buttonSelected) {
                 case "quit":
                     buttonSelected = "play";
@@ -192,10 +191,22 @@ public class MainMenuScreen extends ScreenAdapter {
                     break;
                 case "options":
                     buttonSelected = "quit";
+                    break;
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+            switch (buttonSelected) {
+                case "play":
+                    listener.exitScreen(this, GameController.GO_TO_LEVEL_SELECT);
+                    break;
+                case "options":
+                    //TODO: add an options screen!
+
+                    break;
+                case "quit":
+                    listener.exitScreen(this, GameController.EXIT_QUIT);
                     break;
             }
         }
-
     }
 
 }
