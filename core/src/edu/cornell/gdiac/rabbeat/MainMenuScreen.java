@@ -22,6 +22,7 @@ import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.LoadingMode;
 import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.util.ScreenListener;
+import com.badlogic.gdx.Input;
 
 /** Class that represents the main menu screen for the game
  * Displays a play button, options button, and quit button
@@ -35,6 +36,13 @@ public class MainMenuScreen extends ScreenAdapter {
     /** The texture for the select */
     private Texture selectTexture;
 
+    /** String that represents what button the select is hovering over */
+    private String buttonSelected = "play";
+
+    /** Images for the buttons */
+    private Image playSelectImage;
+    private Image optionsSelectImage;
+    private Image quitSelectImage;
 
     public MainMenuScreen(Game game) {
         this.game = game;
@@ -57,10 +65,9 @@ public class MainMenuScreen extends ScreenAdapter {
 
         Texture selectTexture = GameController.getInstance().objectController.select;
         TextureRegionDrawable selectDrawable = new TextureRegionDrawable(new TextureRegion(selectTexture));
-        Image playSelectImage = new Image(selectDrawable);
-        Image optionsSelectImage = new Image(selectDrawable);
-        Image quitSelectImage = new Image(selectDrawable);
-
+        playSelectImage = new Image(selectDrawable);
+        optionsSelectImage = new Image(selectDrawable);
+        quitSelectImage = new Image(selectDrawable);
 
 
         // play button
@@ -82,6 +89,7 @@ public class MainMenuScreen extends ScreenAdapter {
         });
 
         playSelectImage.setPosition((float) background.getWidth()/2 - playSelectImage.getWidth()/2, playButton.getY() - 10);
+
         stage.addActor(playSelectImage);
         stage.addActor(playButton);
 
@@ -126,6 +134,7 @@ public class MainMenuScreen extends ScreenAdapter {
         });
 
         quitSelectImage.setPosition((float) background.getWidth()/2 - quitSelectImage.getWidth()/2, quitButton.getY() + 35);
+
         stage.addActor(quitSelectImage);
         stage.addActor(quitButton);
 
@@ -136,6 +145,12 @@ public class MainMenuScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
+
+        playSelectImage.setVisible(buttonSelected.equals("play"));
+        optionsSelectImage.setVisible(buttonSelected.equals("options"));
+        quitSelectImage.setVisible(buttonSelected.equals("quit"));
+
+        handleInput();
     }
 
     @Override
@@ -150,6 +165,37 @@ public class MainMenuScreen extends ScreenAdapter {
 
     public void setListener (ScreenListener listener) {
         this.listener = listener;
+    }
+
+
+    /** reads the data from the input keys and changes the buttonSelected String accordingly */
+    public void handleInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            switch (buttonSelected) {
+                case "play":
+                    buttonSelected = "quit";
+                    break;
+                case "options":
+                    buttonSelected = "play";
+                    break;
+                case "quit":
+                    buttonSelected = "options";
+                    break;
+            }
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            switch (buttonSelected) {
+                case "quit":
+                    buttonSelected = "play";
+                    break;
+                case "play":
+                    buttonSelected = "options";
+                    break;
+                case "options":
+                    buttonSelected = "quit";
+                    break;
+            }
+        }
+
     }
 
 }
