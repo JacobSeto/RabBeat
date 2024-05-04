@@ -100,6 +100,14 @@ public class InputController {
 
 	private boolean levelSelectPrevious;
 
+	private boolean calibrationPressed;
+
+	private boolean calibrationPrevious;
+
+	private boolean switchPressed;
+
+	private boolean switchPrevious;
+
 	/** How much did we move horizontally? */
 	private float horizontal;
 	/** How much did we move vertically? */
@@ -230,6 +238,10 @@ public class InputController {
 
 	public boolean didPressLevelSelect() {return levelSelectPressed && !levelSelectPrevious;}
 
+	public boolean didPressCalibration() {return calibrationPressed && !calibrationPrevious;}
+
+	public boolean didPressGenreSwitch() {return switchPressed && !switchPrevious;}
+
 	/**
 	 * Returns true if the player wants to go to the previous level.
 	 *
@@ -313,6 +325,9 @@ public class InputController {
 		pausePrevious = pausePressed;
 		enterPrevious = enterPressed;
 		levelSelectPrevious = levelSelectPressed;
+		switchPrevious = switchPressed;
+		calibrationPressed = calibrationPrevious;
+
 		if (paused) {
 			pauseUpPrevious = pauseUpPressed;
 			pauseDownPrevious = pauseDownPressed;
@@ -382,10 +397,11 @@ public class InputController {
 		debugPressed = (secondary && debugPressed) || (Gdx.input.isKeyPressed(Input.Keys.B));
 		primePressed = (secondary && primePressed) || (Gdx.input.isKeyPressed(Input.Keys.UP)
 				|| Gdx.input.isKeyPressed(Input.Keys.W));
-		exitPressed = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
-		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
+		exitPressed = false;
+		//pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
-
+		calibrationPressed = (secondary && calibrationPressed) || (Gdx.input.isKeyPressed(Input.Keys.V));
+		switchPressed = (secondary && switchPressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT));
 		//TO SET ALL LEVELS TO COMPLETE
 		if(Gdx.input.isKeyPressed(Keys.K)) {
 			Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
