@@ -174,14 +174,8 @@
       "world:wires:wires1" : "world/wires/wires1.png",
       "world:wires:wires2" : "world/wires/wires2.png",
 
-      "world:graffiti:emoji_0" : "world/graffiti/emoji_0.png",
-      "world:graffiti:emoji_1" : "world/graffiti/emoji_1.png",
-      "world:graffiti:emoji_2" : "world/graffiti/emoji_2.png",
-      "world:graffiti:graffiti_0" : "world/graffiti/graffiti_0.png",
-      "world:graffiti:graffiti_1" : "world/graffiti/graffiti_1.png",
-      "world:graffiti:graffiti_2" : "world/graffiti/graffiti_2.png",
-      "world:graffiti:graffiti_3" : "world/graffiti/graffiti_3.png",
-      "world:graffiti:caution_0" : "world/graffiti/caution_0.png",
+      "world:grafiti:grafiti_0" : "world/grafiti/grafiti_0.png",
+      "world:grafiti:caution_0" : "world/grafiti/caution_0.png",
 
       "world:decals:decal_0" : "world/decals/decal_0.png",
       "world:decals:decal_1" : "world/decals/decal_1.png",
@@ -254,8 +248,21 @@
       "world:lights:showlight_0": "world/lights/showlight_0.png",
       "world:lights:showlight_1": "world/lights/showlight_1.png",
       "world:lights:showlight_2": "world/lights/showlight_2.png",
-          "world:lights:showlight_3": "world/lights/showlight_3.png",
-          "world:lights:showlight_4": "world/lights/showlight_4.png",
+      "world:lights:showlight_3": "world/lights/showlight_3.png",
+      "world:lights:showlight_4": "world/lights/showlight_4.png",
+
+      "world:neonLights:neon_0": "world/neonLights/neon_0.png",
+      "world:neonLights:neon_1": "world/neonLights/neon_1.png",
+      "world:neonLights:neon_2": "world/neonLights/neon_2.png",
+      "world:neonLights:neon_3": "world/neonLights/neon_3.png",
+      "world:neonLights:neon_4": "world/neonLights/neon_4.png",
+      "world:neonLights:neon_5": "world/neonLights/neon_5.png",
+      "world:neonLights:neon_6": "world/neonLights/neon_6.png",
+      "world:neonLights:neon_7": "world/neonLights/neon_7.png",
+      "world:neonLights:neon_8": "world/neonLights/neon_8.png",
+      "world:neonLights:neon_9": "world/neonLights/neon_9.png",
+      "world:neonLights:neon_10": "world/neonLights/neon_10.png",
+      "world:neonLights:neon_11": "world/neonLights/neon_11.png",
 
       "world:other:tv": "world/other/tv.png",
       "world:other:ceilingCamera": "world/other/ceilingCamera.png",
@@ -276,7 +283,8 @@
       "world:other:cup_0": "world/other/cup_0.png",
       "world:other:cup_1": "world/other/cup_1.png",
       "world:other:cup_2": "world/other/cup_2.png",
-      "world:other:boombox": "world/other/boombox.png"
+      "world:other:boombox": "world/other/boombox.png",
+      "world:other:mic": "world/other/mic.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",

@@ -577,14 +577,8 @@ public class ObjectController {
         assets.put("wires1", new TextureRegion(directory.getEntry("world:wires:wires1", Texture.class)));
         assets.put("wires2", new TextureRegion(directory.getEntry("world:wires:wires2", Texture.class)));
 
-        assets.put("emoji_0", new TextureRegion(directory.getEntry("world:graffiti:emoji_0", Texture.class)));
-        assets.put("emoji_1", new TextureRegion(directory.getEntry("world:graffiti:emoji_1", Texture.class)));
-        assets.put("emoji_2", new TextureRegion(directory.getEntry("world:graffiti:emoji_2", Texture.class)));
-        assets.put("graffiti_0", new TextureRegion(directory.getEntry("world:graffiti:graffiti_0", Texture.class)));
-        assets.put("graffiti_1", new TextureRegion(directory.getEntry("world:graffiti:graffiti_1", Texture.class)));
-        assets.put("graffiti_2", new TextureRegion(directory.getEntry("world:graffiti:graffiti_2", Texture.class)));
-        assets.put("graffiti_3", new TextureRegion(directory.getEntry("world:graffiti:graffiti_3", Texture.class)));
-        assets.put("caution_0", new TextureRegion(directory.getEntry("world:graffiti:caution_0", Texture.class)));
+        assets.put("grafiti_0", new TextureRegion(directory.getEntry("world:grafiti:grafiti_0", Texture.class)));
+        assets.put("caution_0", new TextureRegion(directory.getEntry("world:grafiti:caution_0", Texture.class)));
 
         //  Decals
         assets.put("decal_0", new TextureRegion(directory.getEntry("world:decals:decal_0", Texture.class)));
@@ -666,6 +660,19 @@ public class ObjectController {
         assets.put("showlight_3", new TextureRegion(directory.getEntry("world:lights:showlight_3", Texture.class)));
         assets.put("showlight_4", new TextureRegion(directory.getEntry("world:lights:showlight_4", Texture.class)));
 
+        assets.put("neon_0", new TextureRegion(directory.getEntry("world:neonLights:neon_0", Texture.class)));
+        assets.put("neon_1", new TextureRegion(directory.getEntry("world:neonLights:neon_1", Texture.class)));
+        assets.put("neon_2", new TextureRegion(directory.getEntry("world:neonLights:neon_2", Texture.class)));
+        assets.put("neon_3", new TextureRegion(directory.getEntry("world:neonLights:neon_3", Texture.class)));
+        assets.put("neon_4", new TextureRegion(directory.getEntry("world:neonLights:neon_4", Texture.class)));
+        assets.put("neon_5", new TextureRegion(directory.getEntry("world:neonLights:neon_5", Texture.class)));
+        assets.put("neon_6", new TextureRegion(directory.getEntry("world:neonLights:neon_6", Texture.class)));
+        assets.put("neon_7", new TextureRegion(directory.getEntry("world:neonLights:neon_7", Texture.class)));
+        assets.put("neon_8", new TextureRegion(directory.getEntry("world:neonLights:neon_8", Texture.class)));
+        assets.put("neon_9", new TextureRegion(directory.getEntry("world:neonLights:neon_9", Texture.class)));
+        assets.put("neon_10", new TextureRegion(directory.getEntry("world:neonLights:neon_10", Texture.class)));
+        assets.put("neon_11", new TextureRegion(directory.getEntry("world:neonLights:neon_11", Texture.class)));
+
         //  Other
         assets.put("tv", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
         assets.put("cam_0", new TextureRegion(directory.getEntry("world:other:cam_0", Texture.class)));
@@ -687,6 +694,7 @@ public class ObjectController {
         assets.put("cup_1", new TextureRegion(directory.getEntry("world:other:cup_1", Texture.class)));
         assets.put("cup_2", new TextureRegion(directory.getEntry("world:other:cup_2", Texture.class)));
         assets.put("boombox", new TextureRegion(directory.getEntry("world:other:boombox", Texture.class)));
+        assets.put("mic", new TextureRegion(directory.getEntry("world:other:mic", Texture.class)));
 
         //  Animated art
         animatedArtAtlas.put("sparkle", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkle.atlas")));

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="81" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="94" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7">
   <properties>
@@ -486,5 +486,83 @@
    <property name="assetName" value="showlight_4"/>
   </properties>
   <image width="400" height="456" source="../world/lights/showlight_4.png"/>
+ </tile>
+ <tile id="89">
+  <properties>
+   <property name="assetName" value="mic"/>
+  </properties>
+  <image width="120" height="120" source="../world/other/mic.png"/>
+ </tile>
+ <tile id="90">
+  <properties>
+   <property name="assetName" value="neon_0"/>
+  </properties>
+  <image width="130" height="130" source="../world/neonLights/neon_0.png"/>
+ </tile>
+ <tile id="91">
+  <properties>
+   <property name="assetName" value="neon_1"/>
+  </properties>
+  <image width="120" height="120" source="../world/neonLights/neon_1.png"/>
+ </tile>
+ <tile id="92">
+  <properties>
+   <property name="assetName" value="neon_2"/>
+  </properties>
+  <image width="70" height="70" source="../world/neonLights/neon_2.png"/>
+ </tile>
+ <tile id="93">
+  <properties>
+   <property name="assetName" value="neon_3"/>
+  </properties>
+  <image width="60" height="60" source="../world/neonLights/neon_3.png"/>
+ </tile>
+ <tile id="94">
+  <properties>
+   <property name="assetName" value="neon_5"/>
+  </properties>
+  <image width="120" height="120" source="../world/neonLights/neon_5.png"/>
+ </tile>
+ <tile id="95">
+  <properties>
+   <property name="assetName" value="neon_6"/>
+  </properties>
+  <image width="128" height="128" source="../world/neonLights/neon_6.png"/>
+ </tile>
+ <tile id="96">
+  <properties>
+   <property name="assetName" value="neon_7"/>
+  </properties>
+  <image width="130" height="130" source="../world/neonLights/neon_7.png"/>
+ </tile>
+ <tile id="97">
+  <properties>
+   <property name="assetName" value="neon_8"/>
+  </properties>
+  <image width="120" height="120" source="../world/neonLights/neon_8.png"/>
+ </tile>
+ <tile id="98">
+  <properties>
+   <property name="assetName" value="neon_10"/>
+  </properties>
+  <image width="120" height="120" source="../world/neonLights/neon_10.png"/>
+ </tile>
+ <tile id="99">
+  <properties>
+   <property name="assetName" value="neon_11"/>
+  </properties>
+  <image width="120" height="120" source="../world/neonLights/neon_11.png"/>
+ </tile>
+ <tile id="100">
+  <properties>
+   <property name="assetName" value="neon_4"/>
+  </properties>
+  <image width="80" height="80" source="../world/neonLights/neon_4.png"/>
+ </tile>
+ <tile id="101">
+  <properties>
+   <property name="assetName" value="neon_9"/>
+  </properties>
+  <image width="120" height="120" source="../world/neonLights/neon_9.png"/>
  </tile>
 </tileset>
