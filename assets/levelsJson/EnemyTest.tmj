@@ -686,22 +686,27 @@
                  "y":1568
                 }, 
                 {
-                 "gid":9,
-                 "height":200,
-                 "id":691,
+                 "gid":14,
+                 "height":150,
+                 "id":695,
                  "name":"",
                  "properties":[
                         {
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"isRight",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
-                 "type":"Bear",
+                 "type":"Beehive",
                  "visible":true,
-                 "width":173,
-                 "x":976,
-                 "y":896
+                 "width":150,
+                 "x":1424,
+                 "y":704
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -785,7 +790,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":694,
+ "nextobjectid":696,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

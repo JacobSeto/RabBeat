@@ -16,10 +16,11 @@ public class BeeHive extends Enemy {
     private Vector2 scale = GameController.getInstance().getScale();
 
 
+    /** The idle animation for the beehive */
+    public Animation<TextureRegion> idleAnimation;
+
     /** The attack animation for the bee */
-    public Animation<TextureRegion> attackAnimation;
-    /** The attack animation in synth for the bee */
-    public Animation<TextureRegion> beeAttackSynthAnimation;
+    public Animation<TextureRegion> beeAttackAnimation;
     /**
      * Creates a new bee hive avatar with the given physics data
      *
@@ -47,7 +48,7 @@ public class BeeHive extends Enemy {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
-        Bee bee = new Bee(getX() + offset, getY(), radius, GameController.getInstance().genre, isFaceRight(), beeAttackSynthAnimation);
+        Bee bee = new Bee(getX() + offset, getY(), radius, GameController.getInstance().genre, isFaceRight(), beeAttackAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
@@ -86,9 +87,6 @@ public class BeeHive extends Enemy {
      * Updates the animation based on the physics state.
      */
     private void animationUpdate() {
-        setAnimation(attackAnimation);
-        if (animation.isAnimationFinished(stateTime)) {
-            stateTime = 0;
-        }
+
     }
 }

@@ -333,22 +333,26 @@ public class ObjectController {
     public TextureAtlas bearAttackAtlas;
     /** The attack animation for the bear enemy */
     public Animation<TextureRegion> bearAttackAnimation;
-    /** The synth attack atlas for the bat enemy */
-    public TextureAtlas batAttackSynthAtlas;
-    /** The synth attack animation for the bat enemy */
-    public Animation<TextureRegion> batAttackSynthAnimation;
-    /** The jazz attack atlas for the bat enemy */
-    public TextureAtlas batAttackJazzAtlas;
-    /** The jazz attack animation for the bat enemy */
-    public Animation<TextureRegion> batAttackJazzAnimation;
+    /** The idle atlas for the bat enemy */
+    public TextureAtlas batIdleAtlas;
+    /** The idle animation for the bat enemy */
+    public Animation<TextureRegion> batIdleAnimation;
+    /** The anticipation atlas for the bat enemy */
+    public TextureAtlas batAntiAtlas;
+    /** The anticipation animation for the bat enemy */
+    public Animation<TextureRegion> batAntiAnimation;
+    /** The attack atlas for the bat enemy */
+    public TextureAtlas batAttackAtlas;
+    /** The attack animation for the bat enemy */
+    public Animation<TextureRegion> batAttackAnimation;
     /** The idle atlas for the bee enemy */
     public TextureAtlas beeAttackAtlas;
     /** The idle animation for the bee enemy */
     public Animation<TextureRegion> beeAttackAnimation;
     /** The idle atlas for the beehive */
-    public TextureAtlas beehiveAttackAtlas;
+    public TextureAtlas beehiveIdleAtlas;
     /** The idle animation for the beehive */
-    public Animation<TextureRegion> beehiveAttackAnimation;
+    public Animation<TextureRegion> beehiveIdleAnimation;
 
     /** The idle atlas for the hedgehog enemy */
     public TextureAtlas hedgehogIdleAtlas;
@@ -507,10 +511,12 @@ public class ObjectController {
         bearAttackAnimation = new Animation<TextureRegion>(1f, bearAttackAtlas.findRegions("bearAttack"), Animation.PlayMode.LOOP);
 
         //  Bat
-        batAttackJazzAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackJazz.atlas"));
-        batAttackJazzAnimation = new Animation<TextureRegion>(1f, batAttackJazzAtlas.findRegions("batAttackJazz"), Animation.PlayMode.LOOP);
-        batAttackSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackSynth.atlas"));
-        batAttackSynthAnimation = new Animation<TextureRegion>(1f, batAttackSynthAtlas.findRegions("batAttackSynth"), Animation.PlayMode.LOOP);
+        batIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/batIdle.atlas"));
+        batIdleAnimation = new Animation<TextureRegion>(1f, batIdleAtlas.findRegions("batIdle"), Animation.PlayMode.LOOP);
+        batAntiAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAnti.atlas"));
+        batAntiAnimation = new Animation<TextureRegion>(1f, batAntiAtlas.findRegions("batAnti"), Animation.PlayMode.LOOP);
+        batAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttack.atlas"));
+        batAttackAnimation = new Animation<TextureRegion>(1f, batAttackAtlas.findRegions("batAttack"), Animation.PlayMode.LOOP);
         echoAtlas = new TextureAtlas(Gdx.files.internal("atlas/echo.atlas"));
         echoAnimation = new Animation<TextureRegion>(1f, echoAtlas.findRegions("echo"));
         echoTexture = new TextureRegion(directory.getEntry("enemies:echoStill", Texture.class));
@@ -520,8 +526,8 @@ public class ObjectController {
         beeAttackAnimation = new Animation<TextureRegion>(0.25f, beeAttackAtlas.findRegions("beeAttack"),
                 Animation.PlayMode.LOOP);
 
-        beehiveAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehiveAttack.atlas"));
-        beehiveAttackAnimation = new Animation<TextureRegion>(1, beehiveAttackAtlas.findRegions("beehiveAttack"),
+        beehiveIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehiveIdle.atlas"));
+        beehiveIdleAnimation = new Animation<TextureRegion>(1, beehiveIdleAtlas.findRegions("beehiveIdle"),
                 Animation.PlayMode.LOOP);
         // Hedgehog
         hedgehogIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
@@ -1415,9 +1421,9 @@ public class ObjectController {
         float dheight = dimensions.y/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
                 dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList);
-        beehive.attackAnimation = beehiveAttackAnimation;
-        beehive.beeAttackSynthAnimation = beeAttackAnimation;
-        beehive.setAnimation(beehiveAttackAnimation);
+        beehive.idleAnimation = beehiveIdleAnimation;
+        beehive.beeAttackAnimation = beeAttackAnimation;
+        beehive.setAnimation(beehiveIdleAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
         beehive.setTexture(beehiveTexture);
@@ -1471,9 +1477,10 @@ public class ObjectController {
         BatEnemy bat = new BatEnemy(defaultConstants.get("bats"), convertedCoord.x, convertedCoord.y,
                 dwidth*enemyScale, dheight*enemyScale,
                 enemyScale, false, beatList);
-        bat.attackSynthAnimation = batAttackSynthAnimation;
-        bat.attackJazzAnimation = batAttackJazzAnimation;
-        bat.setAnimation(batAttackSynthAnimation);
+        bat.idleAnimation = batIdleAnimation;
+        bat.antiAnimation = batAntiAnimation;
+        bat.attackAnimation = batAttackAnimation;
+        bat.setAnimation(batIdleAnimation);
         bat.setBodyType(BodyDef.BodyType.StaticBody);
         bat.setDrawScale(scale);
         bat.setTexture(batTexture);
