@@ -36,6 +36,12 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
     public LevelSelectorScreen(Game game) {
         this.game = game;
+        Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
+
+        //COMMENT OUT THE FOLLOWING LINE IF YOU ONLY WANT 1ST LEVEL TO BE UNLOCKED
+//        prefs.putInteger("levelsUnlocked", 12);
+
+        GameController.getInstance().setLevelsUnlocked(prefs.getInteger("levelsUnlocked", 1));
     }
 
     /** Displays the button UI for each level and adds a clickListener that detects whether
@@ -57,10 +63,9 @@ public class LevelSelectorScreen extends ScreenAdapter {
         for(int i=1; i<= numberOfLevels; i++) {
             int finalI = i;
             if(i <= GameController.getInstance().getLevelsUnlocked()) {
-//                buttonTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
-                buttonTexture = new Texture(Gdx.files.internal("ui/unlockedLevels/unlockedLevel" + finalI + ".png"));
+                buttonTexture = GameController.getInstance().objectController.getUnlockedButtonTexture(finalI);
             } else {
-                buttonTexture = new Texture(Gdx.files.internal("ui/lockedLevels/lockedLevel" + finalI + ".png"));
+                buttonTexture = GameController.getInstance().objectController.getLockedButtonTexture(finalI);
             }
 
             TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(buttonTexture));
@@ -87,9 +92,10 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
-                        listener.exitScreen(LevelSelectorScreen.this, 0);
                         GameController.getInstance().setCurrentLevelInt(finalI);
+                        listener.exitScreen(LevelSelectorScreen.this, 0);
                     }
+
                 }
             });
             stage.addActor(levelButton);

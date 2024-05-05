@@ -1,11 +1,10 @@
 package edu.cornell.gdiac.rabbeat.ui;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
 import edu.cornell.gdiac.rabbeat.Genre;
-import edu.cornell.gdiac.rabbeat.obstacles.IGenreObject;
+import edu.cornell.gdiac.rabbeat.objects.IGenreObject;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 /** Class for all in-game UI elements that depend on the current genre. */
