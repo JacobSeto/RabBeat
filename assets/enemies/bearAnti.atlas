@@ -1,23 +1,23 @@
-bearAttack.png
+bearAnti.png
 size: 519, 200
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-bearAttack
+bearAnti
   rotate: false
   xy: 0, 0
   size: 173, 200
   orig: 173, 200
   offset: 0, 0
   index: 0
-bearAttack
+bearAnti
   rotate: false
   xy: 173, 0
   size: 173, 200
   orig: 173, 200
   offset: 0, 0
   index: 1
-bearAttack
+bearAnti
   rotate: false
   xy: 346, 0
   size: 173, 200

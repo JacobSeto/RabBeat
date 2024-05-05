@@ -26,10 +26,12 @@ public class BearEnemy extends Enemy {
     /** Tells whether the bear was facing right or not when they shot */
     private boolean shotDirection;
 
-    /** The attack animation in synth for the bear */
-    public Animation<TextureRegion> attackSynthAnimation;
-    /** The attack animation in jazz for the bear */
-    public Animation<TextureRegion> attackJazzAnimation;
+    /** The idle animation for the bear */
+    public Animation<TextureRegion> idleAnimation;
+    /** The anticipation animation for the bear */
+    public Animation<TextureRegion> antiAnimation;
+    /** The attack animation for the bear */
+    public Animation<TextureRegion> attackAnimation;
 
     /**
      * Creates a bear enemy avatar with the given physics data
@@ -128,15 +130,15 @@ public class BearEnemy extends Enemy {
      * Updates the animation based on the physics state.
      */
     private void animationUpdate() {
-        if (animation.isAnimationFinished(stateTime)) {
-            stateTime = 0;
-        }
-        switch (animationGenre) {
-            case SYNTH:
-                setAnimation(attackSynthAnimation);
+        switch (animationState) {
+            case IDLE:
+                setAnimation(idleAnimation);
                 break;
-            case JAZZ:
-                setAnimation(attackJazzAnimation);
+            case ANTI:
+                setAnimation(antiAnimation);
+                break;
+            case ATTACK:
+                setAnimation(attackAnimation);
                 break;
         }
     }

@@ -313,10 +313,6 @@ public class ObjectController {
     public Animation<TextureRegion> jazzDeathAnimation;
 
     // ENEMY ANIMATIONS
-    /** The idle atlas for the bear enemy */
-    public TextureAtlas bearIdleAtlas;
-    /** The idle animation for the bear enemy */
-    public Animation<TextureRegion> bearIdleAnimation;
     /** The idle atlas for jazz bullets */
     public TextureAtlas bulletJazzAtlas;
     /** The animation for jazz bullets */
@@ -325,6 +321,14 @@ public class ObjectController {
     public TextureAtlas bulletSynthAtlas;
     /** The animation for synth bullets */
     public Animation<TextureRegion> bulletSynthAnimation;
+    /** The idle atlas for the bear enemy */
+    public TextureAtlas bearIdleAtlas;
+    /** The idle animation for the bear enemy */
+    public Animation<TextureRegion> bearIdleAnimation;
+    /** The anticipation atlas for the bear enemy */
+    public TextureAtlas bearAntiAtlas;
+    /** The anticipation animation for the bear enemy */
+    public Animation<TextureRegion> bearAntiAnimation;
     /** The attack atlas for the bear enemy */
     public TextureAtlas bearAttackAtlas;
     /** The attack animation for the bear enemy */
@@ -497,8 +501,11 @@ public class ObjectController {
         // Bear
         bearIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
         bearIdleAnimation = new Animation<TextureRegion>(1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        bearAntiAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearAnti.atlas"));
+        bearAntiAnimation = new Animation<TextureRegion>(1f, bearAntiAtlas.findRegions("bearAnti"), Animation.PlayMode.LOOP);
         bearAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearAttack.atlas"));
         bearAttackAnimation = new Animation<TextureRegion>(1f, bearAttackAtlas.findRegions("bearAttack"), Animation.PlayMode.LOOP);
+
         //  Bat
         batAttackJazzAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackJazz.atlas"));
         batAttackJazzAnimation = new Animation<TextureRegion>(1f, batAttackJazzAtlas.findRegions("batAttackJazz"), Animation.PlayMode.LOOP);
@@ -1379,9 +1386,10 @@ public class ObjectController {
         float dheight = dimensions.y/scale.y;
         BearEnemy bear = new BearEnemy(defaultConstants.get("bears"), convertedCoord.x, convertedCoord.y,
                 dwidth*enemyScale, dheight*enemyScale, enemyScale, false, beatList);
-        bear.attackSynthAnimation = bearAttackAnimation;
-        bear.attackJazzAnimation = bearAttackAnimation;
-        bear.setAnimation(bearAttackAnimation);
+        bear.idleAnimation = bearIdleAnimation;
+        bear.antiAnimation = bearAntiAnimation;
+        bear.attackAnimation = bearAttackAnimation;
+        bear.setAnimation(bearIdleAnimation);
         bear.setBodyType(BodyDef.BodyType.StaticBody);
         bear.setDrawScale(scale);
         bear.setTexture(bearTexture);

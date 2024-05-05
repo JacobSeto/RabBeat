@@ -254,7 +254,7 @@
         "level9": "levelsJson/benlevel2.tmj",
         "level10": "levelsJson/benlevel2.tmj",
         "level11": "levelsJson/benlevel2.tmj",
-        "level12": "levelsJson/benlevel2.tmj"
+        "level12": "levelsJson/EnemyTest.tmj"
     },
     "sounds": {
       "sfx:genreSwitch": "sfx/genre_switch_woosh.wav"
