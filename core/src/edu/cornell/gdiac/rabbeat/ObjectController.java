@@ -877,12 +877,16 @@ public class ObjectController {
                             String enemyType = enemy.getString("type");
                             String beatListString = "";
                             boolean faceRight = false;
+                            float beeBeat = 0.0f;
                             for (JsonValue prop : enemy.get("properties")) {
                                 if (prop.getString("name").equals("beatList")) {
                                     beatListString = prop.getString("value");
                                 }
                                 if (prop.getString("name").equals("isRight")){
                                     faceRight = prop.getBoolean("value");
+                                }
+                                if (prop.getString("name").equals("beeBeat")){
+                                    beeBeat = prop.getFloat("value");
                                 }
                             }
                             switch (enemyType) {
@@ -896,7 +900,7 @@ public class ObjectController {
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
-                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString), faceRight);
+                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString), faceRight, beeBeat);
                                     break;
                                 case "Hedgehog":
                                     x = enemy.getFloat("x");
@@ -1106,6 +1110,7 @@ public class ObjectController {
         obj.setDrawScale(scale);
         obj.setTexture(textureRegion);
         obj.setName(wname);
+        obj.setWall(true);
         GameController.getInstance().instantiate(obj);
     }
 
@@ -1398,7 +1403,7 @@ public class ObjectController {
      * @param tileSize    Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight){
+    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight, float beeBeat){
         //  Convert coordinates to world coordinate
         //TODO: change to beehive texture when we get art for this
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -1406,7 +1411,7 @@ public class ObjectController {
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
-                dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList);
+                dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList, beeBeat);
         beehive.attackAnimation = beehiveAttackAnimation;
         beehive.beeAttackSynthAnimation = beeAttackAnimation;
         beehive.setAnimation(beehiveAttackAnimation);

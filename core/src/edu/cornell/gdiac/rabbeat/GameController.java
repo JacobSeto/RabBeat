@@ -747,18 +747,15 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			//Bullet and Bee Collision checks
-			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy)){
-				bd1.markRemoved(true);
-			}
 			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy)){
 				bd2.markRemoved(true);
 			}
-			if (bd1 instanceof Bee && !(bd2 instanceof Enemy)){
-				bd1.markRemoved(true);
-			}
-			if (bd2 instanceof Bee && !(bd1 instanceof Enemy)){
-				bd2.markRemoved(true);
-			}
+			if (bd2 instanceof Bee) {
+                assert bd1 != null;
+                if (bd1.getWall()) {
+                    bd2.markRemoved(true);
+                }
+            }
 
 			//player collision checks
 			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player){
