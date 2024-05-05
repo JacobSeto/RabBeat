@@ -68,6 +68,26 @@ public abstract class GameObject {
 	protected Vector2 scaleCache = new Vector2();
 	/** The type the GameObject is*/
 	private Type type;
+	/** Identifies whether object is a wall or not */
+	private boolean isWall = false;
+
+	/**
+	 * Sets whether this object is a wall or not.
+	 *
+	 * @param wall whether this object is a wall or not
+	 */
+	public void setWall(boolean wall){
+		isWall = wall;
+	}
+
+	/**
+	 * States whether this object is a wall or not.
+	 *
+	 * @return whether this object is a wall or not
+	 */
+	public boolean getWall(){
+		return isWall;
+	}
 
 
 	/// BodyDef Methods

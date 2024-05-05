@@ -15,6 +15,8 @@ public class BeeHive extends Enemy {
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
 
+    private float beeBeat;
+
 
     /** The idle animation for the beehive */
     public Animation<TextureRegion> idleAnimation;
@@ -34,10 +36,11 @@ public class BeeHive extends Enemy {
      * @param beatList   The list of beats that the enemy reacts to
      */
     public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, int[] beatList) {
+            boolean faceRight, int[] beatList, float beet) {
         super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
         enemyState = EnemyState.ATTACKING;
         isFlippable = false;
+        beeBeat = beet;
     }
 
     /** Creates a bee in front of the hive */
@@ -48,12 +51,12 @@ public class BeeHive extends Enemy {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
-        Bee bee = new Bee(getX() + offset, getY(), radius, GameController.getInstance().genre, isFaceRight(), beeAttackAnimation);
+        Bee bee = new Bee(getX() + offset, getY(), radius, GameController.getInstance().genre, isFaceRight(), beeAttackAnimation, beeBeat);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
-      
+
         bee.setSensor(true);
         bee.setTexture(oc.beeTexture);
         bee.setGravityScale(0);

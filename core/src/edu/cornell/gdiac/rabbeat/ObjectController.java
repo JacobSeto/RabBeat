@@ -213,6 +213,21 @@ public class ObjectController {
     /** The texture for locked button 12 */
     public Texture lockedButton12;
 
+    /** The texture for the options button */
+    public Texture optionsButton;
+
+    /** The texture for the main menu background */
+    public Texture mainMenuBackground;
+
+    /** The texture for the play button */
+    public Texture playButton;
+
+    /** The texture for the quit button */
+    public Texture quitButton;
+
+    /** The texture for the select */
+    public Texture select;
+
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
     /** The texture for tinting the pause screen overlay background */
@@ -389,13 +404,15 @@ public class ObjectController {
         levelJson = directory.getEntry(GameController.getInstance().getCurrentLevel(), JsonValue.class);
         tileSize = levelJson.getInt("tileheight");
 
-//        int value = (directory.getEntry("numberOfLevelsUnlocked", JsonValue.class).getInt("numberOfLevelsUnlocked"));
-//        GameController.getInstance().setLevelsUnlocked(value);
-        //numberOfLevelsUnlocked = directory.getEntry("numberOfLevelsUnlocked", int.class);
-
         nextLevelText = new TextureRegion(directory.getEntry("ui:victory:nextLevelText",Texture.class));
         levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));
         victoryLogo = new TextureRegion(directory.getEntry("ui:victory:victoryLogo",Texture.class));
+
+        optionsButton = directory.getEntry("ui:maineMenuScreen:optionsButton",Texture.class);
+        playButton = directory.getEntry("ui:maineMenuScreen:playButton",Texture.class);
+        quitButton = directory.getEntry("ui:maineMenuScreen:quitButton",Texture.class);
+        select = directory.getEntry("ui:maineMenuScreen:select",Texture.class);
+        mainMenuBackground = directory.getEntry("ui:maineMenuScreen:mainMenuBackground",Texture.class);
 
         unlockedButton1 = directory.getEntry("ui:unlockedLevels:unlockedLevel1", Texture.class);
         unlockedButton2 = directory.getEntry("ui:unlockedLevels:unlockedLevel2", Texture.class);
@@ -890,12 +907,16 @@ public class ObjectController {
                             String enemyType = enemy.getString("type");
                             String beatListString = "";
                             boolean faceRight = false;
+                            float beeBeat = 0.0f;
                             for (JsonValue prop : enemy.get("properties")) {
                                 if (prop.getString("name").equals("beatList")) {
                                     beatListString = prop.getString("value");
                                 }
                                 if (prop.getString("name").equals("isRight")){
                                     faceRight = prop.getBoolean("value");
+                                }
+                                if (prop.getString("name").equals("beeBeat")){
+                                    beeBeat = prop.getFloat("value");
                                 }
                             }
                             switch (enemyType) {
@@ -909,7 +930,7 @@ public class ObjectController {
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
-                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString), faceRight);
+                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString), faceRight, beeBeat);
                                     break;
                                 case "Hedgehog":
                                     x = enemy.getFloat("x");
@@ -1119,6 +1140,7 @@ public class ObjectController {
         obj.setDrawScale(scale);
         obj.setTexture(textureRegion);
         obj.setName(wname);
+        obj.setWall(true);
         GameController.getInstance().instantiate(obj);
     }
 
@@ -1412,7 +1434,7 @@ public class ObjectController {
      * @param tileSize    Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight){
+    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight, float beeBeat){
         //  Convert coordinates to world coordinate
         //TODO: change to beehive texture when we get art for this
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -1420,7 +1442,7 @@ public class ObjectController {
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
-                dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList);
+                dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList, beeBeat);
         beehive.idleAnimation = beehiveIdleAnimation;
         beehive.beeAttackAnimation = beeAttackAnimation;
         beehive.setAnimation(beehiveIdleAnimation);

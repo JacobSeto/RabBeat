@@ -117,6 +117,12 @@
       "ui:victory:star": "ui/victory/star.png",
       "ui:victory:victoryLogo": "ui/victory/victoryLogo.png",
 
+      "ui:maineMenuScreen:optionsButton": "ui/mainMenuScreen/optionsButton.png",
+      "ui:maineMenuScreen:playButton": "ui/mainMenuScreen/playButton.png",
+      "ui:maineMenuScreen:quitButton": "ui/mainMenuScreen/quitButton.png",
+      "ui:maineMenuScreen:select": "ui/mainMenuScreen/select.png",
+      "ui:maineMenuScreen:mainMenuBackground": "ui/mainMenuScreen/mainMenuBackground.png",
+
       "player:synth":  "player/synth.png",
       "player:synth-jazz":   "player/synth-jazz.png",
 
@@ -254,7 +260,7 @@
         "level9": "levelsJson/benlevel2.tmj",
         "level10": "levelsJson/benlevel2.tmj",
         "level11": "levelsJson/benlevel2.tmj",
-        "level12": "levelsJson/EnemyTest.tmj"
+        "level12": "levelsJson/benlevel2.tmj"
     },
     "sounds": {
       "sfx:genreSwitch": "sfx/genre_switch_woosh.wav"
