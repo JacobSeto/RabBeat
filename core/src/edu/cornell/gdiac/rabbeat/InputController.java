@@ -389,7 +389,7 @@ public class InputController {
 		//TO SET ALL LEVELS TO COMPLETE
 		if(Gdx.input.isKeyPressed(Keys.K)) {
 			Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
-			prefs.putInteger("levelsUnlocked", 12);
+			prefs.putInteger("levelsUnlocked", 1);
 			prefs.flush();
 		}
 
@@ -504,7 +504,6 @@ public class InputController {
 			//Click enter/return once selection has been chosen
 			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
 				gc.setPlayerCompletedLevel(false);
-				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
 
 				if(gc.getVictoryScreenItemSelected() == 0) {
 					//GO TO NEXT LEVEL
