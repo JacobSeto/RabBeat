@@ -69,7 +69,7 @@ public class BeeHive extends Enemy {
 
         // Compute position and velocity
         float speed = 2.5f;
-        float vSpeed = 4;
+        float vSpeed = -4;
         speed *= (isFaceRight() ? 1 : -1);
         bee.setVX(speed);
         bee.setVY(vSpeed);
