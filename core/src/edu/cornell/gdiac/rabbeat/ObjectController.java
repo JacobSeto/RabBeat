@@ -924,7 +924,7 @@ public class ObjectController {
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
                                     createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize,
-                                            convertTiledbeatList(beatListString), faceRight, genre);
+                                            convertTiledbeatList(beatListString), faceRight, beeBeat, genre);
                                     break;
                                 case "Hedgehog":
                                     x = enemy.getFloat("x");
@@ -1433,7 +1433,7 @@ public class ObjectController {
      * @param tileSize    Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight, Genre genre){
+    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight, float beet, Genre genre){
         //  Convert coordinates to world coordinate
         //TODO: change to beehive texture when we get art for this
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -1441,7 +1441,7 @@ public class ObjectController {
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
-                dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList, genre);
+                dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList, beet, genre);
         beehive.attackAnimation = beehiveAttackAnimation;
         beehive.beeAttackSynthAnimation = beeAttackAnimation;
         beehive.setAnimation(beehiveAttackAnimation);

@@ -397,7 +397,8 @@ public class InputController {
 		debugPressed = (secondary && debugPressed) || (Gdx.input.isKeyPressed(Input.Keys.B));
 		primePressed = (secondary && primePressed) || (Gdx.input.isKeyPressed(Input.Keys.UP)
 				|| Gdx.input.isKeyPressed(Input.Keys.W));
-		exitPressed = false;
+		exitPressed = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
+		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
 		//pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
 		calibrationPressed = (secondary && calibrationPressed) || (Gdx.input.isKeyPressed(Input.Keys.V));
@@ -532,14 +533,6 @@ public class InputController {
 			}
 
 
-		}
-
-
-
-		//C = shortcut to complete the level
-		if (Gdx.input.isKeyPressed(Keys.C)) {
-			GameController.getInstance().setComplete(true);
-			GameController.getInstance().setPlayerCompletedLevel(false);
 		}
 
 

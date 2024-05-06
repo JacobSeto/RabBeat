@@ -83,7 +83,6 @@ public class SyncController {
      * @param dt Number of seconds since last animation frame
      */
     public void update(float dt) {
-
         animationInterval.checkForNewInterval(
                 (synth.getPosition() + visualDelay) / animationInterval.getIntervalLength(BPM)
         );

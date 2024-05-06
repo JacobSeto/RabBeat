@@ -341,8 +341,6 @@ public class GameController implements Screen, ContactListener {
 		pauseTintJazzColor = new Color(1,0,1,0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
-		syncController = new SyncController(levelBPM);
-		soundController = new SoundController();
 		objectController = new ObjectController();
 		theController = this;
 	}
@@ -400,9 +398,9 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory Reference to global asset manager.
 	 */
 	public void gatherAssets(AssetDirectory directory) {
+		soundController = new SoundController();
 		objectController.gatherAssets(directory);
 		levelBPM = objectController.defaultConstants.get("music").get(getCurrentLevel()).getInt("bpm");
-		syncController.BPM = levelBPM;
 		// set the soundtrack
 		setSoundtrack(directory);
 		// set the sound effects
@@ -417,6 +415,7 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory Reference to global asset manager.
 	 */
 	public void setSoundtrack(AssetDirectory directory) {
+		System.out.println("SET SOUNDTRACK");
 		synthSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("synth"), Music.class);
 		jazzSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("jazz"), Music.class);
 		soundController.setSynthTrack(synthSoundtrack);
@@ -505,6 +504,7 @@ public class GameController implements Screen, ContactListener {
 	 * Initialize the game for the first time
 	 */
 	public void initialize() {
+		System.out.println("INITIALIZE");
 		genre = Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity());
 
@@ -514,11 +514,13 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
+		syncController = new SyncController(levelBPM);
 		populateLevel();
 		objectController.setFirstCheckpointAsSpawn(scale);
 		objectController.player.setPosition(respawnPoint);
 		soundController.resetMusic();
 		soundController.playMusic(Genre.SYNTH);
+
 	}
 
 	/**
@@ -543,7 +545,6 @@ public class GameController implements Screen, ContactListener {
 		setFailure(false);
 		populateLevel();
 		objectController.player.setPosition(respawnPoint);
-		//soundController.resetMusic();
 	}
 
 	/**
@@ -1044,7 +1045,6 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
-		//soundController.pauseMusic();
 		InputController.getInstance().setPaused(true);
 	}
 
@@ -1054,9 +1054,10 @@ public class GameController implements Screen, ContactListener {
 	 * This is usually when it regains focus.
 	 */
 	public void resume() {
+		System.out.println("RESUME");
 		soundController.setGlobalMusicVolume(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
-		soundController.resumeMusic();
+		//soundController.resumeMusic();
 		InputController.getInstance().setPaused(false);
 		pauseItemSelected = 0; // delete this line if pause menu should "save" where you were last time
 		InputController.getInstance().setSwitchGenre(false);
@@ -1219,7 +1220,7 @@ public class GameController implements Screen, ContactListener {
 
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen() {
-
+		soundController.pauseMusic();
 		canvas.begin(true);
 		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
 		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);

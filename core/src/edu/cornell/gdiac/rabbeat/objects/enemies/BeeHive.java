@@ -36,7 +36,7 @@ public class BeeHive extends Enemy {
      * @param beatList   The list of beats that the enemy reacts to
      */
     public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, int[] beatList, Genre genre) {
+            boolean faceRight, int[] beatList, float beet, Genre genre) {
         super(data, startX, startY, width, height, enemyScale, faceRight, beatList, genre);
         enemyState = EnemyState.ATTACKING;
         isFlippable = false;
@@ -56,7 +56,7 @@ public class BeeHive extends Enemy {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
-        Bee bee = new Bee(getX() + offset, getY(), radius, genre, isFaceRight(), beeAttackSynthAnimation);
+        Bee bee = new Bee(getX() + offset, getY(), radius, genre, isFaceRight(), beeAttackSynthAnimation, beeBeat);
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
