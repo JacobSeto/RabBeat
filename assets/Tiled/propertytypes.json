@@ -27,7 +27,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 5,
+        "id": 2,
         "members": [
             {
                 "name": "beatList",
@@ -52,12 +52,17 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 6,
+        "id": 3,
         "members": [
             {
                 "name": "beatList",
                 "type": "string",
                 "value": "15"
+            },
+            {
+                "name": "beeBeat",
+                "type": "float",
+                "value": 0
             },
             {
                 "name": "isRight",
@@ -82,7 +87,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 8,
+        "id": 4,
         "members": [
             {
                 "name": "num",
@@ -107,7 +112,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 2,
+        "id": 5,
         "members": [
             {
                 "name": "moveTime",
@@ -152,82 +157,7 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 10,
-        "members": [
-            {
-                "name": "pulsePerBeat",
-                "type": "float",
-                "value": 1
-            },
-            {
-                "name": "pulseScale",
-                "type": "float",
-                "value": 1.1
-            },
-            {
-                "name": "shrinkRate",
-                "type": "float",
-                "value": 0.01
-            }
-        ],
-        "name": "Pulse",
-        "type": "class",
-        "useAs": [
-            "property",
-            "map",
-            "layer",
-            "object",
-            "tile",
-            "tileset",
-            "wangcolor",
-            "wangset",
-            "project"
-        ]
-    },
-    {
-        "color": "#ffa0a0a4",
-        "drawFill": true,
-        "id": 11,
-        "members": [
-            {
-                "name": "horizontalGrowRate",
-                "type": "float",
-                "value": 0.01
-            },
-            {
-                "name": "pulsePerBeat",
-                "type": "float",
-                "value": 1
-            },
-            {
-                "name": "shrinkRate",
-                "type": "float",
-                "value": 0.01
-            },
-            {
-                "name": "verticalGrowRate",
-                "type": "float",
-                "value": 0.01
-            }
-        ],
-        "name": "Stretch",
-        "type": "class",
-        "useAs": [
-            "property",
-            "map",
-            "layer",
-            "object",
-            "tile",
-            "tileset",
-            "wangcolor",
-            "wangset",
-            "project"
-        ]
-    },
-    {
-        "color": "#ffa0a0a4",
-        "drawFill": true,
-        "id": 3,
+        "id": 6,
         "members": [
             {
                 "name": "genre",

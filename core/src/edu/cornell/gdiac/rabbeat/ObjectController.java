@@ -899,12 +899,16 @@ public class ObjectController {
                             String enemyType = enemy.getString("type");
                             String beatListString = "";
                             boolean faceRight = false;
+                            float beeBeat = 0.0f;
                             for (JsonValue prop : enemy.get("properties")) {
                                 if (prop.getString("name").equals("beatList")) {
                                     beatListString = prop.getString("value");
                                 }
                                 if (prop.getString("name").equals("isRight")){
                                     faceRight = prop.getBoolean("value");
+                                }
+                                if (prop.getString("name").equals("beeBeat")){
+                                    beeBeat = prop.getFloat("value");
                                 }
                             }
                             switch (enemyType) {
@@ -1134,6 +1138,7 @@ public class ObjectController {
         obj.setDrawScale(scale);
         obj.setTexture(textureRegion);
         obj.setName(wname);
+        obj.setWall(true);
         GameController.getInstance().instantiate(obj);
     }
 
