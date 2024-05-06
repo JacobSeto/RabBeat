@@ -78,6 +78,9 @@ public class ObjectController {
     protected TextureRegion laserMiddle;
     protected TextureRegion laserTop;
     protected TextureRegion laserBottom;
+    protected TextureRegion laserLeft;
+    protected TextureRegion laserRight;
+    protected TextureRegion laserHorizontal;
 
     /** The texture for weighted platforms in Synth mode */
     protected TextureRegion weightedSynth;
@@ -389,8 +392,6 @@ public class ObjectController {
     /** the default beat list is on the downbeats within 2 measures (beat 1 and beat 5)*/
     public int[] defaultBeatList = { 1, 5 };
 
-    public int numberOfLevelsUnlocked;
-
     //public GameController gc = GameController.getInstance();
     /**
      * Gather the assets for this controller.
@@ -567,6 +568,9 @@ public class ObjectController {
         laserMiddle = new TextureRegion(directory.getEntry("world:laserMiddle", Texture.class));
         laserTop = new TextureRegion(directory.getEntry("world:laserTop", Texture.class));
         laserBottom = new TextureRegion(directory.getEntry("world:laserBottom", Texture.class));
+        laserLeft = new TextureRegion(directory.getEntry("world:laserLeft", Texture.class));
+        laserRight = new TextureRegion(directory.getEntry("world:laserRight", Texture.class));
+        laserHorizontal = new TextureRegion(directory.getEntry("world:laserHorizontal", Texture.class));
 
         weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
         weightedJazz = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
@@ -656,6 +660,8 @@ public class ObjectController {
         assets.put("spot_7", new TextureRegion(directory.getEntry("world:spots:spot_7", Texture.class)));
         assets.put("texture_0", new TextureRegion(directory.getEntry("world:spots:texture_0", Texture.class)));
         assets.put("texture_1", new TextureRegion(directory.getEntry("world:spots:texture_1", Texture.class)));
+        assets.put("laserOverlay", new TextureRegion(directory.getEntry("world:laserOverlay", Texture.class)));
+        assets.put("laserGlow", new TextureRegion(directory.getEntry("world:laserGlow", Texture.class)));
 
         assets.put("pole_0", new TextureRegion(directory.getEntry("world:signs:pole_0", Texture.class)));
         assets.put("pole_1", new TextureRegion(directory.getEntry("world:signs:pole_1", Texture.class)));
@@ -719,6 +725,7 @@ public class ObjectController {
         checkpointRiseAnimation = new Animation<TextureRegion>(1f, checkpointRiseAtlas.findRegions("checkpointRise"), Animation.PlayMode.LOOP);
     }
 
+
     /**
      * Populates all objects into the game.
      *
@@ -776,7 +783,7 @@ public class ObjectController {
                             String genrePlat = "";
                             int platformInterval = 1;
                             int waitTime = 1;
-                            int moveTime = 1;
+                            int moveTime = 0;
                             for (JsonValue prop : wp.get("properties")) {
                                 switch (prop.getString("name")) {
                                     case "num":
@@ -911,6 +918,7 @@ public class ObjectController {
                         for (JsonValue enemy : layer.get("objects")) {
                             String enemyType = enemy.getString("type");
                             String beatListString = "";
+                            int color = 0;
                             boolean faceRight = false;
                             float beeBeat = 0.0f;
                             for (JsonValue prop : enemy.get("properties")) {
@@ -1229,6 +1237,15 @@ public class ObjectController {
             }
             else if (align.equals("bottom")){
                 textureRegion = laserBottom;
+            }
+            else if (align.equals("left")){
+                textureRegion = laserLeft;
+            }
+            else if (align.equals("right")){
+                textureRegion = laserRight;
+            }
+            else if (align.equals("horizontal")){
+                textureRegion = laserHorizontal;
             }
             else{
                 textureRegion = laserTile;

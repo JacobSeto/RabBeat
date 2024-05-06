@@ -66,11 +66,14 @@ public class GameController implements Screen, ContactListener {
 	public SoundController soundController;
 	public ObjectController objectController;
 
-	
+
+
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
 
 	/** Exit code for going back to the level select menu */
+	public static final int BACK_TO_LEVEL_SELECT = 1;
+
 	public static final int GO_TO_LEVEL_SELECT = 1;
 
 	/** Exit code for going to the next level */
@@ -79,8 +82,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-
-	private static int levelsUnlocked;
+	private static int levelsUnlocked = 8;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;

@@ -536,7 +536,7 @@ public class InputController {
 					gc.exitScreen(gc.NEXT_LEVEL);
 				} else if(gc.getVictoryScreenItemSelected() == 1) {
 					//GO BACK TO LEVEL SELECT
-					gc.exitScreen(gc.GO_TO_LEVEL_SELECT);
+					gc.exitScreen(gc.BACK_TO_LEVEL_SELECT);
 				}
 			}
 

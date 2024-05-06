@@ -110,8 +110,8 @@
     "offset" : 0.5,
     "synth speed"  : 7.5,
     "synth bullet time"  : 4,
-    "jazz bullet time" : 12,
-    "jazz speed" : 2.5,
+    "jazz bullet time" : 8.5,
+    "jazz speed" : 3.5,
     "density": 10.0
   },
   "echo": {
@@ -127,37 +127,37 @@
     "level2": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level3": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 132
+      "bpm": 180
     },
     "level4": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level5": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level6": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level7": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level8": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level9": {
       "synth": "music:synth1",
