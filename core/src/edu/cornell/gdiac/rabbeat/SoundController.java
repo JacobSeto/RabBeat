@@ -53,7 +53,6 @@ public class SoundController {
         jazzTrack.setLooping(true);
         synthTrack.play();
         jazzTrack.play();
-        System.out.println("PLAY MUSIC");
     }
 
     public void playMusic(Genre genre) {
@@ -89,7 +88,6 @@ public class SoundController {
     }
 
     public void pauseMusic() {
-        System.out.println("PAUSE MUSIC");
         savedJazzVolume = jazzTrack.getVolume();
         savedSynthVolume = synthTrack.getVolume();
         savedGlobalMusicTempVolume = globalMusicVolume;

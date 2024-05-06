@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.objects.IGenreObject;
 import edu.cornell.gdiac.rabbeat.objects.Type;
+import edu.cornell.gdiac.rabbeat.sync.Beat;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
 
 /**
@@ -62,7 +63,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      */
 
     private float beat = 1;
-    public int beatCount = 0;
+    public Beat beatCount;
     /**
      * A list of beats in which the enemies act when called in beatAction. Default
      * for enemies is
@@ -104,6 +105,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
         setName("enemy");
         this.genre = genre;
         enemyState = EnemyState.ATTACKING;
+        beatCount = GameController.getInstance().syncController.beat;
     }
 
     /**
@@ -188,11 +190,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     }
 
     public void beatAction() {
-        beatCount++;
-        if (beatCount >= 9) {
-            beatCount = 1;
-        }
-        if (beatList[beatListIndex] == beatCount) {
+        if (beatList[beatListIndex] == beatCount.getBeatCount()) {
             animationState = AnimationState.ATTACK;
             if (enemyState == EnemyState.ATTACKING) {
                 Attack();
@@ -203,12 +201,12 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
             }
         } else {
             if (beatList[beatListIndex] == 1f) {
-                if (8f == beatCount) {
+                if (8f == beatCount.getBeatCount()) {
                     animationState = AnimationState.ANTI;
                 } else {
                     animationState = AnimationState.IDLE;
                 }
-            } else if (beatList[beatListIndex] - 1f == beatCount) {
+            } else if (beatList[beatListIndex] - 1f == beatCount.getBeatCount()) {
                 animationState = AnimationState.ANTI;
             } else {
                 animationState = AnimationState.IDLE;

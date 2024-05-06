@@ -8,7 +8,7 @@ package edu.cornell.gdiac.rabbeat.sync;
 public class Interval {
     public ISynced syncedObject;
 
-    private int lastInterval = -1;
+    private int lastInterval;
 
 
     /**
@@ -16,8 +16,9 @@ public class Interval {
      *
      * @param _s ISynced object
      */
-    public Interval(ISynced _s) {
+    public Interval(ISynced _s, float startInterval) {
         syncedObject = _s;
+        lastInterval = (int) Math.floor(startInterval);
     }
 
     /**
@@ -35,10 +36,11 @@ public class Interval {
      * current.
      *
      * @param interval the interval length
+     * @param doAction if beatAction should be called when the next interval is updated
      */
-    public void checkForNewInterval(float interval) {
+    public void checkForNewInterval(float interval, boolean doAction) {
         if ((int) Math.floor(interval) != lastInterval) {
-            if (lastInterval < interval) {
+            if (lastInterval < interval && doAction) {
                 syncedObject.beatAction();
             }
             lastInterval = (int) Math.floor(interval);
