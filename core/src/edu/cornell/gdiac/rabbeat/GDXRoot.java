@@ -119,7 +119,7 @@ public class GDXRoot extends Game implements ScreenListener {
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
 			InputController.getInstance().setPaused(true);
-			setScreen(levelSelectorScreen);
+			setScreen(mainMenuScreen);
 		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
 			controller = new GameController();
 			InputController.getInstance().setPaused(false);

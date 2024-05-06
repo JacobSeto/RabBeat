@@ -48,8 +48,8 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
      * @param beatList              The list of beats that the enemy reacts to
      */
     public HedgehogEnemy(JsonValue data, float startX, float startY, int rollingDistance, float width, float height,
-            float enemyScale, boolean faceRight, int[] beatList) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
+            float enemyScale, boolean faceRight, int[] beatList, Genre genre) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, beatList, genre);
         point2 = getX() - rollingDistance;
     }
   
@@ -91,34 +91,16 @@ public class HedgehogEnemy extends Enemy implements ISynced, IGenreObject {
             roll = false;
         }
 
-        if (GameController.getInstance().genre == Genre.SYNTH) {
+        if (genre == Genre.SYNTH) {
             distance = 0.1f;
         } else {
             distance = 0.05f;
         }
-        animationUpdate();
     }
 
     @Override
     public void Attack() {
         roll = true;
-    }
-
-    /**
-     * Updates the animation based on the physics state.
-     */
-    private void animationUpdate() {
-        if (animation.isAnimationFinished(stateTime)) {
-            stateTime = 0;
-        }
-        switch (animationGenre) {
-            case SYNTH:
-                setAnimation(attackSynthAnimation);
-                break;
-            case JAZZ:
-                setAnimation(attackSynthAnimation);
-                break;
-        }
     }
 
 }

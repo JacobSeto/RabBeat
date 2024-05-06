@@ -122,6 +122,12 @@
       "ui:victory:star": "ui/victory/star.png",
       "ui:victory:victoryLogo": "ui/victory/victoryLogo.png",
 
+      "ui:maineMenuScreen:optionsButton": "ui/mainMenuScreen/optionsButton.png",
+      "ui:maineMenuScreen:playButton": "ui/mainMenuScreen/playButton.png",
+      "ui:maineMenuScreen:quitButton": "ui/mainMenuScreen/quitButton.png",
+      "ui:maineMenuScreen:select": "ui/mainMenuScreen/select.png",
+      "ui:maineMenuScreen:mainMenuBackground": "ui/mainMenuScreen/mainMenuBackground.png",
+
       "player:synth":  "player/synth.png",
       "player:synth-jazz":   "player/synth-jazz.png",
 
@@ -266,7 +272,9 @@
     },
     "music" : {
       "music:synth1": "music/synth_alpha.ogg",
-      "music:jazz1": "music/jazz_alpha.ogg"
+      "music:jazz1": "music/jazz_alpha.ogg",
+          "music:synth2": "music/synth2.ogg",
+          "music:jazz2": "music/jazz2.ogg"
     },
     "fonts": {
         "fonts:retro": {

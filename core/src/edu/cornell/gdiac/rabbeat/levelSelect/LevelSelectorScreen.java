@@ -1,11 +1,12 @@
-package edu.cornell.gdiac.rabbeat.levelSelect;
+package edu.cornell.gdiac.rabbeat;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,28 +16,24 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import edu.cornell.gdiac.rabbeat.GameController;
-import edu.cornell.gdiac.rabbeat.LoadingMode;
-import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.util.ScreenListener;
+
+/** Class that represents the level select menu screen for the game
+ * Displays 12 buttons that represent each level
+ */
 
 public class LevelSelectorScreen extends ScreenAdapter {
     private Game game;
     private Stage stage;
-    private Skin skin;
-    private Texture buttonTexture;
+    private ScreenListener listener;
 
     /** Reference to the numberOfLevels variable in GameController */
-    private int numberOfLevels = GameController.getInstance().getNumberOfLevels();
+    private final int numberOfLevels = GameController.getInstance().getNumberOfLevels();
 
-    private ScreenListener listener;
 
     public LevelSelectorScreen(Game game) {
         this.game = game;
         Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
-
-        //COMMENT OUT THE FOLLOWING LINE IF YOU ONLY WANT 1ST LEVEL TO BE UNLOCKED
-        prefs.putInteger("levelsUnlocked", 12);
 
         GameController.getInstance().setLevelsUnlocked(prefs.getInteger("levelsUnlocked", 1));
     }
@@ -59,13 +56,16 @@ public class LevelSelectorScreen extends ScreenAdapter {
         /** Loops through all buttons */
         for(int i=1; i<= numberOfLevels; i++) {
             int finalI = i;
+            /** Texture for the level button */
+            Texture buttonTexture;
             if(i <= GameController.getInstance().getLevelsUnlocked()) {
                 buttonTexture = GameController.getInstance().objectController.getUnlockedButtonTexture(finalI);
             } else {
                 buttonTexture = GameController.getInstance().objectController.getLockedButtonTexture(finalI);
             }
 
-            TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+            TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(
+                    buttonTexture));
             BitmapFont font = new BitmapFont();
             TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
             textButtonStyle.up = buttonDrawable;
