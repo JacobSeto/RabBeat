@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="735">
+ <editorsettings>
+  <export target="../levelsJson/rabbeatLevel6.tmj" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="Images.tsx"/>
+ <tileset firstgid="75" source="platforms.tsx"/>
+ <tileset firstgid="153" source="walls.tsx"/>
+ <tileset firstgid="165" source="Backgrounds.tsx"/>
+ <tileset firstgid="169" source="rabbeatTileset.tsx"/>
+ <objectgroup id="2" name="background" locked="1">
+  <object id="536" name="0" gid="57" x="1439" y="757" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="690" gid="168" x="0" y="1088" width="9696" height="1088"/>
+ </objectgroup>
+ <objectgroup id="18" name="backgroundArt"/>
+ <objectgroup id="13" name="platforms">
+  <object id="662" gid="132" x="2176" y="672" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="665" gid="130" x="1840" y="736" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="693" gid="130" x="1456" y="736" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="694" gid="130" x="1136" y="672" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="695" gid="132" x="2304" y="928" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="696" gid="131" x="2208" y="928" width="128" height="32">
+   <properties>
+    <property name="align" value="mid"/>
+   </properties>
+  </object>
+  <object id="699" gid="130" x="3328" y="544" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="700" gid="132" x="4064" y="832" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="701" gid="130" x="4256" y="640" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="702" gid="132" x="4064" y="384" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="703" gid="130" x="3200" y="704" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="704" gid="131" x="3328" y="704" width="128" height="32">
+   <properties>
+    <property name="align" value="mid"/>
+   </properties>
+  </object>
+  <object id="705" gid="132" x="4704" y="800" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="706" gid="130" x="4960" y="672" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="707" gid="132" x="4704" y="448" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="712" gid="130" x="6112" y="736" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="713" gid="132" x="5920" y="352" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="715" gid="132" x="6144" y="320" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="717" gid="130" x="6400" y="352" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="718" gid="132" x="6208" y="128" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="721" gid="130" x="6144" y="400" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="1" name="walls" width="150" height="17">
+  <data encoding="csv">
+176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,176,176,176,179,179,179,179,179,176,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,175,176,177,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,178,179,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,179,180,0,0,0,0,0,175,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,175,176,177,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,169,170,171,0,169,170,171,0,169,170,170,170,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,176,179,179,179,179,179,179,179,179,179,179,179,179,179,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,175,176,177,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,172,174,0,0,0,175,176,177,0,0,0,172,174,0,175,177,0,0,0,0,0,0,0,0,0,172,174,0,0,172,174,0,0,0,172,174,0,0,0,0,0,169,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,175,177,0,0,0,175,176,177,0,0,0,175,177,0,175,177,0,0,0,0,0,0,0,0,0,175,177,0,0,175,177,0,0,0,175,177,0,172,173,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,179,179,179,179,179,180,0,0,0,0,0,0,0,172,173,173,173,173,173,174,0,0,175,177,0,0,175,177,0,0,0,175,176,177,0,0,0,175,177,0,175,177,0,0,0,0,0,0,0,0,0,175,177,0,0,175,177,0,0,0,175,177,0,175,176,177,0,0,0,0,0,169,170,171,0,169,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,176,170,170,170,170,170,170,170,170,170,170,170,170,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,177,0,0,175,177,0,0,175,177,0,0,0,178,179,180,0,0,0,175,177,0,175,177,0,0,0,0,0,0,0,0,0,175,177,0,0,175,177,0,0,0,175,177,0,178,179,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,177,0,0,178,180,0,0,178,180,0,0,0,0,0,0,0,0,0,178,180,0,178,180,0,0,0,0,0,0,0,0,0,178,180,0,0,178,180,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,170,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,173,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,177,0,0,172,174,0,0,172,174,0,0,0,0,0,0,0,0,0,172,174,0,172,174,0,0,0,0,0,0,0,0,0,172,174,0,0,172,174,0,0,0,172,174,0,0,0,0,0,169,170,171,0,0,0,0,0,0,0,169,170,170,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,177,0,0,0,0,172,174,0,0,0,172,174,0,0,0,0,0,172,174,0,0,0,0,0,0,0,0,0,0,0,0,175,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,177,0,0,175,177,0,0,175,177,0,0,0,172,173,174,0,0,0,175,177,0,175,177,0,0,0,0,0,0,0,0,0,175,177,0,0,175,177,0,0,0,175,177,0,172,173,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,176,170,170,170,170,179,179,170,170,170,179,179,170,173,174,0,0,178,180,0,0,0,172,174,0,0,0,0,172,174,0,175,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,177,0,0,175,177,0,0,175,177,0,0,0,175,176,177,0,0,0,175,177,0,178,180,0,0,0,0,0,0,0,0,0,175,177,0,0,175,177,0,0,0,175,177,0,175,176,177,0,169,171,0,0,169,171,0,0,0,0,169,170,170,170,170,170,170,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,177,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,178,180,0,0,0,0,178,180,0,175,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,177,0,0,178,180,0,0,175,177,0,0,0,178,179,180,0,0,0,175,177,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,178,180,0,0,0,175,177,0,178,179,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,177,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,177,0,0,0,0,0,0,0,0,0,0,0,0,172,174,0,0,0,0,0,175,176,176,176,176,176,177,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,170,170,170,170,170,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,177,0,0,0,0,0,0,0,0,0,0,0,0,175,176,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,177,0,0,0,0,0,0,0,172,173,174,0,0,175,176,173,173,173,173,173,176,176,176,176,176,176,177,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,176,173,173,173,173,173,173,173,173,173,173,173,173,176,176,176,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,177,0,0,0,0,0,172,173,176,176,176,173,173,176,176,176,176,176,176,176,176,176,176,176,176,176,177,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,0,0,0,175,177,0,0,0,0,0,169,170,171,0,169,170,171,0,169,170,170,170,170,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,173,173,173,173,173,173,173,173,173,173,173,173,173,173,176,176,177,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,173,173,173,173,173,173,176,176,173,173,173,173,173,173,173,173,173,176,176,173,173,173,173,173,173,173,173,173,173,173,173,176,176,173,173,173,173,173,173,173,176,176,173,173,173,173,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="10" name="weightedPlatforms">
+  <object id="673" type="Weighted Platform" gid="139" x="5696" y="352" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="platformInterval" type="int" value="1"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="674" type="Weighted Platform" gid="141" x="5696" y="896" width="192" height="32">
+   <properties>
+    <property name="platformInterval" type="int" value="1"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="722" type="Weighted Platform" gid="139" x="6272" y="608" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="num" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="1"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="723" type="Weighted Platform" gid="141" x="6256" y="1024" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="1"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="16" name="movingPlatforms"/>
+ <objectgroup id="7" name="enemies" class="Bear">
+  <properties>
+   <property name="beatList" value="1234"/>
+  </properties>
+  <object id="548" type="Bear" gid="9" x="128" y="384" width="173" height="200">
+   <properties>
+    <property name="beatList" value="1234"/>
+   </properties>
+  </object>
+  <object id="691" type="Bear" gid="9" x="128" y="960" width="173" height="200">
+   <properties>
+    <property name="beatList" value="15"/>
+   </properties>
+  </object>
+  <object id="692" type="Bear" gid="9" x="1872" y="1024" width="173" height="200">
+   <properties>
+    <property name="beatList" value="1234"/>
+   </properties>
+  </object>
+  <object id="697" type="Bear" gid="9" x="3280" y="896" width="173" height="200">
+   <properties>
+    <property name="beatList" value="1234"/>
+   </properties>
+  </object>
+  <object id="698" type="Bear" gid="9" x="4608" y="640" width="173" height="200">
+   <properties>
+    <property name="beatList" value="1234"/>
+   </properties>
+  </object>
+  <object id="709" type="Bear" gid="9" x="6672" y="640" width="173" height="200">
+   <properties>
+    <property name="beatList" value="1234"/>
+   </properties>
+  </object>
+  <object id="710" type="Bear" gid="9" x="6672" y="256" width="173" height="200">
+   <properties>
+    <property name="beatList" value="1234"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="checkpoints">
+  <object id="565" type="Checkpoint" gid="8" x="6672" y="1024" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="576" type="Checkpoint" gid="8" x="3472" y="320" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="669" type="Checkpoint" gid="8" x="2080" y="512" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="708" type="Checkpoint" gid="8" x="5488" y="1024" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="3"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="player">
+  <object id="2" name="player" gid="3" x="256" y="704" width="75" height="142"/>
+ </objectgroup>
+ <objectgroup id="9" name="goal"/>
+ <objectgroup id="12" name="foregroundArt" class="bigwire"/>
+</map>

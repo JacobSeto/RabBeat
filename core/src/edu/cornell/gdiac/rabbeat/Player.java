@@ -414,6 +414,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		} else {
 			jumpCooldown = Math.max(0, jumpCooldown - 1);
 		}
+	
 
 		animationUpdate();
 		setRestitution(0.0f);

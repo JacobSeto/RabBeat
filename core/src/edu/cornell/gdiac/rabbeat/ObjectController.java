@@ -78,6 +78,9 @@ public class ObjectController {
     protected TextureRegion laserMiddle;
     protected TextureRegion laserTop;
     protected TextureRegion laserBottom;
+    protected TextureRegion laserLeft;
+    protected TextureRegion laserRight;
+    protected TextureRegion laserHorizontal;
 
     /** The texture for weighted platforms in Synth mode */
     protected TextureRegion weightedSynth;
@@ -531,6 +534,9 @@ public class ObjectController {
         laserMiddle = new TextureRegion(directory.getEntry("world:laserMiddle", Texture.class));
         laserTop = new TextureRegion(directory.getEntry("world:laserTop", Texture.class));
         laserBottom = new TextureRegion(directory.getEntry("world:laserBottom", Texture.class));
+        laserLeft = new TextureRegion(directory.getEntry("world:laserLeft", Texture.class));
+        laserRight = new TextureRegion(directory.getEntry("world:laserRight", Texture.class));
+        laserHorizontal = new TextureRegion(directory.getEntry("world:laserHorizontal", Texture.class));
 
         weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
         weightedJazz = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
@@ -620,6 +626,8 @@ public class ObjectController {
         assets.put("spot_7", new TextureRegion(directory.getEntry("world:spots:spot_7", Texture.class)));
         assets.put("texture_0", new TextureRegion(directory.getEntry("world:spots:texture_0", Texture.class)));
         assets.put("texture_1", new TextureRegion(directory.getEntry("world:spots:texture_1", Texture.class)));
+        assets.put("laserOverlay", new TextureRegion(directory.getEntry("world:laserOverlay", Texture.class)));
+        assets.put("laserGlow", new TextureRegion(directory.getEntry("world:laserGlow", Texture.class)));
 
         assets.put("pole_0", new TextureRegion(directory.getEntry("world:signs:pole_0", Texture.class)));
         assets.put("pole_1", new TextureRegion(directory.getEntry("world:signs:pole_1", Texture.class)));
@@ -737,9 +745,9 @@ public class ObjectController {
                         for (JsonValue wp : layer.get("objects")) {
                             int num = 0;
                             String genre = "";
-                            int platformInterval = 1;
+                            int platformInterval = 0;
                             int waitTime = 1;
-                            int moveTime = 1;
+                            int moveTime = 0;
                             for (JsonValue prop : wp.get("properties")) {
                                 switch (prop.getString("name")) {
                                     case "num":
@@ -775,6 +783,7 @@ public class ObjectController {
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
+                            System.out.println(wpMove[i]);
                             createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpPlatformInterval[i], wpMove[i], wpWait[i], wpDimensions[i], levelHeight, tileSize);
                         }
                         break;
@@ -1182,6 +1191,15 @@ public class ObjectController {
             else if (align.equals("bottom")){
                 textureRegion = laserBottom;
             }
+            else if (align.equals("left")){
+                textureRegion = laserLeft;
+            }
+            else if (align.equals("right")){
+                textureRegion = laserRight;
+            }
+            else if (align.equals("horizontal")){
+                textureRegion = laserHorizontal;
+            }
             else{
                 textureRegion = laserTile;
             }
@@ -1252,7 +1270,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
-    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, int platformIntervals, int waitTime, int moveTime, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, int platformIntervals,  int moveTime,int waitTime, Vector2 dimensions, int levelHeight, int tileSize){
         //  Adjust coordinates + Convert coordinates to world coordinates
 //        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
         Vector2 convertedSynthCoord = convertTiledCoord(synthCoord[0], synthCoord[1], dimensions.x, dimensions.y, levelHeight, tileSize);

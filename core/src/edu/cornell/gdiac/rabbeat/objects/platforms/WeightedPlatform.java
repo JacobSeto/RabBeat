@@ -6,6 +6,7 @@ import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.objects.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.objects.IGenreObject;
+import edu.cornell.gdiac.rabbeat.objects.Type;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 /**
@@ -46,6 +47,8 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
      * so the 'nodes' are defined by platformbeatintervals. */
     private int waitTime;
 
+    private BoxGameObject crushBody;
+
     /**Determines the speed of the platform on each frame */
     private float SPEEDBEAT6 = (float) 3*1 /10;
     private float SPEEDBEAT7 = (float) 2*3 /10;
@@ -68,6 +71,8 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
                             TextureRegion synthTexture, TextureRegion jazzTexture) {
         super(synthPos[0], synthPos[1], width, height);
 
+
+
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
         synthPosition = new Vector2(synthPos[0], synthPos[1]);
         this.synthTexture = synthTexture;
@@ -81,8 +86,14 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
         currentGenre = 0;
         platformIntervals = platformInterval-1;
         moveTime = (int) Math.pow(2, beatMoveTime);
+
         waitTime = beatWaitTime;
         BPM = GameController.getInstance().getBPM();
+
+        crushBody = new BoxGameObject(synthPos[0], synthPos[1], width*0.9f, height*0.9f);
+        crushBody.setType(Type.LETHAL);
+        crushBody.setPosition(synthPosition);
+        crushBody.setTexture(synthTexture);
     }
     /** */
     public Vector2 currentVelocity(){
@@ -107,6 +118,9 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
                 move(delta, jazzPosition, 1*currentSpeed);
             }
         }
+        System.out.println("positions");
+        System.out.println(crushBody.getPosition());
+        System.out.println(getPosition());
     }
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
     public void move(float delta, Vector2 destination, float speed){

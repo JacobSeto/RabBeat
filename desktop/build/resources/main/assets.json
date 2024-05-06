@@ -66,6 +66,11 @@
       "world:laserMiddle" : "world/lasers/laserMiddle.png",
       "world:laserTop" : "world/lasers/laserTop.png",
       "world:laserBottom" : "world/lasers/laserBottom.png",
+          "world:laserLeft" : "world/lasers/laserLeft.png",
+          "world:laserRight" : "world/lasers/laserRight.png",
+          "world:laserHorizontal" : "world/lasers/laserHorizontal.png",
+          "world:laserOverlay" : "world/lasers/laserOverlay.png",
+          "world:laserGlow" : "world/lasers/laserGlow.png",
 
       "world:checkpoints:checkpointInactive": "world/checkpoints/checkpointInactive.png",
       "world:goal": "world/goal.png",

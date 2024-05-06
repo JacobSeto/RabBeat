@@ -1,213 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="120" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="759">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="120" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="763">
  <editorsettings>
   <export target="../levelsJson/rabbeatLevel5.tmj" format="json"/>
  </editorsettings>
  <tileset firstgid="1" source="Images.tsx"/>
  <tileset firstgid="75" source="platforms.tsx"/>
- <tileset firstgid="148" source="walls.tsx"/>
- <tileset firstgid="160" source="rabbeatTileset.tsx"/>
- <tileset firstgid="181" source="Backgrounds.tsx"/>
- <tileset firstgid="185" source="BackgroundArt.tsx"/>
- <objectgroup id="2" name="background">
-  <object id="628" gid="184" x="0" y="1088" width="13000" height="1088"/>
+ <tileset firstgid="153" source="walls.tsx"/>
+ <tileset firstgid="165" source="rabbeatTileset.tsx"/>
+ <tileset firstgid="186" source="Backgrounds.tsx"/>
+ <tileset firstgid="190" source="BackgroundArt.tsx"/>
+ <objectgroup id="2" name="background" locked="1">
+  <object id="628" gid="189" x="0" y="1088" width="13000" height="1088"/>
  </objectgroup>
  <objectgroup id="18" name="backgroundArt">
   <object id="624" type="cam_0" gid="72" x="4624" y="512" width="320" height="320"/>
-  <object id="626" type="cam_1" gid="73" x="448" y="512" width="320" height="320"/>
   <object id="619" type="pipeposter" gid="43" x="960" y="768" width="320" height="320"/>
   <object id="585" type="pipestraight" gid="46" x="944" y="1072" width="320" height="320"/>
-  <object id="697" gid="192" x="144" y="960" width="192" height="192"/>
-  <object id="698" gid="197" x="336" y="784" width="192" height="192"/>
-  <object id="699" gid="192" x="144" y="528" width="192" height="192"/>
-  <object id="701" gid="205" x="1296" y="480" width="128" height="128"/>
-  <object id="702" gid="206" x="1488" y="384" width="128" height="128"/>
-  <object id="703" gid="202" x="1792" y="416" width="128" height="128"/>
-  <object id="704" gid="204" x="2112" y="208" width="128" height="128"/>
-  <object id="705" gid="203" x="2512" y="288" width="128" height="128"/>
-  <object id="706" gid="206" x="2368" y="384" width="128" height="128"/>
-  <object id="709" type="Pulse" gid="240" x="2752" y="192" width="128" height="128"/>
-  <object id="710" type="Pulse" gid="241" x="2304" y="1024" width="128" height="128"/>
-  <object id="711" gid="242" x="1632" y="1024" width="128" height="128"/>
-  <object id="712" type="Pulse" gid="233" x="7344" y="800" width="128" height="128"/>
-  <object id="713" type="Pulse" gid="236" x="6784" y="1088" width="128" height="128"/>
-  <object id="714" type="Pulse" gid="234" x="5776" y="960" width="128" height="128"/>
-  <object id="715" type="Pulse" gid="237" x="7504" y="560" width="128" height="128"/>
-  <object id="716" gid="197" x="6064" y="1120" width="192" height="192"/>
-  <object id="717" type="Pulse" gid="199" x="5680" y="368" width="128" height="128"/>
-  <object id="718" type="Pulse" gid="199" x="5776" y="368" width="128" height="128"/>
-  <object id="719" type="Pulse" gid="199" x="5856" y="368" width="128" height="128"/>
-  <object id="720" type="Pulse" gid="199" x="3664" y="800" width="128" height="128"/>
-  <object id="721" type="Pulse" gid="199" x="3792" y="800" width="128" height="128"/>
-  <object id="722" type="Pulse" gid="199" x="3920" y="800" width="128" height="128"/>
-  <object id="723" gid="197" x="1376" y="784" width="192" height="192"/>
-  <object id="724" gid="195" x="1664" y="576" width="960" height="128"/>
+  <object id="697" gid="197" x="144" y="960" width="192" height="192"/>
+  <object id="698" gid="202" x="336" y="784" width="192" height="192"/>
+  <object id="699" gid="197" x="144" y="528" width="192" height="192"/>
+  <object id="701" gid="210" x="1296" y="480" width="128" height="128"/>
+  <object id="702" gid="211" x="1488" y="384" width="128" height="128"/>
+  <object id="703" gid="207" x="1792" y="416" width="128" height="128"/>
+  <object id="704" gid="209" x="2112" y="208" width="128" height="128"/>
+  <object id="705" gid="208" x="2512" y="288" width="128" height="128"/>
+  <object id="706" gid="211" x="2368" y="384" width="128" height="128"/>
+  <object id="709" type="Pulse" gid="245" x="2752" y="192" width="128" height="128"/>
+  <object id="710" type="Pulse" gid="246" x="2304" y="1024" width="128" height="128"/>
+  <object id="711" gid="247" x="1632" y="1024" width="128" height="128"/>
+  <object id="712" type="Pulse" gid="238" x="7344" y="800" width="128" height="128"/>
+  <object id="713" type="Pulse" gid="241" x="6784" y="1088" width="128" height="128"/>
+  <object id="714" type="Pulse" gid="239" x="5776" y="960" width="128" height="128"/>
+  <object id="715" type="Pulse" gid="242" x="7504" y="560" width="128" height="128"/>
+  <object id="716" gid="202" x="6064" y="1120" width="192" height="192"/>
+  <object id="717" type="Pulse" gid="204" x="5680" y="368" width="128" height="128"/>
+  <object id="718" type="Pulse" gid="204" x="5776" y="368" width="128" height="128"/>
+  <object id="719" type="Pulse" gid="204" x="5856" y="368" width="128" height="128"/>
+  <object id="720" type="Pulse" gid="204" x="3664" y="800" width="128" height="128"/>
+  <object id="721" type="Pulse" gid="204" x="3792" y="800" width="128" height="128"/>
+  <object id="722" type="Pulse" gid="204" x="3920" y="800" width="128" height="128"/>
+  <object id="723" gid="202" x="1376" y="784" width="192" height="192"/>
+  <object id="724" gid="200" x="1664" y="576" width="960" height="128"/>
   <object id="725" gid="51" x="1392" y="128" width="875" height="128"/>
-  <object id="726" gid="51" x="3520" y="704" width="640" height="128"/>
+  <object id="726" gid="51" x="3520" y="640" width="640" height="128"/>
   <object id="727" gid="55" x="4400" y="320" width="720" height="128"/>
   <object id="728" gid="55" x="6368" y="320" width="875" height="128"/>
-  <object id="729" type="Pulse" gid="215" x="128" y="768" width="128" height="128"/>
-  <object id="730" type="Pulse" gid="215" x="128" y="384" width="128" height="128"/>
-  <object id="731" type="Pulse" gid="233" x="704" y="896" width="128" height="128"/>
-  <object id="732" type="Pulse" gid="238" x="1696" y="896" width="128" height="128"/>
-  <object id="733" type="Pulse" gid="238" x="1264" y="256" width="128" height="128"/>
-  <object id="734" type="Pulse" gid="232" x="2624" y="496" width="128" height="128"/>
-  <object id="735" gid="226" x="3200" y="528" width="256" height="256"/>
-  <object id="736" type="Pulse" gid="219" x="3776" y="1120" width="128" height="128"/>
-  <object id="738" gid="208" x="4288" y="656" width="128" height="128"/>
-  <object id="739" gid="212" x="4272" y="784" width="128" height="128"/>
-  <object id="740" type="Pulse" gid="232" x="5280" y="304" width="128" height="128"/>
-  <object id="741" type="Pulse" gid="222" x="5120" y="992" width="128" height="128"/>
-  <object id="742" type="Pulse" gid="222" x="6912" y="960" width="128" height="128"/>
-  <object id="743" gid="227" x="4704" y="640" width="128" height="128"/>
-  <object id="744" gid="227" x="5296" y="944" width="128" height="128"/>
-  <object id="745" gid="228" x="7488" y="880" width="128" height="128"/>
-  <object id="746" gid="230" x="5536" y="544" width="128" height="128"/>
-  <object id="747" gid="204" x="6624" y="816" width="128" height="128"/>
-  <object id="748" gid="204" x="6992" y="656" width="128" height="128"/>
-  <object id="749" gid="203" x="7312" y="688" width="128" height="128"/>
-  <object id="750" gid="194" x="5952" y="704" width="960" height="128"/>
-  <object id="753" gid="200" x="5424" y="720" width="128" height="128"/>
-  <object id="754" gid="200" x="4512" y="960" width="128" height="128"/>
-  <object id="755" gid="200" x="4528" y="688" width="128" height="128"/>
-  <object id="756" gid="239" x="3648" y="960" width="128" height="128"/>
-  <object id="757" gid="243" x="3984" y="1024" width="128" height="128"/>
- </objectgroup>
- <layer id="1" name="walls" width="120" height="17">
-  <data encoding="csv">
-167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,171,0,0,0,0,0,0,0,0,0,169,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,
-167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,171,0,0,0,0,0,0,0,0,0,0,0,169,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,
-167,167,170,170,170,170,170,170,170,170,170,170,170,170,170,170,167,167,167,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,170,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,170,170,170,170,170,170,170,170,170,170,170,167,167,170,170,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,169,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,
-167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,163,165,0,0,0,0,0,163,165,0,0,0,0,0,0,0,163,165,0,0,0,0,0,0,169,170,167,167,167,167,167,167,167,167,167,167,167,167,167,167,170,171,0,0,0,0,0,0,0,0,0,0,0,169,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,
-167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,169,171,0,0,0,0,0,169,171,0,0,0,0,0,163,164,167,167,165,0,0,0,0,0,0,0,169,167,167,167,167,167,167,167,167,167,167,167,167,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,
-167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,170,167,167,167,165,0,0,0,0,0,0,0,166,167,167,167,167,167,167,167,167,167,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,
-167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,163,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,167,165,0,0,0,0,0,0,166,167,167,167,167,167,167,167,167,167,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,
-167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,169,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,167,167,165,0,0,0,0,0,169,167,167,167,167,167,167,167,167,167,167,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,
-167,168,0,0,0,0,0,0,163,164,165,0,0,0,0,0,169,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,167,167,168,0,0,0,0,0,0,169,170,170,170,170,170,170,170,170,171,0,0,0,0,0,0,0,0,163,164,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,
-167,168,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,167,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,
-167,168,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,167,167,167,164,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,163,164,167,
-167,168,0,0,0,0,0,0,166,167,168,0,0,0,0,0,163,164,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,167,167,167,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,
-167,168,0,0,0,0,0,0,166,167,168,0,0,0,0,0,169,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,167,167,167,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,
-167,168,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,167,167,167,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,
-167,168,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,167,167,167,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,
-167,168,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,167,167,167,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167,
-167,167,164,164,164,164,164,164,167,167,167,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,165,0,0,0,0,166,167,167,167,167,167,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167,167
-</data>
- </layer>
- <objectgroup id="10" name="weightedPlatforms">
-  <object id="548" gid="141" x="2496" y="1056" width="192" height="32">
-   <properties>
-    <property name="genre" value="synth"/>
-    <property name="num" type="int" value="0"/>
-    <property name="speed" type="float" value="1"/>
-   </properties>
-  </object>
-  <object id="549" gid="139" x="2496" y="736" width="192" height="32">
-   <properties>
-    <property name="genre" value="jazz"/>
-    <property name="num" type="int" value="0"/>
-    <property name="speed" type="float" value="1"/>
-   </properties>
-  </object>
-  <object id="577" gid="141" x="3456" y="1056" width="192" height="32">
-   <properties>
-    <property name="genre" value="synth"/>
-    <property name="num" type="int" value="1"/>
-    <property name="speed" type="float" value="2"/>
-    <property name="wait" value="2"/>
-   </properties>
-  </object>
-  <object id="578" gid="139" x="4032" y="1056" width="192" height="32">
-   <properties>
-    <property name="genre" value="jazz"/>
-    <property name="num" type="int" value="1"/>
-    <property name="speed" type="float" value="2"/>
-    <property name="wait" value="2"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="16" name="movingPlatforms">
-  <object id="579" type="Moving Platform" gid="135" x="4480" y="1056" width="192" height="36">
-   <properties>
-    <property name="num" type="int" value="0"/>
-    <property name="pos" type="int" value="0"/>
-    <property name="totalPos" type="int" value="4"/>
-    <property name="waitTime" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="580" type="Moving Platform" gid="135" x="4480" y="544" width="192" height="36">
-   <properties>
-    <property name="num" type="int" value="0"/>
-    <property name="pos" type="int" value="2"/>
-    <property name="totalPos" type="int" value="4"/>
-    <property name="waitTime" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="581" type="Moving Platform" gid="135" x="5248" y="864" width="192" height="32">
-   <properties>
-    <property name="moveTime" type="int" value="1"/>
-    <property name="num" type="int" value="1"/>
-    <property name="pos" type="int" value="1"/>
-    <property name="totalPos" type="int" value="2"/>
-    <property name="waitTime" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="583" type="Moving Platform" gid="135" x="6592" y="832" width="192" height="32">
-   <properties>
-    <property name="num" type="int" value="2"/>
-    <property name="totalPos" type="int" value="2"/>
-    <property name="waitTime" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="584" type="Moving Platform" gid="135" x="5504" y="480" width="192" height="36">
-   <properties>
-    <property name="moveTime" type="int" value="1"/>
-    <property name="num" type="int" value="1"/>
-    <property name="pos" type="int" value="0"/>
-    <property name="totalPos" type="int" value="2"/>
-    <property name="waitTime" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="582" type="Moving Platform" gid="135" x="6272" y="832" width="192" height="32">
-   <properties>
-    <property name="num" type="int" value="2"/>
-    <property name="pos" type="int" value="1"/>
-    <property name="totalPos" type="int" value="2"/>
-    <property name="waitTime" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="667" type="Moving Platform" gid="135" x="4480" y="800" width="192" height="36">
-   <properties>
-    <property name="num" type="int" value="0"/>
-    <property name="pos" type="int" value="3"/>
-    <property name="totalPos" type="int" value="4"/>
-    <property name="waitTime" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="668" type="Moving Platform" gid="135" x="4480" y="800" width="192" height="36">
-   <properties>
-    <property name="num" type="int" value="0"/>
-    <property name="pos" type="int" value="1"/>
-    <property name="totalPos" type="int" value="4"/>
-    <property name="waitTime" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="692" type="Moving Platform" gid="135" x="7296" y="704" width="192" height="32">
-   <properties>
-    <property name="num" type="int" value="3"/>
-    <property name="pos" type="int" value="0"/>
-    <property name="totalPos" type="int" value="2"/>
-    <property name="waitTime" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="693" type="Moving Platform" gid="135" x="6992" y="704" width="192" height="32">
-   <properties>
-    <property name="num" type="int" value="3"/>
-    <property name="pos" type="int" value="1"/>
-    <property name="totalPos" type="int" value="2"/>
-    <property name="waitTime" type="int" value="3"/>
-   </properties>
-  </object>
+  <object id="729" type="Pulse" gid="220" x="128" y="768" width="128" height="128"/>
+  <object id="730" type="Pulse" gid="220" x="128" y="384" width="128" height="128"/>
+  <object id="731" type="Pulse" gid="238" x="704" y="896" width="128" height="128"/>
+  <object id="732" type="Pulse" gid="243" x="1696" y="896" width="128" height="128"/>
+  <object id="733" type="Pulse" gid="243" x="1264" y="256" width="128" height="128"/>
+  <object id="734" type="Pulse" gid="237" x="2624" y="496" width="128" height="128"/>
+  <object id="735" gid="231" x="3200" y="528" width="256" height="256"/>
+  <object id="736" type="Pulse" gid="224" x="3776" y="1120" width="128" height="128"/>
+  <object id="738" gid="213" x="4288" y="656" width="128" height="128"/>
+  <object id="739" gid="217" x="4272" y="784" width="128" height="128"/>
+  <object id="740" type="Pulse" gid="237" x="5280" y="304" width="128" height="128"/>
+  <object id="741" type="Pulse" gid="227" x="5120" y="992" width="128" height="128"/>
+  <object id="742" type="Pulse" gid="227" x="6912" y="960" width="128" height="128"/>
+  <object id="743" gid="232" x="4704" y="640" width="128" height="128"/>
+  <object id="744" gid="232" x="5296" y="944" width="128" height="128"/>
+  <object id="745" gid="233" x="7488" y="880" width="128" height="128"/>
+  <object id="746" gid="235" x="5536" y="544" width="128" height="128"/>
+  <object id="747" gid="209" x="6624" y="816" width="128" height="128"/>
+  <object id="748" gid="209" x="6992" y="656" width="128" height="128"/>
+  <object id="749" gid="208" x="7312" y="688" width="128" height="128"/>
+  <object id="750" gid="199" x="5952" y="704" width="960" height="128"/>
+  <object id="753" gid="205" x="5424" y="720" width="128" height="128"/>
+  <object id="754" gid="205" x="4512" y="960" width="128" height="128"/>
+  <object id="755" gid="205" x="4528" y="688" width="128" height="128"/>
+  <object id="756" gid="244" x="3648" y="960" width="128" height="128"/>
+  <object id="757" gid="248" x="3776" y="1056" width="128" height="128"/>
  </objectgroup>
  <objectgroup id="13" name="platforms">
   <properties>
@@ -245,13 +108,12 @@
     <property name="align" value="left"/>
    </properties>
   </object>
-  <object id="671" type="Platform" gid="132" x="128" y="864" width="128" height="32"/>
+  <object id="671" type="Platform" gid="132" x="128" y="800" width="128" height="32"/>
   <object id="672" type="Platform" gid="130" x="384" y="608" width="128" height="32">
    <properties>
     <property name="align" value="left"/>
    </properties>
   </object>
-  <object id="673" type="Platform" gid="132" x="128" y="480" width="128" height="32"/>
   <object id="674" type="Platform" gid="132" x="704" y="544" width="128" height="32"/>
   <object id="675" type="Platform" gid="130" x="896" y="736" width="128" height="32">
    <properties>
@@ -293,22 +155,172 @@
    </properties>
   </object>
   <object id="758" type="Platform" gid="132" x="3264" y="800" width="128" height="32"/>
+  <object id="759" type="Platform" gid="132" x="1488" y="416" width="128" height="32"/>
+  <object id="760" type="Platform" gid="130" x="1712" y="224" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="761" type="Platform" gid="130" x="2160" y="224" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="762" type="Platform" gid="130" x="2608" y="288" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="1" name="walls" width="120" height="17">
+  <data encoding="csv">
+172,172,172,172,175,175,175,175,172,172,172,175,175,175,172,172,172,172,172,172,172,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,176,0,0,0,0,0,0,0,0,0,174,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,
+172,172,172,176,0,0,0,0,174,175,176,0,0,0,174,172,172,172,172,172,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,176,0,0,0,0,0,0,0,0,0,0,0,174,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,
+172,172,176,0,0,0,0,0,0,0,0,0,0,0,0,174,172,172,172,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,175,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,172,175,175,175,175,175,175,175,175,175,175,175,172,172,175,175,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,174,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,
+172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,168,170,0,0,0,0,0,168,170,0,0,0,0,0,0,0,168,170,0,0,0,0,0,0,174,175,172,172,172,172,172,172,172,172,172,172,172,172,172,172,175,176,0,0,0,0,0,0,0,0,0,0,0,174,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,
+172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,174,176,0,0,0,0,0,174,176,0,0,0,0,0,168,169,172,172,170,0,0,0,0,0,0,0,174,172,172,172,172,172,172,172,172,172,172,172,172,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,
+172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,175,172,172,172,170,0,0,0,0,0,0,0,171,172,172,172,172,172,172,172,172,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,
+172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,168,170,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,172,170,0,0,0,0,0,0,171,172,172,172,172,172,172,172,172,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,
+172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,174,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,172,172,170,0,0,0,0,0,174,175,175,175,175,175,175,175,175,175,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,
+172,173,0,0,0,0,0,0,168,169,170,0,0,0,0,0,174,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,168,169,170,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,
+172,173,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,
+172,173,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,172,172,172,169,170,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,168,169,172,
+172,173,0,0,0,0,0,0,171,172,173,0,0,0,0,0,168,169,170,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,172,172,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,
+172,173,0,0,0,0,0,0,171,172,173,0,0,0,0,0,174,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,172,172,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,
+172,173,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,172,172,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,
+172,173,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,172,172,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,
+172,173,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,172,172,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172,
+172,172,169,169,169,169,169,169,172,172,172,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,169,170,0,0,0,0,171,172,172,172,172,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,172,172
+</data>
+ </layer>
+ <objectgroup id="10" name="weightedPlatforms">
+  <object id="548" type="Weighted Platform" gid="141" x="1440" y="1024" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="num" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="549" type="Weighted Platform" gid="139" x="1440" y="736" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="num" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="577" gid="141" x="3456" y="1056" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="num" type="int" value="1"/>
+    <property name="speed" type="float" value="2"/>
+    <property name="wait" value="2"/>
+   </properties>
+  </object>
+  <object id="578" gid="139" x="4032" y="1056" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="num" type="int" value="1"/>
+    <property name="speed" type="float" value="2"/>
+    <property name="wait" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="16" name="movingPlatforms">
+  <object id="579" type="Moving Platform" gid="135" x="4480" y="1056" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="0"/>
+    <property name="pos" type="int" value="0"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="580" type="Moving Platform" gid="135" x="4480" y="544" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="0"/>
+    <property name="pos" type="int" value="2"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="581" type="Moving Platform" gid="135" x="5248" y="864" width="192" height="32">
+   <properties>
+    <property name="moveTime" type="int" value="1"/>
+    <property name="num" type="int" value="1"/>
+    <property name="pos" type="int" value="1"/>
+    <property name="totalPos" type="int" value="2"/>
+    <property name="waitTime" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="583" type="Moving Platform" gid="135" x="6592" y="832" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="2"/>
+    <property name="totalPos" type="int" value="2"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="584" type="Moving Platform" gid="135" x="5504" y="480" width="192" height="36">
+   <properties>
+    <property name="moveTime" type="int" value="1"/>
+    <property name="num" type="int" value="1"/>
+    <property name="pos" type="int" value="0"/>
+    <property name="totalPos" type="int" value="2"/>
+    <property name="waitTime" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="582" type="Moving Platform" gid="135" x="6272" y="832" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="2"/>
+    <property name="pos" type="int" value="1"/>
+    <property name="totalPos" type="int" value="2"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="667" type="Moving Platform" gid="135" x="4480" y="800" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="0"/>
+    <property name="pos" type="int" value="3"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="668" type="Moving Platform" gid="135" x="4480" y="800" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="0"/>
+    <property name="pos" type="int" value="1"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="692" type="Moving Platform" gid="135" x="7296" y="704" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="3"/>
+    <property name="pos" type="int" value="0"/>
+    <property name="totalPos" type="int" value="2"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="693" type="Moving Platform" gid="135" x="6992" y="704" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="3"/>
+    <property name="pos" type="int" value="1"/>
+    <property name="totalPos" type="int" value="2"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="enemies">
   <properties>
    <property name="beatList" value="13"/>
   </properties>
-  <object id="527" type="Bat" gid="60" x="528" y="288" width="176" height="97">
+  <object id="527" type="Bat" gid="1073741884" x="528" y="224" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="528" type="Bat" gid="60" x="1024" y="704" width="176" height="97">
+  <object id="528" type="Bat" gid="1073741884" x="1024" y="672" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="529" type="Bat" gid="60" x="2176" y="736" width="176" height="97">
+  <object id="529" type="Bat" gid="1073741884" x="2176" y="736" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
@@ -333,7 +345,7 @@
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="679" type="Bat" gid="60" x="1680" y="736" width="176" height="97">
+  <object id="679" type="Bat" gid="1073741884" x="1680" y="736" width="176" height="97">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
