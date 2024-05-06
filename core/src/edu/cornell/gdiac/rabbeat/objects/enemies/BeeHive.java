@@ -19,10 +19,11 @@ public class BeeHive extends Enemy {
     private float beeBeat;
 
 
+    /** The idle animation for the beehive */
+    public Animation<TextureRegion> idleAnimation;
+
     /** The attack animation for the bee */
-    public Animation<TextureRegion> attackAnimation;
-    /** The attack animation in synth for the bee */
-    public Animation<TextureRegion> beeAttackSynthAnimation;
+    public Animation<TextureRegion> beeAttackAnimation;
     /**
      * Creates a new bee hive avatar with the given physics data
      *
@@ -56,11 +57,12 @@ public class BeeHive extends Enemy {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
-        Bee bee = new Bee(getX() + offset, getY(), radius, genre, isFaceRight(), beeAttackSynthAnimation, beeBeat);
+        Bee bee = new Bee(getX() + offset, getY(), radius, genre, isFaceRight(), beeAttackAnimation, beeBeat);
+
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
-      
+
         bee.setSensor(true);
         bee.setTexture(oc.beeTexture);
         bee.setGravityScale(0);
@@ -73,9 +75,9 @@ public class BeeHive extends Enemy {
         bee.setVY(vSpeed);
         GameController.getInstance().instantiateQueue(bee);
     }
+
     @Override
     public void Attack() {
         makeBee();
     }
-
 }

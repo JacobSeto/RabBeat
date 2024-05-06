@@ -27,6 +27,13 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     /** The current genre*/
     Genre genre;
 
+    /** Enum containing the state of the animation */
+    protected enum AnimationState {
+        IDLE,
+        ANTI,
+        ATTACK
+    }
+
     /** The scale of the enemy */
     private float enemyScale;
 
@@ -40,6 +47,10 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     public Animation<TextureRegion> animation;
     /** The elapsed time for animationUpdate */
     protected float stateTime = 0;
+    /** Holds the genre of the ANIMATION. Doesn't specifically detect genre. */
+    protected Genre animationGenre;
+    /** Initializes the state of the animation */
+    protected AnimationState animationState = AnimationState.IDLE;
 
     /** Whether the enemy is flippable */
     protected boolean isFlippable = true;
@@ -165,9 +176,6 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
 
     public void updateAnimationFrame() {
         stateTime++;
-        if (animation.isAnimationFinished(stateTime)) {
-            stateTime = 0;
-        }
     }
 
     public void genreUpdate(Genre genre) {
@@ -185,15 +193,26 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
             beatCount = 1;
         }
         if (beatList[beatListIndex] == beatCount) {
-           enemyState = EnemyState.ATTACKING;
-            Attack();
-            beatListIndex++;
-            if (beatListIndex >= beatList.length) {
-                beatListIndex = 0;
+            animationState = AnimationState.ATTACK;
+            if (enemyState == EnemyState.ATTACKING) {
+                Attack();
+                beatListIndex++;
+                if (beatListIndex >= beatList.length) {
+                    beatListIndex = 0;
+                }
             }
-        }
-        else{
-            enemyState = EnemyState.IDLE;
+        } else {
+            if (beatList[beatListIndex] == 1f) {
+                if (8f == beatCount) {
+                    animationState = AnimationState.ANTI;
+                } else {
+                    animationState = AnimationState.IDLE;
+                }
+            } else if (beatList[beatListIndex] - 1f == beatCount) {
+                animationState = AnimationState.ANTI;
+            } else {
+                animationState = AnimationState.IDLE;
+            }
         }
     }
 

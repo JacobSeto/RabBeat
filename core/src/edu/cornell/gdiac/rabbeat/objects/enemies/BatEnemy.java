@@ -27,11 +27,12 @@ public class BatEnemy extends Enemy {
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
 
-
-    /** The attack animation in synth for the bear */
-    public Animation<TextureRegion> attackSynthAnimation;
-    /** The attack animation in jazz for the bear */
-    public Animation<TextureRegion> attackJazzAnimation;
+    /** The idle animation for the bear */
+    public Animation<TextureRegion> idleAnimation;
+    /** The anticipation animation for the bear */
+    public Animation<TextureRegion> antiAnimation;
+    /** The attack animation for the bear */
+    public Animation<TextureRegion> attackAnimation;
 
     /** The echo animation for the bat*/
     public Animation<TextureRegion> echoAnimation;
@@ -107,5 +108,21 @@ public class BatEnemy extends Enemy {
     @Override
     public void Attack() {
         makeEcho();
+    }
+
+    @Override
+    public void updateAnimationFrame() {
+        super.updateAnimationFrame();
+        switch (animationState) {
+            case IDLE:
+                setAnimation(idleAnimation);
+                break;
+            case ANTI:
+                setAnimation(antiAnimation);
+                break;
+            case ATTACK:
+                setAnimation(attackAnimation);
+                break;
+        }
     }
 }
