@@ -6,6 +6,7 @@ import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.objects.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.objects.IGenreObject;
+import edu.cornell.gdiac.rabbeat.objects.Type;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 /**
@@ -24,7 +25,6 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
     private TextureRegion synthTexture;
     /** Texture of the weighted platform in jazz mode **/
     private TextureRegion jazzTexture;
-    private int currentGenre;
 
     /** Whether or not the platform is moving**/
     boolean moving;
@@ -46,10 +46,14 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
      * so the 'nodes' are defined by platformbeatintervals. */
     private int waitTime;
 
+    private BoxGameObject crushBody;
+
     /**Determines the speed of the platform on each frame */
     private float SPEEDBEAT6 = (float) 3*1 /10;
     private float SPEEDBEAT7 = (float) 2*3 /10;
     private float SPEEDBEAT8 = (float) 2*6 /10;
+
+    Genre genre;
     /**
      * Creates a new weighted platform with the given physics data and current genre.
      *
@@ -65,31 +69,44 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
      * @param jazzTexture The weighted platform's texture region used in jazz mode.
      */
     public WeightedPlatform(float width, float height, float[] synthPos, float[] jazzPos, int platformInterval, int beatWaitTime,int beatMoveTime,
-                            TextureRegion synthTexture, TextureRegion jazzTexture) {
-        super(synthPos[0], synthPos[1], width, height);
+                            TextureRegion synthTexture, TextureRegion jazzTexture, Genre genre) {
+        super((genre == Genre.SYNTH)? synthPos[0] : synthPos[0],
+                (genre == Genre.SYNTH)? synthPos[1] : jazzPos[1], width, height);
+
+
 
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
         synthPosition = new Vector2(synthPos[0], synthPos[1]);
         this.synthTexture = synthTexture;
         this.jazzTexture = jazzTexture;
-        setTexture(synthTexture);
-        setPosition(synthPosition);
+        setTexture((genre == Genre.SYNTH)? synthTexture : jazzTexture);
+        if(genre == Genre.SYNTH){
+            setPosition(synthPosition);
+        }
+        else{
+            setPosition(jazzPosition);
+        }
         moving = false;
         float magnitude1 = magnitude(jazzPosition, synthPosition);
         velocity = new Vector2((jazzPosition.x - synthPosition.x)/magnitude1,
                 (jazzPosition.y-synthPosition.y)/magnitude1);
-        currentGenre = 0;
         platformIntervals = platformInterval-1;
         moveTime = (int) Math.pow(2, beatMoveTime);
+
         waitTime = beatWaitTime;
         BPM = GameController.getInstance().getBPM();
+
+        crushBody = new BoxGameObject(synthPos[0], synthPos[1], width*0.9f, height*0.9f);
+        crushBody.setType(Type.LETHAL);
+        crushBody.setPosition(synthPosition);
+        crushBody.setTexture(synthTexture);
     }
     /** */
     public Vector2 currentVelocity(){
         if (!moving){
             return new Vector2(0,0);
         }
-        if (currentGenre==0){
+        if (genre == Genre.SYNTH){
             return new Vector2(velocity.x *-1*currentSpeed , velocity.y*-1*currentSpeed);
         }
         else{
@@ -100,13 +117,14 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
     /** updates the platform to determine what direction it should be moving in */
     public void update(float delta){
         if(moving){
-            if (currentGenre == 0){
+            if (genre == Genre.SYNTH){
                 move(delta, synthPosition, -1*currentSpeed);
             }
             else{
                 move(delta, jazzPosition, 1*currentSpeed);
             }
         }
+
     }
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
     public void move(float delta, Vector2 destination, float speed){
@@ -166,6 +184,7 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
     }
     @Override
     public void genreUpdate(Genre genre) {
+        this.genre = genre;
         move(genre);
     }
 
@@ -179,13 +198,11 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
                 //setPosition(jazzPosition);
                 setTexture(jazzTexture);
                 moving = true;
-                currentGenre = 1;
                 break;
             case SYNTH:
                 //setPosition(synthPosition);
                 setTexture(synthTexture);
                 moving = true;
-                currentGenre = 0;
                 break;
         }
     }

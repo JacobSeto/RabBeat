@@ -45,7 +45,6 @@ public class StretchingArtObject extends ArtObject implements ISynced {
 
     @Override
     public void beatAction() {
-        System.out.println("stretch");
         horizontalScaleAmount = 1;
         verticalScaleAmount = 1;
     }

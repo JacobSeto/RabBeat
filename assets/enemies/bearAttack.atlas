@@ -1,5 +1,5 @@
 bearAttack.png
-size: 346, 1200
+size: 519, 200
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -19,71 +19,8 @@ bearAttack
   index: 1
 bearAttack
   rotate: false
-  xy: 0, 200
+  xy: 346, 0
   size: 173, 200
   orig: 173, 200
   offset: 0, 0
   index: 2
-bearAttack
-  rotate: false
-  xy: 173, 200
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 3
-bearAttack
-  rotate: false
-  xy: 0, 400
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 4
-bearAttack
-  rotate: false
-  xy: 173, 400
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 5
-bearAttack
-  rotate: false
-  xy: 0, 600
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 6
-bearAttack
-  rotate: false
-  xy: 173, 600
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 7
-bearAttack
-  rotate: false
-  xy: 0, 800
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 8
-bearAttack
-  rotate: false
-  xy: 173, 800
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 9
-bearAttack
-  rotate: false
-  xy: 0, 1000
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 10
-bearAttack
-  rotate: false
-  xy: 173, 1000
-  size: 173, 200
-  orig: 173, 200
-  offset: 0, 0
-  index: 11
