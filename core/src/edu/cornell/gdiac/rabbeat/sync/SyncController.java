@@ -83,7 +83,6 @@ public class SyncController {
      * @param dt Number of seconds since last animation frame
      */
     public void update(float dt) {
-
         animationInterval.checkForNewInterval(
                 (synth.getPosition() + visualDelay) / animationInterval.getIntervalLength(BPM)
         );
@@ -123,6 +122,7 @@ public class SyncController {
             beatLatencyList.clear();
             beat.beatLatencyList.clear();
             audioDelay = averageDelay;
+            //TODO: Audio delay should be displayed, and not printed through console
             System.out.println("delay: " + audioDelay);
         }
         calibrateDT = 0;

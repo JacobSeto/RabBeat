@@ -46,44 +46,36 @@ public class BearEnemy extends Enemy {
      * @param beatList   The list of beats that the enemy reacts to
      */
     public BearEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, int[] beatList) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
+            boolean faceRight, int[] beatList, Genre genre) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, beatList, genre);
     }
 
     /**
      * Switches the attack state of the bear depending on the player's position.
      */
     public void switchState() {
-        switch (enemyState) {
-            case IDLE:
-                if (horizontalDistanceBetweenEnemyAndPlayer() < 20) {
-                    enemyState = EnemyState.ATTACKING;
-                }
-                break;
-            case ATTACKING:
-                if (horizontalDistanceBetweenEnemyAndPlayer() > 20) {
-                    enemyState = EnemyState.IDLE;
-                }
-                // TODO: make bear shoot
-                break;
-        }
-    }
-
-    @Override
-    public void update(float dt) {
-        super.update(dt);
-        animationUpdate();
+//        switch (enemyState) {
+//            case IDLE:
+//                if (horizontalDistanceBetweenEnemyAndPlayer() < 20) {
+//                    enemyState = EnemyState.ATTACKING;
+//                }
+//                break;
+//            case ATTACKING:
+//                if (horizontalDistanceBetweenEnemyAndPlayer() > 20) {
+//                    enemyState = EnemyState.IDLE;
+//                }
+//                // TODO: make bear shoot
+//                break;
+//        }
+//        System.out.println(enemyState);
     }
 
     /** Creates a bullet in front of the bear */
     public void makeBullet() {
-        // TODO: create a bullet using object controller default values. instantiate the
-        // copy using gamecontroller
-
         ObjectController oc = GameController.getInstance().objectController;
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
-        float radius = (animationGenre == Genre.SYNTH ?
+        float radius = (genre == Genre.SYNTH ?
                 (oc.bulletTexture.getRegionWidth() / (0.3f * scale.x)) :
                 (oc.bulletTexture.getRegionWidth() / (0.24f * scale.x)));
         float width  = oc.bulletTexture.getRegionWidth()*0.1f;
@@ -91,19 +83,19 @@ public class BearEnemy extends Enemy {
         bullet = new Bullet(getX()+offset, getY()+0.1f, width, height,
                 oc.defaultConstants.get("bullet").getFloat("synth speed", 0),
                 oc.defaultConstants.get("bullet").getFloat("jazz speed", 0), isFaceRight(),
-                animationGenre);
+                genre);
 
         bullet.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bullet.setDrawScale(scale);
         //bullet.setTexture(oc.bulletTexture);
         bullet.setGravityScale(0);
-        bullet.setAnimation(animationGenre == Genre.SYNTH ? oc.bulletSynthAnimation : oc.bulletJazzAnimation);
+        bullet.setAnimation(genre == Genre.SYNTH ? oc.bulletSynthAnimation : oc.bulletJazzAnimation);
         shotDirection = isFaceRight();
         int beatcount;
 
         // Compute position and velocity
         float speed;
-        if (GameController.getInstance().genre == Genre.SYNTH) {
+        if (genre == Genre.SYNTH) {
             speed = oc.defaultConstants.get("bullet").getFloat("synth speed", 0);
             beatcount = oc.defaultConstants.get("bullet").getInt("synth bullet time", 0);
         } else {
@@ -126,10 +118,10 @@ public class BearEnemy extends Enemy {
         makeBullet();
     }
 
-    /**
-     * Updates the animation based on the physics state.
-     */
-    private void animationUpdate() {
+    @Override
+    public void updateAnimationFrame() {
+        super.updateAnimationFrame();
+
         switch (animationState) {
             case IDLE:
                 setAnimation(idleAnimation);

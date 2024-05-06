@@ -50,8 +50,8 @@ public class BatEnemy extends Enemy {
      * @param beatList   The list of beats that the enemy reacts to
      */
     public BatEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, int[] beatList) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
+            boolean faceRight, int[] beatList, Genre genre) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, beatList, genre);
         isFlippable = false;
     }
 
@@ -76,7 +76,6 @@ public class BatEnemy extends Enemy {
     @Override
     public void update(float dt) {
         super.update(dt);
-        animationUpdate();
     }
 
     /** Creates a bullet in front of the bear */
@@ -86,7 +85,7 @@ public class BatEnemy extends Enemy {
         float offset = oc.defaultConstants.get("echo").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
         for(int i = 0; i < 2; i++){
-            if(GameController.getInstance().genre == Genre.SYNTH){
+            if(genre == Genre.SYNTH){
                 echo = new Echo(getX() + offset, getY(),
                         2, .75f,  echoAnimation);
             }
@@ -111,10 +110,9 @@ public class BatEnemy extends Enemy {
         makeEcho();
     }
 
-    /**
-     * Updates the animation based on the physics state.
-     */
-    private void animationUpdate() {
+    @Override
+    public void updateAnimationFrame() {
+        super.updateAnimationFrame();
         switch (animationState) {
             case IDLE:
                 setAnimation(idleAnimation);
