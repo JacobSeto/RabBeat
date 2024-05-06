@@ -129,12 +129,12 @@ public class GameController implements Screen, ContactListener {
 	/** Whether or not this is an active controller */
 	private boolean active;
 	/** Whether we have completed this level */
-	private boolean complete;
+	private boolean complete = false;
 
 	/** Whether we have failed at this world (and need a reset) */
-	private boolean failed;
+	private boolean failed = false;
 	/** Whether or not the game is paused */
-	private boolean paused;
+	private boolean paused = false;
 	/** The beat the */
 	/** Whether calibration is happening*/
 	public boolean inCalibration = false;
@@ -244,6 +244,7 @@ public class GameController implements Screen, ContactListener {
 		if (value) {
 			countdown = EXIT_COUNT;
 		}
+		System.out.println("Complete: " + complete);
 		complete = value;
 	}
 
@@ -512,15 +513,15 @@ public class GameController implements Screen, ContactListener {
 		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / getCanvas().getWidth();
 		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / getCanvas().getHeight();
 		world.setContactListener(this);
-		setComplete(false);
-		setFailure(false);
 		syncController = new SyncController(levelBPM);
 		populateLevel();
 		objectController.setFirstCheckpointAsSpawn(scale);
 		objectController.player.setPosition(respawnPoint);
 		soundController.resetMusic();
 		soundController.playMusic(Genre.SYNTH);
-
+		setComplete(false);
+		setFailure(false);
+		setPaused(false);
 	}
 
 	/**
@@ -654,6 +655,7 @@ public class GameController implements Screen, ContactListener {
 				if (failed) {
 					reset();
 				} else if (GameController.getInstance().isComplete()) {
+					System.out.println("The game is complete!");
 					pause();
 					// TODO: Make Win Condition
 					return false;
@@ -881,9 +883,6 @@ public class GameController implements Screen, ContactListener {
 			}
 		}
 
-		// Update genre-dependent UI element
-		objectController.genreIndicator.update(dt);
-
 		// Update checkpoints
 		for (Checkpoint checkpoint : objectController.checkpoints) {
 			checkpoint.update(dt);
@@ -1045,6 +1044,7 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
+		System.out.println("PAUSE THE GAME");
 		InputController.getInstance().setPaused(true);
 	}
 
@@ -1158,7 +1158,7 @@ public class GameController implements Screen, ContactListener {
 
 	/** Called when the game screen needs to be exited out of */
 	public void exitScreen(int exitCode) {
-		//pause();
+		soundController.pauseMusic();
 		listener.exitScreen(this, exitCode);
 	}
 
@@ -1220,7 +1220,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen() {
-		soundController.pauseMusic();
 		canvas.begin(true);
 		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
 		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);

@@ -46,15 +46,6 @@ public class GenreUI implements IGenreObject, ISyncedAnimated {
     }
 
     /**
-     * Updates the UI's physics animation.
-     **
-     * @param dt	Number of seconds since last animation frame
-     */
-    public void update(float dt) {
-        stateTime += dt;
-    }
-
-    /**
      * Draws the GenreUI.
      *
      * @param canvas    Drawing context
@@ -84,19 +75,11 @@ public class GenreUI implements IGenreObject, ISyncedAnimated {
 
     @Override
     public void genreUpdate(Genre genre) {
-        switch (genre) {
-            case SYNTH:
-                if (animation.isAnimationFinished(stateTime)) {
-                    stateTime = 0;
-                    setAnimation(synthAnimation);
-                }
-                break;
-            case JAZZ:
-                if (animation.isAnimationFinished(stateTime)) {
-                    stateTime = 0;
-                    setAnimation(jazzAnimation);
-                }
-                break;
+        if(genre == Genre.SYNTH){
+            setAnimation(synthAnimation);
+        }
+        else{
+            setAnimation(jazzAnimation);
         }
     }
 

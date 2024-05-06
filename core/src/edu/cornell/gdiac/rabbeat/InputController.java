@@ -436,6 +436,9 @@ public class InputController {
 			} else {
 				genreSwitched = false;
 			}
+			if (Gdx.input.isKeyJustPressed(Input.Keys.H)){
+				GameController.getInstance().soundController.playMusic();
+			}
 		}
 		// When the game IS paused
 		else {
