@@ -17,18 +17,16 @@ public class Bee extends WheelGameObject implements ISyncedAnimated, IGenreObjec
     private Genre hiveGenre;
     private boolean isFaceRight;
     public Animation<TextureRegion> animation;
-    private float beeBeat;
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
 
-    public Bee(float x, float y, float radius, Genre genre, boolean faceRight, Animation<TextureRegion> beeAttackAnimation, float beet) {
+    public Bee(float x, float y, float radius, Genre genre, boolean faceRight, Animation<TextureRegion> beeAttackAnimation) {
         super(x, y, radius);
         hiveGenre = genre;
         isFaceRight = faceRight;
         setAnimation(beeAttackAnimation);
         setType(Type.LETHAL);
         setSensor(true);
-        beeBeat = beet;
     }
     public void update(float dt) {
         stateTime += dt;
@@ -37,7 +35,7 @@ public class Bee extends WheelGameObject implements ISyncedAnimated, IGenreObjec
 
     @Override
     public float getBeat() {
-        return beeBeat;
+        return 1;
     }
 
     @Override

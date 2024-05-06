@@ -16,8 +16,6 @@ public class BeeHive extends Enemy {
     /** Scale of the world */
     private Vector2 scale = GameController.getInstance().getScale();
 
-    private float beeBeat;
-
 
     /** The attack animation for the bee */
     public Animation<TextureRegion> attackAnimation;
@@ -40,7 +38,6 @@ public class BeeHive extends Enemy {
         super(data, startX, startY, width, height, enemyScale, faceRight, beatList, genre);
         enemyState = EnemyState.ATTACKING;
         isFlippable = false;
-        beeBeat = beet;
     }
 
     @Override
@@ -57,6 +54,7 @@ public class BeeHive extends Enemy {
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
         Bee bee = new Bee(getX() + offset, getY(), radius, genre, isFaceRight(), beeAttackSynthAnimation);
+
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
         bee.setDrawScale(scale);
