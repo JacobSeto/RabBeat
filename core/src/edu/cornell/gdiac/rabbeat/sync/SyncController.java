@@ -116,13 +116,14 @@ public class SyncController {
         if (calibrationCount >= NUM_CALIBRATION_STEPS) {
             GameController.getInstance().inCalibration = false;
             float averageDelay = 0;
-            for (int i = 0; i < Math.min(beatLatencyList.size, beat.beatLatencyList.size); i++) {
+            int numCalibrations = Math.min(beatLatencyList.size, beat.beatLatencyList.size);
+            for (int i = 0; i < numCalibrations; i++) {
                 averageDelay += (beatLatencyList.get(i) - beat.beatLatencyList.get(i));
             }
             calibrationCount = 0;
             beatLatencyList.clear();
             beat.beatLatencyList.clear();
-            audioDelay = averageDelay;
+            audioDelay = averageDelay / numCalibrations;
             System.out.println("delay: " + audioDelay);
         }
         calibrateDT = 0;
