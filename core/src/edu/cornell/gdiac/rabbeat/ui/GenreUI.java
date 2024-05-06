@@ -3,6 +3,7 @@ package edu.cornell.gdiac.rabbeat.ui;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import edu.cornell.gdiac.rabbeat.GameCanvas;
+import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.objects.IGenreObject;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
@@ -26,20 +27,22 @@ public class GenreUI implements IGenreObject, ISyncedAnimated {
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
 
-    /** Holds the genre of the ANIMATION. Doesn't specifically detect genre. */
-    private Genre animationGenre;
-
     /**
      * Creates a new genre indicator.
      */
-    public GenreUI(TextureRegion synthTexture, TextureRegion jazzTexture, Animation<TextureRegion> synthAnimation, Animation<TextureRegion> jazzAnimation) {
+    public GenreUI(TextureRegion synthTexture, TextureRegion jazzTexture,
+            Animation<TextureRegion> synthAnimation, Animation<TextureRegion> jazzAnimation, Genre genre) {
         this.synthTexture = synthTexture;
         this.jazzTexture = jazzTexture;
         this.synthAnimation = synthAnimation;
         this.jazzAnimation = jazzAnimation;
         texture = synthTexture;
-        animationGenre = Genre.SYNTH;
-        setAnimation(synthAnimation);
+        if(genre == Genre.SYNTH){
+            setAnimation(synthAnimation);
+        }
+        else{
+            setAnimation(jazzAnimation);
+        }
     }
 
     /**
@@ -49,20 +52,6 @@ public class GenreUI implements IGenreObject, ISyncedAnimated {
      */
     public void update(float dt) {
         stateTime += dt;
-        switch (animationGenre) {
-            case SYNTH:
-                if (animation.isAnimationFinished(stateTime)) {
-                    stateTime = 0;
-                    setAnimation(synthAnimation);
-                }
-                break;
-            case JAZZ:
-                if (animation.isAnimationFinished(stateTime)) {
-                    stateTime = 0;
-                    setAnimation(jazzAnimation);
-                }
-                break;
-        }
     }
 
     /**
@@ -95,7 +84,20 @@ public class GenreUI implements IGenreObject, ISyncedAnimated {
 
     @Override
     public void genreUpdate(Genre genre) {
-        animationGenre = genre;
+        switch (genre) {
+            case SYNTH:
+                if (animation.isAnimationFinished(stateTime)) {
+                    stateTime = 0;
+                    setAnimation(synthAnimation);
+                }
+                break;
+            case JAZZ:
+                if (animation.isAnimationFinished(stateTime)) {
+                    stateTime = 0;
+                    setAnimation(jazzAnimation);
+                }
+                break;
+        }
     }
 
     @Override

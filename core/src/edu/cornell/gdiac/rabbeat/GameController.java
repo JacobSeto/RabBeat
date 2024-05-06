@@ -58,7 +58,7 @@ import edu.cornell.gdiac.rabbeat.objects.*;
 public class GameController implements Screen, ContactListener {
 
 	/** The genre state of the game */
-	public Genre genre = Genre.SYNTH;
+	private Genre genre = Genre.SYNTH;
 	/** The Sync object that will sync the world to the beat */
 	public SyncController syncController;
 
@@ -437,10 +437,6 @@ public class GameController implements Screen, ContactListener {
 		return scale;
 	}
 
-	public Genre getGenre() {
-		return genre;
-	}
-
 	public int getBPM() {
 		return syncController.BPM;
 	}
@@ -532,8 +528,6 @@ public class GameController implements Screen, ContactListener {
 	 * This method disposes of the world and creates a new one.
 	 */
 	public void reset() {
-		// Default genre is synth
-		genre = Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		for (GameObject obj : objectController.objects) {
@@ -548,7 +542,6 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
-		syncController = new SyncController(levelBPM);
 		populateLevel();
 		objectController.player.setPosition(respawnPoint);
 		//soundController.resetMusic();
@@ -563,7 +556,7 @@ public class GameController implements Screen, ContactListener {
 		world.setGravity(new Vector2(0, objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
 
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
-		objectController.populateObjects(scale);
+		objectController.populateObjects(genre,scale);
 	}
 
 	/**
@@ -690,10 +683,12 @@ public class GameController implements Screen, ContactListener {
 	public void update(float dt) {
 		syncController.update(dt);
 
-		if (InputController.getInstance().getSwitchGenre()) {
-			switchGenre();
+		if (InputController.getInstance().getSwitchGenre()){
+			if(!objectController.player.genreSwitchCooldown){
+				switchGenre();
+				updateGenreSwitch();
+			}
 			InputController.getInstance().setSwitchGenre(false);
-			updateGenreSwitch();
 		}
 		if (lastCollideWith != null){
 			Vector2 displace = lastCollideWith.currentVelocity();

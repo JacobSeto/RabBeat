@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.GameController;
+import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.ObjectController;
 import edu.cornell.gdiac.rabbeat.objects.projectiles.Bee;
 
@@ -33,10 +34,15 @@ public class BeeHive extends Enemy {
      * @param beatList   The list of beats that the enemy reacts to
      */
     public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, int[] beatList) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, beatList);
+            boolean faceRight, int[] beatList, Genre genre) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, beatList, genre);
         enemyState = EnemyState.ATTACKING;
         isFlippable = false;
+    }
+
+    @Override
+    public void switchState() {
+
     }
 
     /** Creates a bee in front of the hive */
@@ -47,7 +53,7 @@ public class BeeHive extends Enemy {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
-        Bee bee = new Bee(getX() + offset, getY(), radius, GameController.getInstance().genre, isFaceRight(), beeAttackSynthAnimation);
+        Bee bee = new Bee(getX() + offset, getY(), radius, genre, isFaceRight(), beeAttackSynthAnimation);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));
@@ -65,30 +71,9 @@ public class BeeHive extends Enemy {
         bee.setVY(vSpeed);
         GameController.getInstance().instantiateQueue(bee);
     }
-
-    @Override
-    public void update(float dt) {
-        super.update(dt);
-        animationUpdate();
-    }
-
-    @Override
-    public void switchState() {
-    }
-
     @Override
     public void Attack() {
         makeBee();
-        //setFaceRight(playerXPosition() - getPosition().x > 0);
     }
 
-    /**
-     * Updates the animation based on the physics state.
-     */
-    private void animationUpdate() {
-        setAnimation(attackAnimation);
-        if (animation.isAnimationFinished(stateTime)) {
-            stateTime = 0;
-        }
-    }
 }

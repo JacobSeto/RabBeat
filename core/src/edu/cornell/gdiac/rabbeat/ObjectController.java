@@ -709,11 +709,12 @@ public class ObjectController {
     /**
      * Populates all objects into the game.
      *
+     * @param genre The genre the world is currently in
      * @param scale The draw scale
      */
-    public void populateObjects(Vector2 scale) {
+    public void populateObjects(Genre genre, Vector2 scale) {
         // Populate in-game UI elements
-        createGUI();
+        createGUI(genre);
 
         if (levelJson.has("layers")) {
 
@@ -759,7 +760,7 @@ public class ObjectController {
                         Vector2[] wpDimensions = new Vector2[layer.get("objects").size];
                         for (JsonValue wp : layer.get("objects")) {
                             int num = 0;
-                            String genre = "";
+                            String genrePlat = "";
                             int platformInterval = 1;
                             int waitTime = 1;
                             int moveTime = 1;
@@ -769,7 +770,7 @@ public class ObjectController {
                                         num = prop.getInt("value");
                                         break;
                                     case "genre":
-                                        genre = prop.getString("value");
+                                        genrePlat = prop.getString("value");
                                         break;
                                     case "platformInterval":
                                         platformInterval = prop.getInt("value");
@@ -783,7 +784,7 @@ public class ObjectController {
                                         break;
                                 }
                             }
-                            switch (genre) {
+                            switch (genrePlat) {
                                 case "synth":
                                     synthCoord[num] = new float[] { wp.getFloat("x"), wp.getFloat("y") };
                                     break;
@@ -798,7 +799,9 @@ public class ObjectController {
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
-                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpPlatformInterval[i], wpMove[i], wpWait[i], wpDimensions[i], levelHeight, tileSize);
+                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i],
+                                    wpPlatformInterval[i], wpMove[i], wpWait[i], wpDimensions[i],
+                                    levelHeight, tileSize, genre);
                         }
                         break;
                     case "movingPlatforms":
@@ -847,7 +850,9 @@ public class ObjectController {
                         }
                         //  Now actually create moving platforms
                         for (int i=0; i<positionNodes.size(); i++){
-                            createMovingPlatform(scale, positionNodes.get(i), mpWait.get(i), mpMove.get(i), dimensions.get(i), levelHeight, tileSize);
+                            createMovingPlatform(scale, positionNodes.get(i),
+                                    mpWait.get(i), mpMove.get(i), dimensions.get(i),
+                                    levelHeight, tileSize);
                         }
                         break;
                     case "platforms":
@@ -885,7 +890,7 @@ public class ObjectController {
                             float x = player.getInt("x");
                             float y = player.getInt("y");
                             Vector2 dim = new Vector2(player.getFloat("width"), player.getFloat("height"));
-                            createPlayer(scale, x, y, dim, levelHeight, tileSize);
+                            createPlayer(scale, x, y, dim, levelHeight, tileSize, genre);
                         }
                         break;
                     case "enemies":
@@ -907,13 +912,15 @@ public class ObjectController {
                                     float x = enemy.getFloat("x");
                                     float y = enemy.getFloat("y");
                                     Vector2 dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
-                                    createEnemyBear(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString));
+                                    createEnemyBear(scale, x, y, dim, levelHeight,
+                                            tileSize, convertTiledbeatList(beatListString), genre);
                                     break;
                                 case "Beehive":
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
-                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString), faceRight);
+                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize,
+                                            convertTiledbeatList(beatListString), faceRight, genre);
                                     break;
                                 case "Hedgehog":
                                     x = enemy.getFloat("x");
@@ -925,14 +932,16 @@ public class ObjectController {
                                             rollingDistance = prop.getInt("value");
                                         }
                                     }
-                                    createEnemyHedgehog(scale, x, y, dim, rollingDistance, levelHeight, tileSize, convertTiledbeatList(beatListString));
+                                    createEnemyHedgehog(scale, x, y, dim, rollingDistance,
+                                            levelHeight, tileSize,
+                                            convertTiledbeatList(beatListString), genre);
                                     break;
                                 case "Bat":
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
                                     createEnemyBat(scale, x, y, dim, levelHeight, tileSize,
-                                            convertTiledbeatList(beatListString));
+                                            convertTiledbeatList(beatListString), genre);
                                     break;
                             }
                         }
@@ -994,22 +1003,24 @@ public class ObjectController {
                                     a);
                         }
                         break;
-                    case "backgroundArt":
+                    case "backgroundArt": {
                         for (JsonValue a : layer.get("objects")) {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
                             String assetName = "";
-                            if (a.get("properties")!=null) {
+                            if (a.get("properties") != null) {
                                 for (JsonValue prop : a.get("properties")) {
                                     if (prop.getString("name").equals("assetName")) {
                                         assetName = prop.getString("value");
                                     }
                                 }
                             }
-                            createGroundArt(scale, assetName, x, y, dim, levelHeight, tileSize, "background",
+                            createGroundArt(scale, assetName, x, y, dim, levelHeight, tileSize,
+                                    "background",
                                     a);
                         }
+                    }
                         break;
                 }
 
@@ -1271,7 +1282,9 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
-    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, int platformIntervals, int waitTime, int moveTime, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createWeightedPlatform(Vector2 scale, float[] synthCoord,
+            float[] jazzCoord, int platformIntervals, int waitTime, int moveTime, Vector2 dimensions,
+            int levelHeight, int tileSize, Genre genre){
         //  Adjust coordinates + Convert coordinates to world coordinates
 //        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
         Vector2 convertedSynthCoord = convertTiledCoord(synthCoord[0], synthCoord[1], dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -1288,7 +1301,7 @@ public class ObjectController {
                 new float[] { convertedSynthCoord.x, convertedSynthCoord.y },
                 new float[] { convertedJazzCoord.x, convertedJazzCoord.y },
                 platformIntervals, waitTime, moveTime,
-                weightedSynth, weightedJazz);
+                weightedSynth, weightedJazz, genre);
         weightedPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         weightedPlatform.setDensity(defaults.getFloat("density", 0.0f));
         weightedPlatform.setFriction(defaults.getFloat("friction", 0.0f));
@@ -1326,7 +1339,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
-    private void createPlayer(Vector2 scale, float startX, float startY, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createPlayer(Vector2 scale, float startX, float startY, Vector2 dimensions, int levelHeight, int tileSize, Genre genre){
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(startX, startY, dimensions.x, dimensions.y, levelHeight, tileSize);
 
@@ -1334,7 +1347,7 @@ public class ObjectController {
         float dwidth =synthDefaultTexture.getRegionWidth() / scale.x;
         float dheight = synthDefaultTexture.getRegionHeight() / scale.y;
         player = new Player(defaultConstants.get("player"), convertedCoord.x, convertedCoord.y,
-                dwidth * playerScale - .3f, dheight * playerScale, playerScale);
+                dwidth * playerScale - .3f, dheight * playerScale, playerScale, genre);
         player.setDrawScale(scale);
         player.setPlayer();
 
@@ -1388,14 +1401,14 @@ public class ObjectController {
      * @param tileSize    Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyBear(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList){
+    private void createEnemyBear(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, Genre genre){
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BearEnemy bear = new BearEnemy(defaultConstants.get("bears"), convertedCoord.x, convertedCoord.y,
-                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, beatList);
+                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, beatList, genre);
         bear.attackSynthAnimation = bearAttackAnimation;
         bear.attackJazzAnimation = bearAttackAnimation;
         bear.setAnimation(bearAttackAnimation);
@@ -1415,7 +1428,7 @@ public class ObjectController {
      * @param tileSize    Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight){
+    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight, Genre genre){
         //  Convert coordinates to world coordinate
         //TODO: change to beehive texture when we get art for this
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -1423,7 +1436,7 @@ public class ObjectController {
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
-                dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList);
+                dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList, genre);
         beehive.attackAnimation = beehiveAttackAnimation;
         beehive.beeAttackSynthAnimation = beeAttackAnimation;
         beehive.setAnimation(beehiveAttackAnimation);
@@ -1444,7 +1457,7 @@ public class ObjectController {
      * @param tileSize        Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyHedgehog(Vector2 scale, float x, float y, Vector2 dimensions, int rollingDistance, int levelHeight, int tileSize, int[] beatList){
+    private void createEnemyHedgehog(Vector2 scale, float x, float y, Vector2 dimensions, int rollingDistance, int levelHeight, int tileSize, int[] beatList, Genre genre){
         //  Convert coordinates to world coordinate
         //TODO: change to hedgehog texture when we get art for this
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -1453,7 +1466,7 @@ public class ObjectController {
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         HedgehogEnemy hedgehog = new HedgehogEnemy(defaultConstants.get("hedgehogs"), convertedCoord.x, convertedCoord.y,
                 rollingDistance, dwidth*enemyScale, dheight*enemyScale,
-                enemyScale, false, beatList);
+                enemyScale, false, beatList, genre);
         hedgehog.attackSynthAnimation = hedgehogAttackAnimation;
         hedgehog.setAnimation(hedgehogAttackAnimation);
         hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
@@ -1471,7 +1484,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createEnemyBat(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList){
+    private void createEnemyBat(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, Genre genre){
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
@@ -1479,7 +1492,7 @@ public class ObjectController {
         float dheight = batTexture.getRegionHeight()/scale.y;
         BatEnemy bat = new BatEnemy(defaultConstants.get("bats"), convertedCoord.x, convertedCoord.y,
                 dwidth*enemyScale, dheight*enemyScale,
-                enemyScale, false, beatList);
+                enemyScale, false, beatList, genre);
         bat.attackSynthAnimation = batAttackSynthAnimation;
         bat.attackJazzAnimation = batAttackJazzAnimation;
         bat.setAnimation(batAttackSynthAnimation);
@@ -1529,7 +1542,6 @@ public class ObjectController {
                 break;
             }
             case "Stretch": {
-                System.out.println("Stretch");
                 float pulsePerBeat = 0;
                 float horizontalGrowRate = 0;
                 float verticalGrowRate = 0;
@@ -1575,8 +1587,8 @@ public class ObjectController {
     /**
      * Creates the in-game UI elements and adds them to the genre/synced objects.
      */
-    private void createGUI() {
-        genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture, synthCDAnimation, jazzCDAnimation);
+    private void createGUI(Genre genre) {
+        genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture, synthCDAnimation, jazzCDAnimation, genre);
         GameController.getInstance().instantiate(genreIndicator);
     }
 

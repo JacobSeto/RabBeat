@@ -7,6 +7,7 @@ package edu.cornell.gdiac.rabbeat.sync;
  */
 public class Interval {
     public ISynced syncedObject;
+
     private int lastInterval = -1;
 
 
