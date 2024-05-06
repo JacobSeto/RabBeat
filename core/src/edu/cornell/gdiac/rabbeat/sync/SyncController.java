@@ -123,6 +123,7 @@ public class SyncController {
             beatLatencyList.clear();
             beat.beatLatencyList.clear();
             audioDelay = averageDelay;
+            //TODO: Audio delay should be displayed, and not printed through console
             System.out.println("delay: " + audioDelay);
         }
         calibrateDT = 0;

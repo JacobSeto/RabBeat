@@ -24,6 +24,8 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
         IDLE,
         ATTACKING
     }
+    /** The current genre*/
+    Genre genre;
 
     /** The scale of the enemy */
     private float enemyScale;
@@ -32,14 +34,12 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     private boolean faceRight;
 
     /** Initializes the state of the enemy to idle */
-    protected EnemyState enemyState = EnemyState.IDLE;
+    protected EnemyState enemyState;
 
     /** The enemy's current animation */
     public Animation<TextureRegion> animation;
     /** The elapsed time for animationUpdate */
     protected float stateTime = 0;
-    /** Holds the genre of the ANIMATION. Doesn't specifically detect genre. */
-    protected Genre animationGenre;
 
     /** Whether the enemy is flippable */
     protected boolean isFlippable = true;
@@ -51,7 +51,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      */
 
     private float beat = 1;
-    public int beatCount = 1;
+    public int beatCount = 0;
     /**
      * A list of beats in which the enemies act when called in beatAction. Default
      * for enemies is
@@ -61,14 +61,6 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
 
     /** The index to cycle through beatList */
     public int beatListIndex;
-
-    /** how much the player should be displaced from their current position at any given moment.
-     * Generally called by moving platforms to shift the player so they 'stick' to said platforms
-     * */
-    private Vector2 displacement;
-    // range: how far away player is --> beat action called whenever an action is
-    // supposed to hapepn on beat
-    // create switch states (wandering, shooting, etc). ENUM
 
     /**
      * Creates a new enemy avatar with the given physics data
@@ -81,9 +73,10 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      * @param enemyScale The scale of the enemy
      * @param faceRight  The direction the enemy is facing in
      * @param beatList   The list of beats that the enemy reacts to
+     * @param genre      The current genre of the game
      */
     public Enemy(JsonValue data, float startX, float startY,
-            float width, float height, float enemyScale, boolean faceRight, int[] beatList) {
+            float width, float height, float enemyScale, boolean faceRight, int[] beatList, Genre genre) {
         // The shrink factors fit the image to a tigher hitbox
         super(startX, startY,
                 width * data.get("shrink").getFloat(0),
@@ -92,18 +85,14 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
         setDensity(data.getFloat("density", 0));
         setFriction(data.getFloat("friction", 0));
         setFixedRotation(true);
-        // setType(data.getString("type"));
 
-        animationGenre = Genre.SYNTH;
         this.faceRight = faceRight; // should face the direction player is in?
         this.enemyScale = enemyScale;
         this.beatList = beatList;
-        displacement = new Vector2(0,0);
         setType(Type.LETHAL);
         setName("enemy");
-    }
-    public void setDisplace(Vector2 displace){
-        displacement = displace;
+        this.genre = genre;
+        enemyState = EnemyState.ATTACKING;
     }
 
     /**
@@ -121,10 +110,8 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      * @param dt Number of seconds since last animation frame
      */
     public void update(float dt) {
-
-        switchState();
-        //setPosition(getPosition().x+ dt*displacement.x, getPosition().y+ dt*displacement.y);
         super.update(dt);
+        switchState();
     }
 
     /**
@@ -140,36 +127,14 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
                 getAngle(), enemyScale * effect, enemyScale);
     }
 
-    /**
-     * Draws the outline of the physics body.
-     *
-     * This method can be helpful for understanding issues with collisions.
-     *
-     * @param canvas Drawing context
-     */
-    public void drawDebug(GameCanvas canvas) {
-        super.drawDebug(canvas);
-        // canvas.drawPhysics(sensorShape,Color.RED,getX(),getY(),getAngle(),drawScale.x,drawScale.y);
-    }
-
     /** Sets the direction that the enemy is facing in */
     public void setFaceRight(boolean faceRight) {
         this.faceRight = faceRight;
     }
 
-    /** Returns whether the enemy is facing right */
-    public boolean getFaceRight() {
-        return faceRight;
-    }
-
     /** Returns the horizontal distance between the enemy and the player */
     public float horizontalDistanceBetweenEnemyAndPlayer() {
         return Math.abs(playerXPosition() - getPosition().x);
-    }
-
-    /** Returns the vertical distance between the enemy and the player */
-    public float verticalDistanceBetweenEnemyAndPlayer() {
-        return Math.abs(playerYPosition() - getPosition().y);
     }
 
     /** Switches enemy attacking state depending on its current state */
@@ -179,15 +144,6 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     public float playerXPosition() {
         if (GameController.getInstance() != null) {
             return GameController.getInstance().getPlayer().getPosition().x;
-        }
-
-        return 0;
-    }
-
-    /** Returns the y position of the player */
-    public float playerYPosition() {
-        if (GameController.getInstance() != null) {
-            return GameController.getInstance().getPlayer().getPosition().y;
         }
 
         return 0;
@@ -209,16 +165,13 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
 
     public void updateAnimationFrame() {
         stateTime++;
+        if (animation.isAnimationFinished(stateTime)) {
+            stateTime = 0;
+        }
     }
 
     public void genreUpdate(Genre genre) {
-        // TODO: Change sprites to reflect the genre
-        animationGenre = genre;
-        if (GameController.getInstance().genre == Genre.SYNTH) {
-            // change to synth sprite
-        } else {
-            // change to jazz sprite
-        }
+        this.genre = genre;
     }
 
     @Override
@@ -232,13 +185,15 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
             beatCount = 1;
         }
         if (beatList[beatListIndex] == beatCount) {
-            if (enemyState == EnemyState.ATTACKING) {
-                Attack();
-                beatListIndex++;
-                if (beatListIndex >= beatList.length) {
-                    beatListIndex = 0;
-                }
+           enemyState = EnemyState.ATTACKING;
+            Attack();
+            beatListIndex++;
+            if (beatListIndex >= beatList.length) {
+                beatListIndex = 0;
             }
+        }
+        else{
+            enemyState = EnemyState.IDLE;
         }
     }
 
