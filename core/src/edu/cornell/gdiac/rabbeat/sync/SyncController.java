@@ -25,21 +25,20 @@ public class SyncController {
 
     /** The audio delay of the audio in seconds */
     private float audioDelay = 0f;
-    /** The visual delay of the animations in seconds*/
+    /** The visual delay of the animations in seconds */
     private float visualDelay = 0f;
     /** The intervals of each of the synced objects in the game */
     private Array<Interval> intervals = new Array<>();
 
-    /** The beat of the game*/
+    /** The beat of the game */
     public Beat beat = new Beat();
-    /** The beat interval of the game*/
+    /** The beat interval of the game */
     private Interval beatInterval;
 
     /** The interval that represents the animation update */
     private AnimationSync animationSync = new AnimationSync();
-    /** *The interval for animationSync*/
+    /** *The interval for animationSync */
     private Interval animationInterval;
-
 
     private float calibrateDT = 0f;
 
@@ -49,8 +48,8 @@ public class SyncController {
 
     public SyncController(int bpm) {
         this.BPM = bpm;
-        animationInterval = new Interval(animationSync);
-        beatInterval = new Interval(beat);
+        animationInterval = new Interval(animationSync, (visualDelay) / bpm);
+        beatInterval = new Interval(beat, (audioDelay) / bpm);
     }
 
     /**
@@ -61,6 +60,7 @@ public class SyncController {
         synth = _synth;
         jazz = _jazz;
     }
+
     /**
      * Adds delay to visualDelay
      *
@@ -69,27 +69,21 @@ public class SyncController {
     public void addVisualDelay(float delay) {
         visualDelay += delay;
     }
-    /** Updates beat in the preupdate instead of update. The seperation is to allow for a continous
-     * soundtrack*/
-    public void beatUpdate(){
-        beatInterval.checkForNewInterval(
-                (synth.getPosition() + audioDelay) / beatInterval.getIntervalLength(BPM)
-        );
-    }
 
     /**
      * The update function for everything synced in the world
      * 
-     * @param dt Number of seconds since last animation frame
+     * @param isPaused if the game is currently paused
      */
-    public void update(float dt) {
+    public void update(boolean isPaused) {
+        beatInterval.checkForNewInterval(
+                (synth.getPosition() + audioDelay) / beatInterval.getIntervalLength(BPM), true);
 
         animationInterval.checkForNewInterval(
-                (synth.getPosition() + visualDelay) / animationInterval.getIntervalLength(BPM)
-        );
+                (synth.getPosition() + visualDelay) / animationInterval.getIntervalLength(BPM), !isPaused);
         for (Interval i : intervals) {
             float sample = (synth.getPosition() + audioDelay) / i.getIntervalLength(BPM);
-            i.checkForNewInterval(sample);
+            i.checkForNewInterval(sample, !isPaused);
         }
 
     }
@@ -120,11 +114,11 @@ public class SyncController {
             for (int i = 0; i < numCalibrations; i++) {
                 averageDelay += (beatLatencyList.get(i) - beat.beatLatencyList.get(i));
             }
-            calibrationCount = 0;
             beatLatencyList.clear();
             beat.beatLatencyList.clear();
             audioDelay = averageDelay / numCalibrations;
             System.out.println("delay: " + audioDelay);
+            calibrationCount = 0;
         }
         calibrateDT = 0;
     }
@@ -138,10 +132,24 @@ public class SyncController {
      * @param syncedObject A synced object
      */
     public void addSync(ISynced syncedObject) {
-        Interval interval = new Interval(syncedObject);
+        Interval interval = new Interval(
+                syncedObject, ((synth.getPosition() + audioDelay) / (60f / (BPM * syncedObject.getBeat()))));
         intervals.add(interval);
         if (syncedObject instanceof ISyncedAnimated) {
             animationSync.animatedObjects.add((ISyncedAnimated) (syncedObject));
+        }
+    }
+
+    /**
+     * Called to start the first beatAction when the game is initialized. The only
+     * synced object that
+     * ignores this is the animationSync because the first frame should not be
+     * skipped
+     */
+    public void initializeSync() {
+        beatInterval.syncedObject.beatAction();
+        for (Interval i : intervals) {
+            i.syncedObject.beatAction();
         }
     }
 }

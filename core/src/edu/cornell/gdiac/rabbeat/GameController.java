@@ -18,13 +18,11 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
-import edu.cornell.gdiac.rabbeat.obstacles.enemies.Enemy;
-import edu.cornell.gdiac.rabbeat.obstacles.platforms.MovingPlatform;
-import edu.cornell.gdiac.rabbeat.obstacles.platforms.WeightedPlatform;
-import edu.cornell.gdiac.rabbeat.sync.AnimationSync;
-import edu.cornell.gdiac.rabbeat.sync.Beat;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bee;
-import edu.cornell.gdiac.rabbeat.obstacles.projectiles.Bullet;
+import edu.cornell.gdiac.rabbeat.objects.enemies.Enemy;
+import edu.cornell.gdiac.rabbeat.objects.platforms.MovingPlatform;
+import edu.cornell.gdiac.rabbeat.objects.platforms.WeightedPlatform;
+import edu.cornell.gdiac.rabbeat.objects.projectiles.Bee;
+import edu.cornell.gdiac.rabbeat.objects.projectiles.Bullet;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
@@ -38,7 +36,7 @@ import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.physics.box2d.*;
 import edu.cornell.gdiac.assets.AssetDirectory;
 import edu.cornell.gdiac.util.*;
-import edu.cornell.gdiac.rabbeat.obstacles.*;
+import edu.cornell.gdiac.rabbeat.objects.*;
 
 /**
  * Base class for a world-specific controller.
@@ -60,7 +58,7 @@ import edu.cornell.gdiac.rabbeat.obstacles.*;
 public class GameController implements Screen, ContactListener {
 
 	/** The genre state of the game */
-	public Genre genre = Genre.SYNTH;
+	private Genre genre = Genre.SYNTH;
 	/** The Sync object that will sync the world to the beat */
 	public SyncController syncController;
 
@@ -68,13 +66,12 @@ public class GameController implements Screen, ContactListener {
 	public SoundController soundController;
 	public ObjectController objectController;
 
-
-
+	
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
 
 	/** Exit code for going back to the level select menu */
-	public static final int BACK_TO_LEVEL_SELECT = 1;
+	public static final int GO_TO_LEVEL_SELECT = 1;
 
 	/** Exit code for going to the next level */
 	public static final int NEXT_LEVEL = 2;
@@ -82,7 +79,8 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private static int levelsUnlocked = 5;
+
+	private static int levelsUnlocked;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;
@@ -131,12 +129,12 @@ public class GameController implements Screen, ContactListener {
 	/** Whether or not this is an active controller */
 	private boolean active;
 	/** Whether we have completed this level */
-	private boolean complete;
+	private boolean complete = false;
 
 	/** Whether we have failed at this world (and need a reset) */
-	private boolean failed;
+	private boolean failed = false;
 	/** Whether or not the game is paused */
-	private boolean paused;
+	private boolean paused = false;
 	/** The beat the */
 	/** Whether calibration is happening*/
 	public boolean inCalibration = false;
@@ -246,6 +244,7 @@ public class GameController implements Screen, ContactListener {
 		if (value) {
 			countdown = EXIT_COUNT;
 		}
+		System.out.println("Complete: " + complete);
 		complete = value;
 	}
 
@@ -339,12 +338,10 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
-		pauseTintSynthColor = new Color(143, 0, 255, 0.55f);
-		pauseTintJazzColor = new Color(0.9f, 0, 0, 0.55f);
+		pauseTintSynthColor = new Color(1,0,1, 0.55f);
+		pauseTintJazzColor = new Color(1,0,1,0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
-		syncController = new SyncController(levelBPM);
-		soundController = new SoundController();
 		objectController = new ObjectController();
 		theController = this;
 	}
@@ -402,9 +399,9 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory Reference to global asset manager.
 	 */
 	public void gatherAssets(AssetDirectory directory) {
+		soundController = new SoundController();
 		objectController.gatherAssets(directory);
 		levelBPM = objectController.defaultConstants.get("music").get(getCurrentLevel()).getInt("bpm");
-		syncController.BPM = levelBPM;
 		// set the soundtrack
 		setSoundtrack(directory);
 		// set the sound effects
@@ -436,10 +433,6 @@ public class GameController implements Screen, ContactListener {
 
 	public Vector2 getScale() {
 		return scale;
-	}
-
-	public Genre getGenre() {
-		return genre;
 	}
 
 	public int getBPM() {
@@ -518,13 +511,16 @@ public class GameController implements Screen, ContactListener {
 		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / getCanvas().getWidth();
 		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / getCanvas().getHeight();
 		world.setContactListener(this);
-		setComplete(false);
-		setFailure(false);
+		syncController = new SyncController(levelBPM);
 		populateLevel();
 		objectController.setFirstCheckpointAsSpawn(scale);
 		objectController.player.setPosition(respawnPoint);
 		soundController.resetMusic();
 		soundController.playMusic(Genre.SYNTH);
+		syncController.initializeSync();
+		setComplete(false);
+		setFailure(false);
+		setPaused(false);
 	}
 
 	/**
@@ -533,8 +529,6 @@ public class GameController implements Screen, ContactListener {
 	 * This method disposes of the world and creates a new one.
 	 */
 	public void reset() {
-		// Default genre is synth
-		genre = Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		for (GameObject obj : objectController.objects) {
@@ -549,10 +543,8 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		setComplete(false);
 		setFailure(false);
-		syncController = new SyncController(levelBPM);
 		populateLevel();
 		objectController.player.setPosition(respawnPoint);
-		//soundController.resetMusic();
 	}
 
 	/**
@@ -564,7 +556,7 @@ public class GameController implements Screen, ContactListener {
 		world.setGravity(new Vector2(0, objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
 
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
-		objectController.populateObjects(scale);
+		objectController.populateObjects(genre,scale);
 	}
 
 	/**
@@ -582,7 +574,7 @@ public class GameController implements Screen, ContactListener {
 		InputController input = InputController.getInstance();
 		input.readInput(bounds, scale);
 		soundController.update();
-		syncController.beatUpdate();
+		syncController.update(getPaused());
 
 		if (listener != null) {
 			// Toggle debug
@@ -661,7 +653,7 @@ public class GameController implements Screen, ContactListener {
 			} else if (countdown == 0) {
 				if (failed) {
 					reset();
-				} else if (complete) {
+				} else if (GameController.getInstance().isComplete()) {
 					pause();
 					// TODO: Make Win Condition
 					return false;
@@ -689,12 +681,13 @@ public class GameController implements Screen, ContactListener {
 	 * @param dt Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
-		syncController.update(dt);
 
-		if (InputController.getInstance().getSwitchGenre()) {
-			switchGenre();
+		if (InputController.getInstance().getSwitchGenre()){
+			if(!objectController.player.genreSwitchCooldown){
+				switchGenre();
+				updateGenreSwitch();
+			}
 			InputController.getInstance().setSwitchGenre(false);
-			updateGenreSwitch();
 		}
 		if (lastCollideWith != null){
 			Vector2 displace = lastCollideWith.currentVelocity();
@@ -748,18 +741,15 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			//Bullet and Bee Collision checks
-			if (bd1 instanceof Bullet && !(bd2 instanceof Enemy)){
-				bd1.markRemoved(true);
-			}
 			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy)){
 				bd2.markRemoved(true);
 			}
-			if (bd1 instanceof Bee && !(bd2 instanceof Enemy)){
-				bd1.markRemoved(true);
-			}
-			if (bd2 instanceof Bee && !(bd1 instanceof Enemy)){
-				bd2.markRemoved(true);
-			}
+			if (bd2 instanceof Bee) {
+                assert bd1 != null;
+                if (bd1.getWall()) {
+                    bd2.markRemoved(true);
+                }
+            }
 
 			//player collision checks
 			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player){
@@ -890,9 +880,6 @@ public class GameController implements Screen, ContactListener {
 			}
 		}
 
-		// Update genre-dependent UI element
-		objectController.genreIndicator.update(dt);
-
 		// Update checkpoints
 		for (Checkpoint checkpoint : objectController.checkpoints) {
 			checkpoint.update(dt);
@@ -955,26 +942,7 @@ public class GameController implements Screen, ContactListener {
 		if (complete && !failed) {
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
-
-			canvas.begin(true); // DO NOT SCALE
-			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
-			canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
-
-			switch (victoryScreenItemSelected) {
-				case 0: // Next Level
-					canvas.draw(objectController.indicatorStarTexture.getTexture(),
-							Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
-					break;
-				case 1: // Level Select
-					canvas.draw(objectController.indicatorStarTexture.getTexture(),
-							Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
-					break;
-			}
-
-			canvas.end();
-
+			drawVictoryScreen();
 			incrementLevelsUnlocked();
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
@@ -1073,7 +1041,6 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
-		//soundController.pauseMusic();
 		InputController.getInstance().setPaused(true);
 	}
 
@@ -1085,7 +1052,7 @@ public class GameController implements Screen, ContactListener {
 	public void resume() {
 		soundController.setGlobalMusicVolume(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
-		soundController.resumeMusic();
+		//soundController.resumeMusic();
 		InputController.getInstance().setPaused(false);
 		pauseItemSelected = 0; // delete this line if pause menu should "save" where you were last time
 		InputController.getInstance().setSwitchGenre(false);
@@ -1186,7 +1153,7 @@ public class GameController implements Screen, ContactListener {
 
 	/** Called when the game screen needs to be exited out of */
 	public void exitScreen(int exitCode) {
-		//pause();
+		soundController.pauseMusic();
 		listener.exitScreen(this, exitCode);
 	}
 
@@ -1213,9 +1180,11 @@ public class GameController implements Screen, ContactListener {
 
 	/** Increments the integer levelsUnlocked if a player completes a level and the next level is locked*/
 	public void incrementLevelsUnlocked() {
-		//TODO Implement more levels beyond 3
-		if(currentLevelInt == levelsUnlocked && levelsUnlocked != 3) {
+		if(currentLevelInt == levelsUnlocked && currentLevelInt < 12) {
 			levelsUnlocked++;
+			Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
+			prefs.putInteger("levelsUnlocked", levelsUnlocked);
+			prefs.flush();
 		}
 	}
 
@@ -1234,7 +1203,7 @@ public class GameController implements Screen, ContactListener {
 		this.victoryScreenItemSelected = victoryScreenItemSelected;
 	}
 
-	/** Returns teh integer victoryScreenItemSelected */
+	/** Returns the integer victoryScreenItemSelected */
 	public int getVictoryScreenItemSelected() {
 		return victoryScreenItemSelected;
 	}
@@ -1242,5 +1211,28 @@ public class GameController implements Screen, ContactListener {
 	/** Returns the object controller */
 	public ObjectController getObjectController() {
 		return objectController;
+	}
+
+	/** Displays the victory screen after player completes a level */
+	public void drawVictoryScreen() {
+		canvas.begin(true);
+		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
+		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
+		canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
+		canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
+
+		switch (victoryScreenItemSelected) {
+			case 0: // Next Level
+				canvas.draw(objectController.indicatorStarTexture.getTexture(),
+						Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
+				break;
+			case 1: // Level Select
+				canvas.draw(objectController.indicatorStarTexture.getTexture(),
+						Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
+				break;
+		}
+
+		canvas.end();
+
 	}
 }

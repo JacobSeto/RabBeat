@@ -14,7 +14,6 @@
  package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.*;
-import edu.cornell.gdiac.rabbeat.levelSelect.LevelSelectorScreen;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.assets.*;
 
@@ -43,7 +42,12 @@ public class GDXRoot extends Game implements ScreenListener {
 	/** List of all WorldControllers */
 	private GameController controller;
 
+	/** Variable that represents the level selector screen */
 	private LevelSelectorScreen levelSelectorScreen;
+
+	/** Variable that represents the main menu screen */
+	private MainMenuScreen mainMenuScreen;
+
 
 	/**
 	 * Creates a new game from the configuration settings.
@@ -64,8 +68,12 @@ public class GDXRoot extends Game implements ScreenListener {
 		initialLoading = new LoadingMode("assets.json", canvas, 1);
 		initialLoading.setScreenListener(this);
 		setScreen(initialLoading);
+
 		levelSelectorScreen = new LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
+
+		mainMenuScreen = new MainMenuScreen(this);
+		mainMenuScreen.setListener(this);
 	}
 
 	/** 
@@ -119,7 +127,7 @@ public class GDXRoot extends Game implements ScreenListener {
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
 			InputController.getInstance().setPaused(true);
-			setScreen(levelSelectorScreen);
+			setScreen(mainMenuScreen);
 		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
 			controller = new GameController();
 			InputController.getInstance().setPaused(false);
@@ -130,7 +138,7 @@ public class GDXRoot extends Game implements ScreenListener {
 			controller.resume();
 			controller.initialize();
 			setScreen(controller);
-		}else if (screen == controller || exitCode == GameController.BACK_TO_LEVEL_SELECT) {
+		}else if (screen == controller || exitCode == GameController.GO_TO_LEVEL_SELECT) {
 			createLevelSelectorScreen();
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			Gdx.app.exit();
