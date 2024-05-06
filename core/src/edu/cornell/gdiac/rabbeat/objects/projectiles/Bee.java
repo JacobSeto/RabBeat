@@ -47,7 +47,7 @@ public class Bee extends WheelGameObject implements ISyncedAnimated, IGenreObjec
             setVY(getVY() * -1);
         }
         else {
-            if (beatCount % 2 == 1){
+            if (beatCount % 2 == 0){
                 setVY(getVY() * -1);
             }
         }
