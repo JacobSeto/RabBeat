@@ -74,6 +74,8 @@ public class GameController implements Screen, ContactListener {
 	/** Exit code for going back to the level select menu */
 	public static final int BACK_TO_LEVEL_SELECT = 1;
 
+	public static final int GO_TO_LEVEL_SELECT = 1;
+
 	/** Exit code for going to the next level */
 	public static final int NEXT_LEVEL = 2;
 
