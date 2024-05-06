@@ -124,9 +124,7 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
                 move(delta, jazzPosition, 1*currentSpeed);
             }
         }
-        System.out.println("positions");
-        System.out.println(crushBody.getPosition());
-        System.out.println(getPosition());
+        
     }
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
     public void move(float delta, Vector2 destination, float speed){
