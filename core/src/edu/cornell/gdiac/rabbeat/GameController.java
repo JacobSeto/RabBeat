@@ -432,6 +432,10 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void initializeSFX(AssetDirectory directory) {
 		soundController.addSound("genreSwitch", directory.getEntry("sfx:genreSwitch", Sound.class));
+		String checkpointNum = "2"; // change this once tracks are finalized to match their key signatures. 1 = lab, 2 = disco, 3 = penthouse
+		soundController.addSound("checkpoint", directory.getEntry("sfx:checkpoint"+checkpointNum, Sound.class));
+		soundController.addSound("jump", directory.getEntry("sfx:jump"+checkpointNum, Sound.class));
+		soundController.addSound("death", directory.getEntry("sfx:death", Sound.class));
 	}
 
 	public Vector2 getScale() {
@@ -694,6 +698,9 @@ public class GameController implements Screen, ContactListener {
 			}
 			InputController.getInstance().setSwitchGenre(false);
 		}
+		if (InputController.getInstance().didPrimary()) {
+			soundController.playSFX("jump");
+		}
 		if (lastCollideWith != null){
 			Vector2 displace = lastCollideWith.currentVelocity();
 			objectController.player.setDisplace(displace);
@@ -760,6 +767,7 @@ public class GameController implements Screen, ContactListener {
 			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player){
 				if(bd2.getType() == Type.LETHAL || bd1.getType() == Type.LETHAL){
 					getPlayer().isDying = true;
+					soundController.playSFX("death");
 				}
 				if(bd2 instanceof  WeightedPlatform){
 					lastCollideWith = (WeightedPlatform) bd1;
@@ -775,6 +783,9 @@ public class GameController implements Screen, ContactListener {
 			for (Checkpoint checkpoint : objectController.checkpoints) {
 				if (!checkpoint.isActive && ((bd1 == objectController.player && bd2 == checkpoint) ||
 						(bd1 == checkpoint && bd2 == objectController.player))) {
+					if (!checkpoint.isActive && checkpoint.getIndex() != 0) {
+						soundController.playSFX("checkpoint");
+					}
 					checkpoint.setActive();
 					respawnPoint = checkpoint.getPosition();
 				}
