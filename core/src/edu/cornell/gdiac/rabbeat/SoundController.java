@@ -14,8 +14,6 @@ public class SoundController {
 
     private float globalSFXVolume = 1.0f;
 
-    private Genre currentGenre;
-
     private float savedJazzVolume = 0;
 
     private float savedSynthVolume = 0;
@@ -23,6 +21,8 @@ public class SoundController {
     private float savedGlobalMusicTempVolume = 0;
 
     private Sound tempSound;
+
+    public Genre currentGenre;
 
     /**
      * Set this to true to make genre switches instantaneous / in one frame.
@@ -43,7 +43,6 @@ public class SoundController {
     private ObjectMap<Sound, Long> soundIDMap;
 
     public SoundController() {
-        currentGenre = Genre.SYNTH;
         currentlyUpdating = false;
         soundNameMap = new ObjectMap<String, Sound>();
         soundIDMap = new ObjectMap<Sound, Long>();
@@ -70,9 +69,11 @@ public class SoundController {
 
 
 
-    public void setSynthTrack(Music track) { synthTrack = track;}
+    public void setSynthTrack(Music track) {
+        synthTrack = track;}
 
-    public void setJazzTrack(Music track) { jazzTrack = track;}
+    public void setJazzTrack(Music track) {
+        jazzTrack = track;}
 
     public void setGlobalMusicVolume(float vol) { globalMusicVolume = vol;}
 
@@ -82,7 +83,6 @@ public class SoundController {
         jazzTrack.setPosition(1/44100f);
         synthTrack.setVolume(globalMusicVolume);
         jazzTrack.setVolume(0);
-        currentGenre = Genre.SYNTH;
         currentlyUpdating = false;
         currentUpdateFrame = 0;
     }
@@ -93,6 +93,11 @@ public class SoundController {
         savedGlobalMusicTempVolume = globalMusicVolume;
         jazzTrack.pause();
         synthTrack.pause();
+    }
+
+    public void disposeMusic(){
+        synthTrack.dispose();
+        jazzTrack.dispose();
     }
 
     public void resumeMusic() {

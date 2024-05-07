@@ -100,6 +100,18 @@ public class InputController {
 
 	private boolean levelSelectPrevious;
 
+	private boolean calibrationPressed;
+
+	private boolean calibrationPrevious;
+
+	private boolean switchPressed;
+
+	private boolean switchPrevious;
+
+	private boolean spacePressed;
+
+	private boolean spacePrevious;
+
 	/** How much did we move horizontally? */
 	private float horizontal;
 	/** How much did we move vertically? */
@@ -230,6 +242,10 @@ public class InputController {
 
 	public boolean didPressLevelSelect() {return levelSelectPressed && !levelSelectPrevious;}
 
+	public boolean didPressCalibration() {return calibrationPressed && !calibrationPrevious;}
+
+	public boolean didPressGenreSwitch() {return switchPressed && !switchPrevious;}
+
 	/**
 	 * Returns true if the player wants to go to the previous level.
 	 *
@@ -272,6 +288,8 @@ public class InputController {
 
 	public boolean didPressEnter() { return enterPressed && !enterPrevious;}
 
+	public boolean didPressSpace() { return spacePressed && !spacePrevious;}
+
 	/** Sets whether or not the game is currently paused.
 	 *
 	 * @param p whether or not the game is currently paused.
@@ -313,6 +331,9 @@ public class InputController {
 		pausePrevious = pausePressed;
 		enterPrevious = enterPressed;
 		levelSelectPrevious = levelSelectPressed;
+		switchPrevious = switchPressed;
+		calibrationPressed = calibrationPrevious;
+
 		if (paused) {
 			pauseUpPrevious = pauseUpPressed;
 			pauseDownPrevious = pauseDownPressed;
@@ -384,12 +405,15 @@ public class InputController {
 				|| Gdx.input.isKeyPressed(Input.Keys.W));
 		exitPressed = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
+		//pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
-
+		calibrationPressed = (secondary && calibrationPressed) || (Gdx.input.isKeyPressed(Input.Keys.V));
+		switchPressed = (secondary && switchPressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT));
+		spacePressed = (secondary && spacePressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SPACE));
 		//TO SET ALL LEVELS TO COMPLETE
 		if(Gdx.input.isKeyPressed(Keys.K)) {
-			Preferences prefs = Gdx.app.getPreferences("Saved Levels Unlocked");
-			prefs.putInteger("levelsUnlocked", 12);
+			Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
+			prefs.putInteger("levelsUnlocked", 1);
 			prefs.flush();
 		}
 
@@ -412,12 +436,14 @@ public class InputController {
 				vertical -= 1.0f;
 			}
 
-			if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)
-					|| Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT) && !genreSwitched) {
+			if (didPressGenreSwitch() && !genreSwitched) {
 				genreSwitched = true;
 				switchGenre = true;
 			} else {
 				genreSwitched = false;
+			}
+			if (Gdx.input.isKeyJustPressed(Input.Keys.H)){
+				GameController.getInstance().soundController.playMusic();
 			}
 		}
 		// When the game IS paused
@@ -428,7 +454,7 @@ public class InputController {
 			pauseDownPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
 			enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
 
-			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) && !genreSwitched) {
+			if (didPressGenreSwitch() && !genreSwitched) {
 				genreSwitched = true;
 				switchGenre = true;
 			} else if (!Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
@@ -462,7 +488,7 @@ public class InputController {
 			clampPosition(bounds);
 
 			//TODO: Initiate calibration with a button press
-			if(Gdx.input.isKeyJustPressed(Keys.V)){
+			if(didPressCalibration()){
 				GameController.getInstance().inCalibration = true;
 			}
 
@@ -504,26 +530,17 @@ public class InputController {
 			//Click enter/return once selection has been chosen
 			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
 				gc.setPlayerCompletedLevel(false);
-				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
 
 				if(gc.getVictoryScreenItemSelected() == 0) {
 					//GO TO NEXT LEVEL
 					gc.exitScreen(gc.NEXT_LEVEL);
 				} else if(gc.getVictoryScreenItemSelected() == 1) {
 					//GO BACK TO LEVEL SELECT
-					gc.exitScreen(gc.GO_TO_LEVEL_SELECT);
+					gc.exitScreen(gc.BACK_TO_LEVEL_SELECT);
 				}
 			}
 
 
-		}
-
-
-
-		//C = shortcut to complete the level
-		if (Gdx.input.isKeyPressed(Keys.C)) {
-			GameController.getInstance().setComplete(true);
-			GameController.getInstance().setPlayerCompletedLevel(false);
 		}
 
 

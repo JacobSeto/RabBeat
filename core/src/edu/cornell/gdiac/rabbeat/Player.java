@@ -17,13 +17,11 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
 import com.badlogic.gdx.utils.JsonValue;
-import edu.cornell.gdiac.rabbeat.obstacles.*;
+import edu.cornell.gdiac.rabbeat.objects.*;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
-import edu.cornell.gdiac.rabbeat.sync.SyncController;
 
 /**
  * Player avatar for the plaform game.
- *
  * Note that this class returns to static loading.  That is because there are
  * no other subclasses that we might loop through.
  */
@@ -41,8 +39,6 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	public float synthSpeed;
 	/** speed of player in Jazz mode*/
 	public float jazzSpeed;
-	/** Identifier to allow us to track the sensor in ContactListener */
-	private final String sensorName;
 	/** The current jump force */
 	private float jumpForce;
 	/** The impulse for the character jump in Synth */
@@ -51,8 +47,6 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	private final float jumpForceJazz;
 	/** Cooldown (in animation frames) for jumping */
 	private final int jumpLimit;
-	/** Cooldown (in animation frames) for shooting */
-	private final int shotLimit;
 
 	/** The current horizontal movement of the character */
 	private float   movement;
@@ -68,20 +62,14 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	private boolean isGrounded;
 	/** Whether we are dying */
 	public boolean isDying;
+	/** Identifier to allow us to track the sensor in ContactListener */
+	private final String sensorName;
 
 	/** The physics shape of this object */
 	private PolygonShape sensorShape;
 	
 	/** Cache for internal force calculations */
 	private final Vector2 forceCache = new Vector2();
-
-	// ANIMATION
-
-	/** Holds the genre of the ANIMATION. Doesn't specifically detect genre.*/
-	private Genre animationGenre;
-
-	/*TODO: ADD SPECS!*/
-	private GameObject bodyCollidedWith;
 
 	/** The synth genre idle animation for the player */
 	public Animation<TextureRegion> synthIdleAnimation;
@@ -113,6 +101,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	private boolean animationIsJumping = false;
 	/** A flag to check if the player's animation is dying */
 	private boolean animationIsDying = false;
+
+	Genre genre;
 
 	/**
 	 * Returns left/right movement of this character.
@@ -179,14 +169,17 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	}
 
 	/**
-	 * Returns true if the dude is on the ground.
+	 * Returns the name of the ground sensor
 	 *
-	 * @return true if the dude is on the ground.
+	 * This is used by ContactListener
+	 *
+	 * @return the name of the ground sensor
 	 */
-	public boolean isGrounded() {
-		return isGrounded;
+	public String getSensorName() {
+		return sensorName;
 	}
-	
+
+
 	/**
 	 * Sets whether the dude is on the ground.
 	 *
@@ -227,25 +220,6 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		return maxspeed;
 	}
 
-	/**
-	 * Sets the max speed of the bunny
-	 *
-	 */
-	public void setMaxSpeed(float newMaxSpeed){
-		maxspeed = newMaxSpeed;
-	}
-
-	/**
-	 * Returns the name of the ground sensor
-	 *
-	 * This is used by ContactListener
-	 *
-	 * @return the name of the ground sensor
-	 */
-	public String getSensorName() { 
-		return sensorName;
-	}
-
 	/** The scale of the enemy */
 	public float playerScale;
 
@@ -262,6 +236,9 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	 * Generally called by moving platforms to shift the player so they 'stick' to said platforms
 	 * */
 	private Vector2 displacement;
+
+	/** Whether the genre switch ability is on cooldown*/
+	boolean genreSwitchCooldown = false;
 
 	public void setDisplace(Vector2 displace){
 		displacement = displace;
@@ -280,7 +257,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	 * @param startY	The starting y position of the player
 	 * @param playerScale1	The scale of the player
 	 */
-	public Player(JsonValue data, float startX, float startY, float width, float height, float playerScale1) {
+	public Player(JsonValue data, float startX, float startY, float width, float height, float playerScale1, Genre genre) {
 		// The shrink factors fit the image to a tigher hitbox
 		super(startX, startY,
 				width*data.get("shrink").getFloat( 0 ),
@@ -290,16 +267,15 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		setFixedRotation(true);
 
 		playerScale = playerScale1;
-		maxspeed = data.get("max_speed").getFloat("synth");
+		maxspeed = (genre == Genre.SYNTH) ? data.get("max_speed").getFloat("synth")
+				: data.get("max_speed").getFloat("jazz");
 
 		damping = data.getFloat("damping", 0);
 		force = data.getFloat("force", 0);
 		jumpForceSynth = data.getFloat( "synth_jump_force", 0 );
 		jumpForceJazz = data.getFloat( "jazz_jump_force", 0 );
 		jumpLimit = data.getInt( "jump_cool", 0 );
-		shotLimit = data.getInt( "shot_cool", 0 );
 		displacement = new Vector2(0,0);
-		sensorName = "DudeGroundSensor";
 		this.data = data;
 
 		// Gameplay attributes
@@ -308,11 +284,12 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		isJumping = false;
 		faceRight = true;
 
-		jumpForce = jumpForceSynth;
-		animationGenre = Genre.SYNTH;
+		jumpForce = (genre == Genre.SYNTH) ? jumpForceSynth : jumpForceJazz;
+		this.genre = genre;
 
 		jumpCooldown = 0;
 		setType(Type.Player);
+		sensorName = "SynthGroundSensor";
 	}
 
 	/**
@@ -415,14 +392,11 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		} else {
 			jumpCooldown = Math.max(0, jumpCooldown - 1);
 		}
+	
 
 		animationUpdate();
 		setRestitution(0.0f);
 		super.update(dt);
-	}
-
-	public void setBodyCollidedWith(GameObject bodyCollidedWith) {
-		this.bodyCollidedWith = bodyCollidedWith;
 	}
 
 	/**
@@ -451,7 +425,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 
 	@Override
 	public void genreUpdate(Genre genre) {
-		animationGenre = genre;
+		this.genre = genre;
 		if (genre == Genre.SYNTH) {
 			maxspeed = synthSpeed;
 			jumpForce = jumpForceSynth;
@@ -460,6 +434,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 			maxspeed = jazzSpeed;
 			jumpForce = jumpForceJazz;
 		}
+		genreSwitchCooldown = true;
 	}
 
 	/**
@@ -468,7 +443,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	private void animationUpdate() {
 		if (isDying && !animationIsDying) {
 			stateTime = 0;
-			switch (animationGenre) {
+			switch (genre) {
 				case SYNTH:
 					setAnimation(synthDeathAnimation);
 					break;
@@ -477,10 +452,10 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 					break;
 			}
 			animationIsDying = true;
-		} else if (isJumping && !animationIsDying) {
+		} else if (isJumping && !animationIsDying && isGrounded) {
 			animationIsJumping = true;
 			stateTime = 0;
-			switch (animationGenre) {
+			switch (genre) {
 				case SYNTH:
 					setAnimation(synthJumpAnimation);
 					break;
@@ -499,7 +474,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 			if (animationIsJumping) {
 				if (animation.isAnimationFinished(stateTime)) {
 					animationIsJumping = false;
-					switch (animationGenre) {
+					switch (genre) {
 						case SYNTH:
 							setAnimation(synthFallAnimation);
 							break;
@@ -509,7 +484,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 					}
 				}
 			} else if (!isGrounded) {
-				switch (animationGenre) {
+				switch (genre) {
 					case SYNTH:
 						setAnimation(synthFallAnimation);
 						break;
@@ -518,7 +493,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 						break;
 				}
 			} else if (isWalking()) {
-				switch (animationGenre) {
+				switch (genre) {
 					case SYNTH:
 						setAnimation(synthWalkAnimation);
 						break;
@@ -527,7 +502,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 						break;
 				}
 			} else {
-				switch (animationGenre) {
+				switch (genre) {
 					case SYNTH:
 						setAnimation(synthIdleAnimation);
 						break;
@@ -546,7 +521,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	public void updateAnimationFrame(){
 		stateTime++;
 	}
-	public float getBeat() {return 1;}
+	public float getBeat() {return .5f;}
 
-	public void beatAction(){ }
+	public void beatAction(){genreSwitchCooldown = false; }
 }
