@@ -530,6 +530,18 @@ public class InputController {
 			//Click enter/return once selection has been chosen
 			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
 				gc.setPlayerCompletedLevel(false);
+				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
+				System.out.println("LEVEL:" + gc.getCurrentLevel());
+				gc.exitScreen(GameController.NEXT_LEVEL);
+
+
+//				if(gc.getVictoryScreenItemSelected() == 0) {
+//					//GO TO NEXT LEVEL
+//					gc.exitScreen(gc.NEXT_LEVEL);
+//				} else if(gc.getVictoryScreenItemSelected() == 1) {
+//					//GO BACK TO LEVEL SELECT
+//					gc.exitScreen(gc.GO_TO_LEVEL_SELECT);
+//				}
 
 				if(gc.getVictoryScreenItemSelected() == 0) {
 					//GO TO NEXT LEVEL
@@ -538,6 +550,7 @@ public class InputController {
 					//GO BACK TO LEVEL SELECT
 					gc.exitScreen(gc.BACK_TO_LEVEL_SELECT);
 				}
+
 			}
 
 

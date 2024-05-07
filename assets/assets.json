@@ -138,6 +138,7 @@
       "ui:lockedLevels:lockedLevel11": "ui/lockedLevels/lockedLevel11.png",
       "ui:lockedLevels:lockedLevel12": "ui/lockedLevels/lockedLevel12.png",
 
+      "ui:levelButtonsHoverState:level1ButtonHover": "ui/levelButtonsHoverState/level1ButtonHover.png",
       "ui:victory:levelSelectText": "ui/victory/levelSelect.png",
       "ui:victory:nextLevelText": "ui/victory/nextLevel.png",
       "ui:victory:star": "ui/victory/star.png",
@@ -148,6 +149,7 @@
       "ui:maineMenuScreen:quitButton": "ui/mainMenuScreen/quitButton.png",
       "ui:maineMenuScreen:select": "ui/mainMenuScreen/select.png",
       "ui:maineMenuScreen:mainMenuBackground": "ui/mainMenuScreen/mainMenuBackground.png",
+      "ui:holderBackground": "ui/holderBackground.png",
 
       "player:synth":  "player/synth.png",
       "player:synth-jazz":   "player/synth-jazz.png",
@@ -156,6 +158,7 @@
       "backgrounds:discoBg":  "backgrounds/discoBg.png",
       "backgrounds:houseBg":  "backgrounds/houseBg.png",
       "backgrounds:pauseTint": "backgrounds/white_texture.png",
+      "backgrounds:levelSelectBackground": "backgrounds/levelSelectBackground.png",
 
       "enemies:bat": "enemies/bat.png",
       "enemies:echo" : "atlas/echo.png",

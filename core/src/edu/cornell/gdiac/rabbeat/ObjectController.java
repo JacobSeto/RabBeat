@@ -142,6 +142,9 @@ public class ObjectController {
     /** The texture for the victory logo */
     public TextureRegion victoryLogo;
 
+    /** The texture for the level select background */
+    public Texture levelSelectBackground;
+
     /** The texture for unlocked button 1 */
     public Texture unlockedButton1;
 
@@ -215,6 +218,21 @@ public class ObjectController {
     /** The texture for locked button 12 */
     public Texture lockedButton12;
 
+    /** The textures for the level buttons when hovered over */
+    public Texture levelButtonHover1;
+    public Texture levelButtonHover2;
+    public Texture levelButtonHover3;
+    public Texture levelButtonHover4;
+    public Texture levelButtonHover5;
+    public Texture levelButtonHover6;
+    public Texture levelButtonHover7;
+    public Texture levelButtonHover8;
+    public Texture levelButtonHover9;
+    public Texture levelButtonHover10;
+    public Texture levelButtonHover11;
+    public Texture levelButtonHover12;
+
+
     //  Backgrounds
     public TextureRegion levelBackground;
     /** The texture for the lab background */
@@ -272,6 +290,8 @@ public class ObjectController {
     public GenreUI genreIndicator;
 
     public TextureRegion blackGradient;
+
+    public TextureRegion holderBackground;
 
     //  HashMaps
     private HashMap<String, TextureRegion> assets = new HashMap<>();
@@ -452,6 +472,12 @@ public class ObjectController {
         lockedButton10 = directory.getEntry("ui:lockedLevels:lockedLevel10", Texture.class);
         lockedButton11 = directory.getEntry("ui:lockedLevels:lockedLevel11", Texture.class);
         lockedButton12 = directory.getEntry("ui:lockedLevels:lockedLevel12", Texture.class);
+
+        levelButtonHover1 = directory.getEntry("ui:levelButtonsHoverState:level1ButtonHover", Texture.class);
+
+        holderBackground = new TextureRegion(directory.getEntry("ui:holderBackground", Texture.class));
+
+        levelSelectBackground = directory.getEntry("backgrounds:levelSelectBackground", Texture.class);
 
         labBgTexture = new TextureRegion(directory.getEntry("backgrounds:labBg",Texture.class));
         discoBgTexture = new TextureRegion(directory.getEntry("backgrounds:discoBg",Texture.class));

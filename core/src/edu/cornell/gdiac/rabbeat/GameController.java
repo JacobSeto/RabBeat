@@ -944,10 +944,11 @@ public class GameController implements Screen, ContactListener {
 
 		// Victory Screen
 		if (complete && !failed) {
+			incrementLevelsUnlocked();
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
 			drawVictoryScreen();
-			incrementLevelsUnlocked();
+
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
 			canvas.begin(true); // DO NOT SCALE
@@ -1219,23 +1220,33 @@ public class GameController implements Screen, ContactListener {
 
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen() {
+
+		//OLD VICTORY SCREEN
+//		canvas.begin(true);
+//		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
+//		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
+//		canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
+//		canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
+//
+////		switch (victoryScreenItemSelected) {
+////			case 0: // Next Level
+////				canvas.draw(objectController.indicatorStarTexture.getTexture(),
+////						Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
+////				break;
+////			case 1: // Level Select
+////				canvas.draw(objectController.indicatorStarTexture.getTexture(),
+////						Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
+////				break;
+////		}
+//
+//		canvas.end();
+
+		//NEW VICTORY SCREEN
+
 		canvas.begin(true);
-		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
-		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
-		canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
-		canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
-
-		switch (victoryScreenItemSelected) {
-			case 0: // Next Level
-				canvas.draw(objectController.indicatorStarTexture.getTexture(),
-						Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
-				break;
-			case 1: // Level Select
-				canvas.draw(objectController.indicatorStarTexture.getTexture(),
-						Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
-				break;
-		}
-
+//		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
+//
+		canvas.draw(objectController.holderBackground, 0, 0);
 		canvas.end();
 
 	}
