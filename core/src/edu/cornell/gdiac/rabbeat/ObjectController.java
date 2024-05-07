@@ -263,6 +263,8 @@ public class ObjectController {
 
     public TextureRegion blackGradient;
 
+    public TextureRegion holderBackground;
+
     private HashMap<String, TextureRegion> assets = new HashMap<>();
     //  Tilesets
     private HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
@@ -431,6 +433,8 @@ public class ObjectController {
         lockedButton10 = directory.getEntry("ui:lockedLevels:lockedLevel10", Texture.class);
         lockedButton11 = directory.getEntry("ui:lockedLevels:lockedLevel11", Texture.class);
         lockedButton12 = directory.getEntry("ui:lockedLevels:lockedLevel12", Texture.class);
+
+        holderBackground = new TextureRegion(directory.getEntry("ui:holderBackground", Texture.class));
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
