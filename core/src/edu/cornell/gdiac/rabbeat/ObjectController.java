@@ -14,6 +14,7 @@ import edu.cornell.gdiac.rabbeat.objects.*;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import edu.cornell.gdiac.rabbeat.objects.art.ArtObject;
+import edu.cornell.gdiac.rabbeat.objects.art.AnimatedArtObject;
 import edu.cornell.gdiac.rabbeat.objects.art.PulsingArtObject;
 import edu.cornell.gdiac.rabbeat.objects.art.StretchingArtObject;
 import edu.cornell.gdiac.rabbeat.objects.enemies.BatEnemy;
