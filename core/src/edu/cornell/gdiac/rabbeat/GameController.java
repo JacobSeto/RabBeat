@@ -510,8 +510,8 @@ public class GameController implements Screen, ContactListener {
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
-		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / getCanvas().getWidth();
-		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / getCanvas().getHeight();
+		worldWidth = DEFAULT_WIDTH * objectController.labBgTexture.getRegionWidth() / getCanvas().getWidth();
+		worldHeight = DEFAULT_HEIGHT * objectController.labBgTexture.getRegionHeight() / getCanvas().getHeight();
 		world.setContactListener(this);
 		syncController = new SyncController(levelBPM);
 		populateLevel();
@@ -905,7 +905,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin(false);
-		canvas.draw(objectController.backgroundTexture, 0, 0);
+		canvas.draw(objectController.levelBackground, 0, 0);
 		canvas.end();
 
 		canvas.begin(false);
