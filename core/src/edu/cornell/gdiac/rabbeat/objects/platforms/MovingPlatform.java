@@ -6,6 +6,7 @@ import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.Genre;
 import edu.cornell.gdiac.rabbeat.objects.BoxGameObject;
 import edu.cornell.gdiac.rabbeat.objects.IGenreObject;
+import edu.cornell.gdiac.rabbeat.objects.Type;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 
 /**
@@ -66,6 +67,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         moving = true;
         moveTime = (int) Math.pow(2, beatMoveTime);
         BPM = GameController.getInstance().getBPM();
+        //setType(Type.LETHAL);
     }
 
     /** updates the platform to determine what direction it should be moving in */

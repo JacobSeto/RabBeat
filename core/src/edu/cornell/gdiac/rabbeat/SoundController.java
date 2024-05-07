@@ -14,15 +14,15 @@ public class SoundController {
 
     private float globalSFXVolume = 1.0f;
 
-    private Genre currentGenre;
+    //private float savedJazzVolume = 0;
 
-    private float savedJazzVolume = 0;
+    //private float savedSynthVolume = 0;
 
-    private float savedSynthVolume = 0;
-
-    private float savedGlobalMusicTempVolume = 0;
+    //private float savedGlobalMusicTempVolume = 0;
 
     private Sound tempSound;
+
+    public Genre currentGenre;
 
     /**
      * Set this to true to make genre switches instantaneous / in one frame.
@@ -43,10 +43,10 @@ public class SoundController {
     private ObjectMap<Sound, Long> soundIDMap;
 
     public SoundController() {
-        currentGenre = Genre.SYNTH;
         currentlyUpdating = false;
         soundNameMap = new ObjectMap<String, Sound>();
         soundIDMap = new ObjectMap<Sound, Long>();
+        currentGenre = Genre.SYNTH;
     }
 
     public void playMusic() {
@@ -70,43 +70,63 @@ public class SoundController {
 
 
 
-    public void setSynthTrack(Music track) { synthTrack = track;}
+    public void setSynthTrack(Music track) {
+        synthTrack = track;}
 
-    public void setJazzTrack(Music track) { jazzTrack = track;}
+    public void setJazzTrack(Music track) {
+        jazzTrack = track;}
 
     public void setGlobalMusicVolume(float vol) { globalMusicVolume = vol;}
 
     public void setGlobalSFXVolume(float vol) { globalSFXVolume = vol;}
+
+    public void setGlobalMusicVolumeImmediate(float vol) {
+        globalMusicVolume = vol;
+        if (currentGenre == Genre.SYNTH) { // this seems backwards but for some reason it works
+            synthTrack.setVolume(vol);
+            jazzTrack.setVolume(0);
+        }
+        else {
+            jazzTrack.setVolume(vol);
+            synthTrack.setVolume(0);
+        }
+
+    }
+
     public void resetMusic() {
         synthTrack.setPosition(1/44100f);
         jazzTrack.setPosition(1/44100f);
         synthTrack.setVolume(globalMusicVolume);
         jazzTrack.setVolume(0);
-        currentGenre = Genre.SYNTH;
         currentlyUpdating = false;
         currentUpdateFrame = 0;
     }
 
     public void pauseMusic() {
-        savedJazzVolume = jazzTrack.getVolume();
+        /*savedJazzVolume = jazzTrack.getVolume();
         savedSynthVolume = synthTrack.getVolume();
-        savedGlobalMusicTempVolume = globalMusicVolume;
+        savedGlobalMusicTempVolume = globalMusicVolume;*/
         jazzTrack.pause();
         synthTrack.pause();
+    }
+
+    public void disposeMusic(){
+        synthTrack.dispose();
+        jazzTrack.dispose();
     }
 
     public void resumeMusic() {
         jazzTrack.play();
         synthTrack.play();
 
-        if (savedGlobalMusicTempVolume == 0) {
+        /*if (savedGlobalMusicTempVolume == 0) {
             jazzTrack.setVolume(globalMusicVolume * (currentGenre == Genre.JAZZ ? 1 : 0));
             synthTrack.setVolume(globalMusicVolume * (currentGenre == Genre.SYNTH ? 1: 0));
         }
         else {
             jazzTrack.setVolume(savedJazzVolume * globalMusicVolume / (savedGlobalMusicTempVolume == 0 ? 1 : savedGlobalMusicTempVolume));
             synthTrack.setVolume(savedSynthVolume * globalMusicVolume / (savedGlobalMusicTempVolume == 0 ? 1 : savedGlobalMusicTempVolume));
-        }
+        }*/
 
         if (jazzTrack.getVolume() > 1) jazzTrack.setVolume(1);
         else if (jazzTrack.getVolume() < 0) jazzTrack.setVolume(0);

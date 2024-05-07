@@ -78,6 +78,9 @@ public class ObjectController {
     protected TextureRegion laserMiddle;
     protected TextureRegion laserTop;
     protected TextureRegion laserBottom;
+    protected TextureRegion laserLeft;
+    protected TextureRegion laserRight;
+    protected TextureRegion laserHorizontal;
 
     /** The texture for weighted platforms in Synth mode */
     protected TextureRegion weightedSynth;
@@ -348,10 +351,6 @@ public class ObjectController {
     public Animation<TextureRegion> jazzDeathAnimation;
 
     // ENEMY ANIMATIONS
-    /** The idle atlas for the bear enemy */
-    public TextureAtlas bearIdleAtlas;
-    /** The idle animation for the bear enemy */
-    public Animation<TextureRegion> bearIdleAnimation;
     /** The idle atlas for jazz bullets */
     public TextureAtlas bulletJazzAtlas;
     /** The animation for jazz bullets */
@@ -360,26 +359,38 @@ public class ObjectController {
     public TextureAtlas bulletSynthAtlas;
     /** The animation for synth bullets */
     public Animation<TextureRegion> bulletSynthAnimation;
+    /** The idle atlas for the bear enemy */
+    public TextureAtlas bearIdleAtlas;
+    /** The idle animation for the bear enemy */
+    public Animation<TextureRegion> bearIdleAnimation;
+    /** The anticipation atlas for the bear enemy */
+    public TextureAtlas bearAntiAtlas;
+    /** The anticipation animation for the bear enemy */
+    public Animation<TextureRegion> bearAntiAnimation;
     /** The attack atlas for the bear enemy */
     public TextureAtlas bearAttackAtlas;
     /** The attack animation for the bear enemy */
     public Animation<TextureRegion> bearAttackAnimation;
-    /** The synth attack atlas for the bat enemy */
-    public TextureAtlas batAttackSynthAtlas;
-    /** The synth attack animation for the bat enemy */
-    public Animation<TextureRegion> batAttackSynthAnimation;
-    /** The jazz attack atlas for the bat enemy */
-    public TextureAtlas batAttackJazzAtlas;
-    /** The jazz attack animation for the bat enemy */
-    public Animation<TextureRegion> batAttackJazzAnimation;
+    /** The idle atlas for the bat enemy */
+    public TextureAtlas batIdleAtlas;
+    /** The idle animation for the bat enemy */
+    public Animation<TextureRegion> batIdleAnimation;
+    /** The anticipation atlas for the bat enemy */
+    public TextureAtlas batAntiAtlas;
+    /** The anticipation animation for the bat enemy */
+    public Animation<TextureRegion> batAntiAnimation;
+    /** The attack atlas for the bat enemy */
+    public TextureAtlas batAttackAtlas;
+    /** The attack animation for the bat enemy */
+    public Animation<TextureRegion> batAttackAnimation;
     /** The idle atlas for the bee enemy */
     public TextureAtlas beeAttackAtlas;
     /** The idle animation for the bee enemy */
     public Animation<TextureRegion> beeAttackAnimation;
     /** The idle atlas for the beehive */
-    public TextureAtlas beehiveAttackAtlas;
+    public TextureAtlas beehiveIdleAtlas;
     /** The idle animation for the beehive */
-    public Animation<TextureRegion> beehiveAttackAnimation;
+    public Animation<TextureRegion> beehiveIdleAnimation;
 
     /** The idle atlas for the hedgehog enemy */
     public TextureAtlas hedgehogIdleAtlas;
@@ -400,8 +411,6 @@ public class ObjectController {
     public ArrayList<ArtObject> artObjects = new ArrayList<>();
     /** the default beat list is on the downbeats within 2 measures (beat 1 and beat 5)*/
     public int[] defaultBeatList = { 1, 5 };
-
-    public int numberOfLevelsUnlocked;
 
     //public GameController gc = GameController.getInstance();
     /**
@@ -540,13 +549,18 @@ public class ObjectController {
         // Bear
         bearIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
         bearIdleAnimation = new Animation<TextureRegion>(1f, bearIdleAtlas.findRegions("bearIdle"), Animation.PlayMode.LOOP);
+        bearAntiAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearAnti.atlas"));
+        bearAntiAnimation = new Animation<TextureRegion>(1f, bearAntiAtlas.findRegions("bearAnti"), Animation.PlayMode.LOOP);
         bearAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearAttack.atlas"));
         bearAttackAnimation = new Animation<TextureRegion>(1f, bearAttackAtlas.findRegions("bearAttack"), Animation.PlayMode.LOOP);
+
         //  Bat
-        batAttackJazzAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackJazz.atlas"));
-        batAttackJazzAnimation = new Animation<TextureRegion>(1f, batAttackJazzAtlas.findRegions("batAttackJazz"), Animation.PlayMode.LOOP);
-        batAttackSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttackSynth.atlas"));
-        batAttackSynthAnimation = new Animation<TextureRegion>(1f, batAttackSynthAtlas.findRegions("batAttackSynth"), Animation.PlayMode.LOOP);
+        batIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/batIdle.atlas"));
+        batIdleAnimation = new Animation<TextureRegion>(1f, batIdleAtlas.findRegions("batIdle"), Animation.PlayMode.LOOP);
+        batAntiAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAnti.atlas"));
+        batAntiAnimation = new Animation<TextureRegion>(1f, batAntiAtlas.findRegions("batAnti"), Animation.PlayMode.LOOP);
+        batAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttack.atlas"));
+        batAttackAnimation = new Animation<TextureRegion>(1f, batAttackAtlas.findRegions("batAttack"), Animation.PlayMode.LOOP);
         echoAtlas = new TextureAtlas(Gdx.files.internal("atlas/echo.atlas"));
         echoAnimation = new Animation<TextureRegion>(1f, echoAtlas.findRegions("echo"));
         echoTexture = new TextureRegion(directory.getEntry("enemies:echoStill", Texture.class));
@@ -556,8 +570,8 @@ public class ObjectController {
         beeAttackAnimation = new Animation<TextureRegion>(0.25f, beeAttackAtlas.findRegions("beeAttack"),
                 Animation.PlayMode.LOOP);
 
-        beehiveAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehiveAttack.atlas"));
-        beehiveAttackAnimation = new Animation<TextureRegion>(1, beehiveAttackAtlas.findRegions("beehiveAttack"),
+        beehiveIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehiveIdle.atlas"));
+        beehiveIdleAnimation = new Animation<TextureRegion>(1, beehiveIdleAtlas.findRegions("beehiveIdle"),
                 Animation.PlayMode.LOOP);
         // Hedgehog
         hedgehogIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearIdle.atlas"));
@@ -580,6 +594,9 @@ public class ObjectController {
         laserMiddle = new TextureRegion(directory.getEntry("world:laserMiddle", Texture.class));
         laserTop = new TextureRegion(directory.getEntry("world:laserTop", Texture.class));
         laserBottom = new TextureRegion(directory.getEntry("world:laserBottom", Texture.class));
+        laserLeft = new TextureRegion(directory.getEntry("world:laserLeft", Texture.class));
+        laserRight = new TextureRegion(directory.getEntry("world:laserRight", Texture.class));
+        laserHorizontal = new TextureRegion(directory.getEntry("world:laserHorizontal", Texture.class));
 
         weightedSynth = new TextureRegion((directory.getEntry("world:platforms:weightedSynth", Texture.class)));
         weightedJazz = new TextureRegion((directory.getEntry("world:platforms:weightedJazz", Texture.class)));
@@ -669,6 +686,8 @@ public class ObjectController {
         assets.put("spot_7", new TextureRegion(directory.getEntry("world:spots:spot_7", Texture.class)));
         assets.put("texture_0", new TextureRegion(directory.getEntry("world:spots:texture_0", Texture.class)));
         assets.put("texture_1", new TextureRegion(directory.getEntry("world:spots:texture_1", Texture.class)));
+        assets.put("laserOverlay", new TextureRegion(directory.getEntry("world:laserOverlay", Texture.class)));
+        assets.put("laserGlow", new TextureRegion(directory.getEntry("world:laserGlow", Texture.class)));
 
         assets.put("pole_0", new TextureRegion(directory.getEntry("world:signs:pole_0", Texture.class)));
         assets.put("pole_1", new TextureRegion(directory.getEntry("world:signs:pole_1", Texture.class)));
@@ -732,14 +751,16 @@ public class ObjectController {
         checkpointRiseAnimation = new Animation<TextureRegion>(1f, checkpointRiseAtlas.findRegions("checkpointRise"), Animation.PlayMode.LOOP);
     }
 
+
     /**
      * Populates all objects into the game.
      *
+     * @param genre The genre the world is currently in
      * @param scale The draw scale
      */
-    public void populateObjects(Vector2 scale) {
+    public void populateObjects(Genre genre, Vector2 scale) {
         // Populate in-game UI elements
-        createGUI();
+        createGUI(genre);
 
         if (levelJson.has("layers")) {
 
@@ -785,17 +806,17 @@ public class ObjectController {
                         Vector2[] wpDimensions = new Vector2[layer.get("objects").size];
                         for (JsonValue wp : layer.get("objects")) {
                             int num = 0;
-                            String genre = "";
+                            String genrePlat = "";
                             int platformInterval = 1;
                             int waitTime = 1;
-                            int moveTime = 1;
+                            int moveTime = 0;
                             for (JsonValue prop : wp.get("properties")) {
                                 switch (prop.getString("name")) {
                                     case "num":
                                         num = prop.getInt("value");
                                         break;
                                     case "genre":
-                                        genre = prop.getString("value");
+                                        genrePlat = prop.getString("value");
                                         break;
                                     case "platformInterval":
                                         platformInterval = prop.getInt("value");
@@ -809,7 +830,7 @@ public class ObjectController {
                                         break;
                                 }
                             }
-                            switch (genre) {
+                            switch (genrePlat) {
                                 case "synth":
                                     synthCoord[num] = new float[] { wp.getFloat("x"), wp.getFloat("y") };
                                     break;
@@ -824,7 +845,9 @@ public class ObjectController {
                         }
                         //  Now actually create weighted platforms using synthCoord, jazzCoord, wpSpeed
                         for (int i=0; i<layer.get("objects").size/2; i++){
-                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i], wpPlatformInterval[i], wpMove[i], wpWait[i], wpDimensions[i], levelHeight, tileSize);
+                            createWeightedPlatform(scale, synthCoord[i], jazzCoord[i],
+                                    wpPlatformInterval[i], wpMove[i], wpWait[i], wpDimensions[i],
+                                    levelHeight, tileSize, genre);
                         }
                         break;
                     case "movingPlatforms":
@@ -873,7 +896,9 @@ public class ObjectController {
                         }
                         //  Now actually create moving platforms
                         for (int i=0; i<positionNodes.size(); i++){
-                            createMovingPlatform(scale, positionNodes.get(i), mpWait.get(i), mpMove.get(i), dimensions.get(i), levelHeight, tileSize);
+                            createMovingPlatform(scale, positionNodes.get(i),
+                                    mpWait.get(i), mpMove.get(i), dimensions.get(i),
+                                    levelHeight, tileSize);
                         }
                         break;
                     case "platforms":
@@ -911,7 +936,7 @@ public class ObjectController {
                             float x = player.getInt("x");
                             float y = player.getInt("y");
                             Vector2 dim = new Vector2(player.getFloat("width"), player.getFloat("height"));
-                            createPlayer(scale, x, y, dim, levelHeight, tileSize);
+                            createPlayer(scale, x, y, dim, levelHeight, tileSize, genre);
                         }
                         break;
                     case "enemies":
@@ -919,7 +944,9 @@ public class ObjectController {
                         for (JsonValue enemy : layer.get("objects")) {
                             String enemyType = enemy.getString("type");
                             String beatListString = "";
+                            int color = 0;
                             boolean faceRight = false;
+                            float beeBeat = 0.0f;
                             for (JsonValue prop : enemy.get("properties")) {
                                 if (prop.getString("name").equals("beatList")) {
                                     beatListString = prop.getString("value");
@@ -927,19 +954,24 @@ public class ObjectController {
                                 if (prop.getString("name").equals("isRight")){
                                     faceRight = prop.getBoolean("value");
                                 }
+                                if (prop.getString("name").equals("beeBeat")){
+                                    beeBeat = prop.getFloat("value");
+                                }
                             }
                             switch (enemyType) {
                                 case "Bear":
                                     float x = enemy.getFloat("x");
                                     float y = enemy.getFloat("y");
                                     Vector2 dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
-                                    createEnemyBear(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString));
+                                    createEnemyBear(scale, x, y, dim, levelHeight,
+                                            tileSize, convertTiledbeatList(beatListString), genre);
                                     break;
                                 case "Beehive":
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
-                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize, convertTiledbeatList(beatListString), faceRight);
+                                    createEnemyBeehive(scale, x, y, dim, levelHeight, tileSize,
+                                            convertTiledbeatList(beatListString), faceRight, beeBeat, genre);
                                     break;
                                 case "Hedgehog":
                                     x = enemy.getFloat("x");
@@ -951,14 +983,16 @@ public class ObjectController {
                                             rollingDistance = prop.getInt("value");
                                         }
                                     }
-                                    createEnemyHedgehog(scale, x, y, dim, rollingDistance, levelHeight, tileSize, convertTiledbeatList(beatListString));
+                                    createEnemyHedgehog(scale, x, y, dim, rollingDistance,
+                                            levelHeight, tileSize,
+                                            convertTiledbeatList(beatListString), genre);
                                     break;
                                 case "Bat":
                                     x = enemy.getFloat("x");
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
                                     createEnemyBat(scale, x, y, dim, levelHeight, tileSize,
-                                            convertTiledbeatList(beatListString));
+                                            convertTiledbeatList(beatListString), genre);
                                     break;
                             }
                         }
@@ -1020,22 +1054,24 @@ public class ObjectController {
                                     a);
                         }
                         break;
-                    case "backgroundArt":
+                    case "backgroundArt": {
                         for (JsonValue a : layer.get("objects")) {
                             float x = a.getFloat("x");
                             float y = a.getFloat("y");
                             Vector2 dim = new Vector2(a.getFloat("width"), a.getFloat("height"));
                             String assetName = "";
-                            if (a.get("properties")!=null) {
+                            if (a.get("properties") != null) {
                                 for (JsonValue prop : a.get("properties")) {
                                     if (prop.getString("name").equals("assetName")) {
                                         assetName = prop.getString("value");
                                     }
                                 }
                             }
-                            createGroundArt(scale, assetName, x, y, dim, levelHeight, tileSize, "background",
+                            createGroundArt(scale, assetName, x, y, dim, levelHeight, tileSize,
+                                    "background",
                                     a);
                         }
+                    }
                         break;
                 }
 
@@ -1149,6 +1185,7 @@ public class ObjectController {
         obj.setDrawScale(scale);
         obj.setTexture(textureRegion);
         obj.setName(wname);
+        obj.setWall(true);
         GameController.getInstance().instantiate(obj);
     }
 
@@ -1227,6 +1264,15 @@ public class ObjectController {
             else if (align.equals("bottom")){
                 textureRegion = laserBottom;
             }
+            else if (align.equals("left")){
+                textureRegion = laserLeft;
+            }
+            else if (align.equals("right")){
+                textureRegion = laserRight;
+            }
+            else if (align.equals("horizontal")){
+                textureRegion = laserHorizontal;
+            }
             else{
                 textureRegion = laserTile;
             }
@@ -1297,7 +1343,9 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
-    private void createWeightedPlatform(Vector2 scale, float[] synthCoord, float[] jazzCoord, int platformIntervals, int waitTime, int moveTime, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createWeightedPlatform(Vector2 scale, float[] synthCoord,
+            float[] jazzCoord, int platformIntervals, int waitTime, int moveTime, Vector2 dimensions,
+            int levelHeight, int tileSize, Genre genre){
         //  Adjust coordinates + Convert coordinates to world coordinates
 //        synthCoord[1] -= weightedSynth.getRegionHeight()/2-4;
         Vector2 convertedSynthCoord = convertTiledCoord(synthCoord[0], synthCoord[1], dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -1314,7 +1362,7 @@ public class ObjectController {
                 new float[] { convertedSynthCoord.x, convertedSynthCoord.y },
                 new float[] { convertedJazzCoord.x, convertedJazzCoord.y },
                 platformIntervals, waitTime, moveTime,
-                weightedSynth, weightedJazz);
+                weightedSynth, weightedJazz, genre);
         weightedPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         weightedPlatform.setDensity(defaults.getFloat("density", 0.0f));
         weightedPlatform.setFriction(defaults.getFloat("friction", 0.0f));
@@ -1352,7 +1400,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
      */
-    private void createPlayer(Vector2 scale, float startX, float startY, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createPlayer(Vector2 scale, float startX, float startY, Vector2 dimensions, int levelHeight, int tileSize, Genre genre){
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(startX, startY, dimensions.x, dimensions.y, levelHeight, tileSize);
 
@@ -1360,7 +1408,7 @@ public class ObjectController {
         float dwidth =synthDefaultTexture.getRegionWidth() / scale.x;
         float dheight = synthDefaultTexture.getRegionHeight() / scale.y;
         player = new Player(defaultConstants.get("player"), convertedCoord.x, convertedCoord.y,
-                dwidth * playerScale - .3f, dheight * playerScale, playerScale);
+                dwidth * playerScale - .3f, dheight * playerScale, playerScale, genre);
         player.setDrawScale(scale);
         player.setPlayer();
 
@@ -1414,17 +1462,18 @@ public class ObjectController {
      * @param tileSize    Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyBear(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList){
+    private void createEnemyBear(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, Genre genre){
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BearEnemy bear = new BearEnemy(defaultConstants.get("bears"), convertedCoord.x, convertedCoord.y,
-                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, beatList);
-        bear.attackSynthAnimation = bearAttackAnimation;
-        bear.attackJazzAnimation = bearAttackAnimation;
-        bear.setAnimation(bearAttackAnimation);
+                dwidth*enemyScale, dheight*enemyScale, enemyScale, false, beatList, genre);
+        bear.idleAnimation = bearIdleAnimation;
+        bear.antiAnimation = bearAntiAnimation;
+        bear.attackAnimation = bearAttackAnimation;
+        bear.setAnimation(bearIdleAnimation);
         bear.setBodyType(BodyDef.BodyType.StaticBody);
         bear.setDrawScale(scale);
         bear.setTexture(bearTexture);
@@ -1441,7 +1490,7 @@ public class ObjectController {
      * @param tileSize    Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight){
+    private void createEnemyBeehive(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, boolean faceRight, float beet, Genre genre){
         //  Convert coordinates to world coordinate
         //TODO: change to beehive texture when we get art for this
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -1449,10 +1498,10 @@ public class ObjectController {
         float dwidth  = dimensions.x/scale.x;
         float dheight = dimensions.y/scale.y;
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
-                dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList);
-        beehive.attackAnimation = beehiveAttackAnimation;
-        beehive.beeAttackSynthAnimation = beeAttackAnimation;
-        beehive.setAnimation(beehiveAttackAnimation);
+                dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList, beet, genre);
+        beehive.idleAnimation = beehiveIdleAnimation;
+        beehive.beeAttackAnimation = beeAttackAnimation;
+        beehive.setAnimation(beehiveIdleAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
         beehive.setTexture(beehiveTexture);
@@ -1470,7 +1519,7 @@ public class ObjectController {
      * @param tileSize        Height of tile in pixels
      * @param beatList    The list of beats that the enemy reacts to
      */
-    private void createEnemyHedgehog(Vector2 scale, float x, float y, Vector2 dimensions, int rollingDistance, int levelHeight, int tileSize, int[] beatList){
+    private void createEnemyHedgehog(Vector2 scale, float x, float y, Vector2 dimensions, int rollingDistance, int levelHeight, int tileSize, int[] beatList, Genre genre){
         //  Convert coordinates to world coordinate
         //TODO: change to hedgehog texture when we get art for this
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
@@ -1479,7 +1528,7 @@ public class ObjectController {
         float dheight = enemyDefaultTexture.getRegionHeight()/scale.y;
         HedgehogEnemy hedgehog = new HedgehogEnemy(defaultConstants.get("hedgehogs"), convertedCoord.x, convertedCoord.y,
                 rollingDistance, dwidth*enemyScale, dheight*enemyScale,
-                enemyScale, false, beatList);
+                enemyScale, false, beatList, genre);
         hedgehog.attackSynthAnimation = hedgehogAttackAnimation;
         hedgehog.setAnimation(hedgehogAttackAnimation);
         hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
@@ -1497,7 +1546,7 @@ public class ObjectController {
      * @param levelHeight Height of level in number of tiles
      * @param tileSize Height of tile in pixels
      */
-    private void createEnemyBat(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList){
+    private void createEnemyBat(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, int[] beatList, Genre genre){
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
@@ -1505,10 +1554,11 @@ public class ObjectController {
         float dheight = batTexture.getRegionHeight()/scale.y;
         BatEnemy bat = new BatEnemy(defaultConstants.get("bats"), convertedCoord.x, convertedCoord.y,
                 dwidth*enemyScale, dheight*enemyScale,
-                enemyScale, false, beatList);
-        bat.attackSynthAnimation = batAttackSynthAnimation;
-        bat.attackJazzAnimation = batAttackJazzAnimation;
-        bat.setAnimation(batAttackSynthAnimation);
+                enemyScale, false, beatList, genre);
+        bat.idleAnimation = batIdleAnimation;
+        bat.antiAnimation = batAntiAnimation;
+        bat.attackAnimation = batAttackAnimation;
+        bat.setAnimation(batIdleAnimation);
         bat.setBodyType(BodyDef.BodyType.StaticBody);
         bat.setDrawScale(scale);
         bat.setTexture(batTexture);
@@ -1555,7 +1605,6 @@ public class ObjectController {
                 break;
             }
             case "Stretch": {
-                System.out.println("Stretch");
                 float pulsePerBeat = 0;
                 float horizontalGrowRate = 0;
                 float verticalGrowRate = 0;
@@ -1601,8 +1650,8 @@ public class ObjectController {
     /**
      * Creates the in-game UI elements and adds them to the genre/synced objects.
      */
-    private void createGUI() {
-        genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture, synthCDAnimation, jazzCDAnimation);
+    private void createGUI(Genre genre) {
+        genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture, synthCDAnimation, jazzCDAnimation, genre);
         GameController.getInstance().instantiate(genreIndicator);
     }
 

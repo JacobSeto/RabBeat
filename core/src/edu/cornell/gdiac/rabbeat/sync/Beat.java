@@ -28,7 +28,7 @@ public class Beat implements ISynced {
     @Override
     public void beatAction() {
         beatCount++;
-        if(beatCount > 4){
+        if(beatCount >= 9){
             beatCount = 1;
         }
         if(GameController.getInstance().inCalibration){

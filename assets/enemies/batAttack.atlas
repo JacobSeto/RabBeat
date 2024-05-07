@@ -1,0 +1,26 @@
+batAttack.png
+size: 528, 97
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+batAttack
+  rotate: false
+  xy: 0, 0
+  size: 176, 97
+  orig: 176, 97
+  offset: 0, 0
+  index: 0
+batAttack
+  rotate: false
+  xy: 176, 0
+  size: 176, 97
+  orig: 176, 97
+  offset: 0, 0
+  index: 1
+batAttack
+  rotate: false
+  xy: 352, 0
+  size: 176, 97
+  orig: 176, 97
+  offset: 0, 0
+  index: 2
