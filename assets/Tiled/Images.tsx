@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="895" tileheight="320" tilecount="23" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="895" tileheight="320" tilecount="25" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2">
   <image width="64" height="123" source="tiles/playerTile.png"/>
@@ -111,5 +111,17 @@
    <property name="assetName" value="cam_2"/>
   </properties>
   <image width="320" height="320" source="../world/other/cam_2.PNG"/>
+ </tile>
+ <tile id="74">
+  <properties>
+   <property name="assetName" value="jazzDeath"/>
+  </properties>
+  <image width="240" height="212" source="../world/other/jazzDeath.png"/>
+ </tile>
+ <tile id="75">
+  <properties>
+   <property name="assetName" value="pod"/>
+  </properties>
+  <image width="250" height="250" source="../world/pods/pod.png"/>
  </tile>
 </tileset>

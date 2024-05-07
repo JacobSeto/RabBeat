@@ -632,6 +632,7 @@ public class ObjectController {
         assets.put("octpod1", new TextureRegion(directory.getEntry("world:pods:octpod1", Texture.class)));
         assets.put("emptypod4", new TextureRegion(directory.getEntry("world:pods:emptypod4", Texture.class)));
         assets.put("wolfpod1", new TextureRegion(directory.getEntry("world:pods:wolfpod1", Texture.class)));
+        assets.put("pod", new TextureRegion(directory.getEntry("world:pods:pod", Texture.class)));
 
         assets.put("shelf1", new TextureRegion(directory.getEntry("world:shelves:shelf1", Texture.class)));
         assets.put("shelf2", new TextureRegion(directory.getEntry("world:shelves:shelf2", Texture.class)));
@@ -763,6 +764,10 @@ public class ObjectController {
         assets.put("neon_9", new TextureRegion(directory.getEntry("world:neonLights:neon_9", Texture.class)));
         assets.put("neon_10", new TextureRegion(directory.getEntry("world:neonLights:neon_10", Texture.class)));
         assets.put("neon_11", new TextureRegion(directory.getEntry("world:neonLights:neon_11", Texture.class)));
+        assets.put("neon_12", new TextureRegion(directory.getEntry("world:neonLights:neon_12", Texture.class)));
+        assets.put("neon_13", new TextureRegion(directory.getEntry("world:neonLights:neon_13", Texture.class)));
+        assets.put("neon_14", new TextureRegion(directory.getEntry("world:neonLights:neon_14", Texture.class)));
+        assets.put("neon_15", new TextureRegion(directory.getEntry("world:neonLights:neon_15", Texture.class)));
 
         //  Other
         assets.put("tv", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
@@ -795,6 +800,7 @@ public class ObjectController {
         assets.put("vinyl_4", new TextureRegion(directory.getEntry("world:other:vinyl_4", Texture.class)));
         assets.put("album_0", new TextureRegion(directory.getEntry("world:other:album_0", Texture.class)));
         assets.put("chand_0", new TextureRegion(directory.getEntry("world:other:chand_0", Texture.class)));
+        assets.put("jazzDeath", new TextureRegion(directory.getEntry("world:other:jazzDeath", Texture.class)));
 
         //  Animated art
         animatedArtAtlas.put("sparkle", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkle.atlas")));
@@ -1036,6 +1042,7 @@ public class ObjectController {
                         }
                         //  Now actually create moving platforms
                         for (int i=0; i<positionNodes.size(); i++){
+                            System.out.println(i);
                             createMovingPlatform(scale, positionNodes.get(i),
                                     mpWait.get(i), mpMove.get(i), dimensions.get(i),
                                     levelHeight, tileSize);
@@ -1143,12 +1150,15 @@ public class ObjectController {
                             float y = checkpoint.getFloat("y");
                             Vector2 dim = new Vector2(checkpoint.getFloat("width"), checkpoint.getFloat("height"));
                             int id = 0;
+                            String assetName = "checkpoint";
                             for (JsonValue prop : checkpoint.get("properties")) {
                                 if (prop.getString("name").equals("num")) {
                                     id = prop.getInt("value");
+                                } else if (prop.getString("name").equals("assetName")) {
+                                    assetName = prop.getString("value");
                                 }
                             }
-                            createCheckpoint(scale, x, y, dim, id, levelHeight, tileSize);
+                            createCheckpoint(scale, x, y, dim, id, levelHeight, tileSize, assetName);
                         }
                         break;
                     case "goal":
@@ -1157,7 +1167,15 @@ public class ObjectController {
                             float x = goal.getInt("x");
                             float y = goal.getInt("y");
                             Vector2 dim = new Vector2(goal.getFloat("width"), goal.getFloat("height"));
-                            createGoal(scale, x, y, dim, levelHeight, tileSize);
+                            String assetName = "goal";
+                            if (goal.get("properties")!=null) {
+                                for (JsonValue prop : goal.get("properties")) {
+                                    if (prop.getString("name").equals("assetName")) {
+                                        assetName = prop.getString("value");
+                                    }
+                                }
+                            }
+                            createGoal(scale, x, y, dim, levelHeight, tileSize, assetName);
                         }
                         break;
                     case "wallArt":
@@ -1271,7 +1289,7 @@ public class ObjectController {
     /**
      * Create a checkpoint
      */
-    private void createCheckpoint(Vector2 scale, float x, float y, Vector2 dimensions, int id, int levelHeight, int tileSize) {
+    private void createCheckpoint(Vector2 scale, float x, float y, Vector2 dimensions, int id, int levelHeight, int tileSize, String assetName) {
         // Adjust and Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
@@ -1291,7 +1309,11 @@ public class ObjectController {
         obj.setRestitution(defaults.getFloat("restitution", 0.0f));
         obj.setSensor(true);
         obj.setDrawScale(scale);
-        obj.setTexture(checkpointTexture);
+        if (assetName == "checkpoint"){
+            obj.setTexture(checkpointTexture);
+        } else{
+            obj.setTexture(assets.get(assetName));
+        }
         GameController.getInstance().instantiate(obj);
         checkpoints.add(obj);
     }
@@ -1590,7 +1612,7 @@ public class ObjectController {
         GameController.getInstance().instantiate(player);
     }
 
-    private void createGoal(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize){
+    private void createGoal(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, String assetName){
         //  Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
@@ -1605,7 +1627,11 @@ public class ObjectController {
         goalDoor.setRestitution(data.getFloat("restitution", 0));
         goalDoor.setSensor(true);
         goalDoor.setDrawScale(scale);
-        goalDoor.setTexture(goalTile);
+        if (assetName == "goal"){
+            goalDoor.setTexture(goalTile);
+        } else{
+            goalDoor.setTexture(assets.get(assetName));
+        }
         goalDoor.setName("goal");
         GameController.getInstance().instantiate(goalDoor);
     }

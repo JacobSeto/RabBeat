@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="103" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="108" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7">
   <properties>
@@ -555,7 +555,7 @@
  </tile>
  <tile id="100">
   <properties>
-   <property name="assetName" value=""/>
+   <property name="assetName" value="neon_4"/>
   </properties>
   <image width="80" height="80" source="../world/neonLights/neon_4.png"/>
  </tile>
@@ -618,5 +618,35 @@
    <property name="assetName" value="chand_0"/>
   </properties>
   <image width="192" height="192" source="../world/other/chand_0.png"/>
+ </tile>
+ <tile id="111">
+  <properties>
+   <property name="assetName" value="neon_15"/>
+  </properties>
+  <image width="120" height="120" source="../world/neonLights/neon_15.png"/>
+ </tile>
+ <tile id="112">
+  <properties>
+   <property name="assetName" value="neon_12"/>
+  </properties>
+  <image width="120" height="120" source="../world/neonLights/neon_12.png"/>
+ </tile>
+ <tile id="113">
+  <properties>
+   <property name="assetName" value="neon_13"/>
+  </properties>
+  <image width="120" height="120" source="../world/neonLights/neon_13.png"/>
+ </tile>
+ <tile id="114">
+  <properties>
+   <property name="assetName" value="neon_14"/>
+  </properties>
+  <image width="120" height="120" source="../world/neonLights/neon_14.png"/>
+ </tile>
+ <tile id="115">
+  <properties>
+   <property name="assetName" value="light"/>
+  </properties>
+  <image width="192" height="192" source="../world/lights/light.png"/>
  </tile>
 </tileset>
