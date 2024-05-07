@@ -249,8 +249,8 @@
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
         "example": "levelsJson/rabbeatLevelTest.tmj",
-        "level1": "levelsJson/benlevel2.tmj",
-        "level2": "levelsJson/level1Art.tmj",
+        "level1": "levelsJson/tutorial1.tmj",
+        "level2": "levelsJson/tutorial2.tmj",
         "level3": "levelsJson/benlevel2.tmj",
         "level4": "levelsJson/level1Art.tmj",
         "level5": "levelsJson/benlevel2.tmj",
