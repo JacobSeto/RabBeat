@@ -66,6 +66,11 @@
       "world:laserMiddle" : "world/lasers/laserMiddle.png",
       "world:laserTop" : "world/lasers/laserTop.png",
       "world:laserBottom" : "world/lasers/laserBottom.png",
+          "world:laserLeft" : "world/lasers/laserLeft.png",
+          "world:laserRight" : "world/lasers/laserRight.png",
+          "world:laserHorizontal" : "world/lasers/laserHorizontal.png",
+          "world:laserOverlay" : "world/lasers/laserOverlay.png",
+          "world:laserGlow" : "world/lasers/laserGlow.png",
 
       "world:checkpoints:checkpointInactive": "world/checkpoints/checkpointInactive.png",
       "world:goal": "world/goal.png",
@@ -116,6 +121,12 @@
       "ui:victory:nextLevelText": "ui/victory/nextLevel.png",
       "ui:victory:star": "ui/victory/star.png",
       "ui:victory:victoryLogo": "ui/victory/victoryLogo.png",
+
+      "ui:maineMenuScreen:optionsButton": "ui/mainMenuScreen/optionsButton.png",
+      "ui:maineMenuScreen:playButton": "ui/mainMenuScreen/playButton.png",
+      "ui:maineMenuScreen:quitButton": "ui/mainMenuScreen/quitButton.png",
+      "ui:maineMenuScreen:select": "ui/mainMenuScreen/select.png",
+      "ui:maineMenuScreen:mainMenuBackground": "ui/mainMenuScreen/mainMenuBackground.png",
 
       "player:synth":  "player/synth.png",
       "player:synth-jazz":   "player/synth-jazz.png",
@@ -242,15 +253,15 @@
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
-        "example": "levelsJson/rabbeatLevel1.tmj",
+        "example": "levelsJson/rabbeatLevel5.tmj",
         "level1": "levelsJson/rabbeatLevel1.tmj",
         "level2": "levelsJson/rabbeatLevel2.tmj",
         "level3": "levelsJson/rabbeatLevel3.tmj",
         "level4": "levelsJson/rabbeatLevel4.tmj",
         "level5": "levelsJson/rabbeatLevel5.tmj",
         "level6": "levelsJson/rabbeatLevel6.tmj",
-        "level7": "levelsJson/level1Art.tmj",
-        "level8": "levelsJson/rabbeatLevel1.tmj",
+        "level7": "levelsJson/rabbeatLevel7.tmj",
+        "level8": "levelsJson/rabbeatLevel8.tmj",
         "level9": "levelsJson/rabbeatLevel1.tmj",
         "level10": "levelsJson/rabbeatLevel1.tmj",
         "level11": "levelsJson/rabbeatLevel1.tmj",
@@ -261,7 +272,9 @@
     },
     "music" : {
       "music:synth1": "music/synth_alpha.ogg",
-      "music:jazz1": "music/jazz_alpha.ogg"
+      "music:jazz1": "music/jazz_alpha.ogg",
+          "music:synth2": "music/synth2.ogg",
+          "music:jazz2": "music/jazz2.ogg"
     },
     "fonts": {
         "fonts:retro": {
