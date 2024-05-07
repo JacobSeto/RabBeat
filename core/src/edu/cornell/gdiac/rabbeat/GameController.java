@@ -91,7 +91,7 @@ public class GameController implements Screen, ContactListener {
 	private static String currentLevel = "level" + currentLevelInt;
 
 	/** How many frames after winning/losing do we continue? */
-	public static final int EXIT_COUNT = 2;
+	public static final int EXIT_COUNT = 35;
 
 	/** The number of levels in the game */
 	private int numberOfLevels = 12;
@@ -245,7 +245,7 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void setComplete(boolean value) {
 		if (value) {
-			countdown = EXIT_COUNT;
+			countdown = 0;
 		}
 		System.out.println("Complete: " + complete);
 		complete = value;
