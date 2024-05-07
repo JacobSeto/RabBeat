@@ -401,6 +401,8 @@ public class ObjectController {
     /** The attack animation for the hedgehog enemy */
     public Animation<TextureRegion> hedgehogAttackAnimation;
 
+    public Texture level1;
+
     private float synthSpeed;
     private float jazzSpeed;
     /** The enemy scale for the enemy */
@@ -434,6 +436,8 @@ public class ObjectController {
         quitButton = directory.getEntry("ui:maineMenuScreen:quitButton",Texture.class);
         select = directory.getEntry("ui:maineMenuScreen:select",Texture.class);
         mainMenuBackground = directory.getEntry("ui:maineMenuScreen:mainMenuBackground",Texture.class);
+
+        level1 = directory.getEntry("ui:level1", Texture.class);
 
         unlockedButton1 = directory.getEntry("ui:unlockedLevels:unlockedLevel1", Texture.class);
         unlockedButton2 = directory.getEntry("ui:unlockedLevels:unlockedLevel2", Texture.class);

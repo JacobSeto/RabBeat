@@ -180,14 +180,37 @@ public class LevelSelectorScreen extends ScreenAdapter {
 //                    break;
             }
 
-//            breaklevelButton.addListener(new InputListener() {
-//                @Override
-//                public boolean mouseMoved(InputEvent event, float x, float y) {
-//                    hover = true;
-//                    return true; // Returning true means that this event is handled
-//                }
-//
-//            });
+            levelButton.addListener(new InputListener() {
+                @Override
+                public boolean mouseMoved(InputEvent event, float x, float y) {
+                    hover = true;
+                    return true; // Returning true means that this event is handled
+                }
+
+            });
+
+            if(i==1) {
+                //HOVER OVER BUTTON!
+                Texture buttonTexture2 = GameController.getInstance().objectController.levelButtonHover1;
+                TextureRegionDrawable buttonDrawable2 = new TextureRegionDrawable(new TextureRegion(buttonTexture2));
+                BitmapFont font2 = new BitmapFont();
+                TextButton.TextButtonStyle textButtonStyle2 = new TextButton.TextButtonStyle();
+                textButtonStyle2.up = buttonDrawable2;
+                textButtonStyle2.font = font2;
+                levelButton2 = new TextButton("", textButtonStyle2);
+                levelButton2.setPosition(418, background.getHeight()-levelButton2.getHeight()-135);
+                stage.addActor(levelButton2);
+
+                
+                levelButton2.addListener(new InputListener() {
+                    @Override
+                    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                        //if (!hitbox.contains(x+100, y)) {
+                        hover = false; // Update hover state
+                        //}
+                    }
+                });
+            }
 
             levelButton.addListener(new ClickListener() {
                 @Override
@@ -199,28 +222,17 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 }
             });
             stage.addActor(levelButton);
-            //stage.addActor(hoverImage);
+//            stage.addActor(hoverImage);
 
 
         }
-
-        //HOVER OVER BUTTON!
-//        Texture buttonTexture2 = GameController.getInstance().objectController.levelButtonHover1;
-//        TextureRegionDrawable buttonDrawable2 = new TextureRegionDrawable(new TextureRegion(buttonTexture2));
-//        BitmapFont font2 = new BitmapFont();
-//        TextButton.TextButtonStyle textButtonStyle2 = new TextButton.TextButtonStyle();
-//        textButtonStyle2.up = buttonDrawable2;
-//        textButtonStyle2.font = font2;
-//        levelButton2 = new TextButton("", textButtonStyle2);
-//        levelButton2.setPosition(418, background.getHeight()-levelButton2.getHeight()-135);
-//
 
 
     }
 
     public void render(float delta) {
 
-        hoverImage.setVisible(hover);
+        levelButton2.setVisible(hover);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));

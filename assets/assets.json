@@ -116,6 +116,7 @@
       "ui:lockedLevels:lockedLevel10": "ui/lockedLevels/lockedLevel10.png",
       "ui:lockedLevels:lockedLevel11": "ui/lockedLevels/lockedLevel11.png",
       "ui:lockedLevels:lockedLevel12": "ui/lockedLevels/lockedLevel12.png",
+      "ui:level1": "ui/level1.png",
 
       "ui:levelButtonsHoverState:level1ButtonHover": "ui/levelButtonsHoverState/level1ButtonHover.png",
       "ui:victory:levelSelectText": "ui/victory/levelSelect.png",
