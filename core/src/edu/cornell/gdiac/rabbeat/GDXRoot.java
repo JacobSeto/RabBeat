@@ -14,6 +14,7 @@
  package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.Music;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.assets.*;
 
@@ -47,6 +48,10 @@ public class GDXRoot extends Game implements ScreenListener {
 
 	/** Variable that represents the main menu screen */
 	private MainMenuScreen mainMenuScreen;
+
+	/** Main menu music */
+
+	private Music mainMenuMusic;
 
 
 	/**
@@ -123,12 +128,15 @@ public class GDXRoot extends Game implements ScreenListener {
 	public void exitScreen(Screen screen, int exitCode) {
 		if(screen == initialLoading) {
 			directory = initialLoading.getAssets();
+			mainMenuMusic = directory.getEntry("music:mainmenu", Music.class);
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
 			InputController.getInstance().setPaused(true);
 			setScreen(mainMenuScreen);
+			mainMenuMusic.play();
 		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
+			mainMenuMusic.stop();
 			controller = new GameController();
 			InputController.getInstance().setPaused(false);
 			GameController.getInstance().setPaused(false);
