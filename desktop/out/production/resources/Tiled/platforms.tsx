@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="platforms" tilewidth="192" tileheight="64" tilecount="19" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="platforms" tilewidth="192" tileheight="120" tilecount="24" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="53">
   <image width="128" height="32" source="../world/platforms/longPlatform/leftSquare.PNG"/>
@@ -57,5 +57,23 @@
  </tile>
  <tile id="72">
   <image width="128" height="32" source="../world/platforms/synthLongPlatform/synthright.PNG"/>
+ </tile>
+ <tile id="73">
+  <image width="64" height="36" source="../world/lasers/laserHorizontal.png"/>
+ </tile>
+ <tile id="74">
+  <image width="64" height="36" source="../world/lasers/laserLeft.png"/>
+ </tile>
+ <tile id="75">
+  <image width="64" height="36" source="../world/lasers/laserRight.png"/>
+ </tile>
+ <tile id="76">
+  <properties>
+   <property name="assetName" value="laserOverlay"/>
+  </properties>
+  <image width="64" height="69" source="../world/lasers/laserOverlay.png"/>
+ </tile>
+ <tile id="77">
+  <image width="64" height="120" source="../world/lasers/laserGlow.png"/>
  </tile>
 </tileset>
