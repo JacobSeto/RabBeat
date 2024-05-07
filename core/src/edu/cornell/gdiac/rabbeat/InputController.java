@@ -335,8 +335,9 @@ public class InputController {
 		enterPrevious = enterPressed;
 		levelSelectPrevious = levelSelectPressed;
 		switchPrevious = switchPressed;
+		calibrationPrevious = calibrationPressed;
 		calibrationPressed = calibrationPrevious;
-		calibratePressed = calibratePrevious;
+		calibratePrevious = calibratePressed;
 
 		if (paused) {
 			pauseUpPrevious = pauseUpPressed;
@@ -412,7 +413,7 @@ public class InputController {
 		//pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
 		calibrationPressed = (secondary && calibrationPressed) || (Gdx.input.isKeyPressed(Input.Keys.C));
-		calibratePressed = (secondary && calibrationPressed) || (Gdx.input.isKeyPressed(Keys.SPACE));
+		calibratePressed = (secondary && calibratePressed) || (Gdx.input.isKeyPressed(Keys.SPACE));
 		switchPressed = (secondary && switchPressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT));
 		spacePressed = (secondary && spacePressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SPACE));
 		//TO SET ALL LEVELS TO COMPLETE

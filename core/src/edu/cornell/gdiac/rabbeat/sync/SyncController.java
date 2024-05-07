@@ -125,6 +125,7 @@ public class SyncController {
      * beat calculation
      */
     public void calibrate() {
+        System.out.println("calibrate");
         beatLatencyList.add(calibrateDT);
         calibrationCount++;
         if (calibrationCount >= NUM_CALIBRATION_STEPS) {
