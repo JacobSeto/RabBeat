@@ -311,7 +311,16 @@
       "world:other:cup_1": "world/other/cup_1.png",
       "world:other:cup_2": "world/other/cup_2.png",
       "world:other:boombox": "world/other/boombox.png",
-      "world:other:mic": "world/other/mic.png"
+      "world:other:mic": "world/other/mic.png",
+      "world:other:trophy_0": "world/other/trophy_0.png",
+      "world:other:trophy_1": "world/other/trophy_1.png",
+      "world:other:vinyl_0": "world/other/vinyl_0.png",
+      "world:other:vinyl_1": "world/other/vinyl_1.png",
+      "world:other:vinyl_2": "world/other/vinyl_2.png",
+      "world:other:vinyl_3": "world/other/vinyl_3.png",
+      "world:other:vinyl_4": "world/other/vinyl_4.png",
+      "world:other:album_0": "world/other/album_0.png",
+      "world:other:chand_0": "world/other/chand_0.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
