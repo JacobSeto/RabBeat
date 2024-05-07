@@ -236,6 +236,15 @@ public class ObjectController {
     /** The texture for tinting the pause screen overlay background */
     public TextureRegion pauseWhiteOverlayTexture;
 
+    public TextureRegion backButtonTexture;
+    public TextureRegion calibrateTextTexture;
+    public TextureRegion audioDelayDisplayTexture;
+    public TextureRegion offBeatTexture;
+    public TextureRegion onBeatTexture;
+    public TextureRegion tapText;
+    public TextureRegion pressSpace;
+    public TextureRegion pressSpaceBeat;
+
     public TextureRegion exitLevelTexture;
     public TextureRegion hoverLowerSoundTexture;
     public TextureRegion hoverUpSoundTexture;
@@ -456,6 +465,15 @@ public class ObjectController {
         unhoverLowerSoundTexture = new TextureRegion(directory.getEntry("ui:pause:unhoverLowerSound",Texture.class));
         unhoverUpSoundTexture = new TextureRegion(directory.getEntry("ui:pause:unhoverUpSound",Texture.class));
         volumeBoxTexture = new TextureRegion(directory.getEntry("ui:pause:volumeBox",Texture.class));
+        backButtonTexture = new TextureRegion(directory.getEntry( "ui:backButton", Texture.class));
+
+        calibrateTextTexture = new TextureRegion(directory.getEntry("ui:calibration:calibrateText", Texture.class));
+        audioDelayDisplayTexture = new TextureRegion(directory.getEntry( "ui:calibration:audioDelayDisplay", Texture.class));
+        offBeatTexture = new TextureRegion(directory.getEntry("ui:calibration:offBeat", Texture.class));
+        onBeatTexture = new TextureRegion(directory.getEntry("ui:calibration:onBeat", Texture.class));
+        tapText = new TextureRegion(directory.getEntry("ui:calibration:tapText", Texture.class));
+        pressSpace = new TextureRegion(directory.getEntry("ui:calibration:pressSpace", Texture.class));
+        pressSpaceBeat = new TextureRegion(directory.getEntry("ui:calibration:pressSpaceBeat", Texture.class));
 
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
         batTexture = new TextureRegion(directory.getEntry("enemies:bat", Texture.class));
