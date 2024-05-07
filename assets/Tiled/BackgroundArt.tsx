@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="94" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="103" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7">
   <properties>
@@ -555,7 +555,7 @@
  </tile>
  <tile id="100">
   <properties>
-   <property name="assetName" value="neon_4"/>
+   <property name="assetName" value=""/>
   </properties>
   <image width="80" height="80" source="../world/neonLights/neon_4.png"/>
  </tile>
@@ -564,5 +564,59 @@
    <property name="assetName" value="neon_9"/>
   </properties>
   <image width="120" height="120" source="../world/neonLights/neon_9.png"/>
+ </tile>
+ <tile id="102">
+  <properties>
+   <property name="assetName" value="vinyl_1"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/vinyl_1.png"/>
+ </tile>
+ <tile id="103">
+  <properties>
+   <property name="assetName" value="vinyl_2"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/vinyl_2.png"/>
+ </tile>
+ <tile id="104">
+  <properties>
+   <property name="assetName" value="vinyl_3"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/vinyl_3.png"/>
+ </tile>
+ <tile id="105">
+  <properties>
+   <property name="assetName" value="vinyl_4"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/vinyl_4.png"/>
+ </tile>
+ <tile id="106">
+  <properties>
+   <property name="assetName" value="trophy_0"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/trophy_0.png"/>
+ </tile>
+ <tile id="107">
+  <properties>
+   <property name="assetName" value="trophy_1"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/trophy_1.png"/>
+ </tile>
+ <tile id="108">
+  <properties>
+   <property name="assetName" value="vinyl_0"/>
+  </properties>
+  <image width="128" height="128" source="../world/other/vinyl_0.png"/>
+ </tile>
+ <tile id="109">
+  <properties>
+   <property name="assetName" value="album_0"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/album_0.png"/>
+ </tile>
+ <tile id="110">
+  <properties>
+   <property name="assetName" value="chand_0"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/chand_0.png"/>
  </tile>
 </tileset>

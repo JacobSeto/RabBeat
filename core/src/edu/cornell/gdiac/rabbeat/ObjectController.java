@@ -741,6 +741,15 @@ public class ObjectController {
         assets.put("cup_2", new TextureRegion(directory.getEntry("world:other:cup_2", Texture.class)));
         assets.put("boombox", new TextureRegion(directory.getEntry("world:other:boombox", Texture.class)));
         assets.put("mic", new TextureRegion(directory.getEntry("world:other:mic", Texture.class)));
+        assets.put("trophy_0", new TextureRegion(directory.getEntry("world:other:trophy_0", Texture.class)));
+        assets.put("trophy_1", new TextureRegion(directory.getEntry("world:other:trophy_1", Texture.class)));
+        assets.put("vinyl_0", new TextureRegion(directory.getEntry("world:other:vinyl_0", Texture.class)));
+        assets.put("vinyl_1", new TextureRegion(directory.getEntry("world:other:vinyl_1", Texture.class)));
+        assets.put("vinyl_2", new TextureRegion(directory.getEntry("world:other:vinyl_2", Texture.class)));
+        assets.put("vinyl_3", new TextureRegion(directory.getEntry("world:other:vinyl_3", Texture.class)));
+        assets.put("vinyl_4", new TextureRegion(directory.getEntry("world:other:vinyl_4", Texture.class)));
+        assets.put("album_0", new TextureRegion(directory.getEntry("world:other:album_0", Texture.class)));
+        assets.put("chand_0", new TextureRegion(directory.getEntry("world:other:chand_0", Texture.class)));
 
         //  Animated art
         animatedArtAtlas.put("sparkle", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkle.atlas")));
