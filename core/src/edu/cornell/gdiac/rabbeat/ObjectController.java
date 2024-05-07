@@ -261,6 +261,15 @@ public class ObjectController {
     /** The texture for tinting the pause screen overlay background */
     public TextureRegion pauseWhiteOverlayTexture;
 
+    public TextureRegion backButtonTexture;
+    public TextureRegion calibrateTextTexture;
+    public TextureRegion audioDelayDisplayTexture;
+    public TextureRegion offBeatTexture;
+    public TextureRegion onBeatTexture;
+    public TextureRegion tapText;
+    public TextureRegion pressSpace;
+    public TextureRegion pressSpaceBeat;
+
     public TextureRegion exitLevelTexture;
     public TextureRegion hoverLowerSoundTexture;
     public TextureRegion hoverUpSoundTexture;
@@ -364,6 +373,11 @@ public class ObjectController {
     public TextureAtlas jazzDeathAtlas;
     /** The jazz genre death animation for the player */
     public Animation<TextureRegion> jazzDeathAnimation;
+
+    /** The transform atlas for the player */
+    public TextureAtlas transformAtlas;
+    /** The transform animation for the player */
+    public Animation<TextureRegion> transformAnimation;
 
     // ENEMY ANIMATIONS
     /** The idle atlas for jazz bullets */
@@ -501,6 +515,15 @@ public class ObjectController {
         unhoverLowerSoundTexture = new TextureRegion(directory.getEntry("ui:pause:unhoverLowerSound",Texture.class));
         unhoverUpSoundTexture = new TextureRegion(directory.getEntry("ui:pause:unhoverUpSound",Texture.class));
         volumeBoxTexture = new TextureRegion(directory.getEntry("ui:pause:volumeBox",Texture.class));
+        backButtonTexture = new TextureRegion(directory.getEntry( "ui:backButton", Texture.class));
+
+        calibrateTextTexture = new TextureRegion(directory.getEntry("ui:calibration:calibrateText", Texture.class));
+        audioDelayDisplayTexture = new TextureRegion(directory.getEntry( "ui:calibration:audioDelayDisplay", Texture.class));
+        offBeatTexture = new TextureRegion(directory.getEntry("ui:calibration:offBeat", Texture.class));
+        onBeatTexture = new TextureRegion(directory.getEntry("ui:calibration:onBeat", Texture.class));
+        tapText = new TextureRegion(directory.getEntry("ui:calibration:tapText", Texture.class));
+        pressSpace = new TextureRegion(directory.getEntry("ui:calibration:pressSpace", Texture.class));
+        pressSpaceBeat = new TextureRegion(directory.getEntry("ui:calibration:pressSpaceBeat", Texture.class));
 
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth",Texture.class)); //CHANGE FOR ENEMY!
         batTexture = new TextureRegion(directory.getEntry("enemies:bat", Texture.class));
@@ -563,6 +586,10 @@ public class ObjectController {
 
         jazzDeathAtlas = new TextureAtlas(Gdx.files.internal("player/jazzDeath.atlas"));
         jazzDeathAnimation = new Animation<TextureRegion>(1f, jazzDeathAtlas.findRegions("jazzDeath"), Animation.PlayMode.NORMAL);
+
+        // Transform
+        transformAtlas = new TextureAtlas(Gdx.files.internal("player/transform.atlas"));
+        transformAnimation = new Animation<TextureRegion>(1f, transformAtlas.findRegions("transform"), Animation.PlayMode.NORMAL);
 
         // Allocating enemy animations
         // Bear
@@ -807,6 +834,8 @@ public class ObjectController {
         animatedArtAnimation.put("sparkle", new Animation<TextureRegion>(1f, animatedArtAtlas.get("sparkle").findRegions("sparkle"), Animation.PlayMode.LOOP));
         animatedArtAtlas.put("sparkleTwo", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkleTwo.atlas")));
         animatedArtAnimation.put("sparkleTwo", new Animation<TextureRegion>(1f, animatedArtAtlas.get("sparkleTwo").findRegions("sparkleTwo"), Animation.PlayMode.LOOP));
+        animatedArtAtlas.put("laser", new TextureAtlas(Gdx.files.internal("world/animatedArt/laser.atlas")));
+        animatedArtAnimation.put("laser", new Animation<TextureRegion>(1f, animatedArtAtlas.get("laser").findRegions("laser"), Animation.PlayMode.LOOP));
 
         //  Tilesets
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
@@ -1604,6 +1633,8 @@ public class ObjectController {
         player.jazzJumpAnimation = jazzJumpAnimation;
         player.jazzFallAnimation = jazzFallAnimation;
         player.jazzDeathAnimation = jazzDeathAnimation;
+        // Transform animation
+        player.transformAnimation = transformAnimation;
 
         player.setAnimation(synthWalkAnimation);
         player.synthSpeed = synthSpeed;
