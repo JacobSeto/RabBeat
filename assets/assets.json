@@ -112,6 +112,7 @@
       "ui:lockedLevels:lockedLevel11": "ui/lockedLevels/lockedLevel11.png",
       "ui:lockedLevels:lockedLevel12": "ui/lockedLevels/lockedLevel12.png",
 
+      "ui:levelButtonsHoverState:level1ButtonHover": "ui/levelButtonsHoverState/level1ButtonHover.png",
       "ui:victory:levelSelectText": "ui/victory/levelSelect.png",
       "ui:victory:nextLevelText": "ui/victory/nextLevel.png",
       "ui:victory:star": "ui/victory/star.png",
@@ -130,6 +131,7 @@
       "backgrounds:test-bg":  "backgrounds/bgColor1.png",
       "backgrounds:overlay": "backgrounds/background-overlay.png",
       "backgrounds:pauseTint": "backgrounds/white_texture.png",
+      "backgrounds:levelSelectBackground": "backgrounds/levelSelectBackground.png",
 
       "enemies:bat": "enemies/bat.png",
       "enemies:echo" : "atlas/echo.png",

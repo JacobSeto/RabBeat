@@ -140,6 +140,9 @@ public class ObjectController {
     /** The texture for the victory logo */
     public TextureRegion victoryLogo;
 
+    /** The texture for the level select background */
+    public Texture levelSelectBackground;
+
     /** The texture for unlocked button 1 */
     public Texture unlockedButton1;
 
@@ -435,6 +438,8 @@ public class ObjectController {
         lockedButton12 = directory.getEntry("ui:lockedLevels:lockedLevel12", Texture.class);
 
         holderBackground = new TextureRegion(directory.getEntry("ui:holderBackground", Texture.class));
+
+        levelSelectBackground = directory.getEntry("backgrounds:levelSelectBackground", Texture.class);
 
         backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
         backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));

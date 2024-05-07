@@ -130,6 +130,7 @@
       "backgrounds:test-bg":  "backgrounds/bgColor1.png",
       "backgrounds:overlay": "backgrounds/background-overlay.png",
       "backgrounds:pauseTint": "backgrounds/white_texture.png",
+      "backgrounds:levelSelectBackground": "backgrounds/levelSelectBackground.png",
 
       "enemies:bat": "enemies/bat.png",
       "enemies:echo" : "atlas/echo.png",

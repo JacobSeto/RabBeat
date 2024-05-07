@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import edu.cornell.gdiac.util.ScreenListener;
+import java.awt.event.MouseListener;
 
 /** Class that represents the level select menu screen for the game
  * Displays 12 buttons that represent each level
@@ -47,7 +49,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
 
         // Background
-        Texture background = new Texture(Gdx.files.internal("backgrounds/test-bg.png"));
+        Texture background = GameController.getInstance().getObjectController().levelSelectBackground;
         TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(background));
         Image bg = new Image(backgroundDrawable);
         bg.setPosition(0, 0);
@@ -61,7 +63,9 @@ public class LevelSelectorScreen extends ScreenAdapter {
             if(i <= GameController.getInstance().getLevelsUnlocked()) {
                 buttonTexture = GameController.getInstance().objectController.getUnlockedButtonTexture(finalI);
             } else {
-                buttonTexture = GameController.getInstance().objectController.getLockedButtonTexture(finalI);
+                //TODO: Comment this out:
+//                buttonTexture = GameController.getInstance().objectController.getLockedButtonTexture(finalI);
+                buttonTexture = GameController.getInstance().objectController.getUnlockedButtonTexture(finalI);
             }
 
             TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(
@@ -72,18 +76,91 @@ public class LevelSelectorScreen extends ScreenAdapter {
             textButtonStyle.font = font;
             TextButton levelButton = new TextButton("", textButtonStyle);
 
-            float xPos = 100 + 300*((i-1)%4);
-            float yPos = 0;
-
-            if(i <= 4) {
-                yPos = 475;
-            } else if (i <= 8) {
-                yPos = 275;
-            } else if (i <= 12) {
-                yPos = 75;
+            switch(i) {
+                case(1):
+                    levelButton.setPosition(478, background.getHeight()-levelButton.getHeight()-200);
+                    break;
+                case(2):
+                    levelButton.setPosition(469, background.getHeight()-levelButton.getHeight()-271);
+                    break;
+                case(3):
+                    levelButton.setPosition(491, background.getHeight()-levelButton.getHeight()-329);
+                    break;
+                case(4):
+                    levelButton.setPosition(485, background.getHeight()-levelButton.getHeight()-384);
+                    break;
+                case(5):
+                    levelButton.setPosition(760, background.getHeight()-levelButton.getHeight()-230);
+                    break;
+                case(6):
+                    levelButton.setPosition(789, background.getHeight()-levelButton.getHeight()-288);
+                    break;
+                case(7):
+                    levelButton.setPosition(750, background.getHeight()-levelButton.getHeight()-342);
+                    break;
+                case(8):
+                    levelButton.setPosition(750, background.getHeight()-levelButton.getHeight()-397);
+                    break;
+                case(9):
+                    levelButton.setPosition(1041, background.getHeight()-levelButton.getHeight()-228);
+                    break;
+                case(10):
+                    levelButton.setPosition(1036, background.getHeight()-levelButton.getHeight()-281);
+                    break;
+                case(11):
+                    levelButton.setPosition(1024, background.getHeight()-levelButton.getHeight()-337);
+                    break;
+                case(12):
+                    levelButton.setPosition(1041, background.getHeight()-levelButton.getHeight()-397);
+                    break;
+//                case(1):
+//                    levelButton.setPosition(483, background.getHeight()-levelButton.getHeight()-206);
+//                    break;
+//                case(2):
+//                    levelButton.setPosition(469, background.getHeight()-levelButton.getHeight()-271);
+//                    break;
+//                case(3):
+//                    levelButton.setPosition(491, background.getHeight()-levelButton.getHeight()-329);
+//                    break;
+//                case(4):
+//                    levelButton.setPosition(485, background.getHeight()-levelButton.getHeight()-384);
+//                    break;
+//                case(5):
+//                    levelButton.setPosition(760, background.getHeight()-levelButton.getHeight()-230);
+//                    break;
+//                case(6):
+//                    levelButton.setPosition(789, background.getHeight()-levelButton.getHeight()-288);
+//                    break;
+//                case(7):
+//                    levelButton.setPosition(750, background.getHeight()-levelButton.getHeight()-342);
+//                    break;
+//                case(8):
+//                    levelButton.setPosition(750, background.getHeight()-levelButton.getHeight()-397);
+//                    break;
+//                case(9):
+//                    levelButton.setPosition(1041, background.getHeight()-levelButton.getHeight()-228);
+//                    break;
+//                case(10):
+//                    levelButton.setPosition(1036, background.getHeight()-levelButton.getHeight()-281);
+//                    break;
+//                case(11):
+//                    levelButton.setPosition(1024, background.getHeight()-levelButton.getHeight()-337);
+//                    break;
+//                case(12):
+//                    levelButton.setPosition(1041, background.getHeight()-levelButton.getHeight()-397);
+//                    break;
             }
 
-            levelButton.setPosition(xPos, yPos);
+            if (i == 1) {
+                levelButton.addListener(new InputListener() {
+                    @Override
+                    public boolean mouseMoved(InputEvent event, float x, float y) {
+                        // Change the appearance of the button when hovered
+                        // Change the color or apply any other effect
+                        return true; // Return true to consume the event
+                    }
+                });
+            }
 
             levelButton.addListener(new ClickListener() {
                 @Override
@@ -97,6 +174,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
             });
             stage.addActor(levelButton);
         }
+
     }
 
     public void render(float delta) {
