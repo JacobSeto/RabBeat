@@ -371,6 +371,11 @@ public class ObjectController {
     /** The jazz genre death animation for the player */
     public Animation<TextureRegion> jazzDeathAnimation;
 
+    /** The transform atlas for the player */
+    public TextureAtlas transformAtlas;
+    /** The transform animation for the player */
+    public Animation<TextureRegion> transformAnimation;
+
     // ENEMY ANIMATIONS
     /** The idle atlas for jazz bullets */
     public TextureAtlas bulletJazzAtlas;
@@ -575,6 +580,10 @@ public class ObjectController {
 
         jazzDeathAtlas = new TextureAtlas(Gdx.files.internal("player/jazzDeath.atlas"));
         jazzDeathAnimation = new Animation<TextureRegion>(1f, jazzDeathAtlas.findRegions("jazzDeath"), Animation.PlayMode.NORMAL);
+
+        // Transform
+        transformAtlas = new TextureAtlas(Gdx.files.internal("player/transform.atlas"));
+        transformAnimation = new Animation<TextureRegion>(1f, transformAtlas.findRegions("transform"), Animation.PlayMode.NORMAL);
 
         // Allocating enemy animations
         // Bear
@@ -813,6 +822,8 @@ public class ObjectController {
         animatedArtAnimation.put("sparkle", new Animation<TextureRegion>(1f, animatedArtAtlas.get("sparkle").findRegions("sparkle"), Animation.PlayMode.LOOP));
         animatedArtAtlas.put("sparkleTwo", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkleTwo.atlas")));
         animatedArtAnimation.put("sparkleTwo", new Animation<TextureRegion>(1f, animatedArtAtlas.get("sparkleTwo").findRegions("sparkleTwo"), Animation.PlayMode.LOOP));
+        animatedArtAtlas.put("laser", new TextureAtlas(Gdx.files.internal("world/animatedArt/laser.atlas")));
+        animatedArtAnimation.put("laser", new Animation<TextureRegion>(1f, animatedArtAtlas.get("laser").findRegions("laser"), Animation.PlayMode.LOOP));
 
         //  Tilesets
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
@@ -1594,6 +1605,8 @@ public class ObjectController {
         player.jazzJumpAnimation = jazzJumpAnimation;
         player.jazzFallAnimation = jazzFallAnimation;
         player.jazzDeathAnimation = jazzDeathAnimation;
+        // Transform animation
+        player.transformAnimation = transformAnimation;
 
         player.setAnimation(synthWalkAnimation);
         player.synthSpeed = synthSpeed;
