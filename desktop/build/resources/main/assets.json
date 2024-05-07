@@ -325,9 +325,9 @@
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
         "example": "levelsJson/BenLevel2.tmj",
-        "level1": "levelsJson/level1Art.tmj",
-        "level2": "levelsJson/discoArtLevel.tmj",
-        "level3": "levelsJson/houseArtLevel.tmj",
+        "level1": "levelsJson/ericEasyLevel.tmj",
+        "level2": "levelsJson/benLevel2.tmj",
+        "level3": "levelsJson/rabbeatLevelBat.tmj",
         "level4": "levelsJson/ImprovedBeeLevel.tmj",
         "level5": "levelsJson/EricLaserLevel.tmj",
         "level6": "levelsJson/EricBearLevel2.tmj",
