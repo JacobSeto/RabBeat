@@ -271,6 +271,7 @@
       "sfx:genreSwitch": "sfx/genre_switch_woosh.wav"
     },
     "music" : {
+          "music:mainmenu": "music/main_menu.ogg",
       "music:synth1": "music/synth_alpha.ogg",
       "music:jazz1": "music/jazz_alpha.ogg",
           "music:synth2": "music/synth2.ogg",

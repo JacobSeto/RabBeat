@@ -630,9 +630,11 @@ public class GameController implements Screen, ContactListener {
 				if (pauseItemSelected == 3) {
 					if (input.didPressLeftWhilePaused() && musicVolume > 0) { // change this to 1 if it causes bugs
 						musicVolume--;
+						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
 					}
 					if (input.didPressRightWhilePaused() && musicVolume < 10) {
 						musicVolume++;
+						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
 					}
 				}
 				else if (pauseItemSelected == 4) {

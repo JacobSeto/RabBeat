@@ -14,11 +14,11 @@ public class SoundController {
 
     private float globalSFXVolume = 1.0f;
 
-    private float savedJazzVolume = 0;
+    //private float savedJazzVolume = 0;
 
-    private float savedSynthVolume = 0;
+    //private float savedSynthVolume = 0;
 
-    private float savedGlobalMusicTempVolume = 0;
+    //private float savedGlobalMusicTempVolume = 0;
 
     private Sound tempSound;
 
@@ -46,6 +46,7 @@ public class SoundController {
         currentlyUpdating = false;
         soundNameMap = new ObjectMap<String, Sound>();
         soundIDMap = new ObjectMap<Sound, Long>();
+        currentGenre = Genre.SYNTH;
     }
 
     public void playMusic() {
@@ -78,6 +79,20 @@ public class SoundController {
     public void setGlobalMusicVolume(float vol) { globalMusicVolume = vol;}
 
     public void setGlobalSFXVolume(float vol) { globalSFXVolume = vol;}
+
+    public void setGlobalMusicVolumeImmediate(float vol) {
+        globalMusicVolume = vol;
+        if (currentGenre == Genre.SYNTH) { // this seems backwards but for some reason it works
+            synthTrack.setVolume(vol);
+            jazzTrack.setVolume(0);
+        }
+        else {
+            jazzTrack.setVolume(vol);
+            synthTrack.setVolume(0);
+        }
+
+    }
+
     public void resetMusic() {
         synthTrack.setPosition(1/44100f);
         jazzTrack.setPosition(1/44100f);
@@ -88,9 +103,9 @@ public class SoundController {
     }
 
     public void pauseMusic() {
-        savedJazzVolume = jazzTrack.getVolume();
+        /*savedJazzVolume = jazzTrack.getVolume();
         savedSynthVolume = synthTrack.getVolume();
-        savedGlobalMusicTempVolume = globalMusicVolume;
+        savedGlobalMusicTempVolume = globalMusicVolume;*/
         jazzTrack.pause();
         synthTrack.pause();
     }
@@ -104,14 +119,14 @@ public class SoundController {
         jazzTrack.play();
         synthTrack.play();
 
-        if (savedGlobalMusicTempVolume == 0) {
+        /*if (savedGlobalMusicTempVolume == 0) {
             jazzTrack.setVolume(globalMusicVolume * (currentGenre == Genre.JAZZ ? 1 : 0));
             synthTrack.setVolume(globalMusicVolume * (currentGenre == Genre.SYNTH ? 1: 0));
         }
         else {
             jazzTrack.setVolume(savedJazzVolume * globalMusicVolume / (savedGlobalMusicTempVolume == 0 ? 1 : savedGlobalMusicTempVolume));
             synthTrack.setVolume(savedSynthVolume * globalMusicVolume / (savedGlobalMusicTempVolume == 0 ? 1 : savedGlobalMusicTempVolume));
-        }
+        }*/
 
         if (jazzTrack.getVolume() > 1) jazzTrack.setVolume(1);
         else if (jazzTrack.getVolume() < 0) jazzTrack.setVolume(0);
