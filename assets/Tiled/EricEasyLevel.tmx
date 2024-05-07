@@ -7,9 +7,9 @@
  <tileset firstgid="75" source="platforms.tsx"/>
  <tileset firstgid="153" source="walls.tsx"/>
  <tileset firstgid="165" source="Backgrounds.tsx"/>
- <tileset firstgid="169" source="rabbeatTileset.tsx"/>
- <tileset firstgid="190" source="BackgroundArt.tsx"/>
- <objectgroup id="2" name="background" locked="1">
+ <tileset firstgid="171" source="rabbeatTileset.tsx"/>
+ <tileset firstgid="192" source="BackgroundArt.tsx"/>
+ <objectgroup id="2" name="background">
   <object id="536" name="0" gid="57" x="1439" y="757" width="130" height="130">
    <properties>
     <property name="num" type="int" value="0"/>
@@ -18,445 +18,445 @@
   <object id="690" gid="168" x="0" y="1088" width="9696" height="1088"/>
  </objectgroup>
  <objectgroup id="18" name="backgroundArt">
-  <object id="696" gid="223" x="672" y="960" width="128" height="128"/>
-  <object id="698" type="Pulse" gid="243" x="848" y="192" width="128" height="128">
+  <object id="696" gid="225" x="672" y="960" width="128" height="128"/>
+  <object id="698" type="Pulse" gid="245" x="848" y="192" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="700" type="Pulse" gid="243" x="4672" y="448" width="128" height="128">
+  <object id="700" type="Pulse" gid="245" x="4672" y="448" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="702" type="Pulse" gid="239" x="672" y="848" width="128" height="128">
+  <object id="702" type="Pulse" gid="241" x="672" y="848" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="703" type="Pulse" gid="239" x="2880" y="784" width="128" height="128">
+  <object id="703" type="Pulse" gid="241" x="2880" y="784" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="704" gid="223" x="2880" y="896" width="128" height="128"/>
-  <object id="705" type="Pulse" gid="2147483852" x="2080" y="800" width="128" height="128">
+  <object id="704" gid="225" x="2880" y="896" width="128" height="128"/>
+  <object id="705" type="Pulse" gid="2147483854" x="2080" y="800" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="706" type="Pulse" gid="2147483852" x="2208" y="800" width="128" height="128">
+  <object id="706" type="Pulse" gid="2147483854" x="2208" y="800" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="707" type="Pulse" gid="2147483852" x="2336" y="800" width="128" height="128">
+  <object id="707" type="Pulse" gid="2147483854" x="2336" y="800" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="708" gid="200" x="1712" y="160" width="960" height="128"/>
-  <object id="709" gid="200" x="4256" y="752" width="960" height="128"/>
-  <object id="710" gid="198" x="176" y="944" width="128" height="960"/>
-  <object id="711" gid="198" x="3440" y="1024" width="128" height="960"/>
-  <object id="714" gid="200" x="7024" y="896" width="960" height="128"/>
-  <object id="715" type="Pulse" gid="204" x="1440" y="480" width="128" height="128">
+  <object id="708" gid="202" x="1712" y="160" width="960" height="128"/>
+  <object id="709" gid="202" x="4256" y="752" width="960" height="128"/>
+  <object id="710" gid="200" x="176" y="944" width="128" height="960"/>
+  <object id="711" gid="200" x="3440" y="1024" width="128" height="960"/>
+  <object id="714" gid="202" x="7024" y="896" width="960" height="128"/>
+  <object id="715" type="Pulse" gid="206" x="1440" y="480" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="716" type="Pulse" gid="204" x="1568" y="480" width="128" height="128">
+  <object id="716" type="Pulse" gid="206" x="1568" y="480" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="717" type="Pulse" gid="204" x="1696" y="480" width="128" height="128">
+  <object id="717" type="Pulse" gid="206" x="1696" y="480" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="718" type="Pulse" gid="204" x="1952" y="432" width="128" height="128">
+  <object id="718" type="Pulse" gid="206" x="1952" y="432" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="719" type="Pulse" gid="204" x="2080" y="432" width="128" height="128">
+  <object id="719" type="Pulse" gid="206" x="2080" y="432" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="721" type="Pulse" gid="204" x="2400" y="352" width="128" height="128">
+  <object id="721" type="Pulse" gid="206" x="2400" y="352" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="723" type="Pulse" gid="204" x="2496" y="352" width="128" height="128">
+  <object id="723" type="Pulse" gid="206" x="2496" y="352" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="724" type="Pulse" gid="204" x="3872" y="224" width="128" height="128">
+  <object id="724" type="Pulse" gid="206" x="3872" y="224" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="725" type="Pulse" gid="204" x="4000" y="224" width="128" height="128">
+  <object id="725" type="Pulse" gid="206" x="4000" y="224" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="726" type="Pulse" gid="204" x="4128" y="224" width="128" height="128">
+  <object id="726" type="Pulse" gid="206" x="4128" y="224" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="728" type="Pulse" gid="204" x="4976" y="256" width="128" height="128" rotation="90">
+  <object id="728" type="Pulse" gid="206" x="4976" y="256" width="128" height="128" rotation="90">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="729" type="Pulse" gid="204" x="4976" y="384" width="128" height="128" rotation="90">
+  <object id="729" type="Pulse" gid="206" x="4976" y="384" width="128" height="128" rotation="90">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="730" type="Pulse" gid="204" x="4976" y="512" width="128" height="128" rotation="90">
+  <object id="730" type="Pulse" gid="206" x="4976" y="512" width="128" height="128" rotation="90">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="731" type="Pulse" gid="204" x="5600" y="928" width="128" height="128">
+  <object id="731" type="Pulse" gid="206" x="5600" y="928" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="732" type="Pulse" gid="204" x="5728" y="928" width="128" height="128">
+  <object id="732" type="Pulse" gid="206" x="5728" y="928" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="733" type="Pulse" gid="204" x="5856" y="928" width="128" height="128">
+  <object id="733" type="Pulse" gid="206" x="5856" y="928" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="734" type="Pulse" gid="204" x="6176" y="928" width="128" height="128">
+  <object id="734" type="Pulse" gid="206" x="6176" y="928" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="735" type="Pulse" gid="204" x="6304" y="928" width="128" height="128">
+  <object id="735" type="Pulse" gid="206" x="6304" y="928" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="736" type="Pulse" gid="204" x="6432" y="928" width="128" height="128">
+  <object id="736" type="Pulse" gid="206" x="6432" y="928" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="737" type="Pulse" gid="2147483852" x="6304" y="480" width="128" height="128">
+  <object id="737" type="Pulse" gid="2147483854" x="6304" y="480" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="738" type="Pulse" gid="2147483852" x="6432" y="480" width="128" height="128">
+  <object id="738" type="Pulse" gid="2147483854" x="6432" y="480" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="739" type="Pulse" gid="2147483852" x="6560" y="480" width="128" height="128">
+  <object id="739" type="Pulse" gid="2147483854" x="6560" y="480" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="740" type="Pulse" gid="2147483852" x="5856" y="448" width="128" height="128">
+  <object id="740" type="Pulse" gid="2147483854" x="5856" y="448" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="741" type="Pulse" gid="2147483852" x="5984" y="448" width="128" height="128">
+  <object id="741" type="Pulse" gid="2147483854" x="5984" y="448" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="742" type="Pulse" gid="2147483852" x="6112" y="448" width="128" height="128">
+  <object id="742" type="Pulse" gid="2147483854" x="6112" y="448" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="746" type="Pulse" gid="204" x="6048" y="160" width="128" height="128">
+  <object id="746" type="Pulse" gid="206" x="6048" y="160" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="747" type="Pulse" gid="204" x="6176" y="160" width="128" height="128">
+  <object id="747" type="Pulse" gid="206" x="6176" y="160" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="748" type="Pulse" gid="204" x="6304" y="160" width="128" height="128">
+  <object id="748" type="Pulse" gid="206" x="6304" y="160" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="749" type="Pulse" gid="204" x="6560" y="224" width="128" height="128">
+  <object id="749" type="Pulse" gid="206" x="6560" y="224" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="750" type="Pulse" gid="204" x="6688" y="224" width="128" height="128">
+  <object id="750" type="Pulse" gid="206" x="6688" y="224" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="751" type="Pulse" gid="204" x="6816" y="224" width="128" height="128">
+  <object id="751" type="Pulse" gid="206" x="6816" y="224" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="752" type="Pulse" gid="204" x="7072" y="352" width="128" height="128">
+  <object id="752" type="Pulse" gid="206" x="7072" y="352" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="753" type="Pulse" gid="204" x="7200" y="352" width="128" height="128">
+  <object id="753" type="Pulse" gid="206" x="7200" y="352" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="754" type="Pulse" gid="204" x="7328" y="352" width="128" height="128">
+  <object id="754" type="Pulse" gid="206" x="7328" y="352" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="755" type="Pulse" gid="204" x="7648" y="608" width="128" height="128">
+  <object id="755" type="Pulse" gid="206" x="7648" y="608" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="756" type="Pulse" gid="204" x="7776" y="608" width="128" height="128">
+  <object id="756" type="Pulse" gid="206" x="7776" y="608" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="757" type="Pulse" gid="204" x="7904" y="608" width="128" height="128">
+  <object id="757" type="Pulse" gid="206" x="7904" y="608" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.5"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="758" type="Pulse" gid="238" x="7488" y="624" width="128" height="128">
+  <object id="758" type="Pulse" gid="240" x="7488" y="624" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="759" gid="222" x="7488" y="640" width="128" height="128"/>
-  <object id="760" gid="222" x="5632" y="512" width="128" height="128"/>
-  <object id="761" type="Pulse" gid="238" x="5632" y="512" width="128" height="128">
+  <object id="759" gid="224" x="7488" y="640" width="128" height="128"/>
+  <object id="760" gid="224" x="5632" y="512" width="128" height="128"/>
+  <object id="761" type="Pulse" gid="240" x="5632" y="512" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="762" gid="244" x="2832" y="896" width="128" height="128"/>
-  <object id="763" gid="246" x="2736" y="896" width="128" height="128"/>
-  <object id="764" gid="247" x="2880" y="896" width="128" height="128"/>
-  <object id="765" gid="244" x="2960" y="896" width="128" height="128"/>
-  <object id="766" gid="242" x="1392" y="896" width="128" height="128"/>
-  <object id="768" gid="244" x="592" y="960" width="128" height="128"/>
-  <object id="769" gid="246" x="672" y="960" width="128" height="128"/>
-  <object id="770" gid="247" x="528" y="960" width="128" height="128"/>
-  <object id="771" gid="242" x="784" y="1008" width="128" height="128"/>
-  <object id="772" type="Pulse" gid="221" x="7088" y="704" width="256" height="256">
+  <object id="762" gid="246" x="2832" y="896" width="128" height="128"/>
+  <object id="763" gid="248" x="2736" y="896" width="128" height="128"/>
+  <object id="764" gid="249" x="2880" y="896" width="128" height="128"/>
+  <object id="765" gid="246" x="2960" y="896" width="128" height="128"/>
+  <object id="766" gid="244" x="1392" y="896" width="128" height="128"/>
+  <object id="768" gid="246" x="592" y="960" width="128" height="128"/>
+  <object id="769" gid="248" x="672" y="960" width="128" height="128"/>
+  <object id="770" gid="249" x="528" y="960" width="128" height="128"/>
+  <object id="771" gid="244" x="784" y="1008" width="128" height="128"/>
+  <object id="772" type="Pulse" gid="223" x="7088" y="704" width="256" height="256">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="773" type="Pulse" gid="221" x="4208" y="640" width="256" height="256">
+  <object id="773" type="Pulse" gid="223" x="4208" y="640" width="256" height="256">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="774" type="Pulse" gid="220" x="48" y="752" width="128" height="128">
+  <object id="774" type="Pulse" gid="222" x="48" y="752" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="775" gid="209" x="848" y="512" width="128" height="128"/>
-  <object id="776" gid="214" x="304" y="528" width="96" height="96"/>
-  <object id="777" gid="218" x="288" y="656" width="128" height="128"/>
-  <object id="778" gid="216" x="576" y="496" width="128" height="128"/>
-  <object id="779" gid="212" x="576" y="368" width="128" height="128"/>
-  <object id="780" gid="248" x="752" y="512" width="128" height="128"/>
-  <object id="781" type="Pulse" gid="225" x="704" y="512" width="128" height="128">
+  <object id="775" gid="211" x="848" y="512" width="128" height="128"/>
+  <object id="776" gid="216" x="304" y="528" width="96" height="96"/>
+  <object id="777" gid="220" x="288" y="656" width="128" height="128"/>
+  <object id="778" gid="218" x="576" y="496" width="128" height="128"/>
+  <object id="779" gid="214" x="576" y="368" width="128" height="128"/>
+  <object id="780" gid="250" x="752" y="512" width="128" height="128"/>
+  <object id="781" type="Pulse" gid="227" x="704" y="512" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="782" gid="246" x="1472" y="896" width="128" height="128"/>
-  <object id="783" gid="245" x="1552" y="896" width="128" height="128"/>
-  <object id="784" gid="247" x="1600" y="896" width="128" height="128"/>
-  <object id="785" gid="248" x="1360" y="272" width="128" height="128"/>
-  <object id="786" type="Pulse" gid="238" x="1408" y="272" width="128" height="128">
+  <object id="782" gid="248" x="1472" y="896" width="128" height="128"/>
+  <object id="783" gid="247" x="1552" y="896" width="128" height="128"/>
+  <object id="784" gid="249" x="1600" y="896" width="128" height="128"/>
+  <object id="785" gid="250" x="1360" y="272" width="128" height="128"/>
+  <object id="786" type="Pulse" gid="240" x="1408" y="272" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="787" gid="248" x="2704" y="448" width="128" height="128"/>
-  <object id="788" type="Pulse" gid="226" x="2752" y="448" width="128" height="128">
+  <object id="787" gid="250" x="2704" y="448" width="128" height="128"/>
+  <object id="788" type="Pulse" gid="228" x="2752" y="448" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="789" type="Pulse" gid="220" x="1952" y="304" width="128" height="128">
+  <object id="789" type="Pulse" gid="222" x="1952" y="304" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="790" type="Pulse" gid="220" x="2064" y="304" width="128" height="128">
+  <object id="790" type="Pulse" gid="222" x="2064" y="304" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="791" type="Pulse" gid="220" x="2176" y="304" width="128" height="128">
+  <object id="791" type="Pulse" gid="222" x="2176" y="304" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="792" gid="248" x="3280" y="848" width="128" height="128"/>
-  <object id="793" type="Pulse" gid="238" x="3328" y="848" width="128" height="128">
+  <object id="792" gid="250" x="3280" y="848" width="128" height="128"/>
+  <object id="793" type="Pulse" gid="240" x="3328" y="848" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="794" gid="223" x="3712" y="832" width="128" height="128"/>
-  <object id="795" type="Pulse" gid="227" x="3712" y="736" width="128" height="128">
+  <object id="794" gid="225" x="3712" y="832" width="128" height="128"/>
+  <object id="795" type="Pulse" gid="229" x="3712" y="736" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="796" gid="242" x="3920" y="880" width="128" height="128">
+  <object id="796" gid="244" x="3920" y="880" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1"/>
     <property name="shrinkRate" type="float" value="0.05"/>
    </properties>
   </object>
-  <object id="797" gid="213" x="4048" y="480" width="128" height="128"/>
-  <object id="799" gid="216" x="4048" y="608" width="128" height="128"/>
+  <object id="797" gid="215" x="4048" y="480" width="128" height="128"/>
+  <object id="799" gid="218" x="4048" y="608" width="128" height="128"/>
   <object id="800" gid="51" x="3392" y="128" width="875" height="128"/>
   <object id="801" gid="51" x="4320" y="128" width="875" height="128"/>
   <object id="802" gid="55" x="128" y="128" width="640" height="128"/>
@@ -476,16 +476,16 @@
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="815" gid="223" x="6848" y="832" width="128" height="128"/>
-  <object id="816" type="Pulse" gid="226" x="6848" y="736" width="128" height="128">
+  <object id="815" gid="225" x="6848" y="832" width="128" height="128"/>
+  <object id="816" type="Pulse" gid="228" x="6848" y="736" width="128" height="128">
    <properties>
     <property name="pulsePerBeat" type="float" value="0.5"/>
     <property name="pulseScale" type="float" value="1.25"/>
     <property name="shrinkRate" type="float" value="0.01"/>
    </properties>
   </object>
-  <object id="817" gid="212" x="6784" y="384" width="64" height="64"/>
-  <object id="818" gid="217" x="6752" y="512" width="128" height="128"/>
+  <object id="817" gid="214" x="6784" y="384" width="64" height="64"/>
+  <object id="818" gid="219" x="6752" y="512" width="128" height="128"/>
  </objectgroup>
  <objectgroup id="13" name="platforms">
   <object id="691" gid="132" x="1408" y="768" width="128" height="32">
@@ -571,23 +571,23 @@
  </objectgroup>
  <layer id="1" name="walls" width="144" height="17">
   <data encoding="csv">
-176,180,0,0,0,0,0,0,0,0,0,0,178,179,179,179,179,179,176,176,176,176,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,176,176,176,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,176,176,176,176,176,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,179,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,179,179,179,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,174,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,0,0,0,0,172,173,173,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,179,179,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,171,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,172,174,0,0,175,176,176,176,176,176,173,173,174,0,0,0,0,0,0,172,174,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,172,173,173,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,178,180,0,0,175,176,176,176,176,176,176,176,177,0,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,169,171,0,0,0,0,0,169,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,177,0,0,0,0,0,0,0,0,0,0,0,172,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,172,174,0,0,0,0,0,175,176,176,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,177,0,0,0,0,0,0,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,173,173,173,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,178,180,0,0,0,0,0,175,176,176,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,170,170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,177,0,0,0,0,0,0,172,173,173,173,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-177,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,173,176,176,176,177,0,0,0,0,0,0,175,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-176,173,173,173,173,173,173,173,173,173,173,173,173,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,177,0,0,0,0,0,0,178,179,179,179,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,172,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,
-176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,173,173,174,0,0,0,0,0,0,0,172,173,173,174,0,0,0,0,0,178,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176,176
+178,182,0,0,0,0,0,0,0,0,0,0,180,181,181,181,181,181,178,178,178,178,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,178,178,178,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,178,178,178,178,178,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,181,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,181,181,181,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,176,0,0,0,0,0,180,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,174,175,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,181,181,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,173,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,174,176,0,0,177,178,178,178,178,178,175,175,176,0,0,0,0,0,0,174,176,0,0,0,0,0,180,182,0,0,0,0,0,0,0,0,0,0,0,174,175,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,180,182,0,0,177,178,178,178,178,178,178,178,179,0,0,0,0,0,0,180,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,171,173,0,0,0,0,0,171,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,179,0,0,0,0,0,0,0,0,0,0,0,174,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,174,176,0,0,0,0,0,177,178,178,178,178,178,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,179,0,0,0,0,0,0,0,0,0,0,0,180,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,175,175,175,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,180,182,0,0,0,0,0,177,178,178,178,178,178,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,172,172,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,179,0,0,0,0,0,0,174,175,175,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+179,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,178,178,178,179,0,0,0,0,0,0,177,178,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+178,175,175,175,175,175,175,175,175,175,175,175,175,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,0,0,0,0,0,0,180,181,181,181,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,
+178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,175,175,176,0,0,0,0,0,0,0,174,175,175,176,0,0,0,0,0,180,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178
 </data>
  </layer>
  <objectgroup id="10" name="weightedPlatforms"/>
@@ -627,5 +627,4 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="12" name="foregroundArt" class="bigwire"/>
 </map>
