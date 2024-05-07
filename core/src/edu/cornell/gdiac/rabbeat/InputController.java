@@ -105,6 +105,8 @@ public class InputController {
 
 	private boolean calibrationPrevious;
 	private boolean calibratePrevious;
+	private boolean delayPressed;
+	private boolean delayPrevious;
 
 	private boolean switchPressed;
 
@@ -245,6 +247,7 @@ public class InputController {
 	public boolean didPressLevelSelect() {return levelSelectPressed && !levelSelectPrevious;}
 
 	public boolean didPressCalibration() {return calibrationPressed && !calibrationPrevious;}
+	public boolean didPressDelay() {return delayPressed && !delayPrevious;}
 	public boolean didPressCalibrate() {return calibratePressed && !calibratePrevious;}
 
 	public boolean didPressGenreSwitch() {return switchPressed && !switchPrevious;}
@@ -336,8 +339,8 @@ public class InputController {
 		levelSelectPrevious = levelSelectPressed;
 		switchPrevious = switchPressed;
 		calibrationPrevious = calibrationPressed;
-		calibrationPressed = calibrationPrevious;
 		calibratePrevious = calibratePressed;
+		delayPrevious = delayPressed;
 
 		if (paused) {
 			pauseUpPrevious = pauseUpPressed;
@@ -500,10 +503,10 @@ public class InputController {
 			}
 			//TODO: This is temporary code to add artificial delay to the syncing
 			delay = 0;
-			if (Gdx.input.isKeyJustPressed(Keys.EQUALS)) {
-				delay = .02f;
-			} else if (Gdx.input.isKeyJustPressed(Keys.MINUS)) {
-				delay = -.02f;
+			if (Gdx.input.isKeyPressed(Keys.EQUALS)) {
+				delay = .01f;
+			} else if (Gdx.input.isKeyPressed(Keys.MINUS)) {
+				delay = -.01f;
 			}
 		}
 
