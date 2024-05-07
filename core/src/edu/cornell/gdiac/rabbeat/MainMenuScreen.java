@@ -80,7 +80,7 @@ public class MainMenuScreen extends ScreenAdapter {
         playTextButtonStyle.font = font;
         TextButton playButton = new TextButton("", playTextButtonStyle);
 
-        playButton.setPosition((float) background.getWidth()/2 - playButton.getWidth()/2, 375);
+        playButton.setPosition((float) background.getWidth()/2 - playButton.getWidth()/2, 380);
 
         playButton.addListener(new ClickListener() {
             @Override
@@ -89,7 +89,7 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
-        playSelectImage.setPosition((float) background.getWidth()/2 - playSelectImage.getWidth()/2, playButton.getY() - 10);
+        playSelectImage.setPosition((float) background.getWidth()/2 - playSelectImage.getWidth()/2, playButton.getY()-5);
 
         stage.addActor(playSelectImage);
         stage.addActor(playButton);
@@ -113,7 +113,7 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
-        optionsSelectImage.setPosition((float) background.getWidth()/2 - optionsSelectImage.getWidth()/2, optionsButton.getY() - 10);
+        optionsSelectImage.setPosition((float) background.getWidth()/2 - optionsSelectImage.getWidth()/2, optionsButton.getY() - 5);
         stage.addActor(optionsSelectImage);
         stage.addActor(optionsButton);
 
@@ -125,7 +125,7 @@ public class MainMenuScreen extends ScreenAdapter {
         quitTextButtonStyle.font = font;
         TextButton quitButton = new TextButton("", quitTextButtonStyle);
 
-        quitButton.setPosition((float) background.getWidth()/2 - quitButton.getWidth()/2, 175);
+        quitButton.setPosition((float) background.getWidth()/2 - quitButton.getWidth()/2, 220);
 
         quitButton.addListener(new ClickListener() {
             @Override
@@ -134,7 +134,7 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
-        quitSelectImage.setPosition((float) background.getWidth()/2 - quitSelectImage.getWidth()/2, quitButton.getY() + 35);
+        quitSelectImage.setPosition((float) background.getWidth()/2 - quitSelectImage.getWidth()/2, quitButton.getY() - 5);
 
         stage.addActor(quitSelectImage);
         stage.addActor(quitButton);

@@ -4,27 +4,27 @@
  * This is the primary class file for running the game.  It is the "static main" of
  * LibGDX.  In the first lab, we extended ApplicationAdapter.  In previous lab
  * we extended Game.  This is because of a weird graphical artifact that we do not
- * understand.  Transparencies (in 3D only) is failing when we use ApplicationAdapter. 
+ * understand.  Transparencies (in 3D only) is failing when we use ApplicationAdapter.
  * There must be some undocumented OpenGL code in setScreen.
  *
  * Author: Walker M. White
  * Based on original PhysicsDemo Lab by Don Holden, 2007
  * Updated asset version, 2/6/2021
  */
- package edu.cornell.gdiac.rabbeat;
+package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.*;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.assets.*;
 
 /**
- * Root class for a LibGDX.  
- * 
+ * Root class for a LibGDX.
+ *
  * This class is technically not the ROOT CLASS. Each platform has another class above
- * this (e.g. PC games use DesktopLauncher) which serves as the true root.  However, 
- * those classes are unique to each platform, while this class is the same across all 
- * plaforms. In addition, this functions as the root class all intents and purposes, 
- * and you would draw it as a root class in an architecture specification.  
+ * this (e.g. PC games use DesktopLauncher) which serves as the true root.  However,
+ * those classes are unique to each platform, while this class is the same across all
+ * plaforms. In addition, this functions as the root class all intents and purposes,
+ * and you would draw it as a root class in an architecture specification.
  */
 public class GDXRoot extends Game implements ScreenListener {
 	/** AssetManager to load game assets (textures, sounds, etc.) */
@@ -43,7 +43,7 @@ public class GDXRoot extends Game implements ScreenListener {
 	private GameController controller;
 
 	/** Variable that represents the level selector screen */
-	private LevelSelectorScreen levelSelectorScreen;
+	private edu.cornell.gdiac.rabbeat.LevelSelectorScreen levelSelectorScreen;
 
 	/** Variable that represents the main menu screen */
 	private MainMenuScreen mainMenuScreen;
@@ -57,9 +57,9 @@ public class GDXRoot extends Game implements ScreenListener {
 	 */
 	public GDXRoot() { controller = new GameController(); }
 
-	/** 
+	/**
 	 * Called when the Application is first created.
-	 * 
+	 *
 	 * This method initializes the canvas and loading screen as well as creates and displays
 	 * the levelSelector screen
 	 */
@@ -69,15 +69,15 @@ public class GDXRoot extends Game implements ScreenListener {
 		initialLoading.setScreenListener(this);
 		setScreen(initialLoading);
 
-		levelSelectorScreen = new LevelSelectorScreen(this);
+		levelSelectorScreen = new edu.cornell.gdiac.rabbeat.LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
 
 		mainMenuScreen = new MainMenuScreen(this);
 		mainMenuScreen.setListener(this);
 	}
 
-	/** 
-	 * Called when the Application is destroyed. 
+	/**
+	 * Called when the Application is destroyed.
 	 *
 	 * This is preceded by a call to pause().
 	 */
@@ -88,7 +88,7 @@ public class GDXRoot extends Game implements ScreenListener {
 
 		canvas.dispose();
 		canvas = null;
-	
+
 		// Unload all of the resources
 		if (directory != null) {
 			directory.unloadAssets();
@@ -97,11 +97,11 @@ public class GDXRoot extends Game implements ScreenListener {
 		}
 		super.dispose();
 	}
-	
+
 	/**
-	 * Called when the Application is resized. 
+	 * Called when the Application is resized.
 	 *
-	 * This can happen at any point during a non-paused state but will never happen 
+	 * This can happen at any point during a non-paused state but will never happen
 	 * before a call to create().
 	 *
 	 * @param width  The new width in pixels
@@ -111,7 +111,7 @@ public class GDXRoot extends Game implements ScreenListener {
 		canvas.resize();
 		super.resize(width,height);
 	}
-	
+
 	/**
 	 * The given screen has made a request to exit its player mode.
 	 *
@@ -147,7 +147,7 @@ public class GDXRoot extends Game implements ScreenListener {
 
 	/** Creates the level selector screen */
 	public void createLevelSelectorScreen() {
-		levelSelectorScreen = new LevelSelectorScreen(this);
+		levelSelectorScreen = new edu.cornell.gdiac.rabbeat.LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
 		setScreen(levelSelectorScreen);
 	}

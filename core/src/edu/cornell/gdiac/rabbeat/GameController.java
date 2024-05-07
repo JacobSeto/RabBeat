@@ -66,11 +66,14 @@ public class GameController implements Screen, ContactListener {
 	public SoundController soundController;
 	public ObjectController objectController;
 
-	
+
+
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
 
 	/** Exit code for going back to the level select menu */
+	public static final int BACK_TO_LEVEL_SELECT = 1;
+
 	public static final int GO_TO_LEVEL_SELECT = 1;
 
 	/** Exit code for going to the next level */
@@ -79,8 +82,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-
-	private static int levelsUnlocked;
+	private static int levelsUnlocked = 8;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;
@@ -416,7 +418,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory Reference to global asset manager.
 	 */
 	public void setSoundtrack(AssetDirectory directory) {
-		System.out.println("SET SOUNDTRACK");
 		synthSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("synth"), Music.class);
 		jazzSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("jazz"), Music.class);
 		soundController.setSynthTrack(synthSoundtrack);
@@ -505,7 +506,6 @@ public class GameController implements Screen, ContactListener {
 	 * Initialize the game for the first time
 	 */
 	public void initialize() {
-		System.out.println("INITIALIZE");
 		genre = Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity());
 
@@ -519,6 +519,7 @@ public class GameController implements Screen, ContactListener {
 		objectController.player.setPosition(respawnPoint);
 		soundController.resetMusic();
 		soundController.playMusic(Genre.SYNTH);
+		syncController.initializeSync();
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
@@ -575,7 +576,7 @@ public class GameController implements Screen, ContactListener {
 		InputController input = InputController.getInstance();
 		input.readInput(bounds, scale);
 		soundController.update();
-		syncController.beatUpdate();
+		syncController.update(getPaused());
 
 		if (listener != null) {
 			// Toggle debug
@@ -655,7 +656,6 @@ public class GameController implements Screen, ContactListener {
 				if (failed) {
 					reset();
 				} else if (GameController.getInstance().isComplete()) {
-					System.out.println("The game is complete!");
 					pause();
 					// TODO: Make Win Condition
 					return false;
@@ -683,7 +683,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param dt Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
-		syncController.update(dt);
 
 		if (InputController.getInstance().getSwitchGenre()){
 			if(!objectController.player.genreSwitchCooldown){
@@ -1044,7 +1043,6 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
-		System.out.println("PAUSE THE GAME");
 		InputController.getInstance().setPaused(true);
 	}
 
@@ -1054,7 +1052,6 @@ public class GameController implements Screen, ContactListener {
 	 * This is usually when it regains focus.
 	 */
 	public void resume() {
-		System.out.println("RESUME");
 		soundController.setGlobalMusicVolume(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
 		//soundController.resumeMusic();
