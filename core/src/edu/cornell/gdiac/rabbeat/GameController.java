@@ -984,7 +984,7 @@ public class GameController implements Screen, ContactListener {
 					}
 					beatX+=xSpace;
 				}
-				canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 860, 100);
+				canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 830, 100);
 
 
 				//canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 1f, 1f);

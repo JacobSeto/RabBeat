@@ -1,5 +1,7 @@
 package edu.cornell.gdiac.rabbeat.sync;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.utils.*;
 import edu.cornell.gdiac.rabbeat.GameController;
@@ -51,6 +53,9 @@ public class SyncController {
         this.BPM = bpm;
         animationInterval = new Interval(animationSync, (visualDelay) / bpm);
         beatInterval = new Interval(beat, (audioDelay) / bpm);
+        Preferences prefs = Gdx.app.getPreferences("delays");
+        audioDelay = prefs.getFloat("audioDelay", 0);
+        visualDelay = prefs.getFloat("visualDelay", 0);
     }
 
     /**
@@ -68,7 +73,10 @@ public class SyncController {
      * @param delay A float value that represents the added delay
      */
     public void addVisualDelay(float delay) {
-        visualDelay += delay;
+        visualDelay = (float)(Math.round((visualDelay + delay)*100)) / 100;
+        Preferences prefs = Gdx.app.getPreferences("delays");
+        prefs.putFloat("visualDelay", visualDelay);
+        prefs.flush();
     }
     /**
      * Adds delay to audioDelay
@@ -76,7 +84,10 @@ public class SyncController {
      * @param delay A float value that represents the added delay
      */
     public void addAudioDelay(float delay) {
-        audioDelay += delay;
+        audioDelay = (float)(Math.round((audioDelay + delay)*100)) / 100;
+        Preferences prefs = Gdx.app.getPreferences("delays");
+        prefs.putFloat("audioDelay", audioDelay);
+        prefs.flush();
     }
 
     /**
@@ -126,11 +137,14 @@ public class SyncController {
             }
             beatLatencyList.clear();
             beat.beatLatencyList.clear();
-            audioDelay =  (float)((int)((averageDelay / numCalibrations)*100)) / 100  ;
+            audioDelay =  (float)(Math.round((averageDelay / numCalibrations)*100)) / 100  ;
             System.out.println("delay: " + (audioDelay*100) + "ms");
             calibrationCount = 0;
             calibrateDT = 0;
             beat.beatDT = 0;
+            Preferences prefs = Gdx.app.getPreferences("delays");
+            prefs.putFloat("audioDelay", audioDelay);
+            prefs.flush();
         }
     }
 
