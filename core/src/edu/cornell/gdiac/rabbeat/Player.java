@@ -472,7 +472,9 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 
 		if (animationIsDying) {
 			if (jazzDeathAnimation.isAnimationFinished(stateTime) || synthDeathAnimation.isAnimationFinished(stateTime)) {
-				GameController.getInstance().setFailure(true);
+				if (!GameController.getInstance().isFailure()){
+					GameController.getInstance().setFailure(true);
+				}
 				animationIsDying = false;
 			}
 		} else {
