@@ -804,6 +804,8 @@ public class ObjectController {
         animatedArtAnimation.put("sparkle", new Animation<TextureRegion>(1f, animatedArtAtlas.get("sparkle").findRegions("sparkle"), Animation.PlayMode.LOOP));
         animatedArtAtlas.put("sparkleTwo", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkleTwo.atlas")));
         animatedArtAnimation.put("sparkleTwo", new Animation<TextureRegion>(1f, animatedArtAtlas.get("sparkleTwo").findRegions("sparkleTwo"), Animation.PlayMode.LOOP));
+        animatedArtAtlas.put("laser", new TextureAtlas(Gdx.files.internal("world/animatedArt/laser.atlas")));
+        animatedArtAnimation.put("laser", new Animation<TextureRegion>(1f, animatedArtAtlas.get("laser").findRegions("laser"), Animation.PlayMode.LOOP));
 
         //  Tilesets
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
