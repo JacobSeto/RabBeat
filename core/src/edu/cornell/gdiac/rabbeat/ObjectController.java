@@ -479,8 +479,6 @@ public class ObjectController {
 
         levelSelectBackground = directory.getEntry("backgrounds:levelSelectBackground", Texture.class);
 
-        backgroundTexture = new TextureRegion(directory.getEntry("backgrounds:test-bg",Texture.class));
-        backgroundOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:overlay",Texture.class));
         labBgTexture = new TextureRegion(directory.getEntry("backgrounds:labBg",Texture.class));
         discoBgTexture = new TextureRegion(directory.getEntry("backgrounds:discoBg",Texture.class));
         houseBgTexture = new TextureRegion(directory.getEntry("backgrounds:houseBg",Texture.class));
