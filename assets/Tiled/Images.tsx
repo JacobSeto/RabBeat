@@ -92,7 +92,7 @@
   <image width="128" height="128" source="../world/other/ceilingCamera.png"/>
  </tile>
  <tile id="67">
-  <image width="128" height="128" source="../world/graffiti/caution_0.png"/>
+  <image width="128" height="128" source="../world/grafiti/caution_0.png"/>
  </tile>
  <tile id="71">
   <properties>

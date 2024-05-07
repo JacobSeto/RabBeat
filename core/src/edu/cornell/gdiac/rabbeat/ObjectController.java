@@ -214,6 +214,8 @@ public class ObjectController {
     public TextureRegion labBgTexture;
     /** The texture for the disco background */
     public TextureRegion discoBgTexture;
+    /** The texture for the house background */
+    public TextureRegion houseBgTexture;
     /** The texture for tinting the pause screen overlay background */
     public TextureRegion pauseWhiteOverlayTexture;
 
@@ -255,6 +257,7 @@ public class ObjectController {
     private HashMap<Integer, TextureRegion> wallsTileset = new HashMap<>();
     private HashMap<Integer, TextureRegion> rabbeatTileset = new HashMap<>();
     private HashMap<Integer, TextureRegion> discoTileset = new HashMap<>();
+    private HashMap<Integer, TextureRegion> houseTileset = new HashMap<>();
 
     /** Reference to the goalDoor (for collision detection) */
     public BoxGameObject goalDoor;
@@ -420,6 +423,7 @@ public class ObjectController {
 
         labBgTexture = new TextureRegion(directory.getEntry("backgrounds:labBg",Texture.class));
         discoBgTexture = new TextureRegion(directory.getEntry("backgrounds:discoBg",Texture.class));
+        houseBgTexture = new TextureRegion(directory.getEntry("backgrounds:houseBg",Texture.class));
         pauseWhiteOverlayTexture = new TextureRegion(directory.getEntry("backgrounds:pauseTint", Texture.class));
         exitLevelTexture = new TextureRegion(directory.getEntry("ui:pause:exitLevel",Texture.class));
         hoverLowerSoundTexture = new TextureRegion(directory.getEntry("ui:pause:hoverLowerSound",Texture.class));
@@ -743,6 +747,21 @@ public class ObjectController {
         discoTileset.put(3, new TextureRegion(directory.getEntry("world:tilesets:discoTileset:3", Texture.class)));
         discoTileset.put(4, new TextureRegion(directory.getEntry("world:tilesets:discoTileset:4", Texture.class)));
 
+        houseTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:0", Texture.class)));
+        houseTileset.put(1, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:1", Texture.class)));
+        houseTileset.put(2, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:2", Texture.class)));
+        houseTileset.put(3, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:3", Texture.class)));
+        houseTileset.put(4, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:4", Texture.class)));
+        houseTileset.put(5, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:5", Texture.class)));
+        houseTileset.put(6, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:6", Texture.class)));
+        houseTileset.put(7, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:7", Texture.class)));
+        houseTileset.put(8, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:8", Texture.class)));
+        houseTileset.put(9, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:9", Texture.class)));
+        houseTileset.put(10, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:10", Texture.class)));
+        houseTileset.put(11, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:11", Texture.class)));
+        houseTileset.put(12, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:12", Texture.class)));
+        houseTileset.put(13, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:13", Texture.class)));
+
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         checkpointTexture = new TextureRegion(directory.getEntry("world:checkpoints:checkpointInactive", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
@@ -792,7 +811,10 @@ public class ObjectController {
                                 break;
                             case "discoBg":
                                 levelBackground = discoBgTexture;
-                            break;
+                                break;
+                            case "houseBg":
+                                levelBackground = houseBgTexture;
+                                break;
                         }
                         break;
                     case "walls":
@@ -1187,6 +1209,8 @@ public class ObjectController {
             textureRegion = wallsTileset.get(tileId);
         } else if (tilesetSource.contains("discoTileset")){
             textureRegion = discoTileset.get(tileId);
+        } else if (tilesetSource.contains("houseTileset")){
+            textureRegion = houseTileset.get(tileId);
         }
 
         String wname = "wall";
