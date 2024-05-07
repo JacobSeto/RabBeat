@@ -316,18 +316,18 @@
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
         "example": "levelsJson/BenLevel2.tmj",
-        "level1": "levelsJson/rabbeatLevel1.tmj",
-        "level2": "levelsJson/rabbeatLevel2.tmj",
-        "level3": "levelsJson/rabbeatLevel3.tmj",
-        "level4": "levelsJson/rabbeatLevel4.tmj",
-        "level5": "levelsJson/rabbeatLevel5.tmj",
-        "level6": "levelsJson/rabbeatLevel6.tmj",
-        "level7": "levelsJson/rabbeatLevel7.tmj",
-        "level8": "levelsJson/rabbeatLevel8.tmj",
-        "level9": "levelsJson/rabbeatLevel1.tmj",
-        "level10": "levelsJson/rabbeatLevel1.tmj",
-        "level11": "levelsJson/rabbeatLevel1.tmj",
-        "level12": "levelsJson/rabbeatLevel1.tmj"
+        "level1": "levelsJson/ericEasyLevel.tmj",
+        "level2": "levelsJson/benLevel2.tmj",
+        "level3": "levelsJson/rabbeatLevelBat.tmj",
+        "level4": "levelsJson/ImprovedBeeLevel.tmj",
+        "level5": "levelsJson/EricLaserLevel.tmj",
+        "level6": "levelsJson/EricBearLevel2.tmj",
+        "level7": "levelsJson/EricMediumLevel.tmj",
+        "level8": "levelsJson/EricMediumLevel.tmj",
+        "level9": "levelsJson/EricMediumLevel.tmj",
+        "level10": "levelsJson/EricMediumLevel.tmj",
+        "level11": "levelsJson/EricMediumLevel.tmj",
+        "level12": "levelsJson/EricMediumLevel.tmj"
     },
     "sounds": {
       "sfx:genreSwitch": "sfx/genre_switch_woosh.wav"
