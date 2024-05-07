@@ -3,6 +3,7 @@ package edu.cornell.gdiac.rabbeat.sync;
 import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.utils.*;
 import edu.cornell.gdiac.rabbeat.GameController;
+import java.text.DecimalFormat;
 
 public class SyncController {
     /**
@@ -24,9 +25,9 @@ public class SyncController {
     Music jazz;
 
     /** The audio delay of the audio in seconds */
-    private float audioDelay = 0f;
+    public float audioDelay = 0f;
     /** The visual delay of the animations in seconds */
-    private float visualDelay = 0f;
+    public float visualDelay = 0f;
     /** The intervals of each of the synced objects in the game */
     private Array<Interval> intervals = new Array<>();
 
@@ -69,6 +70,14 @@ public class SyncController {
     public void addVisualDelay(float delay) {
         visualDelay += delay;
     }
+    /**
+     * Adds delay to audioDelay
+     *
+     * @param delay A float value that represents the added delay
+     */
+    public void addAudioDelay(float delay) {
+        audioDelay += delay;
+    }
 
     /**
      * The update function for everything synced in the world
@@ -77,12 +86,12 @@ public class SyncController {
      */
     public void update(boolean isPaused) {
         beatInterval.checkForNewInterval(
-                (synth.getPosition() + audioDelay) / beatInterval.getIntervalLength(BPM), true);
+                (synth.getPosition() - audioDelay) / beatInterval.getIntervalLength(BPM), true);
 
         animationInterval.checkForNewInterval(
-                (synth.getPosition() + visualDelay) / animationInterval.getIntervalLength(BPM), !isPaused);
+                (synth.getPosition() - visualDelay) / animationInterval.getIntervalLength(BPM), !isPaused);
         for (Interval i : intervals) {
-            float sample = (synth.getPosition() + audioDelay) / i.getIntervalLength(BPM);
+            float sample = (synth.getPosition() - audioDelay) / i.getIntervalLength(BPM);
             i.checkForNewInterval(sample, !isPaused);
         }
 
@@ -112,15 +121,17 @@ public class SyncController {
             float averageDelay = 0;
             int numCalibrations = Math.min(beatLatencyList.size, beat.beatLatencyList.size);
             for (int i = 0; i < numCalibrations; i++) {
+                System.out.println("actual: " + beatLatencyList.get(i) + ", sunc: " + beat.beatLatencyList.get(i));
                 averageDelay += (beatLatencyList.get(i) - beat.beatLatencyList.get(i));
             }
             beatLatencyList.clear();
             beat.beatLatencyList.clear();
-            audioDelay = averageDelay / numCalibrations;
-            System.out.println("delay: " + audioDelay);
+            audioDelay =  (float)((int)((averageDelay / numCalibrations)*100)) / 100  ;
+            System.out.println("delay: " + (audioDelay*100) + "ms");
             calibrationCount = 0;
+            calibrateDT = 0;
+            beat.beatDT = 0;
         }
-        calibrateDT = 0;
     }
 
     /**

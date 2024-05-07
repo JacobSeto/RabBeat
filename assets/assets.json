@@ -111,6 +111,15 @@
       "ui:pause:unhoverUpSound": "ui/pause/unhoverUpSound.png",
       "ui:pause:volumeBox": "ui/pause/volumeBox.png",
       "ui:blackGradient": "ui/blackGradient.png",
+      "ui:backButton": "ui/backButton.png",
+
+      "ui:calibration:calibrateText": "ui/calibration/calibrateText.png",
+      "ui:calibration:audioDelayDisplay": "ui/calibration/audioDelayDisplay.png",
+      "ui:calibration:offBeat": "ui/calibration/offBeat.png",
+      "ui:calibration:onBeat": "ui/calibration/onBeat.png",
+      "ui:calibration:tapText": "ui/calibration/tapText.png",
+      "ui:calibration:pressSpace": "ui/calibration/pressSpace.png",
+      "ui:calibration:pressSpaceBeat": "ui/calibration/pressSpaceBeat.png",
 
       "ui:unlockedLevels:unlockedLevel1": "ui/unlockedLevels/unlockedLevel1.png",
       "ui:unlockedLevels:unlockedLevel2": "ui/unlockedLevels/unlockedLevel2.png",
@@ -367,7 +376,7 @@
     "fonts": {
         "fonts:retro": {
             "file": "fonts/RetroGame.ttf",
-            "size": 64
+            "size": 48
         }
     },
   "atlas": {
