@@ -374,7 +374,13 @@
         "level12": "levelsJson/EricMediumLevel.tmj"
     },
     "sounds": {
-      "sfx:genreSwitch": "sfx/genre_switch_woosh.wav"
+      "sfx:genreSwitch": "sfx/genre_switch_woosh.wav",
+          "sfx:checkpoint2": "sfx/checkpoint2.wav",
+          "sfx:checkpoint3": "sfx/checkpoint3.wav",
+          "sfx:jump2": "sfx/jump2.wav",
+          "sfx:death": "sfx/death.wav",
+          "sfx:menubutton": "sfx/menu_button.wav",
+          "sfx:menutransition": "sfx/menu_transition.wav"
     },
     "music" : {
           "music:mainmenu": "music/main_menu.ogg",
