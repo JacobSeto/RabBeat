@@ -362,8 +362,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 
 		// Jump!
 		if (isJumping()) {
-			forceCache.set(0, jumpForce);
-			body.applyLinearImpulse(forceCache,getPosition(),true);
+			setVY(getVY() + jumpForce);
 		}
 	}
 	
