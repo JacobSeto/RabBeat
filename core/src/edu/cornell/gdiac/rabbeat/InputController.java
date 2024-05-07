@@ -101,8 +101,10 @@ public class InputController {
 	private boolean levelSelectPrevious;
 
 	private boolean calibrationPressed;
+	private boolean calibratePressed;
 
 	private boolean calibrationPrevious;
+	private boolean calibratePrevious;
 
 	private boolean switchPressed;
 
@@ -243,6 +245,7 @@ public class InputController {
 	public boolean didPressLevelSelect() {return levelSelectPressed && !levelSelectPrevious;}
 
 	public boolean didPressCalibration() {return calibrationPressed && !calibrationPrevious;}
+	public boolean didPressCalibrate() {return calibratePressed && !calibratePrevious;}
 
 	public boolean didPressGenreSwitch() {return switchPressed && !switchPrevious;}
 
@@ -333,6 +336,7 @@ public class InputController {
 		levelSelectPrevious = levelSelectPressed;
 		switchPrevious = switchPressed;
 		calibrationPressed = calibrationPrevious;
+		calibratePressed = calibratePrevious;
 
 		if (paused) {
 			pauseUpPrevious = pauseUpPressed;
@@ -408,6 +412,7 @@ public class InputController {
 		//pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
 		calibrationPressed = (secondary && calibrationPressed) || (Gdx.input.isKeyPressed(Input.Keys.C));
+		calibratePressed = (secondary && calibrationPressed) || (Gdx.input.isKeyPressed(Keys.SPACE));
 		switchPressed = (secondary && switchPressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT));
 		spacePressed = (secondary && spacePressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SPACE));
 		//TO SET ALL LEVELS TO COMPLETE
@@ -483,7 +488,7 @@ public class InputController {
 				GameController.getInstance().inCalibration = true;
 				calibrate = true;
 			}
-			if( Gdx.input.isKeyJustPressed(Keys.SPACE)){
+			if(didPressCalibrate()){
 				calibrate = true;
 			}
 			else{
