@@ -511,8 +511,8 @@ public class GameController implements Screen, ContactListener {
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
-		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / getCanvas().getWidth();
-		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / getCanvas().getHeight();
+		worldWidth = DEFAULT_WIDTH * objectController.labBgTexture.getRegionWidth() / getCanvas().getWidth();
+		worldHeight = DEFAULT_HEIGHT * objectController.labBgTexture.getRegionHeight() / getCanvas().getHeight();
 		world.setContactListener(this);
 		syncController = new SyncController(levelBPM);
 		populateLevel();
@@ -906,7 +906,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin(false);
-		canvas.draw(objectController.backgroundTexture, 0, 0);
+		canvas.draw(objectController.levelBackground, 0, 0);
 		canvas.end();
 
 		canvas.begin(false);
@@ -945,10 +945,11 @@ public class GameController implements Screen, ContactListener {
 
 		// Victory Screen
 		if (complete && !failed) {
+			incrementLevelsUnlocked();
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
 			drawVictoryScreen();
-			incrementLevelsUnlocked();
+
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
 			canvas.begin(true); // DO NOT SCALE
@@ -1213,6 +1214,7 @@ public class GameController implements Screen, ContactListener {
 
 	/** Sets the integer levelsUnlocked */
 	public void setLevelsUnlocked(int levelsUnlocked) {
+		// TODO: CHANGE THIS BACK TO levelsUnlocked
 		this.levelsUnlocked = levelsUnlocked;
 	}
 
@@ -1253,23 +1255,33 @@ public class GameController implements Screen, ContactListener {
 
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen() {
+
+		//OLD VICTORY SCREEN
+//		canvas.begin(true);
+//		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
+//		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
+//		canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
+//		canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
+//
+////		switch (victoryScreenItemSelected) {
+////			case 0: // Next Level
+////				canvas.draw(objectController.indicatorStarTexture.getTexture(),
+////						Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
+////				break;
+////			case 1: // Level Select
+////				canvas.draw(objectController.indicatorStarTexture.getTexture(),
+////						Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
+////				break;
+////		}
+//
+//		canvas.end();
+
+		//NEW VICTORY SCREEN
+
 		canvas.begin(true);
-		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
-		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
-		canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
-		canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
-
-		switch (victoryScreenItemSelected) {
-			case 0: // Next Level
-				canvas.draw(objectController.indicatorStarTexture.getTexture(),
-						Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
-				break;
-			case 1: // Level Select
-				canvas.draw(objectController.indicatorStarTexture.getTexture(),
-						Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
-				break;
-		}
-
+//		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
+//
+		canvas.draw(objectController.holderBackground, 0, 0);
 		canvas.end();
 
 	}
