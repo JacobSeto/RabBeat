@@ -291,7 +291,10 @@ public class ObjectController {
 
     public TextureRegion blackGradient;
 
-    public TextureRegion holderBackground;
+    public TextureRegion victoryScreenBackground;
+    public TextureRegion level1VS;
+    public TextureRegion level4VS;
+    public TextureRegion level6VS;
 
     //  HashMaps
     private HashMap<String, TextureRegion> assets = new HashMap<>();
@@ -475,7 +478,10 @@ public class ObjectController {
 
         levelButtonHover1 = directory.getEntry("ui:levelButtonsHoverState:level1ButtonHover", Texture.class);
 
-        holderBackground = new TextureRegion(directory.getEntry("ui:holderBackground", Texture.class));
+        victoryScreenBackground = new TextureRegion(directory.getEntry("ui:victoryScreen", Texture.class));
+        level1VS = new TextureRegion(directory.getEntry("ui:lvl1VS", Texture.class));
+        level4VS = new TextureRegion(directory.getEntry("ui:lvl4VS", Texture.class));
+        level6VS = new TextureRegion(directory.getEntry("ui:lvl6VS", Texture.class));
 
         levelSelectBackground = directory.getEntry("backgrounds:levelSelectBackground", Texture.class);
 
