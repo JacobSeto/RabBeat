@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.util.ScreenListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -33,7 +34,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private Stage stage;
     private ScreenListener listener;
 
-    private TextButton levelButton2;
+    private TextButton hoverButton;
 
     /** Returns whether a button is being hovered over */
     private boolean hover = false;
@@ -70,6 +71,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
         bg.setPosition(0, 0);
         stage.addActor(bg);
 
+
         /** Loops through all buttons */
         for(int i=1; i<= numberOfLevels; i++) {
             int finalI = i;
@@ -90,28 +92,40 @@ public class LevelSelectorScreen extends ScreenAdapter {
             textButtonStyle.font = font;
             TextButton levelButton = new TextButton("", textButtonStyle);
 
-            hoverRegion = GameController.getInstance().objectController.levelButtonHover1;
-            hoverImage = new Image(hoverRegion);
 
-            hoverImage.addListener(new InputListener() {
-                @Override
-                public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                    //if (!hitbox.contains(x+100, y)) {
-                        hover = false; // Update hover state
-                    //}
-                }
-            });
+
+//
+//            hoverImage.addListener(new InputListener() {
+//                @Override
+//                public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+//                    //if (!hitbox.contains(x+100, y)) {
+//                        hover = false; // Update hover state
+//                    //}
+//                }
+//            });
+
+//            Texture buttonTexture2 = GameController.getInstance().objectController.getLevelButtonHoverTexture(finalI);
+//            TextureRegionDrawable buttonDrawable2 = new TextureRegionDrawable(new TextureRegion(buttonTexture2));
+//            BitmapFont font2 = new BitmapFont();
+//            TextButton.TextButtonStyle textButtonStyle2 = new TextButton.TextButtonStyle();
+//            textButtonStyle2.up = buttonDrawable2;
+//            textButtonStyle2.font = font2;
+//            hoverButton = new TextButton("", textButtonStyle2);
+//            //hoverButton.setPosition(415, background.getHeight()-hoverButton.getHeight()-161);
+//            stage.addActor(hoverButton);
 
 
             switch(i) {
                 case(1):
-                    hoverImage.setPosition(418, background.getHeight()-hoverImage.getHeight()-135);
+//                    hoverButton.setPosition(415, background.getHeight()-hoverButton.getHeight()-161);
                     levelButton.setPosition(478, background.getHeight()-levelButton.getHeight()-200);
                     break;
                 case(2):
+//                    hoverButton.setPosition(414, background.getHeight()-hoverButton.getHeight()-213);
                     levelButton.setPosition(464, background.getHeight()-levelButton.getHeight()-266);
                     break;
                 case(3):
+//                    hoverButton.setPosition(420, background.getHeight()-hoverButton.getHeight()-227);
                     levelButton.setPosition(483, background.getHeight()-levelButton.getHeight()-311);
                     break;
                 case(4):
@@ -180,36 +194,55 @@ public class LevelSelectorScreen extends ScreenAdapter {
 //                    break;
             }
 
-            levelButton.addListener(new InputListener() {
-                @Override
-                public boolean mouseMoved(InputEvent event, float x, float y) {
-                    hover = true;
-                    return true; // Returning true means that this event is handled
-                }
+            if(i == 1) {
+                hoverRegion = GameController.getInstance().objectController.levelButtonHover1;
+                hoverImage = new Image(hoverRegion);
+                hoverImage.setPosition(415, background.getHeight()-hoverImage.getHeight()-161);
+                stage.addActor(hoverImage);
 
-            });
+                levelButton.addListener(new InputListener() {
+                    @Override
+                    public boolean mouseMoved(InputEvent event, float x, float y) {
+//                    hoverButton.setVisible(true);
+                        hover = true;
+                        return true; // Returning true means that this event is handled
+                    }
 
-            if(i==1) {
-                //HOVER OVER BUTTON!
-                Texture buttonTexture2 = GameController.getInstance().objectController.levelButtonHover1;
-                TextureRegionDrawable buttonDrawable2 = new TextureRegionDrawable(new TextureRegion(buttonTexture2));
-                BitmapFont font2 = new BitmapFont();
-                TextButton.TextButtonStyle textButtonStyle2 = new TextButton.TextButtonStyle();
-                textButtonStyle2.up = buttonDrawable2;
-                textButtonStyle2.font = font2;
-                levelButton2 = new TextButton("", textButtonStyle2);
-                levelButton2.setPosition(418, background.getHeight()-levelButton2.getHeight()-135);
-                stage.addActor(levelButton2);
-
-                
-                levelButton2.addListener(new InputListener() {
                     @Override
                     public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                         //if (!hitbox.contains(x+100, y)) {
                         hover = false; // Update hover state
                         //}
                     }
+
                 });
+            }
+
+
+            if(i==1) {
+                //HOVER OVER BUTTON!
+
+
+//                Texture buttonTexture3 = GameController.getInstance().objectController.level1;
+//                TextureRegionDrawable buttonDrawable3 = new TextureRegionDrawable(new TextureRegion(buttonTexture3));
+//                BitmapFont font3 = new BitmapFont();
+//                TextButton.TextButtonStyle textButtonStyle3 = new TextButton.TextButtonStyle();
+//                textButtonStyle3.up = buttonDrawable3;
+//                textButtonStyle3.font = font3;
+//                levelButton3 = new TextButton("", textButtonStyle3);
+//                levelButton3.setPosition(418, background.getHeight()-levelButton2.getHeight()-135);
+//                levelButton3.setPosition(483, background.getHeight()-levelButton.getHeight()-206);
+////                levelButton3.setVisible(false);
+//                stage.addActor(levelButton3);
+
+//                levelButton2.addListener(new InputListener() {
+//                    @Override
+//                    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+//                        //if (!hitbox.contains(x+100, y)) {
+//                        hover = false; // Update hover state
+//                        //}
+//                    }
+//                });
             }
 
             levelButton.addListener(new ClickListener() {
@@ -232,7 +265,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
     public void render(float delta) {
 
-        levelButton2.setVisible(hover);
+//        hoverButton.setVisible(hover);
+        hoverImage.setVisible(hover);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));

@@ -478,6 +478,9 @@ public class ObjectController {
         lockedButton12 = directory.getEntry("ui:lockedLevels:lockedLevel12", Texture.class);
 
         levelButtonHover1 = directory.getEntry("ui:levelButtonsHoverState:level1ButtonHover", Texture.class);
+        levelButtonHover2 = directory.getEntry("ui:levelButtonsHoverState:level2ButtonHover", Texture.class);
+        levelButtonHover3 = directory.getEntry("ui:levelButtonsHoverState:level3ButtonHover", Texture.class);
+        levelButtonHover4 = directory.getEntry("ui:levelButtonsHoverState:level4ButtonHover", Texture.class);
 
         holderBackground = new TextureRegion(directory.getEntry("ui:holderBackground", Texture.class));
 
@@ -1850,6 +1853,25 @@ public class ObjectController {
             case(10): return lockedButton10;
             case(11): return lockedButton11;
             case(12): return lockedButton12;
+        }
+        return null;
+    }
+
+    /** Returns the texture of the desired button number's hover state, represented by i */
+    public Texture getLevelButtonHoverTexture (int i) {
+        switch(i) {
+            case(1): return levelButtonHover1;
+            case(2): return levelButtonHover2;
+            case(3): return levelButtonHover3;
+            case(4): return levelButtonHover4;
+            case(5): return levelButtonHover1;
+            case(6): return levelButtonHover1;
+            case(7): return levelButtonHover1;
+            case(8): return levelButtonHover1;
+            case(9): return levelButtonHover1;
+            case(10): return levelButtonHover1;
+            case(11): return levelButtonHover1;
+            case(12): return levelButtonHover1;
         }
         return null;
     }
