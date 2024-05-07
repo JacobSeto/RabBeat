@@ -14,7 +14,6 @@
     "friction": 0.3,
     "synth_jump_force": 38.0,
     "jazz_jump_force": 49,
-    "jazz_jump_force": 49,
     "jump_cool": 30,
     "shot_cool": 40,
     "sensor": {
@@ -121,9 +120,9 @@
   },
   "music": {
     "level1": {
-      "synth": "music:synth1",
-      "jazz": "music:jazz1",
-      "bpm": 180
+      "synth": "music:synth2",
+      "jazz": "music:jazz2",
+      "bpm": 120
     },
     "level2": {
       "synth": "music:synth1",
@@ -153,12 +152,12 @@
     "level7": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level8": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level9": {
       "synth": "music:synth1",
