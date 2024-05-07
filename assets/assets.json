@@ -249,7 +249,14 @@
       "world:signs:dead_0" : "world/signs/dead_0.png",
       "world:signs:dead_1" : "world/signs/dead_1.png",
       "world:signs:dead_2" : "world/signs/dead_2.png",
-      "world:signs:exit_0" : "world/signs/exit_0.png"
+      "world:signs:exit_0" : "world/signs/exit_0.png",
+
+      "world:tutorial:arrowLeft" : "world/tutorial/arrowLeft.png",
+      "world:tutorial:arrowRight" : "world/tutorial/arrowRight.png",
+      "world:tutorial:arrowUp" : "world/tutorial/arrowUp.png",
+      "world:tutorial:tutorialText1" : "world/tutorial/tutorialText1.png",
+      "world:tutorial:tutorialText2" : "world/tutorial/tutorialText2.png",
+      "world:tutorial:tutorialText3" : "world/tutorial/tutorialText3.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
