@@ -707,6 +707,19 @@ public class ObjectController {
         assets.put("dead_2", new TextureRegion(directory.getEntry("world:signs:dead_2", Texture.class)));
         assets.put("exit_0", new TextureRegion(directory.getEntry("world:signs:exit_0", Texture.class)));
 
+        assets.put("arrowLeft", new TextureRegion(directory.getEntry("world:tutorial:arrowLeft", Texture.class)));
+        assets.put("arrowUp", new TextureRegion(directory.getEntry("world:tutorial:arrowUp", Texture.class)));
+        assets.put("arrowRight", new TextureRegion(directory.getEntry("world:tutorial:arrowRight", Texture.class)));
+        assets.put("shift", new TextureRegion(directory.getEntry("world:tutorial:shift", Texture.class)));
+        assets.put("tutorialText1", new TextureRegion(directory.getEntry("world:tutorial:tutorialText1", Texture.class)));
+        assets.put("tutorialText2", new TextureRegion(directory.getEntry("world:tutorial:tutorialText2", Texture.class)));
+        assets.put("tutorialText3", new TextureRegion(directory.getEntry("world:tutorial:tutorialText3", Texture.class)));
+        assets.put("tutorialText4", new TextureRegion(directory.getEntry("world:tutorial:tutorialText4", Texture.class)));
+        assets.put("tutorialText5", new TextureRegion(directory.getEntry("world:tutorial:tutorialText5", Texture.class)));
+        assets.put("tutorialText6", new TextureRegion(directory.getEntry("world:tutorial:tutorialText6", Texture.class)));
+        assets.put("tutorialText7", new TextureRegion(directory.getEntry("world:tutorial:tutorialText7", Texture.class)));
+        assets.put("tutorialText8", new TextureRegion(directory.getEntry("world:tutorial:tutorialText8", Texture.class)));
+
         //  Speakers
         assets.put("speaker_0", new TextureRegion(directory.getEntry("world:speakers:speaker_0", Texture.class)));
         assets.put("speaker_1", new TextureRegion(directory.getEntry("world:speakers:speaker_1", Texture.class)));
@@ -1745,7 +1758,7 @@ public class ObjectController {
                                 pulseScale = prop.getFloat("value");
                             case "shrinkRate":
                                 shrinkRate = prop.getFloat("value");
-    
+
                         }
                     }
                     PulsingArtObject pulseArt = new PulsingArtObject(textureRegion, convertedCoord.x,
@@ -1757,7 +1770,7 @@ public class ObjectController {
                         artObjects.add(pulseArt);
                     }
                     GameController.getInstance().instantiate(pulseArt);
-    
+
                     break;
                 }
                 case "Stretch": {
