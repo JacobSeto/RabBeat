@@ -362,6 +362,11 @@ public class ObjectController {
     /** The jazz genre death animation for the player */
     public Animation<TextureRegion> jazzDeathAnimation;
 
+    /** The transform atlas for the player */
+    public TextureAtlas transformAtlas;
+    /** The transform animation for the player */
+    public Animation<TextureRegion> transformAnimation;
+
     // ENEMY ANIMATIONS
     /** The idle atlas for jazz bullets */
     public TextureAtlas bulletJazzAtlas;
@@ -557,6 +562,10 @@ public class ObjectController {
 
         jazzDeathAtlas = new TextureAtlas(Gdx.files.internal("player/jazzDeath.atlas"));
         jazzDeathAnimation = new Animation<TextureRegion>(1f, jazzDeathAtlas.findRegions("jazzDeath"), Animation.PlayMode.NORMAL);
+
+        // Transform
+        transformAtlas = new TextureAtlas(Gdx.files.internal("player/transform.atlas"));
+        transformAnimation = new Animation<TextureRegion>(1f, transformAtlas.findRegions("transform"), Animation.PlayMode.NORMAL);
 
         // Allocating enemy animations
         // Bear
@@ -1576,6 +1585,8 @@ public class ObjectController {
         player.jazzJumpAnimation = jazzJumpAnimation;
         player.jazzFallAnimation = jazzFallAnimation;
         player.jazzDeathAnimation = jazzDeathAnimation;
+        // Transform animation
+        player.transformAnimation = transformAnimation;
 
         player.setAnimation(synthWalkAnimation);
         player.synthSpeed = synthSpeed;
