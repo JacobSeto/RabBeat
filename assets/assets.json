@@ -254,9 +254,15 @@
       "world:tutorial:arrowLeft" : "world/tutorial/arrowLeft.png",
       "world:tutorial:arrowRight" : "world/tutorial/arrowRight.png",
       "world:tutorial:arrowUp" : "world/tutorial/arrowUp.png",
+      "world:tutorial:shift" : "world/tutorial/shift.png",
       "world:tutorial:tutorialText1" : "world/tutorial/tutorialText1.png",
       "world:tutorial:tutorialText2" : "world/tutorial/tutorialText2.png",
-      "world:tutorial:tutorialText3" : "world/tutorial/tutorialText3.png"
+      "world:tutorial:tutorialText3" : "world/tutorial/tutorialText3.png",
+      "world:tutorial:tutorialText4" : "world/tutorial/tutorialText4.png",
+      "world:tutorial:tutorialText5" : "world/tutorial/tutorialText5.png",
+      "world:tutorial:tutorialText6" : "world/tutorial/tutorialText6.png",
+      "world:tutorial:tutorialText7" : "world/tutorial/tutorialText7.png",
+      "world:tutorial:tutorialText8" : "world/tutorial/tutorialText8.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",

@@ -680,9 +680,15 @@ public class ObjectController {
         assets.put("arrowLeft", new TextureRegion(directory.getEntry("world:tutorial:arrowLeft", Texture.class)));
         assets.put("arrowUp", new TextureRegion(directory.getEntry("world:tutorial:arrowUp", Texture.class)));
         assets.put("arrowRight", new TextureRegion(directory.getEntry("world:tutorial:arrowRight", Texture.class)));
+        assets.put("shift", new TextureRegion(directory.getEntry("world:tutorial:shift", Texture.class)));
         assets.put("tutorialText1", new TextureRegion(directory.getEntry("world:tutorial:tutorialText1", Texture.class)));
         assets.put("tutorialText2", new TextureRegion(directory.getEntry("world:tutorial:tutorialText2", Texture.class)));
         assets.put("tutorialText3", new TextureRegion(directory.getEntry("world:tutorial:tutorialText3", Texture.class)));
+        assets.put("tutorialText4", new TextureRegion(directory.getEntry("world:tutorial:tutorialText4", Texture.class)));
+        assets.put("tutorialText5", new TextureRegion(directory.getEntry("world:tutorial:tutorialText5", Texture.class)));
+        assets.put("tutorialText6", new TextureRegion(directory.getEntry("world:tutorial:tutorialText6", Texture.class)));
+        assets.put("tutorialText7", new TextureRegion(directory.getEntry("world:tutorial:tutorialText7", Texture.class)));
+        assets.put("tutorialText8", new TextureRegion(directory.getEntry("world:tutorial:tutorialText8", Texture.class)));
 
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
         wallsTileset.put(1, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:1", Texture.class)));
