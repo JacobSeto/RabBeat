@@ -510,8 +510,8 @@ public class GameController implements Screen, ContactListener {
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
-		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / getCanvas().getWidth();
-		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / getCanvas().getHeight();
+		worldWidth = DEFAULT_WIDTH * objectController.labBgTexture.getRegionWidth() / getCanvas().getWidth();
+		worldHeight = DEFAULT_HEIGHT * objectController.labBgTexture.getRegionHeight() / getCanvas().getHeight();
 		world.setContactListener(this);
 		syncController = new SyncController(levelBPM);
 		populateLevel();
@@ -630,9 +630,11 @@ public class GameController implements Screen, ContactListener {
 				if (pauseItemSelected == 3) {
 					if (input.didPressLeftWhilePaused() && musicVolume > 0) { // change this to 1 if it causes bugs
 						musicVolume--;
+						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
 					}
 					if (input.didPressRightWhilePaused() && musicVolume < 10) {
 						musicVolume++;
+						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
 					}
 				}
 				else if (pauseItemSelected == 4) {
@@ -903,7 +905,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin(false);
-		canvas.draw(objectController.backgroundTexture, 0, 0);
+		canvas.draw(objectController.levelBackground, 0, 0);
 		canvas.end();
 
 		canvas.begin(false);
@@ -1177,7 +1179,7 @@ public class GameController implements Screen, ContactListener {
 
 	/** Sets the integer levelsUnlocked */
 	public void setLevelsUnlocked(int levelsUnlocked) {
-		this.levelsUnlocked = levelsUnlocked;
+		this.levelsUnlocked = 12;
 	}
 
 	/** Increments the integer levelsUnlocked if a player completes a level and the next level is locked*/

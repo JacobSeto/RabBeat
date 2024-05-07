@@ -12,8 +12,8 @@
     "damping": 6.0,
     "density": 1.3,
     "friction": 0.3,
-    "synth_jump_force": 38.0,
-    "jazz_jump_force": 49,
+    "synth_jump_force": 17.1,
+    "jazz_jump_force": 21.6,
     "jump_cool": 30,
     "shot_cool": 40,
     "sensor": {
@@ -132,7 +132,7 @@
     "level3": {
       "synth": "music:synth1",
       "jazz": "music:jazz1",
-      "bpm": 180
+      "bpm": 120
     },
     "level4": {
       "synth": "music:synth1",
