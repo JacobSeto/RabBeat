@@ -158,7 +158,10 @@
       "ui:maineMenuScreen:quitButton": "ui/mainMenuScreen/quitButton.png",
       "ui:maineMenuScreen:select": "ui/mainMenuScreen/select.png",
       "ui:maineMenuScreen:mainMenuBackground": "ui/mainMenuScreen/mainMenuBackground.png",
-      "ui:holderBackground": "ui/holderBackground.png",
+      "ui:victoryScreen": "ui/victory/victoryScreen.png",
+          "ui:lvl1VS": "ui/victory/level1VS.png",
+          "ui:lvl4VS": "ui/victory/level4VS.png",
+          "ui:lvl6VS": "ui/victory/level6VS.png",
 
       "player:synth":  "player/synth.png",
       "player:synth-jazz":   "player/synth-jazz.png",
@@ -198,6 +201,7 @@
       "world:pods:octpod1": "world/pods/octpod1.png",
       "world:pods:wolfpod1": "world/pods/wolfpod1.png",
       "world:pods:wolfpod2": "world/pods/wolfpod2.png",
+      "world:pods:pod": "world/pods/pod.png",
 
       "world:pipes:bigpipe" : "world/pipes/bigpipe.png",
       "world:pipes:bigpipetv" : "world/pipes/bigpipetv.png",
@@ -302,6 +306,11 @@
       "world:neonLights:neon_9": "world/neonLights/neon_9.png",
       "world:neonLights:neon_10": "world/neonLights/neon_10.png",
       "world:neonLights:neon_11": "world/neonLights/neon_11.png",
+      "world:neonLights:neon_12": "world/neonLights/neon_12.png",
+      "world:neonLights:neon_13": "world/neonLights/neon_13.png",
+      "world:neonLights:neon_14": "world/neonLights/neon_14.png",
+      "world:neonLights:neon_15": "world/neonLights/neon_15.png",
+
 
       "world:other:tv": "world/other/tv.png",
       "world:other:ceilingCamera": "world/other/ceilingCamera.png",
@@ -333,6 +342,7 @@
       "world:other:vinyl_4": "world/other/vinyl_4.png",
       "world:other:album_0": "world/other/album_0.png",
       "world:other:chand_0": "world/other/chand_0.png",
+      "world:other:jazzDeath": "world/other/jazzDeath.png",
 
       "world:tutorial:arrowLeft" : "world/tutorial/arrowLeft.png",
       "world:tutorial:arrowRight" : "world/tutorial/arrowRight.png",
@@ -352,13 +362,13 @@
         "example": "levelsJson/BenLevel2.tmj",
         "level1": "levelsJson/tutorial1.tmj",
         "level2": "levelsJson/tutorial2.tmj",
-        "level3": "levelsJson/rabbeatLevelBat.tmj",
-        "level4": "levelsJson/ImprovedBeeLevel.tmj",
+        "level3": "levelsJson/EricBearLevel2.tmj",
+        "level4": "levelsJson/ericEasyLevel.tmj",
         "level5": "levelsJson/EricLaserLevel.tmj",
-        "level6": "levelsJson/EricBearLevel2.tmj",
+        "level6": "levelsJson/rabbeatLevelBat.tmj",
         "level7": "levelsJson/EricMediumLevel.tmj",
         "level8": "levelsJson/EricMediumLevel.tmj",
-        "level9": "levelsJson/EricMediumLevel.tmj",
+        "level9": "levelsJson/EricLaserLevel.tmj",
         "level10": "levelsJson/EricMediumLevel.tmj",
         "level11": "levelsJson/EricMediumLevel.tmj",
         "level12": "levelsJson/EricMediumLevel.tmj"

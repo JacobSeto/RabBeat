@@ -1215,7 +1215,7 @@ public class GameController implements Screen, ContactListener {
 	/** Sets the integer levelsUnlocked */
 	public void setLevelsUnlocked(int levelsUnlocked) {
 		// TODO: CHANGE THIS BACK TO levelsUnlocked
-		this.levelsUnlocked = levelsUnlocked;
+		this.levelsUnlocked = 12;
 	}
 
 	/** Increments the integer levelsUnlocked if a player completes a level and the next level is locked*/
@@ -1281,7 +1281,16 @@ public class GameController implements Screen, ContactListener {
 		canvas.begin(true);
 //		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
 //
-		canvas.draw(objectController.holderBackground, 0, 0);
+		if(currentLevelInt == 1) {
+			//DRAW FOR CURRENT LEVEL INT
+			canvas.draw(objectController.level1VS, 0, 0);
+		} else if (currentLevelInt == 4) {
+			canvas.draw(objectController.level4VS, 0, 0);
+		}else if (currentLevelInt == 6){
+			canvas.draw(objectController.level6VS, 0, 0);
+		}else {
+			canvas.draw(objectController.victoryScreenBackground, 0, 0);
+		}
 		canvas.end();
 
 	}

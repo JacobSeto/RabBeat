@@ -155,24 +155,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoBall_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":1936,
@@ -206,24 +191,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoBall_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":3360,
@@ -286,24 +256,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoBall_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":167,
@@ -365,24 +320,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoBall_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":870,
@@ -572,24 +512,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"speaker_4"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":192,
                  "x":76,
@@ -605,24 +530,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"speaker_3"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":398,
@@ -638,24 +548,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"speaker_6"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":127,
@@ -815,24 +710,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoBall_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":5123,
@@ -930,24 +810,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoBall_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":7180,
@@ -998,57 +863,6 @@
                  "width":128,
                  "x":7256,
                  "y":473
-                }, 
-                {
-                 "gid":277,
-                 "height":140,
-                 "id":831,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"boombox"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
-                        }],
-                 "rotation":0,
-                 "type":"Pulse",
-                 "visible":true,
-                 "width":140,
-                 "x":2641,
-                 "y":256
-                }, 
-                {
-                 "gid":276,
-                 "height":100,
-                 "id":832,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"cup_2"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":100,
-                 "x":2769,
-                 "y":258
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1061,6 +875,24 @@
          "id":13,
          "name":"platforms",
          "objects":[
+                {
+                 "gid":136,
+                 "height":32,
+                 "id":565,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"mid"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":5776,
+                 "y":576
+                }, 
                 {
                  "gid":137,
                  "height":32,
@@ -1200,6 +1032,108 @@
                  "y":640
                 }, 
                 {
+                 "gid":136,
+                 "height":32,
+                 "id":683,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"mid"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":5776,
+                 "y":704
+                }, 
+                {
+                 "gid":136,
+                 "height":32,
+                 "id":684,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"mid"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":5776,
+                 "y":832
+                }, 
+                {
+                 "gid":136,
+                 "height":32,
+                 "id":685,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":176,
+                 "x":5904,
+                 "y":832
+                }, 
+                {
+                 "gid":136,
+                 "height":32,
+                 "id":687,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"mid"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":6784,
+                 "y":480
+                }, 
+                {
+                 "gid":136,
+                 "height":32,
+                 "id":688,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"mid"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":6784,
+                 "y":960
+                }, 
+                {
+                 "gid":133,
+                 "height":32,
+                 "id":689,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"mid"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":6784,
+                 "y":832
+                }, 
+                {
                  "gid":134,
                  "height":32,
                  "id":759,
@@ -1266,6 +1200,42 @@
                  "y":288
                 }, 
                 {
+                 "gid":136,
+                 "height":32,
+                 "id":766,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"mid"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":4544,
+                 "y":800
+                }, 
+                {
+                 "gid":133,
+                 "height":32,
+                 "id":767,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"mid"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":4544,
+                 "y":672
+                }, 
+                {
                  "gid":137,
                  "height":32,
                  "id":769,
@@ -1288,114 +1258,6 @@
                  "width":192,
                  "x":5088,
                  "y":864
-                }, 
-                {
-                 "gid":137,
-                 "height":32,
-                 "id":872,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":192,
-                 "x":4528,
-                 "y":672
-                }, 
-                {
-                 "gid":137,
-                 "height":32,
-                 "id":873,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":192,
-                 "x":4528,
-                 "y":800
-                }, 
-                {
-                 "gid":137,
-                 "height":32,
-                 "id":874,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":192,
-                 "x":5744,
-                 "y":576
-                }, 
-                {
-                 "gid":137,
-                 "height":32,
-                 "id":875,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":192,
-                 "x":5744,
-                 "y":704
-                }, 
-                {
-                 "gid":137,
-                 "height":32,
-                 "id":876,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":192,
-                 "x":5744,
-                 "y":832
-                }, 
-                {
-                 "gid":137,
-                 "height":32,
-                 "id":877,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":192,
-                 "x":5920,
-                 "y":832
-                }, 
-                {
-                 "gid":137,
-                 "height":32,
-                 "id":878,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":192,
-                 "x":6752,
-                 "y":832
-                }, 
-                {
-                 "gid":137,
-                 "height":32,
-                 "id":879,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":192,
-                 "x":6752,
-                 "y":960
-                }, 
-                {
-                 "gid":137,
-                 "height":32,
-                 "id":880,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":192,
-                 "x":6752,
-                 "y":480
                 }],
          "opacity":1,
          "properties":[
@@ -1452,24 +1314,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":519,
@@ -1485,24 +1332,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_1"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":528,
@@ -1518,24 +1350,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_3"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":575,
@@ -1551,24 +1368,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":1029,
@@ -1584,24 +1386,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_3"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":1102,
@@ -1688,7 +1475,7 @@
                         {
                          "name":"assetName",
                          "type":"string",
-                         "value":"neon_4"
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"",
@@ -1707,24 +1494,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":2856,
@@ -1740,24 +1512,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_3"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":2914,
@@ -1773,24 +1530,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_3"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":2780,
@@ -1806,24 +1548,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_2"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":2853,
@@ -1839,24 +1566,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_3"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":3086,
@@ -1897,6 +1609,42 @@
                  "width":70,
                  "x":518,
                  "y":515
+                }, 
+                {
+                 "gid":277,
+                 "height":140,
+                 "id":831,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"boombox"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":140,
+                 "x":2641,
+                 "y":256
+                }, 
+                {
+                 "gid":276,
+                 "height":100,
+                 "id":832,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"cup_2"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":2769,
+                 "y":258
                 }, 
                 {
                  "gid":262,
@@ -1962,24 +1710,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_2"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":3491,
@@ -1995,24 +1728,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":3943,
@@ -2028,24 +1746,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_3"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":3596,
@@ -2061,24 +1764,9 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"discoDecal_3"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"Pulse",
+                 "type":"",
                  "visible":true,
                  "width":128,
                  "x":4028,
@@ -2093,7 +1781,7 @@
                         {
                          "name":"assetName",
                          "type":"string",
-                         "value":"neon_4"
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"",
@@ -2298,7 +1986,7 @@
                         {
                          "name":"num",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }, 
                         {
                          "name":"pos",
@@ -2336,7 +2024,7 @@
                         {
                          "name":"num",
                          "type":"int",
-                         "value":1
+                         "value":2
                         }, 
                         {
                          "name":"pos",
@@ -2357,7 +2045,7 @@
                  "type":"Moving Platform",
                  "visible":true,
                  "width":192,
-                 "x":6560,
+                 "x":6592,
                  "y":832
                 }, 
                 {
@@ -2374,7 +2062,7 @@
                         {
                          "name":"num",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }, 
                         {
                          "name":"pos",
@@ -2412,7 +2100,7 @@
                         {
                          "name":"num",
                          "type":"int",
-                         "value":1
+                         "value":2
                         }, 
                         {
                          "name":"pos",
@@ -2450,7 +2138,7 @@
                         {
                          "name":"num",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }, 
                         {
                          "name":"pos",
@@ -2488,7 +2176,7 @@
                         {
                          "name":"num",
                          "type":"int",
-                         "value":2
+                         "value":3
                         }, 
                         {
                          "name":"pos",
@@ -2887,7 +2575,7 @@
          "y":0
         }],
  "nextlayerid":23,
- "nextobjectid":881,
+ "nextobjectid":871,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
