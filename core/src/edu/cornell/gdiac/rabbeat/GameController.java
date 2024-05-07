@@ -1180,7 +1180,8 @@ public class GameController implements Screen, ContactListener {
 
 	/** Sets the integer levelsUnlocked */
 	public void setLevelsUnlocked(int levelsUnlocked) {
-		this.levelsUnlocked = 12;
+		// TODO: CHANGE THIS BACK TO levelsUnlocked
+		this.levelsUnlocked = levelsUnlocked;
 	}
 
 	/** Increments the integer levelsUnlocked if a player completes a level and the next level is locked*/
