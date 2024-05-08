@@ -5,7 +5,7 @@
   <image width="64" height="123" source="tiles/playerTile.png"/>
  </tile>
  <tile id="7">
-  <image width="130" height="130" source="../world/checkpoints/checkpointInactive.png"/>
+  <image width="130" height="130" source="tiles/checkpointTile.png"/>
  </tile>
  <tile id="8">
   <image width="173" height="200" source="tiles/bear.png"/>
