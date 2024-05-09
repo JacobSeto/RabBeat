@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="130" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="600">
+ <editorsettings>
+  <export target="../levelsJson/benLevel2.tmj" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" source="Images.tsx"/>
  <tileset firstgid="75" source="platforms.tsx"/>
  <tileset firstgid="153" source="walls.tsx"/>
  <tileset firstgid="165" source="Backgrounds.tsx"/>
  <tileset firstgid="169" source="rabbeatTileset.tsx"/>
  <objectgroup id="2" name="background" locked="1">
-  <object id="204" gid="168" x="0" y="1088" width="7040" height="1088"/>
+  <object id="204" gid="168" x="0" y="1088" width="9696" height="1088"/>
   <object id="564" type="Checkpoint" gid="8" x="481" y="477" width="130" height="130">
    <properties>
     <property name="num" type="int" value="1"/>
@@ -14,6 +17,7 @@
   </object>
  </objectgroup>
  <objectgroup id="18" name="backgroundArt"/>
+ <objectgroup id="13" name="platforms"/>
  <layer id="1" name="walls" width="130" height="17">
   <data encoding="csv">
 176,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -68,7 +72,6 @@
   </object>
  </objectgroup>
  <objectgroup id="16" name="movingPlatforms"/>
- <objectgroup id="13" name="platforms"/>
  <objectgroup id="7" name="enemies" class="Bear">
   <properties>
    <property name="beatList" value="13"/>

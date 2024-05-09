@@ -247,7 +247,6 @@ public class GameController implements Screen, ContactListener {
 		if (value) {
 			countdown = 0;
 		}
-		System.out.println("Complete: " + complete);
 		complete = value;
 	}
 
@@ -766,8 +765,10 @@ public class GameController implements Screen, ContactListener {
 			//player collision checks
 			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player){
 				if(bd2.getType() == Type.LETHAL || bd1.getType() == Type.LETHAL){
-					getPlayer().isDying = true;
-					soundController.playSFX("death");
+					if (!getPlayer().isDying){
+						getPlayer().isDying = true;
+						soundController.playSFX("death");
+					}
 				}
 				if(bd2 instanceof  WeightedPlatform){
 					lastCollideWith = (WeightedPlatform) bd1;
