@@ -436,7 +436,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 				maxspeed = jazzSpeed;
 				jumpForce = jumpForceJazz;
 			}
-			genreSwitchCooldown = true;
+			//genreSwitchCooldown = true;
 		}
 	}
 
