@@ -141,6 +141,8 @@ public class GameController implements Screen, ContactListener {
 	public boolean calibrateScreen = false;
 	/** Whether calibration is happening*/
 	public boolean inCalibration = false;
+	/** Whether the genre switch mechanic is locked */
+	private boolean isGenreSwitchLocked = true;
 
 	/** Whether or not debug mode is active */
 	private boolean debug;
@@ -283,6 +285,15 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public boolean isActive() {
 		return active;
+	}
+
+	/**
+	 * Returns true if the genre switch is locked, disabling the SHIFT key
+	 *
+	 * @return true if the genre switch is locked
+	 */
+	public boolean isGenreSwitchLocked() {
+		return isGenreSwitchLocked;
 	}
 
 	/**
@@ -510,7 +521,8 @@ public class GameController implements Screen, ContactListener {
 	 * Initialize the game for the first time
 	 */
 	public void initialize() {
-		genre = Genre.SYNTH;
+		isGenreSwitchLocked = getCurrentLevelInt() <= 2;
+		genre = getCurrentLevelInt() == 2 ? Genre.JAZZ : Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
@@ -786,6 +798,9 @@ public class GameController implements Screen, ContactListener {
 						(bd1 == checkpoint && bd2 == objectController.player))) {
 					if (!checkpoint.isActive && checkpoint.getIndex() != 0) {
 						soundController.playSFX("checkpoint");
+					}
+					if (getCurrentLevelInt() == 2 && checkpoint.getIndex() == 1) {
+						isGenreSwitchLocked = false;
 					}
 					checkpoint.setActive();
 					respawnPoint = checkpoint.getPosition();
