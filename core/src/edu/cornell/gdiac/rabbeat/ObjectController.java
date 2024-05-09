@@ -894,7 +894,7 @@ public class ObjectController {
         houseTileset.put(13, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:13", Texture.class)));
 
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
-        checkpointTexture = new TextureRegion(directory.getEntry("world:checkpoints:checkpointInactive", Texture.class));
+        checkpointTexture = new TextureRegion(directory.getEntry("world:checkpoints:checkpointTile", Texture.class));
         goalTile  = new TextureRegion(directory.getEntry( "world:goal", Texture.class ));
         displayFont = directory.getEntry( "fonts:retro" ,BitmapFont.class);
 
@@ -1179,15 +1179,12 @@ public class ObjectController {
                             float y = checkpoint.getFloat("y");
                             Vector2 dim = new Vector2(checkpoint.getFloat("width"), checkpoint.getFloat("height"));
                             int id = 0;
-                            String assetName = "checkpoint";
                             for (JsonValue prop : checkpoint.get("properties")) {
                                 if (prop.getString("name").equals("num")) {
                                     id = prop.getInt("value");
-                                } else if (prop.getString("name").equals("assetName")) {
-                                    assetName = prop.getString("value");
                                 }
                             }
-                            createCheckpoint(scale, x, y, dim, id, levelHeight, tileSize, assetName);
+                            createCheckpoint(scale, x, y, dim, id, levelHeight, tileSize);
                         }
                         break;
                     case "goal":
@@ -1318,7 +1315,7 @@ public class ObjectController {
     /**
      * Create a checkpoint
      */
-    private void createCheckpoint(Vector2 scale, float x, float y, Vector2 dimensions, int id, int levelHeight, int tileSize, String assetName) {
+    private void createCheckpoint(Vector2 scale, float x, float y, Vector2 dimensions, int id, int levelHeight, int tileSize) {
         // Adjust and Convert coordinates to world coordinates
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
@@ -1338,11 +1335,7 @@ public class ObjectController {
         obj.setRestitution(defaults.getFloat("restitution", 0.0f));
         obj.setSensor(true);
         obj.setDrawScale(scale);
-        if (assetName == "checkpoint"){
-            obj.setTexture(checkpointTexture);
-        } else{
-            obj.setTexture(assets.get(assetName));
-        }
+        obj.setTexture(checkpointTexture);
         GameController.getInstance().instantiate(obj);
         checkpoints.add(obj);
     }

@@ -20,6 +20,6 @@
    <property name="animated" type="bool" value="true"/>
    <property name="assetName" value="laser"/>
   </properties>
-  <image width="69" height="74" source="../../../../../Downloads/laser/laserTile.png"/>
+  <image width="69" height="74" source="tiles/laserTile.png"/>
  </tile>
 </tileset>

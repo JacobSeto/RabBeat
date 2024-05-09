@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.10.2" name="Images" tilewidth="895" tileheight="320" tilecount="25" columns="0">
+ <editorsettings>
+  <export target="Images.tsx" format="tsx"/>
+ </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="2">
   <image width="64" height="123" source="tiles/playerTile.png"/>
  </tile>
  <tile id="7">
-  <image width="130" height="130" source="../world/checkpoints/checkpointInactive.png"/>
+  <image width="130" height="130" source="../world/checkpoints/checkpointTile.png"/>
  </tile>
  <tile id="8">
   <image width="173" height="200" source="tiles/bear.png"/>

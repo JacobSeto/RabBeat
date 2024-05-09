@@ -58,16 +58,6 @@
                 "name": "beatList",
                 "type": "string",
                 "value": "15"
-            },
-            {
-                "name": "beeBeat",
-                "type": "float",
-                "value": 1
-            },
-            {
-                "name": "isRight",
-                "type": "bool",
-                "value": false
             }
         ],
         "name": "Beehive",
@@ -108,6 +98,15 @@
             "wangset",
             "project"
         ]
+    },
+    {
+        "id": 8,
+        "name": "laser",
+        "storageType": "string",
+        "type": "enum",
+        "values": [
+        ],
+        "valuesAsFlags": false
     },
     {
         "color": "#ffa0a0a4",
@@ -158,6 +157,41 @@
         "color": "#ffa0a0a4",
         "drawFill": true,
         "id": 6,
+        "members": [
+            {
+                "name": "pulsePerBeat",
+                "type": "float",
+                "value": 1
+            },
+            {
+                "name": "pulseScale",
+                "type": "float",
+                "value": 1.1
+            },
+            {
+                "name": "shrinkRate",
+                "type": "float",
+                "value": 0.01
+            }
+        ],
+        "name": "Pulse",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
+        "id": 7,
         "members": [
             {
                 "name": "genre",
