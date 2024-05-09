@@ -45,7 +45,6 @@
   <object id="807" type="Pulse" gid="261" x="127" y="768" width="128" height="128"/>
   <object id="838" gid="51" x="1310" y="80" width="875" height="128"/>
   <object id="839" gid="51" x="2057" y="109" width="875" height="128"/>
-  <object id="840" gid="51" x="3455" y="615" width="875" height="128"/>
   <object id="841" gid="51" x="5508" y="126" width="875" height="128"/>
   <object id="853" gid="306" x="5792" y="336" width="120" height="120"/>
   <object id="856" gid="306" x="5920" y="336" width="120" height="120"/>
@@ -62,6 +61,8 @@
   <object id="832" gid="276" x="2769" y="258" width="100" height="100"/>
   <object id="881" gid="306" x="1952" y="944" width="120" height="120"/>
   <object id="882" gid="307" x="1936" y="528" width="120" height="120"/>
+  <object id="829" gid="283" x="543" y="514" width="120" height="120"/>
+  <object id="830" gid="275" x="518" y="515" width="70" height="70"/>
  </objectgroup>
  <objectgroup id="13" name="platforms">
   <properties>
@@ -151,8 +152,6 @@
   <object id="825" type="Pulse" gid="273" x="2780" y="942" width="128" height="121"/>
   <object id="826" type="Pulse" gid="272" x="2853" y="1036" width="128" height="121"/>
   <object id="828" type="Pulse" gid="273" x="3086" y="1053" width="128" height="121"/>
-  <object id="829" gid="283" x="543" y="514" width="120" height="120"/>
-  <object id="830" gid="275" x="518" y="515" width="70" height="70"/>
   <object id="833" gid="262" x="4630" y="320" width="128" height="128"/>
   <object id="844" gid="290" x="3703" y="496" width="130" height="130"/>
   <object id="846" gid="292" x="4704" y="692" width="120" height="120"/>
