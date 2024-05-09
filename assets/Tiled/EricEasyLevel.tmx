@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="144" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="1120">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="144" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="1188">
  <editorsettings>
   <export target="../levelsJson/ericEasyLevel.tmj" format="json"/>
  </editorsettings>
@@ -27,8 +27,8 @@
   <object id="859" gid="206" x="8257" y="653" width="192" height="192"/>
   <object id="871" gid="202" x="5206" y="998" width="128" height="960"/>
   <object id="940" gid="212" x="362" y="932" width="128" height="128"/>
-  <object id="941" gid="213" x="1184" y="351" width="128" height="128"/>
-  <object id="942" gid="213" x="41" y="329" width="128" height="128"/>
+  <object id="941" gid="213" x="1264" y="243" width="128" height="128"/>
+  <object id="942" gid="213" x="46" y="361" width="128" height="128"/>
   <object id="943" gid="213" x="973" y="925" width="128" height="128"/>
   <object id="945" gid="213" x="2339" y="587" width="128" height="128"/>
   <object id="946" gid="213" x="2995" y="154" width="128" height="128"/>
@@ -45,7 +45,7 @@
   <object id="962" gid="215" x="5702" y="298" width="128" height="128"/>
   <object id="963" gid="226" x="8293" y="511" width="128" height="128"/>
   <object id="1048" gid="209" x="309" y="467" width="128" height="128"/>
-  <object id="1052" gid="224" x="392" y="345" width="128" height="128"/>
+  <object id="1052" gid="224" x="102" y="280" width="128" height="128"/>
   <object id="1059" gid="204" x="5727" y="433" width="960" height="128"/>
   <object id="1061" gid="203" x="6683" y="454" width="960" height="128"/>
   <object id="1062" gid="203" x="7643" y="503" width="960" height="128"/>
@@ -57,6 +57,26 @@
   <object id="1117" gid="208" x="5744" y="896" width="128" height="128"/>
   <object id="1118" gid="208" x="5888" y="896" width="128" height="128"/>
   <object id="1119" gid="208" x="6032" y="896" width="128" height="128"/>
+  <object id="1120" gid="226" x="574" y="767" width="128" height="128"/>
+  <object id="1123" gid="227" x="498" y="239" width="128" height="128"/>
+  <object id="907" gid="221" x="1239" y="252" width="128" height="128"/>
+  <object id="1012" gid="227" x="2828" y="86" width="128" height="128"/>
+  <object id="1130" gid="224" x="2219" y="154" width="128" height="128"/>
+  <object id="1152" gid="45" x="862" y="360" width="320" height="320"/>
+  <object id="1153" gid="43" x="669" y="990" width="320" height="320"/>
+  <object id="1159" gid="227" x="3646" y="836" width="128" height="128"/>
+  <object id="1163" gid="204" x="3115" y="810" width="960" height="128"/>
+  <object id="1164" gid="209" x="3507" y="752" width="128" height="128"/>
+  <object id="1165" gid="246" x="3793" y="229" width="128" height="128"/>
+  <object id="1166" gid="218" x="3711" y="839" width="64" height="64"/>
+  <object id="1147" gid="72" x="2390" y="897" width="320" height="320"/>
+  <object id="1173" gid="227" x="4220" y="508" width="128" height="128"/>
+  <object id="1174" type="Pulse" gid="243" x="4222" y="568" width="128" height="128"/>
+  <object id="1175" gid="208" x="4362" y="287" width="128" height="128"/>
+  <object id="1176" gid="208" x="4495" y="290" width="128" height="128"/>
+  <object id="1179" gid="203" x="4331" y="527" width="960" height="128"/>
+  <object id="1184" gid="212" x="5031" y="505" width="128" height="128"/>
+  <object id="1185" gid="214" x="4987" y="457" width="128" height="128"/>
  </objectgroup>
  <objectgroup id="18" name="backgroundArt">
   <object id="888" gid="220" x="287" y="196" width="128" height="128"/>
@@ -75,10 +95,8 @@
   <object id="904" gid="221" x="4038" y="899" width="128" height="128"/>
   <object id="905" gid="221" x="3124" y="249" width="128" height="128"/>
   <object id="906" gid="221" x="1786" y="769" width="128" height="128"/>
-  <object id="907" gid="221" x="1276" y="389" width="128" height="128"/>
   <object id="908" gid="221" x="976" y="194" width="128" height="128"/>
   <object id="909" gid="222" x="395" y="194" width="128" height="128"/>
-  <object id="910" gid="222" x="574" y="773" width="128" height="128"/>
   <object id="911" gid="222" x="909" y="836" width="128" height="128"/>
   <object id="912" gid="222" x="1189" y="832" width="128" height="128"/>
   <object id="913" gid="222" x="2625" y="576" width="128" height="128"/>
@@ -92,39 +110,46 @@
   <object id="921" gid="221" x="5888" y="320" width="128" height="128"/>
   <object id="922" gid="222" x="6843" y="1090" width="128" height="128"/>
   <object id="923" gid="220" x="6918" y="1081" width="128" height="128"/>
-  <object id="930" gid="246" x="1154" y="290" width="128" height="128"/>
+  <object id="930" gid="246" x="1241" y="170" width="128" height="128"/>
   <object id="931" gid="219" x="703" y="975" width="128" height="128"/>
   <object id="932" gid="218" x="652" y="963" width="64" height="64"/>
   <object id="933" gid="217" x="1224" y="551" width="128" height="128"/>
   <object id="934" gid="216" x="511" y="968" width="64" height="64"/>
   <object id="935" gid="217" x="404" y="987" width="128" height="128"/>
   <object id="938" gid="219" x="8232" y="728" width="128" height="128"/>
-  <object id="939" gid="235" x="820" y="370" width="256" height="256"/>
   <object id="964" type="Pulse" gid="242" x="8293" y="517" width="128" height="128"/>
   <object id="971" gid="203" x="6693" y="1110" width="960" height="128"/>
   <object id="972" gid="203" x="7624" y="1157" width="960" height="128"/>
   <object id="1011" type="Pulse" gid="231" x="1804" y="316" width="128" height="128"/>
-  <object id="1012" gid="227" x="2828" y="127" width="128" height="128"/>
   <object id="1013" gid="227" x="2829" y="203" width="128" height="128"/>
-  <object id="1014" gid="230" x="2830" y="320" width="128" height="128"/>
   <object id="1009" gid="227" x="1802" y="123" width="128" height="128"/>
   <object id="1010" gid="227" x="1802" y="202" width="128" height="128"/>
   <object id="1016" gid="309" x="3131" y="319" width="192" height="192"/>
-  <object id="1017" gid="309" x="543" y="836" width="192" height="192"/>
-  <object id="1019" gid="225" x="3069" y="486" width="256" height="256"/>
-  <object id="1028" gid="225" x="5206" y="759" width="256" height="256"/>
   <object id="1030" gid="55" x="3776" y="128" width="875" height="128"/>
-  <object id="1031" gid="51" x="4544" y="96" width="875" height="128"/>
+  <object id="1031" gid="51" x="4634" y="118" width="875" height="128"/>
   <object id="1032" gid="51" x="1434" y="122" width="875" height="128"/>
   <object id="1033" gid="51" x="2160" y="113" width="875" height="128"/>
   <object id="1034" gid="51" x="5630" y="109" width="875" height="128"/>
   <object id="1035" gid="51" x="6477" y="109" width="875" height="128"/>
   <object id="1036" gid="51" x="7108" y="107" width="875" height="128"/>
   <object id="1050" gid="55" x="62" y="189" width="875" height="128"/>
-  <object id="1055" gid="225" x="1481" y="403" width="256" height="256"/>
   <object id="1058" gid="212" x="2346" y="420" width="128" height="128"/>
-  <object id="1064" gid="229" x="5884" y="357" width="128" height="128"/>
-  <object id="1068" gid="244" x="6398" y="440" width="128" height="128"/>
+  <object id="1064" type="Pulse" gid="229" x="5884" y="357" width="128" height="128"/>
+  <object id="1068" type="Pulse" gid="244" x="6398" y="440" width="128" height="128"/>
+  <object id="1122" type="Pulse" gid="230" x="577" y="786" width="128" height="128"/>
+  <object id="1125" type="Pulse" gid="241" x="503" y="308" width="128" height="128"/>
+  <object id="1129" type="Pulse" gid="229" x="2836" y="208" width="128" height="128"/>
+  <object id="1145" gid="73" x="1485" y="893" width="320" height="320"/>
+  <object id="1146" gid="74" x="2000" y="897" width="320" height="320"/>
+  <object id="1150" gid="45" x="3191" y="419" width="320" height="320"/>
+  <object id="1151" gid="45" x="3170" y="565" width="320" height="320"/>
+  <object id="1162" type="Pulse" gid="242" x="3646" y="733" width="128" height="128"/>
+  <object id="1168" gid="250" x="2907" y="896" width="128" height="128"/>
+  <object id="1169" gid="240" x="3682" y="732" width="192" height="192"/>
+  <object id="1170" gid="220" x="4195" y="189" width="128" height="128"/>
+  <object id="1171" gid="220" x="4486" y="204" width="128" height="128"/>
+  <object id="1172" gid="221" x="3790" y="318" width="128" height="128"/>
+  <object id="1187" gid="218" x="5181" y="775" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="13" name="platforms">
   <object id="692" gid="134" x="5504" y="1056" width="128" height="32">
@@ -265,13 +290,22 @@
   <object id="1074" gid="213" x="7495" y="327" width="128" height="128"/>
   <object id="1075" gid="214" x="7575" y="328" width="128" height="128"/>
   <object id="1076" gid="214" x="7332" y="866" width="128" height="128"/>
-  <object id="1077" gid="213" x="7403" y="890" width="128" height="128"/>
+  <object id="1077" gid="213" x="7283" y="821" width="128" height="128"/>
   <object id="1078" gid="212" x="7736" y="901" width="128" height="128"/>
   <object id="1079" gid="214" x="7681" y="875" width="128" height="128"/>
   <object id="1080" gid="214" x="7169" y="952" width="128" height="128"/>
   <object id="1081" gid="213" x="7096" y="935" width="128" height="128"/>
   <object id="1082" gid="213" x="6686" y="246" width="128" height="128"/>
   <object id="1083" gid="212" x="6639" y="309" width="128" height="128"/>
+  <object id="1133" gid="237" x="1818" y="676" width="128" height="128"/>
+  <object id="1135" gid="238" x="2296" y="732" width="128" height="128"/>
+  <object id="1136" gid="239" x="2268" y="657" width="128" height="128"/>
+  <object id="1137" gid="239" x="2579" y="477" width="128" height="128"/>
+  <object id="1138" gid="237" x="2657" y="516" width="128" height="128"/>
+  <object id="1139" gid="239" x="2407" y="873" width="128" height="128"/>
+  <object id="1140" gid="239" x="1896" y="806" width="128" height="128"/>
+  <object id="1141" gid="239" x="2739" y="767" width="128" height="128"/>
+  <object id="1143" gid="238" x="2679" y="791" width="128" height="128"/>
  </objectgroup>
  <objectgroup id="10" name="weightedPlatforms"/>
  <objectgroup id="16" name="movingPlatforms"/>
