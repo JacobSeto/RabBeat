@@ -64,7 +64,6 @@
   <object id="1130" gid="224" x="2219" y="154" width="128" height="128"/>
   <object id="1152" gid="45" x="862" y="360" width="320" height="320"/>
   <object id="1153" gid="43" x="669" y="990" width="320" height="320"/>
-  <object id="1159" gid="227" x="3646" y="836" width="128" height="128"/>
   <object id="1163" gid="204" x="3115" y="810" width="960" height="128"/>
   <object id="1164" gid="209" x="3507" y="752" width="128" height="128"/>
   <object id="1165" gid="246" x="3793" y="229" width="128" height="128"/>
@@ -77,6 +76,7 @@
   <object id="1179" gid="203" x="4331" y="527" width="960" height="128"/>
   <object id="1184" gid="212" x="5031" y="505" width="128" height="128"/>
   <object id="1185" gid="214" x="4987" y="457" width="128" height="128"/>
+  <object id="1169" gid="240" x="3682" y="732" width="192" height="192"/>
  </objectgroup>
  <objectgroup id="18" name="backgroundArt">
   <object id="888" gid="220" x="287" y="196" width="128" height="128"/>
@@ -143,13 +143,13 @@
   <object id="1146" gid="74" x="2000" y="897" width="320" height="320"/>
   <object id="1150" gid="45" x="3191" y="419" width="320" height="320"/>
   <object id="1151" gid="45" x="3170" y="565" width="320" height="320"/>
-  <object id="1162" type="Pulse" gid="242" x="3646" y="733" width="128" height="128"/>
+  <object id="1162" type="Pulse" gid="242" x="3647" y="721" width="128" height="128"/>
   <object id="1168" gid="250" x="2907" y="896" width="128" height="128"/>
-  <object id="1169" gid="240" x="3682" y="732" width="192" height="192"/>
   <object id="1170" gid="220" x="4195" y="189" width="128" height="128"/>
   <object id="1171" gid="220" x="4486" y="204" width="128" height="128"/>
   <object id="1172" gid="221" x="3790" y="318" width="128" height="128"/>
   <object id="1187" gid="218" x="5181" y="775" width="64" height="64"/>
+  <object id="1159" gid="227" x="3646" y="836" width="128" height="128"/>
  </objectgroup>
  <objectgroup id="13" name="platforms">
   <object id="692" gid="134" x="5504" y="1056" width="128" height="32">

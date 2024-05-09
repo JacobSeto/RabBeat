@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="120" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="23" nextobjectid="918">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="120" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="23" nextobjectid="927">
  <editorsettings>
   <export target="../levelsJson/rabbeatLevelBat.tmj" format="json"/>
  </editorsettings>
@@ -76,6 +76,9 @@
   <object id="908" type="Pulse" gid="253" x="6239" y="392" width="128" height="128"/>
   <object id="909" gid="316" x="6305" y="367" width="128" height="128"/>
   <object id="910" gid="317" x="6172" y="436" width="128" height="128"/>
+  <object id="890" type="Pulse" gid="261" x="1848" y="1026" width="128" height="128"/>
+  <object id="891" type="Pulse" gid="257" x="2030" y="1027" width="128" height="128"/>
+  <object id="921" gid="276" x="6023" y="834" width="100" height="100"/>
  </objectgroup>
  <objectgroup id="13" name="platforms">
   <properties>
@@ -176,8 +179,6 @@
   <object id="858" gid="286" x="3880" y="476" width="70" height="70"/>
   <object id="888" type="Pulse" gid="273" x="1299" y="444" width="128" height="121"/>
   <object id="889" type="Pulse" gid="271" x="1232" y="391" width="128" height="128"/>
-  <object id="890" type="Pulse" gid="261" x="1848" y="1026" width="128" height="128"/>
-  <object id="891" type="Pulse" gid="257" x="2030" y="1027" width="128" height="128"/>
   <object id="903" gid="275" x="4532" y="640" width="70" height="70"/>
   <object id="904" type="Pulse" gid="271" x="5153" y="219" width="128" height="128"/>
   <object id="905" type="Pulse" gid="270" x="5040" y="204" width="128" height="128"/>
@@ -185,8 +186,13 @@
   <object id="913" type="Pulse" gid="273" x="6681" y="192" width="128" height="121"/>
   <object id="914" gid="291" x="5362" y="198" width="120" height="120"/>
   <object id="915" gid="287" x="6800" y="155" width="60" height="60"/>
-  <object id="916" gid="289" x="6839" y="199" width="128" height="128"/>
   <object id="917" gid="292" x="7493" y="805" width="120" height="120"/>
+  <object id="919" type="Pulse" gid="272" x="5770" y="976" width="128" height="121"/>
+  <object id="920" type="Pulse" gid="273" x="5880" y="972" width="128" height="121"/>
+  <object id="922" gid="289" x="5966" y="955" width="128" height="128"/>
+  <object id="923" gid="287" x="6061" y="946" width="60" height="60"/>
+  <object id="925" gid="293" x="6854" y="172" width="120" height="120"/>
+  <object id="926" gid="286" x="6963" y="106" width="70" height="70"/>
  </objectgroup>
  <objectgroup id="10" name="weightedPlatforms">
   <object id="548" type="Weighted Platform" gid="143" x="2496" y="1056" width="192" height="32">

@@ -884,24 +884,6 @@
                  "y":990
                 }, 
                 {
-                 "gid":227,
-                 "height":128,
-                 "id":1159,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"pole_1"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":128,
-                 "x":3646,
-                 "y":836
-                }, 
-                {
                  "gid":204,
                  "height":128,
                  "id":1163,
@@ -1131,6 +1113,24 @@
                  "width":128,
                  "x":4987,
                  "y":457
+                }, 
+                {
+                 "gid":240,
+                 "height":192,
+                 "id":1169,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"decal_10"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":192,
+                 "x":3682,
+                 "y":732
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2430,8 +2430,8 @@
                  "type":"Pulse",
                  "visible":true,
                  "width":128,
-                 "x":3646,
-                 "y":733
+                 "x":3647,
+                 "y":721
                 }, 
                 {
                  "gid":250,
@@ -2450,24 +2450,6 @@
                  "width":128,
                  "x":2907,
                  "y":896
-                }, 
-                {
-                 "gid":240,
-                 "height":192,
-                 "id":1169,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"decal_10"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":192,
-                 "x":3682,
-                 "y":732
                 }, 
                 {
                  "gid":220,
@@ -2540,6 +2522,24 @@
                  "width":64,
                  "x":5181,
                  "y":775
+                }, 
+                {
+                 "gid":227,
+                 "height":128,
+                 "id":1159,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"pole_1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":3646,
+                 "y":836
                 }],
          "opacity":1,
          "type":"objectgroup",
