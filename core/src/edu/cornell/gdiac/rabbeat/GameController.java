@@ -247,7 +247,6 @@ public class GameController implements Screen, ContactListener {
 		if (value) {
 			countdown = 0;
 		}
-		System.out.println("Complete: " + complete);
 		complete = value;
 	}
 

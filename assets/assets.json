@@ -319,7 +319,7 @@
       "world:other:cam_2": "world/other/cam_2.PNG",
       "world:other:fan_0": "world/other/fan_0.png",
       "world:other:fan_1": "world/other/fan_1.png",
-      "world:other:windows_0": "world/other/windows_0.PNG",
+      "world:other:windows_0": "world/other/windows_0.png",
       "world:other:windows_1": "world/other/window_1.png",
       "world:other:windows_2": "world/other/window_2.png",
       "world:other:trash_0": "world/other/trash_0.png",
@@ -359,7 +359,7 @@
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
-        "example": "levelsJson/BenLevel2.tmj",
+        "example": "levelsJson/benLevel2.tmj",
         "level1": "levelsJson/tutorial1.tmj",
         "level2": "levelsJson/tutorial2.tmj",
         "level3": "levelsJson/EricBearLevel2.tmj",
