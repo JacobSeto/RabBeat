@@ -445,7 +445,7 @@ public class InputController {
 				vertical -= 1.0f;
 			}
 
-			if (didPressGenreSwitch() && !genreSwitched) {
+			if (didPressGenreSwitch() && !genreSwitched && !GameController.getInstance().isGenreSwitchLocked()) {
 				genreSwitched = true;
 				switchGenre = true;
 			} else {
