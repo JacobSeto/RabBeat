@@ -93,7 +93,7 @@
           "world:laserOverlay" : "world/lasers/laserOverlay.png",
           "world:laserGlow" : "world/lasers/laserGlow.png",
 
-      "world:checkpoints:checkpointInactive": "world/checkpoints/checkpointInactive.png",
+      "world:checkpoints:checkpointTile": "world/checkpoints/checkpointTile.png",
       "world:goal": "world/goal.png",
 
       "ui:synthIndicator": "ui/synth-indicator.png",
