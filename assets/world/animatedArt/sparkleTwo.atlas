@@ -1,0 +1,26 @@
+sparkleTwo.png
+size: 384, 128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sparkleTwo
+  rotate: false
+  xy: 0, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 0
+sparkleTwo
+  rotate: false
+  xy: 128, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 1
+sparkleTwo
+  rotate: false
+  xy: 256, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 2

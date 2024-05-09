@@ -91,7 +91,7 @@ public class GameController implements Screen, ContactListener {
 	private static String currentLevel = "level" + currentLevelInt;
 
 	/** How many frames after winning/losing do we continue? */
-	public static final int EXIT_COUNT = 2;
+	public static final int EXIT_COUNT = 35;
 
 	/** The number of levels in the game */
 	private int numberOfLevels = 12;
@@ -137,9 +137,12 @@ public class GameController implements Screen, ContactListener {
 	private boolean failed = false;
 	/** Whether or not the game is paused */
 	private boolean paused = false;
-	/** The beat the */
+	/** Whether or not the game is in calibration screen*/
+	public boolean calibrateScreen = false;
 	/** Whether calibration is happening*/
 	public boolean inCalibration = false;
+	/** Whether the genre switch mechanic is locked */
+	private boolean isGenreSwitchLocked = true;
 
 	/** Whether or not debug mode is active */
 	private boolean debug;
@@ -244,9 +247,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void setComplete(boolean value) {
 		if (value) {
-			countdown = EXIT_COUNT;
+			countdown = 0;
 		}
-		System.out.println("Complete: " + complete);
 		complete = value;
 	}
 
@@ -283,6 +285,15 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public boolean isActive() {
 		return active;
+	}
+
+	/**
+	 * Returns true if the genre switch is locked, disabling the SHIFT key
+	 *
+	 * @return true if the genre switch is locked
+	 */
+	public boolean isGenreSwitchLocked() {
+		return isGenreSwitchLocked;
 	}
 
 	/**
@@ -431,6 +442,10 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void initializeSFX(AssetDirectory directory) {
 		soundController.addSound("genreSwitch", directory.getEntry("sfx:genreSwitch", Sound.class));
+		String checkpointNum = "2"; // change this once tracks are finalized to match their key signatures. 1 = lab, 2 = disco, 3 = penthouse
+		soundController.addSound("checkpoint", directory.getEntry("sfx:checkpoint"+checkpointNum, Sound.class));
+		soundController.addSound("jump", directory.getEntry("sfx:jump"+checkpointNum, Sound.class));
+		soundController.addSound("death", directory.getEntry("sfx:death", Sound.class));
 	}
 
 	public Vector2 getScale() {
@@ -506,12 +521,13 @@ public class GameController implements Screen, ContactListener {
 	 * Initialize the game for the first time
 	 */
 	public void initialize() {
-		genre = Genre.SYNTH;
+		isGenreSwitchLocked = getCurrentLevelInt() <= 2;
+		genre = getCurrentLevelInt() == 2 ? Genre.JAZZ : Genre.SYNTH;
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
-		worldWidth = DEFAULT_WIDTH * objectController.backgroundTexture.getRegionWidth() / getCanvas().getWidth();
-		worldHeight = DEFAULT_HEIGHT * objectController.backgroundTexture.getRegionHeight() / getCanvas().getHeight();
+		worldWidth = DEFAULT_WIDTH * objectController.labBgTexture.getRegionWidth() / getCanvas().getWidth();
+		worldHeight = DEFAULT_HEIGHT * objectController.labBgTexture.getRegionHeight() / getCanvas().getHeight();
 		world.setContactListener(this);
 		syncController = new SyncController(levelBPM);
 		populateLevel();
@@ -615,24 +631,26 @@ public class GameController implements Screen, ContactListener {
 				}
 				//calibrating for visual delay
 				if(InputController.getInstance().getDelay() != 0f){
-					syncController.addVisualDelay(InputController.getInstance().getDelay());
+					syncController.addAudioDelay(InputController.getInstance().getDelay());
 				}
 
 
 				// If game is currently in the middle of the paused state, do all this. It won't work the first frame of pausing but that should be fine
 				if (input.didPressDownWhilePaused()) {
-					pauseItemSelected = (pauseItemSelected + 1) % 5;
+					pauseItemSelected = (pauseItemSelected + 1) % 6;
 				}
 				if (input.didPressUpWhilePaused()) { // not using else if on purpose
 					pauseItemSelected--;
-					if (pauseItemSelected == -1) pauseItemSelected = 4;
+					if (pauseItemSelected == -1) pauseItemSelected = 5;
 				}
 				if (pauseItemSelected == 3) {
 					if (input.didPressLeftWhilePaused() && musicVolume > 0) { // change this to 1 if it causes bugs
 						musicVolume--;
+						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
 					}
 					if (input.didPressRightWhilePaused() && musicVolume < 10) {
 						musicVolume++;
+						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
 					}
 				}
 				else if (pauseItemSelected == 4) {
@@ -690,6 +708,9 @@ public class GameController implements Screen, ContactListener {
 				updateGenreSwitch();
 			}
 			InputController.getInstance().setSwitchGenre(false);
+		}
+		if (InputController.getInstance().didPrimary()) {
+			soundController.playSFX("jump");
 		}
 		if (lastCollideWith != null){
 			Vector2 displace = lastCollideWith.currentVelocity();
@@ -756,7 +777,10 @@ public class GameController implements Screen, ContactListener {
 			//player collision checks
 			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player){
 				if(bd2.getType() == Type.LETHAL || bd1.getType() == Type.LETHAL){
-					getPlayer().isDying = true;
+					if (!getPlayer().isDying){
+						getPlayer().isDying = true;
+						soundController.playSFX("death");
+					}
 				}
 				if(bd2 instanceof  WeightedPlatform){
 					lastCollideWith = (WeightedPlatform) bd1;
@@ -772,6 +796,12 @@ public class GameController implements Screen, ContactListener {
 			for (Checkpoint checkpoint : objectController.checkpoints) {
 				if (!checkpoint.isActive && ((bd1 == objectController.player && bd2 == checkpoint) ||
 						(bd1 == checkpoint && bd2 == objectController.player))) {
+					if (!checkpoint.isActive && checkpoint.getIndex() != 0) {
+						soundController.playSFX("checkpoint");
+					}
+					if (getCurrentLevelInt() == 2 && checkpoint.getIndex() == 1) {
+						isGenreSwitchLocked = false;
+					}
 					checkpoint.setActive();
 					respawnPoint = checkpoint.getPosition();
 				}
@@ -903,7 +933,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw background unscaled.
 		canvas.begin(false);
-		canvas.draw(objectController.backgroundTexture, 0, 0);
+		canvas.draw(objectController.levelBackground, 0, 0);
 		canvas.end();
 
 		canvas.begin(false);
@@ -942,10 +972,11 @@ public class GameController implements Screen, ContactListener {
 
 		// Victory Screen
 		if (complete && !failed) {
+			incrementLevelsUnlocked();
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
 			drawVictoryScreen();
-			incrementLevelsUnlocked();
+
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
 			canvas.begin(true); // DO NOT SCALE
@@ -962,41 +993,72 @@ public class GameController implements Screen, ContactListener {
 			//canvas.end();
 
 			canvas.begin(true);
+
 			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
 			canvas.draw(objectController.overlayTexture.getTexture(), Color.WHITE, 0, 0, 0, -10, 0,1.05f, 1.05f);
-			canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 370, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.exitLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.musicTexture.getTexture(), Color.WHITE, 0, 0, 800, 160, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.SFXTexture.getTexture(), Color.WHITE, 0, 0, 850, 80, 0, 0.5f, 0.5f);
-			for (int i = 0; i < musicVolume; i++) {
-				canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 160, 0, 0.5f, 0.5f);
-			}
-			for (int i = 0; i < SFXVolume; i++) {
-				canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 80, 0, 0.5f, 0.5f);
-			}
-			canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 160, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 80, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 160, 0, 0.5f, 0.5f);
-			canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 80, 0, 0.5f, 0.5f);
+			if(calibrateScreen){
+				canvas.draw(objectController.tapText.getTexture(), Color.WHITE, 0, 0, 860, 390, 0, 1f, 1f);
+				canvas.draw(objectController.pressSpace.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.75f, 0.75f);
+				int beatNum = syncController.beat.getBeatFour();
+				int beatX = 875;
+				int xSpace = 75;
+				for(int i = 1; i < 5; i++){
+					if(i == beatNum){
+						canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f, 1f);
+					}
+					else{
+						canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f, 1f);
+					}
+					beatX+=xSpace;
+				}
+				canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 830, 100);
 
-			switch (pauseItemSelected) {
-				case 0: // Restart Level
-					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800, 370, 0, 0.5f, 0.5f);
-					break;
-				case 1: // Resume Level
-					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800,310, 0, 0.5f, 0.5f);
-					break;
-				case 2: // Exit Level
-					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 250,0, 0.5f, 0.5f);
-					break;
-				case 3: // Music
-					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 740,160, 0, 0.5f, 0.5f);
-					break;
-				case 4: // SFX
-					canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,80, 0, 0.5f, 0.5f);
-					break;
+
+				//canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 1f, 1f);
+				//canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0, 800, 160, 0, 1f, 1f);
+				//canvas.draw(objectController.backButtonTexture.getTexture(), Color.WHITE, 0, 0, 850, 80, 0, 0.5f, 0.5f);
 			}
+			else{
+				canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 370, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.exitLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.musicTexture.getTexture(), Color.WHITE, 0, 0, 800, 160, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.SFXTexture.getTexture(), Color.WHITE, 0, 0, 850, 80, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.calibrateTextTexture.getTexture(), Color.WHITE, 0, 0, 860, 20, 0, 0.5f, 0.5f);
+				for (int i = 0; i < musicVolume; i++) {
+					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 160, 0, 0.5f, 0.5f);
+				}
+				for (int i = 0; i < SFXVolume; i++) {
+					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 80, 0, 0.5f, 0.5f);
+				}
+				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 160, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 80, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 160, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 80, 0, 0.5f, 0.5f);
+
+
+				switch (pauseItemSelected) {
+					case 0: // Restart Level
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800, 370, 0, 0.5f, 0.5f);
+						break;
+					case 1: // Resume Level
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800,310, 0, 0.5f, 0.5f);
+						break;
+					case 2: // Exit Level
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 250,0, 0.5f, 0.5f);
+						break;
+					case 3: // Music
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 740,160, 0, 0.5f, 0.5f);
+						break;
+					case 4: // SFX
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,80, 0, 0.5f, 0.5f);
+						break;
+					case 5: // Calibrate
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,20, 0, 0.5f, 0.5f);
+						break;
+				}
+			}
+
 			canvas.end();
 		}
 	}
@@ -1081,6 +1143,8 @@ public class GameController implements Screen, ContactListener {
 			case 2: // Exit Level
 				exitLevel();
 				break;
+			case 5: // Calibrate
+				calibrateScreen = true;
 			default: break;
 		}
 	}
@@ -1177,7 +1241,8 @@ public class GameController implements Screen, ContactListener {
 
 	/** Sets the integer levelsUnlocked */
 	public void setLevelsUnlocked(int levelsUnlocked) {
-		this.levelsUnlocked = levelsUnlocked;
+		// TODO: CHANGE THIS BACK TO levelsUnlocked
+		this.levelsUnlocked = 12;
 	}
 
 	/** Increments the integer levelsUnlocked if a player completes a level and the next level is locked*/
@@ -1217,23 +1282,42 @@ public class GameController implements Screen, ContactListener {
 
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen() {
+
+		//OLD VICTORY SCREEN
+//		canvas.begin(true);
+//		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
+//		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
+//		canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
+//		canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
+//
+////		switch (victoryScreenItemSelected) {
+////			case 0: // Next Level
+////				canvas.draw(objectController.indicatorStarTexture.getTexture(),
+////						Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
+////				break;
+////			case 1: // Level Select
+////				canvas.draw(objectController.indicatorStarTexture.getTexture(),
+////						Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
+////				break;
+////		}
+//
+//		canvas.end();
+
+		//NEW VICTORY SCREEN
+
 		canvas.begin(true);
-		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
-		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
-		canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
-		canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
-
-		switch (victoryScreenItemSelected) {
-			case 0: // Next Level
-				canvas.draw(objectController.indicatorStarTexture.getTexture(),
-						Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
-				break;
-			case 1: // Level Select
-				canvas.draw(objectController.indicatorStarTexture.getTexture(),
-						Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
-				break;
+//		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
+//
+		if(currentLevelInt == 1) {
+			//DRAW FOR CURRENT LEVEL INT
+			canvas.draw(objectController.level1VS, 0, 0);
+		} else if (currentLevelInt == 4) {
+			canvas.draw(objectController.level4VS, 0, 0);
+		}else if (currentLevelInt == 6){
+			canvas.draw(objectController.level6VS, 0, 0);
+		}else {
+			canvas.draw(objectController.victoryScreenBackground, 0, 0);
 		}
-
 		canvas.end();
 
 	}

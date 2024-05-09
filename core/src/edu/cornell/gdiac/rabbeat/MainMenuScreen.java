@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,6 +33,10 @@ public class MainMenuScreen extends ScreenAdapter {
     private Game game;
     private Stage stage;
 
+    private Sound buttonClicked;
+
+    private Sound buttonTransition;
+
     private ScreenListener listener;
 
     /** The texture for the select */
@@ -45,9 +50,20 @@ public class MainMenuScreen extends ScreenAdapter {
     private Image optionsSelectImage;
     private Image quitSelectImage;
 
+
     public MainMenuScreen(Game game) {
         this.game = game;
     }
+
+    public MainMenuScreen(Game game, Sound buttonClicked, Sound buttonTransition) {
+        this.game = game;
+        this.buttonClicked = buttonClicked;
+        this.buttonTransition = buttonTransition;
+    }
+
+    public void setButtonClickedSound(Sound s) {buttonClicked = s;}
+
+    public void setButtonTransitionSound(Sound s) {buttonTransition = s;}
 
     /** Displays the button UI for each level and adds a clickListener that detects whether
      * the button has been clicked and takes the player to the desired level
@@ -181,6 +197,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     buttonSelected = "options";
                     break;
             }
+            buttonTransition.play();
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)|| Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             switch (buttonSelected) {
                 case "quit":
@@ -193,6 +210,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     buttonSelected = "quit";
                     break;
             }
+            buttonTransition.play();
         } else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
             switch (buttonSelected) {
                 case "play":
@@ -206,6 +224,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     listener.exitScreen(this, GameController.EXIT_QUIT);
                     break;
             }
+            buttonClicked.play();
         }
     }
 

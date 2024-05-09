@@ -14,6 +14,8 @@
 package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.assets.*;
 
@@ -47,6 +49,13 @@ public class GDXRoot extends Game implements ScreenListener {
 
 	/** Variable that represents the main menu screen */
 	private MainMenuScreen mainMenuScreen;
+
+	/** Main menu music */
+
+	private Music mainMenuMusic;
+
+	/** using this for level selection, could put it in LevelSelectorScreen but it's easier to put it here */
+	private Sound buttonClicked;
 
 
 	/**
@@ -123,12 +132,20 @@ public class GDXRoot extends Game implements ScreenListener {
 	public void exitScreen(Screen screen, int exitCode) {
 		if(screen == initialLoading) {
 			directory = initialLoading.getAssets();
+			mainMenuMusic = directory.getEntry("music:mainmenu", Music.class);
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
 			InputController.getInstance().setPaused(true);
 			setScreen(mainMenuScreen);
+			buttonClicked = directory.getEntry("sfx:menubutton", Sound.class);
+			mainMenuScreen.setButtonClickedSound(buttonClicked);
+			mainMenuScreen.setButtonTransitionSound(directory.getEntry("sfx:menutransition", Sound.class));
+			mainMenuMusic.setLooping(true);
+			mainMenuMusic.play();
 		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
+			mainMenuMusic.stop();
+			buttonClicked.play();
 			controller = new GameController();
 			InputController.getInstance().setPaused(false);
 			GameController.getInstance().setPaused(false);
@@ -140,6 +157,11 @@ public class GDXRoot extends Game implements ScreenListener {
 			setScreen(controller);
 		}else if (screen == controller || exitCode == GameController.GO_TO_LEVEL_SELECT) {
 			createLevelSelectorScreen();
+			mainMenuMusic.setLooping(true);
+			mainMenuMusic.play();
+			if (screen == mainMenuScreen) {
+				//buttonClicked.play();
+			}
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			Gdx.app.exit();
 		}

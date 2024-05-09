@@ -1,0 +1,1006 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="155" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="1011">
+ <editorsettings>
+  <export target="../levelsJson/EricLaserLevel.tmj" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="Images.tsx"/>
+ <tileset firstgid="75" source="platforms.tsx"/>
+ <tileset firstgid="153" source="walls.tsx"/>
+ <tileset firstgid="165" source="Backgrounds.tsx"/>
+ <tileset firstgid="171" source="rabbeatTileset.tsx"/>
+ <objectgroup id="2" name="background" locked="1">
+  <object id="536" name="0" gid="57" x="1183" y="757" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="690" gid="168" x="0" y="1088" width="9696" height="1088"/>
+ </objectgroup>
+ <objectgroup id="18" name="backgroundArt"/>
+ <layer id="1" name="walls" width="155" height="17">
+  <data encoding="csv">
+178,181,181,181,181,181,181,181,181,181,181,181,181,181,181,178,178,178,178,178,181,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,178,181,181,178,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,178,178,0,0,0,0,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,178,178,178,182,0,180,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,181,178,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,178,178,0,0,0,0,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,181,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,0,180,181,182,0,180,181,182,0,180,181,182,0,180,181,182,0,180,181,182,0,180,181,182,0,180,181,182,0,177,178,179,0,177,178,178,178,0,0,0,0,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,177,178,178,178,0,0,0,0,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,177,178,178,178,0,0,0,0,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,181,182,0,180,181,182,0,180,181,182,0,180,181,182,0,180,181,182,0,180,181,182,0,180,181,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,177,178,178,178,0,0,0,0,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,181,182,0,180,181,181,178,0,0,0,0,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,0,0,0,0,
+179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,0,0,0,0,
+179,0,0,0,174,175,176,0,0,174,175,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,0,0,0,0,
+178,175,175,175,178,178,178,175,175,178,178,178,178,175,175,175,175,175,175,176,0,174,175,175,175,175,175,176,0,0,0,0,0,174,175,175,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,175,176,0,174,175,176,0,174,175,176,0,174,175,176,0,174,175,176,0,174,175,176,0,0,0,0,0,0,0,0,0,0,0,0,177,0,0,0,0,
+178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,175,178,178,178,178,178,178,178,175,175,175,175,175,178,178,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,0,0,0,0,0,0,0,0,0,0,0,177,0,0,0,0,
+178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,175,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,178,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,0,0,0,0,0,0,0,0,0,0,0,177,0,0,0,0,
+178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,174,178,178,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,174,175,176,0,174,175,176,0,0,0,0,177,0,0,0,0,
+178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,175,175,175,175,175,175,175,176,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,175,178,178,178,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,174,175,175,178,0,0,0,0,
+178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,178,178,0,0,0,0,
+178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,177,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,179,0,177,178,178,178,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="10" name="weightedPlatforms"/>
+ <objectgroup id="16" name="movingPlatforms">
+  <object id="681" type="Moving Platform" gid="140" x="2816" y="672" width="192" height="32">
+   <properties>
+    <property name="pos" type="int" value="1"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="682" type="Moving Platform" gid="140" x="2432" y="672" width="192" height="32">
+   <properties>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="711" type="Moving Platform" gid="140" x="3392" y="544" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="1"/>
+    <property name="pos" type="int" value="0"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="712" type="Moving Platform" gid="140" x="3072" y="544" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="1"/>
+    <property name="pos" type="int" value="1"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="728" type="Moving Platform" gid="140" x="4288" y="736" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="2"/>
+    <property name="pos" type="int" value="1"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="729" type="Moving Platform" gid="140" x="3840" y="736" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="2"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="744" type="Moving Platform" gid="140" x="4864" y="736" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="3"/>
+    <property name="pos" type="int" value="0"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="745" type="Moving Platform" gid="140" x="4544" y="736" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="3"/>
+    <property name="pos" type="int" value="1"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="755" type="Moving Platform" gid="140" x="6144" y="896" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="4"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="907" type="Moving Platform" gid="140" x="5888" y="896" width="192" height="32">
+   <properties>
+    <property name="moveTime" type="int" value="1"/>
+    <property name="num" type="int" value="4"/>
+    <property name="pos" type="int" value="1"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="908" type="Moving Platform" gid="140" x="5632" y="896" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="4"/>
+    <property name="pos" type="int" value="2"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="909" type="Moving Platform" gid="140" x="5888" y="896" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="4"/>
+    <property name="pos" type="int" value="3"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="910" type="Moving Platform" gid="140" x="6912" y="896" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="5"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="911" type="Moving Platform" gid="140" x="6656" y="896" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="5"/>
+    <property name="pos" type="int" value="1"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="912" type="Moving Platform" gid="140" x="6400" y="896" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="5"/>
+    <property name="pos" type="int" value="2"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="913" type="Moving Platform" gid="140" x="6656" y="896" width="192" height="32">
+   <properties>
+    <property name="num" type="int" value="5"/>
+    <property name="pos" type="int" value="3"/>
+    <property name="totalPos" type="int" value="4"/>
+    <property name="waitTime" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="914" type="Moving Platform" gid="140" x="8640" y="640" width="192" height="32">
+   <properties>
+    <property name="moveTime" type="int" value="1"/>
+    <property name="num" type="int" value="6"/>
+    <property name="totalPos" type="int" value="4"/>
+   </properties>
+  </object>
+  <object id="915" type="Moving Platform" gid="140" x="8128" y="640" width="192" height="32">
+   <properties>
+    <property name="moveTime" type="int" value="1"/>
+    <property name="num" type="int" value="6"/>
+    <property name="pos" type="int" value="1"/>
+    <property name="totalPos" type="int" value="4"/>
+   </properties>
+  </object>
+  <object id="916" type="Moving Platform" gid="140" x="7616" y="640" width="192" height="32">
+   <properties>
+    <property name="moveTime" type="int" value="1"/>
+    <property name="num" type="int" value="6"/>
+    <property name="pos" type="int" value="2"/>
+    <property name="totalPos" type="int" value="4"/>
+   </properties>
+  </object>
+  <object id="917" type="Moving Platform" gid="140" x="8128" y="640" width="192" height="32">
+   <properties>
+    <property name="moveTime" type="int" value="1"/>
+    <property name="num" type="int" value="6"/>
+    <property name="pos" type="int" value="3"/>
+    <property name="totalPos" type="int" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="13" name="platforms">
+  <object id="698" type="laser" gid="138" x="1104" y="480" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="700" type="laser" gid="137" x="1488" y="576" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="701" type="laser" gid="138" x="1488" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="709" type="laser" gid="136" x="1488" y="192" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="715" type="laser" gid="137" x="1104" y="640" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="716" type="laser" gid="137" x="1488" y="640" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="717" type="laser" gid="137" x="3024" y="576" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="973" type="laser" gid="138" x="3024" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="719" type="laser" gid="137" x="3024" y="640" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="724" type="laser" gid="137" x="3024" y="704" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="725" type="laser" gid="137" x="3024" y="768" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="726" type="laser" gid="137" x="3024" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="727" type="laser" gid="137" x="3024" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="730" type="laser" gid="136" x="3984" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="731" type="laser" gid="137" x="3984" y="384" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="733" type="laser" gid="137" x="3984" y="448" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="734" type="laser" gid="137" x="3984" y="320" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="735" type="laser" gid="137" x="3984" y="256" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="736" type="laser" gid="137" x="3984" y="192" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="737" type="laser" gid="136" x="4304" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="738" type="laser" gid="137" x="4304" y="384" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="740" type="laser" gid="137" x="4304" y="448" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="741" type="laser" gid="137" x="4304" y="320" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="742" type="laser" gid="137" x="4304" y="256" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="743" type="laser" gid="137" x="4304" y="192" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="746" type="laser" gid="138" x="4496" y="640" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="747" type="laser" gid="137" x="4496" y="704" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="748" type="laser" gid="137" x="4496" y="768" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="749" type="laser" gid="137" x="4496" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="750" type="laser" gid="137" x="4496" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="751" type="laser" gid="137" x="4496" y="960" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="752" type="laser" gid="137" x="4496" y="1024" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="753" type="laser" gid="137" x="4496" y="1088" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="756" type="laser" gid="138" x="6096" y="736" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="757" type="laser" gid="137" x="6096" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="758" type="laser" gid="137" x="6096" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="759" type="laser" gid="138" x="5840" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="760" type="laser" gid="137" x="5840" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="765" type="laser" gid="138" x="6352" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="767" type="laser" gid="137" x="6352" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="777" type="laser" gid="136" x="5584" y="576" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="778" type="laser" gid="137" x="5584" y="448" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="779" type="laser" gid="137" x="5584" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="780" type="laser" gid="136" x="5840" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="784" type="laser" gid="136" x="6352" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="786" type="laser" gid="136" x="6608" y="576" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="787" type="laser" gid="137" x="6608" y="448" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="788" type="laser" gid="137" x="6608" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="790" type="laser" gid="136" x="7120" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="791" type="laser" gid="137" x="7120" y="448" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="796" type="laser" gid="138" x="8592" y="768" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="802" type="laser" gid="137" x="8848" y="960" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="803" type="laser" gid="138" x="8080" y="480" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="804" type="laser" gid="137" x="8080" y="576" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="805" type="laser" gid="137" x="8080" y="640" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="806" type="laser" gid="138" x="7824" y="576" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="807" type="laser" gid="137" x="7824" y="640" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="808" type="laser" gid="138" x="7568" y="640" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="809" type="laser" gid="138" x="8336" y="480" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="810" type="laser" gid="137" x="8336" y="576" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="811" type="laser" gid="137" x="8336" y="640" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="812" type="laser" gid="136" x="7568" y="320" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="815" type="laser" gid="136" x="7824" y="192" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="817" type="laser" gid="137" x="8336" y="528" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="818" type="laser" gid="136" x="8336" y="160" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="819" type="laser" gid="136" x="8592" y="320" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="927" type="laser" gid="136" x="8848" y="192" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="940" type="laser" gid="137" x="8848" y="768" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="941" type="laser" gid="137" x="8848" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="942" type="laser" gid="137" x="8848" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="950" type="laser" gid="136" x="8080" y="160" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="771" type="laser" gid="138" x="6864" y="736" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="772" type="laser" gid="137" x="6864" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="773" type="laser" gid="137" x="6864" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="774" type="laser" gid="138" x="7120" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="825" type="laser" gid="137" x="7568" y="1024" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="826" type="laser" gid="137" x="7568" y="1088" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="827" type="laser" gid="137" x="7568" y="960" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="828" type="laser" gid="137" x="7568" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="829" type="laser" gid="137" x="7568" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="830" type="laser" gid="137" x="7568" y="768" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="831" type="laser" gid="137" x="7568" y="128" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="832" type="laser" gid="137" x="7568" y="192" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="833" type="laser" gid="137" x="7568" y="64" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="834" type="laser" gid="137" x="7568" y="704" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="835" type="laser" gid="137" x="7824" y="1024" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="836" type="laser" gid="137" x="7824" y="1088" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="837" type="laser" gid="137" x="7824" y="960" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="838" type="laser" gid="137" x="7824" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="839" type="laser" gid="137" x="7824" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="840" type="laser" gid="137" x="7824" y="768" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="841" type="laser" gid="137" x="7824" y="128" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="843" type="laser" gid="137" x="7824" y="64" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="844" type="laser" gid="137" x="7824" y="704" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="845" type="laser" gid="137" x="8080" y="1024" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="846" type="laser" gid="137" x="8080" y="1088" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="847" type="laser" gid="137" x="8080" y="960" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="848" type="laser" gid="137" x="8080" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="849" type="laser" gid="137" x="8080" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="850" type="laser" gid="137" x="8080" y="768" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="851" type="laser" gid="137" x="8080" y="128" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="853" type="laser" gid="137" x="8080" y="64" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="854" type="laser" gid="137" x="8080" y="704" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="855" type="laser" gid="137" x="8336" y="1024" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="856" type="laser" gid="137" x="8336" y="1088" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="857" type="laser" gid="137" x="8336" y="960" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="858" type="laser" gid="137" x="8336" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="859" type="laser" gid="137" x="8336" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="860" type="laser" gid="137" x="8336" y="768" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="861" type="laser" gid="137" x="8336" y="112" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="863" type="laser" gid="137" x="8336" y="64" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="864" type="laser" gid="137" x="8336" y="704" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="865" type="laser" gid="137" x="8592" y="1024" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="866" type="laser" gid="137" x="8592" y="1088" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="867" type="laser" gid="137" x="8592" y="960" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="868" type="laser" gid="137" x="8592" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="869" type="laser" gid="137" x="8592" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="871" type="laser" gid="137" x="8592" y="128" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="873" type="laser" gid="137" x="8592" y="64" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="875" type="laser" gid="137" x="8848" y="1024" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="876" type="laser" gid="137" x="8848" y="1088" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="881" type="laser" gid="137" x="8848" y="128" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="883" type="laser" gid="137" x="8848" y="64" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="951" type="laser" gid="137" x="6096" y="800" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="952" type="laser" gid="137" x="6864" y="800" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="964" type="laser" gid="148" x="1856" y="688" width="64" height="36">
+   <properties>
+    <property name="align" value="horizontal"/>
+   </properties>
+  </object>
+  <object id="965" type="laser" gid="149" x="1792" y="688" width="64" height="36">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="966" type="laser" gid="150" x="2048" y="688" width="64" height="36">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="967" type="laser" gid="148" x="1920" y="688" width="64" height="36">
+   <properties>
+    <property name="align" value="horizontal"/>
+   </properties>
+  </object>
+  <object id="968" type="laser" gid="148" x="1984" y="688" width="64" height="36">
+   <properties>
+    <property name="align" value="horizontal"/>
+   </properties>
+  </object>
+  <object id="974" type="laser" gid="137" x="3696" y="768" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="975" type="laser" gid="138" x="3696" y="704" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="976" type="laser" gid="137" x="3696" y="832" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="977" type="laser" gid="137" x="3696" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="978" type="laser" gid="137" x="3696" y="960" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="979" type="laser" gid="137" x="3696" y="1024" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="980" type="laser" gid="137" x="3696" y="1088" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="981" type="laser" gid="137" x="7120" y="896" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="982" type="laser" gid="137" x="5840" y="448" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="983" type="laser" gid="137" x="6352" y="448" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="984" type="laser" gid="137" x="1104" y="576" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="985" type="laser" gid="137" x="1104" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="986" type="laser" gid="137" x="8592" y="192" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="988" type="laser" gid="138" x="8848" y="576" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="989" type="laser" gid="137" x="8848" y="704" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="990" type="laser" gid="137" x="8848" y="640" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="991" type="laser" gid="137" x="7568" y="256" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="992" type="laser" gid="137" x="8592" y="256" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="993" type="laser" gid="137" x="8080" y="528" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1003" type="laser" gid="138" x="720" y="512" width="36" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1004" type="laser" gid="137" x="720" y="576" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1005" type="laser" gid="136" x="336" y="256" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1006" type="laser" gid="137" x="336" y="128" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1007" type="laser" gid="137" x="336" y="192" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1008" type="laser" gid="136" x="720" y="192" width="36" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1010" type="laser" gid="137" x="720" y="128" width="36" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="enemies"/>
+ <objectgroup id="8" name="checkpoints">
+  <object id="565" type="Checkpoint" gid="8" x="64" y="640" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="576" type="Checkpoint" gid="8" x="5168" y="768" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="669" type="Checkpoint" gid="8" x="2240" y="640" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="793" type="Checkpoint" gid="8" x="7360" y="640" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="3"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="player">
+  <object id="2" name="player" gid="3" x="160" y="640" width="75" height="142"/>
+ </objectgroup>
+ <objectgroup id="9" name="goal">
+  <object id="905" type="Checkpoint" gid="13" x="9472" y="896" width="128" height="130">
+   <properties>
+    <property name="num" type="int" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="12" name="foregroundArt" class="bigwire"/>
+</map>
