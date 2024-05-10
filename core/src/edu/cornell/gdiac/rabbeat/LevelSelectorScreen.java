@@ -37,10 +37,12 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private TextButton hoverButton;
 
     /** Returns whether a button is being hovered over */
-    private boolean hover = false;
+    private boolean hover1 = false;
+    private boolean hover2 = false;
 
     private Texture hoverRegion;
-    private Image hoverImage;
+    private Image hoverImage1;
+    private Image hoverImage2;
 
     /** Reference to the numberOfLevels variable in GameController */
     private final int numberOfLevels = GameController.getInstance().getNumberOfLevels();
@@ -60,7 +62,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
      */
     @Override
     public void show() {
-        hover = false;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -194,29 +195,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
 //                    break;
             }
 
-            if(i == 1) {
-                hoverRegion = GameController.getInstance().objectController.levelButtonHover1;
-                hoverImage = new Image(hoverRegion);
-                hoverImage.setPosition(415, background.getHeight()-hoverImage.getHeight()-161);
-                stage.addActor(hoverImage);
 
-                levelButton.addListener(new InputListener() {
-                    @Override
-                    public boolean mouseMoved(InputEvent event, float x, float y) {
-//                    hoverButton.setVisible(true);
-                        hover = true;
-                        return true; // Returning true means that this event is handled
-                    }
-
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                        //if (!hitbox.contains(x+100, y)) {
-                        hover = false; // Update hover state
-                        //}
-                    }
-
-                });
-            }
 
 
             if(i==1) {
@@ -254,7 +233,69 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     }
                 }
             });
+
             stage.addActor(levelButton);
+
+            //have a separate for loop for the hover images
+            if(i <= 2) {
+                levelButton.addListener(new InputListener() {
+                    @Override
+                    public boolean mouseMoved(InputEvent event, float x, float y) {
+//                    hoverButton.setVisible(true);
+                        if(finalI==1) {
+                            hover1 = true;
+                        } if (finalI == 2) {
+                            hover2 = true;
+                        }
+
+                        return true; // Returning true means that this event is handled
+                    }
+
+
+                });
+
+
+
+                if(i==1) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(1);
+                    hoverImage1 = new Image(hoverRegion);
+                    hoverImage1.setPosition(411+62-15, background.getHeight()-hoverImage1.getHeight()-161-37+15);
+                    stage.addActor(hoverImage1);
+
+                    hoverImage1.addListener(new InputListener() {
+                        @Override
+                        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                            //if (!hitbox.contains(x+100, y)) {
+                            hover1 = false; // Update hover state
+                            //}
+                        }
+
+                    });
+                } if(i==2) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(2);
+                    hoverImage2 = new Image(hoverRegion);
+                    hoverImage2.setPosition(464-20, background.getHeight()-hoverImage1.getHeight()-270+30);
+                    stage.addActor(hoverImage2);
+
+                    hoverImage2.addListener(new InputListener() {
+                        @Override
+                        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                            //if (!hitbox.contains(x+100, y)) {
+                            hover2 = false; // Update hover state
+                            //}
+                        }
+
+                    });
+                }
+
+
+
+
+
+
+            }
+
+
 //            stage.addActor(hoverImage);
 
 
@@ -266,7 +307,10 @@ public class LevelSelectorScreen extends ScreenAdapter {
     public void render(float delta) {
 
 //        hoverButton.setVisible(hover);
-        hoverImage.setVisible(hover);
+
+
+        hoverImage1.setVisible(hover1);
+        hoverImage2.setVisible(hover2);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));

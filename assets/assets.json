@@ -139,14 +139,13 @@
       "ui:lockedLevels:lockedLevel12": "ui/lockedLevels/lockedLevel12.png",
       "ui:level1": "ui/level1.png",
 
-      "ui:levelButtonsHoverState:level1ButtonHover": "ui/levelButtonsHoverState/level1ButtonHover.png",
-      "ui:levelButtonsHoverState:level2ButtonHover": "ui/levelButtonsHoverState/level2ButtonHover.png",
+      "ui:levelButtonsHoverState:level1ButtonHover": "ui/levelButtonsHoverState/levelButton1Hover.png",
+      "ui:levelButtonsHoverState:level2ButtonHover": "ui/levelButtonsHoverState/levelButton2Hover.png",
       "ui:levelButtonsHoverState:level3ButtonHover": "ui/levelButtonsHoverState/level3ButtonHover.png",
       "ui:levelButtonsHoverState:level4ButtonHover": "ui/levelButtonsHoverState/level4ButtonHover.png",
 
 
-
-          "ui:victory:levelSelectText": "ui/victory/levelSelect.png",
+      "ui:victory:levelSelectText": "ui/victory/levelSelect.png",
       "ui:victory:nextLevelText": "ui/victory/nextLevel.png",
       "ui:victory:star": "ui/victory/star.png",
       "ui:victory:victoryLogo": "ui/victory/victoryLogo.png",
