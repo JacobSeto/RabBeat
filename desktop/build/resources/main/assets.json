@@ -141,8 +141,8 @@
 
       "ui:levelButtonsHoverState:level1ButtonHover": "ui/levelButtonsHoverState/levelButton1Hover.png",
       "ui:levelButtonsHoverState:level2ButtonHover": "ui/levelButtonsHoverState/levelButton2Hover.png",
-      "ui:levelButtonsHoverState:level3ButtonHover": "ui/levelButtonsHoverState/level3ButtonHover.png",
-      "ui:levelButtonsHoverState:level4ButtonHover": "ui/levelButtonsHoverState/level4ButtonHover.png",
+      "ui:levelButtonsHoverState:level3ButtonHover": "ui/levelButtonsHoverState/levelButton3Hover.png",
+      "ui:levelButtonsHoverState:level4ButtonHover": "ui/levelButtonsHoverState/levelButton4Hover.png",
 
 
       "ui:victory:levelSelectText": "ui/victory/levelSelect.png",
