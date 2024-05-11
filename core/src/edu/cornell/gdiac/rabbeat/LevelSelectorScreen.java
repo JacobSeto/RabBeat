@@ -231,12 +231,9 @@ public class LevelSelectorScreen extends ScreenAdapter {
                             case(4):
                                 hover4 = true;
                                 break;
-
                         }
-
-                        return true; // Returning true means that this event is handled
+                        return true;
                     }
-
 
                 });
 

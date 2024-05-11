@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -93,7 +94,16 @@ public class MainMenuScreen extends ScreenAdapter {
 
         playButton.setPosition((float) background.getWidth()/2 - playButton.getWidth()/2, 380);
 
-        playButton.addListener(new ClickListener() {
+        /** Listens for when the mouse moves over the button to switch to the hover state  for the play button*/
+        playButton.addListener(new InputListener() {
+            @Override
+            public boolean mouseMoved(InputEvent event, float x, float y) {
+                buttonSelected = "play";
+                return true;
+            }
+        });
+
+        playSelectImage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 listener.exitScreen(MainMenuScreen.this, GameController.GO_TO_LEVEL_SELECT);
@@ -105,8 +115,7 @@ public class MainMenuScreen extends ScreenAdapter {
         stage.addActor(playSelectImage);
         stage.addActor(playButton);
 
-
-        // options button
+        //options button
         /** The texture for the options button */
         Texture optionsButtonTexture = GameController.getInstance().objectController.optionsButton;
         TextButton.TextButtonStyle optionsTextButtonStyle = new TextButton.TextButtonStyle();
@@ -117,14 +126,23 @@ public class MainMenuScreen extends ScreenAdapter {
 
         optionsButton.setPosition((float) background.getWidth()/2 - optionsButton.getWidth()/2, 300);
 
-        optionsButton.addListener(new ClickListener() {
+        /** Listens for when the mouse moves over the button to switch to the hover state  for the options button*/
+        optionsButton.addListener(new InputListener() {
+            @Override
+            public boolean mouseMoved(InputEvent event, float x, float y) {
+                buttonSelected = "options";
+                return true;
+            }
+        });
+
+        optionsSelectImage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //TODO: GO TO OPTIONS SCREEN
             }
         });
 
-        optionsSelectImage.setPosition((float) background.getWidth()/2 - optionsSelectImage.getWidth()/2, optionsButton.getY() - 5);
+        optionsSelectImage.setPosition((float) background.getWidth()/2 - optionsSelectImage.getWidth()/2, optionsButton.getY()-10);
         stage.addActor(optionsSelectImage);
         stage.addActor(optionsButton);
 
@@ -138,14 +156,23 @@ public class MainMenuScreen extends ScreenAdapter {
 
         quitButton.setPosition((float) background.getWidth()/2 - quitButton.getWidth()/2, 220);
 
-        quitButton.addListener(new ClickListener() {
+        /** Listens for when the mouse moves over the button to switch to the hover state  for the options button*/
+        quitButton.addListener(new InputListener() {
+            @Override
+            public boolean mouseMoved(InputEvent event, float x, float y) {
+                buttonSelected = "quit";
+                return true;
+            }
+        });
+
+        quitSelectImage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 listener.exitScreen(MainMenuScreen.this, GameController.EXIT_QUIT);
             }
         });
 
-        quitSelectImage.setPosition((float) background.getWidth()/2 - quitSelectImage.getWidth()/2, quitButton.getY());
+        quitSelectImage.setPosition((float) background.getWidth()/2 - quitSelectImage.getWidth()/2, quitButton.getY()-10);
 
         stage.addActor(quitSelectImage);
         stage.addActor(quitButton);
@@ -156,13 +183,24 @@ public class MainMenuScreen extends ScreenAdapter {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
 
+        if(buttonSelected.equals("play")) {
+            playButton.setVisible(false);
+            optionsButton.setVisible(true);
+            quitButton.setVisible(true);
+        } else if(buttonSelected.equals("options")) {
+            playButton.setVisible(true);
+            optionsButton.setVisible(false);
+            quitButton.setVisible(true);
+        } else if(buttonSelected.equals("quit")) {
+            playButton.setVisible(true);
+            optionsButton.setVisible(true);
+            quitButton.setVisible(false);
+        }
+
         playSelectImage.setVisible(buttonSelected.equals("play"));
         optionsSelectImage.setVisible(buttonSelected.equals("options"));
         quitSelectImage.setVisible(buttonSelected.equals("quit"));
 
-        playButton.setVisible(!buttonSelected.equals("play"));
-        optionsSelectImage.setVisible(!buttonSelected.equals("options"));
-        quitSelectImage.setVisible(!buttonSelected.equals("quit"));
 
         handleInput();
     }
