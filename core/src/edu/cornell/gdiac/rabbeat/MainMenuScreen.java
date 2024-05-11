@@ -42,9 +42,9 @@ public class MainMenuScreen extends ScreenAdapter {
     private String buttonSelected = "play";
 
     /** TextButtons that represents the buttons */
-    TextButton playButton;
-    TextButton optionsButton;
-    TextButton quitButton;
+    private Image playButton;
+    private Image optionsButton;
+    private Image quitButton;
 
     /** Images for the buttons */
     private Image playSelectImage;
@@ -84,13 +84,15 @@ public class MainMenuScreen extends ScreenAdapter {
 
 
         // play button
-        /** The texture for the play button */
         Texture playButtonTexture = GameController.getInstance().objectController.playButton;
+        TextureRegionDrawable playButtonDrawable = new TextureRegionDrawable(new TextureRegion(playButtonTexture));
+        playButton = new Image(playButtonDrawable);
+
         BitmapFont font = new BitmapFont();
-        TextButton.TextButtonStyle playTextButtonStyle = new TextButton.TextButtonStyle();
-        playTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(playButtonTexture));
-        playTextButtonStyle.font = font;
-        playButton = new TextButton("", playTextButtonStyle);
+//        TextButton.TextButtonStyle playTextButtonStyle = new TextButton.TextButtonStyle();
+//        playTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(playButtonTexture));
+//        playTextButtonStyle.font = font;
+//        playButton = new TextButton("", playTextButtonStyle);
 
         playButton.setPosition((float) background.getWidth()/2 - playButton.getWidth()/2, 380);
 
@@ -116,13 +118,9 @@ public class MainMenuScreen extends ScreenAdapter {
         stage.addActor(playButton);
 
         //options button
-        /** The texture for the options button */
         Texture optionsButtonTexture = GameController.getInstance().objectController.optionsButton;
-        TextButton.TextButtonStyle optionsTextButtonStyle = new TextButton.TextButtonStyle();
-        optionsTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(
-                optionsButtonTexture));
-        optionsTextButtonStyle.font = font;
-        optionsButton = new TextButton("", optionsTextButtonStyle);
+        TextureRegionDrawable optionsButtonDrawable = new TextureRegionDrawable(new TextureRegion(optionsButtonTexture));
+        optionsButton = new Image(optionsButtonDrawable);
 
         optionsButton.setPosition((float) background.getWidth()/2 - optionsButton.getWidth()/2, 300);
 
@@ -149,10 +147,8 @@ public class MainMenuScreen extends ScreenAdapter {
         // quit button
         /** The texture for the quit button */
         Texture quitButtonTexture = GameController.getInstance().objectController.quitButton;
-        TextButton.TextButtonStyle quitTextButtonStyle = new TextButton.TextButtonStyle();
-        quitTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(quitButtonTexture));
-        quitTextButtonStyle.font = font;
-        quitButton = new TextButton("", quitTextButtonStyle);
+        TextureRegionDrawable quitButtonDrawable = new TextureRegionDrawable(new TextureRegion(quitButtonTexture));
+        quitButton = new Image(quitButtonDrawable);
 
         quitButton.setPosition((float) background.getWidth()/2 - quitButton.getWidth()/2, 220);
 
@@ -253,7 +249,6 @@ public class MainMenuScreen extends ScreenAdapter {
                     break;
                 case "options":
                     //TODO: add an options screen!
-
                     break;
                 case "quit":
                     listener.exitScreen(this, GameController.EXIT_QUIT);
