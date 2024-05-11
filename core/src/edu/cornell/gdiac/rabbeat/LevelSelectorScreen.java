@@ -133,10 +133,10 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     break;
                 case(3):
 //                    hoverButton.setPosition(420, background.getHeight()-hoverButton.getHeight()-227);
-                    levelButton.setPosition(483, background.getHeight()-levelButton.getHeight()-311);
+                    levelButton.setPosition(483, background.getHeight()-levelButton.getHeight()-311-3);
                     break;
                 case(4):
-                    levelButton.setPosition(475, background.getHeight()-levelButton.getHeight()-374);
+                    levelButton.setPosition(475, background.getHeight()-levelButton.getHeight()-374-10);
                     break;
                 case(5):
                     levelButton.setPosition(750, background.getHeight()-levelButton.getHeight()-214);
@@ -202,15 +202,15 @@ public class LevelSelectorScreen extends ScreenAdapter {
             }
 
 
-            levelButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
-                        GameController.getInstance().setCurrentLevelInt(finalI);
-                        listener.exitScreen(LevelSelectorScreen.this, 0);
-                    }
-                }
-            });
+//            levelButton.addListener(new ClickListener() {
+//                @Override
+//                public void clicked(InputEvent event, float x, float y) {
+//                    if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+//                        GameController.getInstance().setCurrentLevelInt(finalI);
+//                        listener.exitScreen(LevelSelectorScreen.this, 0);
+//                    }
+//                }
+//            });
 
             stage.addActor(levelButton);
 
@@ -257,26 +257,43 @@ public class LevelSelectorScreen extends ScreenAdapter {
                         }
 
                     });
+
+                    hoverImage1.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(1);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
+
                 } else if(i==2) {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(2);
                     hoverImage2 = new Image(hoverRegion);
                     hoverImage2.setPosition(464-20, background.getHeight()-hoverImage1.getHeight()-270+30);
 
-
                     hoverImage2.addListener(new InputListener() {
                         @Override
                         public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                            //if (!hitbox.contains(x+100, y)) {
-                            hover2 = false; // Update hover state
-                            //}
+                            hover2 = false;
                         }
 
+                    });
+
+                    hoverImage2.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(2);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
                     });
                 } else if(i == 3){
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(3);
                     hoverImage3 = new Image(hoverRegion);
                     hoverImage3.setPosition(485.5f-19, background.getHeight()-hoverImage3.getHeight()-315.5f+20);
-
 
                     hoverImage3.addListener(new InputListener() {
                         @Override
@@ -285,10 +302,20 @@ public class LevelSelectorScreen extends ScreenAdapter {
                         }
 
                     });
+
+                    hoverImage3.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(3);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
                 } else if(i == 4){
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(4);
                     hoverImage4 = new Image(hoverRegion);
-                    hoverImage4.setPosition(478f-19, background.getHeight()-hoverImage4.getHeight()-378+20);
+                    hoverImage4.setPosition(478f-19, background.getHeight()-hoverImage4.getHeight()-378+10);
 
 
                     hoverImage4.addListener(new InputListener() {

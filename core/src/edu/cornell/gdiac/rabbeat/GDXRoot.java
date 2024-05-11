@@ -44,7 +44,7 @@ public class GDXRoot extends Game implements ScreenListener {
 	private GameController controller;
 
 	/** Variable that represents the level selector screen */
-	private edu.cornell.gdiac.rabbeat.LevelSelectorScreen levelSelectorScreen;
+	private LevelSelectorScreen levelSelectorScreen;
 
 	/** Variable that represents the main menu screen */
 	private MainMenuScreen mainMenuScreen;
