@@ -88,13 +88,7 @@ public class MainMenuScreen extends ScreenAdapter {
         TextureRegionDrawable playButtonDrawable = new TextureRegionDrawable(new TextureRegion(playButtonTexture));
         playButton = new Image(playButtonDrawable);
 
-        BitmapFont font = new BitmapFont();
-//        TextButton.TextButtonStyle playTextButtonStyle = new TextButton.TextButtonStyle();
-//        playTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(playButtonTexture));
-//        playTextButtonStyle.font = font;
-//        playButton = new TextButton("", playTextButtonStyle);
-
-        playButton.setPosition((float) background.getWidth()/2 - playButton.getWidth()/2, 380);
+        playButton.setPosition((float) background.getWidth()/2 - playButton.getWidth()/2, 400);
 
         /** Listens for when the mouse moves over the button to switch to the hover state  for the play button*/
         playButton.addListener(new InputListener() {
@@ -122,7 +116,7 @@ public class MainMenuScreen extends ScreenAdapter {
         TextureRegionDrawable optionsButtonDrawable = new TextureRegionDrawable(new TextureRegion(optionsButtonTexture));
         optionsButton = new Image(optionsButtonDrawable);
 
-        optionsButton.setPosition((float) background.getWidth()/2 - optionsButton.getWidth()/2, 300);
+        optionsButton.setPosition((float) background.getWidth()/2 - optionsButton.getWidth()/2, 330);
 
         /** Listens for when the mouse moves over the button to switch to the hover state  for the options button*/
         optionsButton.addListener(new InputListener() {
@@ -150,7 +144,7 @@ public class MainMenuScreen extends ScreenAdapter {
         TextureRegionDrawable quitButtonDrawable = new TextureRegionDrawable(new TextureRegion(quitButtonTexture));
         quitButton = new Image(quitButtonDrawable);
 
-        quitButton.setPosition((float) background.getWidth()/2 - quitButton.getWidth()/2, 220);
+        quitButton.setPosition((float) background.getWidth()/2 - quitButton.getWidth()/2, 260);
 
         /** Listens for when the mouse moves over the button to switch to the hover state  for the options button*/
         quitButton.addListener(new InputListener() {
