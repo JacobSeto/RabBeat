@@ -93,6 +93,9 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	/** The jazz genre death animation for the player */
 	public Animation<TextureRegion> jazzDeathAnimation;
 
+	/** The transform animation for the player */
+	public Animation<TextureRegion> transformAnimation;
+
 	/** The player's current animation */
 	public Animation<TextureRegion> animation;
 	/** The elapsed time for animationUpdate */
@@ -424,24 +427,28 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 
 	@Override
 	public void genreUpdate(Genre genre) {
-		this.genre = genre;
-		if (genre == Genre.SYNTH) {
-			maxspeed = synthSpeed;
-			jumpForce = jumpForceSynth;
+		if (this.genre != genre) {
+			this.genre = genre;
+			if (genre == Genre.SYNTH) {
+				maxspeed = synthSpeed;
+				jumpForce = jumpForceSynth;
+			} else {
+				maxspeed = jazzSpeed;
+				jumpForce = jumpForceJazz;
+			}
+			//genreSwitchCooldown = true;
 		}
-		else{
-			maxspeed = jazzSpeed;
-			jumpForce = jumpForceJazz;
-		}
-		genreSwitchCooldown = true;
 	}
 
 	/**
 	 * Updates the animation based on the physics state.
 	 */
 	private void animationUpdate() {
+		if (!animation.isAnimationFinished(stateTime) && !isDying && !animationIsDying) {
+			return;
+		}
+
 		if (isDying && !animationIsDying) {
-			stateTime = 0;
 			switch (genre) {
 				case SYNTH:
 					setAnimation(synthDeathAnimation);
@@ -453,7 +460,6 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 			animationIsDying = true;
 		} else if (isJumping && !animationIsDying && isGrounded) {
 			animationIsJumping = true;
-			stateTime = 0;
 			switch (genre) {
 				case SYNTH:
 					setAnimation(synthJumpAnimation);
@@ -466,7 +472,9 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 
 		if (animationIsDying) {
 			if (jazzDeathAnimation.isAnimationFinished(stateTime) || synthDeathAnimation.isAnimationFinished(stateTime)) {
-				GameController.getInstance().setFailure(true);
+				if (!GameController.getInstance().isFailure()){
+					GameController.getInstance().setFailure(true);
+				}
 				animationIsDying = false;
 			}
 		} else {

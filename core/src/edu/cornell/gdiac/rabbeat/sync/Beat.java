@@ -10,7 +10,7 @@ public class Beat implements ISynced {
 
     public Array<Float> beatLatencyList = new Array<>();
     /** The amount of time that has passed between each beat*/
-    float beatDT;
+    public float beatDT;
 
     /**
      * Adds the delta in update into beatDT
@@ -33,7 +33,6 @@ public class Beat implements ISynced {
         }
         if(GameController.getInstance().inCalibration){
             AddDelay(beatDT);
-            beatDT = 0;
         }
     }
 
@@ -46,5 +45,8 @@ public class Beat implements ISynced {
     public int getBeatCount(){
         return beatCount;
     }
+
+    /** Returns the beat in string form out of 4*/
+    public int getBeatFour(){return (beatCount % 4 + 1);}
 
 }
