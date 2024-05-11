@@ -93,7 +93,7 @@
           "world:laserOverlay" : "world/lasers/laserOverlay.png",
           "world:laserGlow" : "world/lasers/laserGlow.png",
 
-      "world:checkpoints:checkpointInactive": "world/checkpoints/checkpointInactive.png",
+      "world:checkpoints:checkpointTile": "world/checkpoints/checkpointTile.png",
       "world:goal": "world/goal.png",
 
       "ui:synthIndicator": "ui/synth-indicator.png",
@@ -111,6 +111,15 @@
       "ui:pause:unhoverUpSound": "ui/pause/unhoverUpSound.png",
       "ui:pause:volumeBox": "ui/pause/volumeBox.png",
       "ui:blackGradient": "ui/blackGradient.png",
+      "ui:backButton": "ui/backButton.png",
+
+      "ui:calibration:calibrateText": "ui/calibration/calibrateText.png",
+      "ui:calibration:audioDelayDisplay": "ui/calibration/audioDelayDisplay.png",
+      "ui:calibration:offBeat": "ui/calibration/offBeat.png",
+      "ui:calibration:onBeat": "ui/calibration/onBeat.png",
+      "ui:calibration:tapText": "ui/calibration/tapText.png",
+      "ui:calibration:pressSpace": "ui/calibration/pressSpace.png",
+      "ui:calibration:pressSpaceBeat": "ui/calibration/pressSpaceBeat.png",
 
       "ui:unlockedLevels:unlockedLevel1": "ui/unlockedLevels/unlockedLevel1.png",
       "ui:unlockedLevels:unlockedLevel2": "ui/unlockedLevels/unlockedLevel2.png",
@@ -144,7 +153,6 @@
       "ui:levelButtonsHoverState:level3ButtonHover": "ui/levelButtonsHoverState/levelButton3Hover.png",
       "ui:levelButtonsHoverState:level4ButtonHover": "ui/levelButtonsHoverState/levelButton4Hover.png",
 
-
       "ui:victory:levelSelectText": "ui/victory/levelSelect.png",
       "ui:victory:nextLevelText": "ui/victory/nextLevel.png",
       "ui:victory:star": "ui/victory/star.png",
@@ -160,6 +168,11 @@
       "ui:mainMenuScreen:select": "ui/mainMenuScreen/select.png",
       "ui:mainMenuScreen:mainMenuBackground": "ui/mainMenuScreen/mainMenuBackground.png",
       "ui:holderBackground": "ui/holderBackground.png",
+
+      "ui:victoryScreen": "ui/victory/victoryScreen.png",
+          "ui:lvl1VS": "ui/victory/level1VS.png",
+          "ui:lvl4VS": "ui/victory/level4VS.png",
+          "ui:lvl6VS": "ui/victory/level6VS.png",
 
       "player:synth":  "player/synth.png",
       "player:synth-jazz":   "player/synth-jazz.png",
@@ -199,6 +212,7 @@
       "world:pods:octpod1": "world/pods/octpod1.png",
       "world:pods:wolfpod1": "world/pods/wolfpod1.png",
       "world:pods:wolfpod2": "world/pods/wolfpod2.png",
+      "world:pods:pod": "world/pods/pod.png",
 
       "world:pipes:bigpipe" : "world/pipes/bigpipe.png",
       "world:pipes:bigpipetv" : "world/pipes/bigpipetv.png",
@@ -303,6 +317,11 @@
       "world:neonLights:neon_9": "world/neonLights/neon_9.png",
       "world:neonLights:neon_10": "world/neonLights/neon_10.png",
       "world:neonLights:neon_11": "world/neonLights/neon_11.png",
+      "world:neonLights:neon_12": "world/neonLights/neon_12.png",
+      "world:neonLights:neon_13": "world/neonLights/neon_13.png",
+      "world:neonLights:neon_14": "world/neonLights/neon_14.png",
+      "world:neonLights:neon_15": "world/neonLights/neon_15.png",
+
 
       "world:other:tv": "world/other/tv.png",
       "world:other:ceilingCamera": "world/other/ceilingCamera.png",
@@ -311,7 +330,7 @@
       "world:other:cam_2": "world/other/cam_2.PNG",
       "world:other:fan_0": "world/other/fan_0.png",
       "world:other:fan_1": "world/other/fan_1.png",
-      "world:other:windows_0": "world/other/windows_0.PNG",
+      "world:other:windows_0": "world/other/windows_0.png",
       "world:other:windows_1": "world/other/window_1.png",
       "world:other:windows_2": "world/other/window_2.png",
       "world:other:trash_0": "world/other/trash_0.png",
@@ -333,26 +352,45 @@
       "world:other:vinyl_3": "world/other/vinyl_3.png",
       "world:other:vinyl_4": "world/other/vinyl_4.png",
       "world:other:album_0": "world/other/album_0.png",
-      "world:other:chand_0": "world/other/chand_0.png"
+      "world:other:chand_0": "world/other/chand_0.png",
+      "world:other:jazzDeath": "world/other/jazzDeath.png",
+
+      "world:tutorial:arrowLeft" : "world/tutorial/arrowLeft.png",
+      "world:tutorial:arrowRight" : "world/tutorial/arrowRight.png",
+      "world:tutorial:arrowUp" : "world/tutorial/arrowUp.png",
+      "world:tutorial:shift" : "world/tutorial/shift.png",
+      "world:tutorial:tutorialText1" : "world/tutorial/tutorialText1.png",
+      "world:tutorial:tutorialText2" : "world/tutorial/tutorialText2.png",
+      "world:tutorial:tutorialText3" : "world/tutorial/tutorialText3.png",
+      "world:tutorial:tutorialText4" : "world/tutorial/tutorialText4.png",
+      "world:tutorial:tutorialText5" : "world/tutorial/tutorialText5.png",
+      "world:tutorial:tutorialText6" : "world/tutorial/tutorialText6.png",
+      "world:tutorial:tutorialText7" : "world/tutorial/tutorialText7.png",
+      "world:tutorial:tutorialText8" : "world/tutorial/tutorialText8.png"
     },
     "jsons"  : {
         "defaultConstants": "defaultConstants.json",
-        "example": "levelsJson/BenLevel2.tmj",
-        "level1": "levelsJson/ericEasyLevel.tmj",
-        "level2": "levelsJson/benLevel2.tmj",
-        "level3": "levelsJson/rabbeatLevelBat.tmj",
-        "level4": "levelsJson/ImprovedBeeLevel.tmj",
+        "level1": "levelsJson/tutorial1.tmj",
+        "level2": "levelsJson/tutorial2.tmj",
+        "level3": "levelsJson/ericEasyLevel.tmj",
+        "level4": "levelsJson/EricBearLevel2.tmj",
         "level5": "levelsJson/EricLaserLevel.tmj",
-        "level6": "levelsJson/EricBearLevel2.tmj",
+        "level6": "levelsJson/rabbeatLevelBat.tmj",
         "level7": "levelsJson/EricMediumLevel.tmj",
-        "level8": "levelsJson/EricMediumLevel.tmj",
-        "level9": "levelsJson/EricMediumLevel.tmj",
-        "level10": "levelsJson/EricMediumLevel.tmj",
-        "level11": "levelsJson/EricMediumLevel.tmj",
-        "level12": "levelsJson/EricMediumLevel.tmj"
+        "level8": "levelsJson/tutorial1.tmj",
+        "level9": "levelsJson/tutorial1.tmj",
+        "level10": "levelsJson/tutorial1.tmj",
+        "level11": "levelsJson/tutorial1.tmj",
+        "level12": "levelsJson/tutorial1.tmj"
     },
     "sounds": {
-      "sfx:genreSwitch": "sfx/genre_switch_woosh.wav"
+      "sfx:genreSwitch": "sfx/genre_switch_woosh.wav",
+          "sfx:checkpoint2": "sfx/checkpoint2.wav",
+          "sfx:checkpoint3": "sfx/checkpoint3.wav",
+          "sfx:jump2": "sfx/jump2.wav",
+          "sfx:death": "sfx/death.wav",
+          "sfx:menubutton": "sfx/menu_button.wav",
+          "sfx:menutransition": "sfx/menu_transition.wav"
     },
     "music" : {
           "music:mainmenu": "music/main_menu.ogg",
@@ -364,7 +402,7 @@
     "fonts": {
         "fonts:retro": {
             "file": "fonts/RetroGame.ttf",
-            "size": 64
+            "size": 48
         }
     },
   "atlas": {
