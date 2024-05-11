@@ -168,8 +168,6 @@
 
       "ui:mainMenuScreen:select": "ui/mainMenuScreen/select.png",
       "ui:mainMenuScreen:mainMenuBackground": "ui/mainMenuScreen/mainMenuBackground.png",
-      "ui:holderBackground": "ui/holderBackground.png",
-
 
       "player:synth":  "player/synth.png",
       "player:synth-jazz":   "player/synth-jazz.png",
