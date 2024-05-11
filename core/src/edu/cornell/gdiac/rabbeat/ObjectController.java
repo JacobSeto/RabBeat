@@ -253,8 +253,11 @@ public class ObjectController {
     /** The texture for the quit button */
     public Texture quitButton;
 
-    /** The texture for the select */
+    /** The textures for the main menu button hover states */
     public Texture select;
+    public Texture playSelect;
+    public Texture optionsSelect;
+    public Texture quitSelect;
 
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
@@ -443,11 +446,16 @@ public class ObjectController {
         levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));
         victoryLogo = new TextureRegion(directory.getEntry("ui:victory:victoryLogo",Texture.class));
 
-        optionsButton = directory.getEntry("ui:maineMenuScreen:optionsButton",Texture.class);
-        playButton = directory.getEntry("ui:maineMenuScreen:playButton",Texture.class);
-        quitButton = directory.getEntry("ui:maineMenuScreen:quitButton",Texture.class);
-        select = directory.getEntry("ui:maineMenuScreen:select",Texture.class);
-        mainMenuBackground = directory.getEntry("ui:maineMenuScreen:mainMenuBackground",Texture.class);
+        optionsButton = directory.getEntry("ui:mainMenuScreen:optionsButton",Texture.class);
+        playButton = directory.getEntry("ui:mainMenuScreen:playButton",Texture.class);
+        quitButton = directory.getEntry("ui:mainMenuScreen:quitButton",Texture.class);
+        playSelect = directory.getEntry("ui:mainMenuScreen:playButtonHover",Texture.class);
+        optionsSelect = directory.getEntry("ui:mainMenuScreen:optionsButtonHover",Texture.class);
+        quitSelect = directory.getEntry("ui:mainMenuScreen:quitButtonHover",Texture.class);
+
+        select = directory.getEntry("ui:mainMenuScreen:select",Texture.class);
+        mainMenuBackground = directory.getEntry("ui:mainMenuScreen:mainMenuBackground",Texture.class);
+
 
         level1 = directory.getEntry("ui:level1", Texture.class);
 

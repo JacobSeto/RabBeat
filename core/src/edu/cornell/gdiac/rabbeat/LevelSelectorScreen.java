@@ -59,7 +59,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
     public LevelSelectorScreen(Game game) {
         this.game = game;
         Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
-
         GameController.getInstance().setLevelsUnlocked(prefs.getInteger("levelsUnlocked", 1));
     }
 

@@ -410,12 +410,6 @@ public class InputController {
 		calibrationPressed = (secondary && calibrationPressed) || (Gdx.input.isKeyPressed(Input.Keys.V));
 		switchPressed = (secondary && switchPressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT));
 		spacePressed = (secondary && spacePressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SPACE));
-		//TO SET ALL LEVELS TO COMPLETE
-		if(Gdx.input.isKeyPressed(Keys.K)) {
-			Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
-			prefs.putInteger("levelsUnlocked", 1);
-			prefs.flush();
-		}
 
 
 		// Directional controls

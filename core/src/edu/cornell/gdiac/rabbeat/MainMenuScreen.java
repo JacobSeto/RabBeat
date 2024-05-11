@@ -40,6 +40,11 @@ public class MainMenuScreen extends ScreenAdapter {
     /** String that represents what button the select is behind */
     private String buttonSelected = "play";
 
+    /** TextButtons that represents the buttons */
+    TextButton playButton;
+    TextButton optionsButton;
+    TextButton quitButton;
+
     /** Images for the buttons */
     private Image playSelectImage;
     private Image optionsSelectImage;
@@ -64,11 +69,17 @@ public class MainMenuScreen extends ScreenAdapter {
         bg.setPosition(0, 0);
         stage.addActor(bg);
 
-        Texture selectTexture = GameController.getInstance().objectController.select;
-        TextureRegionDrawable selectDrawable = new TextureRegionDrawable(new TextureRegion(selectTexture));
-        playSelectImage = new Image(selectDrawable);
-        optionsSelectImage = new Image(selectDrawable);
-        quitSelectImage = new Image(selectDrawable);
+        Texture playSelectTexture = GameController.getInstance().objectController.playSelect;
+        TextureRegionDrawable playSelectDrawable = new TextureRegionDrawable(new TextureRegion(playSelectTexture));
+        playSelectImage = new Image(playSelectDrawable);
+
+        Texture optionsSelectTexture = GameController.getInstance().objectController.optionsSelect;
+        TextureRegionDrawable optionsSelectDrawable = new TextureRegionDrawable(new TextureRegion(optionsSelectTexture));
+        optionsSelectImage = new Image(optionsSelectDrawable);
+
+        Texture quitSelectTexture = GameController.getInstance().objectController.quitSelect;
+        TextureRegionDrawable quitSelectDrawable = new TextureRegionDrawable(new TextureRegion(quitSelectTexture));
+        quitSelectImage = new Image(quitSelectDrawable);
 
 
         // play button
@@ -78,7 +89,7 @@ public class MainMenuScreen extends ScreenAdapter {
         TextButton.TextButtonStyle playTextButtonStyle = new TextButton.TextButtonStyle();
         playTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(playButtonTexture));
         playTextButtonStyle.font = font;
-        TextButton playButton = new TextButton("", playTextButtonStyle);
+        playButton = new TextButton("", playTextButtonStyle);
 
         playButton.setPosition((float) background.getWidth()/2 - playButton.getWidth()/2, 380);
 
@@ -89,7 +100,7 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
-        playSelectImage.setPosition((float) background.getWidth()/2 - playSelectImage.getWidth()/2, playButton.getY()-5);
+        playSelectImage.setPosition((float) background.getWidth()/2 - playSelectImage.getWidth()/2, playButton.getY()-10);
 
         stage.addActor(playSelectImage);
         stage.addActor(playButton);
@@ -102,7 +113,7 @@ public class MainMenuScreen extends ScreenAdapter {
         optionsTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(
                 optionsButtonTexture));
         optionsTextButtonStyle.font = font;
-        TextButton optionsButton = new TextButton("", optionsTextButtonStyle);
+        optionsButton = new TextButton("", optionsTextButtonStyle);
 
         optionsButton.setPosition((float) background.getWidth()/2 - optionsButton.getWidth()/2, 300);
 
@@ -123,7 +134,7 @@ public class MainMenuScreen extends ScreenAdapter {
         TextButton.TextButtonStyle quitTextButtonStyle = new TextButton.TextButtonStyle();
         quitTextButtonStyle.up = new TextureRegionDrawable(new TextureRegion(quitButtonTexture));
         quitTextButtonStyle.font = font;
-        TextButton quitButton = new TextButton("", quitTextButtonStyle);
+        quitButton = new TextButton("", quitTextButtonStyle);
 
         quitButton.setPosition((float) background.getWidth()/2 - quitButton.getWidth()/2, 220);
 
@@ -134,7 +145,7 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
-        quitSelectImage.setPosition((float) background.getWidth()/2 - quitSelectImage.getWidth()/2, quitButton.getY() - 5);
+        quitSelectImage.setPosition((float) background.getWidth()/2 - quitSelectImage.getWidth()/2, quitButton.getY());
 
         stage.addActor(quitSelectImage);
         stage.addActor(quitButton);
@@ -148,6 +159,10 @@ public class MainMenuScreen extends ScreenAdapter {
         playSelectImage.setVisible(buttonSelected.equals("play"));
         optionsSelectImage.setVisible(buttonSelected.equals("options"));
         quitSelectImage.setVisible(buttonSelected.equals("quit"));
+
+        playButton.setVisible(!buttonSelected.equals("play"));
+        optionsSelectImage.setVisible(!buttonSelected.equals("options"));
+        quitSelectImage.setVisible(!buttonSelected.equals("quit"));
 
         handleInput();
     }
