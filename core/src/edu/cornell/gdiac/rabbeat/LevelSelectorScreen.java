@@ -501,7 +501,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     });
 
                 } else if (i == 12) {
-                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(6);
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(12);
                     hoverImage12 = new Image(hoverRegion);
                     hoverImage12.setPosition(1034.5f - 16,
                             background.getHeight() - hoverImage12.getHeight() - 389.5f + 16);
@@ -609,7 +609,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
             } else if(hover4) {
                 hover4 = false;
                 hover5 = true;
-            } if(hover5) {
+            } else if(hover5) {
                 hover5 = false;
                 hover6 = true;
             } else if(hover6) {
@@ -621,7 +621,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
             } else if(hover8) {
                 hover8 = false;
                 hover9 = true;
-            } if(hover9) {
+            } else if(hover9) {
                 hover9 = false;
                 hover10 = true;
             } else if(hover10) {
@@ -644,7 +644,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
             } else if(hover9) {
                 hover9 = false;
                 hover8 = true;
-            } if(hover8) {
+            } else if(hover8) {
                 hover8 = false;
                 hover7 = true;
             } else if(hover7) {
@@ -656,7 +656,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
             } else if(hover5) {
                 hover5 = false;
                 hover4 = true;
-            } if(hover4) {
+            } else if(hover4) {
                 hover4 = false;
                 hover3 = true;
             } else if(hover3) {
