@@ -2,6 +2,8 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -41,6 +43,14 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private boolean hover2 = false;
     private boolean hover3 = false;
     private boolean hover4 = false;
+    private boolean hover5 = false;
+    private boolean hover6 = false;
+    private boolean hover7 = false;
+    private boolean hover8 = false;
+    private boolean hover9 = false;
+    private boolean hover10 = false;
+    private boolean hover11 = false;
+    private boolean hover12 = false;
 
     private Texture hoverRegion;
 
@@ -49,6 +59,14 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private Image hoverImage2;
     private Image hoverImage3;
     private Image hoverImage4;
+    private Image hoverImage5;
+    private Image hoverImage6;
+    private Image hoverImage7;
+    private Image hoverImage8;
+    private Image hoverImage9;
+    private Image hoverImage10;
+    private Image hoverImage11;
+    private Image hoverImage12;
 
     /** Reference to the numberOfLevels variable in GameController */
     private final int numberOfLevels = GameController.getInstance().getNumberOfLevels();
@@ -97,29 +115,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
             textButtonStyle.up = buttonDrawable;
             textButtonStyle.font = font;
             TextButton levelButton = new TextButton("", textButtonStyle);
-
-
-
-//
-//            hoverImage.addListener(new InputListener() {
-//                @Override
-//                public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-//                    //if (!hitbox.contains(x+100, y)) {
-//                        hover = false; // Update hover state
-//                    //}
-//                }
-//            });
-
-//            Texture buttonTexture2 = GameController.getInstance().objectController.getLevelButtonHoverTexture(finalI);
-//            TextureRegionDrawable buttonDrawable2 = new TextureRegionDrawable(new TextureRegion(buttonTexture2));
-//            BitmapFont font2 = new BitmapFont();
-//            TextButton.TextButtonStyle textButtonStyle2 = new TextButton.TextButtonStyle();
-//            textButtonStyle2.up = buttonDrawable2;
-//            textButtonStyle2.font = font2;
-//            hoverButton = new TextButton("", textButtonStyle2);
-//            //hoverButton.setPosition(415, background.getHeight()-hoverButton.getHeight()-161);
-//            stage.addActor(hoverButton);
-
 
             switch(i) {
                 case(1):
@@ -218,18 +213,56 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 levelButton.addListener(new InputListener() {
                     @Override
                     public boolean mouseMoved(InputEvent event, float x, float y) {
-                        switch(finalI) {
-                            case(1):
+                        hover1 = false;
+                        hover2 = false;
+                        hover3 = false;
+                        hover4 = false;
+                        hover5 = false;
+                        hover6 = false;
+                        hover7 = false;
+                        hover8 = false;
+                        hover9 = false;
+                        hover10 = false;
+                        hover11 = false;
+                        hover12 = false;
+
+                        switch (finalI) {
+                            case (1):
                                 hover1 = true;
                                 break;
-                            case(2):
+                            case (2):
                                 hover2 = true;
                                 break;
-                            case(3):
+                            case (3):
                                 hover3 = true;
                                 break;
-                            case(4):
+                            case (4):
                                 hover4 = true;
+                                break;
+                            case (5):
+                                hover5 = true;
+                                break;
+                            case (6):
+                                hover6 = true;
+                                break;
+                            case (7):
+                                hover7 = true;
+                                break;
+                            case (8):
+                                hover8 = true;
+                                break;
+                            case (9):
+                                hover9 = true;
+                                break;
+                                //TODO: ENTER
+                            case (10):
+                                hover10 = true;
+                                break;
+                            case (11):
+                                hover11 = true;
+                                break;
+                            case (12):
+                                hover12 = true;
                                 break;
                         }
                         return true;
@@ -237,19 +270,18 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
                 });
 
-
-
-                if(i==1) {
-                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(1);
+                if (i == 1) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
+                            1);
                     hoverImage1 = new Image(hoverRegion);
-                    hoverImage1.setPosition(411+62-15, background.getHeight()-hoverImage1.getHeight()-161-37+15);
+                    hoverImage1.setPosition(411 + 62 - 15,
+                            background.getHeight() - hoverImage1.getHeight() - 161 - 37 + 15);
 
                     hoverImage1.addListener(new InputListener() {
                         @Override
-                        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                            //if (!hitbox.contains(x+100, y)) {
-                            hover1 = false; // Update hover state
-                            //}
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
+                            hover1 = false;
                         }
 
                     });
@@ -264,14 +296,17 @@ public class LevelSelectorScreen extends ScreenAdapter {
                         }
                     });
 
-                } else if(i==2) {
-                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(2);
+                } else if (i == 2) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
+                            2);
                     hoverImage2 = new Image(hoverRegion);
-                    hoverImage2.setPosition(464-20, background.getHeight()-hoverImage1.getHeight()-270+30);
+                    hoverImage2.setPosition(464 - 20,
+                            background.getHeight() - hoverImage1.getHeight() - 270 + 30);
 
                     hoverImage2.addListener(new InputListener() {
                         @Override
-                        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
                             hover2 = false;
                         }
 
@@ -286,14 +321,17 @@ public class LevelSelectorScreen extends ScreenAdapter {
                             }
                         }
                     });
-                } else if(i == 3){
-                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(3);
+                } else if (i == 3) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
+                            3);
                     hoverImage3 = new Image(hoverRegion);
-                    hoverImage3.setPosition(485.5f-19, background.getHeight()-hoverImage3.getHeight()-315.5f+20);
+                    hoverImage3.setPosition(485.5f - 19,
+                            background.getHeight() - hoverImage3.getHeight() - 315.5f + 20);
 
                     hoverImage3.addListener(new InputListener() {
                         @Override
-                        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
                             hover3 = false;
                         }
 
@@ -308,30 +346,243 @@ public class LevelSelectorScreen extends ScreenAdapter {
                             }
                         }
                     });
-                } else if(i == 4){
-                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(4);
+                } else if (i == 4) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
+                            4);
                     hoverImage4 = new Image(hoverRegion);
-                    hoverImage4.setPosition(478f-19, background.getHeight()-hoverImage4.getHeight()-378+10);
-
+                    hoverImage4.setPosition(478f - 19,
+                            background.getHeight() - hoverImage4.getHeight() - 378 + 10);
 
                     hoverImage4.addListener(new InputListener() {
                         @Override
-                        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
                             hover4 = false;
                         }
 
                     });
-                }
 
+                    hoverImage4.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(4);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
+                } else if (i == 5) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
+                            5);
+                    hoverImage5 = new Image(hoverRegion);
+                    hoverImage5.setPosition(478f - 19,
+                            background.getHeight() - hoverImage5.getHeight() - 378 + 10);
+
+                    hoverImage5.addListener(new InputListener() {
+                        @Override
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
+                            hover5 = false;
+                        }
+
+                    });
+
+                    hoverImage5.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(5);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
+
+                } else if (i == 6) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(6);
+                    hoverImage6 = new Image(hoverRegion);
+                    hoverImage6.setPosition(478f - 19,
+                            background.getHeight() - hoverImage6.getHeight() - 378 + 10);
+
+                    hoverImage6.addListener(new InputListener() {
+                        @Override
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
+                            hover6 = false;
+                        }
+
+                    });
+
+                    hoverImage6.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(6);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
+                } else if (i == 7) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
+                            7);
+                    hoverImage7 = new Image(hoverRegion);
+                    hoverImage7.setPosition(411 + 62 - 15,
+                            background.getHeight() - hoverImage7.getHeight() - 161 - 37 + 15);
+
+                    hoverImage7.addListener(new InputListener() {
+                        @Override
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
+                            hover7 = false;
+                        }
+
+                    });
+
+                    hoverImage7.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(7);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
+
+                } else if (i == 8) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
+                            8);
+                    hoverImage8 = new Image(hoverRegion);
+                    hoverImage8.setPosition(464 - 20,
+                            background.getHeight() - hoverImage8.getHeight() - 270 + 30);
+
+                    hoverImage8.addListener(new InputListener() {
+                        @Override
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
+                            hover8 = false;
+                        }
+
+                    });
+
+                    hoverImage8.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(8);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
+                } else if (i == 9) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
+                            9);
+                    hoverImage9 = new Image(hoverRegion);
+                    hoverImage9.setPosition(485.5f - 19,
+                            background.getHeight() - hoverImage9.getHeight() - 315.5f + 20);
+
+                    hoverImage9.addListener(new InputListener() {
+                        @Override
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
+                            hover9 = false;
+                        }
+
+                    });
+
+                    hoverImage9.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(9);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
+                } else if (i == 10) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
+                            10);
+                    hoverImage10 = new Image(hoverRegion);
+                    hoverImage10.setPosition(478f - 19,
+                            background.getHeight() - hoverImage10.getHeight() - 378 + 10);
+
+                    hoverImage10.addListener(new InputListener() {
+                        @Override
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
+                            hover10 = false;
+                        }
+
+                    });
+
+                    hoverImage10.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(10);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
+                } else if (i == 11) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
+                            11);
+                    hoverImage11 = new Image(hoverRegion);
+                    hoverImage11.setPosition(478f - 19,
+                            background.getHeight() - hoverImage11.getHeight() - 378 + 10);
+
+                    hoverImage11.addListener(new InputListener() {
+                        @Override
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
+                            hover11 = false;
+                        }
+
+                    });
+
+                    hoverImage11.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(11);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
+
+                } else if (i == 12) {
+                    hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(6);
+                    hoverImage12 = new Image(hoverRegion);
+                    hoverImage12.setPosition(478f - 19,
+                            background.getHeight() - hoverImage12.getHeight() - 378 + 10);
+
+                    hoverImage12.addListener(new InputListener() {
+                        @Override
+                        public void exit(InputEvent event, float x, float y, int pointer,
+                                Actor toActor) {
+                            hover12 = false;
+                        }
+
+                    });
+
+                    hoverImage12.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
+                                GameController.getInstance().setCurrentLevelInt(12);
+                                listener.exitScreen(LevelSelectorScreen.this, 0);
+                            }
+                        }
+                    });
+                }
             }
 
-
         }
-
+        //TODO: make sure to add condition testing whether the level is unlocked!!
 
     }
 
     public void render(float delta) {
+        handleInput();
+
         hoverImage1.setVisible(hover1);
         hoverImage2.setVisible(hover2);
         hoverImage3.setVisible(hover3);
@@ -363,6 +614,111 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
     public void setListener (ScreenListener listener) {
         this.listener = listener;
+    }
+
+    /** reads the data from the input keys and changes the buttonSelected String accordingly */
+    public void handleInput() {
+        if(!hover1 && !hover2 && !hover3 && !hover4 && !hover5 && !hover6 && !hover7 && !hover8 && !hover9 && !hover10 && !hover11 && !hover12)
+            hover1 = true;
+        else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            if(hover1) {
+                hover1 = false;
+                hover2 = true;
+            } else if(hover2) {
+                hover2 = false;
+                hover3 = true;
+            } else if(hover3) {
+                hover3 = false;
+                hover4 = true;
+            } else if(hover4) {
+                hover4 = false;
+                hover5 = true;
+            } if(hover5) {
+                hover5 = false;
+                hover6 = true;
+            } else if(hover6) {
+                hover6 = false;
+                hover7 = true;
+            } else if(hover7) {
+                hover7 = false;
+                hover8 = true;
+            } else if(hover8) {
+                hover8 = false;
+                hover9 = true;
+            } if(hover9) {
+                hover9 = false;
+                hover10 = true;
+            } else if(hover10) {
+                hover10 = false;
+                hover11 = true;
+            } else if(hover11) {
+                hover11 = false;
+                hover12 = true;
+            }
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            if(hover12) {
+                hover12 = false;
+                hover11 = true;
+            } else if(hover11) {
+                hover11 = false;
+                hover10 = true;
+            } else if(hover10) {
+                hover10 = false;
+                hover9 = true;
+            } else if(hover9) {
+                hover9 = false;
+                hover8 = true;
+            } if(hover8) {
+                hover8 = false;
+                hover7 = true;
+            } else if(hover7) {
+                hover7 = false;
+                hover6 = true;
+            } else if(hover6) {
+                hover6 = false;
+                hover5 = true;
+            } else if(hover5) {
+                hover5 = false;
+                hover4 = true;
+            } if(hover4) {
+                hover4 = false;
+                hover3 = true;
+            } else if(hover3) {
+                hover3 = false;
+                hover2 = true;
+            } else if(hover2) {
+                hover2 = false;
+                hover1 = true;
+            }
+        }else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            if(hover1) {
+                GameController.getInstance().setCurrentLevelInt(1);
+            } else if(hover2) {
+                GameController.getInstance().setCurrentLevelInt(2);
+            } else if(hover3) {
+                GameController.getInstance().setCurrentLevelInt(3);
+            } else if(hover4) {
+                GameController.getInstance().setCurrentLevelInt(4);
+            } if(hover5) {
+                GameController.getInstance().setCurrentLevelInt(5);
+            } else if(hover6) {
+                GameController.getInstance().setCurrentLevelInt(6);
+            } else if(hover7) {
+                GameController.getInstance().setCurrentLevelInt(7);
+            } else if(hover8) {
+                GameController.getInstance().setCurrentLevelInt(8);
+            } if(hover9) {
+                GameController.getInstance().setCurrentLevelInt(9);
+            } else if(hover10) {
+                GameController.getInstance().setCurrentLevelInt(10);
+            } else if(hover11) {
+                GameController.getInstance().setCurrentLevelInt(11);
+            } else if(hover12) {
+                GameController.getInstance().setCurrentLevelInt(12);
+            }
+
+            listener.exitScreen(LevelSelectorScreen.this, 0);
+        }
     }
 
 }
