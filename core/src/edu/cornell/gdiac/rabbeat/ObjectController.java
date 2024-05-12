@@ -506,6 +506,14 @@ public class ObjectController {
         levelButtonHover2 = directory.getEntry("ui:levelButtonsHoverState:level2ButtonHover", Texture.class);
         levelButtonHover3 = directory.getEntry("ui:levelButtonsHoverState:level3ButtonHover", Texture.class);
         levelButtonHover4 = directory.getEntry("ui:levelButtonsHoverState:level4ButtonHover", Texture.class);
+        levelButtonHover5 = directory.getEntry("ui:levelButtonsHoverState:level5ButtonHover", Texture.class);
+        levelButtonHover6 = directory.getEntry("ui:levelButtonsHoverState:level6ButtonHover", Texture.class);
+        levelButtonHover7 = directory.getEntry("ui:levelButtonsHoverState:level7ButtonHover", Texture.class);
+        levelButtonHover8 = directory.getEntry("ui:levelButtonsHoverState:level8ButtonHover", Texture.class);
+        levelButtonHover9 = directory.getEntry("ui:levelButtonsHoverState:level9ButtonHover", Texture.class);
+        levelButtonHover10 = directory.getEntry("ui:levelButtonsHoverState:level10ButtonHover", Texture.class);
+        levelButtonHover11 = directory.getEntry("ui:levelButtonsHoverState:level11ButtonHover", Texture.class);
+        levelButtonHover12 = directory.getEntry("ui:levelButtonsHoverState:level12ButtonHover", Texture.class);
 
         victoryScreenBackground = new TextureRegion(directory.getEntry("ui:victoryScreen", Texture.class));
         level1VS = new TextureRegion(directory.getEntry("ui:lvl1VS", Texture.class));
@@ -1941,14 +1949,14 @@ public class ObjectController {
             case(2): return levelButtonHover2;
             case(3): return levelButtonHover3;
             case(4): return levelButtonHover4;
-            case(5): return levelButtonHover1;
-            case(6): return levelButtonHover1;
-            case(7): return levelButtonHover1;
-            case(8): return levelButtonHover1;
-            case(9): return levelButtonHover1;
-            case(10): return levelButtonHover1;
-            case(11): return levelButtonHover1;
-            case(12): return levelButtonHover1;
+            case(5): return levelButtonHover5;
+            case(6): return levelButtonHover6;
+            case(7): return levelButtonHover7;
+            case(8): return levelButtonHover8;
+            case(9): return levelButtonHover9;
+            case(10): return levelButtonHover10;
+            case(11): return levelButtonHover11;
+            case(12): return levelButtonHover12;
         }
         return null;
     }
