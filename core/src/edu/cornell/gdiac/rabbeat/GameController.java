@@ -534,7 +534,7 @@ public class GameController implements Screen, ContactListener {
 		objectController.setFirstCheckpointAsSpawn(scale);
 		objectController.player.setPosition(respawnPoint);
 		soundController.resetMusic();
-		soundController.playMusic(Genre.SYNTH);
+		soundController.playMusic(genre);
 		syncController.initializeSync();
 		setComplete(false);
 		setFailure(false);
