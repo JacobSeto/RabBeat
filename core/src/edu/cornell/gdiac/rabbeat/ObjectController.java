@@ -253,8 +253,11 @@ public class ObjectController {
     /** The texture for the quit button */
     public Texture quitButton;
 
-    /** The texture for the select */
+    /** The textures for the main menu button hover states */
     public Texture select;
+    public Texture playSelect;
+    public Texture optionsSelect;
+    public Texture quitSelect;
 
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
@@ -430,6 +433,8 @@ public class ObjectController {
     /** The attack animation for the hedgehog enemy */
     public Animation<TextureRegion> hedgehogAttackAnimation;
 
+    public Texture level1;
+
     private float synthSpeed;
     private float jazzSpeed;
     /** The enemy scale for the enemy */
@@ -458,11 +463,18 @@ public class ObjectController {
         levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));
         victoryLogo = new TextureRegion(directory.getEntry("ui:victory:victoryLogo",Texture.class));
 
-        optionsButton = directory.getEntry("ui:maineMenuScreen:optionsButton",Texture.class);
-        playButton = directory.getEntry("ui:maineMenuScreen:playButton",Texture.class);
-        quitButton = directory.getEntry("ui:maineMenuScreen:quitButton",Texture.class);
-        select = directory.getEntry("ui:maineMenuScreen:select",Texture.class);
-        mainMenuBackground = directory.getEntry("ui:maineMenuScreen:mainMenuBackground",Texture.class);
+        optionsButton = directory.getEntry("ui:mainMenuScreen:optionsButton",Texture.class);
+        playButton = directory.getEntry("ui:mainMenuScreen:playButton",Texture.class);
+        quitButton = directory.getEntry("ui:mainMenuScreen:quitButton",Texture.class);
+        playSelect = directory.getEntry("ui:mainMenuScreen:playButtonHover",Texture.class);
+        optionsSelect = directory.getEntry("ui:mainMenuScreen:optionsButtonHover",Texture.class);
+        quitSelect = directory.getEntry("ui:mainMenuScreen:quitButtonHover",Texture.class);
+
+        select = directory.getEntry("ui:mainMenuScreen:select",Texture.class);
+        mainMenuBackground = directory.getEntry("ui:mainMenuScreen:mainMenuBackground",Texture.class);
+
+
+        level1 = directory.getEntry("ui:level1", Texture.class);
 
         unlockedButton1 = directory.getEntry("ui:unlockedLevels:unlockedLevel1", Texture.class);
         unlockedButton2 = directory.getEntry("ui:unlockedLevels:unlockedLevel2", Texture.class);
@@ -491,6 +503,9 @@ public class ObjectController {
         lockedButton12 = directory.getEntry("ui:lockedLevels:lockedLevel12", Texture.class);
 
         levelButtonHover1 = directory.getEntry("ui:levelButtonsHoverState:level1ButtonHover", Texture.class);
+        levelButtonHover2 = directory.getEntry("ui:levelButtonsHoverState:level2ButtonHover", Texture.class);
+        levelButtonHover3 = directory.getEntry("ui:levelButtonsHoverState:level3ButtonHover", Texture.class);
+        levelButtonHover4 = directory.getEntry("ui:levelButtonsHoverState:level4ButtonHover", Texture.class);
 
         victoryScreenBackground = new TextureRegion(directory.getEntry("ui:victoryScreen", Texture.class));
         level1VS = new TextureRegion(directory.getEntry("ui:lvl1VS", Texture.class));
@@ -1915,6 +1930,25 @@ public class ObjectController {
             case(10): return lockedButton10;
             case(11): return lockedButton11;
             case(12): return lockedButton12;
+        }
+        return null;
+    }
+
+    /** Returns the texture of the desired button number's hover state, represented by i */
+    public Texture getLevelButtonHoverTexture (int i) {
+        switch(i) {
+            case(1): return levelButtonHover1;
+            case(2): return levelButtonHover2;
+            case(3): return levelButtonHover3;
+            case(4): return levelButtonHover4;
+            case(5): return levelButtonHover1;
+            case(6): return levelButtonHover1;
+            case(7): return levelButtonHover1;
+            case(8): return levelButtonHover1;
+            case(9): return levelButtonHover1;
+            case(10): return levelButtonHover1;
+            case(11): return levelButtonHover1;
+            case(12): return levelButtonHover1;
         }
         return null;
     }
