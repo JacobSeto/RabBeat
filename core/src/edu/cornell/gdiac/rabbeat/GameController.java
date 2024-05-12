@@ -18,6 +18,7 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Timer.Task;
 import edu.cornell.gdiac.rabbeat.objects.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.objects.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.objects.platforms.WeightedPlatform;
@@ -194,6 +195,8 @@ public class GameController implements Screen, ContactListener {
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
 
+	/** Jump buffer time */
+	private final float jumpBuffer = 0.02f;
 
 
 	private static GameController theController = null;
@@ -753,8 +756,14 @@ public class GameController implements Screen, ContactListener {
 					(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
 				// Prevents checkpoints from being detected as ground
 				if (objectController.player == bd1 ? !bd2.isSensor() : !bd1.isSensor()) {
-					objectController.player.setGrounded(true);
-					sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
+					// Ensures that player is grounded even after quick air time
+					Timer.schedule(new Task() {
+						@Override
+						public void run() {
+							objectController.player.setGrounded(true);
+							sensorFixtures.add(objectController.player == bd1 ? fix2 : fix1); // Could have more than one ground
+						}
+					}, jumpBuffer);
 				}
 			}
 			// Check for win condition
@@ -834,10 +843,17 @@ public class GameController implements Screen, ContactListener {
 
 		if ((objectController.player.getSensorName().equals(fd2) && objectController.player != bd1) ||
 				(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
-			sensorFixtures.remove(objectController.player == bd1 ? fix2 : fix1);
-			if (sensorFixtures.size == 0) {
-				objectController.player.setGrounded(false);
-			}
+				// Jump buffer (coyote time) after leaving ground
+				Timer.schedule(new Task() {
+					@Override
+					public void run() {
+						sensorFixtures.remove(objectController.player == bd1 ? fix2 : fix1);
+						if (sensorFixtures.size == 0) {
+							objectController.player.setGrounded(false);
+						}
+					}
+				}, jumpBuffer);
+
 		}
 		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
 			if (bd1 == lastCollideWith){
