@@ -119,97 +119,49 @@ public class LevelSelectorScreen extends ScreenAdapter {
             switch(i) {
                 case(1):
 //                    hoverButton.setPosition(415, background.getHeight()-hoverButton.getHeight()-161);
-                    levelButton.setPosition(478, background.getHeight()-levelButton.getHeight()-200);
+                    levelButton.setPosition(476.5f, background.getHeight()-levelButton.getHeight()-200.5f);
                     break;
                 case(2):
 //                    hoverButton.setPosition(414, background.getHeight()-hoverButton.getHeight()-213);
-                    levelButton.setPosition(464, background.getHeight()-levelButton.getHeight()-266);
+                    levelButton.setPosition(463.5f, background.getHeight()-levelButton.getHeight()-270);
                     break;
                 case(3):
 //                    hoverButton.setPosition(420, background.getHeight()-hoverButton.getHeight()-227);
-                    levelButton.setPosition(483, background.getHeight()-levelButton.getHeight()-311-3);
+                    levelButton.setPosition(484.5f, background.getHeight()-levelButton.getHeight()-315);
                     break;
                 case(4):
-                    levelButton.setPosition(475, background.getHeight()-levelButton.getHeight()-374-10);
+                    levelButton.setPosition(477.5f, background.getHeight()-levelButton.getHeight()-374.5f);
                     break;
                 case(5):
-                    levelButton.setPosition(750, background.getHeight()-levelButton.getHeight()-214);
+                    levelButton.setPosition(748.5f, background.getHeight()-levelButton.getHeight()-215);
                     break;
                 case(6):
-                    levelButton.setPosition(789, background.getHeight()-levelButton.getHeight()-274);
+                    levelButton.setPosition(788.5f, background.getHeight()-levelButton.getHeight()-276.5f);
                     break;
                 case(7):
-                    levelButton.setPosition(737, background.getHeight()-levelButton.getHeight()-322);
+                    levelButton.setPosition(743, background.getHeight()-levelButton.getHeight()-326);
                     break;
                 case(8):
-                    levelButton.setPosition(734, background.getHeight()-levelButton.getHeight()-390);
+                    levelButton.setPosition(734.5f, background.getHeight()-levelButton.getHeight()-390);
                     break;
                 case(9):
-                    levelButton.setPosition(1024, background.getHeight()-levelButton.getHeight()-209);
+                    levelButton.setPosition(1025.5f, background.getHeight()-levelButton.getHeight()-211);
                     break;
                 case(10):
-                    levelButton.setPosition(1030, background.getHeight()-levelButton.getHeight()-278);
+                    levelButton.setPosition(1031.5f, background.getHeight()-levelButton.getHeight()-280.5f);
                     break;
                 case(11):
-                    levelButton.setPosition(1010, background.getHeight()-levelButton.getHeight()-324);
+                    levelButton.setPosition(1014, background.getHeight()-levelButton.getHeight()-324.5f);
                     break;
                 case(12):
-                    levelButton.setPosition(1029, background.getHeight()-levelButton.getHeight()-387);
+                    levelButton.setPosition(1034.5f, background.getHeight()-levelButton.getHeight()-389.5f);
                     break;
-                  //OLD BUTTONS
-//                case(1):
-//                    levelButton.setPosition(483, background.getHeight()-levelButton.getHeight()-206);
-//                    break;
-//                case(2):
-//                    levelButton.setPosition(469, background.getHeight()-levelButton.getHeight()-271);
-//                    break;
-//                case(3):
-//                    levelButton.setPosition(491, background.getHeight()-levelButton.getHeight()-329);
-//                    break;
-//                case(4):
-//                    levelButton.setPosition(485, background.getHeight()-levelButton.getHeight()-384);
-//                    break;
-//                case(5):
-//                    levelButton.setPosition(760, background.getHeight()-levelButton.getHeight()-230);
-//                    break;
-//                case(6):
-//                    levelButton.setPosition(789, background.getHeight()-levelButton.getHeight()-288);
-//                    break;
-//                case(7):
-//                    levelButton.setPosition(750, background.getHeight()-levelButton.getHeight()-342);
-//                    break;
-//                case(8):
-//                    levelButton.setPosition(750, background.getHeight()-levelButton.getHeight()-397);
-//                    break;
-//                case(9):
-//                    levelButton.setPosition(1041, background.getHeight()-levelButton.getHeight()-228);
-//                    break;
-//                case(10):
-//                    levelButton.setPosition(1036, background.getHeight()-levelButton.getHeight()-281);
-//                    break;
-//                case(11):
-//                    levelButton.setPosition(1024, background.getHeight()-levelButton.getHeight()-337);
-//                    break;
-//                case(12):
-//                    levelButton.setPosition(1041, background.getHeight()-levelButton.getHeight()-397);
-//                    break;
             }
 
 
-//            levelButton.addListener(new ClickListener() {
-//                @Override
-//                public void clicked(InputEvent event, float x, float y) {
-//                    if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
-//                        GameController.getInstance().setCurrentLevelInt(finalI);
-//                        listener.exitScreen(LevelSelectorScreen.this, 0);
-//                    }
-//                }
-//            });
-
             stage.addActor(levelButton);
 
-            //have a separate for loop for the hover images
-            if(i <= 4) {
+            if(i <= 12) {
                 levelButton.addListener(new InputListener() {
                     @Override
                     public boolean mouseMoved(InputEvent event, float x, float y) {
@@ -274,8 +226,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                             1);
                     hoverImage1 = new Image(hoverRegion);
-                    hoverImage1.setPosition(411 + 62 - 15,
-                            background.getHeight() - hoverImage1.getHeight() - 161 - 37 + 15);
+                    hoverImage1.setPosition(476.5f-16,
+                            background.getHeight() - hoverImage1.getHeight() - 200.5f+16);
 
                     hoverImage1.addListener(new InputListener() {
                         @Override
@@ -300,8 +252,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                             2);
                     hoverImage2 = new Image(hoverRegion);
-                    hoverImage2.setPosition(464 - 20,
-                            background.getHeight() - hoverImage1.getHeight() - 270 + 30);
+                    hoverImage2.setPosition(463.5f-16,
+                            background.getHeight() - hoverImage2.getHeight() - 270+16);
 
                     hoverImage2.addListener(new InputListener() {
                         @Override
@@ -325,8 +277,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                             3);
                     hoverImage3 = new Image(hoverRegion);
-                    hoverImage3.setPosition(485.5f - 19,
-                            background.getHeight() - hoverImage3.getHeight() - 315.5f + 20);
+                    hoverImage3.setPosition(484.5f - 16,
+                            background.getHeight() - hoverImage3.getHeight() - 315f + 16);
 
                     hoverImage3.addListener(new InputListener() {
                         @Override
@@ -350,8 +302,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                             4);
                     hoverImage4 = new Image(hoverRegion);
-                    hoverImage4.setPosition(478f - 19,
-                            background.getHeight() - hoverImage4.getHeight() - 378 + 10);
+                    hoverImage4.setPosition(477.5f - 16,
+                            background.getHeight() - hoverImage4.getHeight() - 374.5f + 16);
 
                     hoverImage4.addListener(new InputListener() {
                         @Override
@@ -375,8 +327,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                             5);
                     hoverImage5 = new Image(hoverRegion);
-                    hoverImage5.setPosition(478f - 19,
-                            background.getHeight() - hoverImage5.getHeight() - 378 + 10);
+                    hoverImage5.setPosition(748.5f - 16,
+                            background.getHeight() - hoverImage5.getHeight() - 215 + 16);
 
                     hoverImage5.addListener(new InputListener() {
                         @Override
@@ -400,8 +352,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 } else if (i == 6) {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(6);
                     hoverImage6 = new Image(hoverRegion);
-                    hoverImage6.setPosition(478f - 19,
-                            background.getHeight() - hoverImage6.getHeight() - 378 + 10);
+                    hoverImage6.setPosition(788.5f - 16,
+                            background.getHeight() - hoverImage6.getHeight() - 276.5f + 16);
 
                     hoverImage6.addListener(new InputListener() {
                         @Override
@@ -425,8 +377,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                             7);
                     hoverImage7 = new Image(hoverRegion);
-                    hoverImage7.setPosition(411 + 62 - 15,
-                            background.getHeight() - hoverImage7.getHeight() - 161 - 37 + 15);
+                    hoverImage7.setPosition(743 - 16,
+                            background.getHeight() - hoverImage7.getHeight() - 326 + 16);
 
                     hoverImage7.addListener(new InputListener() {
                         @Override
@@ -451,8 +403,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                             8);
                     hoverImage8 = new Image(hoverRegion);
-                    hoverImage8.setPosition(464 - 20,
-                            background.getHeight() - hoverImage8.getHeight() - 270 + 30);
+                    hoverImage8.setPosition(734.5f - 16,
+                            background.getHeight() - hoverImage8.getHeight() - 390 + 16);
 
                     hoverImage8.addListener(new InputListener() {
                         @Override
@@ -476,8 +428,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                             9);
                     hoverImage9 = new Image(hoverRegion);
-                    hoverImage9.setPosition(485.5f - 19,
-                            background.getHeight() - hoverImage9.getHeight() - 315.5f + 20);
+                    hoverImage9.setPosition(1025.5f - 16,
+                            background.getHeight() - hoverImage9.getHeight() - 211 + 16);
 
                     hoverImage9.addListener(new InputListener() {
                         @Override
@@ -501,8 +453,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                             10);
                     hoverImage10 = new Image(hoverRegion);
-                    hoverImage10.setPosition(478f - 19,
-                            background.getHeight() - hoverImage10.getHeight() - 378 + 10);
+                    hoverImage10.setPosition(1031.5f - 16,
+                            background.getHeight() - hoverImage10.getHeight() - 280.5f + 16);
 
                     hoverImage10.addListener(new InputListener() {
                         @Override
@@ -526,8 +478,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                             11);
                     hoverImage11 = new Image(hoverRegion);
-                    hoverImage11.setPosition(478f - 19,
-                            background.getHeight() - hoverImage11.getHeight() - 378 + 10);
+                    hoverImage11.setPosition(1014 - 16,
+                            background.getHeight() - hoverImage11.getHeight() - 324.5f + 16);
 
                     hoverImage11.addListener(new InputListener() {
                         @Override
@@ -551,8 +503,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 } else if (i == 12) {
                     hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(6);
                     hoverImage12 = new Image(hoverRegion);
-                    hoverImage12.setPosition(478f - 19,
-                            background.getHeight() - hoverImage12.getHeight() - 378 + 10);
+                    hoverImage12.setPosition(1034.5f - 16,
+                            background.getHeight() - hoverImage12.getHeight() - 389.5f + 16);
 
                     hoverImage12.addListener(new InputListener() {
                         @Override
@@ -587,6 +539,14 @@ public class LevelSelectorScreen extends ScreenAdapter {
         hoverImage2.setVisible(hover2);
         hoverImage3.setVisible(hover3);
         hoverImage4.setVisible(hover4);
+        hoverImage5.setVisible(hover5);
+        hoverImage6.setVisible(hover6);
+        hoverImage7.setVisible(hover7);
+        hoverImage8.setVisible(hover8);
+        hoverImage9.setVisible(hover9);
+        hoverImage10.setVisible(hover10);
+        hoverImage11.setVisible(hover11);
+        hoverImage12.setVisible(hover12);
 
         if(hover1)
             stage.addActor(hoverImage1);
@@ -596,6 +556,22 @@ public class LevelSelectorScreen extends ScreenAdapter {
             stage.addActor(hoverImage3);
         if(hover4)
             stage.addActor(hoverImage4);
+        if(hover5)
+            stage.addActor(hoverImage5);
+        if(hover6)
+            stage.addActor(hoverImage6);
+        if(hover7)
+            stage.addActor(hoverImage7);
+        if(hover8)
+            stage.addActor(hoverImage8);
+        if(hover9)
+            stage.addActor(hoverImage9);
+        if(hover10)
+            stage.addActor(hoverImage10);
+        if(hover11)
+            stage.addActor(hoverImage11);
+        if(hover12)
+            stage.addActor(hoverImage12);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
