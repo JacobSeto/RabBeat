@@ -1555,22 +1555,32 @@ public class ObjectController {
 //        jazzCoord[1] -= weightedSynth.getRegionHeight()/2-4;
         Vector2 convertedJazzCoord = convertTiledCoord(jazzCoord[0], jazzCoord[1], dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedJazzCoord.set(convertedJazzCoord.x, convertedJazzCoord.y);
-
         JsonValue defaults = defaultConstants.get("defaults");
         float dwidth = weightedSynth.getRegionWidth() / scale.x;
         float dheight = weightedSynth.getRegionHeight() / scale.y;
+
+        BoxGameObject crushBody = new BoxGameObject(convertedSynthCoord.x, convertedSynthCoord.y,
+                dwidth*0.8f, dheight*0.2f);
+        crushBody.setType(Type.LETHAL);
+        crushBody.setBodyType(BodyDef.BodyType.StaticBody);
+        crushBody.setPosition(convertedSynthCoord);
+        crushBody.setDrawScale(scale);
+        //crushBody.setDrawScale(new Vector2(scale.x*0.9f, scale.y*0.9f));
+
+
         WeightedPlatform weightedPlatform;
         weightedPlatform = new WeightedPlatform(dwidth, dheight,
                 new float[] { convertedSynthCoord.x, convertedSynthCoord.y },
                 new float[] { convertedJazzCoord.x, convertedJazzCoord.y },
                 platformIntervals, waitTime, moveTime,
-                weightedSynth, weightedJazz, genre);
+                weightedSynth, weightedJazz, genre, crushBody);
         weightedPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         weightedPlatform.setDensity(defaults.getFloat("density", 0.0f));
         weightedPlatform.setFriction(defaults.getFloat("friction", 0.0f));
         weightedPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         weightedPlatform.setDrawScale(scale);
         GameController.getInstance().instantiate(weightedPlatform);
+        GameController.getInstance().instantiate(crushBody);
     }
 
     private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, int waitTime, int beatMoveTime, Vector2 dimensions, int levelHeight, int tileSize){
@@ -1584,13 +1594,22 @@ public class ObjectController {
         float dwidth = movingSynth.getRegionWidth() / scale.x;
         float dheight = movingSynth.getRegionHeight() / scale.y;
         MovingPlatform movingPlatform;
-        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, waitTime, beatMoveTime, platformTile);
+
+        BoxGameObject crushBody = new BoxGameObject(positionNodes[0].x, positionNodes[0].y,
+                dwidth*0.8f, dheight*0.2f);
+        crushBody.setType(Type.LETHAL);
+        crushBody.setBodyType(BodyDef.BodyType.StaticBody);
+        crushBody.setPosition(new Vector2(positionNodes[0].x, positionNodes[0].y));
+        crushBody.setDrawScale(scale);
+
+        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, waitTime, beatMoveTime, platformTile, crushBody);
         movingPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         movingPlatform.setDensity(defaults.getFloat("density", 0.0f));
         movingPlatform.setFriction(defaults.getFloat("friction", 0.0f));
         movingPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         movingPlatform.setDrawScale(scale);
         GameController.getInstance().instantiate(movingPlatform);
+        GameController.getInstance().instantiate(crushBody);
     }
 
     /**
