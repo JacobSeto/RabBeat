@@ -79,7 +79,6 @@ public class GameController implements Screen, ContactListener {
 	/** Exit code for going to the next level */
 	public static final int NEXT_LEVEL = 2;
 
-	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
 	private static int levelsUnlocked;
@@ -94,7 +93,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int EXIT_COUNT = 35;
 
 	/** The number of levels in the game */
-	private int numberOfLevels = 12;
+	private final int numberOfLevels = 12;
 
 	/** The amount of time for a physics engine step. */
 	public static final float WORLD_STEP = 1 / 60.0f;
@@ -181,7 +180,6 @@ public class GameController implements Screen, ContactListener {
 	/**lIST  of platforms that are 'bounded' to an enemy*/
 	private BoxGameObject[] boundedPlatforms;
 
-	// Physics objects for the game
 
 	/** last platform collided with*/
 	private WeightedPlatform lastCollideWith;
@@ -193,7 +191,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** Mark set to handle more sophisticated collision callbacks */
 	protected ObjectSet<Fixture> sensorFixtures;
-
 
 
 	private static GameController theController = null;
@@ -976,12 +973,9 @@ public class GameController implements Screen, ContactListener {
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
 			drawVictoryScreen();
-
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
 			canvas.begin(true); // DO NOT SCALE
-			// TODO: Remove this failure text with something more appropriate for our game
-			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
 			canvas.end();
 		}
 
@@ -1282,34 +1276,9 @@ public class GameController implements Screen, ContactListener {
 
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen() {
-
-		//OLD VICTORY SCREEN
-//		canvas.begin(true);
-//		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
-//		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
-//		canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
-//		canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
-//
-////		switch (victoryScreenItemSelected) {
-////			case 0: // Next Level
-////				canvas.draw(objectController.indicatorStarTexture.getTexture(),
-////						Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
-////				break;
-////			case 1: // Level Select
-////				canvas.draw(objectController.indicatorStarTexture.getTexture(),
-////						Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
-////				break;
-////		}
-//
-//		canvas.end();
-
-		//NEW VICTORY SCREEN
-
 		canvas.begin(true);
-//		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
-//
+
 		if(currentLevelInt == 1) {
-			//DRAW FOR CURRENT LEVEL INT
 			canvas.draw(objectController.level1VS, 0, 0);
 		} else if (currentLevelInt == 4) {
 			canvas.draw(objectController.level4VS, 0, 0);
