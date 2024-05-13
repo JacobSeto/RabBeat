@@ -520,7 +520,7 @@ public class InputController {
 				System.out.println("LEVEL:" + gc.getCurrentLevel());
 				gc.exitScreen(GameController.NEXT_LEVEL);
 			}
-			
+
 		}
 
 
