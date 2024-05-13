@@ -82,7 +82,7 @@ public class GameController implements Screen, ContactListener {
 	public static final int LEVEL = 1;
 
 	/** The integer that represents the number of levels that the player has unlocked */
-	private static int levelsUnlocked = 8;
+	private static int levelsUnlocked;
 
 	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
 	private static int currentLevelInt = 1;
@@ -1242,7 +1242,7 @@ public class GameController implements Screen, ContactListener {
 	/** Sets the integer levelsUnlocked */
 	public void setLevelsUnlocked(int levelsUnlocked) {
 		// TODO: CHANGE THIS BACK TO levelsUnlocked
-		this.levelsUnlocked = 12;
+		this.levelsUnlocked = levelsUnlocked;
 	}
 
 	/** Increments the integer levelsUnlocked if a player completes a level and the next level is locked*/
