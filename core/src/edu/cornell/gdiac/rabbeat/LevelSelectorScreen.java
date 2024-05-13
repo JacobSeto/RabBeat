@@ -36,8 +36,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private Stage stage;
     private ScreenListener listener;
 
-    private TextButton hoverButton;
-
     /** Returns whether a button is being hovered over */
     private boolean hover1 = false;
     private boolean hover2 = false;
@@ -51,8 +49,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private boolean hover10 = false;
     private boolean hover11 = false;
     private boolean hover12 = false;
-
-    private Texture hoverRegion;
 
     /** Images for the button hover images when hovering over a button */
     private Image hoverImage1;
@@ -95,6 +91,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
         bg.setPosition(0, 0);
         stage.addActor(bg);
 
+        System.out.println(GameController.getInstance().getLevelsUnlocked());
 
         /** Loops through all buttons */
         for(int i=1; i<= numberOfLevels; i++) {
@@ -103,9 +100,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
             if(i <= GameController.getInstance().getLevelsUnlocked()) {
                 buttonTexture = GameController.getInstance().objectController.getUnlockedButtonTexture(finalI);
             } else {
-                //TODO: Comment this out:
-//                buttonTexture = GameController.getInstance().objectController.getLockedButtonTexture(finalI);
-                buttonTexture = GameController.getInstance().objectController.getUnlockedButtonTexture(finalI);
+                buttonTexture = GameController.getInstance().objectController.getLockedButtonTexture(finalI);
             }
 
             TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(
@@ -158,66 +153,68 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
             stage.addActor(levelButton);
 
-            levelButton.addListener(new InputListener() {
-                @Override
-                public boolean mouseMoved(InputEvent event, float x, float y) {
-                    hover1 = false;
-                    hover2 = false;
-                    hover3 = false;
-                    hover4 = false;
-                    hover5 = false;
-                    hover6 = false;
-                    hover7 = false;
-                    hover8 = false;
-                    hover9 = false;
-                    hover10 = false;
-                    hover11 = false;
-                    hover12 = false;
+            if(i <= GameController.getInstance().getLevelsUnlocked()) {
+                levelButton.addListener(new InputListener() {
+                    @Override
+                    public boolean mouseMoved(InputEvent event, float x, float y) {
+                        hover1 = false;
+                        hover2 = false;
+                        hover3 = false;
+                        hover4 = false;
+                        hover5 = false;
+                        hover6 = false;
+                        hover7 = false;
+                        hover8 = false;
+                        hover9 = false;
+                        hover10 = false;
+                        hover11 = false;
+                        hover12 = false;
 
-                    switch (finalI) {
-                        case (1):
-                            hover1 = true;
-                            break;
-                        case (2):
-                            hover2 = true;
-                            break;
-                        case (3):
-                            hover3 = true;
-                            break;
-                        case (4):
-                            hover4 = true;
-                            break;
-                        case (5):
-                            hover5 = true;
-                            break;
-                        case (6):
-                            hover6 = true;
-                            break;
-                        case (7):
-                            hover7 = true;
-                            break;
-                        case (8):
-                            hover8 = true;
-                            break;
-                        case (9):
-                            hover9 = true;
-                            break;
-                        //TODO: ENTER
-                        case (10):
-                            hover10 = true;
-                            break;
-                        case (11):
-                            hover11 = true;
-                            break;
-                        case (12):
-                            hover12 = true;
-                            break;
+                        switch (finalI) {
+                            case (1):
+                                hover1 = true;
+                                break;
+                            case (2):
+                                hover2 = true;
+                                break;
+                            case (3):
+                                hover3 = true;
+                                break;
+                            case (4):
+                                hover4 = true;
+                                break;
+                            case (5):
+                                hover5 = true;
+                                break;
+                            case (6):
+                                hover6 = true;
+                                break;
+                            case (7):
+                                hover7 = true;
+                                break;
+                            case (8):
+                                hover8 = true;
+                                break;
+                            case (9):
+                                hover9 = true;
+                                break;
+                            case (10):
+                                hover10 = true;
+                                break;
+                            case (11):
+                                hover11 = true;
+                                break;
+                            case (12):
+                                hover12 = true;
+                                break;
+                        }
+                        return true;
                     }
-                    return true;
-                }
 
-            });
+                });
+            }
 
+            Texture hoverRegion;
             if (i == 1) {
                 hoverRegion = GameController.getInstance().objectController.getLevelButtonHoverTexture(
                         1);
