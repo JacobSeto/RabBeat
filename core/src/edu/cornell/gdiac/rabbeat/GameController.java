@@ -418,6 +418,13 @@ public class GameController implements Screen, ContactListener {
 		soundController = new SoundController();
 		objectController.gatherAssets(directory);
 		levelBPM = objectController.defaultConstants.get("music").get(getCurrentLevel()).getInt("bpm");
+
+		Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+		musicVolume = prefs.getInteger("musicVolume", 10);
+
+		prefs = Gdx.app.getPreferences("SFXVolume");
+		SFXVolume = prefs.getInteger("sfxVolume", 10);
+
 		// set the soundtrack
 		setSoundtrack(directory);
 		// set the sound effects
@@ -609,11 +616,11 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			// Now it is time to maybe switch screens.
-			if (input.didExit() || input.didPressLevelSelect()) {
-				exitLevel();
-			}
+			//if (input.didPressLevelSelect()) {
+			//	exitLevel();
+			//}
 
-			else if (input.didPause()) {
+			if (input.didPause()) {
 				// If game is already paused, hitting pause again will unpause it.
 				paused = !paused;
 				if (paused) {
@@ -650,18 +657,30 @@ public class GameController implements Screen, ContactListener {
 					if (input.didPressLeftWhilePaused() && musicVolume > 0) { // change this to 1 if it causes bugs
 						musicVolume--;
 						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
+						Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+						prefs.putInteger("musicVolume", musicVolume);
+						prefs.flush();
 					}
 					if (input.didPressRightWhilePaused() && musicVolume < 10) {
 						musicVolume++;
 						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
+						Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+						prefs.putInteger("musicVolume", musicVolume);
+						prefs.flush();
 					}
 				}
 				else if (pauseItemSelected == 4) {
 					if (input.didPressLeftWhilePaused() && SFXVolume > 0) { // again, change this to 1 if it causes bugs
 						SFXVolume--;
+						Preferences prefs = Gdx.app.getPreferences("SFXVolume");
+						prefs.putInteger("sfxVolume", SFXVolume);
+						prefs.flush();
 					}
 					if (input.didPressRightWhilePaused() && SFXVolume < 10) {
 						SFXVolume++;
+						Preferences prefs = Gdx.app.getPreferences("SFXVolume");
+						prefs.putInteger("sfxVolume", SFXVolume);
+						prefs.flush();
 					}
 				}
 				else {
@@ -1132,6 +1151,7 @@ public class GameController implements Screen, ContactListener {
 	public void resume() {
 		soundController.setGlobalMusicVolume(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
+
 		//soundController.resumeMusic();
 		InputController.getInstance().setPaused(false);
 		pauseItemSelected = 0; // delete this line if pause menu should "save" where you were last time

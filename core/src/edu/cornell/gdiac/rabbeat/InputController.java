@@ -412,8 +412,8 @@ public class InputController {
 		primePressed = (secondary && primePressed) || (Gdx.input.isKeyPressed(Input.Keys.UP)
 				|| Gdx.input.isKeyPressed(Input.Keys.W));
 		exitPressed = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
-		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
-		//pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
+		//pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
+		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
 		calibrationPressed = (secondary && calibrationPressed) || (Gdx.input.isKeyPressed(Input.Keys.C));
 		calibratePressed = (secondary && calibratePressed) || (Gdx.input.isKeyPressed(Keys.SPACE));
@@ -460,10 +460,6 @@ public class InputController {
 				switchGenre = true;
 			} else if (!Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 				genreSwitched = false;
-			}
-
-			if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-				levelSelectPressed = true;
 			}
 
 			if (Gdx.input.isKeyPressed(Keys.TAB) && GameController.getInstance()
