@@ -442,7 +442,10 @@ public class ObjectController {
 
     public int tileSize;
 
-    public ArrayList<ArtObject> artObjects = new ArrayList<>();
+    /** List of objects that should be rendered in the foreground (on top of everything else)*/
+    public ArrayList<ArtObject> foregroundObjects = new ArrayList<>();
+    /** List of bear objects that should be rendered above the bullet and other game objects (not player)*/
+    public ArrayList<BearEnemy> bearObjects = new ArrayList<>();
     /** the default beat list is on the downbeats within 2 measures (beat 1 and beat 5)*/
     public int[] defaultBeatList = { 1, 5 };
 
@@ -1709,6 +1712,7 @@ public class ObjectController {
         bear.setDrawScale(scale);
         bear.setTexture(bearTexture);
         GameController.getInstance().instantiate(bear);
+        bearObjects.add(bear);
     }
 
     /**
@@ -1812,7 +1816,7 @@ public class ObjectController {
             art.setBodyType(BodyDef.BodyType.StaticBody);
             art.setDrawScale(scale);
             if (groundLevel.equals("foreground")) {
-                artObjects.add(art);
+                foregroundObjects.add(art);
             }
             GameController.getInstance().instantiate(art);
         } else {
@@ -1846,7 +1850,7 @@ public class ObjectController {
                     pulseArt.setBodyType(BodyDef.BodyType.StaticBody);
                     pulseArt.setDrawScale(scale);
                     if (groundLevel.equals("foreground")) {
-                        artObjects.add(pulseArt);
+                        foregroundObjects.add(pulseArt);
                     }
                     GameController.getInstance().instantiate(pulseArt);
 
@@ -1878,7 +1882,7 @@ public class ObjectController {
                     stretchArt.setBodyType(BodyDef.BodyType.StaticBody);
                     stretchArt.setDrawScale(scale);
                     if (groundLevel.equals("foreground")) {
-                        artObjects.add(stretchArt);
+                        foregroundObjects.add(stretchArt);
                     }
                     GameController.getInstance().instantiate(stretchArt);
                     break;
@@ -1888,7 +1892,7 @@ public class ObjectController {
                     art.setBodyType(BodyDef.BodyType.StaticBody);
                     art.setDrawScale(scale);
                     if (groundLevel.equals("foreground")) {
-                        artObjects.add(art);
+                        foregroundObjects.add(art);
                     }
                     GameController.getInstance().instantiate(art);
                 }

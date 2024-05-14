@@ -556,7 +556,7 @@ public class GameController implements Screen, ContactListener {
 			obj.deactivatePhysics(world);
 		}
 		objectController.objects.clear();
-		objectController.artObjects.clear();
+		objectController.foregroundObjects.clear();
 		objectController.addQueue.clear();
 		world.dispose();
 
@@ -954,9 +954,16 @@ public class GameController implements Screen, ContactListener {
 
 		canvas.begin(false);
 		for (GameObject obj : objectController.objects) {
-			if (!objectController.artObjects.contains(obj)){
+			if (!objectController.foregroundObjects.contains(obj) && !objectController.bearObjects.contains(obj)){
 				obj.draw(canvas);
 			}
+		}
+		canvas.end();
+
+		// Draw the foreground on top of everything
+		canvas.begin(false);
+		for (GameObject obj : objectController.bearObjects) {
+			obj.draw(canvas);
 		}
 		canvas.end();
 
@@ -967,7 +974,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw the foreground on top of everything
 		canvas.begin(false);
-		for (GameObject obj : objectController.artObjects) {
+		for (GameObject obj : objectController.foregroundObjects) {
 			obj.draw(canvas);
 		}
 		canvas.end();
