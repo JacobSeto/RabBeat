@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="957">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="966">
  <editorsettings>
   <export target="../levelsJson/tutorial1.tmj" format="json"/>
  </editorsettings>
@@ -19,15 +19,15 @@
   <object id="747" gid="238" x="5354" y="1065" width="128" height="960"/>
   <object id="748" gid="238" x="5569.71" y="850" width="128" height="960"/>
   <object id="841" gid="249" x="399.261" y="423.739" width="128" height="128"/>
-  <object id="844" gid="251" x="1013.06" y="795.786" width="128" height="128"/>
-  <object id="845" gid="251" x="1151.24" y="831.585" width="128" height="128"/>
+  <object id="844" gid="251" x="1013" y="789" width="128" height="128"/>
+  <object id="845" gid="251" x="1163" y="810" width="128" height="128"/>
   <object id="846" gid="249" x="821.909" y="485.03" width="128" height="128"/>
-  <object id="847" gid="250" x="2965.45" y="483.384" width="128" height="128"/>
+  <object id="847" gid="250" x="2962" y="477" width="128" height="128"/>
   <object id="852" gid="251" x="1902.33" y="769.68" width="128" height="128"/>
   <object id="859" gid="250" x="2476.53" y="429.688" width="128" height="128"/>
   <object id="861" gid="251" x="3704.28" y="726.555" width="128" height="128"/>
-  <object id="864" gid="251" x="4902" y="505" width="128" height="128"/>
-  <object id="867" gid="249" x="5035" y="543" width="128" height="128"/>
+  <object id="864" gid="251" x="4863" y="514" width="128" height="128"/>
+  <object id="867" gid="249" x="5044" y="556" width="128" height="128"/>
   <object id="869" gid="249" x="4021" y="599.693" width="128" height="128"/>
   <object id="870" gid="250" x="3251.79" y="746.466" width="128" height="128"/>
   <object id="874" gid="244" x="3040.1" y="286.314" width="128" height="128"/>
@@ -42,7 +42,7 @@
   <object id="922" gid="258" x="186" y="448" width="128" height="128"/>
   <object id="923" gid="258" x="1073" y="448" width="128" height="128"/>
   <object id="924" gid="257" x="258" y="446" width="128" height="128"/>
-  <object id="925" gid="257" x="930" y="449" width="128" height="128"/>
+  <object id="925" gid="257" x="1024" y="448" width="128" height="128"/>
   <object id="927" gid="244" x="3681.09" y="286.752" width="128" height="128"/>
   <object id="928" gid="244" x="3790.09" y="286.752" width="128" height="128"/>
   <object id="929" gid="244" x="3896.09" y="288.752" width="128" height="128"/>
@@ -62,6 +62,8 @@
   <object id="905" gid="246" x="4057" y="129.035" width="960" height="128"/>
   <object id="906" gid="246" x="5014" y="129.035" width="960" height="128"/>
   <object id="951" gid="263" x="3579.9" y="318.44" width="128" height="128"/>
+  <object id="959" gid="238" x="896" y="1088" width="128" height="960"/>
+  <object id="964" gid="255" x="4020" y="729" width="128" height="128"/>
  </objectgroup>
  <objectgroup id="18" name="backgroundArt">
   <object id="733" gid="239" x="1587" y="697" width="960" height="128"/>
@@ -69,13 +71,12 @@
   <object id="754" gid="260" x="73" y="458" width="128" height="128"/>
   <object id="760" gid="241" x="606" y="522" width="192" height="192"/>
   <object id="761" gid="245" x="63.6543" y="633.196" width="128" height="128"/>
-  <object id="763" gid="253" x="41.1573" y="778.943" width="128" height="128"/>
+  <object id="763" gid="253" x="33" y="779" width="128" height="128"/>
   <object id="768" gid="252" x="1727.56" y="774.624" width="64" height="64"/>
-  <object id="769" gid="254" x="2619" y="709.674" width="64" height="64"/>
+  <object id="769" gid="254" x="2604" y="710" width="64" height="64"/>
   <object id="770" gid="253" x="3076.76" y="732.769" width="128" height="128"/>
   <object id="832" gid="270" x="5674.74" y="477.586" width="256" height="256"/>
   <object id="835" gid="261" x="5353.53" y="472.255" width="256" height="256"/>
-  <object id="836" gid="271" x="1469.7" y="550.591" width="256" height="256"/>
   <object id="881" gid="283" x="5152" y="384" width="128" height="128"/>
   <object id="882" gid="51" x="1209.43" y="306.566" width="875" height="128"/>
   <object id="883" gid="51" x="2166" y="99" width="875" height="128"/>
@@ -83,7 +84,7 @@
   <object id="885" gid="51" x="3879" y="106" width="875" height="128"/>
   <object id="886" gid="51" x="4588" y="101" width="875" height="128"/>
   <object id="887" gid="51" x="5292" y="236" width="875" height="128"/>
-  <object id="888" gid="282" x="757" y="426" width="128" height="128"/>
+  <object id="888" gid="282" x="766" y="426" width="128" height="128"/>
   <object id="893" type="Pulse" gid="265" x="623.364" y="695.932" width="128" height="128"/>
   <object id="899" type="Pulse" gid="266" x="4030.97" y="265.428" width="128" height="128"/>
   <object id="907" gid="286" x="515" y="767" width="128" height="128"/>
@@ -96,6 +97,7 @@
   <object id="940" type="Pulse" gid="281" x="708.732" y="716.092" width="128" height="128"/>
   <object id="949" type="Pulse" gid="264" x="4479.6" y="264.543" width="128" height="128"/>
   <object id="953" type="Pulse" gid="277" x="3581.76" y="263.166" width="128" height="128"/>
+  <object id="965" gid="261" x="1475" y="546" width="256" height="256"/>
  </objectgroup>
  <layer id="1" name="walls" width="150" height="17">
   <data encoding="csv">

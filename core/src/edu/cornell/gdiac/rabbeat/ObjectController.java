@@ -253,8 +253,11 @@ public class ObjectController {
     /** The texture for the quit button */
     public Texture quitButton;
 
-    /** The texture for the select */
+    /** The textures for the main menu button hover states */
     public Texture select;
+    public Texture playSelect;
+    public Texture optionsSelect;
+    public Texture quitSelect;
 
     /** The texture for the background overlay */
     public TextureRegion backgroundOverlayTexture;
@@ -430,6 +433,8 @@ public class ObjectController {
     /** The attack animation for the hedgehog enemy */
     public Animation<TextureRegion> hedgehogAttackAnimation;
 
+    public Texture level1;
+
     private float synthSpeed;
     private float jazzSpeed;
     /** The enemy scale for the enemy */
@@ -458,11 +463,18 @@ public class ObjectController {
         levelSelectText = new TextureRegion(directory.getEntry("ui:victory:levelSelectText",Texture.class));
         victoryLogo = new TextureRegion(directory.getEntry("ui:victory:victoryLogo",Texture.class));
 
-        optionsButton = directory.getEntry("ui:maineMenuScreen:optionsButton",Texture.class);
-        playButton = directory.getEntry("ui:maineMenuScreen:playButton",Texture.class);
-        quitButton = directory.getEntry("ui:maineMenuScreen:quitButton",Texture.class);
-        select = directory.getEntry("ui:maineMenuScreen:select",Texture.class);
-        mainMenuBackground = directory.getEntry("ui:maineMenuScreen:mainMenuBackground",Texture.class);
+        optionsButton = directory.getEntry("ui:mainMenuScreen:optionsButton",Texture.class);
+        playButton = directory.getEntry("ui:mainMenuScreen:playButton",Texture.class);
+        quitButton = directory.getEntry("ui:mainMenuScreen:quitButton",Texture.class);
+        playSelect = directory.getEntry("ui:mainMenuScreen:playButtonHover",Texture.class);
+        optionsSelect = directory.getEntry("ui:mainMenuScreen:optionsButtonHover",Texture.class);
+        quitSelect = directory.getEntry("ui:mainMenuScreen:quitButtonHover",Texture.class);
+
+        select = directory.getEntry("ui:mainMenuScreen:select",Texture.class);
+        mainMenuBackground = directory.getEntry("ui:mainMenuScreen:mainMenuBackground",Texture.class);
+
+
+        level1 = directory.getEntry("ui:level1", Texture.class);
 
         unlockedButton1 = directory.getEntry("ui:unlockedLevels:unlockedLevel1", Texture.class);
         unlockedButton2 = directory.getEntry("ui:unlockedLevels:unlockedLevel2", Texture.class);
@@ -491,6 +503,17 @@ public class ObjectController {
         lockedButton12 = directory.getEntry("ui:lockedLevels:lockedLevel12", Texture.class);
 
         levelButtonHover1 = directory.getEntry("ui:levelButtonsHoverState:level1ButtonHover", Texture.class);
+        levelButtonHover2 = directory.getEntry("ui:levelButtonsHoverState:level2ButtonHover", Texture.class);
+        levelButtonHover3 = directory.getEntry("ui:levelButtonsHoverState:level3ButtonHover", Texture.class);
+        levelButtonHover4 = directory.getEntry("ui:levelButtonsHoverState:level4ButtonHover", Texture.class);
+        levelButtonHover5 = directory.getEntry("ui:levelButtonsHoverState:level5ButtonHover", Texture.class);
+        levelButtonHover6 = directory.getEntry("ui:levelButtonsHoverState:level6ButtonHover", Texture.class);
+        levelButtonHover7 = directory.getEntry("ui:levelButtonsHoverState:level7ButtonHover", Texture.class);
+        levelButtonHover8 = directory.getEntry("ui:levelButtonsHoverState:level8ButtonHover", Texture.class);
+        levelButtonHover9 = directory.getEntry("ui:levelButtonsHoverState:level9ButtonHover", Texture.class);
+        levelButtonHover10 = directory.getEntry("ui:levelButtonsHoverState:level10ButtonHover", Texture.class);
+        levelButtonHover11 = directory.getEntry("ui:levelButtonsHoverState:level11ButtonHover", Texture.class);
+        levelButtonHover12 = directory.getEntry("ui:levelButtonsHoverState:level12ButtonHover", Texture.class);
 
         victoryScreenBackground = new TextureRegion(directory.getEntry("ui:victoryScreen", Texture.class));
         level1VS = new TextureRegion(directory.getEntry("ui:lvl1VS", Texture.class));
@@ -1555,22 +1578,32 @@ public class ObjectController {
 //        jazzCoord[1] -= weightedSynth.getRegionHeight()/2-4;
         Vector2 convertedJazzCoord = convertTiledCoord(jazzCoord[0], jazzCoord[1], dimensions.x, dimensions.y, levelHeight, tileSize);
         convertedJazzCoord.set(convertedJazzCoord.x, convertedJazzCoord.y);
-
         JsonValue defaults = defaultConstants.get("defaults");
         float dwidth = weightedSynth.getRegionWidth() / scale.x;
         float dheight = weightedSynth.getRegionHeight() / scale.y;
+
+        BoxGameObject crushBody = new BoxGameObject(convertedSynthCoord.x, convertedSynthCoord.y,
+                dwidth*0.8f, dheight*0.2f);
+        crushBody.setType(Type.LETHAL);
+        crushBody.setBodyType(BodyDef.BodyType.StaticBody);
+        crushBody.setPosition(convertedSynthCoord);
+        crushBody.setDrawScale(scale);
+        //crushBody.setDrawScale(new Vector2(scale.x*0.9f, scale.y*0.9f));
+
+
         WeightedPlatform weightedPlatform;
         weightedPlatform = new WeightedPlatform(dwidth, dheight,
                 new float[] { convertedSynthCoord.x, convertedSynthCoord.y },
                 new float[] { convertedJazzCoord.x, convertedJazzCoord.y },
                 platformIntervals, waitTime, moveTime,
-                weightedSynth, weightedJazz, genre);
+                weightedSynth, weightedJazz, genre, crushBody);
         weightedPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         weightedPlatform.setDensity(defaults.getFloat("density", 0.0f));
         weightedPlatform.setFriction(defaults.getFloat("friction", 0.0f));
         weightedPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         weightedPlatform.setDrawScale(scale);
         GameController.getInstance().instantiate(weightedPlatform);
+        GameController.getInstance().instantiate(crushBody);
     }
 
     private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, int waitTime, int beatMoveTime, Vector2 dimensions, int levelHeight, int tileSize){
@@ -1584,13 +1617,22 @@ public class ObjectController {
         float dwidth = movingSynth.getRegionWidth() / scale.x;
         float dheight = movingSynth.getRegionHeight() / scale.y;
         MovingPlatform movingPlatform;
-        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, waitTime, beatMoveTime, platformTile);
+
+        BoxGameObject crushBody = new BoxGameObject(positionNodes[0].x, positionNodes[0].y,
+                dwidth*0.8f, dheight*0.2f);
+        crushBody.setType(Type.LETHAL);
+        crushBody.setBodyType(BodyDef.BodyType.StaticBody);
+        crushBody.setPosition(new Vector2(positionNodes[0].x, positionNodes[0].y));
+        crushBody.setDrawScale(scale);
+
+        movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, waitTime, beatMoveTime, platformTile, crushBody);
         movingPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         movingPlatform.setDensity(defaults.getFloat("density", 0.0f));
         movingPlatform.setFriction(defaults.getFloat("friction", 0.0f));
         movingPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         movingPlatform.setDrawScale(scale);
         GameController.getInstance().instantiate(movingPlatform);
+        GameController.getInstance().instantiate(crushBody);
     }
 
     /**
@@ -1915,6 +1957,25 @@ public class ObjectController {
             case(10): return lockedButton10;
             case(11): return lockedButton11;
             case(12): return lockedButton12;
+        }
+        return null;
+    }
+
+    /** Returns the texture of the desired button number's hover state, represented by i */
+    public Texture getLevelButtonHoverTexture (int i) {
+        switch(i) {
+            case(1): return levelButtonHover1;
+            case(2): return levelButtonHover2;
+            case(3): return levelButtonHover3;
+            case(4): return levelButtonHover4;
+            case(5): return levelButtonHover5;
+            case(6): return levelButtonHover6;
+            case(7): return levelButtonHover7;
+            case(8): return levelButtonHover8;
+            case(9): return levelButtonHover9;
+            case(10): return levelButtonHover10;
+            case(11): return levelButtonHover11;
+            case(12): return levelButtonHover12;
         }
         return null;
     }
