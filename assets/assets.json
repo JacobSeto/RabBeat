@@ -409,14 +409,24 @@
           "sfx:jump2": "sfx/jump2.wav",
           "sfx:death": "sfx/death.wav",
           "sfx:menubutton": "sfx/menu_button.wav",
-          "sfx:menutransition": "sfx/menu_transition.wav"
+          "sfx:menutransition": "sfx/menu_transition.wav",
+          "sfx:metronomeDownbeat": "sfx/metronome_downbeat.wav",
+          "sfx:metronomeOffbeat": "sfx/metronome_offbeat.wav",
+          "sfx:classicalCutscene": "sfx/classical_cutscene.wav",
+          "sfx:countryCutscene": "sfx/country_cutscene.wav",
+          "sfx:hiphopCutscene": "sfx/hiphop_cutscene.wav",
+          "sfx:jazzCutscene": "sfx/jazz_cutscene.wav",
+          "sfx:popCutscene": "sfx/pop_cutscene.wav",
+          "sfx:rockCutscene": "sfx/rock_cutscene.wav"
     },
     "music" : {
           "music:mainmenu": "music/main_menu.ogg",
       "music:synth1": "music/synth_alpha.ogg",
       "music:jazz1": "music/jazz_alpha.ogg",
           "music:synth2": "music/synth2.ogg",
-          "music:jazz2": "music/jazz2.ogg"
+          "music:jazz2": "music/jazz2.ogg",
+          "music:jazz3": "music/jazz3.ogg",
+          "music:synth3": "music/synth3.ogg"
     },
     "fonts": {
         "fonts:retro": {
