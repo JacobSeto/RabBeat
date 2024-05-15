@@ -584,40 +584,41 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
     /** reads the data from the input keys and changes the buttonSelected String accordingly */
     public void handleInput() {
+        int numberOfLevelsUnlocked = GameController.getInstance().getLevelsUnlocked();
         if(!hover1 && !hover2 && !hover3 && !hover4 && !hover5 && !hover6 && !hover7 && !hover8 && !hover9 && !hover10 && !hover11 && !hover12)
             hover1 = true;
         else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            if(hover1) {
+            if(hover1 && numberOfLevelsUnlocked > 1) {
                 hover1 = false;
                 hover2 = true;
-            } else if(hover2) {
+            } else if(hover2 && numberOfLevelsUnlocked > 2) {
                 hover2 = false;
                 hover3 = true;
-            } else if(hover3) {
+            } else if(hover3 && numberOfLevelsUnlocked > 3) {
                 hover3 = false;
                 hover4 = true;
-            } else if(hover4) {
+            } else if(hover4 && numberOfLevelsUnlocked > 4) {
                 hover4 = false;
                 hover5 = true;
-            } else if(hover5) {
+            } else if(hover5 && numberOfLevelsUnlocked > 5) {
                 hover5 = false;
                 hover6 = true;
-            } else if(hover6) {
+            } else if(hover6 && numberOfLevelsUnlocked > 6) {
                 hover6 = false;
                 hover7 = true;
-            } else if(hover7) {
+            } else if(hover7 && numberOfLevelsUnlocked > 7) {
                 hover7 = false;
                 hover8 = true;
-            } else if(hover8) {
+            } else if(hover8 && numberOfLevelsUnlocked > 8) {
                 hover8 = false;
                 hover9 = true;
-            } else if(hover9) {
+            } else if(hover9 && numberOfLevelsUnlocked > 9) {
                 hover9 = false;
                 hover10 = true;
-            } else if(hover10) {
+            } else if(hover10 && numberOfLevelsUnlocked > 10) {
                 hover10 = false;
                 hover11 = true;
-            } else if(hover11) {
+            } else if(hover11 && numberOfLevelsUnlocked > 11) {
                 hover11 = false;
                 hover12 = true;
             }
