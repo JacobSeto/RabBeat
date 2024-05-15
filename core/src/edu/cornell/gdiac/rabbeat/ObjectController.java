@@ -767,6 +767,7 @@ public class ObjectController {
         assets.put("dead_2", new TextureRegion(directory.getEntry("world:signs:dead_2", Texture.class)));
         assets.put("exit_0", new TextureRegion(directory.getEntry("world:signs:exit_0", Texture.class)));
 
+        //  Tutorial UI
         assets.put("arrowLeft", new TextureRegion(directory.getEntry("world:tutorial:arrowLeft", Texture.class)));
         assets.put("arrowUp", new TextureRegion(directory.getEntry("world:tutorial:arrowUp", Texture.class)));
         assets.put("arrowRight", new TextureRegion(directory.getEntry("world:tutorial:arrowRight", Texture.class)));
@@ -805,6 +806,7 @@ public class ObjectController {
         assets.put("showlight_3", new TextureRegion(directory.getEntry("world:lights:showlight_3", Texture.class)));
         assets.put("showlight_4", new TextureRegion(directory.getEntry("world:lights:showlight_4", Texture.class)));
 
+        //  Neon Lights
         assets.put("neon_0", new TextureRegion(directory.getEntry("world:neonLights:neon_0", Texture.class)));
         assets.put("neon_1", new TextureRegion(directory.getEntry("world:neonLights:neon_1", Texture.class)));
         assets.put("neon_2", new TextureRegion(directory.getEntry("world:neonLights:neon_2", Texture.class)));
@@ -817,10 +819,24 @@ public class ObjectController {
         assets.put("neon_9", new TextureRegion(directory.getEntry("world:neonLights:neon_9", Texture.class)));
         assets.put("neon_10", new TextureRegion(directory.getEntry("world:neonLights:neon_10", Texture.class)));
         assets.put("neon_11", new TextureRegion(directory.getEntry("world:neonLights:neon_11", Texture.class)));
-        assets.put("neon_12", new TextureRegion(directory.getEntry("world:neonLights:neon_12", Texture.class)));
-        assets.put("neon_13", new TextureRegion(directory.getEntry("world:neonLights:neon_13", Texture.class)));
-        assets.put("neon_14", new TextureRegion(directory.getEntry("world:neonLights:neon_14", Texture.class)));
-        assets.put("neon_15", new TextureRegion(directory.getEntry("world:neonLights:neon_15", Texture.class)));
+
+        //  Lights
+        assets.put("arrow_0", new TextureRegion(directory.getEntry("world:arrows:arrow_0", Texture.class)));
+        assets.put("arrow_1", new TextureRegion(directory.getEntry("world:arrows:arrow_1", Texture.class)));
+        assets.put("arrow_2", new TextureRegion(directory.getEntry("world:arrows:arrow_2", Texture.class)));
+        assets.put("arrow_3", new TextureRegion(directory.getEntry("world:arrows:arrow_3", Texture.class)));
+        assets.put("arrow_4", new TextureRegion(directory.getEntry("world:arrows:arrow_4", Texture.class)));
+        assets.put("arrow_5", new TextureRegion(directory.getEntry("world:arrows:arrow_5", Texture.class)));
+        assets.put("arrow_6", new TextureRegion(directory.getEntry("world:arrows:arrow_6", Texture.class)));
+        assets.put("arrow_7", new TextureRegion(directory.getEntry("world:arrows:arrow_7", Texture.class)));
+        assets.put("arrow_8", new TextureRegion(directory.getEntry("world:arrows:arrow_8", Texture.class)));
+        assets.put("arrow_9", new TextureRegion(directory.getEntry("world:arrows:arrow_9", Texture.class)));
+        assets.put("arrow_10", new TextureRegion(directory.getEntry("world:arrows:arrow_10", Texture.class)));
+        assets.put("arrow_11", new TextureRegion(directory.getEntry("world:arrows:arrow_11", Texture.class)));
+        assets.put("arrow_12", new TextureRegion(directory.getEntry("world:arrows:arrow_12", Texture.class)));
+        assets.put("arrow_13", new TextureRegion(directory.getEntry("world:arrows:arrow_13", Texture.class)));
+        assets.put("arrow_14", new TextureRegion(directory.getEntry("world:arrows:arrow_14", Texture.class)));
+        assets.put("arrow_15", new TextureRegion(directory.getEntry("world:arrows:arrow_15", Texture.class)));
 
         //  Other
         assets.put("tv", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
@@ -862,6 +878,8 @@ public class ObjectController {
         animatedArtAnimation.put("sparkleTwo", new Animation<TextureRegion>(1f, animatedArtAtlas.get("sparkleTwo").findRegions("sparkleTwo"), Animation.PlayMode.LOOP));
         animatedArtAtlas.put("laser", new TextureAtlas(Gdx.files.internal("world/animatedArt/laser.atlas")));
         animatedArtAnimation.put("laser", new Animation<TextureRegion>(1f, animatedArtAtlas.get("laser").findRegions("laser"), Animation.PlayMode.LOOP));
+        animatedArtAtlas.put("smallPod", new TextureAtlas(Gdx.files.internal("world/animatedArt/smallPod.atlas")));
+        animatedArtAnimation.put("smallPod", new Animation<TextureRegion>(1f, animatedArtAtlas.get("smallPod").findRegions("smallPod"), Animation.PlayMode.LOOP));
 
         //  Tilesets
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
