@@ -146,6 +146,9 @@ public class GameController implements Screen, ContactListener {
 	/** Whether the genre switch mechanic is locked */
 	private boolean isGenreSwitchLocked = true;
 
+	/** Whether or not the cutscene sound effect has been played */
+	private boolean cutscenePlayed = false;
+
 	/** Whether or not debug mode is active */
 	private boolean debug;
 	/** Stores the bpm after it's loaded in. Don't use this for anything, use getBPM() instead. */
@@ -382,6 +385,7 @@ public class GameController implements Screen, ContactListener {
 		debug = false;
 		active = false;
 		paused = false;
+		cutscenePlayed = false;
 		countdown = -1;
 	}
 
@@ -457,6 +461,22 @@ public class GameController implements Screen, ContactListener {
 		soundController.addSound("checkpoint", directory.getEntry("sfx:checkpoint"+checkpointNum, Sound.class));
 		soundController.addSound("jump", directory.getEntry("sfx:jump"+checkpointNum, Sound.class));
 		soundController.addSound("death", directory.getEntry("sfx:death", Sound.class));
+
+		switch (currentLevelInt) {
+			case 1: // JAZZ
+				soundController.addSound("cutscene", directory.getEntry("sfx:jazzCutscene", Sound.class));
+				break;
+			case 4: // ROCK
+				soundController.addSound("cutscene", directory.getEntry("sfx:rockCutscene", Sound.class));
+				break;
+			case 6: // POP
+				soundController.addSound("cutscene", directory.getEntry("sfx:popCutscene", Sound.class));
+				break;
+			default:
+				break;
+		}
+
+
 	}
 
 	public Vector2 getScale() {
@@ -1019,6 +1039,12 @@ public class GameController implements Screen, ContactListener {
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
 			drawVictoryScreen();
+			if (!cutscenePlayed) {
+				cutscenePlayed = true;
+				if (currentLevelInt == 1 || currentLevelInt == 4 || currentLevelInt == 6) {
+					soundController.playSFX("cutscene");
+				}
+			}
 
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
