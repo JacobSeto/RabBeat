@@ -416,9 +416,13 @@ public class ObjectController {
     /** The attack animation for the bat enemy */
     public Animation<TextureRegion> batAttackAnimation;
     /** The idle atlas for the bee enemy */
-    public TextureAtlas beeAttackAtlas;
+    public TextureAtlas beeSynthAtlas;
+    /** The idle atlas for the bee enemy */
+    public TextureAtlas beeJazzAtlas;
     /** The idle animation for the bee enemy */
-    public Animation<TextureRegion> beeAttackAnimation;
+    public Animation<TextureRegion> beeSynthAnimation;
+    /** The idle animation for the bee enemy */
+    public Animation<TextureRegion> beeJazzAnimation;
     /** The idle atlas for the beehive */
     public TextureAtlas beehiveIdleAtlas;
     /** The idle animation for the beehive */
@@ -638,8 +642,12 @@ public class ObjectController {
         echoTexture = new TextureRegion(directory.getEntry("enemies:echoStill", Texture.class));
 
         // Bee
-        beeAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeAttack.atlas"));
-        beeAttackAnimation = new Animation<TextureRegion>(0.25f, beeAttackAtlas.findRegions("beeAttack"),
+        beeSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeSynth.atlas"));
+        beeSynthAnimation = new Animation<TextureRegion>(0.25f, beeSynthAtlas.findRegions("beeSynth"),
+                Animation.PlayMode.LOOP);
+
+        beeJazzAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeJazz.atlas"));
+        beeJazzAnimation = new Animation<TextureRegion>(0.25f, beeJazzAtlas.findRegions("beeJazz"),
                 Animation.PlayMode.LOOP);
 
         beehiveIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehiveIdle.atlas"));
@@ -1753,7 +1761,8 @@ public class ObjectController {
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
                 dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList, beet, genre);
         beehive.idleAnimation = beehiveIdleAnimation;
-        beehive.beeAttackAnimation = beeAttackAnimation;
+        beehive.beeSynthAnimation = beeSynthAnimation;
+        beehive.beeJazzAnimation = beeJazzAnimation;
         beehive.setAnimation(beehiveIdleAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
