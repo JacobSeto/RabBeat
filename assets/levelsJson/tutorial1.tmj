@@ -157,8 +157,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":1013.06,
-                 "y":795.786
+                 "x":1013,
+                 "y":789
                 }, 
                 {
                  "gid":251,
@@ -175,8 +175,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":1151.24,
-                 "y":831.585
+                 "x":1163,
+                 "y":810
                 }, 
                 {
                  "gid":249,
@@ -211,8 +211,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":2965.45,
-                 "y":483.384
+                 "x":2962,
+                 "y":477
                 }, 
                 {
                  "gid":251,
@@ -283,8 +283,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":4902,
-                 "y":505
+                 "x":4863,
+                 "y":514
                 }, 
                 {
                  "gid":249,
@@ -301,8 +301,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":5035,
-                 "y":543
+                 "x":5044,
+                 "y":556
                 }, 
                 {
                  "gid":249,
@@ -571,8 +571,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":930,
-                 "y":449
+                 "x":1024,
+                 "y":448
                 }, 
                 {
                  "gid":244,
@@ -915,6 +915,60 @@
                  "width":128,
                  "x":3579.9,
                  "y":318.44
+                }, 
+                {
+                 "gid":238,
+                 "height":960,
+                 "id":959,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"decal_1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":896,
+                 "y":1088
+                }, 
+                {
+                 "gid":255,
+                 "height":128,
+                 "id":964,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"spot_3"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":4020,
+                 "y":729
+                }, 
+                {
+                 "gid":253,
+                 "height":128,
+                 "id":763,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"spot_1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":33,
+                 "y":779
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1018,24 +1072,6 @@
                  "y":633.196
                 }, 
                 {
-                 "gid":253,
-                 "height":128,
-                 "id":763,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"spot_1"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":128,
-                 "x":41.1573,
-                 "y":778.943
-                }, 
-                {
                  "gid":252,
                  "height":64,
                  "id":768,
@@ -1068,8 +1104,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":2619,
-                 "y":709.674
+                 "x":2604,
+                 "y":710
                 }, 
                 {
                  "gid":253,
@@ -1124,24 +1160,6 @@
                  "width":256,
                  "x":5353.53,
                  "y":472.255
-                }, 
-                {
-                 "gid":271,
-                 "height":256,
-                 "id":836,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"windows_2"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":256,
-                 "x":1469.7,
-                 "y":550.591
                 }, 
                 {
                  "gid":283,
@@ -1284,7 +1302,7 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":757,
+                 "x":766,
                  "y":426
                 }, 
                 {
@@ -1390,39 +1408,6 @@
                  "y":769
                 }, 
                 {
-                 "gid":341,
-                 "height":120,
-                 "id":935,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"neon_15"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.12
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
-                        }],
-                 "rotation":0,
-                 "type":"Pulse",
-                 "visible":true,
-                 "width":120,
-                 "x":5930.01,
-                 "y":447.16
-                }, 
-                {
                  "gid":281,
                  "height":128,
                  "id":940,
@@ -1520,6 +1505,57 @@
                  "width":128,
                  "x":3581.76,
                  "y":263.166
+                }, 
+                {
+                 "gid":261,
+                 "height":256,
+                 "id":965,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"windows_0"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":256,
+                 "x":1475,
+                 "y":546
+                }, 
+                {
+                 "gid":359,
+                 "height":128,
+                 "id":973,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"arrow_13"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
+                        }],
+                 "rotation":0,
+                 "type":"Pulse",
+                 "visible":true,
+                 "width":128,
+                 "x":5926,
+                 "y":436
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2790,7 +2826,7 @@
          "y":0
         }],
  "nextlayerid":22,
- "nextobjectid":957,
+ "nextobjectid":974,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -2823,6 +2859,10 @@
         {
          "firstgid":230,
          "source":"..\/Tiled\/BackgroundArt.tsx"
+        }, 
+        {
+         "firstgid":362,
+         "source":"..\/Tiled\/AnimatedArt.tsx"
         }],
  "tilewidth":64,
  "type":"map",

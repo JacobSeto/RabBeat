@@ -30,6 +30,11 @@ public class SoundController {
      */
     private static final boolean USE_INSTANT_SWITCH = false;
 
+    /** What percentage of volume should be kept when pausing.
+     * A value of 0.4 means the track will be 40% as loud as it normally would be.
+     */
+    private static final float PAUSE_VOL = 0.4f;
+
     /**
      * The length of time in milliseconds that a gradual genre switch takes.
      * If instant switch is enabled, this value doesn't matter.
@@ -81,16 +86,20 @@ public class SoundController {
     public void setGlobalSFXVolume(float vol) { globalSFXVolume = vol;}
 
     public void setGlobalMusicVolumeImmediate(float vol) {
+        setGlobalMusicVolumeImmediate(vol, false);
+
+    }
+
+    public void setGlobalMusicVolumeImmediate(float vol, boolean paused) {
         globalMusicVolume = vol;
-        if (currentGenre == Genre.SYNTH) { // this seems backwards but for some reason it works
-            synthTrack.setVolume(vol);
+        if (currentGenre == Genre.SYNTH) {
+            synthTrack.setVolume(vol * (paused ? PAUSE_VOL : 1));
             jazzTrack.setVolume(0);
         }
         else {
-            jazzTrack.setVolume(vol);
+            jazzTrack.setVolume(vol * (paused ? PAUSE_VOL : 1));
             synthTrack.setVolume(0);
         }
-
     }
 
     public void resetMusic() {

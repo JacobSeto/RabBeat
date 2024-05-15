@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="108" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="120" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7">
   <properties>
@@ -619,34 +619,82 @@
   </properties>
   <image width="192" height="192" source="../world/other/chand_0.png"/>
  </tile>
- <tile id="111">
-  <properties>
-   <property name="assetName" value="neon_15"/>
-  </properties>
-  <image width="120" height="120" source="../world/neonLights/neon_15.png"/>
- </tile>
- <tile id="112">
-  <properties>
-   <property name="assetName" value="neon_12"/>
-  </properties>
-  <image width="120" height="120" source="../world/neonLights/neon_12.png"/>
- </tile>
- <tile id="113">
-  <properties>
-   <property name="assetName" value="neon_13"/>
-  </properties>
-  <image width="120" height="120" source="../world/neonLights/neon_13.png"/>
- </tile>
- <tile id="114">
-  <properties>
-   <property name="assetName" value="neon_14"/>
-  </properties>
-  <image width="120" height="120" source="../world/neonLights/neon_14.png"/>
- </tile>
  <tile id="115">
   <properties>
    <property name="assetName" value="light"/>
   </properties>
   <image width="192" height="192" source="../world/lights/light.png"/>
+ </tile>
+ <tile id="116">
+  <image width="128" height="128" source="../world/arrows/arrow_0.png"/>
+ </tile>
+ <tile id="117">
+  <image width="128" height="128" source="../world/arrows/arrow_1.png"/>
+ </tile>
+ <tile id="118">
+  <image width="128" height="128" source="../world/arrows/arrow_2.png"/>
+ </tile>
+ <tile id="119">
+  <image width="128" height="128" source="../world/arrows/arrow_3.png"/>
+ </tile>
+ <tile id="120">
+  <image width="128" height="128" source="../world/arrows/arrow_4.png"/>
+ </tile>
+ <tile id="121">
+  <image width="128" height="128" source="../world/arrows/arrow_5.png"/>
+ </tile>
+ <tile id="122">
+  <image width="128" height="128" source="../world/arrows/arrow_6.png"/>
+ </tile>
+ <tile id="123">
+  <image width="128" height="128" source="../world/arrows/arrow_7.png"/>
+ </tile>
+ <tile id="124">
+  <properties>
+   <property name="assetName" value="arrow_8"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_8.png"/>
+ </tile>
+ <tile id="125">
+  <properties>
+   <property name="assetName" value="arrow_9"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_9.png"/>
+ </tile>
+ <tile id="126">
+  <properties>
+   <property name="assetName" value="arrow_10"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_10.png"/>
+ </tile>
+ <tile id="127">
+  <properties>
+   <property name="assetName" value="arrow_11"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_11.png"/>
+ </tile>
+ <tile id="128">
+  <properties>
+   <property name="assetName" value="arrow_12"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_12.png"/>
+ </tile>
+ <tile id="129">
+  <properties>
+   <property name="assetName" value="arrow_13"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_13.png"/>
+ </tile>
+ <tile id="130">
+  <properties>
+   <property name="assetName" value="arrow_14"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_14.png"/>
+ </tile>
+ <tile id="131">
+  <properties>
+   <property name="assetName" value="arrow_15"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_15.png"/>
  </tile>
 </tileset>

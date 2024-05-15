@@ -24,6 +24,7 @@ import edu.cornell.gdiac.rabbeat.objects.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.objects.platforms.WeightedPlatform;
 import edu.cornell.gdiac.rabbeat.objects.projectiles.Bee;
 import edu.cornell.gdiac.rabbeat.objects.projectiles.Bullet;
+import edu.cornell.gdiac.rabbeat.objects.projectiles.Echo;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.rabbeat.ui.GenreUI;
@@ -144,6 +145,9 @@ public class GameController implements Screen, ContactListener {
 	public boolean inCalibration = false;
 	/** Whether the genre switch mechanic is locked */
 	private boolean isGenreSwitchLocked = true;
+
+	/** Whether or not the cutscene sound effect has been played */
+	private boolean cutscenePlayed = false;
 
 	/** Whether or not debug mode is active */
 	private boolean debug;
@@ -381,6 +385,7 @@ public class GameController implements Screen, ContactListener {
 		debug = false;
 		active = false;
 		paused = false;
+		cutscenePlayed = false;
 		countdown = -1;
 	}
 
@@ -418,6 +423,13 @@ public class GameController implements Screen, ContactListener {
 		soundController = new SoundController();
 		objectController.gatherAssets(directory);
 		levelBPM = objectController.defaultConstants.get("music").get(getCurrentLevel()).getInt("bpm");
+
+		Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+		musicVolume = prefs.getInteger("musicVolume", 10);
+
+		prefs = Gdx.app.getPreferences("SFXVolume");
+		SFXVolume = prefs.getInteger("sfxVolume", 10);
+
 		// set the soundtrack
 		setSoundtrack(directory);
 		// set the sound effects
@@ -449,6 +461,22 @@ public class GameController implements Screen, ContactListener {
 		soundController.addSound("checkpoint", directory.getEntry("sfx:checkpoint"+checkpointNum, Sound.class));
 		soundController.addSound("jump", directory.getEntry("sfx:jump"+checkpointNum, Sound.class));
 		soundController.addSound("death", directory.getEntry("sfx:death", Sound.class));
+
+		switch (currentLevelInt) {
+			case 1: // JAZZ
+				soundController.addSound("cutscene", directory.getEntry("sfx:jazzCutscene", Sound.class));
+				break;
+			case 4: // ROCK
+				soundController.addSound("cutscene", directory.getEntry("sfx:rockCutscene", Sound.class));
+				break;
+			case 6: // POP
+				soundController.addSound("cutscene", directory.getEntry("sfx:popCutscene", Sound.class));
+				break;
+			default:
+				break;
+		}
+
+
 	}
 
 	public Vector2 getScale() {
@@ -556,7 +584,7 @@ public class GameController implements Screen, ContactListener {
 			obj.deactivatePhysics(world);
 		}
 		objectController.objects.clear();
-		objectController.artObjects.clear();
+		objectController.foregroundObjects.clear();
 		objectController.addQueue.clear();
 		world.dispose();
 
@@ -609,11 +637,11 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			// Now it is time to maybe switch screens.
-			if (input.didExit() || input.didPressLevelSelect()) {
-				exitLevel();
-			}
+			//if (input.didPressLevelSelect()) {
+			//	exitLevel();
+			//}
 
-			else if (input.didPause()) {
+			if (input.didPause()) {
 				// If game is already paused, hitting pause again will unpause it.
 				paused = !paused;
 				if (paused) {
@@ -649,19 +677,31 @@ public class GameController implements Screen, ContactListener {
 				if (pauseItemSelected == 3) {
 					if (input.didPressLeftWhilePaused() && musicVolume > 0) { // change this to 1 if it causes bugs
 						musicVolume--;
-						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
+						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f, true);
+						Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+						prefs.putInteger("musicVolume", musicVolume);
+						prefs.flush();
 					}
 					if (input.didPressRightWhilePaused() && musicVolume < 10) {
 						musicVolume++;
-						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
+						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f, true);
+						Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+						prefs.putInteger("musicVolume", musicVolume);
+						prefs.flush();
 					}
 				}
 				else if (pauseItemSelected == 4) {
 					if (input.didPressLeftWhilePaused() && SFXVolume > 0) { // again, change this to 1 if it causes bugs
 						SFXVolume--;
+						Preferences prefs = Gdx.app.getPreferences("SFXVolume");
+						prefs.putInteger("sfxVolume", SFXVolume);
+						prefs.flush();
 					}
 					if (input.didPressRightWhilePaused() && SFXVolume < 10) {
 						SFXVolume++;
+						Preferences prefs = Gdx.app.getPreferences("SFXVolume");
+						prefs.putInteger("sfxVolume", SFXVolume);
+						prefs.flush();
 					}
 				}
 				else {
@@ -773,7 +813,7 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			//Bullet and Bee Collision checks
-			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy)){
+			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy || bd1 instanceof Echo)){
 				bd2.markRemoved(true);
 			}
 			if (bd2 instanceof Bee) {
@@ -954,9 +994,16 @@ public class GameController implements Screen, ContactListener {
 
 		canvas.begin(false);
 		for (GameObject obj : objectController.objects) {
-			if (!objectController.artObjects.contains(obj)){
+			if (!objectController.foregroundObjects.contains(obj) && !objectController.bearObjects.contains(obj)){
 				obj.draw(canvas);
 			}
+		}
+		canvas.end();
+
+		// Draw the foreground on top of everything
+		canvas.begin(false);
+		for (GameObject obj : objectController.bearObjects) {
+			obj.draw(canvas);
 		}
 		canvas.end();
 
@@ -967,7 +1014,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Draw the foreground on top of everything
 		canvas.begin(false);
-		for (GameObject obj : objectController.artObjects) {
+		for (GameObject obj : objectController.foregroundObjects) {
 			obj.draw(canvas);
 		}
 		canvas.end();
@@ -992,6 +1039,12 @@ public class GameController implements Screen, ContactListener {
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
 			drawVictoryScreen();
+			if (!cutscenePlayed) {
+				cutscenePlayed = true;
+				if (currentLevelInt == 1 || currentLevelInt == 4 || currentLevelInt == 6) {
+					soundController.playSFX("cutscene");
+				}
+			}
 
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
@@ -1121,7 +1174,9 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
+
 		InputController.getInstance().setPaused(true);
+		soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f, true);
 	}
 
 	/**
@@ -1130,8 +1185,9 @@ public class GameController implements Screen, ContactListener {
 	 * This is usually when it regains focus.
 	 */
 	public void resume() {
-		soundController.setGlobalMusicVolume(musicVolume / 10f);
+		soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
+
 		//soundController.resumeMusic();
 		InputController.getInstance().setPaused(false);
 		pauseItemSelected = 0; // delete this line if pause menu should "save" where you were last time
