@@ -145,7 +145,9 @@ public class GDXRoot extends Game implements ScreenListener {
 			mainMenuMusic.play();
 		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
 			mainMenuMusic.stop();
-			buttonClicked.play();
+			if (screen == levelSelectorScreen) {
+				buttonClicked.play();
+			}
 			controller = new GameController();
 			InputController.getInstance().setPaused(false);
 			GameController.getInstance().setPaused(false);
@@ -159,8 +161,8 @@ public class GDXRoot extends Game implements ScreenListener {
 			createLevelSelectorScreen();
 			mainMenuMusic.setLooping(true);
 			mainMenuMusic.play();
-			if (screen == mainMenuScreen) {
-				//buttonClicked.play();
+			if (exitCode == GameController.GO_TO_LEVEL_SELECT) {
+				buttonClicked.play();
 			}
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			Gdx.app.exit();
