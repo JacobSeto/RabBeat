@@ -677,14 +677,14 @@ public class GameController implements Screen, ContactListener {
 				if (pauseItemSelected == 3) {
 					if (input.didPressLeftWhilePaused() && musicVolume > 0) { // change this to 1 if it causes bugs
 						musicVolume--;
-						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
+						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f, true);
 						Preferences prefs = Gdx.app.getPreferences("MusicVolume");
 						prefs.putInteger("musicVolume", musicVolume);
 						prefs.flush();
 					}
 					if (input.didPressRightWhilePaused() && musicVolume < 10) {
 						musicVolume++;
-						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
+						soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f, true);
 						Preferences prefs = Gdx.app.getPreferences("MusicVolume");
 						prefs.putInteger("musicVolume", musicVolume);
 						prefs.flush();
@@ -1174,7 +1174,9 @@ public class GameController implements Screen, ContactListener {
 	 * Pausing happens when we switch game modes.
 	 */
 	public void pause() {
+
 		InputController.getInstance().setPaused(true);
+		soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f, true);
 	}
 
 	/**
@@ -1183,7 +1185,7 @@ public class GameController implements Screen, ContactListener {
 	 * This is usually when it regains focus.
 	 */
 	public void resume() {
-		soundController.setGlobalMusicVolume(musicVolume / 10f);
+		soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
 
 		//soundController.resumeMusic();
