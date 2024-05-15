@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="966">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="974">
  <editorsettings>
   <export target="../levelsJson/tutorial1.tmj" format="json"/>
  </editorsettings>
@@ -10,6 +10,7 @@
  <tileset firstgid="175" source="rabbeatTileset.tsx"/>
  <tileset firstgid="196" source="Tutorial.tsx"/>
  <tileset firstgid="230" source="BackgroundArt.tsx"/>
+ <tileset firstgid="362" source="AnimatedArt.tsx"/>
  <objectgroup id="2" name="background" locked="1">
   <object id="690" type="Pulse" gid="170" x="0" y="1088" width="6464" height="1088"/>
  </objectgroup>
@@ -64,6 +65,7 @@
   <object id="951" gid="263" x="3579.9" y="318.44" width="128" height="128"/>
   <object id="959" gid="238" x="896" y="1088" width="128" height="960"/>
   <object id="964" gid="255" x="4020" y="729" width="128" height="128"/>
+  <object id="763" gid="253" x="33" y="779" width="128" height="128"/>
  </objectgroup>
  <objectgroup id="18" name="backgroundArt">
   <object id="733" gid="239" x="1587" y="697" width="960" height="128"/>
@@ -71,7 +73,6 @@
   <object id="754" gid="260" x="73" y="458" width="128" height="128"/>
   <object id="760" gid="241" x="606" y="522" width="192" height="192"/>
   <object id="761" gid="245" x="63.6543" y="633.196" width="128" height="128"/>
-  <object id="763" gid="253" x="33" y="779" width="128" height="128"/>
   <object id="768" gid="252" x="1727.56" y="774.624" width="64" height="64"/>
   <object id="769" gid="254" x="2604" y="710" width="64" height="64"/>
   <object id="770" gid="253" x="3076.76" y="732.769" width="128" height="128"/>
@@ -89,15 +90,11 @@
   <object id="899" type="Pulse" gid="266" x="4030.97" y="265.428" width="128" height="128"/>
   <object id="907" gid="286" x="515" y="767" width="128" height="128"/>
   <object id="912" gid="287" x="445" y="769" width="128" height="128"/>
-  <object id="935" type="Pulse" gid="341" x="5930.01" y="447.16" width="120" height="120">
-   <properties>
-    <property name="pulseScale" type="float" value="1.12"/>
-   </properties>
-  </object>
   <object id="940" type="Pulse" gid="281" x="708.732" y="716.092" width="128" height="128"/>
   <object id="949" type="Pulse" gid="264" x="4479.6" y="264.543" width="128" height="128"/>
   <object id="953" type="Pulse" gid="277" x="3581.76" y="263.166" width="128" height="128"/>
   <object id="965" gid="261" x="1475" y="546" width="256" height="256"/>
+  <object id="973" type="Pulse" gid="359" x="5926" y="436" width="128" height="128"/>
  </objectgroup>
  <layer id="1" name="walls" width="150" height="17">
   <data encoding="csv">
