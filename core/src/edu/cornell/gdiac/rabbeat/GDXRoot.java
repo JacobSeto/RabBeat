@@ -130,6 +130,7 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * @param exitCode The state of the screen upon exit
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
+
 		if(screen == initialLoading) {
 			directory = initialLoading.getAssets();
 			mainMenuMusic = directory.getEntry("music:mainmenu", Music.class);
@@ -154,6 +155,7 @@ public class GDXRoot extends Game implements ScreenListener {
 			controller.setCanvas(canvas);
 			controller.resume();
 			controller.initialize();
+			levelSelectorScreen.finishedLoadingLevel = true;
 			setScreen(controller);
 		}else if (screen == controller || exitCode == GameController.GO_TO_LEVEL_SELECT) {
 			createLevelSelectorScreen();
