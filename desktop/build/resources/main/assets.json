@@ -110,7 +110,7 @@
       "ui:pause:unhoverLowerSound": "ui/pause/unhoverLowerSound.png",
       "ui:pause:unhoverUpSound": "ui/pause/unhoverUpSound.png",
       "ui:pause:volumeBox": "ui/pause/volumeBox.png",
-      "ui:blackGradient": "ui/darkOverlay.png",
+      "ui:blackGradient": "ui/blackGradient.png",
       "ui:backButton": "ui/backButton.png",
 
       "ui:calibration:calibrateText": "ui/calibration/calibrateText.png",
@@ -147,6 +147,8 @@
       "ui:lockedLevels:lockedLevel11": "ui/lockedLevels/lockedLevel11.png",
       "ui:lockedLevels:lockedLevel12": "ui/lockedLevels/lockedLevel12.png",
       "ui:level1": "ui/level1.png",
+
+      "ui:levelSelectBackButton": "ui/levelSelectBackButton.png",
 
       "ui:levelButtonsHoverState:level1ButtonHover": "ui/levelButtonsHoverState/levelButton1Hover.png",
       "ui:levelButtonsHoverState:level2ButtonHover": "ui/levelButtonsHoverState/levelButton2Hover.png",
