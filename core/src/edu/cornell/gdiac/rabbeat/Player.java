@@ -61,7 +61,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	/** Whether our feet are on the ground */
 	private boolean isGrounded;
 	/** Whether we are dying */
-	public boolean isDying;
+	private boolean isDying;
 	/** Identifier to allow us to track the sensor in ContactListener */
 	private final String sensorName;
 
@@ -106,6 +106,8 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	private boolean animationIsDying = false;
 
 	Genre genre;
+
+	boolean spawning = true;
 
 	/**
 	 * Returns left/right movement of this character.
@@ -377,16 +379,23 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	 * @param dt	Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
+		if(spawning){
+			if(playerAnimFinished()){
+				spawning = false;
+			}
+			else{
+				return;
+			}
+		}
 		// Process actions in object model
 		setPosition(getPosition().x+ dt*displacement.x, getPosition().y+ dt*displacement.y);
 
-		if (!isDying) {
+		if(!isDying){
 			setWalking(InputController.getInstance().getHorizontal() != 0 && !isJumping);
 			setMovement(InputController.getInstance().getHorizontal() * getForce());
 			setJumping(InputController.getInstance().didPrimary());
 			applyForce();
 		}
-
 		// Apply cooldowns
 		if (isJumping()) {
 			animationIsJumping = true;
@@ -394,8 +403,6 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 		} else {
 			jumpCooldown = Math.max(0, jumpCooldown - 1);
 		}
-	
-
 		animationUpdate();
 		setRestitution(0.0f);
 		super.update(dt);
@@ -444,7 +451,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	 * Updates the animation based on the physics state.
 	 */
 	private void animationUpdate() {
-		if (!animation.isAnimationFinished(stateTime) && !isDying && !animationIsDying) {
+		if (!playerAnimFinished()) {
 			return;
 		}
 
@@ -526,9 +533,31 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	}
 
 	public void updateAnimationFrame(){
+		if(isDying && playerAnimFinished()){
+			return;
+		}
 		stateTime++;
 	}
 	public float getBeat() {return .5f;}
 
 	public void beatAction(){genreSwitchCooldown = false; }
+
+
+	public boolean getIsDying(){
+		return isDying;
+	}
+	public void setDying(boolean isDying){
+		this.isDying = isDying;
+		if(isDying){
+			stateTime = 0;
+			animation = (genre == Genre.SYNTH ? synthDeathAnimation : jazzDeathAnimation);
+			setVX(0);
+			setVY(0);
+		}
+
+	}
+
+	public boolean playerAnimFinished(){
+		return animation.isAnimationFinished(stateTime);
+	}
 }
