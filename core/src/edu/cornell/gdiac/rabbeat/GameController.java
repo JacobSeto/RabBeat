@@ -1049,6 +1049,11 @@ public class GameController implements Screen, ContactListener {
 
 		// Victory Screen
 		if (complete && !failed) {
+
+			if(currentLevelInt != 1 && currentLevelInt != 4) {
+				readyToGoToNextLevel = true;
+			}
+
 			incrementLevelsUnlocked();
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
@@ -1390,42 +1395,66 @@ public class GameController implements Screen, ContactListener {
 	/** Integer that represents the number of cut scenes that the user has flipped through for level 1*/
 	public int level1NumberOfCutScenesRead = 0;
 
+	/** Boolean that represents whether the second screen is showing for level 1 and level 12 */
 	public boolean showSecondScreen;
+
+	/** Boolean that represents whether the third screen is showing for level 12*/
+	public boolean showThirdScreen;
+
+	/** Boolean that represents whether the third screen is showing for level 12*/
+	public boolean showFourthScreen;
 
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen() {
 		canvas.begin(true);
 		if (currentLevelInt == 1) {
-			if(level1NumberOfCutScenesRead == 0) {
-				canvasDrawVictoryScreen(objectController.level1VS);
-//				level1NumberOfCutScenesRead++;
-			}
+			canvasDrawVictoryScreen(objectController.level1VS);
+
 			if(InputController.getInstance().didPressEnter()) {
 				if(showSecondScreen) {
 					readyToGoToNextLevel = true;
+					showSecondScreen = false;
 				} else {
 					showSecondScreen = true;
 				}
 
 			}
-
 			if(showSecondScreen) {
-
+				//TODO: replace with 2nd victory screen
 				canvasDrawVictoryScreen(objectController.level4VS);
-//				readyToGoToNextLevel = true;
-//				enterClicked = false;
-//				level1NumberOfCutScenesRead++;
 			}
-
-//			else if (level1NumberOfCutScenesRead == 2) {
-////				readyToGoToNextLevel = true;
-//			}
 
 
 		} else if (currentLevelInt == 4) {
 			canvas.draw(objectController.level4VS, 0, 0);
 		} else if (currentLevelInt == 6) {
 			canvas.draw(objectController.level6VS, 0, 0);
+		} else if (currentLevelInt == 12) {
+			canvasDrawVictoryScreen(objectController.level1VS);
+
+			if(InputController.getInstance().didPressEnter()) {
+				if(showThirdScreen) {
+					showFourthScreen = true;
+					showSecondScreen = false;
+				} else if(showSecondScreen) {
+					showThirdScreen = true;
+					showSecondScreen = false;
+				} else {
+					showSecondScreen = true;
+				}
+			}
+
+			if(showSecondScreen) {
+				//TODO: replace with 2nd victory screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			} else if(showThirdScreen) {
+				//TODO: replace with 3nd victory screen
+				canvasDrawVictoryScreen(objectController.level1VS);
+			} else if(showFourthScreen) {
+				//TODO: replace with 4th victory screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			}
+
 		} else {
 			canvas.draw(objectController.victoryScreenBackground, 0, 0);
 		}
