@@ -50,6 +50,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private boolean hover11 = false;
     private boolean hover12 = false;
 
+    public boolean finishedLoadingLevel = false;
+
     /** Images for the button hover images when hovering over a button */
     private Image hoverImage1;
     private Image hoverImage2;
@@ -431,7 +433,13 @@ public class LevelSelectorScreen extends ScreenAdapter {
     }
 
     public void render(float delta) {
+
+
         handleInput();
+
+        if (finishedLoadingLevel){
+            return;
+        }
 
         hoverImage1.setVisible(hover1);
         hoverImage2.setVisible(hover2);
@@ -591,8 +599,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
             } else if(hover12) {
                 GameController.getInstance().setCurrentLevelInt(12);
             }
-
             listener.exitScreen(LevelSelectorScreen.this, 0);
+
         }
     }
 
