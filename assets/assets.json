@@ -148,6 +148,8 @@
       "ui:lockedLevels:lockedLevel12": "ui/lockedLevels/lockedLevel12.png",
       "ui:level1": "ui/level1.png",
 
+      "ui:levelSelectBackButton": "ui/levelSelectBackButton.png",
+
       "ui:levelButtonsHoverState:level1ButtonHover": "ui/levelButtonsHoverState/levelButton1Hover.png",
       "ui:levelButtonsHoverState:level2ButtonHover": "ui/levelButtonsHoverState/levelButton2Hover.png",
       "ui:levelButtonsHoverState:level3ButtonHover": "ui/levelButtonsHoverState/levelButton3Hover.png",
