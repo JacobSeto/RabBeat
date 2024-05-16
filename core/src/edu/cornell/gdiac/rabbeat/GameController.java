@@ -391,12 +391,8 @@ public class GameController implements Screen, ContactListener {
 		for (GameObject obj : objectController.objects) {
 			obj.deactivatePhysics(world);
 		}
-		objectController.objects.clear();
-		objectController.addQueue.clear();
+		objectController = null;
 		world.dispose();
-		objectController.objects = null;
-		objectController.addQueue = null;
-		objectController.genreObjects = null;
 		objectController = null;
 		bounds = null;
 		scale = null;
@@ -486,11 +482,15 @@ public class GameController implements Screen, ContactListener {
 	 * to the sync. If it is a {@link IGenreObject}, add to genreObstacles.
 	 *
 	 * @param object: The object you are instantiating
-	 *
+	 * @param insertIndex: Where the object should be placed in the PooledList
 	 */
-	protected void instantiate(GameObject object) {
+	protected void instantiate(GameObject object, int insertIndex) {
 		assert inBounds(object) : "Object is not in bounds";
-		objectController.objects.add(object);
+		int index = objectController.insertIndexes[insertIndex];
+		objectController.objects.add(index,object);
+		for (int i = insertIndex; i < objectController.insertIndexes.length; i++) {
+			objectController.insertIndexes[i]++;
+		}
 		if (object instanceof ISynced) {
 			syncController.addSync((ISynced) object);
 		}
@@ -563,8 +563,10 @@ public class GameController implements Screen, ContactListener {
 			obj.deactivatePhysics(world);
 		}
 		objectController.objects.clear();
-		objectController.foregroundObjects.clear();
 		objectController.addQueue.clear();
+		for (int i = 0; i < objectController.insertIndexes.length; i++) {
+			objectController.insertIndexes[i] = 0;
+		}
 		world.dispose();
 
 		world = new World(gravity, false);
@@ -633,16 +635,7 @@ public class GameController implements Screen, ContactListener {
 			}
 			else if (paused) {
 				//calibrating for audio delay
-				if(inCalibration){
-					syncController.updateCalibrate(dt);
-					if(InputController.getInstance().getCalibrate()){
-						syncController.calibrate();
-					}
-				}
-				//calibrating for visual delay
-				if(InputController.getInstance().getDelay() != 0f){
-					syncController.addAudioDelay(InputController.getInstance().getDelay());
-				}
+				syncController.calibrationCheck(inCalibration, dt);
 
 
 				// If game is currently in the middle of the paused state, do all this. It won't work the first frame of pausing but that should be fine
@@ -925,7 +918,7 @@ public class GameController implements Screen, ContactListener {
 	public void postUpdate(float dt) {
 		// Add any objects created by actions
 		while (!objectController.addQueue.isEmpty()) {
-			instantiate(objectController.addQueue.poll());
+			instantiate(objectController.addQueue.poll(), 0);
 		}
 
 		// Turn the physics engine crank.
@@ -941,6 +934,9 @@ public class GameController implements Screen, ContactListener {
 			if (obj.isRemoved()) {
 				obj.deactivatePhysics(world);
 				entry.remove();
+				for (int i = 0; i < objectController.insertIndexes.length; i++) {
+					objectController.insertIndexes[i]--;
+				}
 			} else {
 				// Note that update is called last!
 				obj.update(dt);
@@ -973,27 +969,6 @@ public class GameController implements Screen, ContactListener {
 
 		canvas.begin(false);
 		for (GameObject obj : objectController.objects) {
-			if (!objectController.foregroundObjects.contains(obj) && !objectController.bearObjects.contains(obj)){
-				obj.draw(canvas);
-			}
-		}
-		canvas.end();
-
-		// Draw the foreground on top of everything
-		canvas.begin(false);
-		for (GameObject obj : objectController.bearObjects) {
-			obj.draw(canvas);
-		}
-		canvas.end();
-
-		// Draw the player on top
-		canvas.begin(false);
-		objectController.player.draw(canvas);
-		canvas.end();
-
-		// Draw the foreground on top of everything
-		canvas.begin(false);
-		for (GameObject obj : objectController.foregroundObjects) {
 			obj.draw(canvas);
 		}
 		canvas.end();
@@ -1023,12 +998,14 @@ public class GameController implements Screen, ContactListener {
 			objectController.displayFont.setColor(Color.RED);
 			canvas.begin(true); // DO NOT SCALE
 			// TODO: Remove this failure text with something more appropriate for our game
+			// TODO: Remove this failure text with something more appropriate for our game
 			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
 			canvas.end();
 		}
 
 		// Put pause screen UI in this if statement
 		if (paused) {
+			float pulse = syncController.uiSyncPulse.uiPulseScale;
 			objectController.displayFont.setColor(Color.CYAN);
 			//canvas.begin(true); // DO NOT SCALE
 			//canvas.drawTextCentered("You paused the game!", objectController.displayFont, 0.0f);
@@ -1046,7 +1023,7 @@ public class GameController implements Screen, ContactListener {
 				int xSpace = 75;
 				for(int i = 1; i < 5; i++){
 					if(i == beatNum){
-						canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f, 1f);
+						canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f * pulse, 1f * pulse);
 					}
 					else{
 						canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f, 1f);
@@ -1054,11 +1031,6 @@ public class GameController implements Screen, ContactListener {
 					beatX+=xSpace;
 				}
 				canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 830, 100);
-
-
-				//canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 1f, 1f);
-				//canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0, 800, 160, 0, 1f, 1f);
-				//canvas.draw(objectController.backButtonTexture.getTexture(), Color.WHITE, 0, 0, 850, 80, 0, 0.5f, 0.5f);
 			}
 			else{
 				canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.5f, 0.5f);
@@ -1081,19 +1053,19 @@ public class GameController implements Screen, ContactListener {
 
 				switch (pauseItemSelected) {
 					case 0: // Restart Level
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800, 370, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800, 370, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 1: // Resume Level
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800,310, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800,310, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 2: // Exit Level
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 250,0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 250,0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 3: // Music
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 740,160, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 740,160, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 4: // SFX
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,80, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,80, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 5: // Calibrate
 						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,20, 0, 0.5f, 0.5f);

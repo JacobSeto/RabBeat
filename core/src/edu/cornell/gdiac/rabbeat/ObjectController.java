@@ -43,6 +43,15 @@ public class ObjectController {
     public PooledList<GameObject> objects = new PooledList<>();
     /** All objects that are genre-dependent */
     public PooledList<IGenreObject> genreObjects = new PooledList<>();
+    /** indexes to insert objects into the objects pooled list. Each index represent the layer the object
+     * will be placed into
+     * Layer 0: Where most objects are placed
+     * Layer 1: Objects that should be drawn on top of other objects
+     * Layer 2: The Player
+     * Layer 3: Foreground objects that are drawn over the player
+     * Layer 4: UI elements that are drawn over everything on screen
+     * */
+    public int[] insertIndexes = {0,0,0,0,0};
     /** Queue for adding objects */
     public PooledList<GameObject> addQueue = new PooledList<>();
 
@@ -442,10 +451,6 @@ public class ObjectController {
 
     public int tileSize;
 
-    /** List of objects that should be rendered in the foreground (on top of everything else)*/
-    public ArrayList<ArtObject> foregroundObjects = new ArrayList<>();
-    /** List of bear objects that should be rendered above the bullet and other game objects (not player)*/
-    public ArrayList<BearEnemy> bearObjects = new ArrayList<>();
     /** the default beat list is on the downbeats within 2 measures (beat 1 and beat 5)*/
     public int[] defaultBeatList = { 1, 5 };
 
@@ -625,7 +630,6 @@ public class ObjectController {
         bearAntiAnimation = new Animation<TextureRegion>(1f, bearAntiAtlas.findRegions("bearAnti"), Animation.PlayMode.LOOP);
         bearAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/bearAttack.atlas"));
         bearAttackAnimation = new Animation<TextureRegion>(1f, bearAttackAtlas.findRegions("bearAttack"), Animation.PlayMode.LOOP);
-
         //  Bat
         batIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/batIdle.atlas"));
         batIdleAnimation = new Animation<TextureRegion>(1f, batIdleAtlas.findRegions("batIdle"), Animation.PlayMode.LOOP);
@@ -1362,7 +1366,7 @@ public class ObjectController {
         obj.setSensor(true);
         obj.setDrawScale(scale);
         obj.setTexture(checkpointTexture);
-        GameController.getInstance().instantiate(obj);
+        GameController.getInstance().instantiate(obj, 0);
         checkpoints.add(obj);
     }
 
@@ -1414,7 +1418,7 @@ public class ObjectController {
         obj.setTexture(textureRegion);
         obj.setName(wname);
         obj.setWall(true);
-        GameController.getInstance().instantiate(obj);
+        GameController.getInstance().instantiate(obj, 0);
     }
 
     /**
@@ -1526,7 +1530,7 @@ public class ObjectController {
         else{
             platform.setType(Type.NONE);
         }
-        GameController.getInstance().instantiate(platform);
+        GameController.getInstance().instantiate(platform, 0);
     }
 
     /**
@@ -1557,7 +1561,7 @@ public class ObjectController {
         ArtObject platformArt = new ArtObject(textureRegion, convertedCoord.x, convertedCoord.y);
         platformArt.setBodyType(BodyDef.BodyType.StaticBody);
         platformArt.setDrawScale(scale);
-        GameController.getInstance().instantiate(platformArt);
+        GameController.getInstance().instantiate(platformArt, 0);
     }
 
     /**
@@ -1596,7 +1600,7 @@ public class ObjectController {
         weightedPlatform.setFriction(defaults.getFloat("friction", 0.0f));
         weightedPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         weightedPlatform.setDrawScale(scale);
-        GameController.getInstance().instantiate(weightedPlatform);
+        GameController.getInstance().instantiate(weightedPlatform, 0);
     }
 
     private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, int waitTime, int beatMoveTime, Vector2 dimensions, int levelHeight, int tileSize){
@@ -1616,7 +1620,7 @@ public class ObjectController {
         movingPlatform.setFriction(defaults.getFloat("friction", 0.0f));
         movingPlatform.setRestitution(defaults.getFloat("restitution", 0.0f));
         movingPlatform.setDrawScale(scale);
-        GameController.getInstance().instantiate(movingPlatform);
+        GameController.getInstance().instantiate(movingPlatform, 0);
     }
 
     /**
@@ -1659,7 +1663,7 @@ public class ObjectController {
         player.synthSpeed = synthSpeed;
         player.jazzSpeed = jazzSpeed;
         player.setTexture(synthDefaultTexture);
-        GameController.getInstance().instantiate(player);
+        GameController.getInstance().instantiate(player, 2);
     }
 
     private void createGoal(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize, String assetName){
@@ -1683,7 +1687,7 @@ public class ObjectController {
             goalDoor.setTexture(assets.get(assetName));
         }
         goalDoor.setName("goal");
-        GameController.getInstance().instantiate(goalDoor);
+        GameController.getInstance().instantiate(goalDoor, 0);
     }
 
     /**
@@ -1711,8 +1715,7 @@ public class ObjectController {
         bear.setBodyType(BodyDef.BodyType.StaticBody);
         bear.setDrawScale(scale);
         bear.setTexture(bearTexture);
-        GameController.getInstance().instantiate(bear);
-        bearObjects.add(bear);
+        GameController.getInstance().instantiate(bear,1);
     }
 
     /**
@@ -1740,7 +1743,7 @@ public class ObjectController {
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
         beehive.setTexture(beehiveTexture);
-        GameController.getInstance().instantiate(beehive);
+        GameController.getInstance().instantiate(beehive, 0);
     }
 
     /**
@@ -1769,7 +1772,7 @@ public class ObjectController {
         hedgehog.setBodyType(BodyDef.BodyType.StaticBody);
         hedgehog.setDrawScale(scale);
         hedgehog.setTexture(hedgehogTexture);
-        GameController.getInstance().instantiate(hedgehog);
+        GameController.getInstance().instantiate(hedgehog, 0);
     }
 
     /**
@@ -1798,7 +1801,7 @@ public class ObjectController {
         bat.setDrawScale(scale);
         bat.setTexture(batTexture);
         bat.echoAnimation = echoAnimation;
-        GameController.getInstance().instantiate(bat);
+        GameController.getInstance().instantiate(bat, 0);
     }
 
     private void createGroundArt(Vector2 scale, String type, float x, float y, Vector2 dimensions, int levelHeight,
@@ -1816,9 +1819,11 @@ public class ObjectController {
             art.setBodyType(BodyDef.BodyType.StaticBody);
             art.setDrawScale(scale);
             if (groundLevel.equals("foreground")) {
-                foregroundObjects.add(art);
+                GameController.getInstance().instantiate(art, 3);
             }
-            GameController.getInstance().instantiate(art);
+            else{
+                GameController.getInstance().instantiate(art, 0);
+            }
         } else {
 
             //  Set texture region
@@ -1850,9 +1855,11 @@ public class ObjectController {
                     pulseArt.setBodyType(BodyDef.BodyType.StaticBody);
                     pulseArt.setDrawScale(scale);
                     if (groundLevel.equals("foreground")) {
-                        foregroundObjects.add(pulseArt);
+                        GameController.getInstance().instantiate(pulseArt,3);
                     }
-                    GameController.getInstance().instantiate(pulseArt);
+                    else{
+                        GameController.getInstance().instantiate(pulseArt, 0);
+                    }
 
                     break;
                 }
@@ -1882,9 +1889,11 @@ public class ObjectController {
                     stretchArt.setBodyType(BodyDef.BodyType.StaticBody);
                     stretchArt.setDrawScale(scale);
                     if (groundLevel.equals("foreground")) {
-                        foregroundObjects.add(stretchArt);
+                        GameController.getInstance().instantiate(stretchArt, 3);
                     }
-                    GameController.getInstance().instantiate(stretchArt);
+                    else{
+                        GameController.getInstance().instantiate(stretchArt, 0);
+                    }
                     break;
                 }
                 default: {
@@ -1892,9 +1901,11 @@ public class ObjectController {
                     art.setBodyType(BodyDef.BodyType.StaticBody);
                     art.setDrawScale(scale);
                     if (groundLevel.equals("foreground")) {
-                        foregroundObjects.add(art);
+                        GameController.getInstance().instantiate(art,3);
                     }
-                    GameController.getInstance().instantiate(art);
+                    else{
+                        GameController.getInstance().instantiate(art, 0);
+                    }
                 }
             }
         }
@@ -1904,6 +1915,7 @@ public class ObjectController {
      * Creates the in-game UI elements and adds them to the genre/synced objects.
      */
     private void createGUI(Genre genre) {
+
         genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture, synthCDAnimation, jazzCDAnimation, genre);
         GameController.getInstance().instantiate(genreIndicator);
     }

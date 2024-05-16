@@ -521,7 +521,6 @@ public class InputController {
 			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
 				gc.setPlayerCompletedLevel(false);
 				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
-				System.out.println("LEVEL:" + gc.getCurrentLevel());
 				gc.exitScreen(GameController.NEXT_LEVEL);
 
 

@@ -91,8 +91,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
         bg.setPosition(0, 0);
         stage.addActor(bg);
 
-        System.out.println(GameController.getInstance().getLevelsUnlocked());
-
         /** Loops through all buttons */
         for(int i=1; i<= numberOfLevels; i++) {
             int finalI = i;

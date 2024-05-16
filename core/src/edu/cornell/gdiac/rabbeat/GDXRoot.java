@@ -16,6 +16,7 @@ package edu.cornell.gdiac.rabbeat;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.assets.*;
 
@@ -142,7 +143,10 @@ public class GDXRoot extends Game implements ScreenListener {
 			mainMenuScreen.setButtonClickedSound(buttonClicked);
 			mainMenuScreen.setButtonTransitionSound(directory.getEntry("sfx:menutransition", Sound.class));
 			mainMenuMusic.setLooping(true);
+			//Main Menu Music setup
 			mainMenuMusic.play();
+			controller.syncController = new SyncController(180);
+			controller.syncController.setSync(mainMenuMusic,mainMenuMusic);
 		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
 			mainMenuMusic.stop();
 			buttonClicked.play();
@@ -159,9 +163,6 @@ public class GDXRoot extends Game implements ScreenListener {
 			createLevelSelectorScreen();
 			mainMenuMusic.setLooping(true);
 			mainMenuMusic.play();
-			if (screen == mainMenuScreen) {
-				//buttonClicked.play();
-			}
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			Gdx.app.exit();
 		}
@@ -169,7 +170,7 @@ public class GDXRoot extends Game implements ScreenListener {
 
 	/** Creates the level selector screen */
 	public void createLevelSelectorScreen() {
-		levelSelectorScreen = new edu.cornell.gdiac.rabbeat.LevelSelectorScreen(this);
+		levelSelectorScreen = new LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
 		setScreen(levelSelectorScreen);
 	}
