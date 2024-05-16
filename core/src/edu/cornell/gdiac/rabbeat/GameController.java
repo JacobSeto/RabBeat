@@ -17,6 +17,7 @@
 package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer.Task;
 import edu.cornell.gdiac.rabbeat.objects.enemies.Enemy;
@@ -1378,12 +1379,49 @@ public class GameController implements Screen, ContactListener {
 		return objectController;
 	}
 
+	/** Boolean that represents whether enter has been clicked */
+	public boolean enterClicked = false;
+
+	/** Boolean that represents whether all the cutscenes have been read and
+	 * whether the next level should be loaded
+	 */
+	public boolean readyToGoToNextLevel = false;
+
+	/** Integer that represents the number of cut scenes that the user has flipped through for level 1*/
+	public int level1NumberOfCutScenesRead = 0;
+
+	public boolean showSecondScreen;
+
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen() {
 		canvas.begin(true);
-
 		if (currentLevelInt == 1) {
-			canvas.draw(objectController.level1VS, 0, 0);
+			if(level1NumberOfCutScenesRead == 0) {
+				canvasDrawVictoryScreen(objectController.level1VS);
+//				level1NumberOfCutScenesRead++;
+			}
+			if(InputController.getInstance().didPressEnter()) {
+				if(showSecondScreen) {
+					readyToGoToNextLevel = true;
+				} else {
+					showSecondScreen = true;
+				}
+
+			}
+
+			if(showSecondScreen) {
+
+				canvasDrawVictoryScreen(objectController.level4VS);
+//				readyToGoToNextLevel = true;
+//				enterClicked = false;
+//				level1NumberOfCutScenesRead++;
+			}
+
+//			else if (level1NumberOfCutScenesRead == 2) {
+////				readyToGoToNextLevel = true;
+//			}
+
+
 		} else if (currentLevelInt == 4) {
 			canvas.draw(objectController.level4VS, 0, 0);
 		} else if (currentLevelInt == 6) {
@@ -1393,5 +1431,12 @@ public class GameController implements Screen, ContactListener {
 		}
 		canvas.end();
 
+	}
+
+	/** Helper method for drawVictoryScreen that takes a TextureRegion parameter to
+	 * pass into the method canvas.draw()
+	 * */
+	public void canvasDrawVictoryScreen(TextureRegion victoryScreen) {
+		canvas.draw(victoryScreen, 0, 0);
 	}
 }

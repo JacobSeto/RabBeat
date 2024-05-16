@@ -396,6 +396,8 @@ public class InputController {
 		clampPosition(bounds);
 	}
 
+	public boolean enterClicked;
+
 	/**
 	 * Reads input from the keyboard.
 	 *
@@ -509,12 +511,30 @@ public class InputController {
 				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
 			}
 
+
 			//Click enter/return once selection has been chosen
 			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
-				gc.setPlayerCompletedLevel(false);
-				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
-				System.out.println("LEVEL:" + gc.getCurrentLevel());
-				gc.exitScreen(GameController.NEXT_LEVEL);
+				gc.enterClicked = true;
+
+				enterClicked = true;
+				enterClicked = false;
+
+				//TODO: Remember to set to 0 when level is restarted!!
+				if(gc.getCurrentLevelInt() == 1) {
+					if (gc.level1NumberOfCutScenesRead < 100) {
+						gc.level1NumberOfCutScenesRead++;
+					}
+				}
+
+
+
+				if(gc.readyToGoToNextLevel) {
+					gc.setPlayerCompletedLevel(false);
+					gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
+					System.out.println("LEVEL:" + gc.getCurrentLevel());
+					gc.exitScreen(GameController.NEXT_LEVEL);
+					gc.level1NumberOfCutScenesRead = 0;
+				}
 			}
 
 		}
