@@ -416,9 +416,13 @@ public class ObjectController {
     /** The attack animation for the bat enemy */
     public Animation<TextureRegion> batAttackAnimation;
     /** The idle atlas for the bee enemy */
-    public TextureAtlas beeAttackAtlas;
+    public TextureAtlas beeSynthAtlas;
+    /** The idle atlas for the bee enemy */
+    public TextureAtlas beeJazzAtlas;
     /** The idle animation for the bee enemy */
-    public Animation<TextureRegion> beeAttackAnimation;
+    public Animation<TextureRegion> beeSynthAnimation;
+    /** The idle animation for the bee enemy */
+    public Animation<TextureRegion> beeJazzAnimation;
     /** The idle atlas for the beehive */
     public TextureAtlas beehiveIdleAtlas;
     /** The idle animation for the beehive */
@@ -442,7 +446,10 @@ public class ObjectController {
 
     public int tileSize;
 
-    public ArrayList<ArtObject> artObjects = new ArrayList<>();
+    /** List of objects that should be rendered in the foreground (on top of everything else)*/
+    public ArrayList<ArtObject> foregroundObjects = new ArrayList<>();
+    /** List of bear objects that should be rendered above the bullet and other game objects (not player)*/
+    public ArrayList<BearEnemy> bearObjects = new ArrayList<>();
     /** the default beat list is on the downbeats within 2 measures (beat 1 and beat 5)*/
     public int[] defaultBeatList = { 1, 5 };
 
@@ -635,8 +642,12 @@ public class ObjectController {
         echoTexture = new TextureRegion(directory.getEntry("enemies:echoStill", Texture.class));
 
         // Bee
-        beeAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeAttack.atlas"));
-        beeAttackAnimation = new Animation<TextureRegion>(0.25f, beeAttackAtlas.findRegions("beeAttack"),
+        beeSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeSynth.atlas"));
+        beeSynthAnimation = new Animation<TextureRegion>(0.25f, beeSynthAtlas.findRegions("beeSynth"),
+                Animation.PlayMode.LOOP);
+
+        beeJazzAtlas = new TextureAtlas(Gdx.files.internal("enemies/beeJazz.atlas"));
+        beeJazzAnimation = new Animation<TextureRegion>(0.25f, beeJazzAtlas.findRegions("beeJazz"),
                 Animation.PlayMode.LOOP);
 
         beehiveIdleAtlas = new TextureAtlas(Gdx.files.internal("enemies/beehiveIdle.atlas"));
@@ -764,6 +775,7 @@ public class ObjectController {
         assets.put("dead_2", new TextureRegion(directory.getEntry("world:signs:dead_2", Texture.class)));
         assets.put("exit_0", new TextureRegion(directory.getEntry("world:signs:exit_0", Texture.class)));
 
+        //  Tutorial UI
         assets.put("arrowLeft", new TextureRegion(directory.getEntry("world:tutorial:arrowLeft", Texture.class)));
         assets.put("arrowUp", new TextureRegion(directory.getEntry("world:tutorial:arrowUp", Texture.class)));
         assets.put("arrowRight", new TextureRegion(directory.getEntry("world:tutorial:arrowRight", Texture.class)));
@@ -801,7 +813,9 @@ public class ObjectController {
         assets.put("showlight_2", new TextureRegion(directory.getEntry("world:lights:showlight_2", Texture.class)));
         assets.put("showlight_3", new TextureRegion(directory.getEntry("world:lights:showlight_3", Texture.class)));
         assets.put("showlight_4", new TextureRegion(directory.getEntry("world:lights:showlight_4", Texture.class)));
+        assets.put("barLight", new TextureRegion(directory.getEntry("world:lights:barLight", Texture.class)));
 
+        //  Neon Lights
         assets.put("neon_0", new TextureRegion(directory.getEntry("world:neonLights:neon_0", Texture.class)));
         assets.put("neon_1", new TextureRegion(directory.getEntry("world:neonLights:neon_1", Texture.class)));
         assets.put("neon_2", new TextureRegion(directory.getEntry("world:neonLights:neon_2", Texture.class)));
@@ -814,10 +828,35 @@ public class ObjectController {
         assets.put("neon_9", new TextureRegion(directory.getEntry("world:neonLights:neon_9", Texture.class)));
         assets.put("neon_10", new TextureRegion(directory.getEntry("world:neonLights:neon_10", Texture.class)));
         assets.put("neon_11", new TextureRegion(directory.getEntry("world:neonLights:neon_11", Texture.class)));
-        assets.put("neon_12", new TextureRegion(directory.getEntry("world:neonLights:neon_12", Texture.class)));
-        assets.put("neon_13", new TextureRegion(directory.getEntry("world:neonLights:neon_13", Texture.class)));
-        assets.put("neon_14", new TextureRegion(directory.getEntry("world:neonLights:neon_14", Texture.class)));
-        assets.put("neon_15", new TextureRegion(directory.getEntry("world:neonLights:neon_15", Texture.class)));
+
+        //  Lights
+        assets.put("arrow_0", new TextureRegion(directory.getEntry("world:arrows:arrow_0", Texture.class)));
+        assets.put("arrow_1", new TextureRegion(directory.getEntry("world:arrows:arrow_1", Texture.class)));
+        assets.put("arrow_2", new TextureRegion(directory.getEntry("world:arrows:arrow_2", Texture.class)));
+        assets.put("arrow_3", new TextureRegion(directory.getEntry("world:arrows:arrow_3", Texture.class)));
+        assets.put("arrow_4", new TextureRegion(directory.getEntry("world:arrows:arrow_4", Texture.class)));
+        assets.put("arrow_5", new TextureRegion(directory.getEntry("world:arrows:arrow_5", Texture.class)));
+        assets.put("arrow_6", new TextureRegion(directory.getEntry("world:arrows:arrow_6", Texture.class)));
+        assets.put("arrow_7", new TextureRegion(directory.getEntry("world:arrows:arrow_7", Texture.class)));
+        assets.put("arrow_8", new TextureRegion(directory.getEntry("world:arrows:arrow_8", Texture.class)));
+        assets.put("arrow_9", new TextureRegion(directory.getEntry("world:arrows:arrow_9", Texture.class)));
+        assets.put("arrow_10", new TextureRegion(directory.getEntry("world:arrows:arrow_10", Texture.class)));
+        assets.put("arrow_11", new TextureRegion(directory.getEntry("world:arrows:arrow_11", Texture.class)));
+        assets.put("arrow_12", new TextureRegion(directory.getEntry("world:arrows:arrow_12", Texture.class)));
+        assets.put("arrow_13", new TextureRegion(directory.getEntry("world:arrows:arrow_13", Texture.class)));
+        assets.put("arrow_14", new TextureRegion(directory.getEntry("world:arrows:arrow_14", Texture.class)));
+        assets.put("arrow_15", new TextureRegion(directory.getEntry("world:arrows:arrow_15", Texture.class)));
+
+        //  Bar
+        assets.put("bar_0", new TextureRegion(directory.getEntry("world:bar:bar_0", Texture.class)));
+        assets.put("bar_1", new TextureRegion(directory.getEntry("world:bar:bar_1", Texture.class)));
+        assets.put("bar_2", new TextureRegion(directory.getEntry("world:bar:bar_2", Texture.class)));
+        assets.put("bar_3", new TextureRegion(directory.getEntry("world:bar:bar_3", Texture.class)));
+        assets.put("bar_4", new TextureRegion(directory.getEntry("world:bar:bar_4", Texture.class)));
+        assets.put("bar_5", new TextureRegion(directory.getEntry("world:bar:bar_5", Texture.class)));
+        assets.put("bar_6", new TextureRegion(directory.getEntry("world:bar:bar_6", Texture.class)));
+        assets.put("barNeon_0", new TextureRegion(directory.getEntry("world:bar:barNeon_0", Texture.class)));
+        assets.put("barNeon_1", new TextureRegion(directory.getEntry("world:bar:barNeon_1", Texture.class)));
 
         //  Other
         assets.put("tv", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
@@ -848,9 +887,23 @@ public class ObjectController {
         assets.put("vinyl_2", new TextureRegion(directory.getEntry("world:other:vinyl_2", Texture.class)));
         assets.put("vinyl_3", new TextureRegion(directory.getEntry("world:other:vinyl_3", Texture.class)));
         assets.put("vinyl_4", new TextureRegion(directory.getEntry("world:other:vinyl_4", Texture.class)));
+        assets.put("vinyl_5", new TextureRegion(directory.getEntry("world:other:vinyl_5", Texture.class)));
+        assets.put("vinyl_6", new TextureRegion(directory.getEntry("world:other:vinyl_6", Texture.class)));
+        assets.put("vinyl_7", new TextureRegion(directory.getEntry("world:other:vinyl_7", Texture.class)));
+        assets.put("vinyl_8", new TextureRegion(directory.getEntry("world:other:vinyl_8", Texture.class)));
+        assets.put("vinyl_9", new TextureRegion(directory.getEntry("world:other:vinyl_9", Texture.class)));
+        assets.put("vinyl_10", new TextureRegion(directory.getEntry("world:other:vinyl_10", Texture.class)));
+        assets.put("vinyl_11", new TextureRegion(directory.getEntry("world:other:vinyl_11", Texture.class)));
         assets.put("album_0", new TextureRegion(directory.getEntry("world:other:album_0", Texture.class)));
+        assets.put("album_1", new TextureRegion(directory.getEntry("world:other:album_1", Texture.class)));
+        assets.put("album_2", new TextureRegion(directory.getEntry("world:other:album_2", Texture.class)));
+        assets.put("album_3", new TextureRegion(directory.getEntry("world:other:album_3", Texture.class)));
         assets.put("chand_0", new TextureRegion(directory.getEntry("world:other:chand_0", Texture.class)));
         assets.put("jazzDeath", new TextureRegion(directory.getEntry("world:other:jazzDeath", Texture.class)));
+        assets.put("couch_0", new TextureRegion(directory.getEntry("world:other:couch_0", Texture.class)));
+        assets.put("plant_0", new TextureRegion(directory.getEntry("world:other:plant_0", Texture.class)));
+        assets.put("plant_1", new TextureRegion(directory.getEntry("world:other:plant_1", Texture.class)));
+        assets.put("houseWindow", new TextureRegion(directory.getEntry("world:other:houseWindow", Texture.class)));
 
         //  Animated art
         animatedArtAtlas.put("sparkle", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkle.atlas")));
@@ -859,6 +912,8 @@ public class ObjectController {
         animatedArtAnimation.put("sparkleTwo", new Animation<TextureRegion>(1f, animatedArtAtlas.get("sparkleTwo").findRegions("sparkleTwo"), Animation.PlayMode.LOOP));
         animatedArtAtlas.put("laser", new TextureAtlas(Gdx.files.internal("world/animatedArt/laser.atlas")));
         animatedArtAnimation.put("laser", new Animation<TextureRegion>(1f, animatedArtAtlas.get("laser").findRegions("laser"), Animation.PlayMode.LOOP));
+        animatedArtAtlas.put("smallPod", new TextureAtlas(Gdx.files.internal("world/animatedArt/smallPod.atlas")));
+        animatedArtAnimation.put("smallPod", new Animation<TextureRegion>(1f, animatedArtAtlas.get("smallPod").findRegions("smallPod"), Animation.PlayMode.LOOP));
 
         //  Tilesets
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
@@ -1709,6 +1764,7 @@ public class ObjectController {
         bear.setDrawScale(scale);
         bear.setTexture(bearTexture);
         GameController.getInstance().instantiate(bear);
+        bearObjects.add(bear);
     }
 
     /**
@@ -1731,7 +1787,8 @@ public class ObjectController {
         BeeHive beehive = new BeeHive(defaultConstants.get("beehives"), convertedCoord.x, convertedCoord.y,
                 dwidth * enemyScale, dheight * enemyScale, enemyScale, faceRight, beatList, beet, genre);
         beehive.idleAnimation = beehiveIdleAnimation;
-        beehive.beeAttackAnimation = beeAttackAnimation;
+        beehive.beeSynthAnimation = beeSynthAnimation;
+        beehive.beeJazzAnimation = beeJazzAnimation;
         beehive.setAnimation(beehiveIdleAnimation);
         beehive.setBodyType(BodyDef.BodyType.StaticBody);
         beehive.setDrawScale(scale);
@@ -1812,7 +1869,7 @@ public class ObjectController {
             art.setBodyType(BodyDef.BodyType.StaticBody);
             art.setDrawScale(scale);
             if (groundLevel.equals("foreground")) {
-                artObjects.add(art);
+                foregroundObjects.add(art);
             }
             GameController.getInstance().instantiate(art);
         } else {
@@ -1846,7 +1903,7 @@ public class ObjectController {
                     pulseArt.setBodyType(BodyDef.BodyType.StaticBody);
                     pulseArt.setDrawScale(scale);
                     if (groundLevel.equals("foreground")) {
-                        artObjects.add(pulseArt);
+                        foregroundObjects.add(pulseArt);
                     }
                     GameController.getInstance().instantiate(pulseArt);
 
@@ -1878,7 +1935,7 @@ public class ObjectController {
                     stretchArt.setBodyType(BodyDef.BodyType.StaticBody);
                     stretchArt.setDrawScale(scale);
                     if (groundLevel.equals("foreground")) {
-                        artObjects.add(stretchArt);
+                        foregroundObjects.add(stretchArt);
                     }
                     GameController.getInstance().instantiate(stretchArt);
                     break;
@@ -1888,7 +1945,7 @@ public class ObjectController {
                     art.setBodyType(BodyDef.BodyType.StaticBody);
                     art.setDrawScale(scale);
                     if (groundLevel.equals("foreground")) {
-                        artObjects.add(art);
+                        foregroundObjects.add(art);
                     }
                     GameController.getInstance().instantiate(art);
                 }
