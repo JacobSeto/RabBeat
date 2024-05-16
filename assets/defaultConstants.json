@@ -160,24 +160,24 @@
       "bpm": 120
     },
     "level9": {
-      "synth": "music:synth2",
-      "jazz": "music:jazz2",
-      "bpm": 120
+      "synth": "music:synth3",
+      "jazz": "music:jazz3",
+      "bpm": 132
     },
     "level10": {
-      "synth": "music:synth2",
-      "jazz": "music:jazz2",
-      "bpm": 120
+      "synth": "music:synth3",
+      "jazz": "music:jazz3",
+      "bpm": 132
     },
     "level11": {
-      "synth": "music:synth2",
-      "jazz": "music:jazz2",
-      "bpm": 120
+      "synth": "music:synth3",
+      "jazz": "music:jazz3",
+      "bpm": 132
     },
     "level12": {
-      "synth": "music:synth2",
-      "jazz": "music:jazz2",
-      "bpm": 120
+      "synth": "music:synth3",
+      "jazz": "music:jazz3",
+      "bpm": 132
     }
   }
 }

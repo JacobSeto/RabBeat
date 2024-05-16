@@ -23,7 +23,9 @@ public class BeeHive extends Enemy {
     public Animation<TextureRegion> idleAnimation;
 
     /** The attack animation for the bee */
-    public Animation<TextureRegion> beeAttackAnimation;
+    public Animation<TextureRegion> beeSynthAnimation;
+    /** The attack animation for the bee */
+    public Animation<TextureRegion> beeJazzAnimation;
     /**
      * Creates a new bee hive avatar with the given physics data
      *
@@ -57,7 +59,14 @@ public class BeeHive extends Enemy {
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
         float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
-        Bee bee = new Bee(getX() + offset, getY(), radius, genre, isFaceRight(), beeAttackAnimation, beeBeat);
+        Animation<TextureRegion> beeAnimation;
+        if (genre == Genre.SYNTH){
+            beeAnimation = beeSynthAnimation;
+        }
+        else{
+            beeAnimation = beeJazzAnimation;
+        }
+        Bee bee = new Bee(getX() + offset, getY(), radius, genre, isFaceRight(), beeAnimation, beeBeat);
 
         bee.setName(getName() + "_bee");
         bee.setDensity(oc.defaultConstants.get("bullet").getFloat("density", 0));

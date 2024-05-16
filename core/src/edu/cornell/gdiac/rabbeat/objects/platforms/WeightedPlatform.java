@@ -46,7 +46,7 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
      * so the 'nodes' are defined by platformbeatintervals. */
     private int waitTime;
 
-    private BoxGameObject crushBody;
+    private BoxGameObject crusher;
 
     /**Determines the speed of the platform on each frame */
     private float SPEEDBEAT6 = (float) 3*1 /10;
@@ -68,12 +68,11 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
      * @param synthTexture The weighted platform's texture region used in synth mode.
      * @param jazzTexture The weighted platform's texture region used in jazz mode.
      */
-    public WeightedPlatform(float width, float height, float[] synthPos, float[] jazzPos, int platformInterval, int beatWaitTime,int beatMoveTime,
-                            TextureRegion synthTexture, TextureRegion jazzTexture, Genre genre) {
+    public WeightedPlatform(float width, float height, float[] synthPos, float[] jazzPos, int platformInterval,
+                            int beatWaitTime,int beatMoveTime, TextureRegion synthTexture,
+                            TextureRegion jazzTexture, Genre genre, BoxGameObject crushBody) {
         super((genre == Genre.SYNTH)? synthPos[0] : synthPos[0],
                 (genre == Genre.SYNTH)? synthPos[1] : jazzPos[1], width, height);
-
-
 
         jazzPosition = new Vector2(jazzPos[0], jazzPos[1]);
         synthPosition = new Vector2(synthPos[0], synthPos[1]);
@@ -96,10 +95,7 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
         waitTime = beatWaitTime;
         BPM = GameController.getInstance().getBPM();
 
-        crushBody = new BoxGameObject(synthPos[0], synthPos[1], width*0.9f, height*0.9f);
-        crushBody.setType(Type.LETHAL);
-        crushBody.setPosition(synthPosition);
-        crushBody.setTexture(synthTexture);
+        crusher = crushBody;
     }
     /** */
     public Vector2 currentVelocity(){
@@ -130,11 +126,13 @@ public class WeightedPlatform extends BoxGameObject implements IGenreObject, ISy
     public void move(float delta, Vector2 destination, float speed){
         if (solveDelta(currentSpeed, destination)-delta <LOCKDIST){
             setPosition(destination.x,destination.y);
+            crusher.setPosition(destination.x, destination.y);
             moving = false;
             currentSpeed = 0;
         }
         else{
             setPosition(getPosition().x + velocity.x*delta*speed, getPosition().y + velocity.y*delta*speed);
+            crusher.setPosition(crusher.getPosition().x + velocity.x*delta*speed, crusher.getPosition().y + velocity.y*delta*speed);
         }
     }
     /**Determines the distance between two vectors */
