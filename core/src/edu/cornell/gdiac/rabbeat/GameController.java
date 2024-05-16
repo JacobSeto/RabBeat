@@ -222,10 +222,6 @@ public class GameController implements Screen, ContactListener {
 	 */
 	private int levelBPM;
 	/**
-	 * Countdown active for winning or losing
-	 */
-	private int countdown;
-	/**
 	 * synth soundtrack of game
 	 */
 	private Music synthSoundtrack;
@@ -286,7 +282,7 @@ public class GameController implements Screen, ContactListener {
 	 * the spawnpoint location of the player
 	 */
 
-	private Vector2 respawnPoint;
+	private Vector2 respawnPoint = null;
 
 	/**
 	 * Mark set to handle more sophisticated collision callbacks
@@ -348,9 +344,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param value whether the level is completed.
 	 */
 	public void setComplete(boolean value) {
-		if (value) {
-			countdown = 0;
-		}
 		complete = value;
 	}
 
@@ -373,10 +366,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param value whether the level is failed.
 	 */
 	public void setFailure(boolean value) {
-
-		if (value) {
-			countdown = EXIT_COUNT;
-		}
 		failed = value;
 	}
 
@@ -481,7 +470,6 @@ public class GameController implements Screen, ContactListener {
 		active = false;
 		paused = false;
 		cutscenePlayed = false;
-		countdown = -1;
 	}
 
 	/**
@@ -666,8 +654,6 @@ public class GameController implements Screen, ContactListener {
 		world.setContactListener(this);
 		syncController = new SyncController(levelBPM);
 		populateLevel();
-		objectController.setFirstCheckpointAsSpawn(scale);
-		objectController.player.setPosition(respawnPoint);
 		soundController.resetMusic();
 		soundController.playMusic(genre);
 		syncController.initializeSync();
@@ -699,7 +685,6 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		populateLevel();
-		objectController.player.setPosition(respawnPoint);
 	}
 
 	/**
@@ -712,7 +697,7 @@ public class GameController implements Screen, ContactListener {
 				objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
 
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
-		objectController.populateObjects(genre, scale);
+		objectController.populateObjects(genre, scale, respawnPoint);
 	}
 
 	/**
@@ -807,17 +792,14 @@ public class GameController implements Screen, ContactListener {
 				}
 			}
 
-			if (countdown > 0) {
-				countdown--;
-			} else if (countdown == 0) {
-				if (failed) {
-					reset();
-				} else if (GameController.getInstance().isComplete()) {
-					pause();
-					// TODO: Make Win Condition
-					return false;
-				}
+			if (failed && getPlayer().playerAnimFinished()) {
+				reset();
+			} else if (GameController.getInstance().isComplete()) {
+				pause();
+				// TODO: Make Win Condition
+				return false;
 			}
+
 		}
 		if (!isFailure() && objectController.player.getY() < -1) {
 			setFailure(true);
@@ -921,8 +903,8 @@ public class GameController implements Screen, ContactListener {
 			// player collision checks
 			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player) {
 				if (bd2.getType() == Type.LETHAL || bd1.getType() == Type.LETHAL) {
-					if (!getPlayer().isDying) {
-						getPlayer().isDying = true;
+					if (!getPlayer().getIsDying()) {
+						getPlayer().setDying(true);
 						soundController.playSFX("death");
 					}
 				}
@@ -1273,7 +1255,7 @@ public class GameController implements Screen, ContactListener {
 				if (objectController.checkpoints.size() > 0) {
 					objectController.checkpoints.get(0).setActive(true);
 				}
-				objectController.setFirstCheckpointAsSpawn(scale);
+				respawnPoint = null;
 				resume();
 				reset();
 				break;
