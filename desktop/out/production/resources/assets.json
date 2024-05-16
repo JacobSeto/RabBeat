@@ -134,6 +134,8 @@
       "ui:unlockedLevels:unlockedLevel11": "ui/unlockedLevels/unlockedLevel11.png",
       "ui:unlockedLevels:unlockedLevel12": "ui/unlockedLevels/unlockedLevel12.png",
 
+      "ui:levelSelectBackButton": "ui/levelSelectBackButton.png",
+
       "ui:lockedLevels:lockedLevel1": "ui/lockedLevels/lockedLevel1.png",
       "ui:lockedLevels:lockedLevel2": "ui/lockedLevels/lockedLevel2.png",
       "ui:lockedLevels:lockedLevel3": "ui/lockedLevels/lockedLevel3.png",

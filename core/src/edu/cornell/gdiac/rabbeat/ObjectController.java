@@ -228,6 +228,9 @@ public class ObjectController {
     /** The texture for locked button 12 */
     public Texture lockedButton12;
 
+    /** The texture for the back button */
+    public Texture levelSelectBackButton;
+
     /** The textures for the level buttons when hovered over */
     public Texture levelButtonHover1;
     public Texture levelButtonHover2;
@@ -487,8 +490,9 @@ public class ObjectController {
 
         select = directory.getEntry("ui:mainMenuScreen:select", Texture.class);
         mainMenuBackground = directory.getEntry("ui:mainMenuScreen:mainMenuBackground", Texture.class);
-
         level1 = directory.getEntry("ui:level1", Texture.class);
+
+        levelSelectBackButton = directory.getEntry("ui:levelSelectBackButton", Texture.class);
 
         unlockedButton1 = directory.getEntry("ui:unlockedLevels:unlockedLevel1", Texture.class);
         unlockedButton2 = directory.getEntry("ui:unlockedLevels:unlockedLevel2", Texture.class);

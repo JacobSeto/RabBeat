@@ -396,6 +396,7 @@ public class InputController {
 		clampPosition(bounds);
 	}
 
+
 	/**
 	 * Reads input from the keyboard.
 	 *
@@ -509,11 +510,15 @@ public class InputController {
 				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
 			}
 
+
 			//Click enter/return once selection has been chosen
 			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
-				gc.setPlayerCompletedLevel(false);
-				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
-				gc.exitScreen(GameController.NEXT_LEVEL);
+				if(gc.readyToGoToNextLevel) {
+					gc.setPlayerCompletedLevel(false);
+					gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
+					gc.exitScreen(GameController.NEXT_LEVEL);
+					gc.readyToGoToNextLevel = false;
+				}
 			}
 
 		}

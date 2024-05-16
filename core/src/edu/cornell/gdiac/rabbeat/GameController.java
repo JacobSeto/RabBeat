@@ -17,6 +17,7 @@
 package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer.Task;
 import edu.cornell.gdiac.rabbeat.objects.enemies.Enemy;
@@ -79,10 +80,12 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public static final int EXIT_QUIT = 0;
 
+
 	/**
 	 * Exit code for going back to the level select menu
 	 */
 	public static final int BACK_TO_LEVEL_SELECT = 1;
+
 
 	public static final int GO_TO_LEVEL_SELECT = 1;
 
@@ -91,9 +94,14 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public static final int NEXT_LEVEL = 2;
 
+
+	/** Exit code for going to the main menu */
+	public static final int MAIN_MENU = 3;
+
 	/**
 	 * The integer that represents the number of levels that the player has unlocked
 	 */
+
 	private static int levelsUnlocked;
 
 	/**
@@ -1096,6 +1104,11 @@ public class GameController implements Screen, ContactListener {
 
 		// Victory Screen
 		if (complete && !failed) {
+
+			if(currentLevelInt != 1 && currentLevelInt != 4) {
+				readyToGoToNextLevel = true;
+			}
+
 			incrementLevelsUnlocked();
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
@@ -1414,20 +1427,88 @@ public class GameController implements Screen, ContactListener {
 		return objectController;
 	}
 
+	/** Boolean that represents whether enter has been clicked */
+	public boolean enterClicked = false;
+
+	/** Boolean that represents whether all the cutscenes have been read and
+	 * whether the next level should be loaded
+	 */
+	public boolean readyToGoToNextLevel = false;
+
+	/** Integer that represents the number of cut scenes that the user has flipped through for level 1*/
+	public int level1NumberOfCutScenesRead = 0;
+
+	/** Boolean that represents whether the second screen is showing for level 1 and level 12 */
+	public boolean showSecondScreen;
+
+	/** Boolean that represents whether the third screen is showing for level 12*/
+	public boolean showThirdScreen;
+
+	/** Boolean that represents whether the third screen is showing for level 12*/
+	public boolean showFourthScreen;
+
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen () {
 		canvas.begin(true);
-
 		if (currentLevelInt == 1) {
-			canvas.draw(objectController.level1VS, 0, 0);
+			canvasDrawVictoryScreen(objectController.level1VS);
+
+			if(InputController.getInstance().didPressEnter()) {
+				if(showSecondScreen) {
+					readyToGoToNextLevel = true;
+					showSecondScreen = false;
+				} else {
+					showSecondScreen = true;
+				}
+
+			}
+			if(showSecondScreen) {
+				//TODO: replace with 2nd victory screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			}
+
+
 		} else if (currentLevelInt == 4) {
 			canvas.draw(objectController.level4VS, 0, 0);
 		} else if (currentLevelInt == 6) {
 			canvas.draw(objectController.level6VS, 0, 0);
+		} else if (currentLevelInt == 12) {
+			canvasDrawVictoryScreen(objectController.level1VS);
+
+			if(InputController.getInstance().didPressEnter()) {
+				if(showThirdScreen) {
+					showFourthScreen = true;
+					showSecondScreen = false;
+				} else if(showSecondScreen) {
+					showThirdScreen = true;
+					showSecondScreen = false;
+				} else {
+					showSecondScreen = true;
+				}
+			}
+
+			if(showSecondScreen) {
+				//TODO: replace with 2nd victory screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			} else if(showThirdScreen) {
+				//TODO: replace with 3nd victory screen
+				canvasDrawVictoryScreen(objectController.level1VS);
+			} else if(showFourthScreen) {
+				//TODO: replace with 4th victory screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			}
+
 		} else {
 			canvas.draw(objectController.victoryScreenBackground, 0, 0);
 		}
 		canvas.end();
 
+	}
+
+	/** Helper method for drawVictoryScreen that takes a TextureRegion parameter to
+	 * pass into the method canvas.draw()
+	 * */
+	public void canvasDrawVictoryScreen(TextureRegion victoryScreen) {
+		canvas.draw(victoryScreen, 0, 0);
 	}
 }

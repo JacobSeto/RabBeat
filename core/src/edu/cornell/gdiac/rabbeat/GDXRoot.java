@@ -131,7 +131,7 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * @param exitCode The state of the screen upon exit
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
-		if(screen == initialLoading) {
+		if(screen == initialLoading || exitCode == GameController.MAIN_MENU) {
 			directory = initialLoading.getAssets();
 			mainMenuMusic = directory.getEntry("music:mainmenu", Music.class);
 			controller.gatherAssets(directory);

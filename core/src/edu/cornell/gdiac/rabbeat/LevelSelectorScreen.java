@@ -91,6 +91,18 @@ public class LevelSelectorScreen extends ScreenAdapter {
         bg.setPosition(0, 0);
         stage.addActor(bg);
 
+        Texture backButtonTexture = GameController.getInstance().objectController.levelSelectBackButton;
+        Image backButton = new Image(backButtonTexture);
+        backButton.setPosition(27f, background.getHeight() - backButton.getHeight() - 25);
+        stage.addActor(backButton);
+
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                listener.exitScreen(LevelSelectorScreen.this, GameController.MAIN_MENU);
+            }
+        });
+
         /** Loops through all buttons */
         for(int i=1; i<= numberOfLevels; i++) {
             int finalI = i;
@@ -220,15 +232,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage1.setPosition(476.5f-16,
                         background.getHeight() - hoverImage1.getHeight() - 200.5f+16);
 
-                hoverImage1.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover1 = false;
-                    }
-
-                });
-
                 hoverImage1.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -246,15 +249,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage2.setPosition(463.5f-16,
                         background.getHeight() - hoverImage2.getHeight() - 270+16);
 
-                hoverImage2.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover2 = false;
-                    }
-
-                });
-
                 hoverImage2.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -271,14 +265,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage3.setPosition(484.5f - 16,
                         background.getHeight() - hoverImage3.getHeight() - 315f + 16);
 
-                hoverImage3.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover3 = false;
-                    }
-
-                });
 
                 hoverImage3.addListener(new ClickListener() {
                     @Override
@@ -296,15 +282,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage4.setPosition(477.5f - 16,
                         background.getHeight() - hoverImage4.getHeight() - 374.5f + 16);
 
-                hoverImage4.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover4 = false;
-                    }
-
-                });
-
                 hoverImage4.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -320,15 +297,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage5 = new Image(hoverRegion);
                 hoverImage5.setPosition(748.5f - 16,
                         background.getHeight() - hoverImage5.getHeight() - 215 + 16);
-
-                hoverImage5.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover5 = false;
-                    }
-
-                });
 
                 hoverImage5.addListener(new ClickListener() {
                     @Override
@@ -346,14 +314,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage6.setPosition(788.5f - 16,
                         background.getHeight() - hoverImage6.getHeight() - 276.5f + 16);
 
-                hoverImage6.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover6 = false;
-                    }
-
-                });
 
                 hoverImage6.addListener(new ClickListener() {
                     @Override
@@ -371,14 +331,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage7.setPosition(743 - 16,
                         background.getHeight() - hoverImage7.getHeight() - 326 + 16);
 
-                hoverImage7.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover7 = false;
-                    }
-
-                });
 
                 hoverImage7.addListener(new ClickListener() {
                     @Override
@@ -397,14 +349,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage8.setPosition(734.5f - 16,
                         background.getHeight() - hoverImage8.getHeight() - 390 + 16);
 
-                hoverImage8.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover8 = false;
-                    }
-
-                });
 
                 hoverImage8.addListener(new ClickListener() {
                     @Override
@@ -422,15 +366,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage9.setPosition(1025.5f - 16,
                         background.getHeight() - hoverImage9.getHeight() - 211 + 16);
 
-                hoverImage9.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover9 = false;
-                    }
-
-                });
-
                 hoverImage9.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -447,14 +382,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage10.setPosition(1031.5f - 16,
                         background.getHeight() - hoverImage10.getHeight() - 280.5f + 16);
 
-                hoverImage10.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover10 = false;
-                    }
-
-                });
 
                 hoverImage10.addListener(new ClickListener() {
                     @Override
@@ -472,15 +399,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage11.setPosition(1014 - 16,
                         background.getHeight() - hoverImage11.getHeight() - 324.5f + 16);
 
-                hoverImage11.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover11 = false;
-                    }
-
-                });
-
                 hoverImage11.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -497,14 +415,6 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hoverImage12.setPosition(1034.5f - 16,
                         background.getHeight() - hoverImage12.getHeight() - 389.5f + 16);
 
-                hoverImage12.addListener(new InputListener() {
-                    @Override
-                    public void exit(InputEvent event, float x, float y, int pointer,
-                            Actor toActor) {
-//                        hover12 = false;
-                    }
-
-                });
 
                 hoverImage12.addListener(new ClickListener() {
                     @Override
@@ -516,9 +426,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     }
                 });
             }
-
         }
-        //TODO: make sure to add condition testing whether the level is unlocked!!
 
     }
 
