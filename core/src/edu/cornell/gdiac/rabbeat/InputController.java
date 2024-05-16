@@ -516,9 +516,7 @@ public class InputController {
 				if(gc.readyToGoToNextLevel) {
 					gc.setPlayerCompletedLevel(false);
 					gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
-					System.out.println("LEVEL:" + gc.getCurrentLevel());
 					gc.exitScreen(GameController.NEXT_LEVEL);
-					gc.level1NumberOfCutScenesRead = 0;
 					gc.readyToGoToNextLevel = false;
 				}
 			}
