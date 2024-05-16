@@ -1,0 +1,19 @@
+beeSynth.png
+size: 384, 181
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+beeSynth
+  rotate: false
+  xy: 0, 0
+  size: 192, 181
+  orig: 192, 181
+  offset: 0, 0
+  index: 0
+beeSynth
+  rotate: false
+  xy: 192, 0
+  size: 192, 181
+  orig: 192, 181
+  offset: 0, 0
+  index: 1
