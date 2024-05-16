@@ -68,8 +68,6 @@ public class GameController implements Screen, ContactListener {
 	public SoundController soundController;
 	public ObjectController objectController;
 
-
-
 	/** Exit code for quitting the game */
 	public static final int EXIT_QUIT = 0;
 
@@ -81,22 +79,28 @@ public class GameController implements Screen, ContactListener {
 	/** Exit code for going to the next level */
 	public static final int NEXT_LEVEL = 2;
 
-	public static final int LEVEL = 1;
-
-	/** The integer that represents the number of levels that the player has unlocked */
+	/**
+	 * The integer that represents the number of levels that the player has unlocked
+	 */
 	private static int levelsUnlocked;
 
-	/** The integer that represents the current level number the player selected from the LevelSelectorScreen */
+	/**
+	 * The integer that represents the current level number the player selected from
+	 * the LevelSelectorScreen
+	 */
 	private static int currentLevelInt = 1;
 
-	/** The String that represents the JSON file for the current level the player selected from the LevelSelectorScreen */
+	/**
+	 * The String that represents the JSON file for the current level the player
+	 * selected from the LevelSelectorScreen
+	 */
 	private static String currentLevel = "level" + currentLevelInt;
 
 	/** How many frames after winning/losing do we continue? */
 	public static final int EXIT_COUNT = 35;
 
 	/** The number of levels in the game */
-	private int numberOfLevels = 12;
+	private final int numberOfLevels = 12;
 
 	/** The amount of time for a physics engine step. */
 	public static final float WORLD_STEP = 1 / 60.0f;
@@ -139,9 +143,9 @@ public class GameController implements Screen, ContactListener {
 	private boolean failed = false;
 	/** Whether or not the game is paused */
 	private boolean paused = false;
-	/** Whether or not the game is in calibration screen*/
+	/** Whether or not the game is in calibration screen */
 	public boolean calibrateScreen = false;
-	/** Whether calibration is happening*/
+	/** Whether calibration is happening */
 	public boolean inCalibration = false;
 	/** Whether the genre switch mechanic is locked */
 	private boolean isGenreSwitchLocked = true;
@@ -151,7 +155,10 @@ public class GameController implements Screen, ContactListener {
 
 	/** Whether or not debug mode is active */
 	private boolean debug;
-	/** Stores the bpm after it's loaded in. Don't use this for anything, use getBPM() instead. */
+	/**
+	 * Stores the bpm after it's loaded in. Don't use this for anything, use
+	 * getBPM() instead.
+	 */
 	private int levelBPM;
 	/** Countdown active for winning or losing */
 	private int countdown;
@@ -181,14 +188,12 @@ public class GameController implements Screen, ContactListener {
 
 	private int SFXVolume = 10;
 
-	/**lIST  of enemies that are 'bounded' to a moving or weighted platform*/
+	/** lIST of enemies that are 'bounded' to a moving or weighted platform */
 	private Enemy[] boundedEnemies;
-	/**lIST  of platforms that are 'bounded' to an enemy*/
+	/** lIST of platforms that are 'bounded' to an enemy */
 	private BoxGameObject[] boundedPlatforms;
 
-	// Physics objects for the game
-
-	/** last platform collided with*/
+	/** last platform collided with */
 	private WeightedPlatform lastCollideWith;
 
 	private MovingPlatform lastMCollideWith;
@@ -201,7 +206,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** Jump buffer time */
 	private final float jumpBuffer = 0.02f;
-
 
 	private static GameController theController = null;
 
@@ -305,9 +309,12 @@ public class GameController implements Screen, ContactListener {
 
 	/**
 	 * Returns true if the game is paused
+	 * 
 	 * @return true if the game is paused
 	 */
-	public boolean getPaused() { return paused; }
+	public boolean getPaused() {
+		return paused;
+	}
 
 	/**
 	 * Sets whether the game is paused.
@@ -317,7 +324,6 @@ public class GameController implements Screen, ContactListener {
 	public void setPaused(boolean value) {
 		paused = value;
 	}
-
 
 	/**
 	 * Returns the canvas associated with this controller
@@ -358,8 +364,8 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
-		pauseTintSynthColor = new Color(1,0,1, 0.55f);
-		pauseTintJazzColor = new Color(1,0,1,0.55f);
+		pauseTintSynthColor = new Color(1, 0, 1, 0.55f);
+		pauseTintJazzColor = new Color(1, 0, 1, 0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
 		objectController = new ObjectController();
@@ -414,7 +420,8 @@ public class GameController implements Screen, ContactListener {
 	/**
 	 * Gather the assets for this controller.
 	 * <p>
-	 * This method extracts the asset variables from the given asset directory. It should only be
+	 * This method extracts the asset variables from the given asset directory. It
+	 * should only be
 	 * called after the asset directory is completed.
 	 *
 	 * @param directory Reference to global asset manager.
@@ -444,22 +451,27 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory Reference to global asset manager.
 	 */
 	public void setSoundtrack(AssetDirectory directory) {
-		synthSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("synth"), Music.class);
-		jazzSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("jazz"), Music.class);
+		synthSoundtrack = directory.getEntry(
+				objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("synth"), Music.class);
+		jazzSoundtrack = directory
+				.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel()).getString("jazz"), Music.class);
 		soundController.setSynthTrack(synthSoundtrack);
 		soundController.setJazzTrack(jazzSoundtrack);
 		soundController.setGlobalMusicVolume(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
 	}
 
-	/** Initializes the sound effects, which are stored in the sound controller.
+	/**
+	 * Initializes the sound effects, which are stored in the sound controller.
+	 * 
 	 * @param directory Reference to global asset manager.
 	 */
 	public void initializeSFX(AssetDirectory directory) {
 		soundController.addSound("genreSwitch", directory.getEntry("sfx:genreSwitch", Sound.class));
-		String checkpointNum = "2"; // change this once tracks are finalized to match their key signatures. 1 = lab, 2 = disco, 3 = penthouse
-		soundController.addSound("checkpoint", directory.getEntry("sfx:checkpoint"+checkpointNum, Sound.class));
-		soundController.addSound("jump", directory.getEntry("sfx:jump"+checkpointNum, Sound.class));
+		String checkpointNum = "2"; // change this once tracks are finalized to match their key signatures. 1 = lab,
+																// 2 = disco, 3 = penthouse
+		soundController.addSound("checkpoint", directory.getEntry("sfx:checkpoint" + checkpointNum, Sound.class));
+		soundController.addSound("jump", directory.getEntry("sfx:jump" + checkpointNum, Sound.class));
 		soundController.addSound("death", directory.getEntry("sfx:death", Sound.class));
 
 		switch (currentLevelInt) {
@@ -475,7 +487,6 @@ public class GameController implements Screen, ContactListener {
 			default:
 				break;
 		}
-
 
 	}
 
@@ -605,7 +616,7 @@ public class GameController implements Screen, ContactListener {
 		world.setGravity(new Vector2(0, objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
 
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
-		objectController.populateObjects(genre,scale);
+		objectController.populateObjects(genre, scale);
 	}
 
 	/**
@@ -637,42 +648,41 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			// Now it is time to maybe switch screens.
-			//if (input.didPressLevelSelect()) {
-			//	exitLevel();
-			//}
+			// if (input.didPressLevelSelect()) {
+			// exitLevel();
+			// }
 
 			if (input.didPause()) {
 				// If game is already paused, hitting pause again will unpause it.
 				paused = !paused;
 				if (paused) {
 					pause();
-				}
-				else {
+				} else {
 					resume();
 					// Make sure that genre doesn't get switched while game is paused
 				}
-			}
-			else if (paused) {
-				//calibrating for audio delay
-				if(inCalibration){
+			} else if (paused) {
+				// calibrating for audio delay
+				if (inCalibration) {
 					syncController.updateCalibrate(dt);
-					if(InputController.getInstance().getCalibrate()){
+					if (InputController.getInstance().getCalibrate()) {
 						syncController.calibrate();
 					}
 				}
-				//calibrating for visual delay
-				if(InputController.getInstance().getDelay() != 0f){
+				// calibrating for visual delay
+				if (InputController.getInstance().getDelay() != 0f) {
 					syncController.addAudioDelay(InputController.getInstance().getDelay());
 				}
 
-
-				// If game is currently in the middle of the paused state, do all this. It won't work the first frame of pausing but that should be fine
+				// If game is currently in the middle of the paused state, do all this. It won't
+				// work the first frame of pausing but that should be fine
 				if (input.didPressDownWhilePaused()) {
 					pauseItemSelected = (pauseItemSelected + 1) % 6;
 				}
 				if (input.didPressUpWhilePaused()) { // not using else if on purpose
 					pauseItemSelected--;
-					if (pauseItemSelected == -1) pauseItemSelected = 5;
+					if (pauseItemSelected == -1)
+						pauseItemSelected = 5;
 				}
 				if (pauseItemSelected == 3) {
 					if (input.didPressLeftWhilePaused() && musicVolume > 0) { // change this to 1 if it causes bugs
@@ -689,8 +699,7 @@ public class GameController implements Screen, ContactListener {
 						prefs.putInteger("musicVolume", musicVolume);
 						prefs.flush();
 					}
-				}
-				else if (pauseItemSelected == 4) {
+				} else if (pauseItemSelected == 4) {
 					if (input.didPressLeftWhilePaused() && SFXVolume > 0) { // again, change this to 1 if it causes bugs
 						SFXVolume--;
 						Preferences prefs = Gdx.app.getPreferences("SFXVolume");
@@ -703,8 +712,7 @@ public class GameController implements Screen, ContactListener {
 						prefs.putInteger("sfxVolume", SFXVolume);
 						prefs.flush();
 					}
-				}
-				else {
+				} else {
 					if (input.didPressEnter()) {
 						pauseAction(pauseItemSelected);
 					}
@@ -745,8 +753,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void update(float dt) {
 
-		if (InputController.getInstance().getSwitchGenre()){
-			if(!objectController.player.genreSwitchCooldown){
+		if (InputController.getInstance().getSwitchGenre()) {
+			if (!objectController.player.genreSwitchCooldown) {
 				switchGenre();
 				updateGenreSwitch();
 			}
@@ -755,11 +763,11 @@ public class GameController implements Screen, ContactListener {
 		if (InputController.getInstance().didPrimary()) {
 			soundController.playSFX("jump");
 		}
-		if (lastCollideWith != null){
+		if (lastCollideWith != null) {
 			Vector2 displace = lastCollideWith.currentVelocity();
 			objectController.player.setDisplace(displace);
 		}
-		if (lastMCollideWith != null){
+		if (lastMCollideWith != null) {
 			Vector2 displace = lastMCollideWith.currentVelocity();
 			objectController.player.setDisplace(displace);
 		}
@@ -812,33 +820,33 @@ public class GameController implements Screen, ContactListener {
 				setComplete(true);
 			}
 
-			//Bullet and Bee Collision checks
-			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy || bd1 instanceof Echo)){
+			// Bullet and Bee Collision checks
+			if (bd2 instanceof Bullet && !(bd1 instanceof Enemy || bd1 instanceof Echo)) {
 				bd2.markRemoved(true);
 			}
 			if (bd2 instanceof Bee) {
-                assert bd1 != null;
-                if (bd1.getWall()) {
-                    bd2.markRemoved(true);
-                }
-            }
+				assert bd1 != null;
+				if (bd1.getWall()) {
+					bd2.markRemoved(true);
+				}
+			}
 
-			//player collision checks
-			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player){
-				if(bd2.getType() == Type.LETHAL || bd1.getType() == Type.LETHAL){
-					if (!getPlayer().isDying){
+			// player collision checks
+			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player) {
+				if (bd2.getType() == Type.LETHAL || bd1.getType() == Type.LETHAL) {
+					if (!getPlayer().isDying) {
 						getPlayer().isDying = true;
 						soundController.playSFX("death");
 					}
 				}
-				if(bd2 instanceof  WeightedPlatform){
+				if (bd2 instanceof WeightedPlatform) {
 					lastCollideWith = (WeightedPlatform) bd1;
 				}
 			}
-			if ((bd1 instanceof WeightedPlatform) && (bd2.getType() ==  Type.Player)){
+			if ((bd1 instanceof WeightedPlatform) && (bd2.getType() == Type.Player)) {
 				lastCollideWith = (WeightedPlatform) bd1;
 			}
-			if ((bd1 instanceof MovingPlatform) && (bd2.getType() ==  Type.Player)){
+			if ((bd1 instanceof MovingPlatform) && (bd2.getType() == Type.Player)) {
 				lastMCollideWith = (MovingPlatform) bd1;
 			}
 			// Check for collision with checkpoints and set new current checkpoint
@@ -859,6 +867,7 @@ public class GameController implements Screen, ContactListener {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Callback method for the start of a collision
 	 *
@@ -883,29 +892,29 @@ public class GameController implements Screen, ContactListener {
 
 		if ((objectController.player.getSensorName().equals(fd2) && objectController.player != bd1) ||
 				(objectController.player.getSensorName().equals(fd1) && objectController.player != bd2)) {
-				// Jump buffer (coyote time) after leaving ground
-				Timer.schedule(new Task() {
-					@Override
-					public void run() {
-						sensorFixtures.remove(objectController.player == bd1 ? fix2 : fix1);
-						if (sensorFixtures.size == 0) {
-							objectController.player.setGrounded(false);
-						}
+			// Jump buffer (coyote time) after leaving ground
+			Timer.schedule(new Task() {
+				@Override
+				public void run() {
+					sensorFixtures.remove(objectController.player == bd1 ? fix2 : fix1);
+					if (sensorFixtures.size == 0) {
+						objectController.player.setGrounded(false);
 					}
-				}, jumpBuffer);
+				}
+			}, jumpBuffer);
 
 		}
-		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)){
-			if (bd1 == lastCollideWith){
+		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)) {
+			if (bd1 == lastCollideWith) {
 				lastCollideWith = null;
 			}
-			objectController.player.setDisplace(new Vector2(0,0));
+			objectController.player.setDisplace(new Vector2(0, 0));
 		}
-		if ((bd1 instanceof MovingPlatform) && (bd2 instanceof Player)){
-			if (bd1 == lastMCollideWith){
+		if ((bd1 instanceof MovingPlatform) && (bd2 instanceof Player)) {
+			if (bd1 == lastMCollideWith) {
 				lastMCollideWith = null;
 			}
-			objectController.player.setDisplace(new Vector2(0,0));
+			objectController.player.setDisplace(new Vector2(0, 0));
 		}
 
 	}
@@ -951,7 +960,7 @@ public class GameController implements Screen, ContactListener {
 
 		// Turn the physics engine crank.
 		world.step(WORLD_STEP, WORLD_VELOC, WORLD_POSIT);
-		//set position, then call a world step of zeroz
+		// set position, then call a world step of zeroz
 		// Garbage collect the deleted objects.
 		// Note how we use the linked list nodes to delete O(1) in place.
 		// This is O(n) without copying.
@@ -994,7 +1003,7 @@ public class GameController implements Screen, ContactListener {
 
 		canvas.begin(false);
 		for (GameObject obj : objectController.objects) {
-			if (!objectController.foregroundObjects.contains(obj) && !objectController.bearObjects.contains(obj)){
+			if (!objectController.foregroundObjects.contains(obj) && !objectController.bearObjects.contains(obj)) {
 				obj.draw(canvas);
 			}
 		}
@@ -1049,45 +1058,46 @@ public class GameController implements Screen, ContactListener {
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
 			canvas.begin(true); // DO NOT SCALE
-			// TODO: Remove this failure text with something more appropriate for our game
-			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
 			canvas.end();
 		}
 
 		// Put pause screen UI in this if statement
 		if (paused) {
 			objectController.displayFont.setColor(Color.CYAN);
-			//canvas.begin(true); // DO NOT SCALE
-			//canvas.drawTextCentered("You paused the game!", objectController.displayFont, 0.0f);
-			//canvas.end();
+			// canvas.begin(true); // DO NOT SCALE
+			// canvas.drawTextCentered("You paused the game!", objectController.displayFont,
+			// 0.0f);
+			// canvas.end();
 
 			canvas.begin(true);
 
-			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
-			canvas.draw(objectController.overlayTexture.getTexture(), Color.WHITE, 0, 0, 0, -10, 0,1.05f, 1.05f);
-			if(calibrateScreen){
+			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(),
+					(genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
+			canvas.draw(objectController.overlayTexture.getTexture(), Color.WHITE, 0, 0, 0, -10, 0, 1.05f, 1.05f);
+			if (calibrateScreen) {
 				canvas.draw(objectController.tapText.getTexture(), Color.WHITE, 0, 0, 860, 390, 0, 1f, 1f);
 				canvas.draw(objectController.pressSpace.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.75f, 0.75f);
 				int beatNum = syncController.beat.getBeatFour();
 				int beatX = 875;
 				int xSpace = 75;
-				for(int i = 1; i < 5; i++){
-					if(i == beatNum){
+				for (int i = 1; i < 5; i++) {
+					if (i == beatNum) {
 						canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f, 1f);
-					}
-					else{
+					} else {
 						canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f, 1f);
 					}
-					beatX+=xSpace;
+					beatX += xSpace;
 				}
-				canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 830, 100);
+				canvas.drawText("Delay: " + (int) (syncController.audioDelay * 100) + "ms", objectController.displayFont, 830,
+						100);
 
-
-				//canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 1f, 1f);
-				//canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0, 800, 160, 0, 1f, 1f);
-				//canvas.draw(objectController.backButtonTexture.getTexture(), Color.WHITE, 0, 0, 850, 80, 0, 0.5f, 0.5f);
-			}
-			else{
+				// canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0,
+				// 860, 250, 0, 1f, 1f);
+				// canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0,
+				// 800, 160, 0, 1f, 1f);
+				// canvas.draw(objectController.backButtonTexture.getTexture(), Color.WHITE, 0,
+				// 0, 850, 80, 0, 0.5f, 0.5f);
+			} else {
 				canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 370, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.exitLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 0.5f, 0.5f);
@@ -1095,35 +1105,36 @@ public class GameController implements Screen, ContactListener {
 				canvas.draw(objectController.SFXTexture.getTexture(), Color.WHITE, 0, 0, 850, 80, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.calibrateTextTexture.getTexture(), Color.WHITE, 0, 0, 860, 20, 0, 0.5f, 0.5f);
 				for (int i = 0; i < musicVolume; i++) {
-					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 160, 0, 0.5f, 0.5f);
+					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 160, 0, 0.5f,
+							0.5f);
 				}
 				for (int i = 0; i < SFXVolume; i++) {
-					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 80, 0, 0.5f, 0.5f);
+					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 80, 0, 0.5f,
+							0.5f);
 				}
 				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 160, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 80, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 160, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 80, 0, 0.5f, 0.5f);
 
-
 				switch (pauseItemSelected) {
 					case 0: // Restart Level
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800, 370, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 370, 0, 0.5f, 0.5f);
 						break;
 					case 1: // Resume Level
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800,310, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 310, 0, 0.5f, 0.5f);
 						break;
 					case 2: // Exit Level
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 250,0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 250, 0, 0.5f, 0.5f);
 						break;
 					case 3: // Music
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 740,160, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 740, 160, 0, 0.5f, 0.5f);
 						break;
 					case 4: // SFX
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,80, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780, 80, 0, 0.5f, 0.5f);
 						break;
 					case 5: // Calibrate
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,20, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780, 20, 0, 0.5f, 0.5f);
 						break;
 				}
 			}
@@ -1188,7 +1199,7 @@ public class GameController implements Screen, ContactListener {
 		soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
 
-		//soundController.resumeMusic();
+		// soundController.resumeMusic();
 		InputController.getInstance().setPaused(false);
 		pauseItemSelected = 0; // delete this line if pause menu should "save" where you were last time
 		InputController.getInstance().setSwitchGenre(false);
@@ -1217,17 +1228,22 @@ public class GameController implements Screen, ContactListener {
 				break;
 			case 5: // Calibrate
 				calibrateScreen = true;
-			default: break;
+			default:
+				break;
 		}
 	}
-	/** Returns to the level select screen and resets the SoundController accordingly. */
 
+	/**
+	 * Returns to the level select screen and resets the SoundController
+	 * accordingly.
+	 */
 
 	public void exitLevel() {
 		soundController.resetMusic();
 		soundController.pauseMusic();
 		exitScreen(0);
 	}
+
 	/**
 	 * Called when this screen becomes the current screen for a Game.
 	 */
@@ -1295,7 +1311,10 @@ public class GameController implements Screen, ContactListener {
 		listener.exitScreen(this, exitCode);
 	}
 
-	/** Sets the currentLevelInt variable and concurrently change the currentLevel String*/
+	/**
+	 * Sets the currentLevelInt variable and concurrently change the currentLevel
+	 * String
+	 */
 	public void setCurrentLevelInt(int currentLevelInt) {
 		this.currentLevelInt = currentLevelInt;
 		currentLevel = "level" + currentLevelInt;
@@ -1317,9 +1336,12 @@ public class GameController implements Screen, ContactListener {
 		this.levelsUnlocked = levelsUnlocked;
 	}
 
-	/** Increments the integer levelsUnlocked if a player completes a level and the next level is locked*/
+	/**
+	 * Increments the integer levelsUnlocked if a player completes a level and the
+	 * next level is locked
+	 */
 	public void incrementLevelsUnlocked() {
-		if(currentLevelInt == levelsUnlocked && currentLevelInt < 12) {
+		if (currentLevelInt == levelsUnlocked && currentLevelInt < 12) {
 			levelsUnlocked++;
 			Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
 			prefs.putInteger("levelsUnlocked", levelsUnlocked);
@@ -1354,40 +1376,15 @@ public class GameController implements Screen, ContactListener {
 
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen() {
-
-		//OLD VICTORY SCREEN
-//		canvas.begin(true);
-//		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
-//		canvas.draw(objectController.nextLevelText.getTexture(), Color.WHITE, 0, 0, 570, 370, 0, 0.5f, 0.5f);
-//		canvas.draw(objectController.levelSelectText.getTexture(), Color.WHITE, 0, 0, 570, 310, 0, 0.5f, 0.5f);
-//		canvas.draw(objectController.victoryLogo.getTexture(), Color.WHITE, 0, 0, 310, 220, 0, 0.5f, 0.5f);
-//
-////		switch (victoryScreenItemSelected) {
-////			case 0: // Next Level
-////				canvas.draw(objectController.indicatorStarTexture.getTexture(),
-////						Color.WHITE, 0, 0, 520, 360, 0, 0.5f, 0.5f);
-////				break;
-////			case 1: // Level Select
-////				canvas.draw(objectController.indicatorStarTexture.getTexture(),
-////						Color.WHITE, 0, 0, 520, 300, 0, 0.5f, 0.5f);
-////				break;
-////		}
-//
-//		canvas.end();
-
-		//NEW VICTORY SCREEN
-
 		canvas.begin(true);
-//		canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), pauseTintSynthColor, 0, 0, 0, 0, 0, 1, 1);
-//
-		if(currentLevelInt == 1) {
-			//DRAW FOR CURRENT LEVEL INT
+
+		if (currentLevelInt == 1) {
 			canvas.draw(objectController.level1VS, 0, 0);
 		} else if (currentLevelInt == 4) {
 			canvas.draw(objectController.level4VS, 0, 0);
-		}else if (currentLevelInt == 6){
+		} else if (currentLevelInt == 6) {
 			canvas.draw(objectController.level6VS, 0, 0);
-		}else {
+		} else {
 			canvas.draw(objectController.victoryScreenBackground, 0, 0);
 		}
 		canvas.end();
