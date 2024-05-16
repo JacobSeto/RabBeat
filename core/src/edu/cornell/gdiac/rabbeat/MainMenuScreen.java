@@ -71,6 +71,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
     public void setButtonTransitionSound(Sound s) {buttonTransition = s;}
 
+
     /** Displays the button UI for each level and adds a clickListener that detects whether
      * the button has been clicked and takes the player to the desired level
      */
@@ -209,6 +210,8 @@ public class MainMenuScreen extends ScreenAdapter {
 
 
         handleInput();
+
+        GameController.getInstance().syncController.update(false);
     }
 
     @Override
