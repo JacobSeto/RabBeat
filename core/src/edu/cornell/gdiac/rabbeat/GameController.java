@@ -840,7 +840,7 @@ public class GameController implements Screen, ContactListener {
 			}
 			InputController.getInstance().setSwitchGenre(false);
 		}
-		if (InputController.getInstance().didPrimary()) {
+		if (InputController.getInstance().didPrimary() && objectController.player.isGrounded) {
 			soundController.playSFX("jump");
 		}
 		if (lastCollideWith != null) {
