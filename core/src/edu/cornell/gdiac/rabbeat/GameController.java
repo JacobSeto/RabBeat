@@ -1158,7 +1158,7 @@ public class GameController implements Screen, ContactListener {
 				canvas.draw(objectController.exitLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.musicTexture.getTexture(), Color.WHITE, 0, 0, 800, 160, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.SFXTexture.getTexture(), Color.WHITE, 0, 0, 850, 80, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.calibrateTextTexture.getTexture(), Color.WHITE, 0, 0, 860, 20, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.calibrateTextTexture.getTexture(), Color.WHITE, 0, 0, 850, 20, 0, 0.5f, 0.5f);
 				for (int i = 0; i < musicVolume; i++) {
 					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 160, 0, 0.5f, 0.5f);
 				}
@@ -1188,7 +1188,7 @@ public class GameController implements Screen, ContactListener {
 						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,80, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 5: // Calibrate
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,20, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,20, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 				}
 			}

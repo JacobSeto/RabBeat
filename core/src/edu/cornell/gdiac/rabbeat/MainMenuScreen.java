@@ -56,6 +56,14 @@ public class MainMenuScreen extends ScreenAdapter {
     private Image optionsSelectImage;
     private Image quitSelectImage;
 
+    private boolean downPressed;
+    private boolean downPrevious;
+
+    private boolean upPressed;
+    private boolean upPrevious;
+
+    private boolean enterPressed;
+    private boolean enterPrevious;
 
     public MainMenuScreen(Game game) {
         this.game = game;
@@ -231,7 +239,15 @@ public class MainMenuScreen extends ScreenAdapter {
 
     /** reads the data from the input keys and changes the buttonSelected String accordingly */
     public void handleInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+        enterPrevious = enterPressed;
+        downPrevious = downPressed;
+        upPrevious = upPressed;
+
+        enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
+        downPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
+        upPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
+
+        if (upPressed && !upPrevious) {
             switch (buttonSelected) {
                 case "play":
                     buttonSelected = "quit";
@@ -244,7 +260,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     break;
             }
             buttonTransition.play();
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)|| Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+        } else if (downPressed && !downPrevious) {
             switch (buttonSelected) {
                 case "quit":
                     buttonSelected = "play";
@@ -257,7 +273,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     break;
             }
             buttonTransition.play();
-        } else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+        } else if (enterPressed && !enterPrevious) {
             switch (buttonSelected) {
                 case "play":
                     listener.exitScreen(this, GameController.GO_TO_LEVEL_SELECT);
