@@ -829,17 +829,6 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void update(float dt) {
 
-		if(InputController.getInstance().didPressEnter()) {
-			if(showLevel1FirstCutScene) {
-				showLevel1SecondCutScene = true;
-				showLevel1FirstCutScene = false;
-				//TODO: reset showLevel1cutscene to true when reaching last one
-			} else if(showLevel1SecondCutScene) {
-				showLevel1FirstCutScene = true;
-				System.out.println("HELLO");
-				displayStartCutScenes = false;
-			}
-		}
 
 		if (InputController.getInstance().getSwitchGenre()) {
 			if (!objectController.player.genreSwitchCooldown) {
@@ -1077,9 +1066,9 @@ public class GameController implements Screen, ContactListener {
 		}
 	}
 
-	public boolean showLevel1FirstCutScene;
-	public boolean showLevel1SecondCutScene = false;
-	public boolean displayStartCutScenes;
+	public static boolean showLevel1FirstCutScene;
+	public static boolean showLevel1SecondCutScene;
+	public static boolean displayStartCutScenes;
 	/**
 	 * Draw the physics objects to the canvas
 	 * <p>
@@ -1138,6 +1127,20 @@ public class GameController implements Screen, ContactListener {
 			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
 			canvas.end();
 		}
+
+		canvas.begin(false);
+
+		if(currentLevelInt == 1 && displayStartCutScenes){
+			if(showLevel1SecondCutScene) {
+				//TODO: replace with 2nd start screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			} else if (showLevel1FirstCutScene){
+				//TODO: replace with 1st start screen
+				canvasDrawVictoryScreen(objectController.level1VS);
+			}
+		}
+
+		canvas.end();
 
 		// Put pause screen UI in this if statement
 		if (paused) {
@@ -1212,19 +1215,7 @@ public class GameController implements Screen, ContactListener {
 			canvas.end();
 		}
 
-		canvas.begin(false);
 
-		if(currentLevelInt == 1 && displayStartCutScenes){
-//			InputController.getInstance().setPaused(true);
-			if(showLevel1SecondCutScene) {
-				//TODO: replace with 2nd victory screen
-				canvasDrawVictoryScreen(objectController.level4VS);
-			} else if (showLevel1FirstCutScene){
-				canvasDrawVictoryScreen(objectController.level1VS);
-			}
-		}
-
-		canvas.end();
 	}
 	/**
 	 * Called when the Screen is resized.
@@ -1250,7 +1241,7 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void render ( float delta){
 		if (active) {
-			if (preUpdate(delta) && !paused) {
+			if (preUpdate(delta) && !paused && !displayStartCutScenes) {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
@@ -1258,6 +1249,18 @@ public class GameController implements Screen, ContactListener {
 				canvas.updateCamera(objectController.player, worldWidth, worldHeight);
 			}
 			draw(delta);
+		}
+
+
+		if(InputController.getInstance().didPressEnter() && !paused) {
+			if(showLevel1FirstCutScene) {
+				showLevel1SecondCutScene = true;
+				showLevel1FirstCutScene = false;
+			} else if(showLevel1SecondCutScene) {
+				showLevel1FirstCutScene = true;
+				System.out.println("HELLO");
+				displayStartCutScenes = false;
+			}
 		}
 	}
 

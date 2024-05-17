@@ -238,8 +238,9 @@ public class LevelSelectorScreen extends ScreenAdapter {
                         if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
                             GameController.getInstance().setCurrentLevelInt(1);
                             listener.exitScreen(LevelSelectorScreen.this, 0);
-                            GameController.getInstance().displayStartCutScenes = true;
-                            GameController.getInstance().showLevel1FirstCutScene = true;
+                            GameController.displayStartCutScenes = true;
+                            GameController.showLevel1FirstCutScene = true;
+                            GameController.showLevel1SecondCutScene = false;
                         }
                     }
                 });
@@ -570,15 +571,16 @@ public class LevelSelectorScreen extends ScreenAdapter {
         }else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             if(hover1) {
                 GameController.getInstance().setCurrentLevelInt(1);
-                GameController.getInstance().displayStartCutScenes = true;
-                GameController.getInstance().showLevel1FirstCutScene = true;
+                GameController.displayStartCutScenes = true;
+                GameController.showLevel1FirstCutScene = true;
+                GameController.showLevel1SecondCutScene = false;
             } else if(hover2) {
                 GameController.getInstance().setCurrentLevelInt(2);
             } else if(hover3) {
                 GameController.getInstance().setCurrentLevelInt(3);
             } else if(hover4) {
                 GameController.getInstance().setCurrentLevelInt(4);
-            } if(hover5) {
+            } else if(hover5) {
                 GameController.getInstance().setCurrentLevelInt(5);
             } else if(hover6) {
                 GameController.getInstance().setCurrentLevelInt(6);
@@ -586,7 +588,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 GameController.getInstance().setCurrentLevelInt(7);
             } else if(hover8) {
                 GameController.getInstance().setCurrentLevelInt(8);
-            } if(hover9) {
+            } else if(hover9) {
                 GameController.getInstance().setCurrentLevelInt(9);
             } else if(hover10) {
                 GameController.getInstance().setCurrentLevelInt(10);
