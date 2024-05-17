@@ -976,6 +976,9 @@ public class ObjectController {
         animatedArtAtlas.put("smallPod", new TextureAtlas(Gdx.files.internal("world/animatedArt/smallPod.atlas")));
         animatedArtAnimation.put("smallPod", new Animation<TextureRegion>(1f,
                 animatedArtAtlas.get("smallPod").findRegions("smallPod"), Animation.PlayMode.LOOP));
+        animatedArtAtlas.put("houseWindow", new TextureAtlas(Gdx.files.internal("world/animatedArt/houseWindow.atlas")));
+        animatedArtAnimation.put("houseWindow", new Animation<TextureRegion>(1f,
+                animatedArtAtlas.get("houseWindow").findRegions("houseWindow"), Animation.PlayMode.LOOP));
 
         // Tilesets
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));

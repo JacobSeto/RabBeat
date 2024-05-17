@@ -184,7 +184,7 @@
       "ui:lvl9VS": "ui/victory/level9VS.png",
       "ui:lvl10VS": "ui/victory/level10VS.png",
 
-          "player:synth":  "player/synth.png",
+      "player:synth":  "player/synth.png",
       "player:synth-jazz":   "player/synth-jazz.png",
 
       "backgrounds:labBg":  "backgrounds/labBg.png",
