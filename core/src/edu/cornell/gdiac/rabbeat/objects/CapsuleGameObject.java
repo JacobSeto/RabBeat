@@ -281,6 +281,7 @@ public class CapsuleGameObject extends SimpleGameObject {
 		shape = new PolygonShape();
 		end1 = new CircleShape();
 		end2 = new CircleShape();
+
 		center = new Rectangle();
 		vertices = new float[8];
 

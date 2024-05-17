@@ -44,7 +44,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     private float SPEEDBEAT6 = (float) 3*1 /10;
     private float SPEEDBEAT7 = (float) 2*3 /10;
     private float SPEEDBEAT8 = (float) 2*6 /10;
-
+    private BoxGameObject crusher;
 
     /**
      * Creates a new moving platform with the given physics data and current genre.
@@ -55,7 +55,8 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
      * @param beatWaitTime The number of 4 beat intervals the platform waits at each position
      * @param texture The texture region for the platform
      */
-    public MovingPlatform(float width, float height, Vector2[] nodes, int beatWaitTime, int beatMoveTime, TextureRegion texture) {
+    public MovingPlatform(float width, float height, Vector2[] nodes, int beatWaitTime, int beatMoveTime,
+                          TextureRegion texture, BoxGameObject crushBody) {
         super(nodes[0].x, nodes[0].y, width, height);
         beatWait = beatWaitTime;
         positionNodes = nodes;
@@ -67,6 +68,8 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         moving = true;
         moveTime = (int) Math.pow(2, beatMoveTime);
         BPM = GameController.getInstance().getBPM();
+
+        crusher = crushBody;
         //setType(Type.LETHAL);
     }
 
@@ -76,6 +79,8 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
             /**If it is predicted we reach the next platform in the current frame, teleport to it and recalculte velocity.*/
             if (solveDelta(currentSpeed)-delta <LOCKDIST){
                 setPosition(positionNodes[destination].x,positionNodes[destination].y );
+                crusher.setPosition(positionNodes[destination].x, positionNodes[destination].y);
+
                 home = destination;
                 if (destination == positionNodes.length-1){
                     destination = 0;
@@ -95,6 +100,8 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
     public void move(float delta){
         setPosition(getPosition().x + velocity.x*delta*-1*currentSpeed, getPosition().y + velocity.y*delta*-1*currentSpeed);
+        crusher.setPosition(crusher.getPosition().x + velocity.x*delta*-1*currentSpeed,
+                crusher.getPosition().y + velocity.y*delta*-1*currentSpeed);
     }
     /**Calculates the time it takes to reach the next platform given the current speed*/
     public float solveDelta(float velocity){

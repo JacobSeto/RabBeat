@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import edu.cornell.gdiac.rabbeat.GameController;
 import edu.cornell.gdiac.rabbeat.LoadingMode;
 import edu.cornell.gdiac.rabbeat.ObjectController;
+import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.util.ScreenListener;
 import com.badlogic.gdx.Input;
 
@@ -55,32 +56,37 @@ public class MainMenuScreen extends ScreenAdapter {
     private Image playSelectImage;
     private Image optionsSelectImage;
     private Image quitSelectImage;
+    private Texture background;
 
+    private boolean downPressed;
+    private boolean downPrevious;
+
+    private boolean upPressed;
+    private boolean upPrevious;
+
+    private boolean enterPressed;
+    private boolean enterPrevious;
 
     public MainMenuScreen(Game game) {
         this.game = game;
-    }
-
-    public MainMenuScreen(Game game, Sound buttonClicked, Sound buttonTransition) {
-        this.game = game;
-        this.buttonClicked = buttonClicked;
-        this.buttonTransition = buttonTransition;
     }
 
     public void setButtonClickedSound(Sound s) {buttonClicked = s;}
 
     public void setButtonTransitionSound(Sound s) {buttonTransition = s;}
 
+
     /** Displays the button UI for each level and adds a clickListener that detects whether
      * the button has been clicked and takes the player to the desired level
      */
     @Override
     public void show() {
+        System.out.println("show");
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
         // Background
-        Texture background = GameController.getInstance().objectController.mainMenuBackground;
+        background = GameController.getInstance().objectController.mainMenuBackground;
         TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(background));
         Image bg = new Image(backgroundDrawable);
         bg.setPosition(0, 0);
@@ -209,6 +215,23 @@ public class MainMenuScreen extends ScreenAdapter {
 
 
         handleInput();
+        SyncController syncController = GameController.getInstance().syncController;
+        syncController.update(true);
+        float pulseScale = syncController.uiSyncPulse.uiPulseScale;
+
+        playSelectImage.setScale(pulseScale, pulseScale);
+        playSelectImage.setOrigin( (playSelectImage.getWidth() / 2), playSelectImage.getHeight() / 2);
+
+        playSelectImage.setScale(pulseScale, pulseScale);
+        playSelectImage.setOrigin( (playSelectImage.getWidth() / 2), playSelectImage.getHeight() / 2);
+
+        optionsSelectImage.setScale(pulseScale, pulseScale);
+        optionsSelectImage.setOrigin( (optionsSelectImage.getWidth() / 2), optionsSelectImage.getHeight() / 2);
+
+        quitSelectImage.setScale(pulseScale, pulseScale);
+        quitSelectImage.setOrigin( (quitSelectImage.getWidth() / 2), quitSelectImage.getHeight() / 2);
+
+
     }
 
     @Override
@@ -228,7 +251,15 @@ public class MainMenuScreen extends ScreenAdapter {
 
     /** reads the data from the input keys and changes the buttonSelected String accordingly */
     public void handleInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+        enterPrevious = enterPressed;
+        downPrevious = downPressed;
+        upPrevious = upPressed;
+
+        enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
+        downPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
+        upPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
+
+        if (upPressed && !upPrevious) {
             switch (buttonSelected) {
                 case "play":
                     buttonSelected = "quit";
@@ -241,7 +272,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     break;
             }
             buttonTransition.play();
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)|| Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+        } else if (downPressed && !downPrevious) {
             switch (buttonSelected) {
                 case "quit":
                     buttonSelected = "play";
@@ -254,7 +285,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     break;
             }
             buttonTransition.play();
-        } else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+        } else if (enterPressed && !enterPrevious) {
             switch (buttonSelected) {
                 case "play":
                     listener.exitScreen(this, GameController.GO_TO_LEVEL_SELECT);
