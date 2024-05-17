@@ -556,12 +556,26 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void initializeSFX(AssetDirectory directory) {
 		soundController.addSound("genreSwitch", directory.getEntry("sfx:genreSwitch", Sound.class));
-		String checkpointNum = "2"; // change this once tracks are finalized to match their key signatures. 1 = lab,
+		String checkpointNum; // change this once tracks are finalized to match their key signatures. 1 = lab,
 		// 2 = disco, 3 = penthouse
+		switch (currentLevelInt) {
+			case 1: case 2: case 3: case 4:
+				checkpointNum = "1";
+				break;
+			case 5: case 6: case 7: case 8:
+				checkpointNum = "2";
+				break;
+			case 9: case 10: case 11: case 12:
+				checkpointNum = "3";
+				break;
+			default:
+				checkpointNum = "3";
+				break;
+		}
 		soundController.addSound("checkpoint",
 				directory.getEntry("sfx:checkpoint" + checkpointNum, Sound.class));
 		soundController.addSound("jump",
-				directory.getEntry("sfx:jump" + checkpointNum, Sound.class));
+				directory.getEntry("sfx:jump", Sound.class));
 		soundController.addSound("death", directory.getEntry("sfx:death", Sound.class));
 
 		switch (currentLevelInt) {
@@ -576,6 +590,18 @@ public class GameController implements Screen, ContactListener {
 			case 6: // POP
 				soundController.addSound("cutscene",
 						directory.getEntry("sfx:popCutscene", Sound.class));
+				break;
+			case 8: // HIP HOP
+				soundController.addSound("cutscene",
+						directory.getEntry("sfx:hiphopCutscene", Sound.class));
+				break;
+			case 10: // COUNTRY
+				soundController.addSound("cutscene",
+						directory.getEntry("sfx:countryCutscene", Sound.class));
+				break;
+			case 12: // CLASSICAL
+				soundController.addSound("cutscene",
+						directory.getEntry("sfx:classicalCutscene", Sound.class));
 				break;
 			default:
 				break;
@@ -1128,7 +1154,6 @@ public class GameController implements Screen, ContactListener {
 
 		// Victory Screen
 		if (complete && !failed) {
-
 			if(currentLevelInt != 1 && currentLevelInt != 4) {
 				readyToGoToNextLevel = true;
 			}
@@ -1136,6 +1161,16 @@ public class GameController implements Screen, ContactListener {
 			incrementLevelsUnlocked();
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
+			if (!cutscenePlayed) {
+				cutscenePlayed = true;
+				switch (currentLevelInt) {
+					case 1: case 4: case 6: case 8: case 10: case 12:
+						soundController.playSFX("cutscene");
+						break;
+					default:
+						break;
+				}
+			}
 			drawVictoryScreen();
 
 		} else if (failed) {
