@@ -48,6 +48,9 @@ public class Beat implements ISynced {
     }
 
     /** Returns the beat in string form out of 4*/
-    public int getBeatFour(){return (beatCount % 4 + 1);}
+    public int getBeatFour(){
+            int modCount = beatCount % 4;
+            return modCount == 0 ? 4 : modCount;
+    }
 
 }
