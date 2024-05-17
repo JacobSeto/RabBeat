@@ -659,13 +659,13 @@ public class GameController implements Screen, ContactListener {
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
-		worldWidth = DEFAULT_WIDTH * objectController.labBgTexture.getRegionWidth()
-				/ getCanvas().getWidth();
-		worldHeight = DEFAULT_HEIGHT * objectController.labBgTexture.getRegionHeight()
-				/ getCanvas().getHeight();
-		world.setContactListener(this);
 		syncController = new SyncController(levelBPM);
 		populateLevel();
+		worldWidth = DEFAULT_WIDTH * objectController.levelBackground.getRegionWidth()
+				/ getCanvas().getWidth();
+		worldHeight = DEFAULT_HEIGHT * objectController.levelBackground.getRegionHeight()
+				/ getCanvas().getHeight();
+		world.setContactListener(this);
 		objectController.setFirstCheckpointAsSpawn(scale);
 		objectController.player.setPosition(respawnPoint);
 		soundController.resetMusic();
