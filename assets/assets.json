@@ -424,7 +424,7 @@
         "level6": "levelsJson/rabbeatLevelBat.tmj",
         "level7": "levelsJson/EricMediumLevel.tmj",
         "level8": "levelsJson/tutorial1.tmj",
-        "level9": "levelsJson/tutorial1.tmj",
+        "level9": "levelsJson/benTestHouseLevelDisco.tmj",
         "level10": "levelsJson/tutorial1.tmj",
         "level11": "levelsJson/tutorial1.tmj",
         "level12": "levelsJson/houseArtLevel.tmj"
@@ -448,8 +448,8 @@
     },
     "music" : {
           "music:mainmenu": "music/main_menu.ogg",
-      "music:synth1": "music/synth_alpha.ogg",
-      "music:jazz1": "music/jazz_alpha.ogg",
+      "music:synth1": "music/synth1.ogg",
+      "music:jazz1": "music/jazz1.ogg",
           "music:synth2": "music/synth2.ogg",
           "music:jazz2": "music/jazz2.ogg",
           "music:jazz3": "music/jazz3.ogg",
