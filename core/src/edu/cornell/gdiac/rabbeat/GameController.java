@@ -726,7 +726,6 @@ public class GameController implements Screen, ContactListener {
 		syncController.update(getPaused());
 
 		if(currentLevelInt == 1 && InputController.getInstance().didPressEnter() && !paused) {
-			System.out.println("HELLO");
 			if(showLevel1FirstCutScene) {
 				showLevel1SecondCutScene = true;
 				showLevel1FirstCutScene = false;
