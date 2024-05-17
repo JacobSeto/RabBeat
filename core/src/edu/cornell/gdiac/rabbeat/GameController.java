@@ -1143,11 +1143,6 @@ public class GameController implements Screen, ContactListener {
 			incrementLevelsUnlocked();
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
-			canvas.begin(true); // DO NOT SCALE
-			// TODO: Remove this failure text with something more appropriate for our game
-			// TODO: Remove this failure text with something more appropriate for our game
-			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
-			canvas.end();
 		}
 
 		canvas.begin(true);
@@ -1322,11 +1317,6 @@ public class GameController implements Screen, ContactListener {
 				}
 				break;
 			case 0: // Resume Level
-//				if(displayStartCutScenes) {
-////					if(showLevel1SecondCutScene) {
-////						showLevel1FirstCutScene = true;
-////					}
-//				}
 				paused = false;
 				resume();
 				break;
