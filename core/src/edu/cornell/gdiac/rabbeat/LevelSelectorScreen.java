@@ -521,7 +521,44 @@ public class LevelSelectorScreen extends ScreenAdapter {
         upPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
         int numberOfLevelsUnlocked = GameController.getInstance().getLevelsUnlocked();
         if(!hover1 && !hover2 && !hover3 && !hover4 && !hover5 && !hover6 && !hover7 && !hover8 && !hover9 && !hover10 && !hover11 && !hover12)
-            hover1 = true;
+            switch(GameController.getInstance().getCurrentLevelInt()) {
+                case (1):
+                    hover1 = true;
+                    break;
+                case (2):
+                    hover2 = true;
+                    break;
+                case (3):
+                    hover3 = true;
+                    break;
+                case (4):
+                    hover4 = true;
+                    break;
+                case (5):
+                    hover5 = true;
+                    break;
+                case (6):
+                    hover6 = true;
+                    break;
+                case (7):
+                    hover7 = true;
+                    break;
+                case (8):
+                    hover8 = true;
+                    break;
+                case (9):
+                    hover9 = true;
+                    break;
+                case (10):
+                    hover10 = true;
+                    break;
+                case (11):
+                    hover11 = true;
+                    break;
+                case (12):
+                    hover12 = true;
+                    break;
+            }
         else if (downPressed && !downPrevious) {
             if(hover1 && numberOfLevelsUnlocked > 1) {
                 hover1 = false;
