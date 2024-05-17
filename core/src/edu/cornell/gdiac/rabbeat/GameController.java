@@ -661,12 +661,12 @@ public class GameController implements Screen, ContactListener {
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
-		worldWidth = DEFAULT_WIDTH * objectController.labBgTexture.getRegionWidth()
+		populateLevel();
+		worldWidth = DEFAULT_WIDTH * objectController.levelBackground.getRegionWidth()
 				/ getCanvas().getWidth();
-		worldHeight = DEFAULT_HEIGHT * objectController.labBgTexture.getRegionHeight()
+		worldHeight = DEFAULT_HEIGHT * objectController.levelBackground.getRegionHeight()
 				/ getCanvas().getHeight();
 		world.setContactListener(this);
-		populateLevel();
 		soundController.resetMusic();
 		soundController.playMusic(genre);
 		syncController.initializeSync();
@@ -1518,19 +1518,19 @@ public class GameController implements Screen, ContactListener {
 		canvas.begin(true);
 		if (currentLevelInt == 1) {
 
-			if(InputController.getInstance().didPressEnter()) {
-				if(showSecondVictoryScreen) {
+			if (InputController.getInstance().didPressEnter()) {
+				if (showSecondVictoryScreen) {
 					readyToGoToNextLevel = true;
 					showSecondVictoryScreen = false;
-				} else if(showFirstVictoryScreen){
+				} else if (showFirstVictoryScreen) {
 					showSecondVictoryScreen = true;
 					showFirstVictoryScreen = false;
 				}
 
 			}
-			if(showFirstVictoryScreen) {
+			if (showFirstVictoryScreen) {
 				canvasDrawVictoryScreen(objectController.level1VS);
-			} else if(showSecondVictoryScreen) {
+			} else if (showSecondVictoryScreen) {
 				//TODO: replace with 2nd victory screen
 				canvasDrawVictoryScreen(objectController.level4VS);
 			}
@@ -1540,6 +1540,12 @@ public class GameController implements Screen, ContactListener {
 			canvas.draw(objectController.level4VS, 0, 0);
 		} else if (currentLevelInt == 6) {
 			canvas.draw(objectController.level6VS, 0, 0);
+		} else if (currentLevelInt == 8) {
+			canvas.draw(objectController.level8VS, 0, 0);
+		} else if (currentLevelInt == 9) {
+			canvas.draw(objectController.level9VS, 0, 0);
+		} else if (currentLevelInt == 10) {
+			canvas.draw(objectController.level10VS, 0, 0);
 		} else if (currentLevelInt == 12) {
 			if(InputController.getInstance().didPressEnter()) {
 				if(showThirdVictoryScreen) {

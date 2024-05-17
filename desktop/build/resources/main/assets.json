@@ -191,7 +191,7 @@
 
       "backgrounds:labBg":  "backgrounds/labBg.png",
       "backgrounds:discoBg":  "backgrounds/discoBg.png",
-      "backgrounds:houseBg":  "backgrounds/houseBg2.png",
+      "backgrounds:houseBg":  "backgrounds/houseBg.png",
       "backgrounds:pauseTint": "backgrounds/white_texture.png",
       "backgrounds:levelSelectBackground": "backgrounds/levelSelectBackground.png",
 
@@ -437,8 +437,8 @@
         "level5": "levelsJson/EricLaserLevel.tmj",
         "level6": "levelsJson/rabbeatLevelBat.tmj",
         "level7": "levelsJson/EricMediumLevel.tmj",
-        "level8": "levelsJson/CrushLevel.tmj",
-        "level9": "levelsJson/benTestHouseLevelDisco.tmj",
+        "level8": "levelsJson/tutorial1.tmj",
+        "level9": "levelsJson/tutorial1.tmj",
         "level10": "levelsJson/tutorial1.tmj",
         "level11": "levelsJson/tutorial1.tmj",
         "level12": "levelsJson/houseArtLevel.tmj"
