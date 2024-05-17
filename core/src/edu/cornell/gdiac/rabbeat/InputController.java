@@ -519,6 +519,7 @@ public class InputController {
 					gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
 					gc.exitScreen(GameController.NEXT_LEVEL);
 					gc.readyToGoToNextLevel = false;
+					gc.setComplete(false);
 				}
 			}
 

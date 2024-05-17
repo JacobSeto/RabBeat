@@ -1125,16 +1125,22 @@ public class GameController implements Screen, ContactListener {
 
 		// Victory Screen
 		if (complete && !failed) {
+			System.out.println("COMPLETE: " + currentLevelInt);
+			if((currentLevelInt == 1 && !showFirstVictoryScreen && !showSecondVictoryScreen)
+					|| (currentLevelInt == 12 && !showFirstVictoryScreen && !showSecondVictoryScreen
+					&& !showThirdVictoryScreen && !showFourthVictoryScreen)) {
+				showFirstVictoryScreen = true;
+			}
 
 			if(currentLevelInt != 1 && currentLevelInt != 12) {
 				readyToGoToNextLevel = true;
 			}
 
-			incrementLevelsUnlocked();
+
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
 			drawVictoryScreen();
-
+			incrementLevelsUnlocked();
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
 			canvas.begin(true); // DO NOT SCALE
@@ -1144,17 +1150,15 @@ public class GameController implements Screen, ContactListener {
 			canvas.end();
 		}
 
-		canvas.begin(false);
+		canvas.begin(true);
 
 		if(currentLevelInt == 1 && displayStartCutScenes){
 			if(showLevel1SecondCutScene) {
 				//TODO: replace with 2nd start screen
-				canvas.draw(objectController.level4VS, 130, 75);
-				//canvasDrawVictoryScreen(objectController.level4VS);
+				canvasDrawVictoryScreen(objectController.level4VS);
 			} else if (showLevel1FirstCutScene){
 				//TODO: replace with 1st start screen
-				canvas.draw(objectController.level1VS, 130, 75);
-//				canvasDrawVictoryScreen(objectController.level1VS);
+				canvasDrawVictoryScreen(objectController.level1VS);
 			}
 		}
 
@@ -1495,22 +1499,25 @@ public class GameController implements Screen, ContactListener {
 	/** Boolean that represents whether the fourth victory screen is showing for level 12*/
 	public boolean showFourthVictoryScreen;
 
+
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen () {
 		canvas.begin(true);
 		if (currentLevelInt == 1) {
-			canvasDrawVictoryScreen(objectController.level1VS);
 
 			if(InputController.getInstance().didPressEnter()) {
 				if(showSecondVictoryScreen) {
 					readyToGoToNextLevel = true;
 					showSecondVictoryScreen = false;
-				} else {
+				} else if(showFirstVictoryScreen){
 					showSecondVictoryScreen = true;
+					showFirstVictoryScreen = false;
 				}
 
 			}
-			if(showSecondVictoryScreen) {
+			if(showFirstVictoryScreen) {
+				canvasDrawVictoryScreen(objectController.level1VS);
+			} else if(showSecondVictoryScreen) {
 				//TODO: replace with 2nd victory screen
 				canvasDrawVictoryScreen(objectController.level4VS);
 			}
@@ -1521,8 +1528,6 @@ public class GameController implements Screen, ContactListener {
 		} else if (currentLevelInt == 6) {
 			canvas.draw(objectController.level6VS, 0, 0);
 		} else if (currentLevelInt == 12) {
-			canvasDrawVictoryScreen(objectController.level1VS);
-
 			if(InputController.getInstance().didPressEnter()) {
 				if(showThirdVictoryScreen) {
 					showFourthVictoryScreen = true;
@@ -1530,12 +1535,15 @@ public class GameController implements Screen, ContactListener {
 				} else if(showSecondVictoryScreen) {
 					showThirdVictoryScreen = true;
 					showSecondVictoryScreen = false;
-				} else {
+				} else if (showFirstVictoryScreen) {
 					showSecondVictoryScreen = true;
+					showFirstVictoryScreen = false;
 				}
 			}
 
-			if(showSecondVictoryScreen) {
+			if(showFirstVictoryScreen) {
+				canvasDrawVictoryScreen(objectController.level1VS);
+			} else if(showSecondVictoryScreen) {
 				//TODO: replace with 2nd victory screen
 				canvasDrawVictoryScreen(objectController.level4VS);
 			} else if(showThirdVictoryScreen) {
