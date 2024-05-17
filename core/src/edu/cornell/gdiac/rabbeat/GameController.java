@@ -1442,7 +1442,14 @@ public class GameController implements Screen, ContactListener {
 			canvas.draw(objectController.level4VS, 0, 0);
 		} else if (currentLevelInt == 6) {
 			canvas.draw(objectController.level6VS, 0, 0);
-		} else {
+		} else if (currentLevelInt == 8){
+			canvas.draw(objectController.level8VS, 0, 0);
+		} else if (currentLevelInt == 9){
+			canvas.draw(objectController.level9VS, 0, 0);
+		} else if (currentLevelInt == 10){
+			canvas.draw(objectController.level10VS, 0, 0);
+		}
+		else {
 			canvas.draw(objectController.victoryScreenBackground, 0, 0);
 		}
 		canvas.end();

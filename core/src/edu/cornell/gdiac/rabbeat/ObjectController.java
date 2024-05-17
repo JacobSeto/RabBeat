@@ -316,6 +316,9 @@ public class ObjectController {
     public TextureRegion level1VS;
     public TextureRegion level4VS;
     public TextureRegion level6VS;
+    public TextureRegion level8VS;
+    public TextureRegion level9VS;
+    public TextureRegion level10VS;
 
     // HashMaps
     private HashMap<String, TextureRegion> assets = new HashMap<>();
@@ -533,6 +536,9 @@ public class ObjectController {
         level1VS = new TextureRegion(directory.getEntry("ui:lvl1VS", Texture.class));
         level4VS = new TextureRegion(directory.getEntry("ui:lvl4VS", Texture.class));
         level6VS = new TextureRegion(directory.getEntry("ui:lvl6VS", Texture.class));
+        level8VS = new TextureRegion(directory.getEntry("ui:lvl8VS", Texture.class));
+        level9VS = new TextureRegion(directory.getEntry("ui:lvl9VS", Texture.class));
+        level10VS = new TextureRegion(directory.getEntry("ui:lvl10VS", Texture.class));
 
         levelSelectBackground = directory.getEntry("backgrounds:levelSelectBackground", Texture.class);
 
@@ -724,6 +730,7 @@ public class ObjectController {
         assets.put("emptypod4", new TextureRegion(directory.getEntry("world:pods:emptypod4", Texture.class)));
         assets.put("wolfpod1", new TextureRegion(directory.getEntry("world:pods:wolfpod1", Texture.class)));
         assets.put("pod", new TextureRegion(directory.getEntry("world:pods:pod", Texture.class)));
+        assets.put("brokenPod", new TextureRegion(directory.getEntry("world:pods:brokenPod", Texture.class)));
 
         assets.put("shelf1", new TextureRegion(directory.getEntry("world:shelves:shelf1", Texture.class)));
         assets.put("shelf2", new TextureRegion(directory.getEntry("world:shelves:shelf2", Texture.class)));
@@ -747,6 +754,8 @@ public class ObjectController {
         assets.put("bigwire", new TextureRegion(directory.getEntry("world:wires:bigwire", Texture.class)));
         assets.put("wires1", new TextureRegion(directory.getEntry("world:wires:wires1", Texture.class)));
         assets.put("wires2", new TextureRegion(directory.getEntry("world:wires:wires2", Texture.class)));
+        assets.put("goldWire_0", new TextureRegion(directory.getEntry("world:wires:goldWire_0", Texture.class)));
+        assets.put("goldWire_1", new TextureRegion(directory.getEntry("world:wires:goldWire_1", Texture.class)));
 
         assets.put("grafiti_0", new TextureRegion(directory.getEntry("world:grafiti:grafiti_0", Texture.class)));
         assets.put("caution_0", new TextureRegion(directory.getEntry("world:grafiti:caution_0", Texture.class)));
@@ -902,6 +911,7 @@ public class ObjectController {
 
         // Other
         assets.put("tv", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
+        assets.put("tvs", new TextureRegion(directory.getEntry("world:other:tvs", Texture.class)));
         assets.put("cam_0", new TextureRegion(directory.getEntry("world:other:cam_0", Texture.class)));
         assets.put("cam_1", new TextureRegion(directory.getEntry("world:other:cam_1", Texture.class)));
         assets.put("cam_2", new TextureRegion(directory.getEntry("world:other:cam_2", Texture.class)));

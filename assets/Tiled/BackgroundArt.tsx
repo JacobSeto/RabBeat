@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="151" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="155" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7">
   <properties>
@@ -881,6 +881,30 @@
   <properties>
    <property name="assetName" value="chand_1"/>
   </properties>
-  <image width="768" height="768" source="../world/other/chand_1.png"/>
+  <image width="130" height="130" source="../world/other/chand_1.png"/>
+ </tile>
+ <tile id="163">
+  <properties>
+   <property name="assetName" value="tvs"/>
+  </properties>
+  <image width="160" height="160" source="../world/other/tvs.png"/>
+ </tile>
+ <tile id="164">
+  <properties>
+   <property name="assetName" value="brokenPod"/>
+  </properties>
+  <image width="250" height="250" source="../world/pods/brokenPod.png"/>
+ </tile>
+ <tile id="165">
+  <properties>
+   <property name="assetName" value="goldWire_0"/>
+  </properties>
+  <image width="192" height="192" source="../world/wires/goldWire_0.png"/>
+ </tile>
+ <tile id="166">
+  <properties>
+   <property name="assetName" value="goldWire_1"/>
+  </properties>
+  <image width="192" height="192" source="../world/wires/goldWire_1.png"/>
  </tile>
 </tileset>
