@@ -724,6 +724,17 @@ public class GameController implements Screen, ContactListener {
 		soundController.update();
 		syncController.update(getPaused());
 
+		if(InputController.getInstance().didPressEnter() && !paused) {
+			if(showLevel1FirstCutScene) {
+				showLevel1SecondCutScene = true;
+				showLevel1FirstCutScene = false;
+			} else if(showLevel1SecondCutScene) {
+				showLevel1FirstCutScene = true;
+				System.out.println("HELLO");
+				displayStartCutScenes = false;
+			}
+		}
+
 		if (listener != null) {
 			// Toggle debug
 			if (input.didDebug()) {
@@ -1252,16 +1263,7 @@ public class GameController implements Screen, ContactListener {
 		}
 
 
-		if(InputController.getInstance().didPressEnter() && !paused) {
-			if(showLevel1FirstCutScene) {
-				showLevel1SecondCutScene = true;
-				showLevel1FirstCutScene = false;
-			} else if(showLevel1SecondCutScene) {
-				showLevel1FirstCutScene = true;
-				System.out.println("HELLO");
-				displayStartCutScenes = false;
-			}
-		}
+
 	}
 
 	/**
@@ -1304,6 +1306,13 @@ public class GameController implements Screen, ContactListener {
 				respawnPoint = null;
 				resume();
 				reset();
+
+				if(currentLevelInt == 1) {
+					displayStartCutScenes = true;
+					showLevel1FirstCutScene = true;
+					showLevel1SecondCutScene = false;
+					//TODO: add more here if more cutscenes
+				}
 				break;
 			case 1: // Resume Level
 				paused = false;
