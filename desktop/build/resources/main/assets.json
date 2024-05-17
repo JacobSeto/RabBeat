@@ -110,7 +110,7 @@
       "ui:pause:unhoverLowerSound": "ui/pause/unhoverLowerSound.png",
       "ui:pause:unhoverUpSound": "ui/pause/unhoverUpSound.png",
       "ui:pause:volumeBox": "ui/pause/volumeBox.png",
-      "ui:blackGradient": "ui/darkOverlay.png",
+      "ui:blackGradient": "ui/blackGradient.png",
       "ui:backButton": "ui/backButton.png",
 
       "ui:calibration:calibrateText": "ui/calibration/calibrateText.png",
@@ -423,7 +423,7 @@
         "level7": "levelsJson/EricMediumLevel.tmj",
         "level8": "levelsJson/tutorial1.tmj",
         "level9": "levelsJson/tutorial1.tmj",
-        "level10": "levelsJson/tutorial1.tmj",
+        "level10": "levelsJson/FinalLevel1.tmj",
         "level11": "levelsJson/tutorial1.tmj",
         "level12": "levelsJson/houseArtLevel.tmj"
     },
