@@ -1696,7 +1696,7 @@ public class ObjectController {
 
         BoxGameObject crushBody = new BoxGameObject(convertedSynthCoord.x, convertedSynthCoord.y,
                 dwidth * 0.8f, dheight * 0.2f);
-        crushBody.setType(Type.LETHAL);
+        crushBody.setType(Type.CRUSHER);
         crushBody.setBodyType(BodyDef.BodyType.StaticBody);
         crushBody.setPosition(convertedSynthCoord);
         crushBody.setDrawScale(scale);
@@ -1733,7 +1733,7 @@ public class ObjectController {
 
         BoxGameObject crushBody = new BoxGameObject(positionNodes[0].x, positionNodes[0].y,
                 dwidth * 0.8f, dheight * 0.2f);
-        crushBody.setType(Type.LETHAL);
+        crushBody.setType(Type.CRUSHER);
         crushBody.setBodyType(BodyDef.BodyType.StaticBody);
         crushBody.setPosition(new Vector2(positionNodes[0].x, positionNodes[0].y));
         crushBody.setDrawScale(scale);

@@ -156,6 +156,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	private boolean playerCompletedLevel = false;
 
+	private boolean collidedWithCrusher = false;
+
 	/**
 	 * Reference to the game canvas
 	 */
@@ -203,6 +205,8 @@ public class GameController implements Screen, ContactListener {
 	 * Whether or not the game is paused
 	 */
 	private boolean paused = false;
+
+	/** Whether or not the player is currently colliding with a wall
 	/**
 	 * Whether or not the game is in calibration screen
 	 */
@@ -917,8 +921,17 @@ public class GameController implements Screen, ContactListener {
 						soundController.playSFX("death");
 					}
 				}
+				if (bd2.getType() == Type.CRUSHER || bd1.getType() == Type.CRUSHER) {
+					collidedWithCrusher = true;
+				}
 				if (bd2 instanceof WeightedPlatform) {
 					lastCollideWith = (WeightedPlatform) bd1;
+				}
+				if ((bd2.getWall() || bd1.getWall()) && collidedWithCrusher) {
+					if (!getPlayer().getIsDying()) {
+						getPlayer().setDying(true);
+						soundController.playSFX("death");
+					}
 				}
 			}
 			if ((bd1 instanceof WeightedPlatform) && (bd2.getType() == Type.Player)) {
@@ -962,6 +975,17 @@ public class GameController implements Screen, ContactListener {
 
 		Object fd1 = fix1.getUserData();
 		Object fd2 = fix2.getUserData();
+		try {
+			GameObject bd1 = (GameObject) body1.getUserData();
+			GameObject bd2 = (GameObject) body2.getUserData();
+
+			if (bd1.getType() == Type.CRUSHER || bd2.getType() == Type.CRUSHER) {
+				collidedWithCrusher = false;
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		Object bd1 = body1.getUserData();
 		Object bd2 = body2.getUserData();
@@ -994,7 +1018,6 @@ public class GameController implements Screen, ContactListener {
 			}
 			objectController.player.setDisplace(new Vector2(0, 0));
 		}
-
 	}
 
 	/**

@@ -8,4 +8,7 @@ public enum Type {
         LETHAL,
         /** An obstacle with no exceptional properties */
         NONE,
+
+        /** An obstacle that CRUSHES the player (which is a subset of LETHAL) */
+        CRUSHER
 }
