@@ -446,6 +446,7 @@ public class InputController {
 			} else {
 				genreSwitched = false;
 			}
+			enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
 		}
 		// When the game IS paused
 		else {

@@ -238,6 +238,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                         if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
                             GameController.getInstance().setCurrentLevelInt(1);
                             listener.exitScreen(LevelSelectorScreen.this, 0);
+                            GameController.getInstance().displayStartCutScenes = true;
+                            GameController.getInstance().showLevel1FirstCutScene = true;
                         }
                     }
                 });
@@ -568,6 +570,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
         }else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             if(hover1) {
                 GameController.getInstance().setCurrentLevelInt(1);
+                GameController.getInstance().displayStartCutScenes = true;
+                GameController.getInstance().showLevel1FirstCutScene = true;
             } else if(hover2) {
                 GameController.getInstance().setCurrentLevelInt(2);
             } else if(hover3) {

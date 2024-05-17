@@ -18,6 +18,7 @@ package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation.SwingOut;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer.Task;
 import edu.cornell.gdiac.rabbeat.objects.enemies.Enemy;
@@ -828,6 +829,18 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void update(float dt) {
 
+		if(InputController.getInstance().didPressEnter()) {
+			if(showLevel1FirstCutScene) {
+				showLevel1SecondCutScene = true;
+				showLevel1FirstCutScene = false;
+				//TODO: reset showLevel1cutscene to true when reaching last one
+			} else if(showLevel1SecondCutScene) {
+				showLevel1FirstCutScene = true;
+				System.out.println("HELLO");
+				displayStartCutScenes = false;
+			}
+		}
+
 		if (InputController.getInstance().getSwitchGenre()) {
 			if (!objectController.player.genreSwitchCooldown) {
 				switchGenre();
@@ -1064,6 +1077,9 @@ public class GameController implements Screen, ContactListener {
 		}
 	}
 
+	public boolean showLevel1FirstCutScene;
+	public boolean showLevel1SecondCutScene = false;
+	public boolean displayStartCutScenes;
 	/**
 	 * Draw the physics objects to the canvas
 	 * <p>
@@ -1195,6 +1211,20 @@ public class GameController implements Screen, ContactListener {
 
 			canvas.end();
 		}
+
+		canvas.begin(false);
+
+		if(currentLevelInt == 1 && displayStartCutScenes){
+//			InputController.getInstance().setPaused(true);
+			if(showLevel1SecondCutScene) {
+				//TODO: replace with 2nd victory screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			} else if (showLevel1FirstCutScene){
+				canvasDrawVictoryScreen(objectController.level1VS);
+			}
+		}
+
+		canvas.end();
 	}
 	/**
 	 * Called when the Screen is resized.
