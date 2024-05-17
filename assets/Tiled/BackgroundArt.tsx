@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="144" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="151" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7">
   <properties>
@@ -701,7 +701,7 @@
   <properties>
    <property name="assetName" value="barLight"/>
   </properties>
-  <image width="127" height="127" source="../world/lights/barLight.png"/>
+  <image width="140" height="140" source="../world/lights/barLight.png"/>
  </tile>
  <tile id="133">
   <properties>
@@ -839,6 +839,48 @@
   <properties>
    <property name="assetName" value="houseWindow"/>
   </properties>
-  <image width="230" height="230" source="../world/other/houseWindow.png"/>
+  <image width="300" height="300" source="../world/other/houseWindow.png"/>
+ </tile>
+ <tile id="156">
+  <properties>
+   <property name="assetName" value="toxic_0"/>
+  </properties>
+  <image width="200" height="200" source="../world/other/toxic_0.png"/>
+ </tile>
+ <tile id="157">
+  <properties>
+   <property name="assetName" value="toxic_1"/>
+  </properties>
+  <image width="200" height="200" source="../world/other/toxic_1.png"/>
+ </tile>
+ <tile id="158">
+  <properties>
+   <property name="assetName" value="toxic_2"/>
+  </properties>
+  <image width="200" height="200" source="../world/other/toxic_2.png"/>
+ </tile>
+ <tile id="159">
+  <properties>
+   <property name="assetName" value="hydrant"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/hydrant.png"/>
+ </tile>
+ <tile id="160">
+  <properties>
+   <property name="assetName" value="barricade"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/barricade.png"/>
+ </tile>
+ <tile id="161">
+  <properties>
+   <property name="assetName" value="barLightGlow"/>
+  </properties>
+  <image width="224" height="256" source="../world/lights/barLightGlow.png"/>
+ </tile>
+ <tile id="162">
+  <properties>
+   <property name="assetName" value="chand_1"/>
+  </properties>
+  <image width="768" height="768" source="../world/other/chand_1.png"/>
  </tile>
 </tileset>

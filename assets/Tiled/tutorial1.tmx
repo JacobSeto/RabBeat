@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="974">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="980">
  <editorsettings>
   <export target="../levelsJson/tutorial1.tmj" format="json"/>
  </editorsettings>
@@ -10,7 +10,7 @@
  <tileset firstgid="175" source="rabbeatTileset.tsx"/>
  <tileset firstgid="196" source="Tutorial.tsx"/>
  <tileset firstgid="230" source="BackgroundArt.tsx"/>
- <tileset firstgid="362" source="AnimatedArt.tsx"/>
+ <tileset firstgid="393" source="AnimatedArt.tsx"/>
  <objectgroup id="2" name="background" locked="1">
   <object id="690" type="Pulse" gid="170" x="0" y="1088" width="6464" height="1088"/>
  </objectgroup>
@@ -95,6 +95,11 @@
   <object id="953" type="Pulse" gid="277" x="3581.76" y="263.166" width="128" height="128"/>
   <object id="965" gid="261" x="1475" y="546" width="256" height="256"/>
   <object id="973" type="Pulse" gid="359" x="5926" y="436" width="128" height="128"/>
+  <object id="974" gid="386" x="1825" y="769" width="200" height="200"/>
+  <object id="975" gid="387" x="1910" y="770" width="200" height="200"/>
+  <object id="976" gid="388" x="1867" y="768" width="200" height="200"/>
+  <object id="977" gid="389" x="878" y="771" width="192" height="192"/>
+  <object id="979" gid="390" x="774" y="774" width="192" height="192"/>
  </objectgroup>
  <layer id="1" name="walls" width="150" height="17">
   <data encoding="csv">

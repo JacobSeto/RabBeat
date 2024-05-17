@@ -855,6 +855,7 @@ public class ObjectController {
         assets.put("showlight_3", new TextureRegion(directory.getEntry("world:lights:showlight_3", Texture.class)));
         assets.put("showlight_4", new TextureRegion(directory.getEntry("world:lights:showlight_4", Texture.class)));
         assets.put("barLight", new TextureRegion(directory.getEntry("world:lights:barLight", Texture.class)));
+        assets.put("barLightGlow", new TextureRegion(directory.getEntry("world:lights:barLightGlow", Texture.class)));
 
         // Neon Lights
         assets.put("neon_0", new TextureRegion(directory.getEntry("world:neonLights:neon_0", Texture.class)));
@@ -940,11 +941,17 @@ public class ObjectController {
         assets.put("album_2", new TextureRegion(directory.getEntry("world:other:album_2", Texture.class)));
         assets.put("album_3", new TextureRegion(directory.getEntry("world:other:album_3", Texture.class)));
         assets.put("chand_0", new TextureRegion(directory.getEntry("world:other:chand_0", Texture.class)));
+        assets.put("chand_1", new TextureRegion(directory.getEntry("world:other:chand_1", Texture.class)));
         assets.put("jazzDeath", new TextureRegion(directory.getEntry("world:other:jazzDeath", Texture.class)));
         assets.put("couch_0", new TextureRegion(directory.getEntry("world:other:couch_0", Texture.class)));
         assets.put("plant_0", new TextureRegion(directory.getEntry("world:other:plant_0", Texture.class)));
         assets.put("plant_1", new TextureRegion(directory.getEntry("world:other:plant_1", Texture.class)));
         assets.put("houseWindow", new TextureRegion(directory.getEntry("world:other:houseWindow", Texture.class)));
+        assets.put("toxic_0", new TextureRegion(directory.getEntry("world:other:toxic_0", Texture.class)));
+        assets.put("toxic_1", new TextureRegion(directory.getEntry("world:other:toxic_1", Texture.class)));
+        assets.put("toxic_2", new TextureRegion(directory.getEntry("world:other:toxic_2", Texture.class)));
+        assets.put("barricade", new TextureRegion(directory.getEntry("world:other:barricade", Texture.class)));
+        assets.put("hydrant", new TextureRegion(directory.getEntry("world:other:hydrant", Texture.class)));
 
         // Animated art
         animatedArtAtlas.put("sparkle", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkle.atlas")));

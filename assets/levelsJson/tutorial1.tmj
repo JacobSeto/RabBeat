@@ -1556,6 +1556,96 @@
                  "width":128,
                  "x":5926,
                  "y":436
+                }, 
+                {
+                 "gid":386,
+                 "height":200,
+                 "id":974,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"toxic_0"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":200,
+                 "x":1825,
+                 "y":769
+                }, 
+                {
+                 "gid":387,
+                 "height":200,
+                 "id":975,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"toxic_1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":200,
+                 "x":1910,
+                 "y":770
+                }, 
+                {
+                 "gid":388,
+                 "height":200,
+                 "id":976,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"toxic_2"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":200,
+                 "x":1867,
+                 "y":768
+                }, 
+                {
+                 "gid":389,
+                 "height":192,
+                 "id":977,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"hydrant"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":192,
+                 "x":878,
+                 "y":771
+                }, 
+                {
+                 "gid":390,
+                 "height":192,
+                 "id":979,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"barricade"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":192,
+                 "x":774,
+                 "y":774
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2826,7 +2916,7 @@
          "y":0
         }],
  "nextlayerid":22,
- "nextobjectid":974,
+ "nextobjectid":980,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -2861,7 +2951,7 @@
          "source":"..\/Tiled\/BackgroundArt.tsx"
         }, 
         {
-         "firstgid":362,
+         "firstgid":393,
          "source":"..\/Tiled\/AnimatedArt.tsx"
         }],
  "tilewidth":64,
