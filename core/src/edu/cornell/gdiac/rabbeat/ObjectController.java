@@ -228,6 +228,9 @@ public class ObjectController {
     /** The texture for locked button 12 */
     public Texture lockedButton12;
 
+    /** The texture for the back button */
+    public Texture levelSelectBackButton;
+
     /** The textures for the level buttons when hovered over */
     public Texture levelButtonHover1;
     public Texture levelButtonHover2;
@@ -490,8 +493,9 @@ public class ObjectController {
 
         select = directory.getEntry("ui:mainMenuScreen:select", Texture.class);
         mainMenuBackground = directory.getEntry("ui:mainMenuScreen:mainMenuBackground", Texture.class);
-
         level1 = directory.getEntry("ui:level1", Texture.class);
+
+        levelSelectBackButton = directory.getEntry("ui:levelSelectBackButton", Texture.class);
 
         unlockedButton1 = directory.getEntry("ui:unlockedLevels:unlockedLevel1", Texture.class);
         unlockedButton2 = directory.getEntry("ui:unlockedLevels:unlockedLevel2", Texture.class);
@@ -1068,8 +1072,9 @@ public class ObjectController {
      *
      * @param genre The genre the world is currently in
      * @param scale The draw scale
+     * @param respawnPoint the respawnpoint of the player
      */
-    public void populateObjects(Genre genre, Vector2 scale) {
+    public void populateObjects(Genre genre, Vector2 scale, Vector2 respawnPoint) {
         // Populate in-game UI elements
         createGUI(genre);
 
@@ -1267,7 +1272,7 @@ public class ObjectController {
                             float x = player.getInt("x");
                             float y = player.getInt("y");
                             Vector2 dim = new Vector2(player.getFloat("width"), player.getFloat("height"));
-                            createPlayer(scale, x, y, dim, levelHeight, tileSize, genre);
+                            createPlayer(scale, x, y, dim, levelHeight, tileSize, genre, respawnPoint);
                         }
                         break;
                     case "enemies":
@@ -1496,15 +1501,6 @@ public class ObjectController {
         obj.setTexture(checkpointTexture);
         GameController.getInstance().instantiate(obj, 0);
         checkpoints.add(obj);
-    }
-
-    /**
-     * Sets the checkpoint with num = 0 as the spawn.
-     *
-     * @param scale Vector 2 scale used to draw
-     */
-    public void setFirstCheckpointAsSpawn(Vector2 scale) {
-        GameController.getInstance().setSpawn(new Vector2(firstCheckpoint[0], firstCheckpoint[1]));
     }
 
     /**
@@ -1781,9 +1777,10 @@ public class ObjectController {
      * @param startY      The player's starting y coordinate (pixels)
      * @param levelHeight Height of level in number of tiles
      * @param tileSize    Height of tile in pixels
+     * @param respawnPoint The respawnpoint
      */
     private void createPlayer(Vector2 scale, float startX, float startY, Vector2 dimensions, int levelHeight,
-            int tileSize, Genre genre) {
+            int tileSize, Genre genre, Vector2 respawnPoint) {
         // Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(startX, startY, dimensions.x, dimensions.y, levelHeight, tileSize);
 
@@ -1810,11 +1807,14 @@ public class ObjectController {
         // Transform animation
         player.transformAnimation = transformAnimation;
 
-        player.setAnimation(synthWalkAnimation);
+        player.setAnimation((genre == Genre.SYNTH) ? synthIdleAnimation : jazzIdleAnimation);
         player.synthSpeed = synthSpeed;
         player.jazzSpeed = jazzSpeed;
         player.setTexture(synthDefaultTexture);
         GameController.getInstance().instantiate(player, 2);
+        if(respawnPoint != null){
+            player.setPosition(respawnPoint);
+        }
     }
 
     private void createGoal(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize,

@@ -15,7 +15,7 @@ public class UISyncPulse implements  ISynced{
 
     /** The number of times the UI reacts to the beat*/
 
-    float uiBeat = 1;
+    float uiBeat = .5f;
 
     @Override
     public float getBeat() {

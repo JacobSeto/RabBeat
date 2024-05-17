@@ -17,6 +17,8 @@
 package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation.SwingOut;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer.Task;
 import edu.cornell.gdiac.rabbeat.objects.enemies.Enemy;
@@ -79,10 +81,12 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public static final int EXIT_QUIT = 0;
 
+
 	/**
 	 * Exit code for going back to the level select menu
 	 */
 	public static final int BACK_TO_LEVEL_SELECT = 1;
+
 
 	public static final int GO_TO_LEVEL_SELECT = 1;
 
@@ -91,9 +95,14 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public static final int NEXT_LEVEL = 2;
 
+
+	/** Exit code for going to the main menu */
+	public static final int MAIN_MENU = 3;
+
 	/**
 	 * The integer that represents the number of levels that the player has unlocked
 	 */
+
 	private static int levelsUnlocked;
 
 	/**
@@ -222,10 +231,6 @@ public class GameController implements Screen, ContactListener {
 	 */
 	private int levelBPM;
 	/**
-	 * Countdown active for winning or losing
-	 */
-	private int countdown;
-	/**
 	 * synth soundtrack of game
 	 */
 	private Music synthSoundtrack;
@@ -286,7 +291,7 @@ public class GameController implements Screen, ContactListener {
 	 * the spawnpoint location of the player
 	 */
 
-	private Vector2 respawnPoint;
+	private Vector2 respawnPoint = null;
 
 	/**
 	 * Mark set to handle more sophisticated collision callbacks
@@ -348,9 +353,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param value whether the level is completed.
 	 */
 	public void setComplete(boolean value) {
-		if (value) {
-			countdown = 0;
-		}
 		complete = value;
 	}
 
@@ -373,10 +375,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param value whether the level is failed.
 	 */
 	public void setFailure(boolean value) {
-
-		if (value) {
-			countdown = EXIT_COUNT;
-		}
 		failed = value;
 	}
 
@@ -481,7 +479,6 @@ public class GameController implements Screen, ContactListener {
 		active = false;
 		paused = false;
 		cutscenePlayed = false;
-		countdown = -1;
 	}
 
 	/**
@@ -515,6 +512,7 @@ public class GameController implements Screen, ContactListener {
 		objectController.gatherAssets(directory);
 		levelBPM = objectController.defaultConstants.get("music").get(getCurrentLevel())
 				.getInt("bpm");
+		syncController = new SyncController(levelBPM);
 
 		Preferences prefs = Gdx.app.getPreferences("MusicVolume");
 		musicVolume = prefs.getInteger("musicVolume", 10);
@@ -526,6 +524,7 @@ public class GameController implements Screen, ContactListener {
 		setSoundtrack(directory);
 		// set the sound effects
 		initializeSFX(directory);
+		syncController.setSync(synthSoundtrack, jazzSoundtrack);
 	}
 
 	/**
@@ -656,18 +655,18 @@ public class GameController implements Screen, ContactListener {
 	public void initialize() {
 		isGenreSwitchLocked = getCurrentLevelInt() <= 2;
 		genre = getCurrentLevelInt() == 2 ? Genre.JAZZ : Genre.SYNTH;
+		if (getCurrentLevelInt() == 2) {
+			soundController.setGenre(Genre.JAZZ);
+		}
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
-		syncController = new SyncController(levelBPM);
-		populateLevel();
-		worldWidth = DEFAULT_WIDTH * objectController.levelBackground.getRegionWidth()
+		worldWidth = DEFAULT_WIDTH * objectController.labBgTexture.getRegionWidth()
 				/ getCanvas().getWidth();
-		worldHeight = DEFAULT_HEIGHT * objectController.levelBackground.getRegionHeight()
+		worldHeight = DEFAULT_HEIGHT * objectController.labBgTexture.getRegionHeight()
 				/ getCanvas().getHeight();
 		world.setContactListener(this);
-		objectController.setFirstCheckpointAsSpawn(scale);
-		objectController.player.setPosition(respawnPoint);
+		populateLevel();
 		soundController.resetMusic();
 		soundController.playMusic(genre);
 		syncController.initializeSync();
@@ -699,20 +698,16 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		populateLevel();
-		objectController.player.setPosition(respawnPoint);
 	}
 
 	/**
 	 * Lays out the game geography.
 	 */
 	private void populateLevel() {
-
 		// world starts with Synth gravity
 		world.setGravity(new Vector2(0,
 				objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
-
-		syncController.setSync(synthSoundtrack, jazzSoundtrack);
-		objectController.populateObjects(genre, scale);
+		objectController.populateObjects(genre, scale, respawnPoint);
 	}
 
 	/**
@@ -729,6 +724,27 @@ public class GameController implements Screen, ContactListener {
 		input.readInput(bounds, scale);
 		soundController.update();
 		syncController.update(getPaused());
+
+		if(currentLevelInt == 1 && InputController.getInstance().didPressEnter() && !paused) {
+			if(showLevel1FirstCutScene) {
+				showLevel1SecondCutScene = true;
+				showLevel1FirstCutScene = false;
+			} else if(showLevel1SecondCutScene) {
+				showLevel1ThirdCutScene = true;
+				showLevel1SecondCutScene = false;
+			} else if(showLevel1ThirdCutScene) {
+				showLevel1FourthCutScene = true;
+				showLevel1ThirdCutScene = false;
+			} else if(showLevel1FourthCutScene) {
+				displayStartCutScenes = false;
+			}
+		}
+
+		//ADD: !showLevel1ThirdCutScene && !showLevel1FourthCutScene if more cutscenes
+		if(currentLevelInt == 1 && !showLevel1FirstCutScene && !showLevel1SecondCutScene
+				&& !showLevel1ThirdCutScene && !showLevel1FourthCutScene && displayStartCutScenes) {
+			showLevel1FirstCutScene = true;
+		}
 
 		if (listener != null) {
 			// Toggle debug
@@ -807,17 +823,13 @@ public class GameController implements Screen, ContactListener {
 				}
 			}
 
-			if (countdown > 0) {
-				countdown--;
-			} else if (countdown == 0) {
-				if (failed) {
-					reset();
-				} else if (GameController.getInstance().isComplete()) {
-					pause();
-					// TODO: Make Win Condition
-					return false;
-				}
+			if (failed && getPlayer().playerAnimFinished()) {
+				reset();
+			} else if (GameController.getInstance().isComplete()) {
+				pause();
+				return false;
 			}
+
 		}
 		if (!isFailure() && objectController.player.getY() < -1) {
 			setFailure(true);
@@ -837,6 +849,7 @@ public class GameController implements Screen, ContactListener {
 	 * @param dt Number of seconds since last animation frame
 	 */
 	public void update(float dt) {
+
 
 		if (InputController.getInstance().getSwitchGenre()) {
 			if (!objectController.player.genreSwitchCooldown) {
@@ -921,8 +934,8 @@ public class GameController implements Screen, ContactListener {
 			// player collision checks
 			if (bd1.getType() == Type.Player || bd2.getType() == Type.Player) {
 				if (bd2.getType() == Type.LETHAL || bd1.getType() == Type.LETHAL) {
-					if (!getPlayer().isDying) {
-						getPlayer().isDying = true;
+					if (!getPlayer().getIsDying()) {
+						getPlayer().setDying(true);
 						soundController.playSFX("death");
 					}
 				}
@@ -1074,6 +1087,21 @@ public class GameController implements Screen, ContactListener {
 		}
 	}
 
+	/** The boolean that represents whether the starting cutscenes in level 1 should be displayed */
+	public static boolean displayStartCutScenes;
+
+	/** The boolean that represents whether the first starting cut scene in level 1 should be displayed */
+	public static boolean showLevel1FirstCutScene;
+
+	/** The boolean that represents whether the second starting cut scene in level 1 should be displayed */
+	public static boolean showLevel1SecondCutScene;
+
+	/** The boolean that represents whether the third starting cut scene in level 1 should be displayed */
+	public static boolean showLevel1ThirdCutScene;
+
+	/** The boolean that represents whether the fourth starting cut scene in level 1 should be displayed */
+	public static boolean showLevel1FourthCutScene;
+
 	/**
 	 * Draw the physics objects to the canvas
 	 * <p>
@@ -1114,28 +1142,50 @@ public class GameController implements Screen, ContactListener {
 
 		// Victory Screen
 		if (complete && !failed) {
-			incrementLevelsUnlocked();
+			System.out.println("COMPLETE: " + currentLevelInt);
+			if((currentLevelInt == 1 && !showFirstVictoryScreen && !showSecondVictoryScreen)
+					|| (currentLevelInt == 12 && !showFirstVictoryScreen && !showSecondVictoryScreen
+					&& !showThirdVictoryScreen && !showFourthVictoryScreen)) {
+				showFirstVictoryScreen = true;
+			}
+
+			if(currentLevelInt != 1 && currentLevelInt != 12) {
+				readyToGoToNextLevel = true;
+			}
+
+
 			playerCompletedLevel = true;
 			objectController.displayFont.setColor(Color.YELLOW);
 			drawVictoryScreen();
-
+			incrementLevelsUnlocked();
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
-			canvas.begin(true); // DO NOT SCALE
-			// TODO: Remove this failure text with something more appropriate for our game
-			// TODO: Remove this failure text with something more appropriate for our game
-			// canvas.drawTextCentered("FAILURE!", objectController.displayFont, 0.0f);
-			canvas.end();
 		}
+
+		canvas.begin(true);
+
+		if(currentLevelInt == 1 && displayStartCutScenes){
+			if(showLevel1FourthCutScene) {
+				//TODO: replace with 4th start screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			} else if (showLevel1ThirdCutScene){
+				//TODO: replace with 3rd start screen
+				canvasDrawVictoryScreen(objectController.level1VS);
+			} else if(showLevel1SecondCutScene) {
+				//TODO: replace with 2nd start screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			} else if (showLevel1FirstCutScene){
+				//TODO: replace with 1st start screen
+				canvasDrawVictoryScreen(objectController.level1VS);
+			}
+		}
+
+		canvas.end();
 
 		// Put pause screen UI in this if statement
 		if (paused) {
 			float pulse = syncController.uiSyncPulse.uiPulseScale;
 			objectController.displayFont.setColor(Color.CYAN);
-			//canvas.begin(true); // DO NOT SCALE
-			//canvas.drawTextCentered("You paused the game!", objectController.displayFont, 0.0f);
-			//canvas.end();
-
 			canvas.begin(true);
 
 			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
@@ -1158,29 +1208,29 @@ public class GameController implements Screen, ContactListener {
 				canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 830, 100);
 			}
 			else{
-				canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 370, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 370, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.exitLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.musicTexture.getTexture(), Color.WHITE, 0, 0, 800, 160, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.SFXTexture.getTexture(), Color.WHITE, 0, 0, 850, 80, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.calibrateTextTexture.getTexture(), Color.WHITE, 0, 0, 860, 20, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.SFXTexture.getTexture(), Color.WHITE, 0, 0, 850, 100, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.calibrateTextTexture.getTexture(), Color.WHITE, 0, 0, 850, 20, 0, 0.5f, 0.5f);
 				for (int i = 0; i < musicVolume; i++) {
 					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 160, 0, 0.5f, 0.5f);
 				}
 				for (int i = 0; i < SFXVolume; i++) {
-					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 80, 0, 0.5f, 0.5f);
+					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 100, 0, 0.5f, 0.5f);
 				}
 				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 160, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 80, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 100, 0, 0.5f, 0.5f);
 				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 160, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 80, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 100, 0, 0.5f, 0.5f);
 
 
 				switch (pauseItemSelected) {
-					case 0: // Restart Level
+					case 0: // Resume Level
 						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800, 370, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
-					case 1: // Resume Level
+					case 1: // Restart Level
 						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800,310, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 2: // Exit Level
@@ -1190,16 +1240,18 @@ public class GameController implements Screen, ContactListener {
 						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 740,160, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 4: // SFX
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,80, 0, 0.5f * pulse, 0.5f * pulse);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,100, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 5: // Calibrate
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,20, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,20, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 				}
 			}
 
 			canvas.end();
 		}
+
+
 	}
 	/**
 	 * Called when the Screen is resized.
@@ -1225,7 +1277,7 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void render ( float delta){
 		if (active) {
-			if (preUpdate(delta) && !paused) {
+			if (preUpdate(delta) && !paused  && !displayStartCutScenes) {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
@@ -1234,6 +1286,9 @@ public class GameController implements Screen, ContactListener {
 			}
 			draw(delta);
 		}
+
+
+
 	}
 
 	/**
@@ -1265,7 +1320,7 @@ public class GameController implements Screen, ContactListener {
 
 	public void pauseAction ( int sel){
 		switch (sel) {
-			case 0: // Restart Level
+			case 1: // Restart Level
 				paused = false;
 				for (Checkpoint checkpoint : objectController.checkpoints) {
 					checkpoint.setActive(false);
@@ -1273,11 +1328,19 @@ public class GameController implements Screen, ContactListener {
 				if (objectController.checkpoints.size() > 0) {
 					objectController.checkpoints.get(0).setActive(true);
 				}
-				objectController.setFirstCheckpointAsSpawn(scale);
+				respawnPoint = null;
 				resume();
 				reset();
+
+				if(currentLevelInt == 1) {
+					displayStartCutScenes = true;
+					showLevel1FirstCutScene = false;
+					showLevel1SecondCutScene = false;
+					showLevel1ThirdCutScene = false;
+					showLevel1FourthCutScene = false;
+				}
 				break;
-			case 1: // Resume Level
+			case 0: // Resume Level
 				paused = false;
 				resume();
 				break;
@@ -1390,7 +1453,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** Sets the integer levelsUnlocked */
 	public void setLevelsUnlocked ( int levelsUnlocked){
-		// TODO: CHANGE THIS BACK TO levelsUnlocked
 		this.levelsUnlocked = levelsUnlocked;
 	}
 
@@ -1432,27 +1494,90 @@ public class GameController implements Screen, ContactListener {
 		return objectController;
 	}
 
+
+	/** Boolean that represents whether all the cutscenes have been read and
+	 * whether the next level should be loaded
+	 */
+	public boolean readyToGoToNextLevel = false;
+
+	/** Boolean that represents whether the first victory screen is showing for level 1 and level 12 */
+	public boolean showFirstVictoryScreen;
+
+	/** Boolean that represents whether the second victory screen is showing for level 1 and level 12 */
+	public boolean showSecondVictoryScreen;
+
+	/** Boolean that represents whether the third victory screen is showing for level 12*/
+	public boolean showThirdVictoryScreen;
+
+	/** Boolean that represents whether the fourth victory screen is showing for level 12*/
+	public boolean showFourthVictoryScreen;
+
+
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen () {
 		canvas.begin(true);
-
 		if (currentLevelInt == 1) {
-			canvas.draw(objectController.level1VS, 0, 0);
+
+			if(InputController.getInstance().didPressEnter()) {
+				if(showSecondVictoryScreen) {
+					readyToGoToNextLevel = true;
+					showSecondVictoryScreen = false;
+				} else if(showFirstVictoryScreen){
+					showSecondVictoryScreen = true;
+					showFirstVictoryScreen = false;
+				}
+
+			}
+			if(showFirstVictoryScreen) {
+				canvasDrawVictoryScreen(objectController.level1VS);
+			} else if(showSecondVictoryScreen) {
+				//TODO: replace with 2nd victory screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			}
+
+
 		} else if (currentLevelInt == 4) {
 			canvas.draw(objectController.level4VS, 0, 0);
 		} else if (currentLevelInt == 6) {
 			canvas.draw(objectController.level6VS, 0, 0);
-		} else if (currentLevelInt == 8){
-			canvas.draw(objectController.level8VS, 0, 0);
-		} else if (currentLevelInt == 9){
-			canvas.draw(objectController.level9VS, 0, 0);
-		} else if (currentLevelInt == 10){
-			canvas.draw(objectController.level10VS, 0, 0);
-		}
-		else {
+		} else if (currentLevelInt == 12) {
+			if(InputController.getInstance().didPressEnter()) {
+				if(showThirdVictoryScreen) {
+					showFourthVictoryScreen = true;
+					showSecondVictoryScreen = false;
+				} else if(showSecondVictoryScreen) {
+					showThirdVictoryScreen = true;
+					showSecondVictoryScreen = false;
+				} else if (showFirstVictoryScreen) {
+					showSecondVictoryScreen = true;
+					showFirstVictoryScreen = false;
+				}
+			}
+
+			if(showFirstVictoryScreen) {
+				canvasDrawVictoryScreen(objectController.level1VS);
+			} else if(showSecondVictoryScreen) {
+				//TODO: replace with 2nd victory screen (Level 12)
+				canvasDrawVictoryScreen(objectController.level4VS);
+			} else if(showThirdVictoryScreen) {
+				//TODO: replace with 3nd victory screen (Level 12)
+				canvasDrawVictoryScreen(objectController.level1VS);
+			} else if(showFourthVictoryScreen) {
+				//TODO: replace with 4th victory screen (Level 12)
+				canvasDrawVictoryScreen(objectController.level4VS);
+			}
+
+		} else {
 			canvas.draw(objectController.victoryScreenBackground, 0, 0);
 		}
 		canvas.end();
 
+	}
+
+	/** Helper method for drawVictoryScreen that takes a TextureRegion parameter to
+	 * pass into the method canvas.draw()
+	 * */
+	public void canvasDrawVictoryScreen(TextureRegion victoryScreen) {
+		canvas.draw(victoryScreen, 0, 0);
 	}
 }

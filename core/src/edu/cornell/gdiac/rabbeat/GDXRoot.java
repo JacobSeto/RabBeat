@@ -131,7 +131,8 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * @param exitCode The state of the screen upon exit
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
-		if(screen == initialLoading) {
+
+		if(screen == initialLoading || exitCode == GameController.MAIN_MENU) {
 			directory = initialLoading.getAssets();
 			mainMenuMusic = directory.getEntry("music:mainmenu", Music.class);
 			controller.gatherAssets(directory);
@@ -149,7 +150,9 @@ public class GDXRoot extends Game implements ScreenListener {
 			controller.syncController.setSync(mainMenuMusic,mainMenuMusic);
 		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
 			mainMenuMusic.stop();
-			buttonClicked.play();
+			if (screen == levelSelectorScreen) {
+				buttonClicked.play();
+			}
 			controller = new GameController();
 			InputController.getInstance().setPaused(false);
 			GameController.getInstance().setPaused(false);
@@ -158,11 +161,15 @@ public class GDXRoot extends Game implements ScreenListener {
 			controller.setCanvas(canvas);
 			controller.resume();
 			controller.initialize();
+			levelSelectorScreen.finishedLoadingLevel = true;
 			setScreen(controller);
 		}else if (screen == controller || exitCode == GameController.GO_TO_LEVEL_SELECT) {
 			createLevelSelectorScreen();
 			mainMenuMusic.setLooping(true);
 			mainMenuMusic.play();
+			if (exitCode == GameController.GO_TO_LEVEL_SELECT) {
+				buttonClicked.play();
+			}
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			Gdx.app.exit();
 		}
