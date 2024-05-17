@@ -596,7 +596,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
             if(hover1) {
                 GameController.getInstance().setCurrentLevelInt(1);
                 GameController.displayStartCutScenes = true;
-                GameController.showLevel1FirstCutScene = true;
+                GameController.showLevel1FirstCutScene = false;
                 GameController.showLevel1SecondCutScene = false;
             } else if(hover2) {
                 GameController.getInstance().setCurrentLevelInt(2);

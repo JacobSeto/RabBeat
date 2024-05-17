@@ -725,15 +725,20 @@ public class GameController implements Screen, ContactListener {
 		soundController.update();
 		syncController.update(getPaused());
 
-		if(InputController.getInstance().didPressEnter() && !paused) {
+		if(currentLevelInt == 1 && InputController.getInstance().didPressEnter() && !paused) {
+			System.out.println("HELLO");
 			if(showLevel1FirstCutScene) {
 				showLevel1SecondCutScene = true;
 				showLevel1FirstCutScene = false;
 			} else if(showLevel1SecondCutScene) {
-				showLevel1FirstCutScene = true;
-				System.out.println("HELLO");
+//				showLevel1FirstCutScene = true;
 				displayStartCutScenes = false;
 			}
+		}
+
+		//ADD: !showLevel1ThirdCutScene && !showLevel1FourthCutScene if more cutscenes
+		if(currentLevelInt == 1 && !showLevel1FirstCutScene && !showLevel1SecondCutScene && displayStartCutScenes) {
+			showLevel1FirstCutScene = true;
 		}
 
 		if (listener != null) {
@@ -1251,7 +1256,7 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void render ( float delta){
 		if (active) {
-			if (preUpdate(delta) && !paused && !displayStartCutScenes) {
+			if (preUpdate(delta) && !paused  && !displayStartCutScenes) {
 				update(delta); // This is the one that must be defined.
 				postUpdate(delta);
 			}
@@ -1308,12 +1313,17 @@ public class GameController implements Screen, ContactListener {
 
 				if(currentLevelInt == 1) {
 					displayStartCutScenes = true;
-					showLevel1FirstCutScene = true;
+					showLevel1FirstCutScene = false;
 					showLevel1SecondCutScene = false;
 					//TODO: add more here if more cutscenes
 				}
 				break;
 			case 0: // Resume Level
+//				if(displayStartCutScenes) {
+////					if(showLevel1SecondCutScene) {
+////						showLevel1FirstCutScene = true;
+////					}
+//				}
 				paused = false;
 				resume();
 				break;
