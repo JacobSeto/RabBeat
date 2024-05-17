@@ -730,13 +730,19 @@ public class GameController implements Screen, ContactListener {
 				showLevel1SecondCutScene = true;
 				showLevel1FirstCutScene = false;
 			} else if(showLevel1SecondCutScene) {
-//				showLevel1FirstCutScene = true;
+				showLevel1ThirdCutScene = true;
+				showLevel1SecondCutScene = false;
+			} else if(showLevel1ThirdCutScene) {
+				showLevel1FourthCutScene = true;
+				showLevel1ThirdCutScene = false;
+			} else if(showLevel1FourthCutScene) {
 				displayStartCutScenes = false;
 			}
 		}
 
 		//ADD: !showLevel1ThirdCutScene && !showLevel1FourthCutScene if more cutscenes
-		if(currentLevelInt == 1 && !showLevel1FirstCutScene && !showLevel1SecondCutScene && displayStartCutScenes) {
+		if(currentLevelInt == 1 && !showLevel1FirstCutScene && !showLevel1SecondCutScene
+				&& !showLevel1ThirdCutScene && !showLevel1FourthCutScene && displayStartCutScenes) {
 			showLevel1FirstCutScene = true;
 		}
 
@@ -821,7 +827,6 @@ public class GameController implements Screen, ContactListener {
 				reset();
 			} else if (GameController.getInstance().isComplete()) {
 				pause();
-				// TODO: Make Win Condition
 				return false;
 			}
 
@@ -1082,9 +1087,21 @@ public class GameController implements Screen, ContactListener {
 		}
 	}
 
-	public static boolean showLevel1FirstCutScene;
-	public static boolean showLevel1SecondCutScene;
+	/** The boolean that represents whether the starting cutscenes in level 1 should be displayed */
 	public static boolean displayStartCutScenes;
+
+	/** The boolean that represents whether the first starting cut scene in level 1 should be displayed */
+	public static boolean showLevel1FirstCutScene;
+
+	/** The boolean that represents whether the second starting cut scene in level 1 should be displayed */
+	public static boolean showLevel1SecondCutScene;
+
+	/** The boolean that represents whether the third starting cut scene in level 1 should be displayed */
+	public static boolean showLevel1ThirdCutScene;
+
+	/** The boolean that represents whether the fourth starting cut scene in level 1 should be displayed */
+	public static boolean showLevel1FourthCutScene;
+
 	/**
 	 * Draw the physics objects to the canvas
 	 * <p>
@@ -1148,7 +1165,13 @@ public class GameController implements Screen, ContactListener {
 		canvas.begin(true);
 
 		if(currentLevelInt == 1 && displayStartCutScenes){
-			if(showLevel1SecondCutScene) {
+			if(showLevel1FourthCutScene) {
+				//TODO: replace with 4th start screen
+				canvasDrawVictoryScreen(objectController.level4VS);
+			} else if (showLevel1ThirdCutScene){
+				//TODO: replace with 3rd start screen
+				canvasDrawVictoryScreen(objectController.level1VS);
+			} else if(showLevel1SecondCutScene) {
 				//TODO: replace with 2nd start screen
 				canvasDrawVictoryScreen(objectController.level4VS);
 			} else if (showLevel1FirstCutScene){
@@ -1313,7 +1336,8 @@ public class GameController implements Screen, ContactListener {
 					displayStartCutScenes = true;
 					showLevel1FirstCutScene = false;
 					showLevel1SecondCutScene = false;
-					//TODO: add more here if more cutscenes
+					showLevel1ThirdCutScene = false;
+					showLevel1FourthCutScene = false;
 				}
 				break;
 			case 0: // Resume Level
@@ -1429,7 +1453,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** Sets the integer levelsUnlocked */
 	public void setLevelsUnlocked ( int levelsUnlocked){
-		// TODO: CHANGE THIS BACK TO levelsUnlocked
 		this.levelsUnlocked = levelsUnlocked;
 	}
 
@@ -1534,13 +1557,13 @@ public class GameController implements Screen, ContactListener {
 			if(showFirstVictoryScreen) {
 				canvasDrawVictoryScreen(objectController.level1VS);
 			} else if(showSecondVictoryScreen) {
-				//TODO: replace with 2nd victory screen
+				//TODO: replace with 2nd victory screen (Level 12)
 				canvasDrawVictoryScreen(objectController.level4VS);
 			} else if(showThirdVictoryScreen) {
-				//TODO: replace with 3nd victory screen
+				//TODO: replace with 3nd victory screen (Level 12)
 				canvasDrawVictoryScreen(objectController.level1VS);
 			} else if(showFourthVictoryScreen) {
-				//TODO: replace with 4th victory screen
+				//TODO: replace with 4th victory screen (Level 12)
 				canvasDrawVictoryScreen(objectController.level4VS);
 			}
 
