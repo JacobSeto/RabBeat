@@ -105,7 +105,7 @@ public class SyncController {
         beatInterval.checkForNewInterval(
                 (musicPos - audioDelay) / beatInterval.getIntervalLength(BPM), true);
         uiSyncPulse.update();
-        uiPulseInterval.checkForNewInterval((musicPos - audioDelay) / beatInterval.getIntervalLength(BPM), isPaused);
+        uiPulseInterval.checkForNewInterval((musicPos - audioDelay) / uiPulseInterval.getIntervalLength(BPM), isPaused);
         animationInterval.checkForNewInterval(
                 (musicPos - visualDelay - audioDelay) / animationInterval.getIntervalLength(BPM), !isPaused);
         for (Interval i : intervals) {

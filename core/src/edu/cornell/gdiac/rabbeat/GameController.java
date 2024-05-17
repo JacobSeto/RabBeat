@@ -511,6 +511,7 @@ public class GameController implements Screen, ContactListener {
 		objectController.gatherAssets(directory);
 		levelBPM = objectController.defaultConstants.get("music").get(getCurrentLevel())
 				.getInt("bpm");
+		syncController = new SyncController(levelBPM);
 
 		Preferences prefs = Gdx.app.getPreferences("MusicVolume");
 		musicVolume = prefs.getInteger("musicVolume", 10);
@@ -522,6 +523,7 @@ public class GameController implements Screen, ContactListener {
 		setSoundtrack(directory);
 		// set the sound effects
 		initializeSFX(directory);
+		syncController.setSync(synthSoundtrack, jazzSoundtrack);
 	}
 
 	/**
@@ -660,7 +662,6 @@ public class GameController implements Screen, ContactListener {
 		worldHeight = DEFAULT_HEIGHT * objectController.labBgTexture.getRegionHeight()
 				/ getCanvas().getHeight();
 		world.setContactListener(this);
-		syncController = new SyncController(levelBPM);
 		populateLevel();
 		soundController.resetMusic();
 		soundController.playMusic(genre);
@@ -699,12 +700,9 @@ public class GameController implements Screen, ContactListener {
 	 * Lays out the game geography.
 	 */
 	private void populateLevel() {
-
 		// world starts with Synth gravity
 		world.setGravity(new Vector2(0,
 				objectController.defaultConstants.get("defaults").getFloat("gravity", 0)));
-
-		syncController.setSync(synthSoundtrack, jazzSoundtrack);
 		objectController.populateObjects(genre, scale, respawnPoint);
 	}
 
@@ -1127,10 +1125,6 @@ public class GameController implements Screen, ContactListener {
 		if (paused) {
 			float pulse = syncController.uiSyncPulse.uiPulseScale;
 			objectController.displayFont.setColor(Color.CYAN);
-			//canvas.begin(true); // DO NOT SCALE
-			//canvas.drawTextCentered("You paused the game!", objectController.displayFont, 0.0f);
-			//canvas.end();
-
 			canvas.begin(true);
 
 			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
@@ -1188,7 +1182,7 @@ public class GameController implements Screen, ContactListener {
 						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,80, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 5: // Calibrate
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,20, 0, 0.5f, 0.5f);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,20, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 				}
 			}
