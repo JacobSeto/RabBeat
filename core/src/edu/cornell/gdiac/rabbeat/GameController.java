@@ -1144,10 +1144,12 @@ public class GameController implements Screen, ContactListener {
 		if(currentLevelInt == 1 && displayStartCutScenes){
 			if(showLevel1SecondCutScene) {
 				//TODO: replace with 2nd start screen
-				canvasDrawVictoryScreen(objectController.level4VS);
+				canvas.draw(objectController.level4VS, 130, 75);
+				//canvasDrawVictoryScreen(objectController.level4VS);
 			} else if (showLevel1FirstCutScene){
 				//TODO: replace with 1st start screen
-				canvasDrawVictoryScreen(objectController.level1VS);
+				canvas.draw(objectController.level1VS, 130, 75);
+//				canvasDrawVictoryScreen(objectController.level1VS);
 			}
 		}
 
@@ -1469,25 +1471,23 @@ public class GameController implements Screen, ContactListener {
 		return objectController;
 	}
 
-	/** Boolean that represents whether enter has been clicked */
-	public boolean enterClicked = false;
 
 	/** Boolean that represents whether all the cutscenes have been read and
 	 * whether the next level should be loaded
 	 */
 	public boolean readyToGoToNextLevel = false;
 
-	/** Integer that represents the number of cut scenes that the user has flipped through for level 1*/
-	public int level1NumberOfCutScenesRead = 0;
+	/** Boolean that represents whether the first victory screen is showing for level 1 and level 12 */
+	public boolean showFirstVictoryScreen;
 
-	/** Boolean that represents whether the second screen is showing for level 1 and level 12 */
-	public boolean showSecondScreen;
+	/** Boolean that represents whether the second victory screen is showing for level 1 and level 12 */
+	public boolean showSecondVictoryScreen;
 
-	/** Boolean that represents whether the third screen is showing for level 12*/
-	public boolean showThirdScreen;
+	/** Boolean that represents whether the third victory screen is showing for level 12*/
+	public boolean showThirdVictoryScreen;
 
-	/** Boolean that represents whether the third screen is showing for level 12*/
-	public boolean showFourthScreen;
+	/** Boolean that represents whether the fourth victory screen is showing for level 12*/
+	public boolean showFourthVictoryScreen;
 
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen () {
@@ -1496,15 +1496,15 @@ public class GameController implements Screen, ContactListener {
 			canvasDrawVictoryScreen(objectController.level1VS);
 
 			if(InputController.getInstance().didPressEnter()) {
-				if(showSecondScreen) {
+				if(showSecondVictoryScreen) {
 					readyToGoToNextLevel = true;
-					showSecondScreen = false;
+					showSecondVictoryScreen = false;
 				} else {
-					showSecondScreen = true;
+					showSecondVictoryScreen = true;
 				}
 
 			}
-			if(showSecondScreen) {
+			if(showSecondVictoryScreen) {
 				//TODO: replace with 2nd victory screen
 				canvasDrawVictoryScreen(objectController.level4VS);
 			}
@@ -1518,24 +1518,24 @@ public class GameController implements Screen, ContactListener {
 			canvasDrawVictoryScreen(objectController.level1VS);
 
 			if(InputController.getInstance().didPressEnter()) {
-				if(showThirdScreen) {
-					showFourthScreen = true;
-					showSecondScreen = false;
-				} else if(showSecondScreen) {
-					showThirdScreen = true;
-					showSecondScreen = false;
+				if(showThirdVictoryScreen) {
+					showFourthVictoryScreen = true;
+					showSecondVictoryScreen = false;
+				} else if(showSecondVictoryScreen) {
+					showThirdVictoryScreen = true;
+					showSecondVictoryScreen = false;
 				} else {
-					showSecondScreen = true;
+					showSecondVictoryScreen = true;
 				}
 			}
 
-			if(showSecondScreen) {
+			if(showSecondVictoryScreen) {
 				//TODO: replace with 2nd victory screen
 				canvasDrawVictoryScreen(objectController.level4VS);
-			} else if(showThirdScreen) {
+			} else if(showThirdVictoryScreen) {
 				//TODO: replace with 3nd victory screen
 				canvasDrawVictoryScreen(objectController.level1VS);
-			} else if(showFourthScreen) {
+			} else if(showFourthVictoryScreen) {
 				//TODO: replace with 4th victory screen
 				canvasDrawVictoryScreen(objectController.level4VS);
 			}
