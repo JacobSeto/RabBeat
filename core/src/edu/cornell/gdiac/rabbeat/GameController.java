@@ -1105,7 +1105,7 @@ public class GameController implements Screen, ContactListener {
 		// Victory Screen
 		if (complete && !failed) {
 
-			if(currentLevelInt != 1 && currentLevelInt != 4) {
+			if(currentLevelInt != 1 && currentLevelInt != 12) {
 				readyToGoToNextLevel = true;
 			}
 
