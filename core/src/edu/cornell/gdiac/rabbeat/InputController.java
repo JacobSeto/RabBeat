@@ -520,6 +520,12 @@ public class InputController {
 					gc.exitScreen(GameController.NEXT_LEVEL);
 					gc.readyToGoToNextLevel = false;
 					gc.setComplete(false);
+
+					if(GameController.getInstance().getCurrentLevelInt() == 9) {
+						GameController.displayStartCutScenes = true;
+						GameController.showLevel9StartingScreen[0] = false;
+						GameController.showLevel9StartingScreen[1] = false;
+					}
 				}
 			}
 
