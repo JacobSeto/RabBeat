@@ -179,9 +179,12 @@
       "ui:mainMenuScreen:mainMenuBackground": "ui/mainMenuScreen/mainMenuBackground.png",
 
       "ui:victoryScreen": "ui/victory/victoryScreen.png",
-          "ui:lvl1VS": "ui/victory/level1VS.png",
-          "ui:lvl4VS": "ui/victory/level4VS.png",
-          "ui:lvl6VS": "ui/victory/level6VS.png",
+      "ui:lvl1VS": "ui/victory/level1VS.png",
+      "ui:lvl4VS": "ui/victory/level4VS.png",
+      "ui:lvl6VS": "ui/victory/level6VS.png",
+      "ui:lvl8VS": "ui/victory/level8VS.png",
+      "ui:lvl9VS": "ui/victory/level9VS.png",
+      "ui:lvl10VS": "ui/victory/level10VS.png",
 
       "player:synth":  "player/synth.png",
       "player:synth-jazz":   "player/synth-jazz.png",
@@ -222,6 +225,7 @@
       "world:pods:wolfpod1": "world/pods/wolfpod1.png",
       "world:pods:wolfpod2": "world/pods/wolfpod2.png",
       "world:pods:pod": "world/pods/pod.png",
+      "world:pods:brokenPod": "world/pods/brokenPod.png",
 
       "world:pipes:bigpipe" : "world/pipes/bigpipe.png",
       "world:pipes:bigpipetv" : "world/pipes/bigpipetv.png",
@@ -236,6 +240,8 @@
       "world:wires:bigwire" : "world/wires/bigwire.png",
       "world:wires:wires1" : "world/wires/wires1.png",
       "world:wires:wires2" : "world/wires/wires2.png",
+      "world:wires:goldWire_0" : "world/wires/goldWire_0.png",
+      "world:wires:goldWire_1" : "world/wires/goldWire_1.png",
 
       "world:grafiti:grafiti_0" : "world/grafiti/grafiti_0.png",
       "world:grafiti:caution_0" : "world/grafiti/caution_0.png",
@@ -314,6 +320,7 @@
       "world:lights:showlight_3": "world/lights/showlight_3.png",
       "world:lights:showlight_4": "world/lights/showlight_4.png",
       "world:lights:barLight": "world/lights/barLight.png",
+      "world:lights:barLightGlow": "world/lights/barLightGlow.png",
 
       "world:neonLights:neon_0": "world/neonLights/neon_0.png",
       "world:neonLights:neon_1": "world/neonLights/neon_1.png",
@@ -356,6 +363,7 @@
       "world:bar:barNeon_1": "world/bar/barNeon_1.png",
 
       "world:other:tv": "world/other/tv.png",
+      "world:other:tvs": "world/other/tvs.png",
       "world:other:ceilingCamera": "world/other/ceilingCamera.png",
       "world:other:cam_0": "world/other/cam_0.PNG",
       "world:other:cam_1": "world/other/cam_1.PNG",
@@ -395,11 +403,17 @@
       "world:other:album_2": "world/other/album_2.png",
       "world:other:album_3": "world/other/album_3.png",
       "world:other:chand_0": "world/other/chand_0.png",
+      "world:other:chand_1": "world/other/chand_1.png",
       "world:other:jazzDeath": "world/other/jazzDeath.png",
       "world:other:couch_0" : "world/other/couch_0.png",
       "world:other:plant_0" : "world/other/plant_0.png",
       "world:other:plant_1" : "world/other/plant_1.png",
       "world:other:houseWindow" : "world/other/houseWindow.png",
+      "world:other:toxic_0" : "world/other/toxic_0.png",
+      "world:other:toxic_1" : "world/other/toxic_1.png",
+      "world:other:toxic_2" : "world/other/toxic_2.png",
+      "world:other:hydrant" : "world/other/hydrant.png",
+      "world:other:barricade" : "world/other/barricade.png",
 
       "world:tutorial:arrowLeft" : "world/tutorial/arrowLeft.png",
       "world:tutorial:arrowRight" : "world/tutorial/arrowRight.png",
@@ -424,7 +438,7 @@
         "level6": "levelsJson/rabbeatLevelBat.tmj",
         "level7": "levelsJson/EricMediumLevel.tmj",
         "level8": "levelsJson/tutorial1.tmj",
-        "level9": "levelsJson/benTestHouseLevelDisco.tmj",
+        "level9": "levelsJson/tutorial1.tmj",
         "level10": "levelsJson/tutorial1.tmj",
         "level11": "levelsJson/tutorial1.tmj",
         "level12": "levelsJson/houseArtLevel.tmj"

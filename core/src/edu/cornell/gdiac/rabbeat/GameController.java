@@ -157,6 +157,8 @@ public class GameController implements Screen, ContactListener {
 	 */
 	private boolean playerCompletedLevel = false;
 
+	private boolean collidedWithCrusher = false;
+
 	/**
 	 * Reference to the game canvas
 	 */
@@ -204,6 +206,8 @@ public class GameController implements Screen, ContactListener {
 	 * Whether or not the game is paused
 	 */
 	private boolean paused = false;
+
+	/** Whether or not the player is currently colliding with a wall
 	/**
 	 * Whether or not the game is in calibration screen
 	 */
@@ -553,12 +557,26 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void initializeSFX(AssetDirectory directory) {
 		soundController.addSound("genreSwitch", directory.getEntry("sfx:genreSwitch", Sound.class));
-		String checkpointNum = "2"; // change this once tracks are finalized to match their key signatures. 1 = lab,
+		String checkpointNum; // change this once tracks are finalized to match their key signatures. 1 = lab,
 		// 2 = disco, 3 = penthouse
+		switch (currentLevelInt) {
+			case 1: case 2: case 3: case 4:
+				checkpointNum = "1";
+				break;
+			case 5: case 6: case 7: case 8:
+				checkpointNum = "2";
+				break;
+			case 9: case 10: case 11: case 12:
+				checkpointNum = "3";
+				break;
+			default:
+				checkpointNum = "3";
+				break;
+		}
 		soundController.addSound("checkpoint",
 				directory.getEntry("sfx:checkpoint" + checkpointNum, Sound.class));
 		soundController.addSound("jump",
-				directory.getEntry("sfx:jump" + checkpointNum, Sound.class));
+				directory.getEntry("sfx:jump", Sound.class));
 		soundController.addSound("death", directory.getEntry("sfx:death", Sound.class));
 
 		switch (currentLevelInt) {
@@ -573,6 +591,18 @@ public class GameController implements Screen, ContactListener {
 			case 6: // POP
 				soundController.addSound("cutscene",
 						directory.getEntry("sfx:popCutscene", Sound.class));
+				break;
+			case 8: // HIP HOP
+				soundController.addSound("cutscene",
+						directory.getEntry("sfx:hiphopCutscene", Sound.class));
+				break;
+			case 10: // COUNTRY
+				soundController.addSound("cutscene",
+						directory.getEntry("sfx:countryCutscene", Sound.class));
+				break;
+			case 12: // CLASSICAL
+				soundController.addSound("cutscene",
+						directory.getEntry("sfx:classicalCutscene", Sound.class));
 				break;
 			default:
 				break;
@@ -661,12 +691,12 @@ public class GameController implements Screen, ContactListener {
 		Vector2 gravity = new Vector2(world.getGravity());
 
 		world = new World(gravity, false);
-		worldWidth = DEFAULT_WIDTH * objectController.labBgTexture.getRegionWidth()
+		populateLevel();
+		worldWidth = DEFAULT_WIDTH * objectController.levelBackground.getRegionWidth()
 				/ getCanvas().getWidth();
-		worldHeight = DEFAULT_HEIGHT * objectController.labBgTexture.getRegionHeight()
+		worldHeight = DEFAULT_HEIGHT * objectController.levelBackground.getRegionHeight()
 				/ getCanvas().getHeight();
 		world.setContactListener(this);
-		populateLevel();
 		soundController.resetMusic();
 		soundController.playMusic(genre);
 		syncController.initializeSync();
@@ -858,7 +888,7 @@ public class GameController implements Screen, ContactListener {
 			}
 			InputController.getInstance().setSwitchGenre(false);
 		}
-		if (InputController.getInstance().didPrimary()) {
+		if (InputController.getInstance().didPrimary() && objectController.player.isGrounded) {
 			soundController.playSFX("jump");
 		}
 		if (lastCollideWith != null) {
@@ -939,8 +969,17 @@ public class GameController implements Screen, ContactListener {
 						soundController.playSFX("death");
 					}
 				}
+				if (bd2.getType() == Type.CRUSHER || bd1.getType() == Type.CRUSHER) {
+					collidedWithCrusher = true;
+				}
 				if (bd2 instanceof WeightedPlatform) {
 					lastCollideWith = (WeightedPlatform) bd1;
+				}
+				if ((bd2.getWall() || bd1.getWall()) && collidedWithCrusher) {
+					if (!getPlayer().getIsDying()) {
+						getPlayer().setDying(true);
+						soundController.playSFX("death");
+					}
 				}
 			}
 			if ((bd1 instanceof WeightedPlatform) && (bd2.getType() == Type.Player)) {
@@ -984,6 +1023,17 @@ public class GameController implements Screen, ContactListener {
 
 		Object fd1 = fix1.getUserData();
 		Object fd2 = fix2.getUserData();
+		try {
+			GameObject bd1 = (GameObject) body1.getUserData();
+			GameObject bd2 = (GameObject) body2.getUserData();
+
+			if (bd1.getType() == Type.CRUSHER || bd2.getType() == Type.CRUSHER) {
+				collidedWithCrusher = false;
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		Object bd1 = body1.getUserData();
 		Object bd2 = body2.getUserData();
@@ -1016,7 +1066,6 @@ public class GameController implements Screen, ContactListener {
 			}
 			objectController.player.setDisplace(new Vector2(0, 0));
 		}
-
 	}
 
 	/**
@@ -1141,12 +1190,7 @@ public class GameController implements Screen, ContactListener {
 		canvas.end();
 
 		// Victory Screen
-		if (complete && !failed) {
-<<<<<<< Updated upstream
-			System.out.println("COMPLETE: " + currentLevelInt);
-=======
->>>>>>> Stashed changes
-			if((currentLevelInt == 1 && !showFirstVictoryScreen && !showSecondVictoryScreen)
+		if (complete && !failed) {if((currentLevelInt == 1 && !showFirstVictoryScreen && !showSecondVictoryScreen)
 					|| (currentLevelInt == 12 && !showFirstVictoryScreen && !showSecondVictoryScreen
 					&& !showThirdVictoryScreen && !showFourthVictoryScreen)) {
 				showFirstVictoryScreen = true;
@@ -1521,19 +1565,19 @@ public class GameController implements Screen, ContactListener {
 		canvas.begin(true);
 		if (currentLevelInt == 1) {
 
-			if(InputController.getInstance().didPressEnter()) {
-				if(showSecondVictoryScreen) {
+			if (InputController.getInstance().didPressEnter()) {
+				if (showSecondVictoryScreen) {
 					readyToGoToNextLevel = true;
 					showSecondVictoryScreen = false;
-				} else if(showFirstVictoryScreen){
+				} else if (showFirstVictoryScreen) {
 					showSecondVictoryScreen = true;
 					showFirstVictoryScreen = false;
 				}
 
 			}
-			if(showFirstVictoryScreen) {
+			if (showFirstVictoryScreen) {
 				canvasDrawVictoryScreen(objectController.level1VS);
-			} else if(showSecondVictoryScreen) {
+			} else if (showSecondVictoryScreen) {
 				//TODO: replace with 2nd victory screen
 				canvasDrawVictoryScreen(objectController.level4VS);
 			}
@@ -1543,6 +1587,12 @@ public class GameController implements Screen, ContactListener {
 			canvas.draw(objectController.level4VS, 0, 0);
 		} else if (currentLevelInt == 6) {
 			canvas.draw(objectController.level6VS, 0, 0);
+		} else if (currentLevelInt == 8) {
+			canvas.draw(objectController.level8VS, 0, 0);
+		} else if (currentLevelInt == 9) {
+			canvas.draw(objectController.level9VS, 0, 0);
+		} else if (currentLevelInt == 10) {
+			canvas.draw(objectController.level10VS, 0, 0);
 		} else if (currentLevelInt == 12) {
 			if(InputController.getInstance().didPressEnter()) {
 				if(showThirdVictoryScreen) {
