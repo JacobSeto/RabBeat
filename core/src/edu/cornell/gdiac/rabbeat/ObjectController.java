@@ -1049,6 +1049,7 @@ public class ObjectController {
         houseTileset.put(11, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:11", Texture.class)));
         houseTileset.put(12, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:12", Texture.class)));
         houseTileset.put(13, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:13", Texture.class)));
+        houseTileset.put(14, new TextureRegion(directory.getEntry("world:tilesets:houseTileset:14", Texture.class)));
 
         bulletTexture = new TextureRegion(directory.getEntry("world:bullet", Texture.class));
         checkpointTexture = new TextureRegion(directory.getEntry("world:checkpoints:checkpointTile", Texture.class));

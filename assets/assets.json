@@ -61,6 +61,7 @@
     "world:tilesets:houseTileset:11": "world/tilesets/houseTileset/11.png",
     "world:tilesets:houseTileset:12": "world/tilesets/houseTileset/12.png",
     "world:tilesets:houseTileset:13": "world/tilesets/houseTileset/13.png",
+    "world:tilesets:houseTileset:14": "world/tilesets/houseTileset/14.png",
     "world:platforms:weightedSynth": "world/platforms/synthPlat.png",
     "world:platforms:weightedJazz": "world/platforms/jazzPlat.png",
     "world:platforms:movingSynth": "world/platforms/synthPlat.png",
