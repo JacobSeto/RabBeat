@@ -61,8 +61,8 @@ public class SyncController {
         beat = new Beat(this);
         beatInterval = new Interval(beat);
         beat.beatInterval = beatInterval;
-//        animationInterval = new Interval(animationSync);
-//        uiPulseInterval = new Interval(uiSyncPulse);
+        animationInterval = new Interval(animationSync);
+        uiPulseInterval = new Interval(uiSyncPulse);
     }
 
     /**
@@ -106,14 +106,14 @@ public class SyncController {
         float musicPos = synth.getPosition();
         beatInterval.checkForNewInterval(
                 (musicPos - audioDelay) / beatInterval.getIntervalLength(BPM), true);
-//        uiSyncPulse.update();
-//        uiPulseInterval.checkForNewInterval((musicPos - audioDelay) / uiPulseInterval.getIntervalLength(BPM), isPaused);
-//        animationInterval.checkForNewInterval(
-//                (musicPos - visualDelay - audioDelay) / animationInterval.getIntervalLength(BPM), !isPaused);
-//        for (Interval i : intervals) {
-//            float sample = (musicPos - audioDelay) / i.getIntervalLength(BPM);
-//            i.checkForNewInterval(sample, !isPaused);
-//        }
+        uiSyncPulse.update();
+        uiPulseInterval.checkForNewInterval((musicPos - audioDelay) / uiPulseInterval.getIntervalLength(BPM), isPaused);
+        animationInterval.checkForNewInterval(
+                (musicPos - visualDelay - audioDelay) / animationInterval.getIntervalLength(BPM), !isPaused);
+        for (Interval i : intervals) {
+            float sample = (musicPos - audioDelay) / i.getIntervalLength(BPM);
+            i.checkForNewInterval(sample, !isPaused);
+        }
 
     }
 
@@ -167,12 +167,12 @@ public class SyncController {
      * @param syncedObject A synced object
      */
     public void addSync(ISynced syncedObject) {
-//        Interval interval = new Interval(
-//                syncedObject);
-//        intervals.add(interval);
-//        if (syncedObject instanceof ISyncedAnimated) {
-//            animationSync.animatedObjects.add((ISyncedAnimated) (syncedObject));
-//        }
+        Interval interval = new Interval(
+                syncedObject);
+        intervals.add(interval);
+        if (syncedObject instanceof ISyncedAnimated) {
+            animationSync.animatedObjects.add((ISyncedAnimated) (syncedObject));
+        }
 
     }
 
