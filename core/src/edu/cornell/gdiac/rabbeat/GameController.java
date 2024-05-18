@@ -1522,6 +1522,8 @@ public class GameController implements Screen, ContactListener {
 					displayStartCutScenes = true;
 					showLevel9StartingScreen[0] = false;
 					showLevel9StartingScreen[1] = false;
+				} else {
+					displayStartCutScenes = false;
 				}
 				break;
 			case 0: // Resume Level
