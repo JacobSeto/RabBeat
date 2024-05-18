@@ -2837,7 +2837,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -2875,7 +2875,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -2913,7 +2913,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -2951,7 +2951,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -2989,7 +2989,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3027,7 +3027,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3065,7 +3065,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3103,7 +3103,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3141,7 +3141,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3179,7 +3179,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3795,8 +3795,8 @@
                  "type":"Checkpoint",
                  "visible":true,
                  "width":130,
-                 "x":1828,
-                 "y":897
+                 "x":1232,
+                 "y":576
                 }],
          "opacity":1,
          "type":"objectgroup",
