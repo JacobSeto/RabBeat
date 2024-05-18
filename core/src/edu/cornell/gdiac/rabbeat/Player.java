@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.JsonValue;
 import edu.cornell.gdiac.rabbeat.objects.*;
 import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
@@ -553,6 +554,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 			animation = (genre == Genre.SYNTH ? synthDeathAnimation : jazzDeathAnimation);
 			setVX(0);
 			setVY(0);
+			setFriction(1);
 		}
 
 	}

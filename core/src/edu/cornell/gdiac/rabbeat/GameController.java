@@ -17,9 +17,14 @@
 package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation.SwingOut;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Timer.Task;
 import edu.cornell.gdiac.rabbeat.objects.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.objects.platforms.MovingPlatform;
@@ -529,6 +534,7 @@ public class GameController implements Screen, ContactListener {
 		// set the sound effects
 		initializeSFX(directory);
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
+		System.out.println(synthSoundtrack.getPosition());
 	}
 
 	/**
@@ -548,6 +554,7 @@ public class GameController implements Screen, ContactListener {
 		soundController.setJazzTrack(jazzSoundtrack);
 		soundController.setGlobalMusicVolume(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
+		soundController.resetMusic();
 	}
 
 	/**
@@ -607,7 +614,8 @@ public class GameController implements Screen, ContactListener {
 			default:
 				break;
 		}
-
+		soundController.addSound("uiTransition", directory.getEntry("sfx:menutransition", Sound.class));
+		soundController.addSound("glassShatter", directory.getEntry("sfx:glass", Sound.class));
 	}
 
 	public Vector2 getScale() {
@@ -703,6 +711,7 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
+		syncController.update(false);
 	}
 
 	/**
@@ -767,6 +776,14 @@ public class GameController implements Screen, ContactListener {
 				showLevel1ThirdCutScene = false;
 			} else if(showLevel1FourthCutScene) {
 				displayStartCutScenes = false;
+				soundController.playSFX("glassShatter");
+			}
+		} else if(currentLevelInt == 9 && InputController.getInstance().didPressEnter() && !paused) {
+			if(showLevel9StartingScreen[0]) {
+				showLevel9StartingScreen[1] = true;
+				showLevel9StartingScreen[0] = false;
+			} else if(showLevel9StartingScreen[1]) {
+				displayStartCutScenes = false;
 			}
 		}
 
@@ -774,6 +791,8 @@ public class GameController implements Screen, ContactListener {
 		if(currentLevelInt == 1 && !showLevel1FirstCutScene && !showLevel1SecondCutScene
 				&& !showLevel1ThirdCutScene && !showLevel1FourthCutScene && displayStartCutScenes) {
 			showLevel1FirstCutScene = true;
+		} else if(currentLevelInt == 9 && !showLevel9StartingScreen[0] && !showLevel9StartingScreen[1]) {
+			showLevel9StartingScreen[0] = true;
 		}
 
 		if (listener != null) {
@@ -809,9 +828,11 @@ public class GameController implements Screen, ContactListener {
 				// work the first frame of pausing but that should be fine
 				if (input.didPressDownWhilePaused()) {
 					pauseItemSelected = (pauseItemSelected + 1) % 6;
+					soundController.playSFX("uiTransition");
 				}
 				if (input.didPressUpWhilePaused()) { // not using else if on purpose
 					pauseItemSelected--;
+					soundController.playSFX("uiTransition");
 					if (pauseItemSelected == -1) {
 						pauseItemSelected = 5;
 					}
@@ -1151,6 +1172,8 @@ public class GameController implements Screen, ContactListener {
 	/** The boolean that represents whether the fourth starting cut scene in level 1 should be displayed */
 	public static boolean showLevel1FourthCutScene;
 
+	public static Boolean[] showLevel9StartingScreen = {false, false};
+
 	/**
 	 * Draw the physics objects to the canvas
 	 * <p>
@@ -1192,8 +1215,19 @@ public class GameController implements Screen, ContactListener {
 		// Victory Screen
 		if (complete && !failed) {if((currentLevelInt == 1 && !showFirstVictoryScreen && !showSecondVictoryScreen)
 					|| (currentLevelInt == 12 && !showFirstVictoryScreen && !showSecondVictoryScreen
-					&& !showThirdVictoryScreen && !showFourthVictoryScreen)) {
+					&& !showThirdVictoryScreen && !showFourthVictoryScreen && !showFifthVictoryScreen)) {
 				showFirstVictoryScreen = true;
+			}
+
+			if (!cutscenePlayed) {
+				cutscenePlayed = true;
+				switch (currentLevelInt) {
+					case 1: case 4: case 6: case 8: case 10: case 12:
+						soundController.playSFX("cutscene");
+						break;
+					default:
+						break;
+				}
 			}
 
 			if(currentLevelInt != 1 && currentLevelInt != 12) {
@@ -1213,17 +1247,19 @@ public class GameController implements Screen, ContactListener {
 
 		if(currentLevelInt == 1 && displayStartCutScenes){
 			if(showLevel1FourthCutScene) {
-				//TODO: replace with 4th start screen
-				canvasDrawVictoryScreen(objectController.level4VS);
+				canvasDrawVictoryScreen(objectController.startScreens.get("lvl1Start-4"));
 			} else if (showLevel1ThirdCutScene){
-				//TODO: replace with 3rd start screen
-				canvasDrawVictoryScreen(objectController.level1VS);
+				canvasDrawVictoryScreen(objectController.startScreens.get("lvl1Start-3"));
 			} else if(showLevel1SecondCutScene) {
-				//TODO: replace with 2nd start screen
-				canvasDrawVictoryScreen(objectController.level4VS);
+				canvasDrawVictoryScreen(objectController.startScreens.get("lvl1Start-2"));
 			} else if (showLevel1FirstCutScene){
-				//TODO: replace with 1st start screen
-				canvasDrawVictoryScreen(objectController.level1VS);
+				canvasDrawVictoryScreen(objectController.startScreens.get("lvl1Start-1"));
+			}
+		} else if(currentLevelInt == 9 && displayStartCutScenes){
+			if(showLevel9StartingScreen[1]) {
+				canvasDrawVictoryScreen(objectController.startScreens.get("lvl9Start-2"));
+			} else if (showLevel9StartingScreen[0]){
+				canvasDrawVictoryScreen(objectController.startScreens.get("lvl9Start-1"));
 			}
 		}
 
@@ -1238,21 +1274,53 @@ public class GameController implements Screen, ContactListener {
 			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
 			canvas.draw(objectController.overlayTexture.getTexture(), Color.WHITE, 0, 0, 0, -10, 0,1.05f, 1.05f);
 			if(calibrateScreen){
-				canvas.draw(objectController.tapText.getTexture(), Color.WHITE, 0, 0, 860, 390, 0, 1f, 1f);
-				canvas.draw(objectController.pressSpace.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.75f, 0.75f);
-				int beatNum = syncController.beat.getBeatFour();
-				int beatX = 875;
-				int xSpace = 75;
-				for(int i = 1; i < 5; i++){
-					if(i == beatNum){
-						canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f * pulse, 1f * pulse);
+
+				//calibration beats
+				if(inCalibration) {
+					canvas.draw(objectController.tapText.getTexture(), Color.WHITE, 0, 0, 860, 390,
+							0, 1f, 1f);
+					canvas.draw(objectController.pressSpace.getTexture(), Color.WHITE, 0, 0, 860,
+							310, 0, 0.75f, 0.75f);
+					int beatX = 875;
+					int xSpace = 75;
+					int beatNum = syncController.calibrationCount % 4 + 1 == 0 ? 4
+							: syncController.calibrationCount % 4 + 1;
+					for (int i = 1; i < 5; i++) {
+						if (i == beatNum) {
+							canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0,
+									0, beatX, 200, 0, 1.25f, 1.25f);
+						} else {
+							canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE,
+									0, 0, beatX, 200, 0, 1f, 1f);
+						}
+						beatX += xSpace;
 					}
-					else{
-						canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f, 1f);
-					}
-					beatX+=xSpace;
+					//Delay Display
+					canvas.drawText("Calibration: " +  (int)(((float)syncController.calibrationCount / syncController.NUM_CALIBRATION_STEPS)*100)  + "%", objectController.displayFont, 750, 175);
 				}
-				canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 830, 100);
+				else{
+					//counting beats
+
+					canvas.draw(objectController.tapText.getTexture(), Color.WHITE, 0, 0, 860, 390, 0, 1f, 1f);
+					canvas.draw(objectController.pressSpace.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.75f, 0.75f);
+					int beatNum = syncController.beat.getBeatFour();
+					int beatX = 875;
+					int xSpace = 75;
+					for(int i = 1; i < 5; i++){
+						if(i == beatNum){
+							canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f * pulse, 1f * pulse);
+						}
+						else{
+							canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f, 1f);
+						}
+						beatX+=xSpace;
+					}
+					//Delay Display
+					canvas.draw(objectController.audioAdjustLeft.getTexture(), Color.WHITE, 0, 0, 1075, 40, 0,1f, 1f);
+					canvas.draw(objectController.audioAdjustLeft.getTexture(), Color.WHITE, 0, 0, 1255, 40, 0, -1f, 1f);
+					canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 720, 80);
+				}
+
 			}
 			else{
 				canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 400, 0, 0.5f, 0.5f);
@@ -1385,6 +1453,10 @@ public class GameController implements Screen, ContactListener {
 					showLevel1SecondCutScene = false;
 					showLevel1ThirdCutScene = false;
 					showLevel1FourthCutScene = false;
+				} else if(currentLevelInt == 9) {
+					displayStartCutScenes = true;
+					showLevel9StartingScreen[0] = false;
+					showLevel9StartingScreen[1] = false;
 				}
 				break;
 			case 0: // Resume Level
@@ -1409,6 +1481,7 @@ public class GameController implements Screen, ContactListener {
 	public void exitLevel () {
 		soundController.resetMusic();
 		soundController.pauseMusic();
+		displayStartCutScenes = false;
 		exitScreen(0);
 	}
 
@@ -1559,6 +1632,9 @@ public class GameController implements Screen, ContactListener {
 	/** Boolean that represents whether the fourth victory screen is showing for level 12*/
 	public boolean showFourthVictoryScreen;
 
+	/** Boolean that represents whether the fifth victory screen is showing for level 12*/
+	public boolean showFifthVictoryScreen;
+
 
 	/** Displays the victory screen after player completes a level */
 	public void drawVictoryScreen () {
@@ -1576,28 +1652,30 @@ public class GameController implements Screen, ContactListener {
 
 			}
 			if (showFirstVictoryScreen) {
-				canvasDrawVictoryScreen(objectController.level1VS);
+				canvasDrawVictoryScreen(objectController.victoryScreens.get("level1VS-1"));
 			} else if (showSecondVictoryScreen) {
-				//TODO: replace with 2nd victory screen
-				canvasDrawVictoryScreen(objectController.level4VS);
+				canvasDrawVictoryScreen(objectController.victoryScreens.get("level1VS-2"));
 			}
 
 
 		} else if (currentLevelInt == 4) {
-			canvas.draw(objectController.level4VS, 0, 0);
+			canvas.draw(objectController.victoryScreens.get("level4VS"), 0, 0);
 		} else if (currentLevelInt == 6) {
-			canvas.draw(objectController.level6VS, 0, 0);
+			canvas.draw(objectController.victoryScreens.get("level6VS"), 0, 0);
 		} else if (currentLevelInt == 8) {
-			canvas.draw(objectController.level8VS, 0, 0);
-		} else if (currentLevelInt == 9) {
-			canvas.draw(objectController.level9VS, 0, 0);
+			canvas.draw(objectController.victoryScreens.get("level8VS"), 0, 0);
 		} else if (currentLevelInt == 10) {
-			canvas.draw(objectController.level10VS, 0, 0);
+			canvas.draw(objectController.victoryScreens.get("level10VS"), 0, 0);
+		} else if (currentLevelInt == 11) {
+			canvas.draw(objectController.victoryScreens.get("level11VS"), 0, 0);
 		} else if (currentLevelInt == 12) {
 			if(InputController.getInstance().didPressEnter()) {
-				if(showThirdVictoryScreen) {
+				if (showFourthVictoryScreen) {
+					showFifthVictoryScreen=true;
+					showFourthVictoryScreen=false;
+				} else if (showThirdVictoryScreen) {
 					showFourthVictoryScreen = true;
-					showSecondVictoryScreen = false;
+					showThirdVictoryScreen = false;
 				} else if(showSecondVictoryScreen) {
 					showThirdVictoryScreen = true;
 					showSecondVictoryScreen = false;
@@ -1608,16 +1686,19 @@ public class GameController implements Screen, ContactListener {
 			}
 
 			if(showFirstVictoryScreen) {
-				canvasDrawVictoryScreen(objectController.level1VS);
+				canvasDrawVictoryScreen(objectController.victoryScreens.get("level12VS-1"));
 			} else if(showSecondVictoryScreen) {
 				//TODO: replace with 2nd victory screen (Level 12)
-				canvasDrawVictoryScreen(objectController.level4VS);
+				canvasDrawVictoryScreen(objectController.victoryScreens.get("level12VS-2"));
 			} else if(showThirdVictoryScreen) {
 				//TODO: replace with 3nd victory screen (Level 12)
-				canvasDrawVictoryScreen(objectController.level1VS);
+				canvasDrawVictoryScreen(objectController.victoryScreens.get("level12VS-3"));
 			} else if(showFourthVictoryScreen) {
 				//TODO: replace with 4th victory screen (Level 12)
-				canvasDrawVictoryScreen(objectController.level4VS);
+				canvasDrawVictoryScreen(objectController.victoryScreens.get("level12VS-4"));
+			}else if(showFifthVictoryScreen) {
+				//TODO: replace with 4th victory screen (Level 12)
+				canvasDrawVictoryScreen(objectController.victoryScreens.get("level12VS-5"));
 			}
 
 		} else {

@@ -40,7 +40,7 @@ public class BeeHive extends Enemy {
      */
     public BeeHive(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
             boolean faceRight, int[] beatList, float beet, Genre genre) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, beatList, genre);
+        super(data, startX, startY, width, height, enemyScale, faceRight, false, beatList, genre);
         enemyState = EnemyState.ATTACKING;
         isFlippable = false;
         beeBeat = beet;
