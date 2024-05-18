@@ -114,10 +114,14 @@ public class ObjectController {
     private TextureRegion batTexture;
     /** The texture for the echo */
     public TextureRegion echoTexture;
-    /** The atlas for the echo animation */
-    public TextureAtlas echoAtlas;
-    /** The echo animation */
-    public Animation<TextureRegion> echoAnimation;
+    /** The atlas for the synth echo animation */
+    public TextureAtlas echoSynthAtlas;
+    /** The synth echo animation */
+    public Animation<TextureRegion> echoSynthAnimation;
+    /** The atlas for the jazz echo animation */
+    public TextureAtlas echoJazzAtlas;
+    /** The jazz echo animation */
+    public Animation<TextureRegion> echoJazzAnimation;
     /** The texture for bees */
     public TextureRegion beeTexture;
     /** The texture for bees */
@@ -678,8 +682,12 @@ public class ObjectController {
         batAttackAtlas = new TextureAtlas(Gdx.files.internal("enemies/batAttack.atlas"));
         batAttackAnimation = new Animation<TextureRegion>(1f, batAttackAtlas.findRegions("batAttack"),
                 Animation.PlayMode.LOOP);
-        echoAtlas = new TextureAtlas(Gdx.files.internal("atlas/echo.atlas"));
-        echoAnimation = new Animation<TextureRegion>(1f, echoAtlas.findRegions("echo"));
+        echoSynthAtlas = new TextureAtlas(Gdx.files.internal("enemies/synthWave.atlas"));
+        echoSynthAnimation = new Animation<TextureRegion>(1f, echoSynthAtlas.findRegions("synthWave"),
+                Animation.PlayMode.LOOP);
+        echoJazzAtlas = new TextureAtlas(Gdx.files.internal("enemies/jazzWave.atlas"));
+        echoJazzAnimation = new Animation<TextureRegion>(1f, echoJazzAtlas.findRegions("jazzWave"),
+                Animation.PlayMode.LOOP);
         echoTexture = new TextureRegion(directory.getEntry("enemies:echoStill", Texture.class));
 
         // Bee
@@ -1967,7 +1975,8 @@ public class ObjectController {
         bat.setBodyType(BodyDef.BodyType.StaticBody);
         bat.setDrawScale(scale);
         bat.setTexture(batTexture);
-        bat.echoAnimation = echoAnimation;
+        bat.echoSynthAnimation = echoSynthAnimation;
+        bat.echoJazzAnimation = echoJazzAnimation;
         GameController.getInstance().instantiate(bat, 0);
     }
 

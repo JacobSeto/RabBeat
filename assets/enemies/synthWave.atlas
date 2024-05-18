@@ -1,86 +1,86 @@
-echo.png
+synthWave.png
 size: 192, 768
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-echo
+synthWave
   rotate: false
   xy: 0, 0
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 0
-echo
+synthWave
   rotate: false
   xy: 0, 64
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 1
-echo
+synthWave
   rotate: false
   xy: 0, 128
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 2
-echo
+synthWave
   rotate: false
   xy: 0, 192
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 3
-echo
+synthWave
   rotate: false
   xy: 0, 256
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 4
-echo
+synthWave
   rotate: false
   xy: 0, 320
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 5
-echo
+synthWave
   rotate: false
   xy: 0, 384
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 6
-echo
+synthWave
   rotate: false
   xy: 0, 448
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 7
-echo
+synthWave
   rotate: false
   xy: 0, 512
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 8
-echo
+synthWave
   rotate: false
   xy: 0, 576
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 9
-echo
+synthWave
   rotate: false
   xy: 0, 640
   size: 192, 64
   orig: 192, 64
   offset: 0, 0
   index: 10
-echo
+synthWave
   rotate: false
   xy: 0, 704
   size: 192, 64

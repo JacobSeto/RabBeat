@@ -34,8 +34,10 @@ public class BatEnemy extends Enemy {
     /** The attack animation for the bear */
     public Animation<TextureRegion> attackAnimation;
 
-    /** The echo animation for the bat*/
-    public Animation<TextureRegion> echoAnimation;
+    /** The synth echo animation for the bat*/
+    public Animation<TextureRegion> echoSynthAnimation;
+    /** The jazz echo animation for the bat*/
+    public Animation<TextureRegion> echoJazzAnimation;
 
     /**
      * Creates a bat enemy avatar with the given physics data
@@ -87,11 +89,11 @@ public class BatEnemy extends Enemy {
         for(int i = 0; i < 2; i++){
             if(genre == Genre.SYNTH){
                 echo = new Echo(getX() + offset, getY(),
-                        2, .75f,  echoAnimation);
+                        2, .75f,  echoSynthAnimation);
             }
             else{
                 echo = new Echo(getX(), getY()+ offset,
-                        .75f, 2.5f,  echoAnimation);
+                        .75f, 2.5f,  echoJazzAnimation);
                 echo.vertical = true;
             }
             if(i == 1) echo.flipX = !echo.flipX;
