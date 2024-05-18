@@ -68,6 +68,7 @@
   <object id="763" gid="253" x="33" y="779" width="128" height="128"/>
   <object id="744" gid="239" x="4414" y="737" width="960" height="128"/>
   <object id="989" gid="263" x="4711" y="770" width="128" height="128"/>
+  <object id="726" gid="218" x="1711.57" y="358.916" width="344" height="42"/>
  </objectgroup>
  <objectgroup id="18" name="backgroundArt">
   <object id="733" gid="239" x="1587" y="697" width="960" height="128"/>
@@ -128,7 +129,6 @@
   <object id="723" gid="216" x="400" y="942.968" width="366" height="42"/>
   <object id="724" gid="214" x="1557" y="675.978" width="80" height="80"/>
   <object id="725" gid="217" x="1527" y="719.978" width="141" height="42"/>
-  <object id="726" gid="218" x="1711.57" y="358.916" width="344" height="42"/>
   <object id="776" gid="272" x="517" y="574" width="128" height="128"/>
   <object id="777" gid="272" x="1090" y="319" width="128" height="128"/>
   <object id="778" gid="272" x="2516" y="532" width="128" height="128"/>

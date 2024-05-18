@@ -141,6 +141,7 @@
     "ui:levelName:synthLvl12": "ui/levelName/synthLvl12.png",
 
     "ui:calibration:calibrateText": "ui/calibration/calibrateText.png",
+    "ui:calibration:calibrateStartText" : "ui/calibration/calibrateStartText.png",
     "ui:calibration:audioDelayDisplay": "ui/calibration/audioDelayDisplay.png",
     "ui:calibration:offBeat": "ui/calibration/offBeat.png",
     "ui:calibration:onBeat": "ui/calibration/onBeat.png",
@@ -475,13 +476,13 @@
     "level2": "levelsJson/tutorial2.tmj",
     "level3": "levelsJson/ericEasyLevel.tmj",
     "level4": "levelsJson/EricBearLevel2.tmj",
-    "level5": "levelsJson/easyBeeLevel.tmj",
-    "level6": "levelsJson/rabbeatLevelBat.tmj",
-    "level7": "levelsJson/EricMediumLevel.tmj",
-    "level8": "levelsJson/EricLaserLevel.tmj",
+    "level5": "levelsJson/rabbeatLevelBat.tmj",
+    "level6": "levelsJson/EricMediumLevel.tmj",
+    "level7": "levelsJson/EricLaserLevel.tmj",
+    "level8": "levelsJson/easyBeeLevel.tmj",
     "level9": "levelsJson/CrushLevel.tmj",
     "level10": "levelsJson/benBatLevel.tmj",
-    "level11": "levelsJson/CharlesHardLevel.tmj",
+    "level11": "levelsJson/charlesHardLevel.tmj",
     "level12": "levelsJson/FinalLevel1.tmj"
   },
   "sounds": {
@@ -515,7 +516,7 @@
   "fonts": {
     "fonts:retro": {
       "file": "fonts/RetroGame.ttf",
-      "size": 48
+      "size": 30
     }
   },
   "atlas": {

@@ -213,6 +213,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     musPref--;
                     mus.setVolume(musPref / 10f);
                 }
+                optMenuSel = 0;
             }
         });
 
@@ -223,6 +224,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     musPref++;
                     mus.setVolume(musPref / 10f);
                 }
+                optMenuSel = 0;
             }
         });
 
@@ -235,6 +237,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     sfxVolume = sfxPref;
                     buttonClicked.play(sfxVolume / 10f);
                 }
+                optMenuSel = 1;
             }
         });
 
@@ -246,12 +249,13 @@ public class MainMenuScreen extends ScreenAdapter {
                     sfxVolume = sfxPref;
                     buttonClicked.play(sfxVolume / 10f);
                 }
+                optMenuSel = 1;
             }
         });
 
         Texture backButtonTexture = GameController.getInstance().objectController.levelSelectBackButton;
         backButton = new Image(backButtonTexture);
-        backButton.setScale(1.5f);
+        backButton.setScale(1.0f);
         backButton.setPosition(27f, background.getHeight() - backButton.getHeight() - 25);
         stage.addActor(backButton);
 
