@@ -113,6 +113,7 @@
     "ui:calibration:tapText": "ui/calibration/tapText.png",
     "ui:calibration:pressSpace": "ui/calibration/pressSpace.png",
     "ui:calibration:pressSpaceBeat": "ui/calibration/pressSpaceBeat.png",
+    "ui:calibration:audioAdjustLeft": "ui/calibration/audioAdjustLeft.png",
     "ui:unlockedLevels:unlockedLevel1": "ui/unlockedLevels/unlockedLevel1.png",
     "ui:unlockedLevels:unlockedLevel2": "ui/unlockedLevels/unlockedLevel2.png",
     "ui:unlockedLevels:unlockedLevel3": "ui/unlockedLevels/unlockedLevel3.png",
@@ -425,7 +426,8 @@
     "sfx:hiphopCutscene": "sfx/hiphop_cutscene.wav",
     "sfx:jazzCutscene": "sfx/jazz_cutscene.wav",
     "sfx:popCutscene": "sfx/pop_cutscene.wav",
-    "sfx:rockCutscene": "sfx/rock_cutscene.wav"
+    "sfx:rockCutscene": "sfx/rock_cutscene.wav",
+    "sfx:glass": "sfx/glass.wav"
   },
   "music": {
     "music:mainmenu": "music/main_menu.ogg",
