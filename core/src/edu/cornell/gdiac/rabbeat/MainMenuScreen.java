@@ -81,7 +81,6 @@ public class MainMenuScreen extends ScreenAdapter {
      */
     @Override
     public void show() {
-        System.out.println("show");
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
