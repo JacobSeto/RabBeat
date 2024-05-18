@@ -316,12 +316,8 @@ public class ObjectController {
     public TextureRegion blackGradient;
 
     public TextureRegion victoryScreenBackground;
-    public TextureRegion level1VS;
-    public TextureRegion level4VS;
-    public TextureRegion level6VS;
-    public TextureRegion level8VS;
-    public TextureRegion level9VS;
-    public TextureRegion level10VS;
+    public HashMap<String, TextureRegion> victoryScreens = new HashMap<>();
+    public HashMap<String, TextureRegion> startScreens = new HashMap<>();
 
     // HashMaps
     private HashMap<String, TextureRegion> assets = new HashMap<>();
@@ -537,12 +533,25 @@ public class ObjectController {
         levelButtonHover12 = directory.getEntry("ui:levelButtonsHoverState:level12ButtonHover", Texture.class);
 
         victoryScreenBackground = new TextureRegion(directory.getEntry("ui:victoryScreen", Texture.class));
-        level1VS = new TextureRegion(directory.getEntry("ui:lvl1VS", Texture.class));
-        level4VS = new TextureRegion(directory.getEntry("ui:lvl4VS", Texture.class));
-        level6VS = new TextureRegion(directory.getEntry("ui:lvl6VS", Texture.class));
-        level8VS = new TextureRegion(directory.getEntry("ui:lvl8VS", Texture.class));
-        level9VS = new TextureRegion(directory.getEntry("ui:lvl9VS", Texture.class));
-        level10VS = new TextureRegion(directory.getEntry("ui:lvl10VS", Texture.class));
+        victoryScreens.put("level1VS-1", new TextureRegion(directory.getEntry("ui:lvl1VS-1", Texture.class)));
+        victoryScreens.put("level1VS-2", new TextureRegion(directory.getEntry("ui:lvl1VS-2", Texture.class)));
+        victoryScreens.put("level4VS", new TextureRegion(directory.getEntry("ui:lvl4VS", Texture.class)));
+        victoryScreens.put("level6VS", new TextureRegion(directory.getEntry("ui:lvl6VS", Texture.class)));
+        victoryScreens.put("level8VS", new TextureRegion(directory.getEntry("ui:lvl8VS", Texture.class)));
+        victoryScreens.put("level10VS", new TextureRegion(directory.getEntry("ui:lvl10VS", Texture.class)));
+        victoryScreens.put("level11VS", new TextureRegion(directory.getEntry("ui:lvl11VS", Texture.class)));
+        victoryScreens.put("level12VS-1", new TextureRegion(directory.getEntry("ui:lvl12VS-1", Texture.class)));
+        victoryScreens.put("level12VS-2", new TextureRegion(directory.getEntry("ui:lvl12VS-2", Texture.class)));
+        victoryScreens.put("level12VS-3", new TextureRegion(directory.getEntry("ui:lvl12VS-3", Texture.class)));
+        victoryScreens.put("level12VS-4", new TextureRegion(directory.getEntry("ui:lvl12VS-4", Texture.class)));
+        victoryScreens.put("level12VS-5", new TextureRegion(directory.getEntry("ui:lvl12VS-5", Texture.class)));
+
+        startScreens.put("lvl1Start-1", new TextureRegion(directory.getEntry("ui:lvl1Start-1", Texture.class)));
+        startScreens.put("lvl1Start-2", new TextureRegion(directory.getEntry("ui:lvl1Start-2", Texture.class)));
+        startScreens.put("lvl1Start-3", new TextureRegion(directory.getEntry("ui:lvl1Start-3", Texture.class)));
+        startScreens.put("lvl1Start-4", new TextureRegion(directory.getEntry("ui:lvl1Start-4", Texture.class)));
+        startScreens.put("lvl9Start-1", new TextureRegion(directory.getEntry("ui:lvl9Start-1", Texture.class)));
+        startScreens.put("lvl9Start-2", new TextureRegion(directory.getEntry("ui:lvl9Start-2", Texture.class)));
 
         levelSelectBackground = directory.getEntry("backgrounds:levelSelectBackground", Texture.class);
 
