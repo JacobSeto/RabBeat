@@ -1473,6 +1473,60 @@
                  "width":128,
                  "x":6666,
                  "y":211
+                }, 
+                {
+                 "gid":352,
+                 "height":200,
+                 "id":1256,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"toxic_0"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":200,
+                 "x":499,
+                 "y":958
+                }, 
+                {
+                 "gid":353,
+                 "height":200,
+                 "id":1257,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"toxic_1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":200,
+                 "x":628,
+                 "y":959
+                }, 
+                {
+                 "gid":354,
+                 "height":200,
+                 "id":1258,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"toxic_2"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":200,
+                 "x":571,
+                 "y":960
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -4107,7 +4161,7 @@
          "y":0
         }],
  "nextlayerid":22,
- "nextobjectid":1253,
+ "nextobjectid":1259,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

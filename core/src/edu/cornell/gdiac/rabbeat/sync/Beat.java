@@ -4,13 +4,20 @@ import com.badlogic.gdx.utils.Array;
 import edu.cornell.gdiac.rabbeat.GameController;
 
 public class Beat implements ISynced {
-
     int beatCount = 0;
     float beat = 1;
+
+    public Interval beatInterval;
 
     public Array<Float> beatLatencyList = new Array<>();
     /** The amount of time that has passed between each beat*/
     public float beatDT;
+
+    SyncController syncController;
+
+    public Beat(SyncController syncController){
+        this.syncController = syncController;
+    }
 
     /**
      * Adds the delta in update into beatDT
@@ -28,7 +35,7 @@ public class Beat implements ISynced {
     @Override
     public void beatAction() {;
         beatCount++;
-        if(beatCount >= 9){
+        if(beatCount == 9){
             beatCount = 1;
         }
         System.out.println(beatCount);
@@ -48,6 +55,9 @@ public class Beat implements ISynced {
     }
 
     /** Returns the beat in string form out of 4*/
-    public int getBeatFour(){return (beatCount % 4 + 1);}
+    public int getBeatFour(){
+            int modCount = beatCount % 4;
+            return modCount == 0 ? 4 : modCount;
+    }
 
 }

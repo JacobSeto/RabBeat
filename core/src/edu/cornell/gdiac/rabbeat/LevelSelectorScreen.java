@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -72,8 +73,16 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private boolean upPressed;
     private boolean upPrevious;
 
+    private boolean rightPressed;
+    private boolean rightPrevious;
+
+    private boolean leftPressed;
+    private boolean leftPrevious;
+
     private boolean enterPressed;
     private boolean enterPrevious;
+
+    private Sound menuTransitionSound;
 
     /** Reference to the numberOfLevels variable in GameController */
     private final int numberOfLevels = GameController.getInstance().getNumberOfLevels();
@@ -85,6 +94,10 @@ public class LevelSelectorScreen extends ScreenAdapter {
         this.game = game;
         Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
         GameController.getInstance().setLevelsUnlocked(prefs.getInteger("levelsUnlocked", 1));
+    }
+
+    public void setMenuTransitionSound(Sound s) {
+        menuTransitionSound = s;
     }
 
     /** Displays the button UI for each level and adds a clickListener that detects whether
@@ -190,6 +203,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                         hover10 = false;
                         hover11 = false;
                         hover12 = false;
+
+                        menuTransitionSound.play();
 
                         switch (finalI) {
                             case (1):
@@ -520,10 +535,14 @@ public class LevelSelectorScreen extends ScreenAdapter {
         enterPrevious = enterPressed;
         downPrevious = downPressed;
         upPrevious = upPressed;
+        leftPrevious = leftPressed;
+        rightPrevious = rightPressed;
 
         enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
         downPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
         upPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
+        rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D);
+        leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
         int numberOfLevelsUnlocked = GameController.getInstance().getLevelsUnlocked();
         if(!hover1 && !hover2 && !hover3 && !hover4 && !hover5 && !hover6 && !hover7 && !hover8 && !hover9 && !hover10 && !hover11 && !hover12)
             switch(GameController.getInstance().getCurrentLevelInt()) {
@@ -565,6 +584,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     break;
             }
         else if (downPressed && !downPrevious) {
+            menuTransitionSound.play();
             if(hover1 && numberOfLevelsUnlocked > 1) {
                 hover1 = false;
                 hover2 = true;
@@ -600,41 +620,99 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hover12 = true;
             }
         } else if (upPressed && !upPrevious) {
-            if(hover12) {
+            menuTransitionSound.play();
+            if (hover12) {
                 hover12 = false;
                 hover11 = true;
-            } else if(hover11) {
+            } else if (hover11) {
                 hover11 = false;
                 hover10 = true;
-            } else if(hover10) {
+            } else if (hover10) {
                 hover10 = false;
                 hover9 = true;
-            } else if(hover9) {
+            } else if (hover9) {
                 hover9 = false;
                 hover8 = true;
-            } else if(hover8) {
+            } else if (hover8) {
                 hover8 = false;
                 hover7 = true;
-            } else if(hover7) {
+            } else if (hover7) {
                 hover7 = false;
                 hover6 = true;
-            } else if(hover6) {
+            } else if (hover6) {
                 hover6 = false;
                 hover5 = true;
-            } else if(hover5) {
+            } else if (hover5) {
                 hover5 = false;
                 hover4 = true;
-            } else if(hover4) {
+            } else if (hover4) {
                 hover4 = false;
                 hover3 = true;
-            } else if(hover3) {
+            } else if (hover3) {
                 hover3 = false;
                 hover2 = true;
-            } else if(hover2) {
+            } else if (hover2) {
                 hover2 = false;
                 hover1 = true;
             }
-        }else if (enterPressed && !enterPrevious) {
+        }
+            else if (rightPressed && !rightPrevious) {
+                menuTransitionSound.play();
+                if(hover8) {
+                    hover8 = false;
+                    hover12 = true;
+                } else if(hover7) {
+                    hover7 = false;
+                    hover11 = true;
+                } else if(hover6) {
+                    hover6 = false;
+                    hover10 = true;
+                } else if(hover5) {
+                    hover5 = false;
+                    hover9 = true;
+                } else if(hover4) {
+                    hover4 = false;
+                    hover8 = true;
+                } else if(hover3) {
+                    hover3 = false;
+                    hover7 = true;
+                } else if(hover2) {
+                    hover2 = false;
+                    hover6 = true;
+                } else if(hover1) {
+                    hover1 = false;
+                    hover5 = true;
+                }
+            }
+            else if (leftPressed && !leftPrevious) {
+                menuTransitionSound.play();
+                if(hover8) {
+                    hover8 = false;
+                    hover4 = true;
+                } else if(hover7) {
+                    hover7 = false;
+                    hover3 = true;
+                } else if(hover6) {
+                    hover6 = false;
+                    hover2 = true;
+                } else if(hover5) {
+                    hover5 = false;
+                    hover1 = true;
+                } else if(hover12) {
+                    hover12 = false;
+                    hover8 = true;
+                } else if(hover11) {
+                    hover11 = false;
+                    hover7 = true;
+                } else if(hover10) {
+                    hover10 = false;
+                    hover6 = true;
+                } else if(hover9) {
+                    hover9 = false;
+                    hover5 = true;
+                }
+            }
+        else if (enterPressed && !enterPrevious) {
             if(hover1) {
                 GameController.getInstance().setCurrentLevelInt(1);
                 GameController.displayStartCutScenes = true;
