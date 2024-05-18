@@ -285,6 +285,8 @@ public class ObjectController {
     public TextureRegion pressSpace;
     public TextureRegion pressSpaceBeat;
 
+    public TextureRegion audioAdjustLeft;
+
     public TextureRegion exitLevelTexture;
     public TextureRegion hoverLowerSoundTexture;
     public TextureRegion hoverUpSoundTexture;
@@ -566,6 +568,7 @@ public class ObjectController {
         tapText = new TextureRegion(directory.getEntry("ui:calibration:tapText", Texture.class));
         pressSpace = new TextureRegion(directory.getEntry("ui:calibration:pressSpace", Texture.class));
         pressSpaceBeat = new TextureRegion(directory.getEntry("ui:calibration:pressSpaceBeat", Texture.class));
+        audioAdjustLeft = new TextureRegion(directory.getEntry("ui:calibration:audioAdjustLeft", Texture.class));
 
         enemyDefaultTexture = new TextureRegion(directory.getEntry("player:synth", Texture.class)); // CHANGE FOR ENEMY!
         batTexture = new TextureRegion(directory.getEntry("enemies:bat", Texture.class));
