@@ -1196,6 +1196,17 @@ public class GameController implements Screen, ContactListener {
 				showFirstVictoryScreen = true;
 			}
 
+			if (!cutscenePlayed) {
+				cutscenePlayed = true;
+				switch (currentLevelInt) {
+					case 1: case 4: case 6: case 8: case 10: case 12:
+						soundController.playSFX("cutscene");
+						break;
+					default:
+						break;
+				}
+			}
+
 			if(currentLevelInt != 1 && currentLevelInt != 12) {
 				readyToGoToNextLevel = true;
 			}
