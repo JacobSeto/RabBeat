@@ -50,9 +50,9 @@ public class BatEnemy extends Enemy {
      * @param beatList   The list of beats that the enemy reacts to
      */
     public BatEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
-            boolean faceRight, int[] beatList, Genre genre) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, beatList, genre);
-        isFlippable = false;
+            boolean faceRight, boolean flipVertical, int[] beatList, Genre genre) {
+        super(data, startX, startY, width, height, enemyScale, faceRight, flipVertical, beatList, genre);
+        isFlippable = true;
     }
 
     /**

@@ -41,6 +41,9 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
     /** Whether the enemy is facing right */
     private boolean faceRight;
 
+    /** Whether the enemy is flipped upside down */
+    private boolean flipVertical;
+
     /** Initializes the state of the enemy to idle */
     protected EnemyState enemyState;
 
@@ -88,7 +91,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      * @param genre      The current genre of the game
      */
     public Enemy(JsonValue data, float startX, float startY,
-            float width, float height, float enemyScale, boolean faceRight, int[] beatList, Genre genre) {
+            float width, float height, float enemyScale, boolean faceRight, boolean flipVertical, int[] beatList, Genre genre) {
         // The shrink factors fit the image to a tigher hitbox
         super(startX, startY,
                 width * data.get("shrink").getFloat(0),
@@ -99,6 +102,7 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
         setFixedRotation(true);
 
         this.faceRight = faceRight; // should face the direction player is in?
+        this.flipVertical = flipVertical;
         this.enemyScale = enemyScale;
         this.beatList = beatList;
         setType(Type.LETHAL);
@@ -133,11 +137,12 @@ public abstract class Enemy extends CapsuleGameObject implements ISyncedAnimated
      * @param canvas Drawing context
      */
     public void draw(GameCanvas canvas) {
-        float effect = (faceRight && isFlippable) ? -1.0f : 1.0f;
+        float horizontalEffect = (faceRight && isFlippable) ? -1.0f : 1.0f;
+        float verticalEffect = (flipVertical && isFlippable) ? -1.0f : 1.0f;
         TextureRegion currentFrame = animation.getKeyFrame(stateTime, true);
 
         canvas.draw(currentFrame, Color.WHITE, origin.x, origin.y, getX() * drawScale.x, getY() * drawScale.y,
-                getAngle(), enemyScale * effect, enemyScale);
+                getAngle(), enemyScale * horizontalEffect, enemyScale * verticalEffect);
     }
 
     /** Sets the direction that the enemy is facing in */

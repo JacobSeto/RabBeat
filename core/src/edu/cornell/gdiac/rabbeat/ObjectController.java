@@ -1285,6 +1285,7 @@ public class ObjectController {
                             String beatListString = "";
                             int color = 0;
                             boolean faceRight = false;
+                            boolean flipVertical = false;
                             float beeBeat = 0.0f;
                             for (JsonValue prop : enemy.get("properties")) {
                                 if (prop.getString("name").equals("beatList")) {
@@ -1292,6 +1293,9 @@ public class ObjectController {
                                 }
                                 if (prop.getString("name").equals("isRight")) {
                                     faceRight = prop.getBoolean("value");
+                                }
+                                if (prop.getString("name").equals("flipVertical")) {
+                                    flipVertical = prop.getBoolean("value");
                                 }
                                 if (prop.getString("name").equals("beeBeat")) {
                                     beeBeat = prop.getFloat("value");
@@ -1331,7 +1335,7 @@ public class ObjectController {
                                     y = enemy.getFloat("y");
                                     dim = new Vector2(enemy.getFloat("width"), enemy.getFloat("height"));
                                     createEnemyBat(scale, x, y, dim, levelHeight, tileSize,
-                                            convertTiledbeatList(beatListString), genre);
+                                            convertTiledbeatList(beatListString), flipVertical, genre);
                                     break;
                             }
                         }
@@ -1938,14 +1942,15 @@ public class ObjectController {
     /**
      * Create a bat enemy.
      *
-     * @param scale       The Vector2 draw scale
-     * @param x           The bear's x coordinate (in pixels)
-     * @param y           The bear's y coordinate (in pixels)
-     * @param levelHeight Height of level in number of tiles
-     * @param tileSize    Height of tile in pixels
+     * @param scale        The Vector2 draw scale
+     * @param x            The bear's x coordinate (in pixels)
+     * @param y            The bear's y coordinate (in pixels)
+     * @param levelHeight  Height of level in number of tiles
+     * @param tileSize     Height of tile in pixels
+     * @param flipVertical
      */
     private void createEnemyBat(Vector2 scale, float x, float y, Vector2 dimensions, int levelHeight, int tileSize,
-            int[] beatList, Genre genre) {
+            int[] beatList, boolean flipVertical, Genre genre) {
         // Convert coordinates to world coordinate
         Vector2 convertedCoord = convertTiledCoord(x, y, dimensions.x, dimensions.y, levelHeight, tileSize);
 
@@ -1953,7 +1958,7 @@ public class ObjectController {
         float dheight = batTexture.getRegionHeight() / scale.y;
         BatEnemy bat = new BatEnemy(defaultConstants.get("bats"), convertedCoord.x, convertedCoord.y,
                 dwidth * enemyScale, dheight * enemyScale,
-                enemyScale, false, beatList, genre);
+                enemyScale, false, flipVertical, beatList, genre);
         bat.idleAnimation = batIdleAnimation;
         bat.antiAnimation = batAntiAnimation;
         bat.attackAnimation = batAttackAnimation;
