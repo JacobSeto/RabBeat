@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="AnimatedArt" tilewidth="192" tileheight="192" tilecount="4" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="AnimatedArt" tilewidth="768" tileheight="768" tilecount="5" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <properties>
@@ -28,5 +28,12 @@
    <property name="assetName" value="smallPod"/>
   </properties>
   <image width="192" height="192" source="tiles/smallPodTile.png"/>
+ </tile>
+ <tile id="8">
+  <properties>
+   <property name="animated" type="bool" value="true"/>
+   <property name="assetName" value="houseWindow"/>
+  </properties>
+  <image width="768" height="768" source="tiles/houseWindowTile.png"/>
  </tile>
 </tileset>
