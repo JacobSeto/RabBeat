@@ -95,6 +95,35 @@ public class ObjectController {
     protected TextureRegion laserRight;
     protected TextureRegion laserHorizontal;
 
+    /** The textures for the jazz level names */
+    public Texture jazzLevel1;
+    public Texture jazzLevel2;
+    public Texture jazzLevel3;
+    public Texture jazzLevel4;
+    public Texture jazzLevel5;
+    public Texture jazzLevel6;
+    public Texture jazzLevel7;
+    public Texture jazzLevel8;
+    public Texture jazzLevel9;
+    public Texture jazzLevel10;
+    public Texture jazzLevel11;
+    public Texture jazzLevel12;
+
+    /** The textures for the synth level names */
+    public Texture synthLevel1;
+    public Texture synthLevel2;
+    public Texture synthLevel3;
+    public Texture synthLevel4;
+    public Texture synthLevel5;
+    public Texture synthLevel6;
+    public Texture synthLevel7;
+    public Texture synthLevel8;
+    public Texture synthLevel9;
+    public Texture synthLevel10;
+    public Texture synthLevel11;
+    public Texture synthLevel12;
+
+
     /** The texture for weighted platforms in Synth mode */
     protected TextureRegion weightedSynth;
     /** The texture for weighted platforms in Jazz mode */
