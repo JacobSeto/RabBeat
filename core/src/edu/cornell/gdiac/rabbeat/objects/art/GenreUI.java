@@ -48,7 +48,6 @@ public class GenreUI extends PulsingArtObject implements IGenreObject {
 
     public void draw(GameCanvas canvas, float x, float y) {
         if (texture != null) {
-            System.out.println(pulseScaleAmount);
             canvas.draw(texture, Color.WHITE, origin.x, origin.y,
                     x , y, 0, pulseScaleAmount,pulseScaleAmount);
         }
