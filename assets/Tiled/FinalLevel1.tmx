@@ -167,30 +167,30 @@
     <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
-  <object id="1490" type="Weighted Platform" gid="141" x="6720" y="832" width="192" height="32">
+  <object id="1490" type="Weighted Platform" gid="141" x="6720" y="864" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
-    <property name="num" type="int" value="8"/>
-    <property name="platformInterval" type="int" value="2"/>
+    <property name="num" type="int" value="9"/>
+    <property name="platformInterval" type="int" value="0"/>
     <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
   <object id="1491" type="Weighted Platform" gid="143" x="6336" y="1056" width="192" height="32">
    <properties>
-    <property name="num" type="int" value="8"/>
-    <property name="platformInterval" type="int" value="2"/>
+    <property name="num" type="int" value="9"/>
+    <property name="platformInterval" type="int" value="0"/>
     <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="16" name="movingPlatforms">
-  <object id="681" type="Moving Platform" gid="142" x="6688" y="1456" width="192" height="32">
+  <object id="681" type="Moving Platform" gid="142" x="5408" y="880" width="192" height="32">
    <properties>
     <property name="pos" type="int" value="1"/>
     <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
-  <object id="682" type="Moving Platform" gid="142" x="6304" y="1648" width="192" height="32">
+  <object id="682" type="Moving Platform" gid="142" x="5024" y="1072" width="192" height="32">
    <properties>
     <property name="waitTime" type="int" value="3"/>
    </properties>
@@ -897,7 +897,7 @@
   </object>
   <object id="1424" type="Bat" gid="1073741884" x="15632" y="256" width="176" height="97"/>
   <object id="1425" type="Bat" gid="60" x="3280" y="768" width="176" height="97"/>
-  <object id="1460" type="Bear" gid="9" x="6992" y="496" width="173" height="200">
+  <object id="1460" type="Bear" gid="9" x="6976" y="512" width="173" height="200">
    <properties>
     <property name="beatList" value="38"/>
    </properties>
