@@ -60,7 +60,7 @@ public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenre
 	/** Whether we are actively jumping */
 	private boolean isJumping;
 	/** Whether our feet are on the ground */
-	private boolean isGrounded;
+	public boolean isGrounded;
 	/** Whether we are dying */
 	private boolean isDying;
 	/** Identifier to allow us to track the sensor in ContactListener */

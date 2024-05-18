@@ -319,6 +319,9 @@ public class ObjectController {
     public TextureRegion level1VS;
     public TextureRegion level4VS;
     public TextureRegion level6VS;
+    public TextureRegion level8VS;
+    public TextureRegion level9VS;
+    public TextureRegion level10VS;
 
     // HashMaps
     private HashMap<String, TextureRegion> assets = new HashMap<>();
@@ -537,6 +540,9 @@ public class ObjectController {
         level1VS = new TextureRegion(directory.getEntry("ui:lvl1VS", Texture.class));
         level4VS = new TextureRegion(directory.getEntry("ui:lvl4VS", Texture.class));
         level6VS = new TextureRegion(directory.getEntry("ui:lvl6VS", Texture.class));
+        level8VS = new TextureRegion(directory.getEntry("ui:lvl8VS", Texture.class));
+        level9VS = new TextureRegion(directory.getEntry("ui:lvl9VS", Texture.class));
+        level10VS = new TextureRegion(directory.getEntry("ui:lvl10VS", Texture.class));
 
         levelSelectBackground = directory.getEntry("backgrounds:levelSelectBackground", Texture.class);
 
@@ -728,6 +734,7 @@ public class ObjectController {
         assets.put("emptypod4", new TextureRegion(directory.getEntry("world:pods:emptypod4", Texture.class)));
         assets.put("wolfpod1", new TextureRegion(directory.getEntry("world:pods:wolfpod1", Texture.class)));
         assets.put("pod", new TextureRegion(directory.getEntry("world:pods:pod", Texture.class)));
+        assets.put("brokenPod", new TextureRegion(directory.getEntry("world:pods:brokenPod", Texture.class)));
 
         assets.put("shelf1", new TextureRegion(directory.getEntry("world:shelves:shelf1", Texture.class)));
         assets.put("shelf2", new TextureRegion(directory.getEntry("world:shelves:shelf2", Texture.class)));
@@ -751,6 +758,8 @@ public class ObjectController {
         assets.put("bigwire", new TextureRegion(directory.getEntry("world:wires:bigwire", Texture.class)));
         assets.put("wires1", new TextureRegion(directory.getEntry("world:wires:wires1", Texture.class)));
         assets.put("wires2", new TextureRegion(directory.getEntry("world:wires:wires2", Texture.class)));
+        assets.put("goldWire_0", new TextureRegion(directory.getEntry("world:wires:goldWire_0", Texture.class)));
+        assets.put("goldWire_1", new TextureRegion(directory.getEntry("world:wires:goldWire_1", Texture.class)));
 
         assets.put("grafiti_0", new TextureRegion(directory.getEntry("world:grafiti:grafiti_0", Texture.class)));
         assets.put("caution_0", new TextureRegion(directory.getEntry("world:grafiti:caution_0", Texture.class)));
@@ -859,6 +868,7 @@ public class ObjectController {
         assets.put("showlight_3", new TextureRegion(directory.getEntry("world:lights:showlight_3", Texture.class)));
         assets.put("showlight_4", new TextureRegion(directory.getEntry("world:lights:showlight_4", Texture.class)));
         assets.put("barLight", new TextureRegion(directory.getEntry("world:lights:barLight", Texture.class)));
+        assets.put("barLightGlow", new TextureRegion(directory.getEntry("world:lights:barLightGlow", Texture.class)));
 
         // Neon Lights
         assets.put("neon_0", new TextureRegion(directory.getEntry("world:neonLights:neon_0", Texture.class)));
@@ -905,6 +915,7 @@ public class ObjectController {
 
         // Other
         assets.put("tv", new TextureRegion(directory.getEntry("world:other:tv", Texture.class)));
+        assets.put("tvs", new TextureRegion(directory.getEntry("world:other:tvs", Texture.class)));
         assets.put("cam_0", new TextureRegion(directory.getEntry("world:other:cam_0", Texture.class)));
         assets.put("cam_1", new TextureRegion(directory.getEntry("world:other:cam_1", Texture.class)));
         assets.put("cam_2", new TextureRegion(directory.getEntry("world:other:cam_2", Texture.class)));
@@ -944,11 +955,17 @@ public class ObjectController {
         assets.put("album_2", new TextureRegion(directory.getEntry("world:other:album_2", Texture.class)));
         assets.put("album_3", new TextureRegion(directory.getEntry("world:other:album_3", Texture.class)));
         assets.put("chand_0", new TextureRegion(directory.getEntry("world:other:chand_0", Texture.class)));
+        assets.put("chand_1", new TextureRegion(directory.getEntry("world:other:chand_1", Texture.class)));
         assets.put("jazzDeath", new TextureRegion(directory.getEntry("world:other:jazzDeath", Texture.class)));
         assets.put("couch_0", new TextureRegion(directory.getEntry("world:other:couch_0", Texture.class)));
         assets.put("plant_0", new TextureRegion(directory.getEntry("world:other:plant_0", Texture.class)));
         assets.put("plant_1", new TextureRegion(directory.getEntry("world:other:plant_1", Texture.class)));
         assets.put("houseWindow", new TextureRegion(directory.getEntry("world:other:houseWindow", Texture.class)));
+        assets.put("toxic_0", new TextureRegion(directory.getEntry("world:other:toxic_0", Texture.class)));
+        assets.put("toxic_1", new TextureRegion(directory.getEntry("world:other:toxic_1", Texture.class)));
+        assets.put("toxic_2", new TextureRegion(directory.getEntry("world:other:toxic_2", Texture.class)));
+        assets.put("barricade", new TextureRegion(directory.getEntry("world:other:barricade", Texture.class)));
+        assets.put("hydrant", new TextureRegion(directory.getEntry("world:other:hydrant", Texture.class)));
 
         // Animated art
         animatedArtAtlas.put("sparkle", new TextureAtlas(Gdx.files.internal("world/animatedArt/sparkle.atlas")));
@@ -963,6 +980,9 @@ public class ObjectController {
         animatedArtAtlas.put("smallPod", new TextureAtlas(Gdx.files.internal("world/animatedArt/smallPod.atlas")));
         animatedArtAnimation.put("smallPod", new Animation<TextureRegion>(1f,
                 animatedArtAtlas.get("smallPod").findRegions("smallPod"), Animation.PlayMode.LOOP));
+        animatedArtAtlas.put("houseWindow", new TextureAtlas(Gdx.files.internal("world/animatedArt/houseWindow.atlas")));
+        animatedArtAnimation.put("houseWindow", new Animation<TextureRegion>(1f,
+                animatedArtAtlas.get("houseWindow").findRegions("houseWindow"), Animation.PlayMode.LOOP));
 
         // Tilesets
         wallsTileset.put(0, new TextureRegion(directory.getEntry("world:tilesets:wallsTileset:0", Texture.class)));
@@ -1696,7 +1716,7 @@ public class ObjectController {
 
         BoxGameObject crushBody = new BoxGameObject(convertedSynthCoord.x, convertedSynthCoord.y,
                 dwidth * 0.8f, dheight * 0.2f);
-        crushBody.setType(Type.LETHAL);
+        crushBody.setType(Type.CRUSHER);
         crushBody.setBodyType(BodyDef.BodyType.StaticBody);
         crushBody.setPosition(convertedSynthCoord);
         crushBody.setDrawScale(scale);
@@ -1733,7 +1753,7 @@ public class ObjectController {
 
         BoxGameObject crushBody = new BoxGameObject(positionNodes[0].x, positionNodes[0].y,
                 dwidth * 0.8f, dheight * 0.2f);
-        crushBody.setType(Type.LETHAL);
+        crushBody.setType(Type.CRUSHER);
         crushBody.setBodyType(BodyDef.BodyType.StaticBody);
         crushBody.setPosition(new Vector2(positionNodes[0].x, positionNodes[0].y));
         crushBody.setDrawScale(scale);
