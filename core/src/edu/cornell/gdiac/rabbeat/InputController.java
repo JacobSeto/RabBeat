@@ -514,7 +514,7 @@ public class InputController {
 
 			//Click enter/return once selection has been chosen
 			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
-				if(gc.readyToGoToNextLevel) {
+				if(gc.readyToGoToNextLevel && gc.getCurrentLevelInt() != 12) {
 					gc.setPlayerCompletedLevel(false);
 					gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
 					gc.exitScreen(GameController.NEXT_LEVEL);
@@ -526,6 +526,8 @@ public class InputController {
 						GameController.showLevel9StartingScreen[0] = false;
 						GameController.showLevel9StartingScreen[1] = false;
 					}
+				} else if(gc.readyToGoToNextLevel) {
+					gc.exitScreen(GameController.GO_TO_LEVEL_SELECT);
 				}
 			}
 

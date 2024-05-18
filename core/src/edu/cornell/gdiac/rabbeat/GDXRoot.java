@@ -64,6 +64,8 @@ public class GDXRoot extends Game implements ScreenListener {
 
 	private float menuSFXVolume;
 
+	private int menuSFXVolumeAsInt;
+
 
 	/**
 	 * Creates a new game from the configuration settings.
@@ -90,6 +92,8 @@ public class GDXRoot extends Game implements ScreenListener {
 
 		mainMenuScreen = new MainMenuScreen(this);
 		mainMenuScreen.setListener(this);
+		mainMenuScreen.setMusicPreference(menuMusicVolume);
+		mainMenuScreen.setSFXPreference(menuSFXVolumeAsInt);
 	}
 
 	/**
@@ -153,11 +157,13 @@ public class GDXRoot extends Game implements ScreenListener {
 			buttonClicked = directory.getEntry("sfx:menubutton", Sound.class);
 			buttonTransition = directory.getEntry("sfx:menutransition", Sound.class);
 			prefs = Gdx.app.getPreferences("SFXVolume");
-			menuSFXVolume = prefs.getInteger("sfxVolume", 10) / 10f;
+			menuSFXVolumeAsInt = prefs.getInteger("sfxVolume", 10);
+			menuSFXVolume =  menuSFXVolumeAsInt / 10f;
 			//buttonClicked.setVolume(0, 0);
 			//buttonTransition.setVolume(0, menuSFXVolume / 10f);
 			mainMenuScreen.setButtonClickedSound(buttonClicked);
 			mainMenuScreen.setButtonTransitionSound(buttonTransition);
+			mainMenuScreen.setMusic(mainMenuMusic);
 			mainMenuScreen.setSFXVolume(menuSFXVolume);
 			mainMenuMusic.setLooping(true);
 			//Main Menu Music setup
@@ -182,6 +188,9 @@ public class GDXRoot extends Game implements ScreenListener {
 		}else if (screen == controller || exitCode == GameController.GO_TO_LEVEL_SELECT) {
 			createLevelSelectorScreen();
 			mainMenuMusic.setLooping(true);
+			Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+			menuMusicVolume = prefs.getInteger("musicVolume", 10);
+			mainMenuMusic.setVolume(menuMusicVolume / 10f);
 			mainMenuMusic.play();
 			if (screen == mainMenuScreen && exitCode == GameController.GO_TO_LEVEL_SELECT) {
 				buttonClicked.play(menuSFXVolume);
@@ -196,6 +205,9 @@ public class GDXRoot extends Game implements ScreenListener {
 		levelSelectorScreen = new LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
 		levelSelectorScreen.setMenuTransitionSound(buttonTransition);
+		Preferences prefs = Gdx.app.getPreferences("SFXVolume");
+		menuSFXVolumeAsInt = prefs.getInteger("sfxVolume", 10);
+		menuSFXVolume = menuSFXVolumeAsInt / 10f;
 		levelSelectorScreen.setSFXVolume(menuSFXVolume);
 		setScreen(levelSelectorScreen);
 	}
