@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import edu.cornell.gdiac.rabbeat.GameController;
+import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.util.ScreenListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -89,6 +90,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
     /** Texture for the level button */
     Texture buttonTexture;
+    private Image backButton;
 
     public LevelSelectorScreen(Game game) {
         this.game = game;
@@ -116,7 +118,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
         stage.addActor(bg);
 
         Texture backButtonTexture = GameController.getInstance().objectController.levelSelectBackButton;
-        Image backButton = new Image(backButtonTexture);
+        backButton = new Image(backButtonTexture);
+        backButton.setScale(1.5f);
         backButton.setPosition(27f, background.getHeight() - backButton.getHeight() - 25);
         stage.addActor(backButton);
 
@@ -511,6 +514,13 @@ public class LevelSelectorScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
+
+        SyncController syncController = GameController.getInstance().syncController;
+        syncController.update(true);
+        float pulseScale = syncController.uiSyncPulse.uiPulseScale;
+
+        backButton.setScale(pulseScale, pulseScale);
+        backButton.setOrigin( (backButton.getWidth() / 2), backButton.getHeight() / 2);
     }
 
     @Override
