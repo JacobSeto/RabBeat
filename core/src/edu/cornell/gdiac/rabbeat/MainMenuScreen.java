@@ -181,7 +181,7 @@ public class MainMenuScreen extends ScreenAdapter {
         TextureRegionDrawable minusDrawable2 = new TextureRegionDrawable(minusSign);
         volumeLowerImage2 = new Image(minusDrawable2);
 
-        volumeLowerImage2.setPosition(1020, 325);
+        volumeLowerImage2.setPosition(560, 325);
 
         stage.addActor(volumeLowerImage2);
 
@@ -192,7 +192,7 @@ public class MainMenuScreen extends ScreenAdapter {
         TextureRegionDrawable plusDrawable2 = new TextureRegionDrawable(plusSign2);
         volumeHigherImage2 = new Image(plusDrawable2);
 
-        volumeHigherImage2.setPosition(560, 325);
+        volumeHigherImage2.setPosition(1020, 325);
 
         stage.addActor(volumeHigherImage2);
 
@@ -203,6 +203,49 @@ public class MainMenuScreen extends ScreenAdapter {
         volumeHigherImage.setVisible(false);
         volumeHigherImage2.setVisible(false);
 
+        volumeLowerImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (musPref > 0) {
+                    musicVolumeBoxes[musPref - 1].setVisible(false);
+                    musPref--;
+                    mus.setVolume(musPref / 10f);
+                }
+            }
+        });
+
+        volumeHigherImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (musPref < 10) {
+                    musPref++;
+                    mus.setVolume(musPref / 10f);
+                }
+            }
+        });
+
+        volumeLowerImage2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (sfxPref > 0) {
+                    sfxVolumeBoxes[sfxPref - 1].setVisible(false);
+                    sfxPref--;
+                    sfxVolume = sfxPref;
+                    buttonClicked.play(sfxVolume / 10f);
+                }
+            }
+        });
+
+        volumeHigherImage2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (sfxPref < 10) {
+                    sfxPref++;
+                    sfxVolume = sfxPref;
+                    buttonClicked.play(sfxVolume / 10f);
+                }
+            }
+        });
 
         // play button
         Texture playButtonTexture = GameController.getInstance().objectController.playButton;
