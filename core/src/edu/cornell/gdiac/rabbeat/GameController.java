@@ -954,18 +954,9 @@ public class GameController implements Screen, ContactListener {
 					&& objectController.player != bd1) ||
 					(objectController.player.getSensorName().equals(fd1)
 							&& objectController.player != bd2)) {
-				// Prevents checkpoints from being detected as ground
-				if (objectController.player == bd1 ? !bd2.isSensor() : !bd1.isSensor()) {
-					// Ensures that player is grounded even after quick air time
-					Timer.schedule(new Task() {
-						@Override
-						public void run() {
-							objectController.player.setGrounded(true);
-							sensorFixtures.add(objectController.player == bd1 ? fix2
-									: fix1); // Could have more than one ground
-						}
-					}, jumpBuffer);
-				}
+				objectController.player.setGrounded(true);
+				sensorFixtures.add(objectController.player == bd1 ? fix2
+						: fix1); // Could have more than one ground
 			}
 			// Check for win condition
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
@@ -1065,17 +1056,10 @@ public class GameController implements Screen, ContactListener {
 				||
 				(objectController.player.getSensorName().equals(fd1)
 						&& objectController.player != bd2)) {
-			// Jump buffer (coyote time) after leaving ground
-			Timer.schedule(new Task() {
-				@Override
-				public void run() {
-					sensorFixtures.remove(objectController.player == bd1 ? fix2 : fix1);
-					if (sensorFixtures.size == 0) {
-						objectController.player.setGrounded(false);
-					}
-				}
-			}, jumpBuffer);
-
+			sensorFixtures.remove(objectController.player == bd1 ? fix2 : fix1);
+			if (sensorFixtures.size == 0) {
+				objectController.player.setGrounded(false);
+			}
 		}
 		if ((bd1 instanceof WeightedPlatform) && (bd2 instanceof Player)) {
 			if (bd1 == lastCollideWith) {
