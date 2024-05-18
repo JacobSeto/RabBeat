@@ -28,7 +28,7 @@ public class SoundController {
      * Set this to true to make genre switches instantaneous / in one frame.
      * Set this to false to make genre switches gradual / over several frames.
      */
-    private static final boolean USE_INSTANT_SWITCH = false;
+    public static boolean USE_INSTANT_SWITCH = false;
 
     /** What percentage of volume should be kept when pausing.
      * A value of 0.4 means the track will be 40% as loud as it normally would be.
@@ -57,6 +57,8 @@ public class SoundController {
     public void playMusic() {
         synthTrack.setLooping(true);
         jazzTrack.setLooping(true);
+        currentlyUpdating = false;
+        currentUpdateFrame = 0;
         synthTrack.play();
         jazzTrack.play();
     }
@@ -103,6 +105,19 @@ public class SoundController {
             jazzTrack.setVolume(vol * (paused ? PAUSE_VOL : 1));
             synthTrack.setVolume(0);
         }
+        if (synthTrack.getVolume() > 1) {
+            synthTrack.setVolume(1);
+        }
+        if (jazzTrack.getVolume() > 1) {
+            jazzTrack.setVolume(1);
+        }
+
+        if (synthTrack.getVolume() < 0) {
+            synthTrack.setVolume(0);
+        }
+        if (jazzTrack.getVolume() < 0) {
+            jazzTrack.setVolume(0);
+        }
     }
 
     public void resetMusic() {
@@ -113,7 +128,6 @@ public class SoundController {
         currentlyUpdating = false;
         currentUpdateFrame = 0;
     }
-
     public void pauseMusic() {
         /*savedJazzVolume = jazzTrack.getVolume();
         savedSynthVolume = synthTrack.getVolume();

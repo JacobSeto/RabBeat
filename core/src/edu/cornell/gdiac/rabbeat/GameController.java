@@ -537,6 +537,13 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory Reference to global asset manager.
 	 */
 	public void setSoundtrack(AssetDirectory directory) {
+		soundController.USE_INSTANT_SWITCH = false;
+		if (synthSoundtrack != null) {
+			synthSoundtrack.dispose();
+		}
+		if (jazzSoundtrack != null) {
+			jazzSoundtrack.dispose();
+		}
 		synthSoundtrack = directory.getEntry(
 				objectController.defaultConstants.get("music").get(getCurrentLevel())
 						.getString("synth"), Music.class);
@@ -688,6 +695,7 @@ public class GameController implements Screen, ContactListener {
 		worldHeight = DEFAULT_HEIGHT * objectController.levelBackground.getRegionHeight()
 				/ getCanvas().getHeight();
 		world.setContactListener(this);
+		//soundController.pauseMusic();
 		soundController.resetMusic();
 		soundController.playMusic(genre);
 		syncController.initializeSync();
@@ -951,6 +959,7 @@ public class GameController implements Screen, ContactListener {
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
 					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
 				setComplete(true);
+				soundController.USE_INSTANT_SWITCH = true;
 			}
 
 			// Bullet and Bee Collision checks
@@ -1489,6 +1498,7 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void resume () {
 		soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f);
+
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
 
 		// soundController.resumeMusic();
@@ -1618,7 +1628,6 @@ public class GameController implements Screen, ContactListener {
 
 	/** Called when the game screen needs to be exited out of */
 	public void exitScreen ( int exitCode){
-		soundController.pauseMusic();
 		listener.exitScreen(this, exitCode);
 	}
 
