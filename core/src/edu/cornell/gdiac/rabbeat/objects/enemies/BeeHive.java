@@ -58,7 +58,7 @@ public class BeeHive extends Enemy {
 
         float offset = oc.defaultConstants.get("bullet").getFloat("offset", 0);
         offset *= (isFaceRight() ? 1 : -1);
-        float radius = oc.beeTexture.getRegionWidth() / (5.0f * scale.x);
+        float radius = oc.beeTexture.getRegionWidth() / (7.0f * scale.x);
         Animation<TextureRegion> beeAnimation;
         if (genre == Genre.SYNTH){
             beeAnimation = beeSynthAnimation;
