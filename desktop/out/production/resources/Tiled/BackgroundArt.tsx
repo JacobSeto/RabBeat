@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="108" columns="0">
+<tileset version="1.10" tiledversion="1.10.2" name="BackgroundArt" tilewidth="960" tileheight="960" tilecount="155" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7">
   <properties>
@@ -619,34 +619,292 @@
   </properties>
   <image width="192" height="192" source="../world/other/chand_0.png"/>
  </tile>
- <tile id="111">
-  <properties>
-   <property name="assetName" value="neon_15"/>
-  </properties>
-  <image width="120" height="120" source="../world/neonLights/neon_15.png"/>
- </tile>
- <tile id="112">
-  <properties>
-   <property name="assetName" value="neon_12"/>
-  </properties>
-  <image width="120" height="120" source="../world/neonLights/neon_12.png"/>
- </tile>
- <tile id="113">
-  <properties>
-   <property name="assetName" value="neon_13"/>
-  </properties>
-  <image width="120" height="120" source="../world/neonLights/neon_13.png"/>
- </tile>
- <tile id="114">
-  <properties>
-   <property name="assetName" value="neon_14"/>
-  </properties>
-  <image width="120" height="120" source="../world/neonLights/neon_14.png"/>
- </tile>
  <tile id="115">
   <properties>
    <property name="assetName" value="light"/>
   </properties>
   <image width="192" height="192" source="../world/lights/light.png"/>
+ </tile>
+ <tile id="116">
+  <image width="128" height="128" source="../world/arrows/arrow_0.png"/>
+ </tile>
+ <tile id="117">
+  <image width="128" height="128" source="../world/arrows/arrow_1.png"/>
+ </tile>
+ <tile id="118">
+  <image width="128" height="128" source="../world/arrows/arrow_2.png"/>
+ </tile>
+ <tile id="119">
+  <image width="128" height="128" source="../world/arrows/arrow_3.png"/>
+ </tile>
+ <tile id="120">
+  <image width="128" height="128" source="../world/arrows/arrow_4.png"/>
+ </tile>
+ <tile id="121">
+  <image width="128" height="128" source="../world/arrows/arrow_5.png"/>
+ </tile>
+ <tile id="122">
+  <image width="128" height="128" source="../world/arrows/arrow_6.png"/>
+ </tile>
+ <tile id="123">
+  <image width="128" height="128" source="../world/arrows/arrow_7.png"/>
+ </tile>
+ <tile id="124">
+  <properties>
+   <property name="assetName" value="arrow_8"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_8.png"/>
+ </tile>
+ <tile id="125">
+  <properties>
+   <property name="assetName" value="arrow_9"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_9.png"/>
+ </tile>
+ <tile id="126">
+  <properties>
+   <property name="assetName" value="arrow_10"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_10.png"/>
+ </tile>
+ <tile id="127">
+  <properties>
+   <property name="assetName" value="arrow_11"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_11.png"/>
+ </tile>
+ <tile id="128">
+  <properties>
+   <property name="assetName" value="arrow_12"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_12.png"/>
+ </tile>
+ <tile id="129">
+  <properties>
+   <property name="assetName" value="arrow_13"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_13.png"/>
+ </tile>
+ <tile id="130">
+  <properties>
+   <property name="assetName" value="arrow_14"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_14.png"/>
+ </tile>
+ <tile id="131">
+  <properties>
+   <property name="assetName" value="arrow_15"/>
+  </properties>
+  <image width="128" height="128" source="../world/arrows/arrow_15.png"/>
+ </tile>
+ <tile id="132">
+  <properties>
+   <property name="assetName" value="barLight"/>
+  </properties>
+  <image width="140" height="140" source="../world/lights/barLight.png"/>
+ </tile>
+ <tile id="133">
+  <properties>
+   <property name="assetName" value="bar_0"/>
+  </properties>
+  <image width="390" height="191" source="../world/bar/bar_0.png"/>
+ </tile>
+ <tile id="134">
+  <properties>
+   <property name="assetName" value="bar_1"/>
+  </properties>
+  <image width="110" height="110" source="../world/bar/bar_1.png"/>
+ </tile>
+ <tile id="135">
+  <properties>
+   <property name="assetName" value="bar_2"/>
+  </properties>
+  <image width="110" height="110" source="../world/bar/bar_2.png"/>
+ </tile>
+ <tile id="136">
+  <properties>
+   <property name="assetName" value="bar_3"/>
+  </properties>
+  <image width="110" height="110" source="../world/bar/bar_3.png"/>
+ </tile>
+ <tile id="137">
+  <properties>
+   <property name="assetName" value="bar_4"/>
+  </properties>
+  <image width="110" height="110" source="../world/bar/bar_4.png"/>
+ </tile>
+ <tile id="138">
+  <properties>
+   <property name="assetName" value="bar_5"/>
+  </properties>
+  <image width="110" height="110" source="../world/bar/bar_5.png"/>
+ </tile>
+ <tile id="139">
+  <properties>
+   <property name="assetName" value="bar_6"/>
+  </properties>
+  <image width="110" height="110" source="../world/bar/bar_6.png"/>
+ </tile>
+ <tile id="140">
+  <properties>
+   <property name="assetName" value="barNeon_0"/>
+  </properties>
+  <image width="120" height="120" source="../world/bar/barNeon_0.png"/>
+ </tile>
+ <tile id="141">
+  <properties>
+   <property name="assetName" value="barNeon_1"/>
+  </properties>
+  <image width="120" height="120" source="../world/bar/barNeon_1.png"/>
+ </tile>
+ <tile id="142">
+  <properties>
+   <property name="assetName" value="album_1"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/album_1.png"/>
+ </tile>
+ <tile id="143">
+  <properties>
+   <property name="assetName" value="album_2"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/album_2.png"/>
+ </tile>
+ <tile id="144">
+  <properties>
+   <property name="assetName" value="album_3"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/album_3.png"/>
+ </tile>
+ <tile id="145">
+  <properties>
+   <property name="assetName" value="couch_0"/>
+  </properties>
+  <image width="320" height="320" source="../world/other/couch_0.png"/>
+ </tile>
+ <tile id="146">
+  <properties>
+   <property name="assetName" value="plant_0"/>
+  </properties>
+  <image width="160" height="160" source="../world/other/plant_0.png"/>
+ </tile>
+ <tile id="147">
+  <properties>
+   <property name="assetName" value="plant_1"/>
+  </properties>
+  <image width="160" height="160" source="../world/other/plant_1.png"/>
+ </tile>
+ <tile id="148">
+  <properties>
+   <property name="assetName" value="vinyl_10"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/vinyl_10.png"/>
+ </tile>
+ <tile id="149">
+  <properties>
+   <property name="assetName" value="vinyl_11"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/vinyl_11.png"/>
+ </tile>
+ <tile id="150">
+  <properties>
+   <property name="assetName" value="vinyl_5"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/vinyl_5.png"/>
+ </tile>
+ <tile id="151">
+  <properties>
+   <property name="assetName" value="vinyl_6"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/vinyl_6.png"/>
+ </tile>
+ <tile id="152">
+  <properties>
+   <property name="assetName" value="vinyl_7"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/vinyl_7.png"/>
+ </tile>
+ <tile id="153">
+  <properties>
+   <property name="assetName" value="vinyl_8"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/vinyl_8.png"/>
+ </tile>
+ <tile id="154">
+  <properties>
+   <property name="assetName" value="vinyl_9"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/vinyl_9.png"/>
+ </tile>
+ <tile id="155">
+  <properties>
+   <property name="assetName" value="houseWindow"/>
+  </properties>
+  <image width="300" height="300" source="../world/other/houseWindow.png"/>
+ </tile>
+ <tile id="156">
+  <properties>
+   <property name="assetName" value="toxic_0"/>
+  </properties>
+  <image width="200" height="200" source="../world/other/toxic_0.png"/>
+ </tile>
+ <tile id="157">
+  <properties>
+   <property name="assetName" value="toxic_1"/>
+  </properties>
+  <image width="200" height="200" source="../world/other/toxic_1.png"/>
+ </tile>
+ <tile id="158">
+  <properties>
+   <property name="assetName" value="toxic_2"/>
+  </properties>
+  <image width="200" height="200" source="../world/other/toxic_2.png"/>
+ </tile>
+ <tile id="159">
+  <properties>
+   <property name="assetName" value="hydrant"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/hydrant.png"/>
+ </tile>
+ <tile id="160">
+  <properties>
+   <property name="assetName" value="barricade"/>
+  </properties>
+  <image width="192" height="192" source="../world/other/barricade.png"/>
+ </tile>
+ <tile id="161">
+  <properties>
+   <property name="assetName" value="barLightGlow"/>
+  </properties>
+  <image width="224" height="256" source="../world/lights/barLightGlow.png"/>
+ </tile>
+ <tile id="162">
+  <properties>
+   <property name="assetName" value="chand_1"/>
+  </properties>
+  <image width="130" height="130" source="../world/other/chand_1.png"/>
+ </tile>
+ <tile id="163">
+  <properties>
+   <property name="assetName" value="tvs"/>
+  </properties>
+  <image width="160" height="160" source="../world/other/tvs.png"/>
+ </tile>
+ <tile id="164">
+  <properties>
+   <property name="assetName" value="brokenPod"/>
+  </properties>
+  <image width="250" height="250" source="../world/pods/brokenPod.png"/>
+ </tile>
+ <tile id="165">
+  <properties>
+   <property name="assetName" value="goldWire_0"/>
+  </properties>
+  <image width="192" height="192" source="../world/wires/goldWire_0.png"/>
+ </tile>
+ <tile id="166">
+  <properties>
+   <property name="assetName" value="goldWire_1"/>
+  </properties>
+  <image width="192" height="192" source="../world/wires/goldWire_1.png"/>
  </tile>
 </tileset>
