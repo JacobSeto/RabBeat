@@ -1423,6 +1423,7 @@ public class GameController implements Screen, ContactListener {
 	public void exitLevel () {
 		soundController.resetMusic();
 		soundController.pauseMusic();
+		displayStartCutScenes = false;
 		exitScreen(0);
 	}
 
