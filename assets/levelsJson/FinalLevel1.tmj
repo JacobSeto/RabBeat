@@ -4780,6 +4780,12 @@
                  "height":32,
                  "id":1398,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"left"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -4792,6 +4798,12 @@
                  "height":32,
                  "id":1399,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"right"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -4936,6 +4948,12 @@
                  "height":32,
                  "id":1466,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"align",
+                         "type":"string",
+                         "value":"right"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -5512,6 +5530,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"beeBeat",
+                         "type":"float",
+                         "value":1
                         }, 
                         {
                          "name":"isRight",
