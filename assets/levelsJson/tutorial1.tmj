@@ -18,6 +18,21 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"labBg"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1351,6 +1366,21 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"stop_1"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1369,6 +1399,21 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"stop_2"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1423,6 +1468,21 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"dead_2"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1441,6 +1501,21 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"stop_0"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1459,6 +1534,21 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"yield_1"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1495,6 +1585,21 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"arrow_13"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1567,6 +1672,21 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"dead_0"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
