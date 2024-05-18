@@ -67,6 +67,8 @@ public class MainMenuScreen extends ScreenAdapter {
 
     private Image volumeHigherImage2;
 
+    private Image backButton;
+
     /** Images for the buttons */
     private Image playSelectImage;
     private Image optionsSelectImage;
@@ -181,7 +183,7 @@ public class MainMenuScreen extends ScreenAdapter {
         TextureRegionDrawable minusDrawable2 = new TextureRegionDrawable(minusSign);
         volumeLowerImage2 = new Image(minusDrawable2);
 
-        volumeLowerImage2.setPosition(1020, 325);
+        volumeLowerImage2.setPosition(560, 325);
 
         stage.addActor(volumeLowerImage2);
 
@@ -192,7 +194,7 @@ public class MainMenuScreen extends ScreenAdapter {
         TextureRegionDrawable plusDrawable2 = new TextureRegionDrawable(plusSign2);
         volumeHigherImage2 = new Image(plusDrawable2);
 
-        volumeHigherImage2.setPosition(560, 325);
+        volumeHigherImage2.setPosition(1020, 325);
 
         stage.addActor(volumeHigherImage2);
 
@@ -203,6 +205,74 @@ public class MainMenuScreen extends ScreenAdapter {
         volumeHigherImage.setVisible(false);
         volumeHigherImage2.setVisible(false);
 
+        volumeLowerImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (musPref > 0) {
+                    musicVolumeBoxes[musPref - 1].setVisible(false);
+                    musPref--;
+                    mus.setVolume(musPref / 10f);
+                }
+                optMenuSel = 0;
+            }
+        });
+
+        volumeHigherImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (musPref < 10) {
+                    musPref++;
+                    mus.setVolume(musPref / 10f);
+                }
+                optMenuSel = 0;
+            }
+        });
+
+        volumeLowerImage2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (sfxPref > 0) {
+                    sfxVolumeBoxes[sfxPref - 1].setVisible(false);
+                    sfxPref--;
+                    sfxVolume = sfxPref;
+                    buttonClicked.play(sfxVolume / 10f);
+                }
+                optMenuSel = 1;
+            }
+        });
+
+        volumeHigherImage2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (sfxPref < 10) {
+                    sfxPref++;
+                    sfxVolume = sfxPref;
+                    buttonClicked.play(sfxVolume / 10f);
+                }
+                optMenuSel = 1;
+            }
+        });
+
+        Texture backButtonTexture = GameController.getInstance().objectController.levelSelectBackButton;
+        backButton = new Image(backButtonTexture);
+        backButton.setScale(1.0f);
+        backButton.setPosition(27f, background.getHeight() - backButton.getHeight() - 25);
+        stage.addActor(backButton);
+
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                inOptionsMenu = false;
+                Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+                prefs.putInteger("musicVolume", musPref);
+                prefs.flush();
+                prefs = Gdx.app.getPreferences("SFXVolume");
+                prefs.putInteger("sfxVolume", sfxPref);
+                prefs.flush();
+                sfxVolume = sfxPref;
+                buttonClicked.play(sfxVolume);
+            }
+        });
 
         // play button
         Texture playButtonTexture = GameController.getInstance().objectController.playButton;
@@ -346,7 +416,9 @@ public class MainMenuScreen extends ScreenAdapter {
         syncController.update(true);
         float pulseScale = syncController.uiSyncPulse.uiPulseScale;
 
+
         if (!inOptionsMenu) {
+            backButton.setVisible(false);
             indicatorStar.setVisible(false);
             musicText.setVisible(false);
             sfxText.setVisible(false);
@@ -366,6 +438,7 @@ public class MainMenuScreen extends ScreenAdapter {
         }
 
         if (inOptionsMenu) {
+            backButton.setVisible(true);
             switch (optMenuSel) {
                 case 0:
                     indicatorStar.setPosition(350, 375);
