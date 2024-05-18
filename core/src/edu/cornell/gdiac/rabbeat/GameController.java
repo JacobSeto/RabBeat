@@ -1743,8 +1743,9 @@ public class GameController implements Screen, ContactListener {
 		} else if (currentLevelInt == 12) {
 			if(InputController.getInstance().didPressEnter()) {
 				if (showFourthVictoryScreen) {
-					showFifthVictoryScreen=true;
-					showFourthVictoryScreen=false;
+					showFifthVictoryScreen = true;
+					showFourthVictoryScreen = false;
+					readyToGoToNextLevel = true;
 				} else if (showThirdVictoryScreen) {
 					showFourthVictoryScreen = true;
 					showThirdVictoryScreen = false;
