@@ -67,6 +67,8 @@ public class MainMenuScreen extends ScreenAdapter {
 
     private Image volumeHigherImage2;
 
+    private Image backButton;
+
     /** Images for the buttons */
     private Image playSelectImage;
     private Image optionsSelectImage;
@@ -247,6 +249,27 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
+        Texture backButtonTexture = GameController.getInstance().objectController.levelSelectBackButton;
+        backButton = new Image(backButtonTexture);
+        backButton.setScale(1.5f);
+        backButton.setPosition(27f, background.getHeight() - backButton.getHeight() - 25);
+        stage.addActor(backButton);
+
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                inOptionsMenu = false;
+                Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+                prefs.putInteger("musicVolume", musPref);
+                prefs.flush();
+                prefs = Gdx.app.getPreferences("SFXVolume");
+                prefs.putInteger("sfxVolume", sfxPref);
+                prefs.flush();
+                sfxVolume = sfxPref;
+                buttonClicked.play(sfxVolume);
+            }
+        });
+
         // play button
         Texture playButtonTexture = GameController.getInstance().objectController.playButton;
         TextureRegionDrawable playButtonDrawable = new TextureRegionDrawable(new TextureRegion(playButtonTexture));
@@ -389,7 +412,9 @@ public class MainMenuScreen extends ScreenAdapter {
         syncController.update(true);
         float pulseScale = syncController.uiSyncPulse.uiPulseScale;
 
+
         if (!inOptionsMenu) {
+            backButton.setVisible(false);
             indicatorStar.setVisible(false);
             musicText.setVisible(false);
             sfxText.setVisible(false);
@@ -409,6 +434,7 @@ public class MainMenuScreen extends ScreenAdapter {
         }
 
         if (inOptionsMenu) {
+            backButton.setVisible(true);
             switch (optMenuSel) {
                 case 0:
                     indicatorStar.setPosition(350, 375);
