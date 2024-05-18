@@ -17,14 +17,8 @@
 package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation.SwingOut;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Timer.Task;
 import edu.cornell.gdiac.rabbeat.objects.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.objects.platforms.MovingPlatform;
@@ -34,7 +28,7 @@ import edu.cornell.gdiac.rabbeat.objects.projectiles.Bullet;
 import edu.cornell.gdiac.rabbeat.objects.projectiles.Echo;
 import edu.cornell.gdiac.rabbeat.sync.ISynced;
 import edu.cornell.gdiac.rabbeat.sync.SyncController;
-import edu.cornell.gdiac.rabbeat.ui.GenreUI;
+import edu.cornell.gdiac.rabbeat.objects.art.GenreUI;
 
 import java.util.Iterator;
 
@@ -534,7 +528,6 @@ public class GameController implements Screen, ContactListener {
 		// set the sound effects
 		initializeSFX(directory);
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
-		System.out.println(synthSoundtrack.getPosition());
 	}
 
 	/**
@@ -660,17 +653,6 @@ public class GameController implements Screen, ContactListener {
 			objectController.genreObjects.add((IGenreObject) object);
 		}
 		object.activatePhysics(world);
-	}
-
-	/**
-	 * If the object is implements {@link ISynced}, add to the sync. If it is a
-	 * {@link IGenreObject}, add to genreObstacles.
-	 *
-	 * @param gui: The GUI element you are instantiating
-	 */
-	protected void instantiate(GenreUI gui) {
-		syncController.addSync(gui);
-		objectController.genreObjects.add(gui);
 	}
 
 	/**
@@ -1184,6 +1166,13 @@ public class GameController implements Screen, ContactListener {
 		}
 		canvas.end();
 
+		// Draw genre indicator UI
+		canvas.begin(true);
+		canvas.draw(objectController.blackGradient, 0, 0);
+		objectController.genreIndicator.draw(canvas, 150, 150);
+		canvas.end();
+
+
 		if (debug) {
 			canvas.beginDebug();
 			for (GameObject obj : objectController.objects) {
@@ -1191,12 +1180,6 @@ public class GameController implements Screen, ContactListener {
 			}
 			canvas.endDebug();
 		}
-
-		// Draw genre indicator UI
-		canvas.begin(true);
-		canvas.draw(objectController.blackGradient, 0, 0);
-		objectController.genreIndicator.draw(canvas, 50, 50);
-		canvas.end();
 
 		// Victory Screen
 		if (complete && !failed) {if((currentLevelInt == 1 && !showFirstVictoryScreen && !showSecondVictoryScreen)

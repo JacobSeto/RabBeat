@@ -24,7 +24,7 @@ import edu.cornell.gdiac.rabbeat.objects.enemies.BeeHive;
 import edu.cornell.gdiac.rabbeat.objects.enemies.HedgehogEnemy;
 import edu.cornell.gdiac.rabbeat.objects.platforms.MovingPlatform;
 import edu.cornell.gdiac.rabbeat.objects.platforms.WeightedPlatform;
-import edu.cornell.gdiac.rabbeat.ui.GenreUI;
+import edu.cornell.gdiac.rabbeat.objects.art.GenreUI;
 import edu.cornell.gdiac.util.PooledList;
 
 import java.util.ArrayList;
@@ -1153,7 +1153,7 @@ public class ObjectController {
      */
     public void populateObjects(Genre genre, Vector2 scale, Vector2 respawnPoint) {
         // Populate in-game UI elements
-        createGUI(genre);
+//        createGUI(scale, genre);
 
         if (levelJson.has("layers")) {
 
@@ -1308,7 +1308,6 @@ public class ObjectController {
                         }
                         // Now actually create moving platforms
                         for (int i = 0; i < positionNodes.size(); i++) {
-                            System.out.println(i);
                             createMovingPlatform(scale, positionNodes.get(i),
                                     mpWait.get(i), mpMove.get(i), dimensions.get(i),
                                     levelHeight, tileSize);
@@ -1516,6 +1515,7 @@ public class ObjectController {
 
             }
         }
+        createGUI(scale, genre);
     }
 
     /**
@@ -2151,11 +2151,13 @@ public class ObjectController {
     /**
      * Creates the in-game UI elements and adds them to the genre/synced objects.
      */
-    private void createGUI(Genre genre) {
+    private void createGUI(Vector2 scale, Genre genre) {
 
-        genreIndicator = new GenreUI(synthIndicatorTexture, jazzIndicatorTexture, synthCDAnimation, jazzCDAnimation,
-                genre);
-        GameController.getInstance().instantiate(genreIndicator);
+        genreIndicator = new GenreUI(synthIndicatorTexture, 100,
+        100, 1f, 1.25f, .005f, synthIndicatorTexture, jazzIndicatorTexture, genre);
+        genreIndicator.setBodyType(BodyDef.BodyType.StaticBody);
+        genreIndicator.setDrawScale(scale);
+        GameController.getInstance().instantiate(genreIndicator, 4);
     }
 
     /**
