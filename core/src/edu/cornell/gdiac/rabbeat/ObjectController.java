@@ -96,32 +96,32 @@ public class ObjectController {
     protected TextureRegion laserHorizontal;
 
     /** The textures for the jazz level names */
-    public Texture jazzLevel1;
-    public Texture jazzLevel2;
-    public Texture jazzLevel3;
-    public Texture jazzLevel4;
-    public Texture jazzLevel5;
-    public Texture jazzLevel6;
-    public Texture jazzLevel7;
-    public Texture jazzLevel8;
-    public Texture jazzLevel9;
-    public Texture jazzLevel10;
-    public Texture jazzLevel11;
-    public Texture jazzLevel12;
+    public Texture jazzLevel1Name;
+    public Texture jazzLevel2Name;
+    public Texture jazzLevel3Name;
+    public Texture jazzLevel4Name;
+    public Texture jazzLevel5Name;
+    public Texture jazzLevel6Name;
+    public Texture jazzLevel7Name;
+    public Texture jazzLevel8Name;
+    public Texture jazzLevel9Name;
+    public Texture jazzLevel10Name;
+    public Texture jazzLevel11Name;
+    public Texture jazzLevel12Name;
 
     /** The textures for the synth level names */
-    public Texture synthLevel1;
-    public Texture synthLevel2;
-    public Texture synthLevel3;
-    public Texture synthLevel4;
-    public Texture synthLevel5;
-    public Texture synthLevel6;
-    public Texture synthLevel7;
-    public Texture synthLevel8;
-    public Texture synthLevel9;
-    public Texture synthLevel10;
-    public Texture synthLevel11;
-    public Texture synthLevel12;
+    public Texture synthLevel1Name;
+    public Texture synthLevel2Name;
+    public Texture synthLevel3Name;
+    public Texture synthLevel4Name;
+    public Texture synthLevel5Name;
+    public Texture synthLevel6Name;
+    public Texture synthLevel7Name;
+    public Texture synthLevel8Name;
+    public Texture synthLevel9Name;
+    public Texture synthLevel10Name;
+    public Texture synthLevel11Name;
+    public Texture synthLevel12Name;
 
 
     /** The texture for weighted platforms in Synth mode */
@@ -526,6 +526,32 @@ public class ObjectController {
         select = directory.getEntry("ui:mainMenuScreen:select", Texture.class);
         mainMenuBackground = directory.getEntry("ui:mainMenuScreen:mainMenuBackground", Texture.class);
         level1 = directory.getEntry("ui:level1", Texture.class);
+
+        jazzLevel1Name = directory.getEntry("ui:levelName:jazzLvl1", Texture.class);
+        jazzLevel2Name = directory.getEntry("ui:levelName:jazzLvl2", Texture.class);
+        jazzLevel3Name = directory.getEntry("ui:levelName:jazzLvl3", Texture.class);
+        jazzLevel4Name = directory.getEntry("ui:levelName:jazzLvl4", Texture.class);
+        jazzLevel5Name = directory.getEntry("ui:levelName:jazzLvl5", Texture.class);
+        jazzLevel6Name = directory.getEntry("ui:levelName:jazzLvl6", Texture.class);
+        jazzLevel7Name = directory.getEntry("ui:levelName:jazzLvl7", Texture.class);
+        jazzLevel8Name = directory.getEntry("ui:levelName:jazzLvl8", Texture.class);
+        jazzLevel9Name = directory.getEntry("ui:levelName:jazzLvl9", Texture.class);
+        jazzLevel10Name = directory.getEntry("ui:levelName:jazzLvl10", Texture.class);
+        jazzLevel11Name = directory.getEntry("ui:levelName:jazzLvl11", Texture.class);
+        jazzLevel12Name = directory.getEntry("ui:levelName:jazzLvl12", Texture.class);
+
+        synthLevel1Name = directory.getEntry("ui:levelName:synthLvl1", Texture.class);
+        synthLevel2Name = directory.getEntry("ui:levelName:synthLvl2", Texture.class);
+        synthLevel3Name = directory.getEntry("ui:levelName:synthLvl3", Texture.class);
+        synthLevel4Name = directory.getEntry("ui:levelName:synthLvl4", Texture.class);
+        synthLevel5Name = directory.getEntry("ui:levelName:synthLvl5", Texture.class);
+        synthLevel6Name = directory.getEntry("ui:levelName:synthLvl6", Texture.class);
+        synthLevel7Name = directory.getEntry("ui:levelName:synthLvl7", Texture.class);
+        synthLevel8Name = directory.getEntry("ui:levelName:synthLvl8", Texture.class);
+        synthLevel9Name = directory.getEntry("ui:levelName:synthLvl9", Texture.class);
+        synthLevel10Name = directory.getEntry("ui:levelName:synthLvl10", Texture.class);
+        synthLevel11Name = directory.getEntry("ui:levelName:synthLvl11", Texture.class);
+        synthLevel12Name = directory.getEntry("ui:levelName:synthLvl12", Texture.class);
 
         levelSelectBackButton = directory.getEntry("ui:levelSelectBackButton", Texture.class);
 
