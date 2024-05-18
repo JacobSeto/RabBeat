@@ -608,7 +608,7 @@ public class GameController implements Screen, ContactListener {
 				break;
 		}
 		soundController.addSound("uiTransition", directory.getEntry("sfx:menutransition", Sound.class));
-
+		soundController.addSound("glassShatter", directory.getEntry("sfx:glass", Sound.class));
 	}
 
 	public Vector2 getScale() {
@@ -768,6 +768,7 @@ public class GameController implements Screen, ContactListener {
 				showLevel1ThirdCutScene = false;
 			} else if(showLevel1FourthCutScene) {
 				displayStartCutScenes = false;
+				soundController.playSFX("glassShatter");
 			}
 		}
 
