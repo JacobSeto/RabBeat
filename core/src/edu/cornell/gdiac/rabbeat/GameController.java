@@ -1554,7 +1554,7 @@ public class GameController implements Screen, ContactListener {
 		soundController.resetMusic();
 		soundController.pauseMusic();
 		displayStartCutScenes = false;
-		exitScreen(0);
+		exitScreen(GameController.BACK_TO_LEVEL_SELECT);
 	}
 
 	/**
