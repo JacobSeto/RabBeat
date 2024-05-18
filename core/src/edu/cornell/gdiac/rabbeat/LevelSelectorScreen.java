@@ -265,8 +265,10 @@ public class LevelSelectorScreen extends ScreenAdapter {
                             GameController.getInstance().setCurrentLevelInt(1);
                             listener.exitScreen(LevelSelectorScreen.this, 0);
                             GameController.displayStartCutScenes = true;
-                            GameController.showLevel1FirstCutScene = true;
+                            GameController.showLevel1FirstCutScene = false;
                             GameController.showLevel1SecondCutScene = false;
+                            GameController.showLevel1ThirdCutScene = false;
+                            GameController.showLevel1FourthCutScene = false;
                         }
                     }
                 });
@@ -713,6 +715,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 GameController.displayStartCutScenes = true;
                 GameController.showLevel1FirstCutScene = false;
                 GameController.showLevel1SecondCutScene = false;
+                GameController.showLevel1ThirdCutScene = false;
+                GameController.showLevel1FourthCutScene = false;
             } else if(hover2) {
                 GameController.getInstance().setCurrentLevelInt(2);
             } else if(hover3) {

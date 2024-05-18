@@ -34,7 +34,7 @@ public class SyncController {
     private Array<Interval> intervals = new Array<>();
 
     /** The beat of the game */
-    public Beat beat = new Beat();
+    public Beat beat;
     /** The beat interval of the game */
     private Interval beatInterval;
 
@@ -50,17 +50,19 @@ public class SyncController {
     private float calibrateDT = 0f;
 
     Array<Float> beatLatencyList = new Array<>();
-    int calibrationCount = 0;
-    final int NUM_CALIBRATION_STEPS = 12;
+    public int calibrationCount = 0;
+    public final int NUM_CALIBRATION_STEPS = 16;
 
     public SyncController(int bpm) {
         this.BPM = bpm;
         Preferences prefs = Gdx.app.getPreferences("delays");
         audioDelay = prefs.getFloat("audioDelay", 0);
         visualDelay = prefs.getFloat("visualDelay", 0);
-        animationInterval = new Interval(animationSync, (audioDelay + visualDelay) / bpm);
-        beatInterval = new Interval(beat, (audioDelay) / bpm);
-        uiPulseInterval = new Interval(uiSyncPulse, (audioDelay + visualDelay) / bpm);
+        beat = new Beat(this);
+        beatInterval = new Interval(beat);
+        beat.beatInterval = beatInterval;
+        animationInterval = new Interval(animationSync);
+        uiPulseInterval = new Interval(uiSyncPulse);
     }
 
     /**
@@ -166,7 +168,7 @@ public class SyncController {
      */
     public void addSync(ISynced syncedObject) {
         Interval interval = new Interval(
-                syncedObject, ((synth.getPosition() + audioDelay) / (60f / (BPM * syncedObject.getBeat()))));
+                syncedObject);
         intervals.add(interval);
         if (syncedObject instanceof ISyncedAnimated) {
             animationSync.animatedObjects.add((ISyncedAnimated) (syncedObject));
