@@ -1166,13 +1166,6 @@ public class GameController implements Screen, ContactListener {
 		}
 		canvas.end();
 
-		// Draw genre indicator UI
-		canvas.begin(true);
-		canvas.draw(objectController.blackGradient, 0, 0);
-		objectController.genreIndicator.draw(canvas, 150, 150);
-		canvas.end();
-
-
 		if (debug) {
 			canvas.beginDebug();
 			for (GameObject obj : objectController.objects) {
@@ -1214,86 +1207,95 @@ public class GameController implements Screen, ContactListener {
 
 		canvas.begin(true);
 
+		int levelOffset = 120;
+		int levelOffsetVertical = 115;
+
 		if(genre == Genre.SYNTH) {
 			switch(currentLevelInt) {
 				case(1):
-					canvas.draw(objectController.synthLevel1Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel1Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(2):
-					canvas.draw(objectController.synthLevel2Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel2Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(3):
-					canvas.draw(objectController.synthLevel3Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel3Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(4):
-					canvas.draw(objectController.synthLevel4Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel4Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(5):
-					canvas.draw(objectController.synthLevel5Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel5Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(6):
-					canvas.draw(objectController.synthLevel6Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel6Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(7):
-					canvas.draw(objectController.synthLevel7Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel7Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(8):
-					canvas.draw(objectController.synthLevel8Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel8Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(9):
-					canvas.draw(objectController.synthLevel9Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel9Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(10):
-					canvas.draw(objectController.synthLevel10Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel10Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(11):
-					canvas.draw(objectController.synthLevel11Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel11Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(12):
-					canvas.draw(objectController.synthLevel12Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.synthLevel12Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 			}
 		} else if(genre == Genre.JAZZ) {
 			switch(currentLevelInt) {
 				case(1):
-					canvas.draw(objectController.jazzLevel1Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel1Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(2):
-					canvas.draw(objectController.jazzLevel2Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel2Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(3):
-					canvas.draw(objectController.jazzLevel3Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel3Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(4):
-					canvas.draw(objectController.jazzLevel4Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel4Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(5):
-					canvas.draw(objectController.jazzLevel5Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel5Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(6):
-					canvas.draw(objectController.jazzLevel6Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel6Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(7):
-					canvas.draw(objectController.jazzLevel7Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel7Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(8):
-					canvas.draw(objectController.jazzLevel8Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel8Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(9):
-					canvas.draw(objectController.jazzLevel9Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel9Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(10):
-					canvas.draw(objectController.jazzLevel10Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel10Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(11):
-					canvas.draw(objectController.jazzLevel11Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel11Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 				case(12):
-					canvas.draw(objectController.jazzLevel12Name, 100, canvas.getHeight() - 100);
+					canvas.draw(objectController.jazzLevel12Name, levelOffset, canvas.getHeight() - levelOffsetVertical);
 					break;
 			}
 		}
 
+		canvas.end();
+
+		// Draw genre indicator UI
+		canvas.begin(true);
+		canvas.draw(objectController.blackGradient, 0, 0);
+		objectController.genreIndicator.draw(canvas, 90, 625);
 		canvas.end();
 
 		canvas.begin(true);
