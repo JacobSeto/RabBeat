@@ -673,6 +673,7 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
+		syncController.update(false);
 	}
 
 	/**
