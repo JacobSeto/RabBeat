@@ -1208,42 +1208,42 @@ public class GameController implements Screen, ContactListener {
 				canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 830, 100);
 			}
 			else{
-				canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 370, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.exitLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 250, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.musicTexture.getTexture(), Color.WHITE, 0, 0, 800, 160, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.SFXTexture.getTexture(), Color.WHITE, 0, 0, 850, 100, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.calibrateTextTexture.getTexture(), Color.WHITE, 0, 0, 850, 20, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 400, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.restartLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 340, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.exitLevelTexture.getTexture(), Color.WHITE, 0, 0, 860, 280, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.musicTexture.getTexture(), Color.WHITE, 0, 0, 800, 200, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.SFXTexture.getTexture(), Color.WHITE, 0, 0, 850, 140, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.calibrateTextTexture.getTexture(), Color.WHITE, 0, 0, 850, 60, 0, 0.5f, 0.5f);
 				for (int i = 0; i < musicVolume; i++) {
-					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 160, 0, 0.5f, 0.5f);
+					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 200, 0, 0.5f, 0.5f);
 				}
 				for (int i = 0; i < SFXVolume; i++) {
-					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 100, 0, 0.5f, 0.5f);
+					canvas.draw(objectController.volumeBoxTexture.getTexture(), Color.WHITE, 0, 0, 970 + i * 20, 140, 0, 0.5f, 0.5f);
 				}
-				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 160, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 100, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 160, 0, 0.5f, 0.5f);
-				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 100, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 200, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.unhoverLowerSoundTexture.getTexture(), Color.WHITE, 0, 0, 935, 140, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 200, 0, 0.5f, 0.5f);
+				canvas.draw(objectController.unhoverUpSoundTexture.getTexture(), Color.WHITE, 0, 0, 1175, 140, 0, 0.5f, 0.5f);
 
 
 				switch (pauseItemSelected) {
 					case 0: // Resume Level
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800, 370, 0, 0.5f * pulse, 0.5f * pulse);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800, 400, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 1: // Restart Level
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800,310, 0, 0.5f * pulse, 0.5f * pulse);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0,  800,340, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 2: // Exit Level
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 250,0, 0.5f * pulse, 0.5f * pulse);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 800, 280,0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 3: // Music
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 740,160, 0, 0.5f * pulse, 0.5f * pulse);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 740,200, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 4: // SFX
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,100, 0, 0.5f * pulse, 0.5f * pulse);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,140, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 					case 5: // Calibrate
-						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,20, 0, 0.5f * pulse, 0.5f * pulse);
+						canvas.draw(objectController.indicatorStarTexture.getTexture(), Color.WHITE, 0, 0, 780,60, 0, 0.5f * pulse, 0.5f * pulse);
 						break;
 				}
 			}
