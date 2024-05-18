@@ -913,8 +913,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":3579.9,
-                 "y":318.44
+                 "x":3614.99891512444,
+                 "y":319.503603488619
                 }, 
                 {
                  "gid":238,
@@ -1521,8 +1521,8 @@
                  "type":"Pulse",
                  "visible":true,
                  "width":128,
-                 "x":3581.76,
-                 "y":263.166
+                 "x":3616.85891512444,
+                 "y":264.229603488619
                 }, 
                 {
                  "gid":261,
@@ -2913,7 +2913,7 @@
          "y":0
         }],
  "nextlayerid":22,
- "nextobjectid":995,
+ "nextobjectid":991,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

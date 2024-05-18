@@ -93,8 +93,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":711.910285833507,
-                 "y":480.521593991237
+                 "x":711.91,
+                 "y":480.522
                 }, 
                 {
                  "gid":133,
@@ -111,8 +111,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":585.410285833507,
-                 "y":480.521593991237
+                 "x":585.41,
+                 "y":480.522
                 }, 
                 {
                  "gid":133,
@@ -129,8 +129,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":457.910285833507,
-                 "y":480.521593991237
+                 "x":457.91,
+                 "y":480.522
                 }, 
                 {
                  "gid":133,
@@ -147,8 +147,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":331.410285833507,
-                 "y":480.521593991237
+                 "x":331.41,
+                 "y":480.522
                 }, 
                 {
                  "gid":132,
@@ -165,8 +165,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":203.910285833507,
-                 "y":480.521593991237
+                 "x":203.91,
+                 "y":480.522
                 }, 
                 {
                  "gid":151,
@@ -1712,11 +1712,6 @@
                          "name":"beeBeat",
                          "type":"float",
                          "value":1
-                        }, 
-                        {
-                         "name":"isRight",
-                         "type":"bool",
-                         "value":false
                         }],
                  "rotation":0,
                  "type":"Beehive",
@@ -1735,6 +1730,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -1753,6 +1753,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -1794,11 +1799,6 @@
                          "name":"beeBeat",
                          "type":"float",
                          "value":1
-                        }, 
-                        {
-                         "name":"isRight",
-                         "type":"bool",
-                         "value":false
                         }],
                  "rotation":0,
                  "type":"Beehive",
@@ -1845,6 +1845,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -1985,7 +1990,7 @@
                  "type":"Checkpoint",
                  "visible":true,
                  "width":128,
-                 "x":7252.32362459547,
+                 "x":7252.32,
                  "y":193
                 }],
          "opacity":1,

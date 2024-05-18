@@ -3443,6 +3443,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3461,6 +3466,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3479,6 +3489,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3497,6 +3512,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3515,6 +3535,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3533,6 +3558,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3551,6 +3581,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3569,6 +3604,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3587,6 +3627,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3605,6 +3650,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3623,6 +3673,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -3641,6 +3696,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"1"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",

@@ -601,24 +601,6 @@
          "name":"backgroundArt",
          "objects":[
                 {
-                 "gid":51,
-                 "height":128,
-                 "id":921,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"wires1"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":875,
-                 "x":7382,
-                 "y":125
-                }, 
-                {
                  "gid":298,
                  "height":128,
                  "id":1402,
@@ -4134,6 +4116,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4152,6 +4139,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4170,6 +4162,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4188,6 +4185,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4206,6 +4208,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4224,6 +4231,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4242,6 +4254,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"37"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4260,6 +4277,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"37"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4278,6 +4300,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4296,6 +4323,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4314,6 +4346,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"15"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4332,6 +4369,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"37"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":false
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4350,6 +4392,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"7"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4368,6 +4415,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"6"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4386,6 +4438,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"5"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4404,6 +4461,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"4"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4422,6 +4484,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"3"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",
@@ -4440,6 +4507,11 @@
                          "name":"beatList",
                          "type":"string",
                          "value":"2"
+                        }, 
+                        {
+                         "name":"flipVertical",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"Bat",

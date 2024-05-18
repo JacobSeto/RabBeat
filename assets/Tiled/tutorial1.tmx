@@ -62,7 +62,7 @@
   <object id="904" gid="246" x="3095" y="129.035" width="960" height="128"/>
   <object id="905" gid="246" x="4057" y="129.035" width="960" height="128"/>
   <object id="906" gid="246" x="5014" y="129.035" width="960" height="128"/>
-  <object id="951" gid="263" x="3579.9" y="318.44" width="128" height="128"/>
+  <object id="951" gid="263" x="3615" y="319.504" width="128" height="128"/>
   <object id="959" gid="238" x="896" y="1088" width="128" height="960"/>
   <object id="964" gid="255" x="4020" y="773" width="128" height="128"/>
   <object id="763" gid="253" x="33" y="779" width="128" height="128"/>
@@ -93,7 +93,7 @@
   <object id="912" gid="287" x="432" y="770" width="128" height="128"/>
   <object id="940" type="Pulse" gid="281" x="713.603" y="716.16" width="128" height="128"/>
   <object id="949" type="Pulse" gid="264" x="4634.09" y="266.26" width="128" height="128"/>
-  <object id="953" type="Pulse" gid="277" x="3581.76" y="263.166" width="128" height="128"/>
+  <object id="953" type="Pulse" gid="277" x="3616.86" y="264.23" width="128" height="128"/>
   <object id="965" gid="261" x="1475" y="546" width="256" height="256"/>
   <object id="973" type="Pulse" gid="359" x="5926" y="436" width="128" height="128"/>
   <object id="977" gid="389" x="2213" y="516" width="192" height="192"/>
