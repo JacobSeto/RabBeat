@@ -776,7 +776,9 @@ public class GameController implements Screen, ContactListener {
 				showLevel1ThirdCutScene = false;
 			} else if(showLevel1FourthCutScene) {
 				displayStartCutScenes = false;
-				soundController.playSFX("glassShatter");
+				if (!complete) {
+					soundController.playSFX("glassShatter");
+				}
 			}
 		} else if(currentLevelInt == 9 && InputController.getInstance().didPressEnter() && !paused) {
 			if(showLevel9StartingScreen[0]) {
