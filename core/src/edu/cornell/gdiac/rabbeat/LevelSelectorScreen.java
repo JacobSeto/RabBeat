@@ -50,6 +50,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private boolean hover11 = false;
     private boolean hover12 = false;
 
+    public boolean finishedLoadingLevel = false;
+
     /** Images for the button hover images when hovering over a button */
     private Image hoverImage1;
     private Image hoverImage2;
@@ -63,6 +65,15 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private Image hoverImage10;
     private Image hoverImage11;
     private Image hoverImage12;
+
+    private boolean downPressed;
+    private boolean downPrevious;
+
+    private boolean upPressed;
+    private boolean upPrevious;
+
+    private boolean enterPressed;
+    private boolean enterPrevious;
 
     /** Reference to the numberOfLevels variable in GameController */
     private final int numberOfLevels = GameController.getInstance().getNumberOfLevels();
@@ -238,6 +249,11 @@ public class LevelSelectorScreen extends ScreenAdapter {
                         if (finalI <= GameController.getInstance().getLevelsUnlocked()) {
                             GameController.getInstance().setCurrentLevelInt(1);
                             listener.exitScreen(LevelSelectorScreen.this, 0);
+                            GameController.displayStartCutScenes = true;
+                            GameController.showLevel1FirstCutScene = false;
+                            GameController.showLevel1SecondCutScene = false;
+                            GameController.showLevel1ThirdCutScene = false;
+                            GameController.showLevel1FourthCutScene = false;
                         }
                     }
                 });
@@ -431,7 +447,13 @@ public class LevelSelectorScreen extends ScreenAdapter {
     }
 
     public void render(float delta) {
+
+
         handleInput();
+
+        if (finishedLoadingLevel){
+            return;
+        }
 
         hoverImage1.setVisible(hover1);
         hoverImage2.setVisible(hover2);
@@ -492,10 +514,54 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
     /** reads the data from the input keys and changes the buttonSelected String accordingly */
     public void handleInput() {
+        enterPrevious = enterPressed;
+        downPrevious = downPressed;
+        upPrevious = upPressed;
+
+        enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
+        downPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
+        upPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
         int numberOfLevelsUnlocked = GameController.getInstance().getLevelsUnlocked();
         if(!hover1 && !hover2 && !hover3 && !hover4 && !hover5 && !hover6 && !hover7 && !hover8 && !hover9 && !hover10 && !hover11 && !hover12)
-            hover1 = true;
-        else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            switch(GameController.getInstance().getCurrentLevelInt()) {
+                case (1):
+                    hover1 = true;
+                    break;
+                case (2):
+                    hover2 = true;
+                    break;
+                case (3):
+                    hover3 = true;
+                    break;
+                case (4):
+                    hover4 = true;
+                    break;
+                case (5):
+                    hover5 = true;
+                    break;
+                case (6):
+                    hover6 = true;
+                    break;
+                case (7):
+                    hover7 = true;
+                    break;
+                case (8):
+                    hover8 = true;
+                    break;
+                case (9):
+                    hover9 = true;
+                    break;
+                case (10):
+                    hover10 = true;
+                    break;
+                case (11):
+                    hover11 = true;
+                    break;
+                case (12):
+                    hover12 = true;
+                    break;
+            }
+        else if (downPressed && !downPrevious) {
             if(hover1 && numberOfLevelsUnlocked > 1) {
                 hover1 = false;
                 hover2 = true;
@@ -530,7 +596,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hover11 = false;
                 hover12 = true;
             }
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+        } else if (upPressed && !upPrevious) {
             if(hover12) {
                 hover12 = false;
                 hover11 = true;
@@ -565,16 +631,21 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hover2 = false;
                 hover1 = true;
             }
-        }else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+        }else if (enterPressed && !enterPrevious) {
             if(hover1) {
                 GameController.getInstance().setCurrentLevelInt(1);
+                GameController.displayStartCutScenes = true;
+                GameController.showLevel1FirstCutScene = false;
+                GameController.showLevel1SecondCutScene = false;
+                GameController.showLevel1ThirdCutScene = false;
+                GameController.showLevel1FourthCutScene = false;
             } else if(hover2) {
                 GameController.getInstance().setCurrentLevelInt(2);
             } else if(hover3) {
                 GameController.getInstance().setCurrentLevelInt(3);
             } else if(hover4) {
                 GameController.getInstance().setCurrentLevelInt(4);
-            } if(hover5) {
+            } else if(hover5) {
                 GameController.getInstance().setCurrentLevelInt(5);
             } else if(hover6) {
                 GameController.getInstance().setCurrentLevelInt(6);
@@ -582,7 +653,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 GameController.getInstance().setCurrentLevelInt(7);
             } else if(hover8) {
                 GameController.getInstance().setCurrentLevelInt(8);
-            } if(hover9) {
+            } else if(hover9) {
                 GameController.getInstance().setCurrentLevelInt(9);
             } else if(hover10) {
                 GameController.getInstance().setCurrentLevelInt(10);
@@ -591,8 +662,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
             } else if(hover12) {
                 GameController.getInstance().setCurrentLevelInt(12);
             }
-
             listener.exitScreen(LevelSelectorScreen.this, 0);
+
         }
     }
 

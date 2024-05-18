@@ -446,6 +446,7 @@ public class InputController {
 			} else {
 				genreSwitched = false;
 			}
+			enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
 		}
 		// When the game IS paused
 		else {
@@ -518,6 +519,7 @@ public class InputController {
 					gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
 					gc.exitScreen(GameController.NEXT_LEVEL);
 					gc.readyToGoToNextLevel = false;
+					gc.setComplete(false);
 				}
 			}
 
