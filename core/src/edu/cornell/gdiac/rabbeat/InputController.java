@@ -63,6 +63,10 @@ public class InputController {
 	/** Whether the primary action button was pressed. */
 	private boolean primePressed;
 	private boolean primePrevious;
+
+	private boolean backspacePressed;
+
+	private boolean backspacePrevious;
 	/** Whether the secondary action button was pressed. */
 	private boolean secondPressed;
 	private boolean secondPrevious;
@@ -227,6 +231,8 @@ public class InputController {
 		return resetPressed && !resetPrevious;
 	}
 
+	public boolean didPressBackspace() { return backspacePressed && !backspacePrevious;}
+
 	/**
 	 * Returns true if the player wants to go to the next level.
 	 *
@@ -341,6 +347,7 @@ public class InputController {
 		calibrationPrevious = calibrationPressed;
 		calibratePrevious = calibratePressed;
 		delayPrevious = delayPressed;
+		backspacePrevious = backspacePressed;
 
 		if (paused) {
 			pauseUpPrevious = pauseUpPressed;
@@ -420,7 +427,7 @@ public class InputController {
 		calibratePressed = (secondary && calibratePressed) || (Gdx.input.isKeyPressed(Keys.SPACE));
 		switchPressed = (secondary && switchPressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT));
 		spacePressed = (secondary && spacePressed) || (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SPACE));
-
+		backspacePressed = (secondary && backspacePressed) || (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE));
 
 		// Directional controls
 		if (!paused) {
@@ -489,7 +496,7 @@ public class InputController {
 			else{
 				calibrate = false;
 			}
-			if (GameController.getInstance().calibrateScreen && Gdx.input.isKeyJustPressed(Keys.BACKSPACE)){
+			if (GameController.getInstance().calibrateScreen && didPressBackspace()){
 				GameController.getInstance().calibrateScreen = false;
 			}
 			//TODO: This is temporary code to add artificial delay to the syncing

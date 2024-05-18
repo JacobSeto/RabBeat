@@ -614,6 +614,7 @@ public class GameController implements Screen, ContactListener {
 			default:
 				break;
 		}
+		soundController.addSound("sfxChange", directory.getEntry("sfx:menubutton", Sound.class));
 		soundController.addSound("uiTransition", directory.getEntry("sfx:menutransition", Sound.class));
 		soundController.addSound("glassShatter", directory.getEntry("sfx:glass", Sound.class));
 	}
@@ -862,12 +863,18 @@ public class GameController implements Screen, ContactListener {
 						Preferences prefs = Gdx.app.getPreferences("SFXVolume");
 						prefs.putInteger("sfxVolume", SFXVolume);
 						prefs.flush();
+
+						soundController.setGlobalSFXVolumeImmediate(SFXVolume / 10f);
+						soundController.playSFX("sfxChange");
 					}
 					if (input.didPressRightWhilePaused() && SFXVolume < 10) {
 						SFXVolume++;
 						Preferences prefs = Gdx.app.getPreferences("SFXVolume");
 						prefs.putInteger("sfxVolume", SFXVolume);
 						prefs.flush();
+
+						soundController.setGlobalSFXVolumeImmediate(SFXVolume / 10f);
+						soundController.playSFX("sfxChange");
 					}
 				} else {
 					if (input.didPressEnter()) {
@@ -1438,6 +1445,7 @@ public class GameController implements Screen, ContactListener {
 	public void pauseAction ( int sel){
 		switch (sel) {
 			case 1: // Restart Level
+				soundController.playSFX("sfxChange");
 				paused = false;
 				for (Checkpoint checkpoint : objectController.checkpoints) {
 					checkpoint.setActive(false);
@@ -1462,13 +1470,16 @@ public class GameController implements Screen, ContactListener {
 				}
 				break;
 			case 0: // Resume Level
+				soundController.playSFX("sfxChange");
 				paused = false;
 				resume();
 				break;
 			case 2: // Exit Level
+				soundController.playSFX("sfxChange");
 				exitLevel();
 				break;
 			case 5: // Calibrate
+				soundController.playSFX("sfxChange");
 				calibrateScreen = true;
 			default:
 				break;
