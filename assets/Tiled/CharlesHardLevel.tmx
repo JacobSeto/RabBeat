@@ -439,7 +439,7 @@
   <object id="732" type="Beehive" gid="14" x="4225.31" y="502.421" width="150" height="150">
    <properties>
     <property name="beatList" value="1"/>
-    <property name="beebeat" type="float" value="1"/>
+    <property name="beeBeat" type="float" value="1"/>
    </properties>
   </object>
   <object id="744" type="Bat" gid="1073741884" x="5376" y="112" width="176" height="97">
@@ -456,6 +456,7 @@
   <object id="806" type="Beehive" gid="14" x="5936" y="208" width="150" height="150">
    <properties>
     <property name="beatList" value="1"/>
+    <property name="beeBeat" type="float" value="1"/>
     <property name="isRight" type="bool" value="true"/>
    </properties>
   </object>
