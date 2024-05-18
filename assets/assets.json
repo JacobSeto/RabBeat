@@ -434,13 +434,13 @@
         "level2": "levelsJson/tutorial2.tmj",
         "level3": "levelsJson/ericEasyLevel.tmj",
         "level4": "levelsJson/EricBearLevel2.tmj",
-        "level5": "levelsJson/EricLaserLevel.tmj",
+        "level5": "levelsJson/easyBeeLevel.tmj",
         "level6": "levelsJson/rabbeatLevelBat.tmj",
         "level7": "levelsJson/EricMediumLevel.tmj",
         "level8": "levelsJson/CrushLevel.tmj",
         "level9": "levelsJson/benTestHouseLevelDisco.tmj",
         "level10": "levelsJson/tutorial1.tmj",
-        "level11": "levelsJson/tutorial1.tmj",
+        "level11": "levelsJson/charlesHardLevel.tmj",
         "level12": "levelsJson/houseArtLevel.tmj"
     },
     "sounds": {
