@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="145" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="1481">
+ <editorsettings>
+  <export target="../levelsJson/benBatLevel.tmj" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="Images.tsx"/>
+ <tileset firstgid="77" source="platforms.tsx"/>
+ <tileset firstgid="155" source="walls.tsx"/>
+ <tileset firstgid="167" source="rabbeatTileset.tsx"/>
+ <tileset firstgid="188" source="Backgrounds.tsx"/>
+ <tileset firstgid="196" source="BackgroundArt.tsx"/>
+ <tileset firstgid="363" source="discoTileset.tsx"/>
+ <tileset firstgid="369" source="AnimatedArt.tsx"/>
+ <tileset firstgid="378" source="houseTileset.tsx"/>
+ <objectgroup id="2" name="background" locked="1">
+  <object id="1374" gid="193" x="16" y="1088" width="16383" height="1088"/>
+ </objectgroup>
+ <objectgroup id="21" name="decals">
+  <object id="1376" gid="373" x="445" y="646.503" width="69" height="74"/>
+  <object id="1377" gid="373" x="444.968" y="948.913" width="69" height="74"/>
+  <object id="1378" gid="373" x="1085" y="534.214" width="69" height="74"/>
+  <object id="1380" gid="373" x="1085.51" y="227.018" width="69" height="74"/>
+  <object id="1381" gid="373" x="1798" y="534" width="69" height="74"/>
+  <object id="1382" gid="373" x="1798.51" y="227.018" width="69" height="74"/>
+  <object id="1383" gid="373" x="3758.35" y="83.9322" width="69" height="74"/>
+  <object id="1384" gid="373" x="3756.06" y="390.709" width="69" height="74"/>
+  <object id="1385" gid="373" x="3949.52" y="403.3" width="69" height="74"/>
+  <object id="1386" gid="373" x="3949.52" y="645.974" width="69" height="74"/>
+  <object id="1387" gid="373" x="4139.53" y="389.564" width="69" height="74"/>
+  <object id="1388" gid="373" x="4140.68" y="83.9322" width="69" height="74"/>
+  <object id="1389" gid="373" x="4331.83" y="467.3" width="69" height="74"/>
+  <object id="1390" gid="373" x="4334.13" y="645.974" width="69" height="74"/>
+  <object id="1391" gid="373" x="5853.13" y="546.386" width="69" height="74"/>
+  <object id="1392" gid="373" x="6046.59" y="546.386" width="69" height="74"/>
+  <object id="1393" gid="373" x="5851.99" y="853.163" width="69" height="74"/>
+  <object id="1394" gid="373" x="6045.44" y="854.308" width="69" height="74"/>
+  <object id="1395" gid="373" x="6237.75" y="546.386" width="69" height="74"/>
+  <object id="1396" gid="373" x="6237.75" y="854.308" width="69" height="74"/>
+  <object id="1426" gid="357" x="836" y="928" width="224" height="256"/>
+  <object id="1417" gid="377" x="6480.2" y="744.197" width="330" height="330"/>
+  <object id="1458" gid="306" x="6548.48" y="486.067" width="192" height="192"/>
+  <object id="1459" gid="302" x="6733.67" y="832.669" width="192" height="192"/>
+  <object id="1460" gid="342" x="6679.35" y="833.335" width="160" height="160"/>
+  <object id="1462" gid="369" x="6651.85" y="412.386" width="128" height="128"/>
+  <object id="1464" gid="306" x="2048.97" y="436.208" width="192" height="192"/>
+  <object id="1465" gid="369" x="2154.7" y="360.795" width="128" height="128"/>
+  <object id="1467" gid="369" x="1998.76" y="428.143" width="128" height="128"/>
+  <object id="1469" type="Pulse" gid="344" x="3060.41" y="246.538" width="192" height="192">
+   <properties>
+    <property name="pulseScale" type="float" value="1.05"/>
+   </properties>
+  </object>
+  <object id="1470" type="Pulse" gid="345" x="3243.22" y="245.402" width="192" height="192">
+   <properties>
+    <property name="pulseScale" type="float" value="1.05"/>
+   </properties>
+  </object>
+  <object id="1473" gid="357" x="4492.37" y="617.888" width="224" height="256"/>
+ </objectgroup>
+ <objectgroup id="18" name="backgroundArt">
+  <object id="921" gid="51" x="7382" y="125" width="875" height="128">
+   <properties>
+    <property name="assetName" value="wires1"/>
+   </properties>
+  </object>
+  <object id="1402" gid="298" x="1264" y="459.025" width="128" height="128"/>
+  <object id="1404" gid="299" x="1360" y="459.025" width="128" height="128"/>
+  <object id="1405" gid="304" x="1456" y="459.025" width="128" height="128"/>
+  <object id="1406" gid="301" x="1552" y="459.025" width="128" height="128"/>
+  <object id="1408" gid="306" x="507" y="295" width="192" height="192"/>
+  <object id="1409" gid="361" x="406" y="190" width="192" height="192"/>
+  <object id="1410" gid="361" x="598" y="190" width="192" height="192"/>
+  <object id="1411" gid="361" x="1200" y="320" width="192" height="192"/>
+  <object id="1432" gid="361" x="1289" y="319" width="192" height="192"/>
+  <object id="1412" gid="361" x="1616" y="320" width="192" height="192"/>
+  <object id="1413" gid="362" x="1440" y="320" width="192" height="192"/>
+  <object id="1414" gid="306" x="1376" y="368" width="192" height="192"/>
+  <object id="1415" gid="358" x="1402.99" y="177.531" width="130" height="130"/>
+  <object id="1416" gid="361" x="6626.06" y="387.395" width="192" height="192"/>
+  <object id="1418" gid="362" x="3389.22" y="576.419" width="192" height="192"/>
+  <object id="1419" gid="362" x="3135.91" y="256.14" width="192" height="192"/>
+  <object id="1420" gid="362" x="5309.44" y="637.564" width="192" height="192"/>
+  <object id="1421" gid="362" x="6493.47" y="385.35" width="192" height="192"/>
+  <object id="1423" gid="377" x="193" y="356" width="330" height="330"/>
+  <object id="1424" gid="358" x="534" y="105" width="130" height="130"/>
+  <object id="1425" gid="328" x="886" y="749" width="140" height="140"/>
+  <object id="1427" gid="369" x="455" y="212" width="128" height="128"/>
+  <object id="1428" gid="369" x="638" y="248" width="128" height="128"/>
+  <object id="1433" gid="369" x="1320" y="290" width="128" height="128"/>
+  <object id="1434" gid="370" x="1497" y="317" width="128" height="128"/>
+  <object id="1435" gid="142" x="3990" y="14" width="192" height="32"/>
+  <object id="1437" gid="142" x="4165" y="14" width="192" height="32"/>
+  <object id="1457" gid="358" x="6576.03" y="298.187" width="130" height="130"/>
+  <object id="1463" gid="358" x="2075.63" y="257.906" width="130" height="130"/>
+  <object id="1472" gid="328" x="4545.85" y="435.236" width="140" height="140"/>
+  <object id="1474" type="Pulse" gid="299" x="5108.24" y="171.729" width="128" height="128"/>
+  <object id="1475" type="Pulse" gid="300" x="5313.68" y="170.476" width="128" height="128"/>
+  <object id="1476" type="Pulse" gid="298" x="5514.1" y="170.476" width="128" height="128"/>
+  <object id="1478" gid="343" x="5196.45" y="832.335" width="160" height="160"/>
+  <object id="1479" gid="343" x="5393.37" y="834.86" width="160" height="160"/>
+ </objectgroup>
+ <objectgroup id="13" name="platforms">
+  <object id="1033" type="laser" gid="140" x="464.032" y="642" width="32" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1036" type="laser" gid="139" x="464" y="704" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1037" type="laser" gid="139" x="464" y="768" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1038" type="laser" gid="139" x="464" y="832" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1039" type="laser" gid="138" x="464" y="896" width="32" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1103" type="laser" gid="140" x="1817" y="224" width="32" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1104" type="laser" gid="139" x="1817" y="288" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1105" type="laser" gid="139" x="1817" y="352" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1106" type="laser" gid="139" x="1817" y="416" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1109" type="laser" gid="138" x="1817" y="480" width="32" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1110" type="laser" gid="140" x="1104" y="224" width="32" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1111" type="laser" gid="139" x="1104" y="288" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1112" type="laser" gid="139" x="1104" y="352" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1113" type="laser" gid="139" x="1104" y="416" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1116" type="laser" gid="138" x="1104.11" y="480" width="32" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1128" type="laser" gid="151" x="2176" y="48" width="64" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="1136" type="laser" gid="150" x="2240" y="48" width="64" height="32">
+   <properties>
+    <property name="align" value="horizontal"/>
+   </properties>
+  </object>
+  <object id="1137" type="laser" gid="150" x="3008" y="48" width="64" height="32">
+   <properties>
+    <property name="align" value="horizontal"/>
+   </properties>
+  </object>
+  <object id="1144" type="laser" gid="152" x="3072" y="48" width="64" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="1160" type="laser" gid="139" x="3776" y="144" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1161" type="laser" gid="139" x="3776" y="208" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1162" type="laser" gid="139" x="3776" y="272" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1163" type="laser" gid="138" x="3776" y="336" width="32" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1165" type="laser" gid="139" x="3968" y="464" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1166" type="laser" gid="139" x="3968" y="528" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1167" type="laser" gid="138" x="3968" y="592" width="32" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1168" type="laser" gid="139" x="4160" y="144" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1169" type="laser" gid="139" x="4160" y="208" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1170" type="laser" gid="139" x="4160" y="272" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1171" type="laser" gid="138" x="4160" y="336" width="32" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1174" type="laser" gid="139" x="4352" y="528" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1175" type="laser" gid="138" x="4352" y="592" width="32" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1180" type="laser" gid="140" x="3776" y="80" width="32" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1181" type="laser" gid="140" x="3968" y="400" width="32" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1182" type="laser" gid="140" x="4160" y="80" width="32" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1183" type="laser" gid="140" x="4351.99" y="464" width="32" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1324" type="laser" gid="139" x="5872" y="672" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1325" type="laser" gid="139" x="5872" y="736" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1326" type="laser" gid="138" x="5872" y="800" width="32" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1327" type="laser" gid="140" x="5872" y="544" width="32" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1328" type="laser" gid="139" x="5872" y="608" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1329" type="laser" gid="139" x="6064" y="672" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1330" type="laser" gid="139" x="6064" y="736" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1331" type="laser" gid="138" x="6064" y="800" width="32" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1332" type="laser" gid="140" x="6064" y="544" width="32" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1333" type="laser" gid="139" x="6064" y="608" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1334" type="laser" gid="139" x="6256" y="672" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1335" type="laser" gid="139" x="6256" y="736" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1336" type="laser" gid="138" x="6256" y="800" width="32" height="64">
+   <properties>
+    <property name="align" value="bottom"/>
+   </properties>
+  </object>
+  <object id="1337" type="laser" gid="140" x="6256" y="544" width="32" height="64">
+   <properties>
+    <property name="align" value="top"/>
+   </properties>
+  </object>
+  <object id="1338" type="laser" gid="139" x="6256" y="608" width="32" height="64">
+   <properties>
+    <property name="align" value="middle"/>
+   </properties>
+  </object>
+  <object id="1364" gid="142" x="3392" y="640" width="192" height="32"/>
+  <object id="1365" type="laser" gid="152" x="2304" y="48" width="64" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="1366" type="laser" gid="151" x="2560" y="48" width="64" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="1367" type="laser" gid="150" x="2624" y="48" width="64" height="32">
+   <properties>
+    <property name="align" value="horizontal"/>
+   </properties>
+  </object>
+  <object id="1368" type="laser" gid="152" x="2688" y="48" width="64" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
+  <object id="1369" type="laser" gid="151" x="2944" y="48" width="64" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="1" name="walls" width="145" height="17">
+  <data encoding="csv">
+382,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,382,0,0,0,388,383,386,0,0,0,388,383,386,0,0,0,388,383,386,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,389,391,390,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+382,0,0,0,0,0,0,0,0,0,0,0,388,383,392,392,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,386,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+382,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,388,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+382,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+382,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,388,386,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+382,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,387,381,381,381,391,391,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,378,378,378,378,378,378,379,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,380,378,378,378,378,379,0,0,389,391,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,392,392,392,392,382,0,0,0,0,387,381,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,392,383,383,383,386,0,0,0,0,388,383,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,388,386,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,378,378,378,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,380,378,378,378,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,389,390,0,0,0,0,0,0,0,0,384,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,382,0,0,0,0,0,0,380,379,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,380,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,382,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,380,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,378,378,378,378,378,378,392,382,0,0,0,0,0,0,0,0,0,0,380,378,378,378,378,378,378,378,378,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,392,381,381,381,385,0,0,0,380,378,378,378,378,378,379,0,0,0,0,389,390,0,0,0,0,380,378,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,392,392,392,392,382,0,0,0,384,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,392,392,392,392,382,0,0,0,384,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392
+</data>
+ </layer>
+ <objectgroup id="20" name="wallArt">
+  <object id="1422" gid="342" x="29" y="383.916" width="160" height="160"/>
+ </objectgroup>
+ <objectgroup id="10" name="weightedPlatforms">
+  <object id="1003" type="Weighted Platform" gid="143" x="512" y="928" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="0"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1004" type="Weighted Platform" gid="141" x="512" y="480" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="0"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1008" type="Weighted Platform" gid="143" x="1171.33" y="931.818" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1009" type="Weighted Platform" gid="141" x="1168" y="576" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1010" type="Weighted Platform" gid="143" x="1582.12" y="928.788" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="2"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1011" type="Weighted Platform" gid="141" x="1568" y="576" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="2"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1117" type="Weighted Platform" gid="143" x="2272" y="608" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="3"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1118" type="Weighted Platform" gid="141" x="2268.08" y="427.804" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="3"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1119" type="Weighted Platform" gid="143" x="2369.12" y="1622.35" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="4"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1120" type="Weighted Platform" gid="141" x="2355" y="1288" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="4"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1121" type="Weighted Platform" gid="143" x="2561.12" y="1622.35" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="5"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1122" type="Weighted Platform" gid="141" x="2547" y="1288" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="5"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1123" type="Weighted Platform" gid="143" x="2753.12" y="1622.35" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="6"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1124" type="Weighted Platform" gid="141" x="2739" y="1288" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="6"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1125" type="Weighted Platform" gid="143" x="2936.12" y="1623.35" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="7"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1126" type="Weighted Platform" gid="141" x="2922" y="1289" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="7"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1150" type="Weighted Platform" gid="143" x="3600" y="608" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="8"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1151" type="Weighted Platform" gid="143" x="3792" y="608" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="9"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1152" type="Weighted Platform" gid="143" x="3984" y="608" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="10"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1153" type="Weighted Platform" gid="143" x="4176" y="608" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="11"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1154" type="Weighted Platform" gid="143" x="4368" y="608" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="12"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1155" type="Weighted Platform" gid="141" x="3600" y="352" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="8"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1156" type="Weighted Platform" gid="141" x="3792" y="352" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="9"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1157" type="Weighted Platform" gid="141" x="3984" y="352" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="10"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1158" type="Weighted Platform" gid="141" x="4176" y="352" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="11"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1159" type="Weighted Platform" gid="141" x="4368" y="352" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="12"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1190" type="Weighted Platform" gid="141" x="5888" y="496" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="14"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1191" type="Weighted Platform" gid="141" x="6080" y="496" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="15"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1195" type="Weighted Platform" gid="143" x="5888" y="736" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="14"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1196" type="Weighted Platform" gid="143" x="6080" y="736" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="15"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1234" type="Weighted Platform" gid="143" x="5696" y="736" width="192" height="32">
+   <properties>
+    <property name="genre" value="synth"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="13"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="1235" type="Weighted Platform" gid="141" x="5696" y="496" width="192" height="32">
+   <properties>
+    <property name="genre" value="jazz"/>
+    <property name="moveTime" type="int" value="0"/>
+    <property name="num" type="int" value="13"/>
+    <property name="platformInterval" type="int" value="0"/>
+    <property name="waitTime" type="int" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="16" name="movingPlatforms">
+  <object id="1455" type="Moving Platform" gid="137" x="2474.68" y="427.173" width="192" height="32">
+   <properties>
+    <property name="moveTime" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="1456" type="Moving Platform" gid="142" x="2938.68" y="427.173" width="192" height="32">
+   <properties>
+    <property name="moveTime" type="int" value="1"/>
+    <property name="pos" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="enemies">
+  <object id="1005" type="Bat" gid="59" x="269" y="672" width="176" height="97">
+   <properties>
+    <property name="beatList" value="15"/>
+    <property name="flipVertical" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1006" type="Bat" gid="59" x="732" y="670" width="176" height="97">
+   <properties>
+    <property name="beatList" value="15"/>
+    <property name="flipVertical" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1012" type="Bat" gid="59" x="1392" y="896" width="176" height="97">
+   <properties>
+    <property name="beatList" value="15"/>
+   </properties>
+  </object>
+  <object id="1014" type="Bat" gid="59" x="1392" y="704" width="176" height="97">
+   <properties>
+    <property name="beatList" value="15"/>
+   </properties>
+  </object>
+  <object id="1053" type="Bat" gid="59" x="729" y="449" width="176" height="97">
+   <properties>
+    <property name="beatList" value="15"/>
+   </properties>
+  </object>
+  <object id="1145" type="Bat" gid="59" x="2384" y="160" width="176" height="97">
+   <properties>
+    <property name="beatList" value="15"/>
+    <property name="flipVertical" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1176" type="Bat" gid="59" x="4192" y="112" width="176" height="97">
+   <properties>
+    <property name="beatList" value="37"/>
+    <property name="flipVertical" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1177" type="Bat" gid="59" x="4000" y="111" width="176" height="97">
+   <properties>
+    <property name="beatList" value="15"/>
+    <property name="flipVertical" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1178" type="Bat" gid="59" x="3408" y="608" width="176" height="97">
+   <properties>
+    <property name="beatList" value="15"/>
+   </properties>
+  </object>
+  <object id="1188" type="Bat" gid="59" x="4800" y="128" width="176" height="97">
+   <properties>
+    <property name="beatList" value="15"/>
+   </properties>
+  </object>
+  <object id="1189" type="Bat" gid="59" x="5328" y="384" width="176" height="97">
+   <properties>
+    <property name="beatList" value="37"/>
+   </properties>
+  </object>
+  <object id="1350" type="Bat" gid="59" x="5776" y="272" width="176" height="97">
+   <properties>
+    <property name="beatList" value="7"/>
+   </properties>
+  </object>
+  <object id="1351" type="Bat" gid="59" x="5936" y="272" width="176" height="97">
+   <properties>
+    <property name="beatList" value="6"/>
+   </properties>
+  </object>
+  <object id="1352" type="Bat" gid="59" x="6096" y="272" width="176" height="97">
+   <properties>
+    <property name="beatList" value="5"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="checkpoints">
+  <object id="1147" type="Checkpoint" gid="8" x="880" y="896" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="1148" type="Checkpoint" gid="8" x="3440" y="320" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="1357" type="Checkpoint" gid="8" x="4560" y="640" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="1375" type="Checkpoint" gid="8" x="5568" y="704" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="player">
+  <object id="1002" gid="3" x="155.866" y="384.791" width="64" height="123"/>
+ </objectgroup>
+ <objectgroup id="9" name="goal">
+  <object id="549" type="Checkpoint" gid="13" x="6458.06" y="832.31" width="128" height="130">
+   <properties>
+    <property name="num" type="int" value="3"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

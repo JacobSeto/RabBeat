@@ -16,6 +16,7 @@ package edu.cornell.gdiac.rabbeat;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import edu.cornell.gdiac.rabbeat.sync.SyncController;
 import edu.cornell.gdiac.util.*;
 import edu.cornell.gdiac.assets.*;
 
@@ -57,6 +58,14 @@ public class GDXRoot extends Game implements ScreenListener {
 	/** using this for level selection, could put it in LevelSelectorScreen but it's easier to put it here */
 	private Sound buttonClicked;
 
+	private Sound buttonTransition;
+
+	private int menuMusicVolume;
+
+	private float menuSFXVolume;
+
+	private int menuSFXVolumeAsInt;
+
 
 	/**
 	 * Creates a new game from the configuration settings.
@@ -83,6 +92,8 @@ public class GDXRoot extends Game implements ScreenListener {
 
 		mainMenuScreen = new MainMenuScreen(this);
 		mainMenuScreen.setListener(this);
+		mainMenuScreen.setMusicPreference(menuMusicVolume);
+		mainMenuScreen.setSFXPreference(menuSFXVolumeAsInt);
 	}
 
 	/**
@@ -130,22 +141,40 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * @param exitCode The state of the screen upon exit
 	 */
 	public void exitScreen(Screen screen, int exitCode) {
-		if(screen == initialLoading) {
+
+		if(screen == initialLoading || exitCode == GameController.MAIN_MENU) {
 			directory = initialLoading.getAssets();
 			mainMenuMusic = directory.getEntry("music:mainmenu", Music.class);
+			Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+			menuMusicVolume = prefs.getInteger("musicVolume", 10);
+			mainMenuMusic.setVolume(menuMusicVolume / 10f);
+
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
 			InputController.getInstance().setPaused(true);
 			setScreen(mainMenuScreen);
 			buttonClicked = directory.getEntry("sfx:menubutton", Sound.class);
+			buttonTransition = directory.getEntry("sfx:menutransition", Sound.class);
+			prefs = Gdx.app.getPreferences("SFXVolume");
+			menuSFXVolumeAsInt = prefs.getInteger("sfxVolume", 10);
+			menuSFXVolume =  menuSFXVolumeAsInt / 10f;
+			//buttonClicked.setVolume(0, 0);
+			//buttonTransition.setVolume(0, menuSFXVolume / 10f);
 			mainMenuScreen.setButtonClickedSound(buttonClicked);
-			mainMenuScreen.setButtonTransitionSound(directory.getEntry("sfx:menutransition", Sound.class));
+			mainMenuScreen.setButtonTransitionSound(buttonTransition);
+			mainMenuScreen.setMusic(mainMenuMusic);
+			mainMenuScreen.setSFXVolume(menuSFXVolume);
 			mainMenuMusic.setLooping(true);
+			//Main Menu Music setup
 			mainMenuMusic.play();
+			controller.syncController = new SyncController(180);
+			controller.syncController.setSync(mainMenuMusic,mainMenuMusic);
 		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
 			mainMenuMusic.stop();
-			buttonClicked.play();
+			if (screen == levelSelectorScreen) {
+				buttonClicked.play(menuSFXVolume);
+			}
 			controller = new GameController();
 			InputController.getInstance().setPaused(false);
 			GameController.getInstance().setPaused(false);
@@ -154,13 +183,17 @@ public class GDXRoot extends Game implements ScreenListener {
 			controller.setCanvas(canvas);
 			controller.resume();
 			controller.initialize();
+			levelSelectorScreen.finishedLoadingLevel = true;
 			setScreen(controller);
 		}else if (screen == controller || exitCode == GameController.GO_TO_LEVEL_SELECT) {
 			createLevelSelectorScreen();
 			mainMenuMusic.setLooping(true);
+			Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+			menuMusicVolume = prefs.getInteger("musicVolume", 10);
+			mainMenuMusic.setVolume(menuMusicVolume / 10f);
 			mainMenuMusic.play();
-			if (screen == mainMenuScreen) {
-				//buttonClicked.play();
+			if (screen == mainMenuScreen && exitCode == GameController.GO_TO_LEVEL_SELECT) {
+				buttonClicked.play(menuSFXVolume);
 			}
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			Gdx.app.exit();
@@ -169,8 +202,13 @@ public class GDXRoot extends Game implements ScreenListener {
 
 	/** Creates the level selector screen */
 	public void createLevelSelectorScreen() {
-		levelSelectorScreen = new edu.cornell.gdiac.rabbeat.LevelSelectorScreen(this);
+		levelSelectorScreen = new LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
+		levelSelectorScreen.setMenuTransitionSound(buttonTransition);
+		Preferences prefs = Gdx.app.getPreferences("SFXVolume");
+		menuSFXVolumeAsInt = prefs.getInteger("sfxVolume", 10);
+		menuSFXVolume = menuSFXVolumeAsInt / 10f;
+		levelSelectorScreen.setSFXVolume(menuSFXVolume);
 		setScreen(levelSelectorScreen);
 	}
 

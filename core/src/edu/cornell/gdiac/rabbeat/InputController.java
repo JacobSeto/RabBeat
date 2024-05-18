@@ -396,6 +396,7 @@ public class InputController {
 		clampPosition(bounds);
 	}
 
+
 	/**
 	 * Reads input from the keyboard.
 	 *
@@ -412,8 +413,8 @@ public class InputController {
 		primePressed = (secondary && primePressed) || (Gdx.input.isKeyPressed(Input.Keys.UP)
 				|| Gdx.input.isKeyPressed(Input.Keys.W));
 		exitPressed = (secondary && exitPressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
-		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
-		//pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
+		//pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.P));
+		pausePressed = (secondary && pausePressed) || (Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 		levelSelectPressed = (secondary && levelSelectPressed) || (Gdx.input.isKeyPressed(Input.Keys.L));
 		calibrationPressed = (secondary && calibrationPressed) || (Gdx.input.isKeyPressed(Input.Keys.C));
 		calibratePressed = (secondary && calibratePressed) || (Gdx.input.isKeyPressed(Keys.SPACE));
@@ -445,10 +446,10 @@ public class InputController {
 			} else {
 				genreSwitched = false;
 			}
+			enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
 		}
 		// When the game IS paused
 		else {
-
 			pauseRightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D);
 			pauseLeftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
 			pauseUpPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
@@ -460,10 +461,6 @@ public class InputController {
 				switchGenre = true;
 			} else if (!Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 				genreSwitched = false;
-			}
-
-			if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-				levelSelectPressed = true;
 			}
 
 			if (Gdx.input.isKeyPressed(Keys.TAB) && GameController.getInstance()
@@ -514,39 +511,25 @@ public class InputController {
 				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
 			}
 
-			//Switch between the texts nextLevel (0) and levelSelect (1)
-			if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
-				gc.setVictoryScreenItemSelected(1);
-			} else if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)){
-				gc.setVictoryScreenItemSelected(0);
-			}
 
 			//Click enter/return once selection has been chosen
 			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
-				gc.setPlayerCompletedLevel(false);
-				gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
-				System.out.println("LEVEL:" + gc.getCurrentLevel());
-				gc.exitScreen(GameController.NEXT_LEVEL);
+				if(gc.readyToGoToNextLevel && gc.getCurrentLevelInt() != 12) {
+					gc.setPlayerCompletedLevel(false);
+					gc.setCurrentLevelInt(gc.getCurrentLevelInt()+1);
+					gc.exitScreen(GameController.NEXT_LEVEL);
+					gc.readyToGoToNextLevel = false;
+					gc.setComplete(false);
 
-
-//				if(gc.getVictoryScreenItemSelected() == 0) {
-//					//GO TO NEXT LEVEL
-//					gc.exitScreen(gc.NEXT_LEVEL);
-//				} else if(gc.getVictoryScreenItemSelected() == 1) {
-//					//GO BACK TO LEVEL SELECT
-//					gc.exitScreen(gc.GO_TO_LEVEL_SELECT);
-//				}
-
-				if(gc.getVictoryScreenItemSelected() == 0) {
-					//GO TO NEXT LEVEL
-					gc.exitScreen(gc.NEXT_LEVEL);
-				} else if(gc.getVictoryScreenItemSelected() == 1) {
-					//GO BACK TO LEVEL SELECT
-					gc.exitScreen(gc.BACK_TO_LEVEL_SELECT);
+					if(GameController.getInstance().getCurrentLevelInt() == 9) {
+						GameController.displayStartCutScenes = true;
+						GameController.showLevel9StartingScreen[0] = false;
+						GameController.showLevel9StartingScreen[1] = false;
+					}
+				} else if(gc.readyToGoToNextLevel) {
+					gc.exitScreen(GameController.GO_TO_LEVEL_SELECT);
 				}
-
 			}
-
 
 		}
 

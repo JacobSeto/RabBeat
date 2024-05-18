@@ -1181,7 +1181,7 @@ public class GameCanvas {
 
 		// Horizontal movement
 		camera.position.lerp(new Vector3(
-				player.getX() * 67f, camera.position.y, 0),
+				player.getX() * 65.5f, camera.position.y, 0),
 				CAMERA_SPEED * Gdx.graphics.getDeltaTime()
 		);
 		// Vertical movement

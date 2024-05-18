@@ -47,7 +47,7 @@ public class BearEnemy extends Enemy {
      */
     public BearEnemy(JsonValue data, float startX, float startY, float width, float height, float enemyScale,
             boolean faceRight, int[] beatList, Genre genre) {
-        super(data, startX, startY, width, height, enemyScale, faceRight, beatList, genre);
+        super(data, startX, startY, width, height, enemyScale, faceRight, false, beatList, genre);
     }
 
     /**
