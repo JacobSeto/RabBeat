@@ -18,21 +18,6 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"labBg"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -805,8 +790,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":1715.9789252198,
-                 "y":478.591849451744
+                 "x":1715.98,
+                 "y":478.592
                 }, 
                 {
                  "gid":244,
@@ -823,8 +808,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":1824.9789252198,
-                 "y":478.591849451744
+                 "x":1824.98,
+                 "y":478.592
                 }, 
                 {
                  "gid":244,
@@ -841,8 +826,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":1930.9789252198,
-                 "y":480.591849451744
+                 "x":1930.98,
+                 "y":480.592
                 }, 
                 {
                  "gid":246,
@@ -913,8 +898,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":3614.99891512444,
-                 "y":319.503603488619
+                 "x":3615,
+                 "y":319.504
                 }, 
                 {
                  "gid":238,
@@ -1005,6 +990,39 @@
                  "width":128,
                  "x":4711,
                  "y":770
+                }, 
+                {
+                 "gid":218,
+                 "height":42,
+                 "id":726,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"tutorialText3"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
+                        }],
+                 "rotation":0,
+                 "type":"Pulse",
+                 "visible":true,
+                 "width":344,
+                 "x":1711.57,
+                 "y":358.916
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1333,21 +1351,6 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"stop_1"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1366,21 +1369,6 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"stop_2"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1435,21 +1423,6 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"dead_2"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1468,21 +1441,6 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"stop_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1501,28 +1459,13 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"yield_1"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
                  "visible":true,
                  "width":128,
-                 "x":3616.85891512444,
-                 "y":264.229603488619
+                 "x":3616.86,
+                 "y":264.23
                 }, 
                 {
                  "gid":261,
@@ -1539,8 +1482,8 @@
                  "type":"",
                  "visible":true,
                  "width":256,
-                 "x":2108.79396176565,
-                 "y":455.610656998767
+                 "x":2108.79,
+                 "y":455.611
                 }, 
                 {
                  "gid":359,
@@ -1552,21 +1495,6 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"arrow_13"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1639,21 +1567,6 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"dead_0"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
                         }],
                  "rotation":0,
                  "type":"Pulse",
@@ -1865,39 +1778,6 @@
                  "width":141,
                  "x":1527,
                  "y":719.978
-                }, 
-                {
-                 "gid":218,
-                 "height":42,
-                 "id":726,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"tutorialText3"
-                        }, 
-                        {
-                         "name":"pulsePerBeat",
-                         "type":"float",
-                         "value":1
-                        }, 
-                        {
-                         "name":"pulseScale",
-                         "type":"float",
-                         "value":1.1
-                        }, 
-                        {
-                         "name":"shrinkRate",
-                         "type":"float",
-                         "value":0.01
-                        }],
-                 "rotation":0,
-                 "type":"Pulse",
-                 "visible":true,
-                 "width":344,
-                 "x":1711.56865156269,
-                 "y":358.915531571219
                 }, 
                 {
                  "gid":272,
