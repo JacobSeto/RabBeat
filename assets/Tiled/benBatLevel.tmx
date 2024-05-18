@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="145" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="1373">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="145" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="1422">
  <editorsettings>
   <export target="../levelsJson/benBatLevel.tmj" format="json"/>
  </editorsettings>
@@ -11,93 +11,63 @@
  <tileset firstgid="196" source="BackgroundArt.tsx"/>
  <tileset firstgid="363" source="discoTileset.tsx"/>
  <tileset firstgid="369" source="AnimatedArt.tsx"/>
+ <tileset firstgid="378" source="houseTileset.tsx"/>
  <objectgroup id="2" name="background" locked="1">
-  <object id="536" name="0" gid="57" x="415" y="757" width="130" height="130">
-   <properties>
-    <property name="num" type="int" value="0"/>
-   </properties>
-  </object>
-  <object id="805" gid="195" x="9" y="1086" width="9696" height="1088">
-   <properties>
-    <property name="assetName" value="discoBg"/>
-   </properties>
-  </object>
+  <object id="1374" gid="193" x="16" y="1088" width="16383" height="1088"/>
  </objectgroup>
  <objectgroup id="21" name="decals">
-  <object id="845" gid="281" x="7013" y="906" width="400" height="456">
-   <properties>
-    <property name="assetName" value="showlight_1"/>
-   </properties>
-  </object>
+  <object id="1376" gid="373" x="444.968" y="516.503" width="69" height="74"/>
+  <object id="1377" gid="373" x="444.968" y="948.913" width="69" height="74"/>
+  <object id="1378" gid="373" x="1084.89" y="662.214" width="69" height="74"/>
+  <object id="1380" gid="373" x="1085.51" y="227.018" width="69" height="74"/>
+  <object id="1381" gid="373" x="1805.51" y="662" width="69" height="74"/>
+  <object id="1382" gid="373" x="1805.51" y="227.018" width="69" height="74"/>
+  <object id="1383" gid="373" x="3758.35" y="83.9322" width="69" height="74"/>
+  <object id="1384" gid="373" x="3756.06" y="390.709" width="69" height="74"/>
+  <object id="1385" gid="373" x="3949.52" y="403.3" width="69" height="74"/>
+  <object id="1386" gid="373" x="3949.52" y="645.974" width="69" height="74"/>
+  <object id="1387" gid="373" x="4139.53" y="389.564" width="69" height="74"/>
+  <object id="1388" gid="373" x="4140.68" y="83.9322" width="69" height="74"/>
+  <object id="1389" gid="373" x="4331.84" y="403.3" width="69" height="74"/>
+  <object id="1390" gid="373" x="4334.13" y="645.974" width="69" height="74"/>
+  <object id="1391" gid="373" x="5853.13" y="546.386" width="69" height="74"/>
+  <object id="1392" gid="373" x="6046.59" y="546.386" width="69" height="74"/>
+  <object id="1393" gid="373" x="5851.99" y="853.163" width="69" height="74"/>
+  <object id="1394" gid="373" x="6045.44" y="854.308" width="69" height="74"/>
+  <object id="1395" gid="373" x="6237.75" y="546.386" width="69" height="74"/>
+  <object id="1396" gid="373" x="6237.75" y="854.308" width="69" height="74"/>
+  <object id="1397" gid="373" x="6430.06" y="854.308" width="69" height="74"/>
+  <object id="1398" gid="373" x="6431.2" y="547.531" width="69" height="74"/>
+  <object id="1399" gid="373" x="6622.36" y="547.531" width="69" height="74"/>
+  <object id="1400" gid="373" x="6623.51" y="852.018" width="69" height="74"/>
  </objectgroup>
  <objectgroup id="18" name="backgroundArt">
-  <object id="776" gid="217" x="5712" y="1024" width="128" height="128">
-   <properties>
-    <property name="assetName" value="crack_4"/>
-   </properties>
-  </object>
-  <object id="803" gid="264" x="7017" y="575" width="128" height="128">
-   <properties>
-    <property name="assetName" value="spotlight_0"/>
-   </properties>
-  </object>
-  <object id="916" gid="51" x="4015" y="125" width="875" height="128">
-   <properties>
-    <property name="assetName" value="wires1"/>
-   </properties>
-  </object>
-  <object id="917" gid="51" x="4753" y="122" width="875" height="128">
-   <properties>
-    <property name="assetName" value="wires1"/>
-   </properties>
-  </object>
-  <object id="918" gid="51" x="5631" y="119" width="875" height="128">
-   <properties>
-    <property name="assetName" value="wires1"/>
-   </properties>
-  </object>
-  <object id="920" gid="51" x="6504" y="125" width="875" height="128">
-   <properties>
-    <property name="assetName" value="wires1"/>
-   </properties>
-  </object>
   <object id="921" gid="51" x="7382" y="125" width="875" height="128">
    <properties>
     <property name="assetName" value="wires1"/>
    </properties>
   </object>
-  <object id="922" gid="51" x="8247" y="114" width="875" height="128">
-   <properties>
-    <property name="assetName" value="wires1"/>
-   </properties>
-  </object>
+  <object id="1402" gid="298" x="1264" y="459.025" width="128" height="128"/>
+  <object id="1404" gid="299" x="1360" y="459.025" width="128" height="128"/>
+  <object id="1405" gid="304" x="1456" y="459.025" width="128" height="128"/>
+  <object id="1406" gid="301" x="1552" y="459.025" width="128" height="128"/>
+  <object id="1407" gid="305" x="132.249" y="277.875" width="192" height="192"/>
+  <object id="1408" gid="306" x="336" y="192" width="192" height="192"/>
+  <object id="1409" gid="361" x="240" y="192" width="192" height="192"/>
+  <object id="1410" gid="361" x="432" y="192" width="192" height="192"/>
+  <object id="1411" gid="361" x="1200" y="320" width="192" height="192"/>
+  <object id="1412" gid="361" x="1616" y="320" width="192" height="192"/>
+  <object id="1413" gid="362" x="1440" y="320" width="192" height="192"/>
+  <object id="1414" gid="306" x="1376" y="368" width="192" height="192"/>
+  <object id="1415" gid="358" x="1402.99" y="177.531" width="130" height="130"/>
+  <object id="1416" gid="361" x="7170.09" y="641.064" width="192" height="192"/>
+  <object id="1417" gid="377" x="6998.09" y="789.464" width="330" height="330"/>
+  <object id="1418" gid="362" x="3389.22" y="576.419" width="192" height="192"/>
+  <object id="1419" gid="362" x="3135.91" y="256.14" width="192" height="192"/>
+  <object id="1420" gid="362" x="5309.44" y="637.564" width="192" height="192"/>
+  <object id="1421" gid="362" x="7037.5" y="639.019" width="192" height="192"/>
  </objectgroup>
  <objectgroup id="13" name="platforms">
-  <object id="1027" type="laser" gid="138" x="784" y="384" width="32" height="64">
-   <properties>
-    <property name="align" value="bottom"/>
-   </properties>
-  </object>
-  <object id="1028" type="laser" gid="139" x="784" y="336" width="32" height="64">
-   <properties>
-    <property name="align" value="middle"/>
-   </properties>
-  </object>
-  <object id="1029" type="laser" gid="139" x="784" y="272" width="32" height="64">
-   <properties>
-    <property name="align" value="middle"/>
-   </properties>
-  </object>
-  <object id="1030" type="laser" gid="139" x="784" y="224" width="32" height="64">
-   <properties>
-    <property name="align" value="middle"/>
-   </properties>
-  </object>
-  <object id="1031" type="laser" gid="139" x="784" y="176" width="32" height="64">
-   <properties>
-    <property name="align" value="middle"/>
-   </properties>
-  </object>
   <object id="1033" type="laser" gid="140" x="464" y="512" width="32" height="64">
    <properties>
     <property name="align" value="top"/>
@@ -131,11 +101,6 @@
   <object id="1039" type="laser" gid="138" x="464" y="896" width="32" height="64">
    <properties>
     <property name="align" value="bottom"/>
-   </properties>
-  </object>
-  <object id="1051" type="laser" gid="139" x="784" y="128" width="32" height="64">
-   <properties>
-    <property name="align" value="middle"/>
    </properties>
   </object>
   <object id="1064" type="laser" gid="151" x="2176" y="624" width="64" height="32">
@@ -288,7 +253,7 @@
     <property name="align" value="bottom"/>
    </properties>
   </object>
-  <object id="1127" gid="152" x="3104" y="624" width="64" height="32">
+  <object id="1127" gid="152" x="3072" y="624" width="64" height="32">
    <properties>
     <property name="align" value="right"/>
    </properties>
@@ -308,7 +273,7 @@
     <property name="align" value="horizontal"/>
    </properties>
   </object>
-  <object id="1144" gid="152" x="3072" y="48" width="64" height="32">
+  <object id="1144" type="laser" gid="152" x="3072" y="48" width="64" height="32">
    <properties>
     <property name="align" value="right"/>
    </properties>
@@ -528,10 +493,8 @@
     <property name="align" value="middle"/>
    </properties>
   </object>
-  <object id="1359" gid="142" x="1376" y="736" width="192" height="32"/>
-  <object id="1361" gid="142" x="1376" y="928" width="192" height="32"/>
-  <object id="1364" gid="142" x="3392" y="608" width="192" height="32"/>
-  <object id="1365" gid="152" x="2304" y="48" width="64" height="32">
+  <object id="1364" gid="142" x="3392" y="640" width="192" height="32"/>
+  <object id="1365" type="laser" gid="152" x="2304" y="48" width="64" height="32">
    <properties>
     <property name="align" value="right"/>
    </properties>
@@ -546,7 +509,7 @@
     <property name="align" value="horizontal"/>
    </properties>
   </object>
-  <object id="1368" gid="152" x="2688" y="48" width="64" height="32">
+  <object id="1368" type="laser" gid="152" x="2688" y="48" width="64" height="32">
    <properties>
     <property name="align" value="right"/>
    </properties>
@@ -556,136 +519,31 @@
     <property name="align" value="left"/>
    </properties>
   </object>
-  <object id="1370" gid="142" x="3984" y="32" width="192" height="32"/>
-  <object id="1371" gid="142" x="4192" y="32" width="192" height="32"/>
-  <object id="1372" gid="142" x="4784" y="32" width="192" height="32"/>
  </objectgroup>
  <layer id="1" name="walls" width="145" height="17">
   <data encoding="csv">
-174,0,0,0,0,0,0,0,0,0,0,0,0,177,177,177,177,174,174,177,177,177,177,177,177,177,177,174,174,174,174,174,174,175,0,0,0,176,177,178,0,0,0,176,177,178,0,0,0,176,177,178,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,175,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,176,177,177,177,177,177,178,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,175,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,176,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,178,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,0,0,0,0,363,363,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,0,0,0,0,173,175,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,176,178,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,0,0,0,0,173,175,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,363,363,363,363,363,363,363,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,171,171,171,171,174,174,171,0,0,0,0,363,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,363,363,363,363,363,363,0,0,0,363,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,176,177,177,177,177,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,175,0,0,0,363,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,175,0,0,0,363,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,0,0,0,0,0,0,0,0,0,0,0,177,177,177,178,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,363,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,175,0,0,0,363,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,170,171,171,171,174,174,174,174,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,363,363,174,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,175,0,0,0,0,0,0,170,172,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,175,0,0,0,0,0,0,173,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,363,363,363,363,363,363,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,170,171,365,367,363,366,364,171,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,363,366,364,363,363,363,363,0,0,0,0,363,363,363,363,363,363,0,0,0,0,0,0,0,0,0,0,363,363,363,174,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,175,0,0,0,0,174,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,
-174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,175,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,173,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,174,173,174,174,174,174,174,174
+382,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,382,0,0,0,388,383,386,0,0,0,388,383,386,0,0,0,388,383,386,0,0,0,0,0,0,0,0,0,0,0,389,390,0,389,390,0,0,0,384,382,0,0,389,391,390,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+382,0,0,0,0,0,0,0,0,0,0,0,388,383,392,392,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,386,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+382,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,388,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,383,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+382,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+382,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,388,386,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,378,378,378,378,378,379,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,387,381,381,381,391,391,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,392,383,383,383,390,0,0,0,0,389,391,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,380,378,378,378,378,379,0,0,389,391,390,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,388,383,383,383,383,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,388,386,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,380,379,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,380,378,378,378,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,389,390,0,0,0,0,0,0,0,380,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,382,0,0,0,0,0,0,380,379,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,382,0,0,0,0,0,0,384,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,378,378,378,378,378,378,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,380,378,378,378,378,378,378,378,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,392,381,381,381,385,0,0,0,380,378,378,378,378,378,379,0,0,0,0,389,390,0,0,0,0,380,378,378,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,392,392,392,392,382,0,0,0,384,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,
+392,392,392,392,392,392,392,382,0,0,0,384,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,382,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,384,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392,392
 </data>
  </layer>
- <objectgroup id="20" name="wallArt">
-  <object id="828" type="Pulse" gid="273" x="7046" y="379" width="128" height="128">
-   <properties>
-    <property name="assetName" value="discoDecal_1"/>
-    <property name="pulsePerBeat" type="float" value="1"/>
-    <property name="pulseScale" type="float" value="1.1"/>
-    <property name="shrinkRate" type="float" value="0.01"/>
-   </properties>
-  </object>
-  <object id="829" type="Pulse" gid="275" x="7115" y="443" width="128" height="121">
-   <properties>
-    <property name="assetName" value="discoDecal_3"/>
-    <property name="pulsePerBeat" type="float" value="1"/>
-    <property name="pulseScale" type="float" value="1.1"/>
-    <property name="shrinkRate" type="float" value="0.01"/>
-   </properties>
-  </object>
-  <object id="830" type="Pulse" gid="275" x="8004" y="634" width="128" height="121">
-   <properties>
-    <property name="assetName" value="discoDecal_3"/>
-    <property name="pulsePerBeat" type="float" value="1"/>
-    <property name="pulseScale" type="float" value="1.1"/>
-    <property name="shrinkRate" type="float" value="0.01"/>
-   </properties>
-  </object>
-  <object id="831" type="Pulse" gid="272" x="7754" y="637" width="128" height="128">
-   <properties>
-    <property name="assetName" value="discoDecal_0"/>
-    <property name="pulsePerBeat" type="float" value="1"/>
-    <property name="pulseScale" type="float" value="1.1"/>
-    <property name="shrinkRate" type="float" value="0.01"/>
-   </properties>
-  </object>
-  <object id="832" type="Pulse" gid="272" x="9122" y="774" width="128" height="128">
-   <properties>
-    <property name="assetName" value="discoDecal_0"/>
-    <property name="pulsePerBeat" type="float" value="1"/>
-    <property name="pulseScale" type="float" value="1.1"/>
-    <property name="shrinkRate" type="float" value="0.01"/>
-   </properties>
-  </object>
-  <object id="833" type="Pulse" gid="275" x="9027" y="796" width="128" height="121">
-   <properties>
-    <property name="assetName" value="discoDecal_3"/>
-    <property name="pulsePerBeat" type="float" value="1"/>
-    <property name="pulseScale" type="float" value="1.1"/>
-    <property name="shrinkRate" type="float" value="0.01"/>
-   </properties>
-  </object>
-  <object id="868" gid="290" x="8856" y="942" width="120" height="120">
-   <properties>
-    <property name="assetName" value="neon_5"/>
-   </properties>
-  </object>
-  <object id="869" gid="287" x="8980" y="930" width="120" height="120">
-   <properties>
-    <property name="assetName" value="neon_1"/>
-   </properties>
-  </object>
-  <object id="870" gid="297" x="7883" y="632" width="120" height="120">
-   <properties>
-    <property name="assetName" value="neon_9"/>
-   </properties>
-  </object>
-  <object id="897" gid="289" x="9148" y="824" width="60" height="60">
-   <properties>
-    <property name="assetName" value="neon_3"/>
-   </properties>
-  </object>
-  <object id="898" gid="288" x="9088" y="875" width="70" height="70">
-   <properties>
-    <property name="assetName" value="neon_2"/>
-   </properties>
-  </object>
-  <object id="899" gid="296" x="9140" y="923" width="80" height="80">
-   <properties>
-    <property name="assetName" value="neon_4"/>
-   </properties>
-  </object>
-  <object id="900" gid="289" x="7153" y="250" width="60" height="60">
-   <properties>
-    <property name="assetName" value="neon_3"/>
-   </properties>
-  </object>
-  <object id="901" gid="288" x="7108" y="212" width="70" height="70">
-   <properties>
-    <property name="assetName" value="neon_2"/>
-   </properties>
-  </object>
-  <object id="902" gid="297" x="7078" y="972" width="120" height="120">
-   <properties>
-    <property name="assetName" value="neon_9"/>
-   </properties>
-  </object>
-  <object id="948" type="Pulse" gid="275" x="9021" y="1014" width="128" height="121">
-   <properties>
-    <property name="assetName" value="discoDecal_3"/>
-    <property name="pulsePerBeat" type="float" value="1"/>
-    <property name="pulseScale" type="float" value="1.1"/>
-    <property name="shrinkRate" type="float" value="0.01"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup id="20" name="wallArt"/>
  <objectgroup id="10" name="weightedPlatforms">
-  <object id="1003" type="Weighted Platform" gid="143" x="528" y="928" width="192" height="32">
+  <object id="1003" type="Weighted Platform" gid="143" x="512" y="928" width="192" height="32">
    <properties>
     <property name="genre" value="synth"/>
     <property name="moveTime" type="int" value="0"/>
@@ -694,7 +552,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1004" type="Weighted Platform" gid="141" x="528" y="416" width="192" height="32">
+  <object id="1004" type="Weighted Platform" gid="141" x="512" y="416" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
@@ -703,7 +561,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1008" type="Weighted Platform" gid="143" x="1187.33" y="915.818" width="192" height="32">
+  <object id="1008" type="Weighted Platform" gid="143" x="1171.33" y="931.818" width="192" height="32">
    <properties>
     <property name="genre" value="synth"/>
     <property name="moveTime" type="int" value="0"/>
@@ -712,7 +570,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1009" type="Weighted Platform" gid="141" x="1184" y="560" width="192" height="32">
+  <object id="1009" type="Weighted Platform" gid="141" x="1168" y="576" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
@@ -721,7 +579,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1010" type="Weighted Platform" gid="143" x="1566.12" y="912.788" width="192" height="32">
+  <object id="1010" type="Weighted Platform" gid="143" x="1582.12" y="928.788" width="192" height="32">
    <properties>
     <property name="genre" value="synth"/>
     <property name="moveTime" type="int" value="0"/>
@@ -730,7 +588,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1011" type="Weighted Platform" gid="141" x="1552" y="560" width="192" height="32">
+  <object id="1011" type="Weighted Platform" gid="141" x="1568" y="576" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
@@ -739,7 +597,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1117" type="Weighted Platform" gid="143" x="2190.12" y="672.788" width="192" height="32">
+  <object id="1117" type="Weighted Platform" gid="143" x="2174.12" y="686.345" width="192" height="32">
    <properties>
     <property name="genre" value="synth"/>
     <property name="moveTime" type="int" value="0"/>
@@ -748,7 +606,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1118" type="Weighted Platform" gid="141" x="2176" y="320" width="192" height="32">
+  <object id="1118" type="Weighted Platform" gid="141" x="2160" y="352" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
@@ -757,7 +615,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1119" type="Weighted Platform" gid="143" x="2382.12" y="672.788" width="192" height="32">
+  <object id="1119" type="Weighted Platform" gid="143" x="2366.12" y="686.345" width="192" height="32">
    <properties>
     <property name="genre" value="synth"/>
     <property name="moveTime" type="int" value="0"/>
@@ -766,7 +624,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1120" type="Weighted Platform" gid="141" x="2368" y="320" width="192" height="32">
+  <object id="1120" type="Weighted Platform" gid="141" x="2352" y="352" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
@@ -775,7 +633,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1121" type="Weighted Platform" gid="143" x="2574.12" y="672.788" width="192" height="32">
+  <object id="1121" type="Weighted Platform" gid="143" x="2558.12" y="686.345" width="192" height="32">
    <properties>
     <property name="genre" value="synth"/>
     <property name="moveTime" type="int" value="0"/>
@@ -784,7 +642,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1122" type="Weighted Platform" gid="141" x="2560" y="320" width="192" height="32">
+  <object id="1122" type="Weighted Platform" gid="141" x="2544" y="352" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
@@ -793,7 +651,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1123" type="Weighted Platform" gid="143" x="2766.12" y="672.788" width="192" height="32">
+  <object id="1123" type="Weighted Platform" gid="143" x="2750.12" y="686.345" width="192" height="32">
    <properties>
     <property name="genre" value="synth"/>
     <property name="moveTime" type="int" value="0"/>
@@ -802,7 +660,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1124" type="Weighted Platform" gid="141" x="2752" y="320" width="192" height="32">
+  <object id="1124" type="Weighted Platform" gid="141" x="2736" y="352" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
@@ -811,7 +669,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1125" type="Weighted Platform" gid="143" x="2958.12" y="672.788" width="192" height="32">
+  <object id="1125" type="Weighted Platform" gid="143" x="2942.12" y="686.345" width="192" height="32">
    <properties>
     <property name="genre" value="synth"/>
     <property name="moveTime" type="int" value="0"/>
@@ -820,7 +678,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="1126" type="Weighted Platform" gid="141" x="2944" y="320" width="192" height="32">
+  <object id="1126" type="Weighted Platform" gid="141" x="2928" y="352" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
@@ -1050,7 +908,7 @@
     <property name="beatList" value="15"/>
    </properties>
   </object>
-  <object id="1053" type="Bat" gid="59" x="720" y="368" width="176" height="97">
+  <object id="1053" type="Bat" gid="59" x="720" y="381.736" width="176" height="97">
    <properties>
     <property name="beatList" value="15"/>
    </properties>
@@ -1075,7 +933,7 @@
     <property name="beatList" value="15"/>
    </properties>
   </object>
-  <object id="1178" type="Bat" gid="59" x="3408" y="576" width="176" height="97">
+  <object id="1178" type="Bat" gid="59" x="3408" y="608" width="176" height="97">
    <properties>
     <property name="beatList" value="15"/>
    </properties>
@@ -1120,39 +978,34 @@
     <property name="beatList" value="2"/>
    </properties>
   </object>
-  <object id="1356" type="Bat" gid="59" x="6736" y="272" width="176" height="97">
-   <properties>
-    <property name="beatList" value="1"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup id="8" name="checkpoints">
-  <object id="1000" type="Checkpoint" gid="8" x="80" y="384" width="130" height="130">
-   <properties>
-    <property name="num" type="int" value="0"/>
-   </properties>
-  </object>
   <object id="1147" type="Checkpoint" gid="8" x="880" y="896" width="130" height="130">
    <properties>
     <property name="num" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1148" type="Checkpoint" gid="8" x="3232" y="320" width="130" height="130">
+  <object id="1148" type="Checkpoint" gid="8" x="3440" y="320" width="130" height="130">
    <properties>
     <property name="num" type="int" value="2"/>
    </properties>
   </object>
-  <object id="1357" type="Checkpoint" gid="8" x="5232" y="832" width="130" height="130">
+  <object id="1357" type="Checkpoint" gid="8" x="4560" y="640" width="130" height="130">
+   <properties>
+    <property name="num" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="1375" type="Checkpoint" gid="8" x="5568" y="704" width="130" height="130">
    <properties>
     <property name="num" type="int" value="2"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="6" name="player">
-  <object id="1002" gid="3" x="192" y="384" width="64" height="123"/>
+  <object id="1002" gid="3" x="128" y="320" width="64" height="123"/>
  </objectgroup>
  <objectgroup id="9" name="goal">
-  <object id="549" type="Checkpoint" gid="13" x="7104" y="832" width="128" height="130">
+  <object id="549" type="Checkpoint" gid="13" x="7097.56" y="832" width="128" height="130">
    <properties>
     <property name="num" type="int" value="3"/>
    </properties>

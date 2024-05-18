@@ -60,6 +60,10 @@ public class GDXRoot extends Game implements ScreenListener {
 
 	private Sound buttonTransition;
 
+	private int menuMusicVolume;
+
+	private float menuSFXVolume;
+
 
 	/**
 	 * Creates a new game from the configuration settings.
@@ -137,6 +141,10 @@ public class GDXRoot extends Game implements ScreenListener {
 		if(screen == initialLoading || exitCode == GameController.MAIN_MENU) {
 			directory = initialLoading.getAssets();
 			mainMenuMusic = directory.getEntry("music:mainmenu", Music.class);
+			Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+			menuMusicVolume = prefs.getInteger("musicVolume", 10);
+			mainMenuMusic.setVolume(menuMusicVolume / 10f);
+
 			controller.gatherAssets(directory);
 			controller.setScreenListener(this);
 			controller.setCanvas(canvas);
@@ -144,8 +152,13 @@ public class GDXRoot extends Game implements ScreenListener {
 			setScreen(mainMenuScreen);
 			buttonClicked = directory.getEntry("sfx:menubutton", Sound.class);
 			buttonTransition = directory.getEntry("sfx:menutransition", Sound.class);
+			prefs = Gdx.app.getPreferences("SFXVolume");
+			menuSFXVolume = prefs.getInteger("sfxVolume", 10) / 10f;
+			//buttonClicked.setVolume(0, 0);
+			//buttonTransition.setVolume(0, menuSFXVolume / 10f);
 			mainMenuScreen.setButtonClickedSound(buttonClicked);
 			mainMenuScreen.setButtonTransitionSound(buttonTransition);
+			mainMenuScreen.setSFXVolume(menuSFXVolume);
 			mainMenuMusic.setLooping(true);
 			//Main Menu Music setup
 			mainMenuMusic.play();
@@ -154,7 +167,7 @@ public class GDXRoot extends Game implements ScreenListener {
 		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
 			mainMenuMusic.stop();
 			if (screen == levelSelectorScreen) {
-				buttonClicked.play();
+				buttonClicked.play(menuSFXVolume);
 			}
 			controller = new GameController();
 			InputController.getInstance().setPaused(false);
@@ -170,8 +183,8 @@ public class GDXRoot extends Game implements ScreenListener {
 			createLevelSelectorScreen();
 			mainMenuMusic.setLooping(true);
 			mainMenuMusic.play();
-			if (exitCode == GameController.GO_TO_LEVEL_SELECT) {
-				buttonClicked.play();
+			if (screen == mainMenuScreen && exitCode == GameController.GO_TO_LEVEL_SELECT) {
+				buttonClicked.play(menuSFXVolume);
 			}
 		} else if (exitCode == GameController.EXIT_QUIT) {
 			Gdx.app.exit();
@@ -183,6 +196,7 @@ public class GDXRoot extends Game implements ScreenListener {
 		levelSelectorScreen = new LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
 		levelSelectorScreen.setMenuTransitionSound(buttonTransition);
+		levelSelectorScreen.setSFXVolume(menuSFXVolume);
 		setScreen(levelSelectorScreen);
 	}
 

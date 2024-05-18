@@ -302,11 +302,6 @@
   <object id="899" type="Bear" gid="9" x="489" y="1030" width="173" height="200"/>
  </objectgroup>
  <objectgroup id="8" name="checkpoints">
-  <object id="565" type="Checkpoint" gid="8" x="128" y="704" width="130" height="130">
-   <properties>
-    <property name="num" type="int" value="0"/>
-   </properties>
-  </object>
   <object id="576" type="Checkpoint" gid="8" x="3616.2" y="321.923" width="130" height="130">
    <properties>
     <property name="num" type="int" value="2"/>
@@ -329,7 +324,7 @@
   </object>
  </objectgroup>
  <objectgroup id="6" name="player">
-  <object id="2" name="player" gid="3" x="256" y="704" width="75" height="142"/>
+  <object id="2" name="player" gid="3" x="192" y="704" width="75" height="142"/>
  </objectgroup>
  <objectgroup id="9" name="goal">
   <object id="942" gid="76" x="7414" y="262" width="250" height="250"/>

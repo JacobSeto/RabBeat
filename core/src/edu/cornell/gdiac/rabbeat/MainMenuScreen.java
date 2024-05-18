@@ -67,6 +67,8 @@ public class MainMenuScreen extends ScreenAdapter {
     private boolean enterPressed;
     private boolean enterPrevious;
 
+    private float sfxVolume;
+
     public MainMenuScreen(Game game) {
         this.game = game;
     }
@@ -75,6 +77,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
     public void setButtonTransitionSound(Sound s) {buttonTransition = s;}
 
+    public void setSFXVolume(float vol) {sfxVolume = vol;}
 
     /** Displays the button UI for each level and adds a clickListener that detects whether
      * the button has been clicked and takes the player to the desired level
@@ -116,7 +119,7 @@ public class MainMenuScreen extends ScreenAdapter {
         playButton.addListener(new InputListener() {
             @Override
             public boolean mouseMoved(InputEvent event, float x, float y) {
-                buttonTransition.play();
+                buttonTransition.play(sfxVolume);
                 buttonSelected = "play";
                 return true;
             }
@@ -145,7 +148,7 @@ public class MainMenuScreen extends ScreenAdapter {
         optionsButton.addListener(new InputListener() {
             @Override
             public boolean mouseMoved(InputEvent event, float x, float y) {
-                buttonTransition.play();
+                buttonTransition.play(sfxVolume);
                 buttonSelected = "options";
                 return true;
             }
@@ -174,7 +177,7 @@ public class MainMenuScreen extends ScreenAdapter {
         quitButton.addListener(new InputListener() {
             @Override
             public boolean mouseMoved(InputEvent event, float x, float y) {
-                buttonTransition.play();
+                buttonTransition.play(sfxVolume);
                 buttonSelected = "quit";
                 return true;
             }
@@ -274,7 +277,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     buttonSelected = "options";
                     break;
             }
-            buttonTransition.play();
+            buttonTransition.play(sfxVolume);
         } else if (downPressed && !downPrevious) {
             switch (buttonSelected) {
                 case "quit":
@@ -287,7 +290,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     buttonSelected = "quit";
                     break;
             }
-            buttonTransition.play();
+            buttonTransition.play(sfxVolume);
         } else if (enterPressed && !enterPrevious) {
             switch (buttonSelected) {
                 case "play":
@@ -300,7 +303,7 @@ public class MainMenuScreen extends ScreenAdapter {
                     listener.exitScreen(this, GameController.EXIT_QUIT);
                     break;
             }
-            buttonClicked.play();
+            buttonClicked.play(sfxVolume);
         }
     }
 
