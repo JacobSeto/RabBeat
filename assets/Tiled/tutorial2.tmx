@@ -32,9 +32,9 @@
   <object id="760" gid="244" x="4349" y="206" width="128" height="128"/>
   <object id="761" gid="244" x="4451" y="206" width="128" height="128"/>
   <object id="762" gid="244" x="4553" y="206" width="128" height="128"/>
-  <object id="763" gid="244" x="5083" y="461" width="128" height="128"/>
-  <object id="764" gid="244" x="5185" y="461" width="128" height="128"/>
-  <object id="765" gid="244" x="5294" y="460" width="128" height="128"/>
+  <object id="763" gid="244" x="4997" y="461" width="128" height="128"/>
+  <object id="764" gid="244" x="5099" y="461" width="128" height="128"/>
+  <object id="765" gid="244" x="5208" y="460" width="128" height="128"/>
   <object id="767" gid="255" x="201" y="794" width="128" height="128"/>
   <object id="768" gid="252" x="603" y="776" width="64" height="64"/>
   <object id="769" gid="252" x="2640" y="782" width="64" height="64"/>
@@ -131,7 +131,6 @@
 </data>
  </layer>
  <objectgroup id="20" name="wallArt">
-  <object id="720" gid="222" x="336" y="891" width="237" height="40"/>
   <object id="723" gid="214" x="854" y="669" width="80" height="80"/>
   <object id="724" gid="223" x="2727" y="924" width="181" height="80"/>
   <object id="727" gid="224" x="2643" y="972" width="358" height="42"/>
