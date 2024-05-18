@@ -425,8 +425,8 @@
         "level7": "levelsJson/EricMediumLevel.tmj",
         "level8": "levelsJson/CrushLevel.tmj",
         "level9": "levelsJson/benTestHouseLevelDisco.tmj",
-        "level10": "levelsJson/tutorial1.tmj",
-        "level11": "levelsJson/tutorial1.tmj",
+        "level10": "levelsJson/easyBeeLevel.tmj",
+        "level11": "levelsJson/CharlesHardLevel.tmj",
         "level12": "levelsJson/houseArtLevel.tmj"
     },
     "sounds": {
