@@ -1,0 +1,19 @@
+smallPod.png
+size: 384, 192
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+smallPod
+  rotate: false
+  xy: 0, 0
+  size: 192, 192
+  orig: 192, 192
+  offset: 0, 0
+  index: 0
+smallPod
+  rotate: false
+  xy: 192, 0
+  size: 192, 192
+  orig: 192, 192
+  offset: 0, 0
+  index: 1

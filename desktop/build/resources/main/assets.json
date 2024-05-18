@@ -403,10 +403,10 @@
     "level6": "levelsJson/rabbeatLevelBat.tmj",
     "level7": "levelsJson/EricMediumLevel.tmj",
     "level8": "levelsJson/CrushLevel.tmj",
-    "level9": "levelsJson/benTestHouseLevelDisco.tmj",
-    "level10": "levelsJson/tutorial1.tmj",
+    "level9": "levelsJson/EricLaserLevel.tmj",
+    "level10": "levelsJson/benBatLevel.tmj",
     "level11": "levelsJson/CharlesHardLevel.tmj",
-    "level12": "levelsJson/houseArtLevel.tmj"
+    "level12": "levelsJson/FinalLevel1.tmj"
   },
   "sounds": {
     "sfx:genreSwitch": "sfx/genre_switch_woosh.wav",
