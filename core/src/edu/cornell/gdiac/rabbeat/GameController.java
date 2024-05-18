@@ -17,9 +17,14 @@
 package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation.SwingOut;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Timer.Task;
 import edu.cornell.gdiac.rabbeat.objects.enemies.Enemy;
 import edu.cornell.gdiac.rabbeat.objects.platforms.MovingPlatform;
@@ -529,6 +534,7 @@ public class GameController implements Screen, ContactListener {
 		// set the sound effects
 		initializeSFX(directory);
 		syncController.setSync(synthSoundtrack, jazzSoundtrack);
+		System.out.println(synthSoundtrack.getPosition());
 	}
 
 	/**
@@ -548,6 +554,7 @@ public class GameController implements Screen, ContactListener {
 		soundController.setJazzTrack(jazzSoundtrack);
 		soundController.setGlobalMusicVolume(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
+		soundController.resetMusic();
 	}
 
 	/**
@@ -1253,21 +1260,53 @@ public class GameController implements Screen, ContactListener {
 			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
 			canvas.draw(objectController.overlayTexture.getTexture(), Color.WHITE, 0, 0, 0, -10, 0,1.05f, 1.05f);
 			if(calibrateScreen){
-				canvas.draw(objectController.tapText.getTexture(), Color.WHITE, 0, 0, 860, 390, 0, 1f, 1f);
-				canvas.draw(objectController.pressSpace.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.75f, 0.75f);
-				int beatNum = syncController.beat.getBeatFour();
-				int beatX = 875;
-				int xSpace = 75;
-				for(int i = 1; i < 5; i++){
-					if(i == beatNum){
-						canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f * pulse, 1f * pulse);
+
+				//calibration beats
+				if(inCalibration) {
+					canvas.draw(objectController.tapText.getTexture(), Color.WHITE, 0, 0, 860, 390,
+							0, 1f, 1f);
+					canvas.draw(objectController.pressSpace.getTexture(), Color.WHITE, 0, 0, 860,
+							310, 0, 0.75f, 0.75f);
+					int beatX = 875;
+					int xSpace = 75;
+					int beatNum = syncController.calibrationCount % 4 + 1 == 0 ? 4
+							: syncController.calibrationCount % 4 + 1;
+					for (int i = 1; i < 5; i++) {
+						if (i == beatNum) {
+							canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0,
+									0, beatX, 200, 0, 1.25f, 1.25f);
+						} else {
+							canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE,
+									0, 0, beatX, 200, 0, 1f, 1f);
+						}
+						beatX += xSpace;
 					}
-					else{
-						canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f, 1f);
-					}
-					beatX+=xSpace;
+					//Delay Display
+					canvas.drawText("Calibration: " +  (int)(((float)syncController.calibrationCount / syncController.NUM_CALIBRATION_STEPS)*100)  + "%", objectController.displayFont, 750, 175);
 				}
-				canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 830, 100);
+				else{
+					//counting beats
+
+					canvas.draw(objectController.tapText.getTexture(), Color.WHITE, 0, 0, 860, 390, 0, 1f, 1f);
+					canvas.draw(objectController.pressSpace.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.75f, 0.75f);
+					int beatNum = syncController.beat.getBeatFour();
+					int beatX = 875;
+					int xSpace = 75;
+					for(int i = 1; i < 5; i++){
+						if(i == beatNum){
+							canvas.draw(objectController.onBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f * pulse, 1f * pulse);
+						}
+						else{
+							canvas.draw(objectController.offBeatTexture.getTexture(), Color.WHITE, 0, 0, beatX, 200, 0, 1f, 1f);
+						}
+						beatX+=xSpace;
+					}
+					//Delay Display
+					canvas.draw(objectController.audioAdjustLeft.getTexture(), Color.WHITE, 0, 0, 1075, 40, 0,1f, 1f);
+					canvas.draw(objectController.audioAdjustLeft.getTexture(), Color.WHITE, 0, 0, 1255, 40, 0, -1f, 1f);
+					canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 720, 80);
+				}
+
 			}
 			else{
 				canvas.draw(objectController.resumeTexture.getTexture(), Color.WHITE, 0, 0, 860, 400, 0, 0.5f, 0.5f);
