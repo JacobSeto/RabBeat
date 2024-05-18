@@ -84,6 +84,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
     private Sound menuTransitionSound;
 
+    private float sfxVolume;
+
     /** Reference to the numberOfLevels variable in GameController */
     private final int numberOfLevels = GameController.getInstance().getNumberOfLevels();
 
@@ -99,6 +101,8 @@ public class LevelSelectorScreen extends ScreenAdapter {
     public void setMenuTransitionSound(Sound s) {
         menuTransitionSound = s;
     }
+
+    public void setSFXVolume(float vol) {sfxVolume = vol;}
 
     /** Displays the button UI for each level and adds a clickListener that detects whether
      * the button has been clicked and takes the player to the desired level
@@ -204,7 +208,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                         hover11 = false;
                         hover12 = false;
 
-                        menuTransitionSound.play();
+                        menuTransitionSound.play(sfxVolume);
 
                         switch (finalI) {
                             case (1):
@@ -584,7 +588,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     break;
             }
         else if (downPressed && !downPrevious) {
-            menuTransitionSound.play();
+            menuTransitionSound.play(sfxVolume);
             if(hover1 && numberOfLevelsUnlocked > 1) {
                 hover1 = false;
                 hover2 = true;
@@ -620,7 +624,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hover12 = true;
             }
         } else if (upPressed && !upPrevious) {
-            menuTransitionSound.play();
+            menuTransitionSound.play(sfxVolume);
             if (hover12) {
                 hover12 = false;
                 hover11 = true;
@@ -657,7 +661,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
             }
         }
             else if (rightPressed && !rightPrevious) {
-                menuTransitionSound.play();
+                menuTransitionSound.play(sfxVolume);
                 if(hover8) {
                     hover8 = false;
                     hover12 = true;
@@ -685,7 +689,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 }
             }
             else if (leftPressed && !leftPrevious) {
-                menuTransitionSound.play();
+                menuTransitionSound.play(sfxVolume);
                 if(hover8) {
                     hover8 = false;
                     hover4 = true;
