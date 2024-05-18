@@ -1142,7 +1142,10 @@ public class GameController implements Screen, ContactListener {
 
 		// Victory Screen
 		if (complete && !failed) {
+<<<<<<< Updated upstream
 			System.out.println("COMPLETE: " + currentLevelInt);
+=======
+>>>>>>> Stashed changes
 			if((currentLevelInt == 1 && !showFirstVictoryScreen && !showSecondVictoryScreen)
 					|| (currentLevelInt == 12 && !showFirstVictoryScreen && !showSecondVictoryScreen
 					&& !showThirdVictoryScreen && !showFourthVictoryScreen)) {
