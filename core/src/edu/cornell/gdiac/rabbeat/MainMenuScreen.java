@@ -116,6 +116,7 @@ public class MainMenuScreen extends ScreenAdapter {
         playButton.addListener(new InputListener() {
             @Override
             public boolean mouseMoved(InputEvent event, float x, float y) {
+                buttonTransition.play();
                 buttonSelected = "play";
                 return true;
             }
@@ -144,6 +145,7 @@ public class MainMenuScreen extends ScreenAdapter {
         optionsButton.addListener(new InputListener() {
             @Override
             public boolean mouseMoved(InputEvent event, float x, float y) {
+                buttonTransition.play();
                 buttonSelected = "options";
                 return true;
             }
@@ -172,6 +174,7 @@ public class MainMenuScreen extends ScreenAdapter {
         quitButton.addListener(new InputListener() {
             @Override
             public boolean mouseMoved(InputEvent event, float x, float y) {
+                buttonTransition.play();
                 buttonSelected = "quit";
                 return true;
             }

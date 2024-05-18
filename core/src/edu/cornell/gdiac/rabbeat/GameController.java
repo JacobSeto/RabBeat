@@ -607,6 +607,7 @@ public class GameController implements Screen, ContactListener {
 			default:
 				break;
 		}
+		soundController.addSound("uiTransition", directory.getEntry("sfx:menutransition", Sound.class));
 
 	}
 
@@ -809,9 +810,11 @@ public class GameController implements Screen, ContactListener {
 				// work the first frame of pausing but that should be fine
 				if (input.didPressDownWhilePaused()) {
 					pauseItemSelected = (pauseItemSelected + 1) % 6;
+					soundController.playSFX("uiTransition");
 				}
 				if (input.didPressUpWhilePaused()) { // not using else if on purpose
 					pauseItemSelected--;
+					soundController.playSFX("uiTransition");
 					if (pauseItemSelected == -1) {
 						pauseItemSelected = 5;
 					}
