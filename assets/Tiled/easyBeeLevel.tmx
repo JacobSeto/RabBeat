@@ -283,7 +283,7 @@
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="0"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="774" type="Weighted Platform" gid="141" x="8068" y="448" width="192" height="32">
@@ -291,7 +291,7 @@
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="1"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="776" type="Weighted Platform" gid="141" x="8260" y="448" width="192" height="32">
@@ -299,7 +299,7 @@
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="2"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="778" type="Weighted Platform" gid="141" x="8452" y="448" width="192" height="32">
@@ -307,7 +307,7 @@
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="780" type="Weighted Platform" gid="141" x="8644" y="448" width="192" height="32">
@@ -315,42 +315,42 @@
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="4"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="768" type="Weighted Platform" gid="143" x="7876" y="1000" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="0"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="773" type="Weighted Platform" gid="143" x="8067.58" y="1000" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="1"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="775" type="Weighted Platform" gid="143" x="8259.58" y="1000" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="2"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="777" type="Weighted Platform" gid="143" x="8451.58" y="1000" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="779" type="Weighted Platform" gid="143" x="8643.58" y="1000" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="4"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>
@@ -476,7 +476,7 @@
     <property name="num" type="int" value="2"/>
    </properties>
   </object>
-  <object id="841" type="Checkpoint" gid="8" x="1828" y="897" width="130" height="130">
+  <object id="841" type="Checkpoint" gid="8" x="1232" y="576" width="130" height="130">
    <properties>
     <property name="num" type="int" value="1"/>
    </properties>
