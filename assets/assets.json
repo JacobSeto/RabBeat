@@ -425,7 +425,8 @@
     "sfx:hiphopCutscene": "sfx/hiphop_cutscene.wav",
     "sfx:jazzCutscene": "sfx/jazz_cutscene.wav",
     "sfx:popCutscene": "sfx/pop_cutscene.wav",
-    "sfx:rockCutscene": "sfx/rock_cutscene.wav"
+    "sfx:rockCutscene": "sfx/rock_cutscene.wav",
+    "sfx:glass": "sfx/glass.wav"
   },
   "music": {
     "music:mainmenu": "music/main_menu.ogg",
