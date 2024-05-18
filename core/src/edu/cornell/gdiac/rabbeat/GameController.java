@@ -603,11 +603,11 @@ public class GameController implements Screen, ContactListener {
 				soundController.addSound("cutscene",
 						directory.getEntry("sfx:classicalCutscene", Sound.class));
 				break;
-			case 9: // COUNTRY
+			case 10: // COUNTRY
 				soundController.addSound("cutscene",
 						directory.getEntry("sfx:countryCutscene", Sound.class));
 				break;
-			case 10: // HIP HOP
+			case 11: // HIP HOP
 				soundController.addSound("cutscene",
 						directory.getEntry("sfx:hiphopCutscene", Sound.class));
 				break;
@@ -1224,7 +1224,7 @@ public class GameController implements Screen, ContactListener {
 			if (!cutscenePlayed) {
 				cutscenePlayed = true;
 				switch (currentLevelInt) {
-					case 1: case 4: case 6: case 8: case 9: case 10:
+					case 1: case 4: case 6: case 8: case 10: case 11:
 						soundController.playSFX("cutscene");
 						break;
 					default:
