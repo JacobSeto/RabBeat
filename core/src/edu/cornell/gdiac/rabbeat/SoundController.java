@@ -90,6 +90,9 @@ public class SoundController {
 
     }
 
+    public void setGlobalSFXVolumeImmediate(float vol) {
+        globalSFXVolume = vol;
+    }
     public void setGlobalMusicVolumeImmediate(float vol, boolean paused) {
         globalMusicVolume = vol;
         if (currentGenre == Genre.SYNTH) {
@@ -159,7 +162,7 @@ public class SoundController {
      * @return the new sound instance for this asset.
      */
     public long replaySound(Sound sound, long soundId) {
-        return replaySound( sound, soundId, globalSFXVolume );
+        return replaySound( sound, soundId, 1 );
     }
 
 
