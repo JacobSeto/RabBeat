@@ -626,27 +626,51 @@
   <image width="192" height="192" source="../world/lights/light.png"/>
  </tile>
  <tile id="116">
+  <properties>
+   <property name="assetName" value="arrow_0"/>
+  </properties>
   <image width="128" height="128" source="../world/arrows/arrow_0.png"/>
  </tile>
  <tile id="117">
+  <properties>
+   <property name="assetName" value="arrow_1"/>
+  </properties>
   <image width="128" height="128" source="../world/arrows/arrow_1.png"/>
  </tile>
  <tile id="118">
+  <properties>
+   <property name="assetName" value="arrow_2"/>
+  </properties>
   <image width="128" height="128" source="../world/arrows/arrow_2.png"/>
  </tile>
  <tile id="119">
+  <properties>
+   <property name="assetName" value="arrow_3"/>
+  </properties>
   <image width="128" height="128" source="../world/arrows/arrow_3.png"/>
  </tile>
  <tile id="120">
+  <properties>
+   <property name="assetName" value="arrow_4"/>
+  </properties>
   <image width="128" height="128" source="../world/arrows/arrow_4.png"/>
  </tile>
  <tile id="121">
+  <properties>
+   <property name="assetName" value="arrow_5"/>
+  </properties>
   <image width="128" height="128" source="../world/arrows/arrow_5.png"/>
  </tile>
  <tile id="122">
+  <properties>
+   <property name="assetName" value="arrow_6"/>
+  </properties>
   <image width="128" height="128" source="../world/arrows/arrow_6.png"/>
  </tile>
  <tile id="123">
+  <properties>
+   <property name="assetName" value="arrow_7"/>
+  </properties>
   <image width="128" height="128" source="../world/arrows/arrow_7.png"/>
  </tile>
  <tile id="124">

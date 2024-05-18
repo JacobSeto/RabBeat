@@ -2933,24 +2933,6 @@
                 {
                  "gid":8,
                  "height":130,
-                 "id":565,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"num",
-                         "type":"int",
-                         "value":0
-                        }],
-                 "rotation":0,
-                 "type":"Checkpoint",
-                 "visible":true,
-                 "width":130,
-                 "x":128,
-                 "y":704
-                }, 
-                {
-                 "gid":8,
-                 "height":130,
                  "id":576,
                  "name":"",
                  "properties":[
@@ -3040,7 +3022,7 @@
                  "type":"",
                  "visible":true,
                  "width":75,
-                 "x":256,
+                 "x":192,
                  "y":704
                 }],
          "opacity":1,
