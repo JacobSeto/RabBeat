@@ -2783,7 +2783,7 @@
                  "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
-                 "x":5344,
+                 "x":5296,
                  "y":544
                 }, 
                 {
@@ -2821,7 +2821,7 @@
                  "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
-                 "x":4880,
+                 "x":4832,
                  "y":544
                 }],
          "opacity":1,
@@ -3027,7 +3027,7 @@
          "y":0
         }],
  "nextlayerid":22,
- "nextobjectid":947,
+ "nextobjectid":948,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -3060,6 +3060,10 @@
         {
          "firstgid":230,
          "source":"..\/Tiled\/BackgroundArt.tsx"
+        }, 
+        {
+         "firstgid":397,
+         "source":"..\/Tiled\/AnimatedArt.tsx"
         }],
  "tilewidth":64,
  "type":"map",

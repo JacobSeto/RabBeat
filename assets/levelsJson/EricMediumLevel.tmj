@@ -569,9 +569,24 @@
                          "name":"assetName",
                          "type":"string",
                          "value":"speaker_5"
+                        }, 
+                        {
+                         "name":"pulsePerBeat",
+                         "type":"float",
+                         "value":1
+                        }, 
+                        {
+                         "name":"pulseScale",
+                         "type":"float",
+                         "value":1.1
+                        }, 
+                        {
+                         "name":"shrinkRate",
+                         "type":"float",
+                         "value":0.01
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Pulse",
                  "visible":true,
                  "width":192,
                  "x":3392,
@@ -921,8 +936,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":1152.4,
-                 "y":353.803
+                 "x":1180.20623445046,
+                 "y":276.238240743451
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2852,7 +2867,7 @@
                  "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
-                 "x":7424,
+                 "x":7488,
                  "y":864
                 }, 
                 {
@@ -2890,7 +2905,7 @@
                  "type":"Weighted Platform",
                  "visible":true,
                  "width":192,
-                 "x":7424,
+                 "x":7488,
                  "y":480
                 }],
          "opacity":1,
@@ -3091,8 +3106,8 @@
                  "type":"Moving Platform",
                  "visible":true,
                  "width":192,
-                 "x":8112,
-                 "y":384
+                 "x":7728,
+                 "y":320
                 }, 
                 {
                  "gid":142,
@@ -3130,7 +3145,7 @@
                  "visible":true,
                  "width":192,
                  "x":8528,
-                 "y":384
+                 "y":320
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3369,24 +3384,6 @@
                  "width":130,
                  "x":7024,
                  "y":1360
-                }, 
-                {
-                 "gid":8,
-                 "height":130,
-                 "id":800,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"num",
-                         "type":"int",
-                         "value":2
-                        }],
-                 "rotation":0,
-                 "type":"Checkpoint",
-                 "visible":true,
-                 "width":130,
-                 "x":4896,
-                 "y":1456
                 }],
          "opacity":1,
          "type":"objectgroup",

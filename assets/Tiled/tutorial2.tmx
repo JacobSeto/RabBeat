@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="947">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="948">
  <editorsettings>
   <export target="../levelsJson/tutorial2.tmj" format="json"/>
  </editorsettings>
@@ -10,6 +10,7 @@
  <tileset firstgid="175" source="rabbeatTileset.tsx"/>
  <tileset firstgid="196" source="Tutorial.tsx"/>
  <tileset firstgid="230" source="BackgroundArt.tsx"/>
+ <tileset firstgid="397" source="AnimatedArt.tsx"/>
  <objectgroup id="2" name="background" locked="1">
   <object id="690" gid="170" x="0" y="1088" width="6464" height="1088"/>
  </objectgroup>
@@ -191,7 +192,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="710" type="Weighted Platform" gid="141" x="5344" y="544" width="192" height="32">
+  <object id="710" type="Weighted Platform" gid="141" x="5296" y="544" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="1"/>
@@ -199,7 +200,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="711" type="Weighted Platform" gid="143" x="4880" y="544" width="192" height="32">
+  <object id="711" type="Weighted Platform" gid="143" x="4832" y="544" width="192" height="32">
    <properties>
     <property name="num" type="int" value="1"/>
     <property name="platformInterval" type="int" value="0"/>

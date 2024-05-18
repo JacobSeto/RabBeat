@@ -45,7 +45,7 @@
   <object id="853" gid="267" x="2919" y="319" width="128" height="128"/>
   <object id="803" gid="264" x="7017" y="575" width="128" height="128"/>
   <object id="856" type="Pulse" gid="279" x="2624" y="640" width="140" height="140"/>
-  <object id="907" gid="262" x="3392" y="672" width="192" height="192"/>
+  <object id="907" type="Pulse" gid="262" x="3392" y="672" width="192" height="192"/>
   <object id="912" gid="51" x="394" y="160" width="875" height="128"/>
   <object id="913" gid="51" x="1121" y="174" width="875" height="128"/>
   <object id="914" gid="51" x="2144" y="272" width="875" height="128"/>
@@ -98,7 +98,7 @@
     <property name="align" value="left"/>
    </properties>
   </object>
-  <object id="802" gid="134" x="1152.4" y="353.803" width="128" height="32"/>
+  <object id="802" gid="134" x="1180.21" y="276.238" width="128" height="32"/>
  </objectgroup>
  <layer id="1" name="walls" width="145" height="17">
   <data encoding="csv">
@@ -211,7 +211,7 @@
     <property name="waitTime" type="int" value="1"/>
    </properties>
   </object>
-  <object id="721" type="Weighted Platform" gid="143" x="7424" y="864" width="192" height="32">
+  <object id="721" type="Weighted Platform" gid="143" x="7488" y="864" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="1"/>
@@ -219,7 +219,7 @@
     <property name="waitTime" type="int" value="1"/>
    </properties>
   </object>
-  <object id="722" type="Weighted Platform" gid="141" x="7424" y="480" width="192" height="32">
+  <object id="722" type="Weighted Platform" gid="141" x="7488" y="480" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
@@ -262,7 +262,7 @@
     <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
-  <object id="718" type="Moving Platform" gid="142" x="8112" y="384" width="192" height="32">
+  <object id="718" type="Moving Platform" gid="142" x="7728" y="320" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="2"/>
@@ -271,7 +271,7 @@
     <property name="waitTime" type="int" value="3"/>
    </properties>
   </object>
-  <object id="719" type="Moving Platform" gid="142" x="8528" y="384" width="192" height="32">
+  <object id="719" type="Moving Platform" gid="142" x="8528" y="320" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="2"/>
@@ -342,11 +342,6 @@
   <object id="798" type="Checkpoint" gid="8" x="7024" y="1360" width="130" height="130">
    <properties>
     <property name="num" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="800" type="Checkpoint" gid="8" x="4896" y="1456" width="130" height="130">
-   <properties>
-    <property name="num" type="int" value="2"/>
    </properties>
   </object>
  </objectgroup>
