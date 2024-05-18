@@ -52,11 +52,11 @@
   <object id="923" gid="255" x="1670" y="984" width="128" height="128"/>
   <object id="932" gid="240" x="3007" y="220" width="960" height="128"/>
   <object id="835" gid="256" x="510" y="449" width="128" height="128"/>
- </objectgroup>
- <objectgroup id="18" name="backgroundArt">
-  <object id="722" gid="221" x="731" y="473" width="321" height="42"/>
   <object id="728" gid="225" x="3257" y="585" width="407" height="42"/>
   <object id="732" gid="229" x="4020" y="624" width="321" height="73"/>
+  <object id="722" gid="221" x="731" y="473" width="321" height="42"/>
+ </objectgroup>
+ <objectgroup id="18" name="backgroundArt">
   <object id="819" gid="250" x="715" y="909" width="128" height="128"/>
   <object id="820" gid="250" x="1113" y="370" width="128" height="128"/>
   <object id="822" gid="251" x="2083" y="274" width="128" height="128"/>
