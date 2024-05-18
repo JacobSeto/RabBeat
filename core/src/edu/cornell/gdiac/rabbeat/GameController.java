@@ -607,6 +607,7 @@ public class GameController implements Screen, ContactListener {
 			default:
 				break;
 		}
+		soundController.addSound("uiTransition", directory.getEntry("sfx:menutransition", Sound.class));
 
 	}
 
@@ -810,9 +811,11 @@ public class GameController implements Screen, ContactListener {
 				// work the first frame of pausing but that should be fine
 				if (input.didPressDownWhilePaused()) {
 					pauseItemSelected = (pauseItemSelected + 1) % 6;
+					soundController.playSFX("uiTransition");
 				}
 				if (input.didPressUpWhilePaused()) { // not using else if on purpose
 					pauseItemSelected--;
+					soundController.playSFX("uiTransition");
 					if (pauseItemSelected == -1) {
 						pauseItemSelected = 5;
 					}
@@ -1197,6 +1200,17 @@ public class GameController implements Screen, ContactListener {
 				showFirstVictoryScreen = true;
 			}
 
+			if (!cutscenePlayed) {
+				cutscenePlayed = true;
+				switch (currentLevelInt) {
+					case 1: case 4: case 6: case 8: case 10: case 12:
+						soundController.playSFX("cutscene");
+						break;
+					default:
+						break;
+				}
+			}
+
 			if(currentLevelInt != 1 && currentLevelInt != 12) {
 				readyToGoToNextLevel = true;
 			}
@@ -1410,6 +1424,7 @@ public class GameController implements Screen, ContactListener {
 	public void exitLevel () {
 		soundController.resetMusic();
 		soundController.pauseMusic();
+		displayStartCutScenes = false;
 		exitScreen(0);
 	}
 

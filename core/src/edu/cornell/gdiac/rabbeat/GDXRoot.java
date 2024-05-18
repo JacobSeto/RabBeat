@@ -58,6 +58,8 @@ public class GDXRoot extends Game implements ScreenListener {
 	/** using this for level selection, could put it in LevelSelectorScreen but it's easier to put it here */
 	private Sound buttonClicked;
 
+	private Sound buttonTransition;
+
 
 	/**
 	 * Creates a new game from the configuration settings.
@@ -141,8 +143,9 @@ public class GDXRoot extends Game implements ScreenListener {
 			InputController.getInstance().setPaused(true);
 			setScreen(mainMenuScreen);
 			buttonClicked = directory.getEntry("sfx:menubutton", Sound.class);
+			buttonTransition = directory.getEntry("sfx:menutransition", Sound.class);
 			mainMenuScreen.setButtonClickedSound(buttonClicked);
-			mainMenuScreen.setButtonTransitionSound(directory.getEntry("sfx:menutransition", Sound.class));
+			mainMenuScreen.setButtonTransitionSound(buttonTransition);
 			mainMenuMusic.setLooping(true);
 			//Main Menu Music setup
 			mainMenuMusic.play();
@@ -179,6 +182,7 @@ public class GDXRoot extends Game implements ScreenListener {
 	public void createLevelSelectorScreen() {
 		levelSelectorScreen = new LevelSelectorScreen(this);
 		levelSelectorScreen.setListener(this);
+		levelSelectorScreen.setMenuTransitionSound(buttonTransition);
 		setScreen(levelSelectorScreen);
 	}
 
