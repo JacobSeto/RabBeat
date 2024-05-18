@@ -141,6 +141,7 @@
     "ui:levelName:synthLvl12": "ui/levelName/synthLvl12.png",
 
     "ui:calibration:calibrateText": "ui/calibration/calibrateText.png",
+    "ui:calibration:calibrateStartText" : "ui/calibration/calibrateStartText.png",
     "ui:calibration:audioDelayDisplay": "ui/calibration/audioDelayDisplay.png",
     "ui:calibration:offBeat": "ui/calibration/offBeat.png",
     "ui:calibration:onBeat": "ui/calibration/onBeat.png",
@@ -515,7 +516,7 @@
   "fonts": {
     "fonts:retro": {
       "file": "fonts/RetroGame.ttf",
-      "size": 48
+      "size": 30
     }
   },
   "atlas": {
