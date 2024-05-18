@@ -791,8 +791,16 @@
     <property name="align" value="middle"/>
    </properties>
   </object>
-  <object id="1398" gid="132" x="13184" y="608" width="128" height="32"/>
-  <object id="1399" gid="134" x="12992" y="320" width="128" height="32"/>
+  <object id="1398" gid="132" x="13184" y="608" width="128" height="32">
+   <properties>
+    <property name="align" value="left"/>
+   </properties>
+  </object>
+  <object id="1399" gid="134" x="12992" y="320" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
   <object id="1413" gid="137" x="14528" y="384" width="192" height="32"/>
   <object id="1414" gid="137" x="15040" y="384" width="192" height="32"/>
   <object id="1432" gid="137" x="15616" y="160" width="192" height="32"/>
@@ -818,7 +826,11 @@
   </object>
   <object id="1457" gid="134" x="1600" y="352" width="128" height="32"/>
   <object id="1459" gid="137" x="6512" y="288" width="192" height="32"/>
-  <object id="1466" gid="134" x="12976" y="832" width="128" height="32"/>
+  <object id="1466" gid="134" x="12976" y="832" width="128" height="32">
+   <properties>
+    <property name="align" value="right"/>
+   </properties>
+  </object>
   <object id="1468" type="laser" gid="139" x="9872" y="704" width="32" height="64">
    <properties>
     <property name="align" value="middle"/>
@@ -969,6 +981,7 @@
   <object id="1397" type="Beehive" gid="14" x="12976" y="272" width="150" height="150">
    <properties>
     <property name="beatList" value="1"/>
+    <property name="beeBeat" type="float" value="1"/>
     <property name="isRight" type="bool" value="true"/>
    </properties>
   </object>
