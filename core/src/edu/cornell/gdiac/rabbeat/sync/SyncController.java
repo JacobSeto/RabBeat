@@ -107,7 +107,7 @@ public class SyncController {
         beatInterval.checkForNewInterval(
                 (musicPos - audioDelay) / beatInterval.getIntervalLength(BPM), true);
         uiSyncPulse.update();
-        uiPulseInterval.checkForNewInterval((musicPos - audioDelay) / uiPulseInterval.getIntervalLength(BPM), isPaused);
+        uiPulseInterval.checkForNewInterval((musicPos - audioDelay) / uiPulseInterval.getIntervalLength(BPM) -.5f, isPaused);
         animationInterval.checkForNewInterval(
                 (musicPos - visualDelay - audioDelay) / animationInterval.getIntervalLength(BPM), !isPaused);
         for (Interval i : intervals) {
@@ -134,7 +134,6 @@ public class SyncController {
      * beat calculation
      */
     public void calibrate() {
-        System.out.println("calibrate");
         beatLatencyList.add(calibrateDT);
         calibrationCount++;
         if (calibrationCount >= NUM_CALIBRATION_STEPS) {
@@ -142,13 +141,11 @@ public class SyncController {
             float averageDelay = 0;
             int numCalibrations = Math.min(beatLatencyList.size, beat.beatLatencyList.size);
             for (int i = 0; i < numCalibrations; i++) {
-                System.out.println("actual: " + beatLatencyList.get(i) + ", sunc: " + beat.beatLatencyList.get(i));
                 averageDelay += (beatLatencyList.get(i) - beat.beatLatencyList.get(i));
             }
             beatLatencyList.clear();
             beat.beatLatencyList.clear();
             audioDelay =  (float)(Math.round((averageDelay / numCalibrations)*100)) / 100  ;
-            System.out.println("delay: " + (audioDelay*100) + "ms");
             calibrationCount = 0;
             calibrateDT = 0;
             beat.beatDT = 0;

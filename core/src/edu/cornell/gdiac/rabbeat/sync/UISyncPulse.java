@@ -6,7 +6,7 @@ public class UISyncPulse implements  ISynced{
      */
 
     /** The scale that it is multiplied by on beat*/
-    float PULSE_SCALE = 1.25f;
+    float PULSE_SCALE = 1.1f;
     /** The speed at which the scale shrinks per frame update*/
     float SHRINK_RATE = .01f;
 
@@ -15,7 +15,7 @@ public class UISyncPulse implements  ISynced{
 
     /** The number of times the UI reacts to the beat*/
 
-    float uiBeat = 1;
+    float uiBeat = .5f;
 
     @Override
     public float getBeat() {
