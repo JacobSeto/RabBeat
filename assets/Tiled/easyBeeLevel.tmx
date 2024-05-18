@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="154" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="975">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="154" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="976">
  <editorsettings>
   <export target="../levelsJson/easyBeeLevel.tmj" format="json"/>
  </editorsettings>
@@ -192,6 +192,7 @@
   </object>
   <object id="843" gid="137" x="2724" y="526" width="192" height="32"/>
   <object id="845" gid="132" x="1088" y="832" width="128" height="32"/>
+  <object id="975" gid="132" x="3584" y="432" width="128" height="32"/>
  </objectgroup>
  <layer id="1" name="walls" width="154" height="17">
   <data encoding="csv">
@@ -447,7 +448,7 @@
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="695" type="Beehive" gid="14" x="3402.22" y="468.337" width="150" height="150">
+  <object id="695" type="Beehive" gid="14" x="3568" y="576" width="150" height="150">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
