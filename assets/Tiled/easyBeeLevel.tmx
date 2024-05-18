@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="154" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="975">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="154" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="976">
  <editorsettings>
   <export target="../levelsJson/easyBeeLevel.tmj" format="json"/>
  </editorsettings>
@@ -192,6 +192,7 @@
   </object>
   <object id="843" gid="137" x="2724" y="526" width="192" height="32"/>
   <object id="845" gid="132" x="1088" y="832" width="128" height="32"/>
+  <object id="975" gid="132" x="3584" y="432" width="128" height="32"/>
  </objectgroup>
  <layer id="1" name="walls" width="154" height="17">
   <data encoding="csv">
@@ -283,7 +284,7 @@
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="0"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="774" type="Weighted Platform" gid="141" x="8068" y="448" width="192" height="32">
@@ -291,7 +292,7 @@
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="1"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="776" type="Weighted Platform" gid="141" x="8260" y="448" width="192" height="32">
@@ -299,7 +300,7 @@
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="2"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="778" type="Weighted Platform" gid="141" x="8452" y="448" width="192" height="32">
@@ -307,7 +308,7 @@
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="780" type="Weighted Platform" gid="141" x="8644" y="448" width="192" height="32">
@@ -315,42 +316,42 @@
     <property name="genre" value="jazz"/>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="4"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="768" type="Weighted Platform" gid="143" x="7876" y="1000" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="0"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="773" type="Weighted Platform" gid="143" x="8067.58" y="1000" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="1"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="775" type="Weighted Platform" gid="143" x="8259.58" y="1000" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="2"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="777" type="Weighted Platform" gid="143" x="8451.58" y="1000" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="3"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
   <object id="779" type="Weighted Platform" gid="143" x="8643.58" y="1000" width="192" height="32">
    <properties>
     <property name="moveTime" type="int" value="0"/>
     <property name="num" type="int" value="4"/>
-    <property name="platformInterval" type="int" value="1"/>
+    <property name="platformInterval" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>
@@ -447,7 +448,7 @@
     <property name="beatList" value="1"/>
    </properties>
   </object>
-  <object id="695" type="Beehive" gid="14" x="3402.22" y="468.337" width="150" height="150">
+  <object id="695" type="Beehive" gid="14" x="3568" y="576" width="150" height="150">
    <properties>
     <property name="beatList" value="1"/>
    </properties>
@@ -476,7 +477,7 @@
     <property name="num" type="int" value="2"/>
    </properties>
   </object>
-  <object id="841" type="Checkpoint" gid="8" x="1828" y="897" width="130" height="130">
+  <object id="841" type="Checkpoint" gid="8" x="1232" y="576" width="130" height="130">
    <properties>
     <property name="num" type="int" value="1"/>
    </properties>

@@ -1274,6 +1274,18 @@
                  "width":128,
                  "x":1088,
                  "y":832
+                }, 
+                {
+                 "gid":132,
+                 "height":32,
+                 "id":975,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":3584,
+                 "y":432
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2837,7 +2849,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -2875,7 +2887,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -2913,7 +2925,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -2951,7 +2963,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -2989,7 +3001,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3027,7 +3039,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3065,7 +3077,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3103,7 +3115,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3141,7 +3153,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3179,7 +3191,7 @@
                         {
                          "name":"platformInterval",
                          "type":"int",
-                         "value":1
+                         "value":0
                         }, 
                         {
                          "name":"waitTime",
@@ -3661,8 +3673,8 @@
                  "type":"Beehive",
                  "visible":true,
                  "width":150,
-                 "x":3402.22,
-                 "y":468.337
+                 "x":3568,
+                 "y":576
                 }, 
                 {
                  "gid":14,
@@ -3795,8 +3807,8 @@
                  "type":"Checkpoint",
                  "visible":true,
                  "width":130,
-                 "x":1828,
-                 "y":897
+                 "x":1232,
+                 "y":576
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3869,7 +3881,7 @@
          "y":0
         }],
  "nextlayerid":22,
- "nextobjectid":975,
+ "nextobjectid":976,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
