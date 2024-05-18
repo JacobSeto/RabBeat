@@ -99,7 +99,6 @@
   <object id="893" gid="51" x="3016" y="117" width="875" height="128"/>
   <object id="894" gid="51" x="3885" y="122" width="875" height="128"/>
   <object id="895" gid="51" x="4759" y="117" width="875" height="128"/>
-  <object id="896" gid="73" x="5660" y="518" width="320" height="320"/>
   <object id="898" gid="67" x="5803" y="188" width="128" height="128"/>
   <object id="900" gid="67" x="2617" y="448" width="128" height="128"/>
   <object id="901" gid="51" x="624" y="128" width="875" height="128"/>
@@ -192,7 +191,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="710" type="Weighted Platform" gid="141" x="5392" y="544" width="192" height="32">
+  <object id="710" type="Weighted Platform" gid="141" x="5344" y="544" width="192" height="32">
    <properties>
     <property name="genre" value="jazz"/>
     <property name="num" type="int" value="1"/>
@@ -200,7 +199,7 @@
     <property name="waitTime" type="int" value="0"/>
    </properties>
   </object>
-  <object id="711" type="Weighted Platform" gid="143" x="4928" y="544" width="192" height="32">
+  <object id="711" type="Weighted Platform" gid="143" x="4880" y="544" width="192" height="32">
    <properties>
     <property name="num" type="int" value="1"/>
     <property name="platformInterval" type="int" value="0"/>
@@ -228,11 +227,6 @@
  <objectgroup id="13" name="platforms"/>
  <objectgroup id="7" name="enemies"/>
  <objectgroup id="8" name="checkpoints">
-  <object id="565" type="Checkpoint" gid="8" x="368" y="768" width="130" height="130">
-   <properties>
-    <property name="num" type="int" value="0"/>
-   </properties>
-  </object>
   <object id="576" type="Checkpoint" gid="8" x="2752" y="768" width="130" height="130">
    <properties>
     <property name="num" type="int" value="1"/>
@@ -240,10 +234,10 @@
   </object>
  </objectgroup>
  <objectgroup id="6" name="player">
-  <object id="2" name="player" gid="3" x="464" y="768" width="75" height="142"/>
+  <object id="2" name="player" gid="3" x="256" y="768" width="75" height="142"/>
  </objectgroup>
  <objectgroup id="9" name="goal">
-  <object id="703" gid="13" x="6208" y="512" width="128" height="130"/>
+  <object id="703" gid="13" x="6192" y="512" width="128" height="130"/>
  </objectgroup>
  <objectgroup id="12" name="foregroundArt" class="bigwire"/>
 </map>

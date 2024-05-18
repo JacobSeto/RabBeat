@@ -776,24 +776,6 @@
                  "y":843
                 }, 
                 {
-                 "gid":72,
-                 "height":320,
-                 "id":1147,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"cam_0"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":320,
-                 "x":2368,
-                 "y":832
-                }, 
-                {
                  "gid":229,
                  "height":128,
                  "id":1173,
@@ -808,7 +790,7 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":4220,
+                 "x":4189.70309028479,
                  "y":508
                 }, 
                 {
@@ -841,8 +823,8 @@
                  "type":"Pulse",
                  "visible":true,
                  "width":128,
-                 "x":4222,
-                 "y":568
+                 "x":4188.99023766242,
+                 "y":559.326735339662
                 }, 
                 {
                  "gid":210,
@@ -1453,8 +1435,8 @@
                  "type":"",
                  "visible":true,
                  "width":128,
-                 "x":6442,
-                 "y":571
+                 "x":6448,
+                 "y":592
                 }, 
                 {
                  "gid":320,
@@ -1475,58 +1457,22 @@
                  "y":211
                 }, 
                 {
-                 "gid":352,
-                 "height":200,
-                 "id":1256,
+                 "gid":229,
+                 "height":128,
+                 "id":1159,
                  "name":"",
                  "properties":[
                         {
                          "name":"assetName",
                          "type":"string",
-                         "value":"toxic_0"
+                         "value":"pole_1"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":200,
-                 "x":499,
-                 "y":958
-                }, 
-                {
-                 "gid":353,
-                 "height":200,
-                 "id":1257,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"toxic_1"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":200,
-                 "x":628,
-                 "y":959
-                }, 
-                {
-                 "gid":354,
-                 "height":200,
-                 "id":1258,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"toxic_2"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":200,
-                 "x":571,
-                 "y":960
+                 "width":128,
+                 "x":3646,
+                 "y":836
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1808,24 +1754,6 @@
                  "width":128,
                  "x":2625,
                  "y":576
-                }, 
-                {
-                 "gid":224,
-                 "height":128,
-                 "id":915,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"spot_6"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":128,
-                 "x":4227,
-                 "y":517
                 }, 
                 {
                  "gid":224,
@@ -2505,8 +2433,8 @@
                  "type":"",
                  "visible":true,
                  "width":320,
-                 "x":1485,
-                 "y":893
+                 "x":1472,
+                 "y":896
                 }, 
                 {
                  "gid":74,
@@ -2523,7 +2451,7 @@
                  "type":"",
                  "visible":true,
                  "width":320,
-                 "x":1936,
+                 "x":1952,
                  "y":896
                 }, 
                 {
@@ -2592,8 +2520,8 @@
                  "type":"Pulse",
                  "visible":true,
                  "width":128,
-                 "x":3647,
-                 "y":721
+                 "x":3648,
+                 "y":736
                 }, 
                 {
                  "gid":252,
@@ -2648,24 +2576,6 @@
                  "width":64,
                  "x":5283,
                  "y":1028
-                }, 
-                {
-                 "gid":229,
-                 "height":128,
-                 "id":1159,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"assetName",
-                         "type":"string",
-                         "value":"pole_1"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":128,
-                 "x":3646,
-                 "y":836
                 }, 
                 {
                  "gid":224,
@@ -3023,6 +2933,24 @@
                  "width":192,
                  "x":3100,
                  "y":474
+                }, 
+                {
+                 "gid":359,
+                 "height":160,
+                 "id":1262,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"assetName",
+                         "type":"string",
+                         "value":"tvs"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":160,
+                 "x":2448,
+                 "y":832
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -4161,7 +4089,7 @@
          "y":0
         }],
  "nextlayerid":22,
- "nextobjectid":1259,
+ "nextobjectid":1263,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
