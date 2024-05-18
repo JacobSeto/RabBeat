@@ -1356,8 +1356,7 @@ public class GameController implements Screen, ContactListener {
 				else{
 					//counting beats
 
-					canvas.draw(objectController.tapText.getTexture(), Color.WHITE, 0, 0, 860, 390, 0, 1f, 1f);
-					canvas.draw(objectController.pressSpace.getTexture(), Color.WHITE, 0, 0, 860, 310, 0, 0.75f, 0.75f);
+					canvas.draw(objectController.calibrateStartText.getTexture(), Color.WHITE, 0, 0, 810, 320, 0, .75f, .75f);
 					int beatNum = syncController.beat.getBeatFour();
 					int beatX = 875;
 					int xSpace = 75;
@@ -1371,8 +1370,9 @@ public class GameController implements Screen, ContactListener {
 						beatX+=xSpace;
 					}
 					//Delay Display
-					canvas.draw(objectController.audioAdjustLeft.getTexture(), Color.WHITE, 0, 0, 1075, 40, 0,1f, 1f);
-					canvas.draw(objectController.audioAdjustLeft.getTexture(), Color.WHITE, 0, 0, 1255, 40, 0, -1f, 1f);
+					//canvas.draw(objectController.audioAdjustLeft.getTexture(), Color.WHITE, 0, 0, 1075, 40, 0,1f, 1f);
+					//canvas.draw(objectController.audioAdjustLeft.getTexture(), Color.WHITE, 0, 0, 1255, 40, 0, -1f, 1f);
+					canvas.drawText("Hold + or - keys to adjust", objectController.displayFont, 700, 160);
 					canvas.drawText("Delay: " +(int)(syncController.audioDelay*100) + "ms", objectController.displayFont, 720, 80);
 				}
 

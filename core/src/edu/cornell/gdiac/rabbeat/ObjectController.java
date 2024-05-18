@@ -312,6 +312,7 @@ public class ObjectController {
 
     public TextureRegion backButtonTexture;
     public TextureRegion calibrateTextTexture;
+    public TextureRegion calibrateStartText;
     public TextureRegion audioDelayDisplayTexture;
     public TextureRegion offBeatTexture;
     public TextureRegion onBeatTexture;
@@ -636,6 +637,7 @@ public class ObjectController {
         backButtonTexture = new TextureRegion(directory.getEntry("ui:backButton", Texture.class));
 
         calibrateTextTexture = new TextureRegion(directory.getEntry("ui:calibration:calibrateText", Texture.class));
+        calibrateStartText = new TextureRegion(directory.getEntry("ui:calibration:calibrateStartText", Texture.class));
         audioDelayDisplayTexture = new TextureRegion(
                 directory.getEntry("ui:calibration:audioDelayDisplay", Texture.class));
         offBeatTexture = new TextureRegion(directory.getEntry("ui:calibration:offBeat", Texture.class));
