@@ -16,6 +16,8 @@ public class Checkpoint extends BoxGameObject implements ISyncedAnimated {
     private final int index;
     /** Indicates whether the checkpoint is active */
     public boolean isActive;
+    /** Indicates whether the checkpoint is rising */
+    private boolean isRising = false;
 
     /** The active animation */
     private Animation<TextureRegion> activeAnimation;
@@ -27,6 +29,9 @@ public class Checkpoint extends BoxGameObject implements ISyncedAnimated {
     public Animation<TextureRegion> animation;
     /** The elapsed time for animationUpdate */
     private float stateTime = 0;
+
+    /** The animation playing is rising */
+    private boolean animationIsRising = false;
 
     /**
      * Creates a new checkpoint.
@@ -56,17 +61,19 @@ public class Checkpoint extends BoxGameObject implements ISyncedAnimated {
      * @param dt	Number of seconds since last animation frame
      */
     public void update(float dt) {
-        if (isActive) {
-            if (animation.isAnimationFinished(stateTime)) {
-                stateTime = 0;
-                setAnimation(activeAnimation);
-            }
-        } else {
-            if (animation.isAnimationFinished(stateTime)) {
-                stateTime = 0;
-                setAnimation(inactiveAnimation);
+        if (animationIsRising) {
+            if (riseAnimation.isAnimationFinished(stateTime)) {
+                isRising = false;
+                animationIsRising = false;
             }
         }
+
+        if (!isActive) {
+            setAnimation(inactiveAnimation);
+        } else if (!isRising) {
+            setAnimation(activeAnimation);
+        }
+
         super.update(dt);
     }
 
@@ -87,10 +94,24 @@ public class Checkpoint extends BoxGameObject implements ISyncedAnimated {
      * Sets the checkpoint as active and changes the texture of the checkpoint.
      */
     public void setActive() {
+        isRising = true;
         isActive = true;
+        setAnimation(riseAnimation);
+        animationIsRising = true;
+        stateTime = 0;
     }
 
-    public void setActive(boolean act) { isActive = act;}
+    public void setActive(boolean act) {
+        if (act) {
+            isRising = true;
+            isActive = true;
+            setAnimation(riseAnimation);
+            animationIsRising = true;
+            stateTime = 0;
+        } else {
+            isActive = false;
+        }
+    }
 
     @Override
     public float getBeat() {
