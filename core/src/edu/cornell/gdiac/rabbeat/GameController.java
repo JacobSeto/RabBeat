@@ -537,7 +537,6 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory Reference to global asset manager.
 	 */
 	public void setSoundtrack(AssetDirectory directory) {
-		soundController.USE_INSTANT_SWITCH = false;
 		if (synthSoundtrack != null) {
 			synthSoundtrack.dispose();
 		}
@@ -681,6 +680,7 @@ public class GameController implements Screen, ContactListener {
 	 * Initialize the game for the first time
 	 */
 	public void initialize() {
+		soundController.USE_INSTANT_SWITCH = false;
 		isGenreSwitchLocked = getCurrentLevelInt() <= 2;
 		genre = getCurrentLevelInt() == 2 ? Genre.JAZZ : Genre.SYNTH;
 		if (getCurrentLevelInt() == 2) {
@@ -959,7 +959,6 @@ public class GameController implements Screen, ContactListener {
 			if ((bd1 == objectController.player && bd2 == objectController.goalDoor) ||
 					(bd1 == objectController.goalDoor && bd2 == objectController.player)) {
 				setComplete(true);
-				soundController.USE_INSTANT_SWITCH = true;
 			}
 
 			// Bullet and Bee Collision checks
@@ -1191,7 +1190,9 @@ public class GameController implements Screen, ContactListener {
 		}
 
 		// Victory Screen
-		if (complete && !failed) {if((currentLevelInt == 1 && !showFirstVictoryScreen && !showSecondVictoryScreen)
+		if (complete && !failed) {
+			soundController.USE_INSTANT_SWITCH = true;
+			if((currentLevelInt == 1 && !showFirstVictoryScreen && !showSecondVictoryScreen)
 					|| (currentLevelInt == 12 && !showFirstVictoryScreen && !showSecondVictoryScreen
 					&& !showThirdVictoryScreen && !showFourthVictoryScreen && !showFifthVictoryScreen)) {
 				showFirstVictoryScreen = true;
@@ -1219,6 +1220,8 @@ public class GameController implements Screen, ContactListener {
 			incrementLevelsUnlocked();
 		} else if (failed) {
 			objectController.displayFont.setColor(Color.RED);
+		} else {
+			soundController.USE_INSTANT_SWITCH = false;
 		}
 
 		canvas.begin(true);
@@ -1628,6 +1631,7 @@ public class GameController implements Screen, ContactListener {
 
 	/** Called when the game screen needs to be exited out of */
 	public void exitScreen ( int exitCode){
+		soundController.pauseMusic();
 		listener.exitScreen(this, exitCode);
 	}
 
