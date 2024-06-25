@@ -251,8 +251,11 @@ public class LoadingMode implements Screen, InputProcessor, ControllerListener {
 			assets.update(budget);
 			this.progress = assets.getProgress();
 			if (progress >= 1.0f) {
-				this.progress = 1.0f;
-				playButton = internal.getEntry("play",Texture.class);
+				pressState = 2;
+
+//				This code below draws the play button. Delete line above to return button.
+//				this.progress = 1.0f;
+//				playButton = internal.getEntry("play",Texture.class);
 			}
 		}
 	}
@@ -323,7 +326,7 @@ public class LoadingMode implements Screen, InputProcessor, ControllerListener {
 			update(delta);
 			draw();
 
-			// We are are ready, notify our listener
+			// We are ready, notify our listener
 			if (isReady() && listener != null) {
 				listener.exitScreen(this, 3);
 			}
@@ -474,7 +477,7 @@ public class LoadingMode implements Screen, InputProcessor, ControllerListener {
 	 *
 	 * The buttonCode is controller specific. This listener only supports the start
 	 * button on an X-Box controller.  This outcome of this method is identical to 
-	 * releasing the the play button after pressing it.
+	 * releasing the play button after pressing it.
 	 *
 	 * @param controller The game controller
 	 * @param buttonCode The button pressed
