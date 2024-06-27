@@ -31,7 +31,7 @@ public class RoundedRectGameObject extends SimpleGameObject {
 	/** Shape information for the end cap */
 	protected CircleShape end1;
 	/** Shape information for the end cap */
-	protected CircleShape end2;
+	protected PolygonShape end2;
 	/** Rectangle representation of capsule core for fast computation */
 	protected Rectangle center;
 
@@ -47,8 +47,11 @@ public class RoundedRectGameObject extends SimpleGameObject {
 	private Fixture cap2;
 	/** Cache of the polygon vertices (for resizing) */
 	private float[] vertices;
+    /** Cache of the semi-oval vertices */
+    private final Vector2[] end2Vertices;
 
-	/** A cache value for computing fixtures */
+
+    /** A cache value for computing fixtures */
 	private Vector2 posCache = new Vector2();
 	/** The seam offset of the core rectangle */
 	private float seamEpsilon;
@@ -181,10 +184,11 @@ public class RoundedRectGameObject extends SimpleGameObject {
 		sizeCache = new Vector2();
 		shape = new PolygonShape();
 		end1 = new CircleShape();
-		end2 = new CircleShape();
+		end2 = new PolygonShape();
 
 		center = new Rectangle();
 		vertices = new float[8];
+        end2Vertices = new Vector2[7];
 
 		core = null;
 		cap1 = null;
@@ -226,8 +230,18 @@ public class RoundedRectGameObject extends SimpleGameObject {
 		vertices[6] = center.x+center.width;
 		vertices[7] = center.y;
 		shape.set(vertices);
+
 		end1.setRadius(r);
-		end2.setRadius(r);
+
+        // Make the bottom semi-oval
+        end2Vertices[0] = new Vector2(r, 0f);
+        end2Vertices[1] = new Vector2(r, -5f * r / 7f);
+        end2Vertices[2] = new Vector2(6f * r / 7f, -27f * r / 28f);
+        end2Vertices[3] = new Vector2(0f, -r);
+        end2Vertices[4] = new Vector2(-6f * r / 7f, -27f * r / 28f);
+        end2Vertices[5] = new Vector2(-r, -5f * r / 7f);
+        end2Vertices[6] = new Vector2(-r, 0f);
+        end2.set(end2Vertices);
 	}
 
 
@@ -277,7 +291,13 @@ public class RoundedRectGameObject extends SimpleGameObject {
 		fixture.shape = end1;
 		cap1 = body.createFixture(fixture);
 		posCache.y = center.y;
-		end2.setPosition(posCache);
+
+        // Set the position of the semi-oval
+        for (int i = 0; i < end2Vertices.length; i++) {
+            end2Vertices[i] = new Vector2(posCache.x + end2Vertices[i].x, posCache.y + end2Vertices[i].y);
+        }
+        end2.set(end2Vertices);
+
 		fixture.shape = end2;
 		cap2 = body.createFixture(fixture);
 
@@ -331,8 +351,9 @@ public class RoundedRectGameObject extends SimpleGameObject {
 			dx = (float)(r*Math.cos(-Math.PI/2.0f+getAngle()));
 			dy = (float)(r*Math.sin(-Math.PI/2.0f+getAngle()));
 
-			canvas.drawPhysics(end2,Color.YELLOW,getX()+dx,getY()+dy,drawScale.x,drawScale.y);
+//			canvas.drawPhysics(end2,Color.YELLOW,getX()+dx,getY()+dy,drawScale.x,drawScale.y);
 		}
-	}
+        canvas.drawPhysics(end2,Color.YELLOW,getX(),getY(),getAngle(),drawScale.x,drawScale.y);
+    }
 
 }
