@@ -61,6 +61,21 @@ public class ObjectController {
     /** Reference to the character avatar */
     public Player player;
 
+    private static ObjectController theController = null;
+
+
+    /**
+     * Return the singleton instance of the input controller
+     *
+     * @return the singleton instance of the input controller
+     */
+    public static ObjectController getInstance() {
+        if (theController == null) {
+            theController = new ObjectController();
+        }
+        return theController;
+    }
+
     /**
      * Physics constants for initialization
      * TODO: constants has some relevant information for game controller and this
@@ -122,6 +137,11 @@ public class ObjectController {
     public Texture synthLevel10Name;
     public Texture synthLevel11Name;
     public Texture synthLevel12Name;
+
+    public Texture blurredCreditsBackground;
+    public Texture creditsNonGlow;
+    public Texture creditsGlow;
+    public Texture creditsScreen;
 
 
     /** The texture for weighted platforms in Synth mode */
@@ -582,6 +602,7 @@ public class ObjectController {
         lockedButton11 = directory.getEntry("ui:lockedLevels:lockedLevel11", Texture.class);
         lockedButton12 = directory.getEntry("ui:lockedLevels:lockedLevel12", Texture.class);
 
+
         levelButtonHover1 = directory.getEntry("ui:levelButtonsHoverState:level1ButtonHover", Texture.class);
         levelButtonHover2 = directory.getEntry("ui:levelButtonsHoverState:level2ButtonHover", Texture.class);
         levelButtonHover3 = directory.getEntry("ui:levelButtonsHoverState:level3ButtonHover", Texture.class);
@@ -594,6 +615,11 @@ public class ObjectController {
         levelButtonHover10 = directory.getEntry("ui:levelButtonsHoverState:level10ButtonHover", Texture.class);
         levelButtonHover11 = directory.getEntry("ui:levelButtonsHoverState:level11ButtonHover", Texture.class);
         levelButtonHover12 = directory.getEntry("ui:levelButtonsHoverState:level12ButtonHover", Texture.class);
+
+        blurredCreditsBackground = directory.getEntry("ui:credits:blurredBackground", Texture.class);
+        creditsNonGlow = directory.getEntry("ui:credits:credits-nonglow", Texture.class);
+        creditsGlow = directory.getEntry("ui:credits:credits-glow", Texture.class);
+        creditsScreen = directory.getEntry("ui:credits:creditsScreen", Texture.class);
 
         victoryScreenBackground = new TextureRegion(directory.getEntry("ui:victoryScreen", Texture.class));
         victoryScreens.put("level1VS-1", new TextureRegion(directory.getEntry("ui:lvl1VS-1", Texture.class)));

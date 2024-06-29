@@ -66,7 +66,6 @@ public class GDXRoot extends Game implements ScreenListener {
 
 	private int menuSFXVolumeAsInt;
 
-
 	/**
 	 * Creates a new game from the configuration settings.
 	 *
@@ -158,7 +157,7 @@ public class GDXRoot extends Game implements ScreenListener {
 			buttonTransition = directory.getEntry("sfx:menutransition", Sound.class);
 			prefs = Gdx.app.getPreferences("SFXVolume");
 			menuSFXVolumeAsInt = prefs.getInteger("sfxVolume", 10);
-			menuSFXVolume =  menuSFXVolumeAsInt / 10f;
+			menuSFXVolume =  menuSFXVolumeAsInt / 1f;
 			//buttonClicked.setVolume(0, 0);
 			//buttonTransition.setVolume(0, menuSFXVolume / 10f);
 			mainMenuScreen.setButtonClickedSound(buttonClicked);
@@ -186,7 +185,10 @@ public class GDXRoot extends Game implements ScreenListener {
 			levelSelectorScreen.finishedLoadingLevel = true;
 			setScreen(controller);
 		}else if (screen == controller || exitCode == GameController.GO_TO_LEVEL_SELECT) {
+
 			createLevelSelectorScreen();
+			levelSelectorScreen.setCanSwitch(false);
+			//mainMenuMusic = directory.getEntry("music:mainmenu", Music.class);
 			mainMenuMusic.setLooping(true);
 			Preferences prefs = Gdx.app.getPreferences("MusicVolume");
 			menuMusicVolume = prefs.getInteger("musicVolume", 10);
