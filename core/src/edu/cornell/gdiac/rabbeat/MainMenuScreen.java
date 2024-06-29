@@ -424,7 +424,7 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
-        creditsSelectImage.setPosition((float) background.getWidth()/2 - creditsSelectImage.getWidth()/2, creditsButton.getY());
+        creditsSelectImage.setPosition((float) background.getWidth()/2 - creditsSelectImage.getWidth()/2, creditsButton.getY() - 15);
         stage.addActor(creditsSelectImage);
         stage.addActor(creditsButton);
 
