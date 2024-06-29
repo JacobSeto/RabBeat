@@ -80,6 +80,10 @@ public class MainMenuScreen extends ScreenAdapter {
 
     private Image volumeBox;
     private Texture background;
+    private Texture blurredBackground;
+
+    private Image backgroundImage;
+    private Image blurredBackgroundImage;
 
     private boolean downPressed;
     private boolean downPrevious;
@@ -137,9 +141,16 @@ public class MainMenuScreen extends ScreenAdapter {
         // Background
         background = GameController.getInstance().objectController.mainMenuBackground;
         TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(background));
-        Image bg = new Image(backgroundDrawable);
-        bg.setPosition(0, 0);
-        stage.addActor(bg);
+        backgroundImage = new Image(backgroundDrawable);
+        backgroundImage.setPosition(0, 0);
+        stage.addActor(backgroundImage);
+
+        blurredBackground = GameController.getInstance().objectController.blurredBackground;
+        TextureRegionDrawable blurredBackgroundDrawable = new TextureRegionDrawable(new TextureRegion(blurredBackground));
+        blurredBackgroundImage = new Image(blurredBackgroundDrawable);
+        blurredBackgroundImage.setPosition(0, 0);
+        blurredBackgroundImage.setScale(0.5f);
+        stage.addActor(blurredBackgroundImage);
 
         Texture playSelectTexture = GameController.getInstance().objectController.playSelect;
         TextureRegionDrawable playSelectDrawable = new TextureRegionDrawable(new TextureRegion(playSelectTexture));
@@ -416,6 +427,10 @@ public class MainMenuScreen extends ScreenAdapter {
         syncController.update(true);
         float pulseScale = syncController.uiSyncPulse.uiPulseScale;
 
+        backButton.setScale(pulseScale, pulseScale);
+        backButton.setOrigin( (backButton.getWidth() / 2), backButton.getHeight() / 2);
+
+
 
         if (!inOptionsMenu) {
             backButton.setVisible(false);
@@ -439,6 +454,8 @@ public class MainMenuScreen extends ScreenAdapter {
 
         if (inOptionsMenu) {
             backButton.setVisible(true);
+
+
             switch (optMenuSel) {
                 case 0:
                     indicatorStar.setPosition(350, 375);
@@ -485,7 +502,6 @@ public class MainMenuScreen extends ScreenAdapter {
         optionsSelectImage.setVisible(buttonSelected.equals("options"));
         quitSelectImage.setVisible(buttonSelected.equals("quit"));
 
-
         handleInput();
 
         playSelectImage.setScale(pulseScale, pulseScale);
@@ -504,6 +520,11 @@ public class MainMenuScreen extends ScreenAdapter {
             playSelectImage.setVisible(false);
             optionsSelectImage.setVisible(false);
             quitSelectImage.setVisible(false);
+            backgroundImage.setVisible(false);
+            blurredBackgroundImage.setVisible(true);
+        } else {
+            blurredBackgroundImage.setVisible(false);
+            backgroundImage.setVisible(true);
         }
 
 
