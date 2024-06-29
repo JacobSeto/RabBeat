@@ -236,6 +236,7 @@
     "backgrounds:houseBg":  "backgrounds/houseBg.png",
     "backgrounds:pauseTint": "backgrounds/white_texture.png",
     "backgrounds:levelSelectBackground": "backgrounds/levelSelectBackground.png",
+    "backgrounds:blurredBackground": "backgrounds/blurredBackground.png",
 
     "enemies:bat": "enemies/bat.png",
     "enemies:echo" : "atlas/echo.png",
