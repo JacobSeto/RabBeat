@@ -1272,11 +1272,13 @@ public class ObjectController {
                         HashMap<Integer, Integer> mpWait = new HashMap<>();
                         HashMap<Integer, Integer> mpMove = new HashMap<>();
                         HashMap<Integer, Vector2> dimensions = new HashMap<>();
+                        HashMap<Integer, Boolean> mpCrush = new HashMap<>();
                         for (JsonValue mp : layer.get("objects")) {
                             int num = 0;
                             int pos = 0;
                             int wait = 1;
                             int move = 0;
+                            boolean crushEnable = false;
                             int totalPos = 1; // number of positions in this moving platform
                             for (JsonValue prop : mp.get("properties")) {
                                 switch (prop.getString("name")) {
@@ -1295,6 +1297,9 @@ public class ObjectController {
                                     case "totalPos":
                                         totalPos = prop.getInt("value");
                                         break;
+                                    case "crushEnable":
+                                        crushEnable = prop.getBoolean("value");
+                                        break;
                                 }
                             }
                             // Store coordinates
@@ -1310,12 +1315,14 @@ public class ObjectController {
                             mpMove.put(num, move);
                             // Store dimensions
                             dimensions.put(num, dim);
+                            //store crushing properties
+                            mpCrush.put(num, crushEnable);
                         }
                         // Now actually create moving platforms
                         for (int i = 0; i < positionNodes.size(); i++) {
                             createMovingPlatform(scale, positionNodes.get(i),
                                     mpWait.get(i), mpMove.get(i), dimensions.get(i),
-                                    levelHeight, tileSize);
+                                    levelHeight, tileSize, mpCrush.get(i));
                         }
                         break;
                     case "platforms":
@@ -1824,7 +1831,7 @@ public class ObjectController {
     }
 
     private void createMovingPlatform(Vector2 scale, Vector2[] positionNodes, int waitTime, int beatMoveTime,
-            Vector2 dimensions, int levelHeight, int tileSize) {
+            Vector2 dimensions, int levelHeight, int tileSize, boolean crushSpeedEnable) {
         // Convert coordinates to world coordinates
         Vector2[] convertedPos = new Vector2[positionNodes.length];
         for (int i = 0; i < positionNodes.length; i++) {
@@ -1845,7 +1852,7 @@ public class ObjectController {
         crushBody.setDrawScale(scale);
 
         movingPlatform = new MovingPlatform(dwidth, dheight, convertedPos, waitTime, beatMoveTime, platformTile,
-                crushBody);
+                crushBody, crushSpeedEnable);
         movingPlatform.setBodyType(BodyDef.BodyType.StaticBody);
         movingPlatform.setDensity(defaults.getFloat("density", 0.0f));
         movingPlatform.setFriction(defaults.getFloat("friction", 0.0f));
