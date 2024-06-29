@@ -83,6 +83,10 @@ public class LevelSelectorScreen extends ScreenAdapter {
     private boolean enterPressed;
     private boolean enterPrevious;
 
+    private boolean escapePressed;
+
+    private boolean escapePrevious;
+
     private Sound menuTransitionSound;
 
     private float sfxVolume;
@@ -562,12 +566,14 @@ public class LevelSelectorScreen extends ScreenAdapter {
     /** reads the data from the input keys and changes the buttonSelected String accordingly */
     public void handleInput() {
         enterPrevious = enterPressed;
+        escapePrevious = escapePressed;
         downPrevious = downPressed;
         upPrevious = upPressed;
         leftPrevious = leftPressed;
         rightPrevious = rightPressed;
 
         enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
+        escapePressed = Gdx.input.isKeyPressed(Input.Keys.ESCAPE);
         downPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
         upPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
         rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D);
@@ -777,6 +783,9 @@ public class LevelSelectorScreen extends ScreenAdapter {
             }
             listener.exitScreen(LevelSelectorScreen.this, 0);
 
+        }
+        else if (escapePressed && !escapePrevious) {
+            listener.exitScreen(LevelSelectorScreen.this, GameController.MAIN_MENU);
         }
     }
 

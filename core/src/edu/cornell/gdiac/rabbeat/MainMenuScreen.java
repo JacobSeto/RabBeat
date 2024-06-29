@@ -108,6 +108,10 @@ public class MainMenuScreen extends ScreenAdapter {
     private boolean oPressed;
     private boolean oPrevious;
 
+    private boolean escapePressed;
+
+    private boolean escapePrevious;
+
     private Music mus;
 
     private int musPref;
@@ -620,6 +624,7 @@ public class MainMenuScreen extends ScreenAdapter {
     /** reads the data from the input keys and changes the buttonSelected String accordingly */
     public void handleInput() {
         enterPrevious = enterPressed;
+        escapePrevious = escapePressed;
         downPrevious = downPressed;
         upPrevious = upPressed;
         oPrevious = oPressed;
@@ -627,6 +632,7 @@ public class MainMenuScreen extends ScreenAdapter {
         rightPrevious = rightPressed;
 
         enterPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
+        escapePressed = Gdx.input.isKeyPressed(Input.Keys.ESCAPE);
         downPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
         upPressed = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
         oPressed = Gdx.input.isKeyPressed(Input.Keys.O);
@@ -752,6 +758,17 @@ public class MainMenuScreen extends ScreenAdapter {
 
                     sfxVolume = sfxPref;
                 }
+            buttonClicked.play(sfxVolume / 10f);
+        } else if (escapePressed && !escapePrevious && (inOptionsMenu || inCredits)) {
+            inOptionsMenu = false;
+            inCredits = false;
+            Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+            prefs.putInteger("musicVolume", musPref);
+            prefs.flush();
+            prefs = Gdx.app.getPreferences("SFXVolume");
+            prefs.putInteger("sfxVolume", sfxPref);
+            prefs.flush();
+            sfxVolume = sfxPref;
             buttonClicked.play(sfxVolume / 10f);
         }
     }
