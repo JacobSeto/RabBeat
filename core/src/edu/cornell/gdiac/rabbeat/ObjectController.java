@@ -61,20 +61,12 @@ public class ObjectController {
     /** Reference to the character avatar */
     public Player player;
 
-    private static ObjectController theController = null;
-
 
     /**
      * Return the singleton instance of the input controller
      *
      * @return the singleton instance of the input controller
      */
-    public static ObjectController getInstance() {
-        if (theController == null) {
-            theController = new ObjectController();
-        }
-        return theController;
-    }
 
     /**
      * Physics constants for initialization

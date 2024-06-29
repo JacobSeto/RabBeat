@@ -459,7 +459,7 @@ public class GameController implements Screen, ContactListener {
 		pauseTintJazzColor = new Color(1, 0, 1, 0.55f);
 		world.setContactListener(this);
 		sensorFixtures = new ObjectSet<Fixture>();
-		objectController = ObjectController.getInstance();
+		objectController = new ObjectController();
 		theController = this;
 	}
 
