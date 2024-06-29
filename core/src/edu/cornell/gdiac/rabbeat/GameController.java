@@ -522,7 +522,6 @@ public class GameController implements Screen, ContactListener {
 
 		prefs = Gdx.app.getPreferences("SFXVolume");
 		SFXVolume = prefs.getInteger("sfxVolume", 10);
-
 		// set the soundtrack
 		setSoundtrack(directory);
 		// set the sound effects
@@ -537,22 +536,20 @@ public class GameController implements Screen, ContactListener {
 	 * @param directory Reference to global asset manager.
 	 */
 	public void setSoundtrack(AssetDirectory directory) {
-		if (synthSoundtrack != null) {
-			synthSoundtrack.dispose();
+		if (synthSoundtrack == null) {
+			synthSoundtrack = directory.getEntry(
+					objectController.defaultConstants.get("music").get(getCurrentLevel())
+							.getString("synth"), Music.class);
 		}
-		if (jazzSoundtrack != null) {
-			jazzSoundtrack.dispose();
+		if (jazzSoundtrack == null) {
+			jazzSoundtrack = directory.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel())
+							.getString("jazz"), Music.class);
 		}
-		synthSoundtrack = directory.getEntry(
-				objectController.defaultConstants.get("music").get(getCurrentLevel())
-						.getString("synth"), Music.class);
-		jazzSoundtrack = directory
-				.getEntry(objectController.defaultConstants.get("music").get(getCurrentLevel())
-						.getString("jazz"), Music.class);
 		soundController.setSynthTrack(synthSoundtrack);
 		soundController.setJazzTrack(jazzSoundtrack);
 		soundController.setGlobalMusicVolume(musicVolume / 10f);
 		soundController.setGlobalSFXVolume(SFXVolume / 10f);
+
 		soundController.resetMusic();
 	}
 
@@ -1490,8 +1487,11 @@ public class GameController implements Screen, ContactListener {
 	 */
 	public void pause () {
 
+
 		InputController.getInstance().setPaused(true);
 		soundController.setGlobalMusicVolumeImmediate(musicVolume / 10f, true);
+		soundController.stopUpdating();
+
 	}
 
 	/**
@@ -1562,8 +1562,6 @@ public class GameController implements Screen, ContactListener {
 	 */
 
 	public void exitLevel () {
-		soundController.resetMusic();
-		soundController.pauseMusic();
 		displayStartCutScenes = false;
 		exitScreen(GameController.BACK_TO_LEVEL_SELECT);
 	}
@@ -1631,7 +1629,8 @@ public class GameController implements Screen, ContactListener {
 
 	/** Called when the game screen needs to be exited out of */
 	public void exitScreen ( int exitCode){
-		soundController.pauseMusic();
+		soundController.wrapUpMusic();
+
 		listener.exitScreen(this, exitCode);
 	}
 

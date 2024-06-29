@@ -161,6 +161,40 @@ public class SoundController {
 
     }
 
+    public void wrapUpMusic() {
+        currentlyUpdating = false;
+        currentUpdateFrame = 0;
+        //USE_INSTANT_SWITCH = true;
+
+        if (currentGenre == Genre.SYNTH) {
+            synthTrack.setVolume(globalMusicVolume);
+            jazzTrack.setVolume(0);
+        }
+        else {
+            jazzTrack.setVolume(globalMusicVolume);
+            synthTrack.setVolume(0);
+        }
+        synthTrack.pause();
+        jazzTrack.pause();
+    }
+
+    public void stopUpdating() {
+        currentUpdateFrame = 0;
+        currentlyUpdating = false;
+        if (currentGenre == Genre.SYNTH) {
+            synthTrack.setVolume(globalMusicVolume);
+            jazzTrack.setVolume(0);
+        }
+        else {
+            jazzTrack.setVolume(globalMusicVolume);
+            synthTrack.setVolume(0);
+        }
+    }
+
+    public void stopMusic() {
+        synthTrack.stop();
+        jazzTrack.stop();
+    }
     /**
      * Method to ensure that a sound asset is only played once.
      *

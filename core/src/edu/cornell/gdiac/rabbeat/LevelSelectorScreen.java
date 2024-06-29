@@ -94,12 +94,22 @@ public class LevelSelectorScreen extends ScreenAdapter {
     Texture buttonTexture;
     private Image backButton;
 
+    private boolean canSwitch = true;
+
+    private int switchCooldown = 20;
+
     public LevelSelectorScreen(Game game) {
         this.game = game;
         Preferences prefs = Gdx.app.getPreferences("SavedLevelsUnlocked");
         GameController.getInstance().setLevelsUnlocked(prefs.getInteger("levelsUnlocked", 1));
     }
 
+    public void setCanSwitch(boolean b) {
+        canSwitch = b;
+        if (!b) {
+            switchCooldown = 20;
+        }
+    }
     public void setMenuTransitionSound(Sound s) {
         menuTransitionSound = s;
     }
@@ -211,7 +221,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                         hover11 = false;
                         hover12 = false;
 
-                        menuTransitionSound.play(sfxVolume);
+                        menuTransitionSound.play(sfxVolume / 10f);
 
                         switch (finalI) {
                             case (1):
@@ -473,7 +483,12 @@ public class LevelSelectorScreen extends ScreenAdapter {
 
     public void render(float delta) {
 
-
+        if (switchCooldown > 0) {
+            switchCooldown -= 1;
+        }
+        else {
+            setCanSwitch(true);
+        }
         handleInput();
 
         if (finishedLoadingLevel){
@@ -598,7 +613,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     break;
             }
         else if (downPressed && !downPrevious) {
-            menuTransitionSound.play(sfxVolume);
+            menuTransitionSound.play(sfxVolume / 10f);
             if(hover1 && numberOfLevelsUnlocked > 1) {
                 hover1 = false;
                 hover2 = true;
@@ -634,7 +649,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 hover12 = true;
             }
         } else if (upPressed && !upPrevious) {
-            menuTransitionSound.play(sfxVolume);
+            menuTransitionSound.play(sfxVolume / 10f);
             if (hover12) {
                 hover12 = false;
                 hover11 = true;
@@ -671,7 +686,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
             }
         }
             else if (rightPressed && !rightPrevious) {
-                menuTransitionSound.play(sfxVolume);
+                menuTransitionSound.play(sfxVolume / 10f);
                 if(hover8) {
                     hover8 = false;
                     hover12 = true;
@@ -699,7 +714,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                 }
             }
             else if (leftPressed && !leftPrevious) {
-                menuTransitionSound.play(sfxVolume);
+                menuTransitionSound.play(sfxVolume / 10f);
                 if(hover8) {
                     hover8 = false;
                     hover4 = true;
@@ -726,7 +741,7 @@ public class LevelSelectorScreen extends ScreenAdapter {
                     hover5 = true;
                 }
             }
-        else if (enterPressed && !enterPrevious) {
+        else if (enterPressed && !enterPrevious && canSwitch) {
             if(hover1) {
                 GameController.getInstance().setCurrentLevelInt(1);
                 GameController.displayStartCutScenes = true;

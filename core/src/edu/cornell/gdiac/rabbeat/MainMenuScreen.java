@@ -60,6 +60,8 @@ public class MainMenuScreen extends ScreenAdapter {
     private Image optionsButton;
     private Image quitButton;
 
+    private Image creditsButton;
+
     private Image volumeLowerImage;
 
     private Image volumeHigherImage;
@@ -74,6 +76,9 @@ public class MainMenuScreen extends ScreenAdapter {
     private Image optionsSelectImage;
     private Image quitSelectImage;
 
+    private Image creditsSelectImage;
+
+    private Image creditsScreen;
     private Image musicText;
 
     private Image sfxText;
@@ -112,6 +117,8 @@ public class MainMenuScreen extends ScreenAdapter {
 
     private static int NUM_OPTS = 2;
     private boolean inOptionsMenu = false;
+
+    private boolean inCredits = false;
 
     private float sfxVolume;
 
@@ -163,6 +170,10 @@ public class MainMenuScreen extends ScreenAdapter {
         Texture quitSelectTexture = GameController.getInstance().objectController.quitSelect;
         TextureRegionDrawable quitSelectDrawable = new TextureRegionDrawable(new TextureRegion(quitSelectTexture));
         quitSelectImage = new Image(quitSelectDrawable);
+
+        Texture creditsSelectTexture = GameController.getInstance().objectController.creditsGlow;
+        TextureRegionDrawable creditsSelectDrawable = new TextureRegionDrawable(new TextureRegion(creditsSelectTexture));
+        creditsSelectImage = new Image(creditsSelectDrawable);
 
         TextureRegion star = GameController.getInstance().objectController.indicatorStarTexture;
         TextureRegionDrawable starDrawable = new TextureRegionDrawable(star);
@@ -264,6 +275,13 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
+        Texture creditsTexture = GameController.getInstance().objectController.creditsScreen;
+        creditsScreen = new Image(creditsTexture);
+        creditsScreen.setScale(0.5f);
+        creditsScreen.setPosition(0, 0);
+        creditsScreen.setVisible(false);
+        stage.addActor(creditsScreen);
+
         Texture backButtonTexture = GameController.getInstance().objectController.levelSelectBackButton;
         backButton = new Image(backButtonTexture);
         backButton.setScale(1.0f);
@@ -274,6 +292,7 @@ public class MainMenuScreen extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 inOptionsMenu = false;
+                inCredits = false;
                 Preferences prefs = Gdx.app.getPreferences("MusicVolume");
                 prefs.putInteger("musicVolume", musPref);
                 prefs.flush();
@@ -281,7 +300,7 @@ public class MainMenuScreen extends ScreenAdapter {
                 prefs.putInteger("sfxVolume", sfxPref);
                 prefs.flush();
                 sfxVolume = sfxPref;
-                buttonClicked.play(sfxVolume);
+                buttonClicked.play(sfxVolume / 10f);
             }
         });
 
@@ -322,13 +341,13 @@ public class MainMenuScreen extends ScreenAdapter {
 
 
 
-        playButton.setPosition((float) background.getWidth()/2 - playButton.getWidth()/2, 400);
+        playButton.setPosition((float) background.getWidth()/2 - playButton.getWidth()/2, 420);
 
         /** Listens for when the mouse moves over the button to switch to the hover state  for the play button*/
         playButton.addListener(new InputListener() {
             @Override
             public boolean mouseMoved(InputEvent event, float x, float y) {
-                buttonTransition.play(sfxVolume);
+                buttonTransition.play(sfxVolume / 10f);
                 buttonSelected = "play";
                 return true;
             }
@@ -351,13 +370,13 @@ public class MainMenuScreen extends ScreenAdapter {
         TextureRegionDrawable optionsButtonDrawable = new TextureRegionDrawable(new TextureRegion(optionsButtonTexture));
         optionsButton = new Image(optionsButtonDrawable);
 
-        optionsButton.setPosition((float) background.getWidth()/2 - optionsButton.getWidth()/2, 330);
+        optionsButton.setPosition((float) background.getWidth()/2 - optionsButton.getWidth()/2, 365);
 
         /** Listens for when the mouse moves over the button to switch to the hover state  for the options button*/
         optionsButton.addListener(new InputListener() {
             @Override
             public boolean mouseMoved(InputEvent event, float x, float y) {
-                buttonTransition.play(sfxVolume);
+                buttonTransition.play(sfxVolume / 10f);
                 buttonSelected = "options";
                 return true;
             }
@@ -368,6 +387,7 @@ public class MainMenuScreen extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 //TODO: GO TO OPTIONS SCREEN
                 inOptionsMenu = true;
+                buttonClicked.play(sfxVolume / 10f);
                 Preferences prefs = Gdx.app.getPreferences("MusicVolume");
                 musPref = prefs.getInteger("musicVolume", 10);
                 prefs = Gdx.app.getPreferences("SFXVolume");
@@ -375,9 +395,38 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
-        optionsSelectImage.setPosition((float) background.getWidth()/2 - optionsSelectImage.getWidth()/2, optionsButton.getY()-10);
+        optionsSelectImage.setPosition((float) background.getWidth()/2 - optionsSelectImage.getWidth()/2, optionsButton.getY()-13);
         stage.addActor(optionsSelectImage);
         stage.addActor(optionsButton);
+
+        //options button
+        Texture creditsButtonTexture = GameController.getInstance().objectController.creditsNonGlow;
+        TextureRegionDrawable creditsButtonDrawable = new TextureRegionDrawable(new TextureRegion(creditsButtonTexture));
+        creditsButton = new Image(creditsButtonDrawable);
+
+        creditsButton.setPosition((float) background.getWidth()/2 - creditsButton.getWidth()/2, 310);
+
+        /** Listens for when the mouse moves over the button to switch to the hover state  for the options button*/
+        creditsButton.addListener(new InputListener() {
+            @Override
+            public boolean mouseMoved(InputEvent event, float x, float y) {
+                buttonTransition.play(sfxVolume / 10f);
+                buttonSelected = "credits";
+                return true;
+            }
+        });
+
+        creditsSelectImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                inCredits = true;
+                buttonClicked.play(sfxVolume / 10f);
+            }
+        });
+
+        creditsSelectImage.setPosition((float) background.getWidth()/2 - creditsSelectImage.getWidth()/2, creditsButton.getY() - 17);
+        stage.addActor(creditsSelectImage);
+        stage.addActor(creditsButton);
 
         // quit button
         /** The texture for the quit button */
@@ -385,13 +434,13 @@ public class MainMenuScreen extends ScreenAdapter {
         TextureRegionDrawable quitButtonDrawable = new TextureRegionDrawable(new TextureRegion(quitButtonTexture));
         quitButton = new Image(quitButtonDrawable);
 
-        quitButton.setPosition((float) background.getWidth()/2 - quitButton.getWidth()/2, 260);
+        quitButton.setPosition((float) background.getWidth()/2 - quitButton.getWidth()/2, 250);
 
         /** Listens for when the mouse moves over the button to switch to the hover state  for the options button*/
         quitButton.addListener(new InputListener() {
             @Override
             public boolean mouseMoved(InputEvent event, float x, float y) {
-                buttonTransition.play(sfxVolume);
+                buttonTransition.play(sfxVolume / 10f);
                 buttonSelected = "quit";
                 return true;
             }
@@ -404,7 +453,7 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
-        quitSelectImage.setPosition((float) background.getWidth()/2 - quitSelectImage.getWidth()/2, quitButton.getY()-10);
+        quitSelectImage.setPosition((float) background.getWidth()/2 - quitSelectImage.getWidth()/2, quitButton.getY()-12);
 
         stage.addActor(quitSelectImage);
         stage.addActor(quitButton);
@@ -432,8 +481,9 @@ public class MainMenuScreen extends ScreenAdapter {
 
 
 
-        if (!inOptionsMenu) {
+        if (!inOptionsMenu && !inCredits) {
             backButton.setVisible(false);
+            creditsScreen.setVisible(false);
             indicatorStar.setVisible(false);
             musicText.setVisible(false);
             sfxText.setVisible(false);
@@ -450,12 +500,12 @@ public class MainMenuScreen extends ScreenAdapter {
             playButton.setVisible(true);
             optionsButton.setVisible(true);
             quitButton.setVisible(true);
+            creditsButton.setVisible(true);
         }
 
         if (inOptionsMenu) {
             backButton.setVisible(true);
-
-
+            creditsScreen.setVisible(false);
             switch (optMenuSel) {
                 case 0:
                     indicatorStar.setPosition(350, 375);
@@ -483,24 +533,42 @@ public class MainMenuScreen extends ScreenAdapter {
             playButton.setVisible(false);
             optionsButton.setVisible(false);
             quitButton.setVisible(false);
+            creditsButton.setVisible(false);
+        }
+        else if (inCredits) {
+            backButton.setVisible(true);
+            creditsScreen.setVisible(true);
+            playButton.setVisible(false);
+            optionsButton.setVisible(false);
+            quitButton.setVisible(false);
+            creditsButton.setVisible(false);
         }
         else if(buttonSelected.equals("play")) {
             playButton.setVisible(false);
             optionsButton.setVisible(true);
             quitButton.setVisible(true);
+            creditsButton.setVisible(true);
         } else if(buttonSelected.equals("options")) {
             playButton.setVisible(true);
             optionsButton.setVisible(false);
             quitButton.setVisible(true);
+            creditsButton.setVisible(true);
         } else if(buttonSelected.equals("quit")) {
             playButton.setVisible(true);
             optionsButton.setVisible(true);
             quitButton.setVisible(false);
+            creditsButton.setVisible(true);
+        } else if (buttonSelected.equals("credits")) {
+            playButton.setVisible(true);
+            optionsButton.setVisible(true);
+            quitButton.setVisible(true);
+            creditsButton.setVisible(false);
         }
 
         playSelectImage.setVisible(buttonSelected.equals("play"));
         optionsSelectImage.setVisible(buttonSelected.equals("options"));
         quitSelectImage.setVisible(buttonSelected.equals("quit"));
+        creditsSelectImage.setVisible(buttonSelected.equals("credits"));
 
         handleInput();
 
@@ -516,10 +584,14 @@ public class MainMenuScreen extends ScreenAdapter {
         quitSelectImage.setScale(pulseScale, pulseScale);
         quitSelectImage.setOrigin( (quitSelectImage.getWidth() / 2), quitSelectImage.getHeight() / 2);
 
-        if (inOptionsMenu) {
+        creditsSelectImage.setScale(pulseScale, pulseScale);
+        creditsSelectImage.setOrigin( (creditsSelectImage.getWidth() / 2), creditsSelectImage.getHeight() / 2);
+
+        if (inOptionsMenu || inCredits) {
             playSelectImage.setVisible(false);
             optionsSelectImage.setVisible(false);
             quitSelectImage.setVisible(false);
+            creditsSelectImage.setVisible(false);
             backgroundImage.setVisible(false);
             blurredBackgroundImage.setVisible(true);
         } else {
@@ -562,7 +634,7 @@ public class MainMenuScreen extends ScreenAdapter {
         leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
 
         if (upPressed && !upPrevious) {
-            if (!inOptionsMenu) {
+            if (!inOptionsMenu && !inCredits) {
                 switch (buttonSelected) {
                     case "play":
                         buttonSelected = "quit";
@@ -571,20 +643,23 @@ public class MainMenuScreen extends ScreenAdapter {
                         buttonSelected = "play";
                         break;
                     case "quit":
+                        buttonSelected = "credits";
+                        break;
+                    case "credits":
                         buttonSelected = "options";
                         break;
                 }
             }
-            else {
+            else if (inOptionsMenu) {
                 optMenuSel--;
                 if (optMenuSel < 0) {
                     optMenuSel = NUM_OPTS - 1;
 
                 }
             }
-            buttonTransition.play(sfxVolume);
+            buttonTransition.play(sfxVolume / 10f);
         } else if (downPressed && !downPrevious) {
-            if (!inOptionsMenu) {
+            if (!inOptionsMenu && !inCredits) {
                 switch (buttonSelected) {
                     case "quit":
                         buttonSelected = "play";
@@ -593,14 +668,17 @@ public class MainMenuScreen extends ScreenAdapter {
                         buttonSelected = "options";
                         break;
                     case "options":
+                        buttonSelected = "credits";
+                        break;
+                    case "credits":
                         buttonSelected = "quit";
                         break;
                 }
             }
-            else {
+            else if (inOptionsMenu){
                 optMenuSel = ((optMenuSel + 1) % NUM_OPTS);
                 }
-            buttonTransition.play(sfxVolume);
+            buttonTransition.play(sfxVolume / 10f);
         } else if (rightPressed && !rightPrevious && inOptionsMenu) {
             switch (optMenuSel) {
                 case 0: // MUSIC
@@ -640,23 +718,28 @@ public class MainMenuScreen extends ScreenAdapter {
                     break;
             }
         }else if (enterPressed && !enterPrevious) {
-                if (!inOptionsMenu) {
+                if (!inOptionsMenu && !inCredits) {
                     switch (buttonSelected) {
                         case "play":
                             listener.exitScreen(this, GameController.GO_TO_LEVEL_SELECT);
                             break;
                         case "options":
-                            //TODO: add an options screen!
                             inOptionsMenu = true;
                             Preferences prefs = Gdx.app.getPreferences("MusicVolume");
                             musPref = prefs.getInteger("musicVolume", 10);
                             prefs = Gdx.app.getPreferences("SFXVolume");
                             sfxPref = prefs.getInteger("sfxVolume", 10);
                             break;
+                        case "credits":
+                            inCredits = true;
+                            break;
                         case "quit":
                             listener.exitScreen(this, GameController.EXIT_QUIT);
                             break;
                     }
+                }
+                else if (inCredits) {
+                    inCredits = false;
                 }
                 else {
                     inOptionsMenu = false;
@@ -669,7 +752,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
                     sfxVolume = sfxPref;
                 }
-            buttonClicked.play(sfxVolume);
+            buttonClicked.play(sfxVolume / 10f);
         }
     }
 
