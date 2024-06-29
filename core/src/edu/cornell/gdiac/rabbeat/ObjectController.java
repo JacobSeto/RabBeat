@@ -210,6 +210,8 @@ public class ObjectController {
     /** The texture for the level select background */
     public Texture levelSelectBackground;
 
+    public Texture blurredBackground;
+
     /** The texture for unlocked button 1 */
     public Texture unlockedButton1;
 
@@ -643,6 +645,7 @@ public class ObjectController {
         startScreens.put("lvl9Start-2", new TextureRegion(directory.getEntry("ui:lvl9Start-2", Texture.class)));
 
         levelSelectBackground = directory.getEntry("backgrounds:levelSelectBackground", Texture.class);
+        blurredBackground = directory.getEntry("backgrounds:blurredBackground", Texture.class);
 
         labBgTexture = new TextureRegion(directory.getEntry("backgrounds:labBg", Texture.class));
         discoBgTexture = new TextureRegion(directory.getEntry("backgrounds:discoBg", Texture.class));
