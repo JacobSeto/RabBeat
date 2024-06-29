@@ -395,7 +395,7 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
-        optionsSelectImage.setPosition((float) background.getWidth()/2 - optionsSelectImage.getWidth()/2, optionsButton.getY()-15);
+        optionsSelectImage.setPosition((float) background.getWidth()/2 - optionsSelectImage.getWidth()/2, optionsButton.getY()-13);
         stage.addActor(optionsSelectImage);
         stage.addActor(optionsButton);
 
@@ -424,7 +424,7 @@ public class MainMenuScreen extends ScreenAdapter {
             }
         });
 
-        creditsSelectImage.setPosition((float) background.getWidth()/2 - creditsSelectImage.getWidth()/2, creditsButton.getY() - 15);
+        creditsSelectImage.setPosition((float) background.getWidth()/2 - creditsSelectImage.getWidth()/2, creditsButton.getY() - 17);
         stage.addActor(creditsSelectImage);
         stage.addActor(creditsButton);
 
