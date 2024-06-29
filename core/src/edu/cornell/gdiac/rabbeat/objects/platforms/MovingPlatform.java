@@ -39,6 +39,8 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
     private float currentSpeed=1.0f;
     /**Stores the BPM of the current level*/
     private int BPM;
+    /**CrushSpeed*/
+    private boolean crushSpeed;
 
     /**Determines the speed of the platform on each frame */
     private float SPEEDBEAT6 = (float) 3*1 /10;
@@ -54,9 +56,10 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
      * @param nodes The points where the platform goes to, must be of even length
      * @param beatWaitTime The number of 4 beat intervals the platform waits at each position
      * @param texture The texture region for the platform
+     * @param crushSpeedEnable Whether the platform should crush the player when it goes quickly
      */
     public MovingPlatform(float width, float height, Vector2[] nodes, int beatWaitTime, int beatMoveTime,
-                          TextureRegion texture, BoxGameObject crushBody) {
+                          TextureRegion texture, BoxGameObject crushBody, boolean crushSpeedEnable) {
         super(nodes[0].x, nodes[0].y, width, height);
         beatWait = beatWaitTime;
         positionNodes = nodes;
@@ -70,6 +73,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
         BPM = GameController.getInstance().getBPM();
 
         crusher = crushBody;
+        crushSpeed = crushSpeedEnable;
         //setType(Type.LETHAL);
     }
 
@@ -91,10 +95,17 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
                 velocity = direction(positionNodes[home], positionNodes[destination], 2);
                 moving = false;
                 currentSpeed = 0;
+                setType(Type.NONE);
             }
             else{
                 move(delta);
             }
+            if (currentSpeed>14 && crushSpeed){
+                setType(Type.LETHAL);
+                System.out.println("LETHALIZED");
+                System.out.println(currentSpeed);
+            }
+            //System.out.println(currentSpeed);
         }
     }
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
