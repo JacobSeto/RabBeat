@@ -30,11 +30,11 @@
   <object id="1388" gid="373" x="4140.68" y="83.9322" width="69" height="74"/>
   <object id="1389" gid="373" x="4331.83" y="467.3" width="69" height="74"/>
   <object id="1390" gid="373" x="4334.13" y="645.974" width="69" height="74"/>
-  <object id="1391" gid="373" x="5853.13" y="546.386" width="69" height="74"/>
-  <object id="1392" gid="373" x="6046.59" y="546.386" width="69" height="74"/>
+  <object id="1391" gid="373" x="5856" y="560" width="69" height="74"/>
+  <object id="1392" gid="373" x="6048" y="560" width="69" height="74"/>
   <object id="1393" gid="373" x="5851.99" y="853.163" width="69" height="74"/>
   <object id="1394" gid="373" x="6045.44" y="854.308" width="69" height="74"/>
-  <object id="1395" gid="373" x="6237.75" y="546.386" width="69" height="74"/>
+  <object id="1395" gid="373" x="6240" y="560" width="69" height="74"/>
   <object id="1396" gid="373" x="6237.75" y="854.308" width="69" height="74"/>
   <object id="1426" gid="357" x="836" y="928" width="224" height="256"/>
   <object id="1417" gid="377" x="6480.2" y="744.197" width="330" height="330"/>
@@ -295,7 +295,7 @@
     <property name="align" value="bottom"/>
    </properties>
   </object>
-  <object id="1327" type="laser" gid="140" x="5872" y="544" width="32" height="64">
+  <object id="1327" type="laser" gid="140" x="5872" y="560" width="32" height="64">
    <properties>
     <property name="align" value="top"/>
    </properties>
@@ -320,7 +320,7 @@
     <property name="align" value="bottom"/>
    </properties>
   </object>
-  <object id="1332" type="laser" gid="140" x="6064" y="544" width="32" height="64">
+  <object id="1332" type="laser" gid="140" x="6064" y="560" width="32" height="64">
    <properties>
     <property name="align" value="top"/>
    </properties>
@@ -345,7 +345,7 @@
     <property name="align" value="bottom"/>
    </properties>
   </object>
-  <object id="1337" type="laser" gid="140" x="6256" y="544" width="32" height="64">
+  <object id="1337" type="laser" gid="140" x="6256" y="560" width="32" height="64">
    <properties>
     <property name="align" value="top"/>
    </properties>
