@@ -11,6 +11,7 @@
 package edu.cornell.gdiac.rabbeat;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.CapsuleShapeBuilder;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.physics.box2d.*;
@@ -26,7 +27,7 @@ import edu.cornell.gdiac.rabbeat.sync.ISyncedAnimated;
  * Note that this class returns to static loading.  That is because there are
  * no other subclasses that we might loop through.
  */
-public class Player extends CapsuleGameObject implements ISyncedAnimated, IGenreObject {
+public class Player extends RoundedRectGameObject implements ISyncedAnimated, IGenreObject {
 	/** The initializing data (to avoid magic numbers) */
 	private final JsonValue data;
 
