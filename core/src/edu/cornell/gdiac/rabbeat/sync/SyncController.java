@@ -55,9 +55,8 @@ public class SyncController {
     public int calibrationCount = 0;
     public final int NUM_CALIBRATION_STEPS = 16;
 
-    public SyncController(int bpm, float length) {
+    public SyncController(int bpm) {
         this.BPM = bpm;
-        soundtrackLength = length;
         Preferences prefs = Gdx.app.getPreferences("delays");
         audioDelay = prefs.getFloat("audioDelay", 0);
         visualDelay = prefs.getFloat("visualDelay", 0);

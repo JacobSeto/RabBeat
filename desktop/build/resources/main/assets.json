@@ -228,6 +228,12 @@
     "ui:lvl9Start-1": "ui/startScreens/level9Start-1.png",
     "ui:lvl9Start-2": "ui/startScreens/level9Start-2.png",
 
+    "ui:credits:blurredBackground": "ui/credits/blurredBackground.png",
+    "ui:credits:credits-nonglow": "ui/credits/credits.png",
+    "ui:credits:credits-glow": "ui/credits/credits-glow.png",
+    "ui:credits:creditsScreen": "ui/credits/creditsScreen.png",
+
+
         "player:synth":  "player/synth.png",
     "player:synth-jazz":   "player/synth-jazz.png",
 
