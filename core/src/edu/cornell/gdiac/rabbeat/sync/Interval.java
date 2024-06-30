@@ -8,7 +8,7 @@ package edu.cornell.gdiac.rabbeat.sync;
 public class Interval {
     public ISynced syncedObject;
 
-    private int lastInterval = 0;
+    public int lastInterval = 0;
 
 
     /**
@@ -30,6 +30,13 @@ public class Interval {
     }
 
     /**
+     * Set to a new interval given an interval
+     * */
+    public void setLastInterval(float interval){
+        lastInterval = (int) Math.floor(interval);
+    }
+
+    /**
      * Checks if the interval length has passed by checking if the current interval is not equal to
      * the last interval.  If true, call Beat() from sync object and set the last interval to the
      * current.
@@ -40,7 +47,7 @@ public class Interval {
     public void checkForNewInterval(float interval, boolean doAction) {
         if ((int) Math.floor(interval) != lastInterval) {
             if (lastInterval < interval && doAction) {
-                lastInterval = (int) Math.floor(interval);
+                setLastInterval(interval);
                 syncedObject.beatAction();
             }
             else{

@@ -13,10 +13,12 @@ public class Beat implements ISynced {
     /** The amount of time that has passed between each beat*/
     public float beatDT;
 
-    SyncController syncController;
 
-    public Beat(SyncController syncController){
-        this.syncController = syncController;
+    public void setBeat(int interval){
+        beatCount = interval;
+        if(beatCount < 0){
+            beatCount += 9;
+        }
     }
 
     /**
@@ -42,6 +44,7 @@ public class Beat implements ISynced {
         if(GameController.getInstance().inCalibration){
             AddDelay(beatDT);
         }
+        System.out.println(beatCount);
     }
 
 

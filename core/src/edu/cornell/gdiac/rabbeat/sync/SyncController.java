@@ -20,6 +20,8 @@ public class SyncController {
 
     /** The bpm of the soundtrack */
     public int BPM;
+    /** The length of the soundtrack */
+    private float soundtrackLength;
 
     /** The synth soundtrack */
     Music synth;
@@ -53,12 +55,13 @@ public class SyncController {
     public int calibrationCount = 0;
     public final int NUM_CALIBRATION_STEPS = 16;
 
-    public SyncController(int bpm) {
+    public SyncController(int bpm, float length) {
         this.BPM = bpm;
+        soundtrackLength = length;
         Preferences prefs = Gdx.app.getPreferences("delays");
         audioDelay = prefs.getFloat("audioDelay", 0);
         visualDelay = prefs.getFloat("visualDelay", 0);
-        beat = new Beat(this);
+        beat = new Beat();
         beatInterval = new Interval(beat);
         beat.beatInterval = beatInterval;
         animationInterval = new Interval(animationSync);
@@ -95,6 +98,20 @@ public class SyncController {
         Preferences prefs = Gdx.app.getPreferences("delays");
         prefs.putFloat("audioDelay", audioDelay);
         prefs.flush();
+    }
+
+    /**
+     * Given the delay, set the intervals to the corrwec
+     */
+    public void setSyncIntervals(){
+        beatInterval.setLastInterval((audioDelay) / beatInterval.getIntervalLength(BPM));
+        beat.setBeat(beatInterval.lastInterval);
+        uiPulseInterval.setLastInterval((audioDelay) / uiPulseInterval.getIntervalLength(BPM) -.5f);
+        animationInterval.setLastInterval((audioDelay) / animationInterval.getIntervalLength(BPM));
+        for (Interval i : intervals) {
+            float sample = (audioDelay) / i.getIntervalLength(BPM);
+            i.setLastInterval(sample);
+        }
     }
 
     /**
@@ -180,7 +197,6 @@ public class SyncController {
      * skipped
      */
     public void initializeSync() {
-        beatInterval.syncedObject.beatAction();
         for (Interval i : intervals) {
             i.syncedObject.beatAction();
         }

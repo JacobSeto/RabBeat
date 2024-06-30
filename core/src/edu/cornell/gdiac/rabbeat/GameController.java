@@ -234,6 +234,10 @@ public class GameController implements Screen, ContactListener {
 	 */
 	private int levelBPM;
 	/**
+	 * Stores the length of the tracks being played
+	 */
+	private float length;
+	/**
 	 * synth soundtrack of game
 	 */
 	private Music synthSoundtrack;
@@ -515,7 +519,9 @@ public class GameController implements Screen, ContactListener {
 		objectController.gatherAssets(directory);
 		levelBPM = objectController.defaultConstants.get("music").get(getCurrentLevel())
 				.getInt("bpm");
-		syncController = new SyncController(levelBPM);
+		length = objectController.defaultConstants.get("music").get(getCurrentLevel())
+				.getFloat("length");
+		syncController = new SyncController(levelBPM, length);
 
 		Preferences prefs = Gdx.app.getPreferences("MusicVolume");
 		musicVolume = prefs.getInteger("musicVolume", 10);
@@ -699,7 +705,7 @@ public class GameController implements Screen, ContactListener {
 		setComplete(false);
 		setFailure(false);
 		setPaused(false);
-		syncController.update(false);
+		syncController.setSyncIntervals();
 	}
 
 	/**

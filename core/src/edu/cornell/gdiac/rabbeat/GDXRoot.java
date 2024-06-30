@@ -167,8 +167,6 @@ public class GDXRoot extends Game implements ScreenListener {
 			mainMenuMusic.setLooping(true);
 			//Main Menu Music setup
 			mainMenuMusic.play();
-			controller.syncController = new SyncController(180);
-			controller.syncController.setSync(mainMenuMusic,mainMenuMusic);
 		} else if (screen == levelSelectorScreen || exitCode == GameController.NEXT_LEVEL) {
 			if (screen == levelSelectorScreen) {
 				mainMenuMusic.stop();
