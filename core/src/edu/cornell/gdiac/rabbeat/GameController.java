@@ -1666,8 +1666,8 @@ public class GameController implements Screen, ContactListener {
 	/** Sets the integer levelsUnlocked */
 	public void setLevelsUnlocked ( int levelsUnlocked){
 		// Set all levels unlocked by this line.
-		this.levelsUnlocked = 12;
-//		this.levelsUnlocked = levelsUnlocked;
+//		this.levelsUnlocked = 12;
+		this.levelsUnlocked = levelsUnlocked;
 	}
 
 	/**
