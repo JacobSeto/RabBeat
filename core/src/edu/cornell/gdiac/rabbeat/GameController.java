@@ -805,6 +805,9 @@ public class GameController implements Screen, ContactListener {
 				// If game is already paused, hitting pause again will unpause it.
 				paused = !paused;
 				if (paused) {
+					// Always start on pause screen
+					calibrateScreen = false;
+
 					pause();
 				} else {
 					resume();
@@ -865,7 +868,15 @@ public class GameController implements Screen, ContactListener {
 					}
 				} else {
 					if (input.didPressEnter()) {
-						pauseAction(pauseItemSelected);
+						// Handle calibration
+						if (pauseItemSelected == 5) {
+							calibrateScreen = !calibrateScreen;
+
+							soundController.setGlobalSFXVolumeImmediate(SFXVolume / 10f);
+							soundController.playSFX("sfxChange");
+						} else {
+							pauseAction(pauseItemSelected);
+						}
 					}
 				}
 			}
@@ -1346,6 +1357,7 @@ public class GameController implements Screen, ContactListener {
 
 			canvas.draw(objectController.pauseWhiteOverlayTexture.getTexture(), (genre == Genre.SYNTH ? pauseTintSynthColor : pauseTintJazzColor), 0, 0, 0, 0, 0, 1, 1);
 			canvas.draw(objectController.overlayTexture.getTexture(), Color.WHITE, 0, 0, 0, -10, 0,1.05f, 1.05f);
+
 			if(calibrateScreen){
 
 				//calibration beats
