@@ -496,9 +496,6 @@ public class InputController {
 			else{
 				calibrate = false;
 			}
-			if (GameController.getInstance().calibrateScreen && didPressBackspace()){
-				GameController.getInstance().calibrateScreen = false;
-			}
 			//TODO: This is temporary code to add artificial delay to the syncing
 			delay = 0;
 			if (Gdx.input.isKeyPressed(Keys.EQUALS)) {
