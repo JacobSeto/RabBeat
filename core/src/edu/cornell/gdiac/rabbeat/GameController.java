@@ -871,8 +871,6 @@ public class GameController implements Screen, ContactListener {
 						// Handle calibration
 						if (pauseItemSelected == 5) {
 							calibrateScreen = !calibrateScreen;
-
-							soundController.setGlobalSFXVolumeImmediate(SFXVolume / 10f);
 							soundController.playSFX("sfxChange");
 						} else {
 							pauseAction(pauseItemSelected);
