@@ -72,7 +72,8 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * This method configures the asset manager, but does not load any assets
 	 * or assign any screen.
 	 */
-	public GDXRoot() { controller = new GameController(); }
+	public GDXRoot() { controller = new GameController();
+	}
 
 	/**
 	 * Called when the Application is first created.
@@ -81,6 +82,7 @@ public class GDXRoot extends Game implements ScreenListener {
 	 * the levelSelector screen
 	 */
 	public void create() {
+		Gdx.graphics.setTitle("RabBeat");
 		canvas = new GameCanvas();
 		initialLoading = new LoadingMode("assets.json", canvas, 1);
 		initialLoading.setScreenListener(this);
