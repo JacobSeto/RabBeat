@@ -44,7 +44,6 @@ public class Beat implements ISynced {
         if(GameController.getInstance().inCalibration){
             AddDelay(beatDT);
         }
-        System.out.println(beatCount);
     }
 
 
