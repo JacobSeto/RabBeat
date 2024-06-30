@@ -67,7 +67,6 @@ public class BearEnemy extends Enemy {
 //                // TODO: make bear shoot
 //                break;
 //        }
-//        System.out.println(enemyState);
     }
 
     /** Creates a bullet in front of the bear */

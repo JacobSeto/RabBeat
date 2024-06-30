@@ -102,10 +102,7 @@ public class MovingPlatform extends BoxGameObject implements IGenreObject, ISync
             }
             if (currentSpeed>14 && crushSpeed){
                 setType(Type.LETHAL);
-                System.out.println("LETHALIZED");
-                System.out.println(currentSpeed);
             }
-            //System.out.println(currentSpeed);
         }
     }
     /** Moves the platforms, and sets it into place if it is close enough to its destination**/
