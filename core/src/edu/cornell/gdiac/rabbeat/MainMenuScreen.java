@@ -295,15 +295,17 @@ public class MainMenuScreen extends ScreenAdapter {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (inOptionsMenu) {
+                    Preferences prefs = Gdx.app.getPreferences("MusicVolume");
+                    prefs.putInteger("musicVolume", musPref);
+                    prefs.flush();
+                    prefs = Gdx.app.getPreferences("SFXVolume");
+                    prefs.putInteger("sfxVolume", sfxPref);
+                    prefs.flush();
+                    sfxVolume = sfxPref;
+                }
                 inOptionsMenu = false;
                 inCredits = false;
-                Preferences prefs = Gdx.app.getPreferences("MusicVolume");
-                prefs.putInteger("musicVolume", musPref);
-                prefs.flush();
-                prefs = Gdx.app.getPreferences("SFXVolume");
-                prefs.putInteger("sfxVolume", sfxPref);
-                prefs.flush();
-                sfxVolume = sfxPref;
                 buttonClicked.play(sfxVolume / 10f);
             }
         });
